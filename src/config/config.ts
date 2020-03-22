@@ -12,7 +12,7 @@ const config: AppIds = {
     sampleDistance: 50,
     sampleInterval: 1000 * 60 * 1, // 1 minutes
     fetchMilliseconds: 1000 * 60 * 15, // 15 minutes
-    meterRadius: 500,
+    meterRadius: 200, // average walk is 100m/min , more than 200 would give too many false positives
     intersectMilliseconds: 1, // 1 milli
     bufferUnits: 'meter',
     debug: false,
@@ -62,7 +62,7 @@ const config: AppIds = {
     sampleDistance: 50,
     sampleInterval: 1000 * 60 * 1, // 1 minutes
     fetchMilliseconds: 1000 * 60 * 15, // 15 minutes
-    meterRadius: 500,
+    meterRadius: 200, // average walk is 100m/min , more than 200 would give too many false positives
     intersectMilliseconds: 1, // 1 milli
     bufferUnits: 'meter',
     debug: false,
@@ -112,7 +112,7 @@ const config: AppIds = {
     sampleDistance: 50,
     sampleInterval: 1000 * 60 * 15,
     fetchMilliseconds: 1000 * 60 * 60, // One hour
-    meterRadius: 500,
+    meterRadius: 200, // average walk is 100m/min , more than 200 would give too many false positives
     intersectMilliseconds: 1, // 1 milli
     bufferUnits: 'meter',
     debug: false,
