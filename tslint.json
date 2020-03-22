@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-eslint-rules",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "jsRules": {},
+  "rules": {
+    "interface-name": false,
+    "jsx-no-lambda": false,
+    "object-literal-sort-keys": false,
+    "quotemark": [true, "single", "jsx-double"],
+    "member-access": false,
+    "ordered-imports": false,
+    "no-empty": false,
+    "no-console": false,
+    "no-unused-expression": false,
+    "no-shadowed-variable": false,
+    "jsx-boolean-value": false,
+    "no-bitwise": false
+  }
+}

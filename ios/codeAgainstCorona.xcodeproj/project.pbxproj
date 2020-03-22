@@ -1,0 +1,791 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01ED0E232755E55EE7A5FDDD /* libPods-hamagen-qa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */; };
+		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		ACE92AE39AB97EC6E1FCB1F0 /* libPods-hamagen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 255E6F5C10E31B05B2AF7E1D /* libPods-hamagen.a */; };
+		D52A57B4241E29B800521B22 /* SimplerPro_V3-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B0241E29B800521B22 /* SimplerPro_V3-Regular.otf */; };
+		D52A57B5241E29B800521B22 /* SimplerPro_V3-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B1241E29B800521B22 /* SimplerPro_V3-Light.otf */; };
+		D52A57B6241E29B800521B22 /* SimplerPro_V3-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B2241E29B800521B22 /* SimplerPro_V3-Black.otf */; };
+		D52A57B7241E29B800521B22 /* SimplerPro_V3-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */; };
+		D52A57BA241E4EF500521B22 /* Fix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A57B9241E4EF500521B22 /* Fix.swift */; };
+		D52A57BB241FE12000521B22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		D52A57C324203FBB00521B22 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
+		D52A57C424203FBB00521B22 /* Fix.swift in Sources */ = {isa = PBXBuildFile; fileRef = D52A57B9241E4EF500521B22 /* Fix.swift */; };
+		D52A57C524203FBB00521B22 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		D52A57CA24203FBB00521B22 /* SimplerPro_V3-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B0241E29B800521B22 /* SimplerPro_V3-Regular.otf */; };
+		D52A57CB24203FBB00521B22 /* SimplerPro_V3-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B2241E29B800521B22 /* SimplerPro_V3-Black.otf */; };
+		D52A57CC24203FBB00521B22 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		D52A57CD24203FBB00521B22 /* SimplerPro_V3-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */; };
+		D52A57CE24203FBB00521B22 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
+		D52A57D024203FBB00521B22 /* SimplerPro_V3-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B1241E29B800521B22 /* SimplerPro_V3-Light.otf */; };
+		D52A57D82420403100521B22 /* Info-qa.plist in Resources */ = {isa = PBXBuildFile; fileRef = D52A57D72420403100521B22 /* Info-qa.plist */; };
+		D52A57DA2420404900521B22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D52A57D92420404900521B22 /* GoogleService-Info.plist */; };
+		D52A57DC2420405900521B22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D52A57DB2420405800521B22 /* GoogleService-Info.plist */; };
+		D5CC7DD824236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */; };
+		D5CC7DD924236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 83FF5F851AFD0D2B0016A13E;
+			remoteInfo = RNBackgroundGeolocation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
+		06C33C418EB6D49AE30A90FC /* Pods-hamagen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.debug.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.debug.xcconfig"; sourceTree = "<group>"; };
+		131CC6753E7C105B2A685B62 /* Pods-codeAgainstCorona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona.release.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona/Pods-codeAgainstCorona.release.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* המגן.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = codeAgainstCorona/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = codeAgainstCorona/AppDelegate.m; sourceTree = "<group>"; };
+		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = codeAgainstCorona/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = codeAgainstCorona/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = codeAgainstCorona/main.m; sourceTree = "<group>"; };
+		17128358241FCBDE007B9600 /* Code against corona.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Code against corona.entitlements"; path = "codeAgainstCorona/Code against corona.entitlements"; sourceTree = "<group>"; };
+		21858F4152B91CBBAEADF062 /* Pods-hamagen-qa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen-qa.release.xcconfig"; path = "Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa.release.xcconfig"; sourceTree = "<group>"; };
+		255E6F5C10E31B05B2AF7E1D /* libPods-hamagen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		306EADB8C444D747A3FC1024 /* libPods-codeAgainstCorona-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-codeAgainstCorona-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3287C3CB22EE2B6B23333DD8 /* Pods-codeAgainstCorona-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona-tvOSTests/Pods-codeAgainstCorona-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3AB70C75A3EAD78CC18A93F4 /* Pods-hamagen-qa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen-qa.debug.xcconfig"; path = "Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa.debug.xcconfig"; sourceTree = "<group>"; };
+		59B6795A61795164949A963E /* Pods-codeAgainstCorona.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona.debug.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona/Pods-codeAgainstCorona.debug.xcconfig"; sourceTree = "<group>"; };
+		72A81DAD059AE06BEA5D8E71 /* Pods-codeAgainstCoronaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCoronaTests.release.xcconfig"; path = "Target Support Files/Pods-codeAgainstCoronaTests/Pods-codeAgainstCoronaTests.release.xcconfig"; sourceTree = "<group>"; };
+		752215F1E7C01605E8D601C2 /* Pods-codeAgainstCorona-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona-tvOS/Pods-codeAgainstCorona-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		87D90CC35B877C5CF6E77321 /* libPods-codeAgainstCoronaTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-codeAgainstCoronaTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		95DE2235BEC8397068E9BC54 /* Pods-codeAgainstCorona-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona-tvOSTests/Pods-codeAgainstCorona-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		A8EE0EC864D242D0DC061636 /* libPods-codeAgainstCorona-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-codeAgainstCorona-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAA7CE2074525D884A35C134 /* Pods-codeAgainstCorona-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona-tvOS.release.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona-tvOS/Pods-codeAgainstCorona-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		D52A57B0241E29B800521B22 /* SimplerPro_V3-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Regular.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Regular.otf"; sourceTree = "<group>"; };
+		D52A57B1241E29B800521B22 /* SimplerPro_V3-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Light.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Light.otf"; sourceTree = "<group>"; };
+		D52A57B2241E29B800521B22 /* SimplerPro_V3-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Black.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Black.otf"; sourceTree = "<group>"; };
+		D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Bold.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Bold.otf"; sourceTree = "<group>"; };
+		D52A57B8241E4EF500521B22 /* codeAgainstCorona-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "codeAgainstCorona-Bridging-Header.h"; sourceTree = "<group>"; };
+		D52A57B9241E4EF500521B22 /* Fix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fix.swift; sourceTree = "<group>"; };
+		D52A57D524203FBB00521B22 /* המגן QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D52A57D72420403100521B22 /* Info-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-qa.plist"; path = "codeAgainstCorona/Info-qa.plist"; sourceTree = "<group>"; };
+		D52A57D92420404900521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/qa/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D52A57DB2420405800521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/release/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		D52A57DD24204EB200521B22 /* המגן QA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "המגן QA.entitlements"; sourceTree = "<group>"; };
+		D52A57F12422D39600521B22 /* libRNBackgroundFetch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNBackgroundFetch.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5AE4CD7FF26A69806CF4680 /* Pods-hamagen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.release.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.release.xcconfig"; sourceTree = "<group>"; };
+		D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
+		D5CC7DC924235864007E3977 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = Pods/TSBackgroundFetch/ios/TSBackgroundFetch/TSBackgroundFetch.framework; sourceTree = "<group>"; };
+		D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
+		D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB71A48ABBFB468FB6DA26E /* Pods-codeAgainstCoronaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCoronaTests.debug.xcconfig"; path = "Target Support Files/Pods-codeAgainstCoronaTests/Pods-codeAgainstCoronaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ACE92AE39AB97EC6E1FCB1F0 /* libPods-hamagen.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D52A57C724203FBB00521B22 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01ED0E232755E55EE7A5FDDD /* libPods-hamagen-qa.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		13B07FAE1A68108700A75B9A /* codeAgainstCorona */ = {
+			isa = PBXGroup;
+			children = (
+				D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */,
+				D52A57BC24203EB600521B22 /* firebase */,
+				17128358241FCBDE007B9600 /* Code against corona.entitlements */,
+				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
+				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				13B07FB01A68108700A75B9A /* AppDelegate.m */,
+				13B07FB51A68108700A75B9A /* Images.xcassets */,
+				13B07FB61A68108700A75B9A /* Info.plist */,
+				D52A57D72420403100521B22 /* Info-qa.plist */,
+				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
+				13B07FB71A68108700A75B9A /* main.m */,
+				D52A57B9241E4EF500521B22 /* Fix.swift */,
+				D52A57B8241E4EF500521B22 /* codeAgainstCorona-Bridging-Header.h */,
+			);
+			name = codeAgainstCorona;
+			sourceTree = "<group>";
+		};
+		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5CC7DC924235864007E3977 /* TSBackgroundFetch.framework */,
+				D52A57F12422D39600521B22 /* libRNBackgroundFetch.a */,
+				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
+				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
+				306EADB8C444D747A3FC1024 /* libPods-codeAgainstCorona-tvOS.a */,
+				A8EE0EC864D242D0DC061636 /* libPods-codeAgainstCorona-tvOSTests.a */,
+				87D90CC35B877C5CF6E77321 /* libPods-codeAgainstCoronaTests.a */,
+				255E6F5C10E31B05B2AF7E1D /* libPods-hamagen.a */,
+				D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+		};
+		83CBB9F61A601CBA00E9B192 = {
+			isa = PBXGroup;
+			children = (
+				D52A57DD24204EB200521B22 /* המגן QA.entitlements */,
+				13B07FAE1A68108700A75B9A /* codeAgainstCorona */,
+				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				83CBBA001A601CBA00E9B192 /* Products */,
+				D52A57AF241E298700521B22 /* Resources */,
+				2D16E6871FA4F8E400B85C8A /* Frameworks */,
+				A736601F3E4919996A917A07 /* Pods */,
+			);
+			indentWidth = 2;
+			sourceTree = "<group>";
+			tabWidth = 2;
+			usesTabs = 0;
+		};
+		83CBBA001A601CBA00E9B192 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13B07F961A680F5B00A75B9A /* המגן.app */,
+				D52A57D524203FBB00521B22 /* המגן QA.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A736601F3E4919996A917A07 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				59B6795A61795164949A963E /* Pods-codeAgainstCorona.debug.xcconfig */,
+				131CC6753E7C105B2A685B62 /* Pods-codeAgainstCorona.release.xcconfig */,
+				752215F1E7C01605E8D601C2 /* Pods-codeAgainstCorona-tvOS.debug.xcconfig */,
+				BAA7CE2074525D884A35C134 /* Pods-codeAgainstCorona-tvOS.release.xcconfig */,
+				3287C3CB22EE2B6B23333DD8 /* Pods-codeAgainstCorona-tvOSTests.debug.xcconfig */,
+				95DE2235BEC8397068E9BC54 /* Pods-codeAgainstCorona-tvOSTests.release.xcconfig */,
+				EAB71A48ABBFB468FB6DA26E /* Pods-codeAgainstCoronaTests.debug.xcconfig */,
+				72A81DAD059AE06BEA5D8E71 /* Pods-codeAgainstCoronaTests.release.xcconfig */,
+				06C33C418EB6D49AE30A90FC /* Pods-hamagen.debug.xcconfig */,
+				D5AE4CD7FF26A69806CF4680 /* Pods-hamagen.release.xcconfig */,
+				3AB70C75A3EAD78CC18A93F4 /* Pods-hamagen-qa.debug.xcconfig */,
+				21858F4152B91CBBAEADF062 /* Pods-hamagen-qa.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		D52A57AF241E298700521B22 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D52A57B2241E29B800521B22 /* SimplerPro_V3-Black.otf */,
+				D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */,
+				D52A57B1241E29B800521B22 /* SimplerPro_V3-Light.otf */,
+				D52A57B0241E29B800521B22 /* SimplerPro_V3-Regular.otf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		D52A57BC24203EB600521B22 /* firebase */ = {
+			isa = PBXGroup;
+			children = (
+				D52A57BE24203ED200521B22 /* qa */,
+				D52A57BD24203ECB00521B22 /* release */,
+			);
+			path = firebase;
+			sourceTree = "<group>";
+		};
+		D52A57BD24203ECB00521B22 /* release */ = {
+			isa = PBXGroup;
+			children = (
+				D52A57DB2420405800521B22 /* GoogleService-Info.plist */,
+			);
+			path = release;
+			sourceTree = "<group>";
+		};
+		D52A57BE24203ED200521B22 /* qa */ = {
+			isa = PBXGroup;
+			children = (
+				D52A57D92420404900521B22 /* GoogleService-Info.plist */,
+			);
+			path = qa;
+			sourceTree = "<group>";
+		};
+		D5CC7DC4242357EA007E3977 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		13B07F861A680F5B00A75B9A /* hamagen */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hamagen" */;
+			buildPhases = (
+				662079B2274E5169A4CE3760 /* [CP] Check Pods Manifest.lock */,
+				FD10A7F022414F080027D42C /* Start Packager */,
+				13B07F871A680F5B00A75B9A /* Sources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				13B07F8E1A680F5B00A75B9A /* Resources */,
+				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = hamagen;
+			productName = codeAgainstCorona;
+			productReference = 13B07F961A680F5B00A75B9A /* המגן.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D52A57BF24203FBB00521B22 /* hamagen-qa */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D52A57D224203FBB00521B22 /* Build configuration list for PBXNativeTarget "hamagen-qa" */;
+			buildPhases = (
+				D52A57C024203FBB00521B22 /* [CP] Check Pods Manifest.lock */,
+				D52A57C124203FBB00521B22 /* Start Packager */,
+				D52A57C224203FBB00521B22 /* Sources */,
+				D52A57C724203FBB00521B22 /* Frameworks */,
+				D52A57C924203FBB00521B22 /* Resources */,
+				D52A57D124203FBB00521B22 /* Bundle React Native code and images */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "hamagen-qa";
+			productName = codeAgainstCorona;
+			productReference = D52A57D524203FBB00521B22 /* המגן QA.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0940;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = N3P977USJJ;
+						LastSwiftMigration = 1120;
+						ProvisioningStyle = Manual;
+					};
+					D52A57BF24203FBB00521B22 = {
+						DevelopmentTeam = N3P977USJJ;
+						ProvisioningStyle = Manual;
+					};
+				};
+			};
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "codeAgainstCorona" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+				Base,
+			);
+			mainGroup = 83CBB9F61A601CBA00E9B192;
+			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = D5CC7DC4242357EA007E3977 /* Products */;
+					ProjectRef = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				13B07F861A680F5B00A75B9A /* hamagen */,
+				D52A57BF24203FBB00521B22 /* hamagen-qa */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRNBackgroundGeolocation.a;
+			remoteRef = D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		13B07F8E1A680F5B00A75B9A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D52A57B4241E29B800521B22 /* SimplerPro_V3-Regular.otf in Resources */,
+				D52A57B6241E29B800521B22 /* SimplerPro_V3-Black.otf in Resources */,
+				D52A57BB241FE12000521B22 /* Images.xcassets in Resources */,
+				D52A57B7241E29B800521B22 /* SimplerPro_V3-Bold.otf in Resources */,
+				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				D52A57B5241E29B800521B22 /* SimplerPro_V3-Light.otf in Resources */,
+				D52A57DC2420405900521B22 /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D52A57C924203FBB00521B22 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D52A57CA24203FBB00521B22 /* SimplerPro_V3-Regular.otf in Resources */,
+				D52A57CB24203FBB00521B22 /* SimplerPro_V3-Black.otf in Resources */,
+				D52A57CC24203FBB00521B22 /* Images.xcassets in Resources */,
+				D52A57CD24203FBB00521B22 /* SimplerPro_V3-Bold.otf in Resources */,
+				D52A57CE24203FBB00521B22 /* LaunchScreen.xib in Resources */,
+				D52A57D024203FBB00521B22 /* SimplerPro_V3-Light.otf in Resources */,
+				D52A57DA2420404900521B22 /* GoogleService-Info.plist in Resources */,
+				D52A57D82420403100521B22 /* Info-qa.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		662079B2274E5169A4CE3760 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hamagen-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D52A57C024203FBB00521B22 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-hamagen-qa-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D52A57C124203FBB00521B22 /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D52A57D124203FBB00521B22 /* Bundle React Native code and images */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle React Native code and images";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+		};
+		FD10A7F022414F080027D42C /* Start Packager */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Start Packager";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		13B07F871A680F5B00A75B9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				D52A57BA241E4EF500521B22 /* Fix.swift in Sources */,
+				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				D5CC7DD824236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D52A57C224203FBB00521B22 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D52A57C324203FBB00521B22 /* AppDelegate.m in Sources */,
+				D52A57C424203FBB00521B22 /* Fix.swift in Sources */,
+				D52A57C524203FBB00521B22 /* main.m in Sources */,
+				D5CC7DD924236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		13B07FB11A68108700A75B9A /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13B07FB21A68108700A75B9A /* Base */,
+			);
+			name = LaunchScreen.xib;
+			path = codeAgainstCorona;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		13B07F941A680F5B00A75B9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06C33C418EB6D49AE30A90FC /* Pods-hamagen.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = N3P977USJJ;
+				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.20;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
+				PRODUCT_NAME = "המגן";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Store";
+				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		13B07F951A680F5B00A75B9A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5AE4CD7FF26A69806CF4680 /* Pods-hamagen.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = N3P977USJJ;
+				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.20;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
+				PRODUCT_NAME = "המגן";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Store";
+				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		83CBBA201A601CBA00E9B192 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		83CBBA211A601CBA00E9B192 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D52A57D324203FBB00521B22 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3AB70C75A3EAD78CC18A93F4 /* Pods-hamagen-qa.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = N3P977USJJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/TSBackgroundFetch/ios/TSBackgroundFetch",
+					"$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios",
+					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios",
+				);
+				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.20;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen.qa;
+				PRODUCT_NAME = "המגן QA";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA Dev";
+				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Debug;
+		};
+		D52A57D424203FBB00521B22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 21858F4152B91CBBAEADF062 /* Pods-hamagen-qa.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 7;
+				DEVELOPMENT_TEAM = N3P977USJJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/TSBackgroundFetch/ios/TSBackgroundFetch",
+					"$(PROJECT_DIR)/../node_modules/react-native-background-fetch/ios",
+					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios",
+				);
+				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.0.20;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen.qa;
+				PRODUCT_NAME = "המגן QA";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA AdHoc";
+				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "hamagen" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13B07F941A680F5B00A75B9A /* Debug */,
+				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "codeAgainstCorona" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83CBBA201A601CBA00E9B192 /* Debug */,
+				83CBBA211A601CBA00E9B192 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D52A57D224203FBB00521B22 /* Build configuration list for PBXNativeTarget "hamagen-qa" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D52A57D324203FBB00521B22 /* Debug */,
+				D52A57D424203FBB00521B22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}

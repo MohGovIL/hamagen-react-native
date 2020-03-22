@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">המגן</string>
+    <string name="default_notification_channel_id">LocalPush</string>
+    <string name="transistorsoft_key">dd848dfdb70779e4eea8eaeb83e4c301ac57281b901176385f6f1b62992b97bd</string>
+</resources>

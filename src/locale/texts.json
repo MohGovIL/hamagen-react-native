@@ -1,0 +1,502 @@
+{
+  "he": {
+    "general": {
+      "start": "התחלה",
+      "additionalInfo": "מידע נוסף פרטיות"
+    },
+    "languages": {
+      "title": "בחר שפה",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ"
+      }
+    },
+    "forceUpdate": {
+      "title": "עדכון גרסה",
+      "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
+    },
+    "forceTerms": {
+      "title": "עדכון תנאי השימוש",
+      "desc": "עודכנו תנאי השימוש באפליקציה, על מנת שנוכל להמשיך לשמור על בריאותכם אנא אשרו את תנאי השימוש החדשים",
+      "approve": "אישור"
+    },
+    "welcome": {
+      "title": "שמחים שנרתמת למאמץ",
+      "subTitle1": "אלפי ישראלים עלולים לסבול מנזק בריאותי כתוצאה מנגיף הקורונה.",
+      "subTitle2": "אבחון ובידוד בזמן יכולים להציל את חייהם. תודה שאתם עוזרים לנו, לעזור להם."
+    },
+    "location": {
+      "title": "המיקום הוא קריטי",
+      "subTitle1": "האפליקציה תאסוף את נתוני המיקום שלכם ותשווה אותם למיקומים המאומתים של מאובחני קורונה. אם תמצא חפיפה, תקבלו הודעה על כך.",
+      "subTitle2IOS": "לצורך כך, עליכם לאשר שירותי מיקום",
+      "subTitle2Android": "לצורך כך,עליכם להפעיל שירותי מיקום באופן קבוע",
+      "dataAnonymous": "הנתונים יישמרו באופן אנונימי",
+      "consent1": "קראתי ומקובלים עלי ",
+      "consent2": "תנאי השימוש",
+      "approveLocation": "אישור"
+    },
+    "locationIOS": {
+      "title": "הפעלת שירותי\nמיקום ברקע",
+      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
+      "subTitle2": "יש לשנות את הגדרות המיקום כפי שמופיע בתמונות",
+      "goToSettings": "לחצו כאן כדי להיכנס להגדרות",
+      "set": "הגדרתי, המשך"
+    },
+    "notifications": {
+      "title": "חשוב לעדכן אותך",
+      "subTitle1": "על מנת שנוכל לעדכן אותך באירועים הקשורים לקורונה ורלווטיים עבורך, עליך לאפשר קבלת התראות מאיתנו.",
+      "subTitle2": "קבלת התראות מאיתנו הן הכרחיות עבורך ועבור הקרובים אליך",
+      "approveNotifications": "אשר קבלת התראות"
+    },
+    "allSet": {
+      "allGood": "הכל עובד פיקס!\nמיד מתחילים"
+    },
+    "scanHome": {
+      "hasData": "יש קליטת נתונים",
+      "noData": "אין קליטת נתונים",
+      "exposureHistory": "היסטוריית חפיפה",
+      "noDataDesc": "יש לוודא חיבור לאינטרנט ואישור שירותי מיקום באופן קבוע כדי שנוכל להשוות את מיקומך למאובחני קורונה",
+      "noExposure": "לפי הנתונים שנאספו עד כה, לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
+      "noExposure1": "לפי הנתונים שנאספו עד כה,",
+      "noExposure2": "מאז ה:",
+      "noExposure3": "בשעה:",
+      "noExposure4": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
+      "recommendation": "ניתן לסגור את האפליקציה. אם יהיה צורך, נשלח לך התראה.",
+      "found": "נמצאו",
+      "exposureEvents": "אירועי חפיפה",
+      "reportedAt": "תועד ב:",
+      "inDate": "בתאריך",
+      "fromHour": "משעה:",
+      "toHour": "עד שעה:",
+      "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
+      "no": "לא",
+      "canContinue": "אפשר להמשיך",
+      "yes": "כן",
+      "needDirections": "אשמח להנחיות"
+    },
+    "exposuresHistory": {
+      "title": "היסטוריית חפיפות",
+      "noExposures": "אין נקודות\nחפיפה"
+    },
+    "exposureInstructions": {
+      "title": "הנחיות לאחר חשיפה",
+      "weUnderstand": "אנחנו מבינים שהיית בנקודת חפיפה ב",
+      "wrong": "טעות, לא הייתי שם",
+      "keepSafe": "על מנת לשמור על בריאות משפחתך והסובבים אותך אלו ההנחיות של משרד הבריאות",
+      "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
+      "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
+      "allInstructions": "לכל ההנחיות",
+      "reportSite": "לדיווח באתר"
+    }
+  },
+  "ar": {
+    "general": {
+      "start": "إبلش",
+      "additionalInfo": "معلومات إضافية خصوصية"
+    },
+    "languages": {
+      "title": "إختار لغة",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ"
+      }
+    },
+    "forceUpdate": {
+      "title": "تحديث الإصدار",
+      "desc": "هناك إصدار جديد من التطبيق. للحفاظ على صحتنا جميعًا ، نوصي بتحديث الإصدار"
+    },
+    "forceTerms": {
+      "title": "تحديث شروط الاستخدام",
+      "desc": "تحديث شروط استخدام التطبيق حتى نتمكن من الاستمرار في الحفاظ على صحتك يرجى قبول شروط الاستخدام الجديدة",
+      "approve": "موافقة"
+    },
+    "welcome": {
+      "title": "نحن سعيدين بإشتراكك من أجل المحاربة بالفيروس",
+      "subTitle1": "فيروس الكورونا ممكن يسبب ضرر صحي لآلاف الإسرئيليون.",
+      "subTitle2": "تشخيس مبكر وعزل بالوقت بإستطاعهم إنقاز حياة الناس. شكرا على مساعدتكم من أجل الناس."
+    },
+    "location": {
+      "title": "مكان الوجود مهم جدا",
+      "subTitle1": "التطبيقة تجمع معطيات بخصوص مكان وجودكم وتقارنهم بالمعطيات العامة لدى مصابين الفيروس.",
+      "subTitle2IOS": "بحالة تشابك المقارنة، سوف تبلغو عن ذلك.",
+      "subTitle2Android": "من أجل ذلك عليكم تشغيل خدمات الموقع بشكل دائم.",
+      "dataAnonymous": "المعطيات سوف تحفظ بصورة إرتجالية.",
+      "consent1": "قريت ووافقت على ",
+      "consent2": "شروط الإستعمال",
+      "approveLocation": "موافقة"
+    },
+    "locationIOS": {
+      "title": " تشغيل خدمات\nالمكان بالخلفية",
+      "subTitle1": "من اجل الاستلام على معلومات صحيحة بخصوص موقعك، يرجى السماح باستلام المواقع بشكل دائم.",
+      "subTitle2": "  يرجى تغيير ضبط الأماكن مثل الصور",
+      "goToSettings": "إضغطوا هون من أجل الضبط",
+      "set": " تم الضبط"
+    },
+    "notifications": {
+      "title": "مهم نبلغك",
+      "subTitle1": "من أجل تبليغك بخصوص حوادث كورونا وحالات بتعني لك،, عليك أن تعطي سماح لإستلام تحذيرات منا.",
+      "subTitle2": "إستلام تحذيرات مهمة إلك وإلى قرايبك",
+      "approveNotifications": "موافقة إستلام تحذيرات"
+    },
+    "allSet": {
+      "allGood": "التطبيقة بتشتغل تماما!\nنبدا"
+    },
+    "scanHome": {
+      "hasData": " توجد معلومات",
+      "noData": "لا يوجد إرسال",
+      "exposureHistory": " تاريخ تشابك",
+      "noDataDesc": "يرجى التاكيد على شبك الانترنت وتشغيل خدمات الموقع من أجل مقارنة موقعك بمصابين فيروس الكورونا حسب المعطيات التي تجمعت.",
+      "noExposure": "حسب المعطيات التي تجمعت حتى الآن، لا توجد إلك نقط تشابك مع مصاب بفيروس الكورونا",
+      "noExposure1": "حسب المعطيات الي تجمعت حتى الآن,",
+      "noExposure2": "من التاريخ:",
+      "noExposure3": "في الساعة:",
+      "noExposure4": "لا توجد إلك نقط تشابك مع مصاب بالكورونا",
+      "recommendation": "بإمكانك تسكير التطبيقة، سوف نبلغك بحالة تغيير وضعك.",
+      "found": "توجد",
+      "exposureEvents": "حالات تشابك",
+      "reportedAt": "سجل في:",
+      "inDate": "في تاريخ",
+      "fromHour": "من الساعة :",
+      "toHour": " حتى الساعة:",
+      "whereYouThere": "هل تواجدت بالمكان بنفس الساعة؟?",
+      "no": "لا",
+      "canContinue": "ممكن أكمل",
+      "yes": "نعم",
+      "needDirections": "حابب أستلم توصيات"
+    },
+    "exposuresHistory": {
+      "title": "تاريخ تشابك",
+      "noExposures": "لا توجد نقط تشابك\nتشابك "
+    },
+    "exposureInstructions": {
+      "title": "توصيات بعد تعرض",
+      "weUnderstand": "نحن نفهم إنك تواجدت في نقطة تشابك",
+      "wrong": "غلط، ما تواجدتش هناك",
+      "keepSafe": "من أجل الحفاظة على صحة عائلتك وقرايبك عليك أن تطبق توصيات وزارة الصحة وتدخل على حجر صحي لمدة ١٤ يوم من وقت تعرضك",
+      "goIntoIsolation": "يرجى الدخول فورا لحجر صحي لمدة ١٤ يوم من وقت التعرضض",
+      "reportIsolation": "عليك التبليغ لوزارة الصحة",
+      "allInstructions": "لكل التوصيات",
+      "reportSite": "عليك التبليغ لوزارة الصحة"
+    }
+  },
+  "en": {
+    "general": {
+      "start": "START",
+      "additionalInfo": "Additional Privacy information"
+    },
+    "languages": {
+      "title": "Select language ",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ"
+      }
+    },
+    "forceUpdate": {
+      "title": "Version Update",
+      "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
+    },
+    "forceTerms": {
+      "title": "Terms of Use Updated",
+      "desc": "Updated Terms of Use of the App, so that we can continue to keep you healthy Please accept the new Terms of Use",
+      "approve": "APPROVE"
+    },
+    "welcome": {
+      "title": "We’re glad you’ve joined the effort!",
+      "subTitle1": "Thousands of Israelis could suffer the ill effects of the coronavirus.",
+      "subTitle2": "Timely diagnosis and isolation can save their lives."
+    },
+    "location": {
+      "title": "Location is critical",
+      "subTitle1": "This app will collect your location data and compare it to the locations of people known to be infected with the virus. If any of those locations are found to overlap, you will receive a notification.",
+      "subTitle2IOS": "In order for this to work, you must have location service activated on your phone.",
+      "subTitle2Android": "In order for this to work, you must have location services activated on your phone at all times.",
+      "dataAnonymous": "Your location data will be anonymizedי",
+      "consent1": "I have read and approve of the ",
+      "consent2": "terms of use",
+      "approveLocation": "APPROVE"
+    },
+    "locationIOS": {
+      "title": "Activate location\nservices in the background",
+      "subTitle1": "In order to be able to update you about events related to the coronavirus, we will need to send you notifications.",
+      "subTitle2": "Location service settings should be changed as shown in the pictures below",
+      "goToSettings": "Press here for settings",
+      "set": "Settings updated, let’s continue"
+    },
+    "notifications": {
+      "title": "Important to keep you updated",
+      "subTitle1": "You must have the location service on your phone activated at all times.",
+      "subTitle2": "These notifications will contain critical information for you and those close to you.",
+      "approveNotifications": "Approve Notifications"
+    },
+    "allSet": {
+      "allGood": "Everything’s\nworking great!"
+    },
+    "scanHome": {
+      "hasData": "Data detected",
+      "noData": "No data detected ",
+      "exposureHistory": "Exposure History",
+      "noDataDesc": "Please make sure you are connected to the internet and that location services are enabled",
+      "noExposure": "Based on the data collected thus far, no points of overlap with coronavirus patients have been found.",
+      "noExposure1": "According to data collected thus far,",
+      "noExposure2": "starting from:",
+      "noExposure3": "at:",
+      "noExposure4": "no points of intersection have been found with CoronaVirus patients",
+      "recommendation": "You can now close the app. We'll let you know if there's anything new.",
+      "found": "Found",
+      "exposureEvents": "Exposure events",
+      "reportedAt": "Reported At:",
+      "inDate": "In",
+      "fromHour": "From:",
+      "toHour": "Until:",
+      "whereYouThere": "Where you around in this time?",
+      "no": "No",
+      "canContinue": "You can proceed",
+      "yes": "Yes",
+      "needDirections": "Receive instructions"
+    },
+    "exposuresHistory": {
+      "title": "Overlap history",
+      "noExposures": "No overlap points found"
+    },
+    "exposureInstructions": {
+      "title": "Post-exposure guidelines",
+      "weUnderstand": "It appears your location has intersected with a person known to be infected with the coronavirus",
+      "wrong": "Must be a mistake, I wasn’t there",
+      "keepSafe": "You must take the following steps",
+      "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
+      "reportIsolation": "Report Isolation",
+      "allInstructions": "For all the Instructions",
+      "reportSite": "To report at the Site"
+    }
+  },
+  "ru": {
+    "general": {
+      "start": "Начать",
+      "additionalInfo": "политика конфиденциальности"
+    },
+    "languages": {
+      "title": "Выберите язык",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ"
+      }
+    },
+    "forceUpdate": {
+      "title": "Обновить версию",
+      "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
+    },
+    "forceTerms": {
+      "title": "Обновить Условия использования",
+      "desc": "Обновлены Условия использования приложения, чтобы мы могли продолжать поддерживать ваше здоровье. Примите новые Условия использования.",
+      "approve": "Подтвердить"
+    },
+    "welcome": {
+      "title": "Мы рады что вы присоединились к нашим усилиям!",
+      "subTitle1": "Тысячи израильтян могут пострадать от коронавируса.",
+      "subTitle2": "Диагностирование и карантин могут спасти их жизнь. Спасибо что помогаете нам помогать им!"
+    },
+    "location": {
+      "title": "Местонахождение критично",
+      "subTitle1": "Приложение будет собирать данные о вашем месте нахождение, и сообщит вам если будет совпадение с данными местонахождения больных.",
+      "subTitle2IOS": "Ради этого вы должны включить услуги местонахождение на постоянной основе",
+      "subTitle2Android": "Ради этого вы должны включить услуги местонахождение на постоянной основе",
+      "dataAnonymous": "Данные будут сохранены анонимно",
+      "consent1": "Я прочитал и согласен с условиями ",
+      "consent2": "пользования",
+      "approveLocation": "Подтвердить"
+    },
+    "locationIOS": {
+      "title": "Включение услуг местонахождения\nна постоянной основе",
+      "subTitle1": "Чтобы регулярно получать точную информацию о вашим месте нахождения, включите услуги местонахождения на постоянную основу.",
+      "subTitle2": "Измените настройки как указано в фотографиях",
+      "goToSettings": "Настройки",
+      "set": "Продолжить"
+    },
+    "notifications": {
+      "title": "Важно вас проинформировать",
+      "subTitle1": "Чтобы проинформировать вас об окутанных для вас событиях связанных с коронавирусом, подтвердите пожалуйста получение нотификаций от нас.",
+      "subTitle2": "Получение нотификаций от нас необходимо для вас и ваших близких.",
+      "approveNotifications": "Подтвердить получение нотификаций"
+    },
+    "allSet": {
+      "allGood": "Отлично!\nСейчас начнём"
+    },
+    "scanHome": {
+      "hasData": "успешная передача данных",
+      "noData": "Нет передачи данных",
+      "exposureHistory": "История контактов",
+      "noDataDesc": "Проверьте связь к интернету и услуги местонахождения",
+      "noExposure": "По имеющимся данным, вы не контактировали с больным.",
+      "noExposure1": "По данным собранным до сих пор,",
+      "noExposure2": "с:",
+      "noExposure3": "в:",
+      "noExposure4": ",мы не обнаружили контакта с больным",
+      "recommendation": "Вы можете закрыть приложение.Вся необходимая информация поступит к вам отдельным сообщением.",
+      "found": "Обнаружены",
+      "exposureEvents": "Потенциальное соприкосновение",
+      "reportedAt": "Документально записан",
+      "inDate": "Число",
+      "fromHour": "С часов,:",
+      "toHour": "до часов:",
+      "whereYouThere": "Были ли вы в этом месте в то же время?",
+      "no": "Нет",
+      "canContinue": "Можно продолжить",
+      "yes": "Да",
+      "needDirections": "Инструкции"
+    },
+    "exposuresHistory": {
+      "title": "История контактов",
+      "noExposures": "Нет точек соприкосновения"
+    },
+    "exposureInstructions": {
+      "title": "Рекомендации после выявления контакта",
+      "weUnderstand": "Вы оказались в точке соприкосновения",
+      "wrong": "Ошибка, я там не был.",
+      "keepSafe": "В целях поддержания вашего здоровья, здоровья вашей семьи и окружающих вас людей руководствуйтесь рекомендациями Министерства Здравоохранения и пожалуйста, примите следующие меры",
+      "goIntoIsolation": "исключите полностью контакты с другими людьми на протяжении 14 дней, не выходя из дома",
+      "reportIsolation": "оставьте сообщение на сайте Министерства Здравоохранения о вашем карантине",
+      "allInstructions": "Инструкции",
+      "reportSite": "Поставить в известность"
+    }
+  },
+  "am": {
+    "general": {
+      "start": "ጀምር",
+      "additionalInfo": "ስለግላዊነት የበለጠ ለመረዳት"
+    },
+    "languages": {
+      "title": "ቋንቋ ይምረጡ",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ"
+      }
+    },
+    "forceUpdate": {
+      "title": "ሥሪት አዘምን",
+      "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
+    },
+    "forceTerms": {
+      "title": "የአጠቃቀም ውሎችን አዘምን",
+      "desc": "ጤናዎን ጠብቀን ማቆየት እንድንችል እንድንችል የመጠቀሙን የአጠቃቀም ደንቦችን አዘምን። እባክዎ አዲሱን የአጠቃቀም ውል ይቀበሉ",
+      "approve": "እሺ"
+    },
+    "welcome": {
+      "title": "በጥረቱ ስለረዱን ተደሠተናል",
+      "subTitle1": "በሺዎች የሚቆጠሩ እስራኤላውያን በኮሮና ቫይረስ የጤና ጉዳት ሊደርስባቸው ይችላል.",
+      "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
+    },
+    "location": {
+      "title": "የምትገኙበት ቦታ ወሳኝ ነው",
+      "subTitle1": "አፕሊኬሽኑ (መተግበሪያው) የአካባቢ ውሂብን በራሱ ይሰበስብና የእርስዎን ቦታ በአካባቢው ካሉ የኮሮና በሽተኞች ቦታ ጋር በማነፃጸር ማንኛውንም መደራረብ ካገኘ ያሳውቀዎታል ፡፡.",
+      "subTitle2IOS": "አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
+      "subTitle2Android":",አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
+      "dataAnonymous": "ውሂቡ በምስጢር ይጠበቃል",
+      "consent1": "",
+      "consent2": "ስለ አጠቃቀሙ የተፃፈውን  መመሪያ አንብቤያለሁ እስማማለሁ",
+      "approveLocation": "እሺ"
+    },
+    "locationIOS": {
+      "title": "የቦታዎን\nአገልግሎቶች ማሰራት",
+      "subTitle1": "በመደበኛነት እርስዎን የሚመለከቱ የአካባቢዎች መረጃ ለእርስዎ ለመስጠት ፣ የቦታ አመላካቹን በመደበኛነት ማንቃት ያስፈልግዎታል ፡፡.",
+      "subTitle2": "የቦታዎን ፍች በሰእሉ እንደሚታየው ያመላክቱ",
+      "goToSettings": "የቦታዎን ፍች ለማሰራት እዚህ ይጨቁኑ",
+      "set": "የቦታዎን ፍች አሰራሁ። ቀጥል"
+    },
+    "notifications": {
+      "title": "እርስዎን ማስረዳት አስፈላጊ ነው",
+      "subTitle1": "ኮሮናን በተመለከተ እርስዎን የሚመለከት ማስታወቂያ ከተገኘ ፣ እኛ እንድናሳውቅዎት ፍቃድ መስጠት አለብዎት።.",
+      "subTitle2": "ቅድመ ማንቂያዎችን ከእኛ መቀበል ለእርስዎ እና ለእርስዎ ቅርብ ለሆኑት በጣም አስፈላጊ ናቸውך",
+      "approveNotifications": "ቅድመ ማንቂያዎችን ለመቀበል ፍቃድ ይስጡ"
+    },
+    "allSet": {
+      "allGood": "ሁሉም ነገር በጥሩ ይሠራል::\nወዲያውኑ ይጀምሩ"
+    },
+    "scanHome": {
+      "hasData": "ውሂብ ይሰበሰባል።",
+      "noData": "ውሂብ መሰብሰብ አይቻልም",
+      "exposureHistory": "ከተያዘ ሰው ጋር ተቀራርበዋል",
+      "noDataDesc": "የኢንትርነት ግንኙነት መኖሩንና ያሉበት ቦታ በስልክዎ መመላከቱን ያረጋግጡ።",
+      "noExposure": "እስካሁን በተሰበሰበው መረጃ መሠረት ከኮሮና በሽተኛ ጋር መደራረብዎን ማግኘት አልቻልንም",
+      "noExposure1": "እስካሁን በተሠበሠቡት መረጃወች መሠረት ማለትም,",
+      "noExposure2": "ከ:",
+      "noExposure3": "ሰአቱ:",
+      "noExposure4": "ምንም አይነት ንክኪ ከኮሮና ቫይረስ ከተያዘው ሠው ጋር እንዳልተገኘ ነው",
+      "recommendation": "አፕሊኬሽኑን መዝጋት ይቻላል አሰፈላጊ ከሆነ እናስታውቅዎታለን.",
+      "found": "ተገኙ",
+      "exposureEvents": "ድርርብ ተገኘ",
+      "reportedAt": "ሪፖርት ተደርጓል በ፤:",
+      "inDate": "ቀኑ",
+      "fromHour": "ሰአቱ ከ፤:",
+      "toHour": "ሰአቱ እስከ፤:",
+      "whereYouThere": "በዚያን ጊዜ በቦታው ዙሪያ ቆይተዋል?",
+      "no": "አልቆየሁም።",
+      "canContinue": "ቀጥል",
+      "yes": "ቆይቻለሁ።",
+      "needDirections": "ምን ማድረግ አለብኝ"
+    },
+    "exposuresHistory": {
+      "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
+      "noExposures": "ድርርብ አልተገኘም።"
+    },
+    "exposureInstructions": {
+      "title": "ከተያዘ ሰው ጋር ከተቀራረቡ ይህን መመርያ ይከተሉ።",
+      "weUnderstand": "እንደአስተያየታችን ከተያዘ ሰው ጋር ተቀራርበዋል።",
+      "wrong": "የለም፤ ስህተት ነው።",
+      "keepSafe": "የጤና ጥበቃ ሚኒስቴር በሚሰጠው ምክር መሰረት ራስዎንና በተሰብዎን ይጠብቁ፡",
+      "goIntoIsolation": "-በተቻለዉ መጠን በቤትዎ ይቆዩ እና በተጨናነቁ ስፍራዎች ውስጥ ቆይታዎን በተቻለ መጠን ይቀንሱ ፡፡",
+      "reportIsolation": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ የመከለል ሪፖርት ለማድረግ።",
+      "allInstructions": "ለሁሉም መመርያዎች ።",
+      "reportSite": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ ሪፖርት ለማድረግ።"
+    }
+  }
+}
