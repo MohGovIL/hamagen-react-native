@@ -5,7 +5,7 @@ Israel's Ministry of Health COVID-19 exposure prevention app.
 
 ## Hacking
 
-You're awesome. See [CONTRIBUTING.md](https://github.com/MohGovIL/hamagen-react-native/blob/master/CONTRIBUTING.md).
+You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ### Local Database Retrieval
 
