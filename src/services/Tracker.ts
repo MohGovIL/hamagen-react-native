@@ -11,6 +11,8 @@ import store from '../store';
 import { IS_IOS, LAST_FETCH_TS } from '../constants/Constants';
 import { onError } from './ErrorService';
 
+const haversine = require('haversine');
+
 const _URL = config.dataUrl;
 const METER_RADIUS = config.meterRadius; // 500 meters
 const INTERSECT_MILLISECONDS = config.intersectMilliseconds;
@@ -39,7 +41,6 @@ export const isTimeOverlapping = (userRecord: any, sickRecord: any) => {
 };
 
 export const isSpaceOverlapping = (userRecord: any, sickRecord: any) => {
-  const haversine = require('haversine');
 
   const start = {
     latitude: userRecord.lat,
