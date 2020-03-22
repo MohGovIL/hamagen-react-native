@@ -154,15 +154,16 @@ android {
         }
     }
 
-    File debugKeystore = new File(new File(getRootDir(), "keystore"), "debug.keystore")
-    File releaseKeystore = new File(new File(getRootDir(), "keystore"), "hamagen.keystore")
+    // File debugKeystore = new File(new File(getRootDir(), "keystore"), "debug.keystore")
+    // File releaseKeystore = new File(new File(getRootDir(), "keystore"), "hamagen.keystore")
 
     signingConfigs {
         debug {
-            storeFile debugKeystore
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
+            storeFile file(System.getenv("HAMAGEN_DEBUG_KEYSTORE_PATH"))
+            storePassword System.getenv("HAMAGEN_DEBUG_STORE_PASSWORD")
+            keyAlias System.getenv('HAMAGEN_DEBUG_KEY_ALIAS')
+            keyPassword System.getenv('HAMAGEN_DEBUG_KEY_PASSWORD')
+
         }
         release {
             storeFile file(System.getenv("HAMAGEN_KEYSTORE_PATH"))
