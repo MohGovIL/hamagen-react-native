@@ -15,6 +15,17 @@ Make sure your app is [`debuggable`](https://developer.android.com/guide/topics/
 $ adb exec-out run-as com.hamagen.dev cat databases/Reactoffline.db > app_db.sqlite
 ~~~
 
+## Release
+
+Please make sure that you have the following environment variables set:
+
+~~~
+HAMAGEN_KEYSTORE_PATH = '../path/to/release.keystore'
+HAMAGEN_STORE_PASSWORD= 'release store password'
+HAMAGEN_KEY_ALIAS= 'release key alias'
+HAMAGEN_KEY_PASSWORD= 'release key password'
+~~~
+
 ## License
 
 MIT

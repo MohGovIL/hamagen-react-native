@@ -165,10 +165,10 @@ android {
             keyPassword 'android'
         }
         release {
-            storeFile releaseKeystore
-            storePassword 'hamagen123'
-            keyAlias 'hamagen'
-            keyPassword 'hamagen123'
+            storeFile file(System.getenv("HAMAGEN_KEYSTORE_PATH"))
+            storePassword System.getenv("HAMAGEN_STORE_PASSWORD")
+            keyAlias System.getenv('HAMAGEN_KEY_ALIAS')
+            keyPassword System.getenv('HAMAGEN_KEY_PASSWORD')
         }
     }
 
