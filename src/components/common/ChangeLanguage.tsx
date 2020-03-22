@@ -9,13 +9,13 @@ import { MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../cons
 interface Props {
   isVisible: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
-  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'): void,
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'): void,
   toggleChangeLanguage(isShow: boolean): void
 }
 
 let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title, long } }, changeLocale, toggleChangeLanguage }: Props) => {
-  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru') => {
+  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };

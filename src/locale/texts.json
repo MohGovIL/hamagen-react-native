@@ -11,14 +11,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -111,14 +113,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -211,14 +215,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -311,14 +317,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -411,14 +419,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -497,6 +507,108 @@
       "reportIsolation": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ የመከለል ሪፖርት ለማድረግ።",
       "allInstructions": "ለሁሉም መመርያዎች ።",
       "reportSite": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ ሪፖርት ለማድረግ።"
+    }
+  },
+  "fr": {
+    "general": {
+      "start": "COMMENCER",
+      "additionalInfo": "Informations supplémentaires sur la confidentialité"
+    },
+    "languages": {
+      "title": "Choisir la langue ",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ",
+        "fr": "Fr"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "fr": "Français"
+      }
+    },
+    "forceUpdate": {
+      "title": "Mise à jour de la version",
+      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
+    },
+    "forceTerms": {
+      "title": "Conditions d'utilisation mises à jour",
+      "desc": "Conditions d'utilisation mises à jour de l'application, afin que nous puissions continuer à vous maintenir en bonne santé Veuillez accepter les nouvelles conditions d'utilisation",
+      "approve": "APPROUVER"
+    },
+    "welcome": {
+      "title": "Nous sommes ravis que vous vous soyez joints à l'effort!",
+      "subTitle1": "Des milliers d'Israéliens pourraient subir les effets néfastes du coronavirus.",
+      "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
+    },
+    "location": {
+      "title": "La localisation est necessaire",
+      "subTitle1": "Cette application va collecter vos données de localisation et les comparer aux emplacements des personnes connues comme etant infectées par le virus. Si l'un de ces emplacements se chevauche, vous recevrez une notification.",
+      "subTitle2IOS": "Pour que cela fonctionne, vous devez activer le service de localisation sur votre téléphone.",
+      "subTitle2Android": "Pour que cela fonctionne, vous devez avoir à tout moment des services de localisation activés sur votre téléphone.",
+      "dataAnonymous": "\nVos données de localisation seront rendues anonymes",
+      "consent1": "J'ai lu et j'approuve les ",
+      "consent2": "conditions d'utilisation",
+      "approveLocation": "APPROUVER"
+    },
+    "locationIOS": {
+      "title": "Activer le service de localisation en arrière-plan",
+      "subTitle1": "Afin de pouvoir vous tenir au courant des événements liés au coronavirus, nous devrons vous envoyer des notifications.",
+      "subTitle2": "Les paramètres du service de localisation doivent être modifiés comme indiqué dans les images ci-dessous",
+      "goToSettings": "Appuyez ici pour les paramètres",
+      "set": "\nParamètres mis à jour, continuons"
+    },
+    "notifications": {
+      "title": "Important de vous tenir au courant",
+      "subTitle1": "Vous devez avoir le service de localisation sur votre téléphone activé à tout moment.",
+      "subTitle2": "Ces notifications contiendront des informations essentielles pour vous et vos proches.",
+      "approveNotifications": "Approuver les notifications"
+    },
+    "allSet": {
+      "allGood": "Tout\nfonctionne très bien"
+    },
+    "scanHome": {
+      "hasData": "Données détectées",
+      "noData": "Pas de données détectées ",
+      "exposureHistory": "Historique d'exposition",
+      "noDataDesc": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
+      "noExposure": "Sur la base des données recueillies jusqu'à présent, aucun point de chevauchement avec les patients atteints de coronavirus n'a été trouvé.",
+      "noExposure1": "Selon les données recueillies à ce jour,",
+      "noExposure2": "à partir de:",
+      "noExposure3": "à:",
+      "noExposure4": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",
+      "recommendation": "Vous pouvez maintenant fermer l'application. Nous vous informerons s'il y a quelque chose de nouveau.",
+      "found": "Trouvé",
+      "exposureEvents": "Événements d'exposition",
+      "reportedAt": "Signalé à:\n",
+      "inDate": "à",
+      "fromHour": "De:",
+      "toHour": "Jusqu'à:",
+      "whereYouThere": "Etiez-vous a cet endroit à ce moment la?",
+      "no": "Non",
+      "canContinue": "Vous pouvez continuer",
+      "yes": "Oui",
+      "needDirections": "Recevez les instructions"
+    },
+    "exposuresHistory": {
+      "title": "Historique des intersections\n",
+      "noExposures": "Pas d'intersection trouvée"
+    },
+    "exposureInstructions": {
+      "title": "Guide post-exposition",
+      "weUnderstand": "Il semble que votre emplacement ait croisé une personne connue pour être infectée par le coronavirus",
+      "wrong": "Ça doit être une erreur, je n'etais pas a cet endroit",
+      "keepSafe": "Vous devez suivre les étapes suivantes",
+      "goIntoIsolation": "Restez à la maison et évitez tout contact avec d'autres personnes pendant 14 jours à compter du moment du contact",
+      "reportIsolation": "Signaler l'isolement",
+      "allInstructions": "Pour toutes les instructions",
+      "reportSite": "Pour signaler le site"
     }
   }
 }

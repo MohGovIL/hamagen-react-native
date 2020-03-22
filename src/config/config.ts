@@ -37,6 +37,10 @@ const config: AppIds = {
         title: 'ربما تم الكشف عن تداخل واحد أو أكثر',
         body: 'انقر هنا لمعرفة ما إذا كنت قد تعرضت'
       },
+      fr: {
+        title: 'Une ou plusieurs expositions peuvent avoir été détectées',
+        body: 'Cliquez ici pour savoir si vous avez été exposé'
+      },
       duration: 10000
     },
     furtherInstructions: {
@@ -44,14 +48,16 @@ const config: AppIds = {
       en: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/',
       am: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus/',
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
-      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/'
+      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/',
+      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/'
     },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       en: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       am: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ru: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
-      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il'
+      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
+      fr: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il'
     }
   },
   'com.hamagen.qa': {
@@ -87,6 +93,10 @@ const config: AppIds = {
         title: 'ربما تم الكشف عن تداخل واحد أو أكثر',
         body: 'انقر هنا لمعرفة ما إذا كنت قد تعرضت'
       },
+      fr: {
+        title: 'Une ou plusieurs expositions peuvent avoir été détectées',
+        body: 'Cliquez ici pour savoir si vous avez été exposé'
+      },
       duration: 10000
     },
     furtherInstructions: {
@@ -94,14 +104,16 @@ const config: AppIds = {
       en: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/',
       am: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus/',
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
-      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/'
+      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/',
+      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/',
     },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       en: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       am: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ru: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
-      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il'
+      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
+      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/',
     }
   },
   'com.hamagen': {
@@ -137,6 +149,10 @@ const config: AppIds = {
         title: 'ربما تم الكشف عن تداخل واحد أو أكثر',
         body: 'انقر هنا لمعرفة ما إذا كنت قد تعرضت'
       },
+      fr: {
+        title: 'Une ou plusieurs expositions peuvent avoir été détectées',
+        body: 'Cliquez ici pour savoir si vous avez été exposé'
+      },
       duration: 10000
     },
     furtherInstructions: {
@@ -144,14 +160,16 @@ const config: AppIds = {
       en: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en',
       am: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-am',
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
-      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar'
+      ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar',
+      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en',
     },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       en: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       am: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ru: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
-      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il'
+      ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
+      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en',
     }
   }
 };

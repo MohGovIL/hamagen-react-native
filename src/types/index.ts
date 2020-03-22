@@ -22,6 +22,7 @@ export interface Config {
     am: { title: string, body: string },
     ru: { title: string, body: string },
     ar: { title: string, body: string },
+    fr: { title: string, body: string },
     duration: number
   },
   furtherInstructions: {
@@ -29,14 +30,16 @@ export interface Config {
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   },
   reportForm: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   }
 }
 
