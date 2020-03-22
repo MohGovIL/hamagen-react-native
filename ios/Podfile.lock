@@ -260,6 +260,8 @@ PODS:
   - React-jsinspector (0.61.5)
   - react-native-background-timer (2.2.0):
     - React
+  - react-native-document-picker (3.3.0):
+    - React
   - react-native-netinfo (5.6.2):
     - React
   - react-native-network-info (5.2.1):
@@ -333,6 +335,8 @@ PODS:
     - Fabric
     - Firebase/Core
     - React
+  - RNFS (2.16.6):
+    - React
   - RNGestureHandler (1.5.2):
     - React
   - RNPermissions (2.0.10):
@@ -371,6 +375,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - react-native-background-timer (from `../node_modules/react-native-background-timer`)
+  - react-native-document-picker (from `../node_modules/react-native-document-picker`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-network-info (from `../node_modules/react-native-network-info`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -397,6 +402,7 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
   - RNFirebase (from `../node_modules/react-native-firebase/ios`)
+  - RNFS (from `../node_modules/react-native-fs`)
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
@@ -460,6 +466,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-background-timer:
     :path: "../node_modules/react-native-background-timer"
+  react-native-document-picker:
+    :path: "../node_modules/react-native-document-picker"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
   react-native-network-info:
@@ -510,6 +518,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-device-info"
   RNFirebase:
     :path: "../node_modules/react-native-firebase/ios"
+  RNFS:
+    :path: "../node_modules/react-native-fs"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNPermissions:
@@ -559,6 +569,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: d5525f9ed5f782fdbacb64b9b01a43a9323d2386
   React-jsinspector: fa0ecc501688c3c4c34f28834a76302233e29dc0
   react-native-background-timer: 1f7d560647b40e6a60b01c452ba29c54bf581fc4
+  react-native-document-picker: 0573c02d742d4bef38a5d16b5f039754cfa69888
   react-native-netinfo: 73303369946c2487c600418961bfdc87748b832f
   react-native-network-info: d1290ffc0bd0709e11436f5b8d7f605dcc5c4530
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
@@ -584,6 +595,7 @@ SPEC CHECKSUMS:
   RNCMaskedView: b79e193409a90bf6b5170d421684f437ff4e2278
   RNDeviceInfo: c7b1dc457611b9231bb780a882102e2c93edc7af
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
+  RNFS: 2bd9eb49dc82fa9676382f0585b992c424cd59df
   RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
   RNPermissions: 1008d3511fee0e25739cf81c4af0d1b2248f1053
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
@@ -592,6 +604,6 @@ SPEC CHECKSUMS:
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 217685a55686ea466821625ffcc92870d0bd76f7
+PODFILE CHECKSUM: cbd9d7ddc3e89f5d3758013249ad883c26911873
 
 COCOAPODS: 1.8.4

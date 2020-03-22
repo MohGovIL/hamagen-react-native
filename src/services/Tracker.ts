@@ -75,6 +75,20 @@ export const getIntersectingSickRecords = (myData: any, sickRecordsJson: any) =>
   return sickPeopleIntersected;
 };
 
+export const checkSickPeopleFromFile = async () => {
+  try {
+    const myData = await queryDB();
+    const jsonFromFile = store().getState().exposures.points;
+
+    const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points);
+    if (sickPeopleIntersected.length > 0) {
+      onSickPeopleNotify(sickPeopleIntersected);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 export const checkSickPeople = async () => {
   const lastFetch = JSON.parse(await AsyncStorage.getItem(LAST_FETCH_TS) || '0');
 

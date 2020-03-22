@@ -226,6 +226,7 @@ dependencies {
     implementation "com.google.firebase:firebase-messaging:20.1.2"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    compile project(':react-native-document-picker')
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

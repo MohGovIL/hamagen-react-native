@@ -16,7 +16,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
   const usageSourceOnBoarding = {
     he: { uri: 'https://go.gov.il/magen-terms-he' },
     en: { uri: 'https://go.gov.il/magen-terms-en' },
-    ar: { uri: 'https://go.gov.il/magen-terms-ar ' },
+    ar: { uri: 'https://go.gov.il/magen-terms-ar' },
     ru: { uri: 'https://go.gov.il/magen-terms-ru' },
     am: { uri: 'https://go.gov.il/magen-terms-am' }
   };

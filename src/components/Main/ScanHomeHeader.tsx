@@ -1,5 +1,6 @@
-import React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, ImageBackground, Alert } from 'react-native';
+import PopupForQA from '../PopupForQA';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
 import { BASIC_SHADOW_STYLES, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
@@ -12,6 +13,8 @@ interface Props {
 }
 
 const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
+  const [showPopup, setShowPopup] = useState(false);
+
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -39,11 +42,18 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
           </View>
         </TouchableOpacity>
 
+        <TouchableOpacity onPress={() => setShowPopup(!showPopup)} style={{ backgroundColor: '#FF22AA', height: 30, borderRadius: 20, justifyContent: 'center' }}>
+          <Text>Show saved locations</Text>
+        </TouchableOpacity>
+
         <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
           <View style={[styles.indicator, { backgroundColor: isConnected ? MAIN_COLOR : '#b4b4b4' }]} />
           <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
         </View>
       </View>
+
+      <PopupForQA isVisible={showPopup} closeModal={() => setShowPopup(!showPopup)} />
+
     </ImageBackground>
   );
 };

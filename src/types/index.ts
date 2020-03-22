@@ -96,3 +96,12 @@ export interface ValidExposure {
   exposure: Exposure,
   timestamp: number
 }
+
+export interface DBSample {
+  coords: {
+    latitude: number,
+    longitude: number,
+    accuracy: number,
+  },
+  timestamp: number
+}

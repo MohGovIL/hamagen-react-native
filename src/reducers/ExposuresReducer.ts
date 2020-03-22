@@ -7,6 +7,7 @@ import {
   SET_VALID_EXPOSURE,
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
+  UPDATE_POINTS_FROM_FILE,
   UPDATE_FIRST_POINT
 } from '../constants/ActionTypes';
 
@@ -14,13 +15,15 @@ interface ExposuresReducer {
   exposures: Exposure[],
   pastExposures: Exposure[],
   validExposure?: Exposure,
-  firstPoint?: number
+  firstPoint?: number,
+  points: Exposure[]
 }
 
 const INITIAL_STATE = {
   exposures: [],
   pastExposures: [],
   validExposure: undefined,
+  points: [],
   firstPoint: undefined
 };
 
@@ -52,6 +55,10 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
 
     case RESET_EXPOSURES: {
       return { ...state, exposures: [], pastExposures: [] };
+    }
+
+    case UPDATE_POINTS_FROM_FILE: {
+      return { ...state, points: action.payload };
     }
 
     case UPDATE_FIRST_POINT: {

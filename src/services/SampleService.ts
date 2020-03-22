@@ -1,14 +1,17 @@
 import geoHash from 'latlon-geohash';
+import { Alert, Clipboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import AsyncLock from 'async-lock';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
+import { updateLocations } from '../actions/MyLocationActions';
 import { sha256 } from './sha256.js';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
-import { FIRST_POINT_TS, LAST_POINT_START_TIME } from '../constants/Constants';
 import store from '../store';
+import { DBSample } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
+import { FIRST_POINT_TS, LAST_POINT_START_TIME } from '../constants/Constants';
 
 const lock = new AsyncLock();
 
@@ -16,7 +19,7 @@ export const startSampling = async () => {
   await startLocationTracking();
 };
 
-export const insertDB = async (sample: any) => new Promise(async (resolve) => {
+export const insertDB = async (sample: DBSample) => new Promise(async (resolve) => {
   // prevent race condition of entering multiple points at the same time
   await lock.acquire('insertDB', async (done) => {
     try {
@@ -105,3 +108,17 @@ const saveToStorage = (key: string, value: number) => new Promise(async (resolve
     onError({ error });
   }
 });
+
+export const alertOfLocation = (objForQA: any) => {
+  const message = `lat: ${objForQA.lat} \nlong: ${objForQA.long} \ntime: ${objForQA.startTime}`;
+
+  Alert.alert('new location added', message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }, { text: 'Copy', onPress: () => copyClicked(message) }]);
+
+  console.log(`location added: ${objForQA}`);
+  store().dispatch(updateLocations(objForQA));
+};
+
+const copyClicked = (str: string) => {
+  Clipboard.setString(str);
+  Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
+};

@@ -7,7 +7,8 @@ import {
   REMOVE_VALID_EXPOSURE,
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
-  DISMISS_EXPOSURE
+  DISMISS_EXPOSURE,
+  UPDATE_POINTS_FROM_FILE
 } from '../constants/ActionTypes';
 import { DISMISSED_EXPOSURES, VALID_EXPOSURE } from '../constants/Constants';
 
@@ -54,4 +55,8 @@ export const dismissExposure = (exposureId: number) => async (dispatch: any) => 
   } else {
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([exposureId]));
   }
+};
+
+export const updatePointsFromFile = (points: Exposure[]) => (dispatch: any) => {
+  dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points } });
 };

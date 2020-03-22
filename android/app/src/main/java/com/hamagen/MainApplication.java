@@ -15,6 +15,7 @@ import android.content.res.Configuration;
 import android.content.Context;
 import android.util.DisplayMetrics;
 
+import io.github.elyx0.reactnativedocumentpicker.DocumentPickerPackage;
 import io.radar.sdk.Radar;
 
 import android.content.IntentFilter;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
                     packages.add(new RNFirebaseMessagingPackage());
                     packages.add(new RNFirebaseNotificationsPackage());
                     packages.add(new RNFirebaseAnalyticsPackage());
+//                    packages.add(new DocumentPickerPackage());
                     return packages;
                 }
 
