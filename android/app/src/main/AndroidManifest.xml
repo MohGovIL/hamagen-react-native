@@ -9,7 +9,6 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
-    <uses-permission android:name="android.permission.GET_TASKS" tools:node="remove"/>
 
     <application
         android:name="com.hamagen.MainApplication"
