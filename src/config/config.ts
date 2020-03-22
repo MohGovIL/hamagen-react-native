@@ -113,7 +113,7 @@ const config: AppIds = {
       am: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ru: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
-      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/',
+      fr: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
     }
   },
   'com.hamagen': {
@@ -169,7 +169,7 @@ const config: AppIds = {
       am: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ru: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       ar: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
-      fr: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-en',
+      fr: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
     }
   }
 };
