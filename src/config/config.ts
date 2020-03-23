@@ -51,7 +51,7 @@ const config: AppIds = {
       en: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-en/',
       ru: 'https://govextra.gov.il/ministry-of-health/hamagen-app-ru/download-ru/',
       ar: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar/',
-      am: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+      am: 'https://govextra.gov.il/ministry-of-health/hamagen-app-am/download-am/',
     },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
