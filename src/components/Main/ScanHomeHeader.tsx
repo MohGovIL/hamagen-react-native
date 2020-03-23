@@ -9,10 +9,11 @@ interface Props {
   isConnected: boolean,
   showChangeLanguage: boolean,
   showShareButton: boolean,
+  locale: 'he'|'en'|'ar'|'am'|'ru',
   goToExposureHistory(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, showShareButton, goToExposureHistory }: Props) => {
+const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, showShareButton, goToExposureHistory, locale }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -31,7 +32,7 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
       {
         showShareButton && (
         <View style={{ position: 'absolute', right: 20, top: PADDING_TOP(20) }}>
-          <ShareAppButton />
+          <ShareAppButton locale={locale} />
         </View>
         )
       }

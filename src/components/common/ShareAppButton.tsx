@@ -1,13 +1,19 @@
 import React, { ElementType } from 'react';
 import { Alert, Share, StyleSheet, View } from 'react-native';
 import { Icon, TouchableOpacity } from '.';
+import config from '../../config/config';
 
-const ShareAppButton: ElementType = () => {
+type Props = {
+  locale: 'he'|'en'|'ar'|'am'|'ru',
+}
+
+const ShareAppButton: ElementType = ({ locale }:Props) => {
   const onShare = async () => {
     try {
+      const furtherInstructions = config.furtherInstructions[locale];
+
       await Share.share({
-        message:
-                    'Hey, Please download. https://govextra.gov.il/ministry-of-health/corona/corona-virus',
+        message: `Hey, Please download. ${furtherInstructions}`,
       });
     } catch (error) {
       Alert.alert(error.message);

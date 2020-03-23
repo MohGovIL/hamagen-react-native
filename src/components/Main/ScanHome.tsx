@@ -120,6 +120,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
     <View style={styles.container}>
       <ScanHomeHeader
         isRTL={isRTL}
+        locale={locale}
         strings={strings}
         isConnected={hasLocation && hasNetwork && hasGPS}
         showChangeLanguage
