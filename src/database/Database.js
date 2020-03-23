@@ -29,10 +29,12 @@ class Database {
 
   closeDatabase(db) {
     if (db) {
-      db.close(
-        () => null,
-        error => console.log('Closing the database failed', error)
-      )
+      db.close()
+        .catch(error => {
+          // this.errorCB(error);
+          // TODO makes unhandled promise reject in addSample function - need to check why
+          console.log('Closing the database failed', error)
+        })
     }
   }
 }
