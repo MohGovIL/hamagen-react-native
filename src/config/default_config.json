@@ -9,7 +9,6 @@
     "meterRadius": 500,
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
-    "debug": false,
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
     "sickMessage": {
@@ -74,7 +73,6 @@
     "meterRadius": 500,
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
-    "debug": false,
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
     "sickMessage": {
@@ -139,7 +137,6 @@
     "meterRadius": 500,
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
-    "debug": false,
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
     "sickMessage": {

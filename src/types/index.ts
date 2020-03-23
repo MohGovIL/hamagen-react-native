@@ -10,7 +10,6 @@ export interface Config {
   meterRadius: number,
   intersectMilliseconds: number,
   bufferUnits: string,
-  debug: boolean,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
   sickMessage: {
