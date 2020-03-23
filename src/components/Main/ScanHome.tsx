@@ -13,7 +13,7 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { toggleWebview } from '../../actions/GeneralActions';
+import { checkForceUpdate, toggleWebview } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
 import { Exposure } from '../../types';
@@ -29,15 +29,19 @@ interface Props {
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
-  toggleWebview(isShow: boolean, usageType: string): void
+  toggleWebview(isShow: boolean, usageType: string): void,
+  checkForceUpdate(): void
 }
 
-const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint }: Props) => {
+const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, checkForceUpdate }: Props) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
   useEffect(() => {
-    setTimeout(SplashScreen.hide, 3000);
+    setTimeout(() => {
+      SplashScreen.hide();
+      checkForceUpdate();
+    }, 3000);
 
     checkConnectionStatusOnLoad();
 
@@ -155,7 +159,8 @@ const mapDispatchToProps = (dispatch: any) => {
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    toggleWebview
+    toggleWebview,
+    checkForceUpdate
   }, dispatch);
 };
 

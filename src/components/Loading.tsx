@@ -93,10 +93,8 @@ const Loading = (
 
   const appLoadingActions = async () => {
     try {
-      // TODO remove comment once approved by cyber security
-      // await initConfig();
+      await initConfig();
       initLocale();
-      checkForceUpdate();
 
       !IS_IOS && await store().dispatch({ type: RESET_EXPOSURES }); // first thing - clear the redux store to fix the android duplications bug
 
