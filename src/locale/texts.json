@@ -202,7 +202,7 @@
   "en": {
     "general": {
       "start": "START",
-      "additionalInfo": "Additional Privacy information"
+      "additionalInfo": "Additional Privacy Information"
     },
     "languages": {
       "title": "Select language ",
@@ -227,7 +227,7 @@
     },
     "forceTerms": {
       "title": "Terms of Use Updated",
-      "desc": "Updated Terms of Use of the App, so that we can continue to keep you healthy Please accept the new Terms of Use",
+      "desc": "Updated Terms of Use of the App. So that we can continue to keep you healthy please accept the new Terms of Use",
       "approve": "APPROVE"
     },
     "welcome": {
@@ -241,8 +241,8 @@
       "subTitle2IOS": "In order for this to work, you must have location service activated on your phone.",
       "subTitle2Android": "In order for this to work, you must have location services activated on your phone at all times.",
       "dataAnonymous": "Your location data will be anonymized",
-      "consent1": "I have read and approve of the ",
-      "consent2": "terms of use",
+      "consent1": "I have read and approve the ",
+      "consent2": "Terms of Use",
       "approveLocation": "APPROVE"
     },
     "locationIOS": {
@@ -253,7 +253,7 @@
       "set": "Settings updated, let’s continue"
     },
     "notifications": {
-      "title": "Important to keep you updated",
+      "title": "Important for us to keep you updated",
       "subTitle1": "You must have the location service on your phone activated at all times.",
       "subTitle2": "These notifications will contain critical information for you and those close to you.",
       "approveNotifications": "Approve Notifications"
@@ -265,12 +265,12 @@
       "hasData": "Data detected",
       "noData": "No data detected ",
       "exposureHistory": "Exposure History",
-      "noDataDesc": "Please make sure you are connected to the internet and that location services are enabled",
-      "noExposure": "Based on the data collected thus far, no points of overlap with coronavirus patients have been found.",
+      "noDataDesc": "Please make sure you are connected to the internet and that phone location services are enabled",
+      "noExposure": "Based on the data collected thus far, no points of overlap with known coronavirus patients have been found.",
       "noExposure1": "According to data collected thus far,",
       "noExposure2": "starting from:",
       "noExposure3": "at:",
-      "noExposure4": "no points of intersection have been found with CoronaVirus patients",
+      "noExposure4": "no points of overlap have been found with known coronavirus patients",
       "recommendation": "You can now close the app. We'll let you know if there's anything new.",
       "found": "Found",
       "exposureEvents": "Exposure events",
@@ -278,7 +278,7 @@
       "inDate": "In",
       "fromHour": "From:",
       "toHour": "Until:",
-      "whereYouThere": "Where you around in this time?",
+      "whereYouThere": "Were you around this location at this time?",
       "no": "No",
       "canContinue": "You can proceed",
       "yes": "Yes",
@@ -296,7 +296,7 @@
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
-      "reportSite": "To report at the Site"
+      "reportSite": "To report at the MoH Site"
     }
   },
   "ru": {
