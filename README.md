@@ -2,10 +2,14 @@
 
 Israel's Ministry of Health COVID-19 exposure prevention app.
 
-
 ## Hacking
 
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Security Measures
+
+Please review at:
+https://medium.com/proferosec-osm/hamagen-application-fighiting-the-corona-virus-4ecf55eb4f7c
 
 ### Local Database Retrieval
 
