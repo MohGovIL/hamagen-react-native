@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering contributing to Hamagen - Israel's Ministry of Health COVID-19 exposure prevention app!
+Thanks for considering contributing to Hamagen - Israel's Ministry of Health's COVID-19 exposure prevention app!
 
 ## Opening issues
 
