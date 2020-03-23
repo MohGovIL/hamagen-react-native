@@ -13,6 +13,8 @@ interface Props {
 
 const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) => {
 
+  const webviewWhiteList = ['https://go.gov.il/*'];
+
   const usageSourceOnBoarding = {
     he: { uri: 'https://go.gov.il/magen-terms-he' },
     en: { uri: 'https://go.gov.il/magen-terms-en' },
@@ -58,6 +60,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
           showsHorizontalScrollIndicator={false}
           allowsBackForwardNavigationGestures
           allowsInlineMediaPlayback
+          originWhitelist={webviewWhiteList} 
         />
       </View>
     </Modal>
