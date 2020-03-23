@@ -93,7 +93,8 @@ const Loading = (
 
   const appLoadingActions = async () => {
     try {
-      await initConfig();
+      // TODO remove comment once approved by cyber security
+      // await initConfig();
       initLocale();
       checkForceUpdate();
 
