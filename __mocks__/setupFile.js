@@ -64,3 +64,10 @@ jest.mock('react-native-firebase', () => {
     })
   };
 });
+
+
+jest.mock('react-native-background-timer', () => {
+  return {
+    runBackgroundTimer: jest.fn()
+  };
+});

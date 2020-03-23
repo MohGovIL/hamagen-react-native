@@ -57,11 +57,11 @@ export const startLocationTracking = async () => {
     await BackgroundGeolocation.ready({
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-      distanceFilter: config.sampleDistance,
-      locationUpdateInterval: config.sampleInterval,
-      fastestLocationUpdateInterval: config.sampleInterval,
+      distanceFilter: config().sampleDistance,
+      locationUpdateInterval: config().sampleInterval,
+      fastestLocationUpdateInterval: config().sampleInterval,
       disableMotionActivityUpdates: true,
-      debug: config.debug,
+      debug: config().debug,
       // Activity Recognition
       stopTimeout: 1,
       // Application config

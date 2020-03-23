@@ -141,8 +141,7 @@ describe('Tracker', () => {
   });
 
   test('unitTestIntersectingRecords()', async () => {
-    const _URL = config.dataUrl;
-    fetch(_URL, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
+    fetch(config().dataUrl, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
       .then(response => response.json())
       .then(async (responseJson) => {
         const myData = [
