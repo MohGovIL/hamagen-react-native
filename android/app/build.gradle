@@ -154,22 +154,24 @@ android {
         }
     }
 
-    // File debugKeystore = new File(new File(getRootDir(), "keystore"), "debug.keystore")
-    // File releaseKeystore = new File(new File(getRootDir(), "keystore"), "hamagen.keystore")
+    // Load keystore
+    def keystorePropertiesFile = rootProject.file("keystore.properties");
+    def keystoreProperties = new Properties()
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
     signingConfigs {
         debug {
-            storeFile file(System.getenv("HAMAGEN_DEBUG_KEYSTORE_PATH"))
-            storePassword System.getenv("HAMAGEN_DEBUG_STORE_PASSWORD")
-            keyAlias System.getenv('HAMAGEN_DEBUG_KEY_ALIAS')
-            keyPassword System.getenv('HAMAGEN_DEBUG_KEY_PASSWORD')
+            storeFile file(keystoreProperties['HAMAGEN_DEBUG_KEYSTORE_PATH'])
+            storePassword keystoreProperties['HAMAGEN_DEBUG_STORE_PASSWORD']
+            keyAlias keystoreProperties['HAMAGEN_DEBUG_KEY_ALIAS']
+            keyPassword keystoreProperties['HAMAGEN_DEBUG_KEY_PASSWORD']
 
         }
         release {
-            storeFile file(System.getenv("HAMAGEN_KEYSTORE_PATH"))
-            storePassword System.getenv("HAMAGEN_STORE_PASSWORD")
-            keyAlias System.getenv('HAMAGEN_KEY_ALIAS')
-            keyPassword System.getenv('HAMAGEN_KEY_PASSWORD')
+            storeFile file(keystoreProperties['HAMAGEN_KEYSTORE_PATH'])
+            storePassword keystoreProperties['HAMAGEN_STORE_PASSWORD']
+            keyAlias keystoreProperties['HAMAGEN_KEY_ALIAS']
+            keyPassword keystoreProperties['HAMAGEN_KEY_PASSWORD']
         }
     }
 

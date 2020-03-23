@@ -2,10 +2,14 @@
 
 Israel's Ministry of Health COVID-19 exposure prevention app.
 
-
 ## Hacking
 
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Security Measures
+
+Please review at:
+https://medium.com/proferosec-osm/hamagen-application-fighiting-the-corona-virus-4ecf55eb4f7c
 
 ### Local Database Retrieval
 
@@ -17,7 +21,7 @@ $ adb exec-out run-as com.hamagen.dev cat databases/Reactoffline.db > app_db.sql
 
 ## Debug & Release
 
-Please make sure that you have the following environment variables set:
+Please make sure that you've created a keystore.properties file in your project's root dir with following variables set:
 
 ~~~
 HAMAGEN_KEYSTORE_PATH = '../path/to/release.keystore'
