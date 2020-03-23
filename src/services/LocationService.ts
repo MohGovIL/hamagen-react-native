@@ -61,7 +61,6 @@ export const startLocationTracking = async () => {
       locationUpdateInterval: config().sampleInterval,
       fastestLocationUpdateInterval: config().sampleInterval,
       disableMotionActivityUpdates: true,
-      debug: config().debug,
       // Activity Recognition
       stopTimeout: 1,
       // Application config
