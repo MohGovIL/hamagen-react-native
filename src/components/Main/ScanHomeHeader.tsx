@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
-import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
+import { TouchableOpacity, Text, Icon, ChangeLanguageButton, ShareAppButton } from '../common';
 import { BASIC_SHADOW_STYLES, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
@@ -8,10 +8,11 @@ interface Props {
   strings: any,
   isConnected: boolean,
   showChangeLanguage: boolean,
+  showShareButton: boolean,
   goToExposureHistory(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
+const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, showShareButton, goToExposureHistory }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -24,6 +25,14 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
           <View style={{ position: 'absolute', left: 20, top: PADDING_TOP(20) }}>
             <ChangeLanguageButton />
           </View>
+        )
+      }
+
+      {
+        showShareButton && (
+        <View style={{ position: 'absolute', right: 20, top: PADDING_TOP(20) }}>
+          <ShareAppButton />
+        </View>
         )
       }
 

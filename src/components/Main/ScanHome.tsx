@@ -123,6 +123,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
         strings={strings}
         isConnected={hasLocation && hasNetwork && hasGPS}
         showChangeLanguage
+        showShareButton
         goToExposureHistory={() => navigation.navigate('ExposuresHistory')}
       />
 
