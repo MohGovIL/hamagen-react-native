@@ -28,8 +28,8 @@ const ExposureInstructions = (
 ) => {
   const relevantLocale: 'he'|'en'|'ar'|'am'|'ru' = ['he', 'en', 'ar', 'am', 'ru'].includes(locale) ? locale : 'he';
 
-  const furtherInstructions = config.furtherInstructions[relevantLocale];
-  const reportForm = config.reportForm[relevantLocale];
+  const furtherInstructions = config().furtherInstructions[relevantLocale];
+  const reportForm = config().reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={styles.actionButtonContainer}>

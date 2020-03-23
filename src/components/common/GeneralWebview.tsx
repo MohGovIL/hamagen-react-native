@@ -2,32 +2,19 @@ import React from 'react';
 import { View, StyleSheet, Modal, ImageBackground } from 'react-native';
 import WebView from 'react-native-webview';
 import { TouchableOpacity, Icon } from '.';
-import {PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY} from '../../constants/Constants';
+import config from '../../config/config';
+import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
   locale: 'he'|'en'|'ar'|'am'|'ru',
-  usageType: string
+  usageType: string,
   closeWebview(): void
 }
 
 const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) => {
-
-  const usageSourceOnBoarding = {
-    he: { uri: 'https://go.gov.il/magen-terms-he' },
-    en: { uri: 'https://go.gov.il/magen-terms-en' },
-    ar: { uri: 'https://go.gov.il/magen-terms-ar ' },
-    ru: { uri: 'https://go.gov.il/magen-terms-ru' },
-    am: { uri: 'https://go.gov.il/magen-terms-am' }
-  };
-
-  const usageSourcePrivacy = {
-    he: { uri: 'https://go.gov.il/HAMAGEN' },
-    en: { uri: 'https://go.gov.il/HAMAGEN-EN' },
-    ar: { uri: 'https://go.gov.il/HAMAGEN-AR' },
-    ru: { uri: 'https://go.gov.il/HAMAGEN-RU' },
-    am: { uri: 'https://go.gov.il/HAMAGEN-AM' }
-  };
+  const usageSourceOnBoarding = config().usageTerms;
+  const usageSourcePrivacy = config().privacyTerms;
 
   return (
     <Modal
@@ -52,7 +39,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
 
         <WebView
           style={{ flex: 1 }}
-          source={usageType === USAGE_PRIVACY ? usageSourcePrivacy[locale] : usageSourceOnBoarding[locale]}
+          source={{ uri: usageType === USAGE_PRIVACY ? usageSourcePrivacy[locale] : usageSourceOnBoarding[locale] }}
           startInLoadingState
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
