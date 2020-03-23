@@ -7,7 +7,7 @@ export const scheduleTask = async () => {
   try {
     BackgroundFetch.configure(
       {
-        minimumFetchInterval: config.fetchMilliseconds / 60000,
+        minimumFetchInterval: config().fetchMilliseconds / 60000,
         // Android options
         stopOnTerminate: false,
         startOnBoot: true,

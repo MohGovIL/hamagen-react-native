@@ -24,6 +24,7 @@ import { onError } from '../services/ErrorService';
 import { startSampling } from '../services/SampleService';
 import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
+import { initConfig } from '../config/config';
 import store from '../store';
 import { ValidExposure } from '../types';
 import {
@@ -80,8 +81,6 @@ const Loading = (
   const [initialRoute, setInitialRoute] = useState('');
 
   useEffect(() => {
-    initLocale();
-    checkForceUpdate();
     appLoadingActions();
   }, []);
 
@@ -94,6 +93,10 @@ const Loading = (
 
   const appLoadingActions = async () => {
     try {
+      await initConfig();
+      initLocale();
+      checkForceUpdate();
+
       !IS_IOS && await store().dispatch({ type: RESET_EXPOSURES }); // first thing - clear the redux store to fix the android duplications bug
 
       const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
@@ -129,13 +132,15 @@ const Loading = (
 
       const exposures = await dbSick.listAllRecords();
 
-      store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
+      await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
       firstPointTS && store().dispatch({ type: UPDATE_FIRST_POINT, payload: firstPointTS });
 
       setInitialRoute('ScanHome');
     } catch (error) {
+      // TODO handle in error handling phase
+      setInitialRoute('ScanHome');
       onError({ error });
     }
   };

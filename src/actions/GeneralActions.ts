@@ -12,7 +12,7 @@ export const toggleWebview = (isShow: boolean, usageType:string) => (dispatch: a
 
 export const checkForceUpdate = () => async (dispatch: any) => {
   try {
-    const { data: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } = await axios.get(`${config.versionsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { data: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } = await axios.get(`${config().versionsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     const termsVersion = JSON.parse(await AsyncStorage.getItem(CURRENT_TERMS_VERSION) || '0');
 
