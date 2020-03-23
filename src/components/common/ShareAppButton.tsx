@@ -1,12 +1,21 @@
 import React, { ElementType } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Alert, Share, StyleSheet, View } from 'react-native';
 import { Icon, TouchableOpacity } from '.';
-import { toggleChangeLanguage } from '../../actions/LocaleActions';
-
 
 const ShareAppButton: ElementType = () => {
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message:
+                    'Hey, Please download. https://govextra.gov.il/ministry-of-health/corona/corona-virus',
+      });
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
-    <TouchableOpacity onPress={() => toggleChangeLanguage(true)}>
+    <TouchableOpacity onPress={onShare}>
       <View style={styles.container}>
         <Icon source={require('../../assets/onboarding/share.png')} width={20} />
       </View>
