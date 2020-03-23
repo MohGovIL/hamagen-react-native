@@ -24,6 +24,13 @@ export interface Config {
     ar: { title: string, body: string },
     duration: number
   },
+  downloadMohLandingPage: {
+    he: string,
+    en: string,
+    am: string,
+    ru: string,
+    ar: string
+  },
   furtherInstructions: {
     he: string,
     en: string,

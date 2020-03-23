@@ -3,17 +3,17 @@ import { Alert, Share, StyleSheet, View } from 'react-native';
 import { Icon, TouchableOpacity } from '.';
 import config from '../../config/config';
 
-type Props = {
+interface Props {
   locale: 'he'|'en'|'ar'|'am'|'ru',
 }
 
 const ShareAppButton: ElementType = ({ locale }:Props) => {
   const onShare = async () => {
     try {
-      const furtherInstructions = config.furtherInstructions[locale];
+      const downloadLink = config.downloadMohLandingPage[locale];
 
       await Share.share({
-        message: `Hey, Please download. ${furtherInstructions}`,
+        message: `Hey, Please download. ${downloadLink}`,
       });
     } catch (error) {
       Alert.alert(error.message);

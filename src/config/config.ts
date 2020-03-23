@@ -46,6 +46,13 @@ const config: AppIds = {
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
       ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/'
     },
+    downloadMohLandingPage: {
+      he: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+      en: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-en/',
+      ru: 'https://govextra.gov.il/ministry-of-health/hamagen-app-ru/download-ru/',
+      ar: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar/',
+      am: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+    },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       en: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
@@ -96,6 +103,13 @@ const config: AppIds = {
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
       ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/'
     },
+    downloadMohLandingPage: {
+      he: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+      en: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-en/',
+      ru: 'https://govextra.gov.il/ministry-of-health/hamagen-app-ru/download-ru/',
+      ar: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar/',
+      am: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+    },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
       en: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
@@ -145,6 +159,13 @@ const config: AppIds = {
       am: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-am',
       ru: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru',
       ar: 'https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar'
+    },
+    downloadMohLandingPage: {
+      he: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
+      en: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-en/',
+      ru: 'https://govextra.gov.il/ministry-of-health/hamagen-app-ru/download-ru/',
+      ar: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar/',
+      am: 'https://govextra.gov.il/ministry-of-health/hamagen-app/download-he/',
     },
     reportForm: {
       he: 'https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il',
