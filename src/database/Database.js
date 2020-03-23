@@ -1,4 +1,5 @@
 import SQLite from 'react-native-sqlite-storage';
+import config from '../config/config';
 
 SQLite.enablePromise(true);
 
@@ -234,8 +235,8 @@ export class IntersectionSickDatabase {
               record.properties.Comments,
               record.properties.fromTime,
               record.properties.toTime,
-              record.geometry.coordinates[0],
-              record.geometry.coordinates[1]
+              record.geometry.coordinates[config().sickGeometryLongIndex],
+              record.geometry.coordinates[config().sickGeometryLatIndex]
             ]).then(([tx, results]) => {
             resolve(results);
           });
