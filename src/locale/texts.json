@@ -240,7 +240,7 @@
       "subTitle1": "This app will collect your location data and compare it to the locations of people known to be infected with the virus. If any of those locations are found to overlap, you will receive a notification.",
       "subTitle2IOS": "In order for this to work, you must have location service activated on your phone.",
       "subTitle2Android": "In order for this to work, you must have location services activated on your phone at all times.",
-      "dataAnonymous": "Your location data will be anonymizedי",
+      "dataAnonymous": "Your location data will be anonymized",
       "consent1": "I have read and approve of the ",
       "consent2": "terms of use",
       "approveLocation": "APPROVE"
