@@ -10,6 +10,8 @@
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
     "debug": false,
+    "sickGeometryLongIndex": 0,
+    "sickGeometryLatIndex": 1,
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -50,7 +52,7 @@
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
-      "ar": "https://go.gov.il/magen-terms-ar ",
+      "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
       "am": "https://go.gov.il/magen-terms-am"
     },
@@ -63,7 +65,6 @@
     }
   },
   "com.hamagen.qa": {
-    "baseURL": "",
     "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
@@ -74,6 +75,8 @@
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
     "debug": false,
+    "sickGeometryLongIndex": 0,
+    "sickGeometryLatIndex": 1,
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -114,7 +117,7 @@
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
-      "ar": "https://go.gov.il/magen-terms-ar ",
+      "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
       "am": "https://go.gov.il/magen-terms-am"
     },
@@ -127,7 +130,6 @@
     }
   },
   "com.hamagen": {
-    "baseURL": "",
     "dataUrl": "https://gisweb.azureedge.net/Points.json",
     "stringsUrl": "https://gisweb.azureedge.net/texts.json",
     "versionsUrl": "https://gisweb.azureedge.net/versions.json",
@@ -138,6 +140,8 @@
     "intersectMilliseconds": 1,
     "bufferUnits": "meter",
     "debug": false,
+    "sickGeometryLongIndex": 0,
+    "sickGeometryLatIndex": 1,
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -178,7 +182,7 @@
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
-      "ar": "https://go.gov.il/magen-terms-ar ",
+      "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
       "am": "https://go.gov.il/magen-terms-am"
     },

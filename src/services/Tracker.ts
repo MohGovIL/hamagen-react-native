@@ -61,8 +61,8 @@ export const isSpaceOverlapping = (userRecord: any, sickRecord: any) => {
   };
 
   const end = {
-    latitude: sickRecord.geometry.coordinates[1],
-    longitude: sickRecord.geometry.coordinates[0],
+    latitude: sickRecord.geometry.coordinates[config().sickGeometryLatIndex],
+    longitude: sickRecord.geometry.coordinates[config().sickGeometryLongIndex],
   };
 
   return haversine(start, end, { threshold: config().meterRadius, unit: config().bufferUnits });
