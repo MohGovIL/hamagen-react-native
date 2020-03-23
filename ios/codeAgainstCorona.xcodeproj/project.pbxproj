@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		01ED0E232755E55EE7A5FDDD /* libPods-hamagen-qa.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -35,13 +34,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83FF5F851AFD0D2B0016A13E;
-			remoteInfo = RNBackgroundGeolocation;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -81,7 +73,6 @@
 		D52A57DD24204EB200521B22 /* המגן QA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "המגן QA.entitlements"; sourceTree = "<group>"; };
 		D52A57F12422D39600521B22 /* libRNBackgroundFetch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNBackgroundFetch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AE4CD7FF26A69806CF4680 /* Pods-hamagen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.release.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.release.xcconfig"; sourceTree = "<group>"; };
-		D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		D5CC7DC924235864007E3977 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = Pods/TSBackgroundFetch/ios/TSBackgroundFetch/TSBackgroundFetch.framework; sourceTree = "<group>"; };
 		D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,7 +140,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -234,14 +224,6 @@
 			path = qa;
 			sourceTree = "<group>";
 		};
-		D5CC7DC4242357EA007E3977 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -291,7 +273,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
@@ -318,10 +300,6 @@
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
-				{
-					ProductGroup = D5CC7DC4242357EA007E3977 /* Products */;
-					ProjectRef = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -332,13 +310,6 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNBackgroundGeolocation.a;
-			remoteRef = D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -552,6 +523,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
@@ -581,6 +555,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};
@@ -717,6 +694,9 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Debug;
 		};
@@ -752,6 +732,9 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+				);
 			};
 			name = Release;
 		};

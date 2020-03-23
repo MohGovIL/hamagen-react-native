@@ -2,6 +2,25 @@
 
 Thanks for considering contributing to Default!
 
+## Getting Started
+
+1. Make sure you have NodeJS >12 installed locally (https://nodejs.org/en/)
+2. Install latest version of Yarn (https://classic.yarnpkg.com/en/docs/install/#mac-stable)
+3. Clone this repo (or, your fork)
+4. Install dependencies by running `yarn` in the root directory.
+
+## Running locally for iOS
+
+If you wish to run the iOS project locally, you need to make sure to have the following:
+
+1. Make sure you have XCode installed and it's utils. Also make sure you have iOS Simulator configured correctly.
+2. Install CocoaPods dependencies by doing: `cd ios && pod install`
+3. Run `yarn ios` from the root directory - this should build the project and start the iOS Simulator.
+
+## Running locally for Android
+
+TODO
+
 ## Opening issues
 
 If you find a bug, please feel free to [open an issue](https://github.com/MohGovIL/hamagen-react-native/issues).
