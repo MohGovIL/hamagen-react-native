@@ -1,0 +1,5 @@
+{
+  "com.hamagen.dev": "https://matrixdemos.blob.core.windows.net/mabar/config.json",
+  "com.hamagen.qa": "https://matrixdemos.blob.core.windows.net/mabar/config.json",
+  "com.hamagen": "https://gisweb.azureedge.net/config.json"
+}
