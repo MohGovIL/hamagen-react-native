@@ -16,7 +16,7 @@ interface Props {
 const ExposuresDetected = (
   {
     isRTL,
-    strings: { scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, toHour, whereYouThere, no, canContinue, yes, needDirections } },
+    strings: { scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, toHour, wereYouThere, no, canContinue, yes, needDirections } },
     exposures,
     onValidExposure,
     dismissExposure
@@ -76,7 +76,7 @@ const ExposuresDetected = (
       {renderExposure(exposures[0])}
 
       <View style={{ alignItems: 'center' }}>
-        <Text style={{ marginBottom: 25 }}>{whereYouThere}</Text>
+        <Text style={{ marginBottom: 25 }}>{wereYouThere}</Text>
 
         <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
           {renderActionButton(no, canContinue, onDismissExposure)}
