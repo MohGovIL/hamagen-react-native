@@ -46,6 +46,13 @@ keystore.properties
 *.keystore
 debug.keystore
 
+
+# compile.sh
+*.pfx
+magen_keystore.pass
+app-release.apk
+image.tag
+
 # fastlane
 #
 # It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
