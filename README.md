@@ -1,6 +1,6 @@
 # Hamagen
 
-Israel's Ministry of Health COVID-19 exposure prevention app.
+Israel's Ministry of Health's COVID-19 exposure prevention app.
 
 ## Hacking
 
