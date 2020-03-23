@@ -1,11 +1,6 @@
 import { Method } from 'axios';
 
-export interface AppIds {
-  [bundle: string]: Config
-}
-
 export interface Config {
-  baseURL: string,
   sampleDistance: number,
   sampleInterval: number,
   dataUrl: string,

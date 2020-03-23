@@ -1,4 +1,4 @@
-import {NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
@@ -6,53 +6,48 @@ import {
   UserLocationsDatabase,
   IntersectionSickDatabase,
 } from '../database/Database';
+import { Exposure } from '../types';
+import { registerLocalNotification } from './PushService';
+import { setExposures } from '../actions/ExposuresActions';
 import config from '../config/config';
-import {Exposure} from '../types';
-import {registerLocalNotification} from './PushService';
-import {setExposures} from '../actions/ExposuresActions';
 import store from '../store';
-import {IS_IOS, LAST_FETCH_TS} from '../constants/Constants';
-import {onError} from './ErrorService';
+import { onError } from './ErrorService';
+import { IS_IOS, LAST_FETCH_TS } from '../constants/Constants';
 
 const haversine = require('haversine');
-
-const _URL = config.dataUrl;
-const METER_RADIUS = config.meterRadius; // 500 meters
-const INTERSECT_MILLISECONDS = config.intersectMilliseconds;
-const BUFFER_UNIT = config.bufferUnits;
 
 export const startForegroundTimer = async () => {
   await checkSickPeople();
 
   BackgroundTimer.runBackgroundTimer(async () => {
     await checkSickPeople();
-  }, config.sampleInterval);
+  }, config().sampleInterval);
 };
 
 const checkMillisecondsDiff = (to: number, from: number) => {
-  return to - from > INTERSECT_MILLISECONDS;
+  return to - from > config().intersectMilliseconds;
 };
 
 export const isTimeOverlapping = (userRecord: any, sickRecord: any) => {
   // End time in the range
   return (
-    (userRecord.endTime > sickRecord.properties.fromTime &&
-      userRecord.endTime < sickRecord.properties.toTime &&
-      checkMillisecondsDiff(
+    (userRecord.endTime > sickRecord.properties.fromTime
+      && userRecord.endTime < sickRecord.properties.toTime
+      && checkMillisecondsDiff(
         userRecord.endTime,
         Math.max(sickRecord.properties.fromTime, userRecord.startTime),
-      )) ||
+      ))
     // in the range
-    (userRecord.startTime < sickRecord.properties.fromTime &&
-      userRecord.endTime > sickRecord.properties.toTime &&
-      checkMillisecondsDiff(
+    || (userRecord.startTime < sickRecord.properties.fromTime
+      && userRecord.endTime > sickRecord.properties.toTime
+      && checkMillisecondsDiff(
         sickRecord.properties.toTime,
         sickRecord.properties.fromTime,
-      )) ||
+      ))
     // Start time in the range
-    (userRecord.startTime > sickRecord.properties.fromTime &&
-      userRecord.startTime < sickRecord.properties.toTime &&
-      checkMillisecondsDiff(
+    || (userRecord.startTime > sickRecord.properties.fromTime
+      && userRecord.startTime < sickRecord.properties.toTime
+      && checkMillisecondsDiff(
         Math.min(sickRecord.properties.toTime, userRecord.endTime),
         userRecord.startTime,
       ))
@@ -70,7 +65,7 @@ export const isSpaceOverlapping = (userRecord: any, sickRecord: any) => {
     longitude: sickRecord.geometry.coordinates[0],
   };
 
-  return haversine(start, end, {threshold: METER_RADIUS, unit: BUFFER_UNIT});
+  return haversine(start, end, { threshold: config().meterRadius, unit: config().bufferUnits });
 };
 
 export const getIntersectingSickRecords = (
@@ -87,8 +82,8 @@ export const getIntersectingSickRecords = (
       // for each raw in user data
       myData.forEach((userRecord: any) => {
         if (
-          isTimeOverlapping(userRecord, sickRecord) &&
-          isSpaceOverlapping(userRecord, sickRecord)
+          isTimeOverlapping(userRecord, sickRecord)
+          && isSpaceOverlapping(userRecord, sickRecord)
         ) {
           // add sick people you intersects
           sickPeopleIntersected.push(sickRecord);
@@ -106,13 +101,13 @@ export const checkSickPeople = async () => {
   );
 
   // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch < config.fetchMilliseconds) {
+  if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
     return;
   }
 
-  fetch(_URL, {headers: {'Content-Type': 'application/json;charset=utf-8'}})
+  fetch(config().dataUrl, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
     .then(response => response.json())
-    .then(async responseJson => {
+    .then(async (responseJson) => {
       const myData = await queryDB();
 
       const sickPeopleIntersected: any = getIntersectingSickRecords(
@@ -129,7 +124,7 @@ export const checkSickPeople = async () => {
         JSON.stringify(moment().valueOf()),
       );
     })
-    .catch(error => {
+    .catch((error) => {
       onError(error);
     });
 };
@@ -167,11 +162,11 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
     locale = 'he';
   }
 
-  exposuresToUpdate.length > 0 &&
-    (await registerLocalNotification(
-      config.sickMessage[locale].title,
-      config.sickMessage[locale].body,
-      config.sickMessage.duration,
+  exposuresToUpdate.length > 0
+    && (await registerLocalNotification(
+      config().sickMessage[locale].title,
+      config().sickMessage[locale].body,
+      config().sickMessage.duration,
       'ms',
     ));
 };
