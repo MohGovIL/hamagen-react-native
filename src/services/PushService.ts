@@ -27,7 +27,7 @@ export const registerLocalNotification = async (title: string, message: string, 
     await initPushNotifications();
 
     // Build a channel
-    const channel = new firebase.notifications.Android.Channel('LocalPush', 'CHANNEL_NAME', firebase.notifications.Android.Importance.Max,)
+    const channel = new firebase.notifications.Android.Channel('LocalPush', 'CHANNEL_NAME', firebase.notifications.Android.Importance.Max)
       .setSound('default')
       .enableVibration(true)
       .setVibrationPattern([100, 100, 100, 100]);
@@ -43,7 +43,7 @@ export const registerLocalNotification = async (title: string, message: string, 
 
     notification
       .android.setChannelId('LocalPush')
-      .android.setSmallIcon('ic_launcher')
+      .android.setSmallIcon('ic_beenhere_icon_notifi')
       .android.setAutoCancel(true)
       .android.setVibrate([100, 100, 100, 100]);
 
