@@ -9,7 +9,7 @@ import { BASIC_SHADOW_STYLES, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/C
 interface Props {
   isRTL: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'es'|'ca',
   exposure: Exposure,
   removeValidExposure(): void
 }
@@ -26,7 +26,7 @@ const ExposureInstructions = (
     removeValidExposure
   }: Props
 ) => {
-  const relevantLocale: 'he'|'en'|'ar'|'am'|'ru' = ['he', 'en', 'ar', 'am', 'ru'].includes(locale) ? locale : 'he';
+  const relevantLocale: 'he'|'en'|'ar'|'am'|'ru'|'es'|'ca' = ['he', 'en', 'ar', 'am', 'ru','es','ca'].includes(locale) ? locale : 'he';
 
   const furtherInstructions = config().furtherInstructions[relevantLocale];
   const reportForm = config().reportForm[relevantLocale];

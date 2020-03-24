@@ -18,6 +18,8 @@ export interface Config {
     am: { title: string, body: string },
     ru: { title: string, body: string },
     ar: { title: string, body: string },
+    es: { title: string, body: string },
+    ca: { title: string, body: string },
     duration: number
   },
   furtherInstructions: {
@@ -25,28 +27,36 @@ export interface Config {
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    es: string,
+    ca: string
   },
   reportForm: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    es: string,
+    ca: string
   },
   usageTerms: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    es: string,
+    ca: string
   },
   privacyTerms: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    es: string,
+    ca: string
   }
 }
 
@@ -71,7 +81,7 @@ export interface ErrorService {
 }
 
 export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'es'|'ca',
   isRTL: boolean,
   strings: any
 }

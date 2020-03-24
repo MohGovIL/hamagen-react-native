@@ -5,7 +5,7 @@ import { TEXT_COLOR } from '../../constants/Constants';
 
 interface Props extends TextProps {
   style?: TextStyle,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'es'|'ca',
   reference?: MutableRefObject<any>,
   children?: ReactNode,
   bold?: boolean,

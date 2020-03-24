@@ -7,7 +7,7 @@ import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY } from '../../c
 
 interface Props {
   isVisible: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'es'|'ca',
   usageType: string,
   closeWebview(): void
 }

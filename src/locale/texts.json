@@ -11,14 +11,18 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
       }
     },
     "forceUpdate": {
@@ -111,14 +115,18 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
       }
     },
     "forceUpdate": {
@@ -211,14 +219,18 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
       }
     },
     "forceUpdate": {
@@ -311,14 +323,18 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
       }
     },
     "forceUpdate": {
@@ -411,14 +427,18 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
       }
     },
     "forceUpdate": {
@@ -497,6 +517,214 @@
       "reportIsolation": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ የመከለል ሪፖርት ለማድረግ።",
       "allInstructions": "ለሁሉም መመርያዎች ።",
       "reportSite": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ ሪፖርት ለማድረግ።"
+    }
+  },
+  "es": {
+    "general": {
+      "start": "INICIO",
+      "additionalInfo": "Información de privacidad"
+    },
+    "languages": {
+      "title": "Selecciona idioma ",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
+      }
+    },
+    "forceUpdate": {
+      "title": "Nueva versión",
+      "desc": "Hay una nueva versión de la aplicación. Para que podamos continuar manteniendo la salud, recomendamos actualizar la aplicación"
+    },
+    "forceTerms": {
+      "title": "Actualización de los terminos de uso",
+      "desc": "Los términos de uso de la aplicación han sido actualizados. Para que podamos seguir manteniéndote saludable, acepta los nuevos Términos de uso",
+      "approve": "ACEPTAR"
+    },
+    "welcome": {
+      "title": "¡Nos alegra que te hayas unido!",
+      "subTitle1": "Miles de israelis podrían sufrir los efectos nocivos del coronavirus.",
+      "subTitle2": "El diagnóstico oportuno y el aislamiento pueden salvar vidas."
+    },
+    "location": {
+      "title": "La ubicación es importante",
+      "subTitle1": "Esta aplicación recopilará los datos de tu ubicación y los comparará con las ubicaciones de las personas que se sabe que están infectadas con el virus. Si alguna de esas ubicaciones se superpone, recibirás una notificación.",
+      "subTitle2IOS": "Para que esto funcione, debes tener activado el servicio de localización en tu teléfono.",
+      "subTitle2Android": "Para que esto funcione, debes tener los servicios de localización activados en tu teléfono en todo momento.",
+      "dataAnonymous": "Tus datos de localización serán anonimizados",
+      "consent1": "He leído y acepto los ",
+      "consent2": "Terminos de uso",
+      "approveLocation": "ACEPTAR"
+    },
+    "locationIOS": {
+      "title": "Activa la localización\nen segundo plano",
+      "subTitle1": "Para poder informarte sobre eventos relacionados con el coronavirus, necesitaremos enviarte notificaciones.",
+      "subTitle2": "La configuración del servicio de localización debe cambiarse como se muestra en las imágenes a continuación",
+      "goToSettings": "Ir a configuración",
+      "set": "Configuración hecha, seguimos"
+    },
+    "notifications": {
+      "title": "Importante para mantenerte informado",
+      "subTitle1": "Debes tener activado el servicio de localización siempre.",
+      "subTitle2": "Estas notificaciones contendrán información crítica para ti y tus seres queridos.",
+      "approveNotifications": "Aceptar Notificaciones"
+    },
+    "allSet": {
+      "allGood": "¡Todo correcto!"
+    },
+    "scanHome": {
+      "hasData": "Datos detectados",
+      "noData": "Sin datos detectados ",
+      "exposureHistory": "Historial de exposición",
+      "noDataDesc": "Asegúrate de estar conectado a Internet y de que los servicios de localización del teléfono están habilitados.",
+      "noExposure": "Según los datos recopilados hasta el momento, no se han encontrado puntos de superposición con pacientes con coronavirus.",
+      "noExposure1": "Según los datos recopilados hasta el momento,",
+      "noExposure2": "empezando desde:",
+      "noExposure3": "en:",
+      "noExposure4": "no se han encontrado puntos de superposición con pacientes con coronavirus",
+      "recommendation": "Ahora puedes cerrar la aplicación. Te haremos saber si hay algo nuevo.",
+      "found": "Encontrado",
+      "exposureEvents": "Eventos de exposición",
+      "reportedAt": "Reportado en:",
+      "inDate": "El",
+      "fromHour": "Desde:",
+      "toHour": "Hasta:",
+      "wereYouThere": "¿Estabas en este lugar en este momento?",
+      "no": "No",
+      "canContinue": "Puedes continuar",
+      "yes": "Si",
+      "needDirections": "Recibir instrucciones"
+    },
+    "exposuresHistory": {
+      "title": "Historial de superposición",
+      "noExposures": "Sin puntos de superposición"
+    },
+    "exposureInstructions": {
+      "title": "Instrucciones post-exposición",
+      "weUnderstand": "Parece que tu ubicación se ha cruzado con una persona que está infectada con el coronavirus",
+      "wrong": "Debe ser un error, yo no estaba allí",
+      "keepSafe": "Debes seguir los siguientes pasos",
+      "goIntoIsolation": "Quédate en casa y evita el contacto con otras personas durante 14 días desde el momento del contacto.",
+      "reportIsolation": "Informar del aislamiento",
+      "allInstructions": "Para todas las instrucciones",
+      "reportSite": "Debes informar al ministerio de salud"
+    }
+  },
+  "ca": {
+    "general": {
+      "start": "INICIAR",
+      "additionalInfo": "Informació sobre privacitat"
+    },
+    "languages": {
+      "title": "Selecciona idioma ",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ",
+        "es": "Es",
+        "ca": "Ca"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "es": "Español",
+        "ca": "Català"
+      }
+    },
+    "forceUpdate": {
+      "title": "Nova versió",
+      "desc": "Hi ha una nova versió de l'aplicació. Perquè puguem continuar mantenint la salut, et recomanem actualitzar l'aplicació."
+    },
+    "forceTerms": {
+      "title": "Actualització dels termes d'ús",
+      "desc": "Els termes d'ús de l'aplicació han estat actualitzats. Perquè puguem seguir mantenint-te saludable, accepta els nous Termes d'ús",
+      "approve": "ACCEPTAR"
+    },
+    "welcome": {
+      "title": "Ens alegra que t'hagis unit!",
+      "subTitle1": "Milers d'israelians podrien patir els efectes nocius del coronavirus.",
+      "subTitle2": "El diagnòstic oportú i l'aïllament poden salvar vides."
+    },
+    "location": {
+      "title": "La ubicació és important",
+      "subTitle1": "Aquesta aplicació recopilarà les dades de la teva ubicació i les compararà amb les ubicacions de les persones que se sap que estan infectades amb el virus. Si alguna d'aquestes ubicacions es superposa, rebràs una notificació.",
+      "subTitle2IOS": "Perquè això funcioni, has de tenir activat el servei de localització al teu telèfon.",
+      "subTitle2Android": "Perquè això funcioni, has de tenir els serveis de localització activats al teu telèfon en tot moment.",
+      "dataAnonymous": "Les teves dades de localització seran anonimitzades",
+      "consent1": "He llegit i accepto els ",
+      "consent2": "Termes d'ús",
+      "approveLocation": "ACCEPTAR"
+    },
+    "locationIOS": {
+      "title": "Activa la localizació\nen segon pla",
+      "subTitle1": "Per poder informar-te sobre esdeveniments relacionats amb el coronavirus, necessitarem enviar-te notificacions.",
+      "subTitle2": "La configuració del servei de localització s'ha de canviar com es mostra a les imatges a continuació",
+      "goToSettings": "Anar a configuració",
+      "set": "Configuració feta, seguim"
+    },
+    "notifications": {
+      "title": "Important per mantenir-te informat",
+      "subTitle1": "Has de tenir activat el servei de localització sempre.",
+      "subTitle2": "Aquestes notificacions contindran informació crítica per a tu i els teus.",
+      "approveNotifications": "Acceptar Notificacions"
+    },
+    "allSet": {
+      "allGood": "Tot correcte!"
+    },
+    "scanHome": {
+      "hasData": "Dades detectades",
+      "noData": "Sense dades detectades ",
+      "exposureHistory": "Històric d'exposició",
+      "noDataDesc": "Assegura't d'estar connectat a Internet i que els serveis de localització del telèfon estan habilitats.",
+      "noExposure": "Segons les dades recopilades fins al moment, no s'han trobat punts de superposició amb pacients amb coronavirus.",
+      "noExposure1": "Segons les dades recopilades fins al moment,",
+      "noExposure2": "començant des de:",
+      "noExposure3": "a:",
+      "noExposure4": "no s'han trobat punts de superposició amb pacients amb coronavirus",
+      "recommendation": "Ara pots tancar l'aplicació. T'avisarem si hi ha cap novetat.",
+      "found": "Trobat",
+      "exposureEvents": "Esdeveniments d'exposició",
+      "reportedAt": "Reportat a:",
+      "inDate": "El",
+      "fromHour": "Des de:",
+      "toHour": "Fins a:",
+      "wereYouThere": "Estaves en aquest lloc en aquest moment?",
+      "no": "No",
+      "canContinue": "Pots continuar",
+      "yes": "Sí",
+      "needDirections": "Rebre instruccions"
+    },
+    "exposuresHistory": {
+      "title": "Històric de superposició",
+      "noExposures": "Sense punts de superposició"
+    },
+    "exposureInstructions": {
+      "title": "Instruccions post-exposició",
+      "weUnderstand": "Sembla que la teva ubicació s'ha creuat amb una persona que està infectada amb el coronavirus",
+      "wrong": "Ha de ser un error, jo no estava allà",
+      "keepSafe": "Has de seguir els següents passos",
+      "goIntoIsolation": "Queda't a casa i evita el contacte amb altres persones durant 14 dies des del moment del contacte.",
+      "reportIsolation": "Informar de l'aïllament",
+      "allInstructions": "Per a totes les instruccions",
+      "reportSite": "Has informar el ministeri de salut"
     }
   }
 }

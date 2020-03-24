@@ -32,6 +32,14 @@
         "title": "ربما تم الكشف عن تداخل واحد أو أكثر",
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
+      "es": {
+        "title": "Es posible que se hayan detectado una o más exposiciones",
+        "body": "Haz clic aquí para averiguar si has estado expuesto"
+      },
+      "ca": {
+        "title": "Es poden haver detectat una o més exposicions",
+        "body": "Fes clic aquí per descobrir si t'has exposat"
+      },
       "duration": 10000
     },
     "furtherInstructions": {
@@ -39,28 +47,36 @@
       "en": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
       "am": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
       "ru": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru",
-      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/"
+      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/",
+      "es": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
+      "ca": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/"
     },
     "reportForm": {
       "he": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "en": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "am": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "ru": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
-      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
+      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "es": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ca": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
     },
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
       "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
-      "am": "https://go.gov.il/magen-terms-am"
+      "am": "https://go.gov.il/magen-terms-am",
+      "es": "https://go.gov.il/magen-terms-en",
+      "ca": "https://go.gov.il/magen-terms-en"
     },
     "privacyTerms": {
       "he": "https://go.gov.il/HAMAGEN",
       "en": "https://go.gov.il/HAMAGEN-EN",
       "ar": "https://go.gov.il/HAMAGEN-AR",
       "ru": "https://go.gov.il/HAMAGEN-RU",
-      "am": "https://go.gov.il/HAMAGEN-AM"
+      "am": "https://go.gov.il/HAMAGEN-AM",
+      "es": "https://go.gov.il/HAMAGEN-EN",
+      "ca": "https://go.gov.il/HAMAGEN-EN"
     }
   },
   "com.hamagen.qa": {
@@ -96,6 +112,14 @@
         "title": "ربما تم الكشف عن تداخل واحد أو أكثر",
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
+      "es": {
+        "title": "Es posible que se hayan detectado una o más exposiciones",
+        "body": "Haz clic aquí para averiguar si has estado expuesto"
+      },
+      "ca": {
+        "title": "Es poden haver detectat una o més exposicions",
+        "body": "Fes clic aquí per descobrir si t'has exposat"
+      },
       "duration": 10000
     },
     "furtherInstructions": {
@@ -103,28 +127,36 @@
       "en": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
       "am": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
       "ru": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru",
-      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/"
+      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/",
+      "es": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
+      "ca": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/"
     },
     "reportForm": {
       "he": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "en": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "am": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "ru": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
-      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
+      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "es": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ca": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
     },
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
       "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
-      "am": "https://go.gov.il/magen-terms-am"
+      "am": "https://go.gov.il/magen-terms-am",
+      "es": "https://go.gov.il/magen-terms-en",
+      "ca": "https://go.gov.il/magen-terms-en"
     },
     "privacyTerms": {
       "he": "https://go.gov.il/HAMAGEN",
       "en": "https://go.gov.il/HAMAGEN-EN",
       "ar": "https://go.gov.il/HAMAGEN-AR",
       "ru": "https://go.gov.il/HAMAGEN-RU",
-      "am": "https://go.gov.il/HAMAGEN-AM"
+      "am": "https://go.gov.il/HAMAGEN-AM",
+      "es": "https://go.gov.il/HAMAGEN-EN",
+      "ca": "https://go.gov.il/HAMAGEN-EN"
     }
   },
   "com.hamagen": {
@@ -160,6 +192,14 @@
         "title": "ربما تم الكشف عن تداخل واحد أو أكثر",
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
+      "es": {
+        "title": "Es posible que se hayan detectado una o más exposiciones",
+        "body": "Haz clic aquí para averiguar si has estado expuesto"
+      },
+      "ca": {
+        "title": "Es poden haver detectat una o més exposicions",
+        "body": "Fes clic aquí per descobrir si t'has exposat"
+      },
       "duration": 10000
     },
     "furtherInstructions": {
@@ -167,28 +207,36 @@
       "en": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en",
       "am": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-am",
       "ru": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru",
-      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar"
+      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar",
+      "es": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en",
+      "ca": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en"
     },
     "reportForm": {
       "he": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "en": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "am": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "ru": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
-      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
+      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "es": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ca": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
     },
     "usageTerms": {
       "he": "https://go.gov.il/magen-terms-he",
       "en": "https://go.gov.il/magen-terms-en",
       "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
-      "am": "https://go.gov.il/magen-terms-am"
+      "am": "https://go.gov.il/magen-terms-am",
+      "es": "https://go.gov.il/magen-terms-en",
+      "ca": "https://go.gov.il/magen-terms-en"
     },
     "privacyTerms": {
       "he": "https://go.gov.il/HAMAGEN",
       "en": "https://go.gov.il/HAMAGEN-EN",
       "ar": "https://go.gov.il/HAMAGEN-AR",
       "ru": "https://go.gov.il/HAMAGEN-RU",
-      "am": "https://go.gov.il/HAMAGEN-AM"
+      "am": "https://go.gov.il/HAMAGEN-AM",
+      "es": "https://go.gov.il/HAMAGEN-EN",
+      "ca": "https://go.gov.il/HAMAGEN-EN"
     }
   }
 }
