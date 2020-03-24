@@ -1,5 +1,5 @@
 import {WebView} from "react-native-webview"
-import {Text} from "react-native";
+import {Text, Button} from "react-native";
 import React, {useState, useRef, useEffect} from "react"
 import { insertHistoricDB } from "../../services/SampleService";
 import { checkSickPeople } from "../../services/Tracker";
@@ -113,13 +113,13 @@ function interpolate(data: GoogleDataPoint[]): {coords: {latitude:number, longit
     },[] as {coords: {latitude:number, longitude:number}, timestamp: Date}[])
 }
 
-export default function ImportData(){
+export default function ImportData({navigation}: {navigation:any}){
     const [screen, setScreen] = useState("intro")
     const [data, setData] = useState<GoogleDataPoint[]>([])
     useEffect(()=>{
         if (data.length === 0) return;
         if (screen !== "intro") return;
-        
+
         let interpolated = interpolate(data);
         let samples = interpolated.map(x=>({
             timestamp : x.timestamp.getTime(),
@@ -136,7 +136,10 @@ export default function ImportData(){
         }, ex=> console.log(ex));
     }, [data])
     if (screen === "done"){
-        return <Text>{data.length} items were collected</Text>
+        return <>
+            <Text>{data.length} items were collected</Text>
+            <Button title="back" onPress={()=> navigation.navigate('ScanHome')}>Back</Button>
+            </>
     }
     if (screen === "intro"){
         return <WebViewCollector onDataCollected={d=> {

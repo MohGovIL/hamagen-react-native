@@ -12,7 +12,7 @@ interface Props {
   goToImportData(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory, goToImportData }: Props) => {
+const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory, importGoogleData } }, isConnected, showChangeLanguage, goToExposureHistory, goToImportData }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -43,7 +43,7 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
         <TouchableOpacity onPress={goToImportData}>
           <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
             <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
-            <Text style={styles.text}>ייבוא נתונים</Text>
+            <Text style={styles.text}>{importGoogleData}</Text>
           </View>
         </TouchableOpacity>
 
