@@ -82,7 +82,8 @@
       "no": "לא",
       "canContinue": "אפשר להמשיך",
       "yes": "כן",
-      "needDirections": "אשמח להנחיות"
+      "needDirections": "אשמח להנחיות",
+      "importGoogleData": "ייבוא נתונים מגוגל"
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",
@@ -282,7 +283,8 @@
       "no": "No",
       "canContinue": "You can proceed",
       "yes": "Yes",
-      "needDirections": "Receive instructions"
+      "needDirections": "Receive instructions",
+      "importGoogleData": "Import Google data"
     },
     "exposuresHistory": {
       "title": "Overlap history",
