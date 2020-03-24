@@ -1,3 +1,5 @@
+import { XMLSerializer } from 'xmldom';
+
 const toGeoJSON = (function () {
   const removeSpace = /\s*/g;
   const trimSpace = /^\s*|\s*$/g;
@@ -29,7 +31,7 @@ const toGeoJSON = (function () {
   }
   // get the contents of multiple text nodes, if present
   function getMulti(x, ys) {
-    const o = {}; let n; let 
+    const o = {}; let n; let
       k;
     for (k = 0; k < ys.length; k++) {
       n = get1(x, ys[k]);
@@ -132,7 +134,7 @@ const toGeoJSON = (function () {
         gj.features = gj.features.concat(getPlacemark(placemarks[j]));
       }
       function kmlColor(v) {
-        let color; let 
+        let color; let
           opacity;
         v = v || '';
         if (v.substr(0, 1) === '#') { v = v.substr(1); }
@@ -147,7 +149,7 @@ const toGeoJSON = (function () {
       }
       function gxCoord(v) { return numarray(v.split(' ')); }
       function gxCoords(root) {
-        let elems = get(root, 'coord', 'gx'); const coords = []; const 
+        let elems = get(root, 'coord', 'gx'); const coords = []; const
           times = [];
         if (elems.length === 0) elems = get(root, 'gx:coord');
         for (let i = 0; i < elems.length; i++) coords.push(gxCoord(nodeVal(elems[i])));
@@ -159,7 +161,7 @@ const toGeoJSON = (function () {
         };
       }
       function getGeometry(root) {
-        let geomNode; let geomNodes; let i; let j; let k; const geoms = []; const 
+        let geomNode; let geomNodes; let i; let j; let k; const geoms = []; const
           coordTimes = [];
         if (get1(root, 'MultiGeometry')) { return getGeometry(get1(root, 'MultiGeometry')); }
         if (get1(root, 'MultiTrack')) { return getGeometry(get1(root, 'MultiTrack')); }

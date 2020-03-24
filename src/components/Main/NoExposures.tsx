@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
+import GoogleTimeLine from './LocationsHistory/GoogleTimeLine';
 import { FadeInView, Text, TouchableOpacity } from '../common';
 import { MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
@@ -44,6 +45,8 @@ const NoExposures = (
       </View>
 
       <Text style={[styles.text, { lineHeight: 22 }]}>{recommendation}</Text>
+
+      <GoogleTimeLine />
 
       <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
         <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
