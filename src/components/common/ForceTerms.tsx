@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { ActionButton, Icon, TermsOfUse, Text } from '.';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_ON_BOARDING } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: PADDING_TOP(70),
+    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 40 : 70),
+    paddingBottom: IS_SMALL_SCREEN ? 40 : 70,
     backgroundColor: '#fff'
   },
   title: {
