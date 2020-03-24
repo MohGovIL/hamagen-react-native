@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { ActionButton, GeneralContainer, TouchableOpacity, Text, OnboardingHeader, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
-import { MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -44,7 +44,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: 40 }}>
+      <View style={[{ alignItems: 'center' }, IS_SMALL_SCREEN && { paddingHorizontal: 10, paddingTop: 5 }]}>
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.subTitle}>{subTitle1}</Text>
       </View>
@@ -55,7 +55,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
         <Icon source={require('../../assets/onboarding/locationTutorial.png')} width={SCREEN_WIDTH - 50} height={106} customStyles={{ marginVertical: 25 }} />
 
         <TouchableOpacity onPress={() => Linking.openURL('app-settings:')}>
-          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
+          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 0 }}>
             <Icon source={require('../../assets/onboarding/settings.png')} width={17} customStyles={{ marginHorizontal: 7 }} />
             <Text style={{ color: MAIN_COLOR, textDecorationLine: 'underline' }} bold>{goToSettings}</Text>
           </View>
@@ -66,7 +66,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
         text={set}
         isDisabled={!isLocationAllowed}
         onPress={() => navigation.navigate('Notifications')}
-        containerStyle={{ marginVertical: 20 }}
+        containerStyle={{ marginVertical: IS_SMALL_SCREEN ? 0 : 20 }}
       />
     </GeneralContainer>
   );
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 22,
-    marginBottom: 25
+    marginBottom: IS_SMALL_SCREEN ? 5 : 25
   },
   subTitle: {
-    lineHeight: 24
+    lineHeight: IS_SMALL_SCREEN ? 15 : 24
   },
   bottomBorder: {
     alignSelf: 'stretch',
