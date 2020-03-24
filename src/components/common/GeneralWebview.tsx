@@ -3,7 +3,7 @@ import { View, StyleSheet, Modal, ImageBackground } from 'react-native';
 import WebView from 'react-native-webview';
 import { TouchableOpacity, Icon } from '.';
 import config from '../../config/config';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -31,7 +31,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
           resizeMethod="resize"
         >
           <TouchableOpacity style={styles.close} onPress={closeWebview}>
-            <Icon source={require('../../assets/onboarding/close.png')} width={31} />
+            <Icon source={require('../../assets/onboarding/close.png')} width={IS_SMALL_SCREEN ? 20 : 31} />
           </TouchableOpacity>
 
           <View style={styles.headerSubContainer} />
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
   },
   close: {
     position: 'absolute',
-    top: PADDING_TOP(20),
-    left: 20,
+    top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
+    left: IS_SMALL_SCREEN ? 10 : 20,
     zIndex: 1000
   },
   headerContainer: {

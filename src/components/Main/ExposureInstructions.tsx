@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Linking } from 'react-native';
+import { View, StyleSheet, Linking, ScrollView } from 'react-native';
 import moment from 'moment';
 import { Exposure } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import config from '../../config/config';
-import { BASIC_SHADOW_STYLES, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
+import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -32,7 +32,7 @@ const ExposureInstructions = (
   const reportForm = config().reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={styles.actionButtonContainer}>
+    <View style={[styles.actionButtonContainer, !IS_SMALL_SCREEN && { height: 230 }]}>
       <View style={{ alignItems: 'center', paddingHorizontal: 15 }}>
         <Icon source={icon} width={22} height={35} customStyles={{ marginBottom: 15 }} />
         <Text style={[{ lineHeight: 17, marginBottom: 20 }, locale === 'en' && text === goIntoIsolation && { fontSize: 13 }]}>{text}</Text>
@@ -44,29 +44,33 @@ const ExposureInstructions = (
     </View>
   );
 
+  const ContentContainer = IS_SMALL_SCREEN ? ScrollView : View;
+
   return (
-    <FadeInView style={styles.container}>
-      <View style={{ alignItems: 'center', paddingHorizontal: 30 }}>
-        <Text style={styles.title} bold>{title}</Text>
+    <FadeInView style={{ flex: 1 }}>
+      <ContentContainer style={!IS_SMALL_SCREEN ? styles.container : {}} scrollEnabled showsVerticalScrollIndicator={false}>
+        <View style={{ alignItems: 'center', paddingHorizontal: 30 }}>
+          <Text style={styles.title} bold>{title}</Text>
 
-        <Text style={{ lineHeight: 22, marginBottom: 15 }}>
-          {`${weUnderstand}${Place} ${inDate} ${moment.utc(fromTime).format('DD.MM.YY')} ${fromHour} ${moment.utc(fromTime).format('HH:mm')} ${toHour} ${moment.utc(toTime).format('HH:mm')}`}
-        </Text>
+          <Text style={{ lineHeight: 22, marginBottom: 15 }}>
+            {`${weUnderstand}${Place} ${inDate} ${moment.utc(fromTime).format('DD.MM.YY')} ${fromHour} ${moment.utc(fromTime).format('HH:mm')} ${toHour} ${moment.utc(toTime).format('HH:mm')}`}
+          </Text>
 
-        <TouchableOpacity onPress={removeValidExposure}>
-          <Text style={{ fontSize: 14 }}>{wrong}</Text>
-          <View style={styles.bottomBorder} />
-        </TouchableOpacity>
-      </View>
-
-      <View style={{ alignItems: 'center', paddingHorizontal: 25 }}>
-        <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
-
-        <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-          {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-          {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+          <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 20 : 0 }} onPress={removeValidExposure}>
+            <Text style={{ fontSize: 14 }}>{wrong}</Text>
+            <View style={styles.bottomBorder} />
+          </TouchableOpacity>
         </View>
-      </View>
+
+        <View style={{ alignItems: 'center', paddingHorizontal: 25 }}>
+          <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
+
+          <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }, IS_SMALL_SCREEN && { marginBottom: 100 }]}>
+            {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+            {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+          </View>
+        </View>
+      </ContentContainer>
     </FadeInView>
   );
 };
@@ -94,7 +98,6 @@ const styles = StyleSheet.create({
   actionButtonContainer: {
     ...BASIC_SHADOW_STYLES,
     width: (SCREEN_WIDTH - 60) / 2,
-    height: 230,
     paddingVertical: 20,
     borderRadius: 20,
     alignItems: 'center',
