@@ -124,6 +124,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
         isConnected={hasLocation && hasNetwork && hasGPS}
         showChangeLanguage
         goToExposureHistory={() => navigation.navigate('ExposuresHistory')}
+        goToImportData={() => navigation.navigate('ImportData')}
       />
 
       {

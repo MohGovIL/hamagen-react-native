@@ -16,6 +16,26 @@ export const startSampling = async () => {
   await startLocationTracking();
 };
 
+export const insertHistoricDB = async(samples:any[])=> new Promise(async (resolve) => {
+  const db = new UserLocationsDatabase();
+  const finalSamples = samples.map((sample:any) => ({
+    lat: sample.coords.latitude,
+    long: sample.coords.longitude,
+    accuracy: sample.coords.accuracy,
+    startTime: sample.timestamp,
+    endTime: sample.timestamp,
+    geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
+  })).map( s =>({
+    ...s,
+    hash: sha256(JSON.stringify(s))
+  }))
+
+  console.warn("adding samples", finalSamples[0]);
+  await db.addSamples(finalSamples);
+  console.warn("finished adding samples");
+  resolve();
+});
+
 export const insertDB = async (sample: any) => new Promise(async (resolve) => {
   // prevent race condition of entering multiple points at the same time
   await lock.acquire('insertDB', async (done) => {

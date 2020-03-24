@@ -95,13 +95,13 @@ export const getIntersectingSickRecords = (
   return sickPeopleIntersected;
 };
 
-export const checkSickPeople = async () => {
+export const checkSickPeople = async (force =false) => {
   const lastFetch = JSON.parse(
     (await AsyncStorage.getItem(LAST_FETCH_TS)) || '0',
   );
 
   // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+  if (!force && (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds)) {
     return;
   }
 
@@ -114,6 +114,8 @@ export const checkSickPeople = async () => {
         myData,
         responseJson,
       );
+      
+      console.warn(sickPeopleIntersected);
 
       if (sickPeopleIntersected.length > 0) {
         await onSickPeopleNotify(sickPeopleIntersected);

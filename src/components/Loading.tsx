@@ -14,6 +14,7 @@ import LocationIOS from './Onboarding/LocationIOS';
 import Notifications from './Onboarding/Notifications';
 import AllSet from './Onboarding/AllSet';
 import ScanHome from './Main/ScanHome';
+import ImportData from './Main/ImportData';
 import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
 import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
@@ -171,6 +172,7 @@ const Loading = (
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="ImportData" component={ImportData} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />

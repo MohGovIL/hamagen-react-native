@@ -97,6 +97,22 @@ export class UserLocationsDatabase {
     });
   }
 
+  addSamples(samples) {
+    return this.initDB().then((db) => {
+        db.transaction((tx) => {
+          for (let sample of samples){
+            tx.executeSql('INSERT INTO Samples VALUES (?,?,?,?,?,?,?,?)', [sample.lat, sample.long, sample.accuracy, sample.startTime, sample.endTime, sample.geoHash, sample.wifiHash, sample.hash])
+          }
+        }).then(() => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.warn(err);
+        });
+      }).catch((err) => {
+        console.warn(err);
+      })
+    };
+
   addSample(sample) {
     return new Promise((resolve) => {
       this.initDB().then((db) => {

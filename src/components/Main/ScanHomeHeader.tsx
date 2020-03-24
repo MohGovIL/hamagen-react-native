@@ -8,10 +8,11 @@ interface Props {
   strings: any,
   isConnected: boolean,
   showChangeLanguage: boolean,
-  goToExposureHistory(): void
+  goToExposureHistory(): void,
+  goToImportData(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
+const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory, goToImportData }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -36,6 +37,13 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
           <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
             <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
             <Text style={styles.text}>{exposureHistory}</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={goToImportData}>
+          <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+            <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
+            <Text style={styles.text}>ייבוא נתונים</Text>
           </View>
         </TouchableOpacity>
 
