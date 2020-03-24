@@ -106,10 +106,10 @@ export class UserLocationsDatabase {
         }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
-          console.warn(err);
+          console.log(err);
         });
       }).catch((err) => {
-        console.warn(err);
+        console.log(err);
       })
     };
 

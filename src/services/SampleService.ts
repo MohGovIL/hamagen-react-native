@@ -16,7 +16,7 @@ export const startSampling = async () => {
   await startLocationTracking();
 };
 
-export const insertHistoricDB = async(samples:any[])=> new Promise(async (resolve) => {
+export const insertHistoricDB = async function(samples:any[]){
   const db = new UserLocationsDatabase();
   const finalSamples = samples.map((sample:any) => ({
     lat: sample.coords.latitude,
@@ -29,12 +29,8 @@ export const insertHistoricDB = async(samples:any[])=> new Promise(async (resolv
     ...s,
     hash: sha256(JSON.stringify(s))
   }))
-
-  console.warn("adding samples", finalSamples[0]);
-  await db.addSamples(finalSamples);
-  console.warn("finished adding samples");
-  resolve();
-});
+  await db.addSamples(finalSamples); 
+};
 
 export const insertDB = async (sample: any) => new Promise(async (resolve) => {
   // prevent race condition of entering multiple points at the same time

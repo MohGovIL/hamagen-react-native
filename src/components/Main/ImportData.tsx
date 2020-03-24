@@ -119,8 +119,7 @@ export default function ImportData(){
     useEffect(()=>{
         if (data.length === 0) return;
         if (screen !== "intro") return;
-
-        console.warn(`adding ${data.length} to db`)
+        
         let interpolated = interpolate(data);
         let samples = interpolated.map(x=>({
             timestamp : x.timestamp.getTime(),
@@ -130,13 +129,11 @@ export default function ImportData(){
                 latitude: x.coords.latitude
             }
         }))
-        console.warn(`adding ${samples.length} to db`)
        
         insertHistoricDB(samples).then(()=>{
-            console.warn("added google samples");
             setScreen("done")
             checkSickPeople(true)
-        }, ex=> console.warn(ex));
+        }, ex=> console.log(ex));
     }, [data])
     if (screen === "done"){
         return <Text>{data.length} items were collected</Text>

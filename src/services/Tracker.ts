@@ -114,8 +114,6 @@ export const checkSickPeople = async (force =false) => {
         myData,
         responseJson,
       );
-      
-      console.warn(sickPeopleIntersected);
 
       if (sickPeopleIntersected.length > 0) {
         await onSickPeopleNotify(sickPeopleIntersected);
