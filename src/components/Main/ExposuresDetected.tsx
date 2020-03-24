@@ -66,7 +66,7 @@ const ExposuresDetected = (
   const renderActionButton = (text1: string, text2: string, action: () => void) => (
     <TouchableOpacity onPress={action}>
       <View style={styles.actionButton}>
-        <Text style={[styles.actionButtonText, { fontSize: 25 }]} bold>{text1}</Text>
+        <Text style={[styles.actionButtonText, { fontSize: IS_SMALL_SCREEN ? 20 : 25 }]} bold>{text1}</Text>
         <Text style={styles.actionButtonText}>{text2}</Text>
       </View>
     </TouchableOpacity>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: '#fff',
     paddingVertical: 2,
-    fontSize: 20
+    fontSize: IS_SMALL_SCREEN ? 17 : 20
   }
 });
 

@@ -1,7 +1,7 @@
 import React, { ElementType, MutableRefObject, ReactNode } from 'react';
 import { StyleSheet, Text as RNText, TextProps, TextStyle } from 'react-native';
 import { Fonts } from '../../types';
-import { TEXT_COLOR } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, TEXT_COLOR } from '../../constants/Constants';
 
 interface Props extends TextProps {
   style?: TextStyle,
@@ -22,7 +22,7 @@ const Text: ElementType = (props: Props) => {
   };
 
   return (
-    <RNText {...props} ref={reference} style={[styles.text, { fontFamily: fonts[locale || 'he-IL'] }, style]} allowFontScaling={false}>
+    <RNText {...props} ref={reference} style={[styles.text, { fontFamily: fonts[locale || 'he-IL'] }, IS_SMALL_SCREEN && { lineHeight: style?.fontSize || 16 }, style]} allowFontScaling={false}>
       {children}
     </RNText>
   );
