@@ -3,7 +3,7 @@ import { View, StyleSheet, Modal, ImageBackground } from 'react-native';
 import WebView from 'react-native-webview';
 import { TouchableOpacity, Icon } from '.';
 import config from '../../config/config';
-import {IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY} from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,

@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } from '../common';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { requestPermissions } from '../../services/LocationService';
-import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, USAGE_ON_BOARDING } from '../../constants/Constants';
+import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
 
 interface Props {
   navigation: any,

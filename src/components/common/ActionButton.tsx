@@ -15,7 +15,7 @@ const ActionButton = ({ onPress, text, isDisabled, textColor = '#fff', container
   return (
     <TouchableOpacity onPress={onPress} disabled={isDisabled}>
       <View style={[styles.container, isDisabled && { opacity: 0.6 }, containerStyle]}>
-        <Text style={[styles.text, { color: textColor }]} black>{text}</Text>
+        <Text style={{ ...styles.text, color: textColor }} black>{text}</Text>
       </View>
     </TouchableOpacity>
   );

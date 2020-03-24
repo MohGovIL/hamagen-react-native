@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import { FadeInView, Text, TouchableOpacity } from '../common';
-import {IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY} from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   firstPoint?: number,
