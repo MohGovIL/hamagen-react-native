@@ -140,9 +140,9 @@ export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radi
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   const dbSick = new IntersectionSickDatabase();
 
-  const exposuresToUpdate = [];
+  const exposuresToUpdate: Exposure[] = [];
 
-  for (const currSick of sickPeopleIntersected) {
+  sickPeopleIntersected.forEach(async (currSick) => {
     const queryResult = await dbSick.containsObjectID(
       currSick.properties.Key_Field,
     );
@@ -155,7 +155,7 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
       exposuresToUpdate.push(currSick);
       await dbSick.addSickRecord(currSick);
     }
-  }
+  });
 
   store().dispatch(setExposures(exposuresToUpdate));
 

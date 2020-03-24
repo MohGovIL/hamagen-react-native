@@ -51,5 +51,10 @@
   "plugins": [
     "react-hooks"
   ],
-  "globals": { "fetch": false }
+  "globals": {
+    "fetch": false
+  },
+  "env": {
+    "jest": true
+  }
 }

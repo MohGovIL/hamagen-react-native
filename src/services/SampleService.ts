@@ -4,7 +4,7 @@ import AsyncLock from 'async-lock';
 import moment from 'moment';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
-import { sha256 } from './sha256.js';
+import { sha256 } from './sha256';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';

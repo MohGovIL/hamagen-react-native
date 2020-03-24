@@ -44,7 +44,7 @@ export class UserLocationsDatabase {
   closeDatabase(db) {
     if (db) {
       db.close()
-        .catch((error) => {
+        .catch(() => {
           // this.errorCB(error);
           // TODO makes unhandled promise reject in addSample function - need to check why
         });
@@ -55,7 +55,7 @@ export class UserLocationsDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('SELECT * FROM Samples', []).then(([tx, results]) => {
+          tx.executeSql('SELECT * FROM Samples', []).then(([, results]) => {
             const samples = [];
             const len = results.rows.length;
             for (let i = 0; i < len; i++) {
@@ -64,7 +64,7 @@ export class UserLocationsDatabase {
             }
             resolve(samples);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -79,7 +79,7 @@ export class UserLocationsDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql(`UPDATE Samples set endTime=${endTime} WHERE rowid=(SELECT MAX(rowid) from Samples)`).then(([tx, results]) => {
+          tx.executeSql(`UPDATE Samples set endTime=${endTime} WHERE rowid=(SELECT MAX(rowid) from Samples)`).then(([, results]) => {
             if (results.rows.length > 0) {
               const row = results.rows.item(0);
               resolve(row);
@@ -87,7 +87,7 @@ export class UserLocationsDatabase {
               resolve(null);
             }
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -102,10 +102,10 @@ export class UserLocationsDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('INSERT INTO Samples VALUES (?,?,?,?,?,?,?,?)', [sample.lat, sample.long, sample.accuracy, sample.startTime, sample.endTime, sample.geoHash, sample.wifiHash, sample.hash]).then(([tx, results]) => {
+          tx.executeSql('INSERT INTO Samples VALUES (?,?,?,?,?,?,?,?)', [sample.lat, sample.long, sample.accuracy, sample.startTime, sample.endTime, sample.geoHash, sample.wifiHash, sample.hash]).then(([, results]) => {
             resolve(results);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -212,7 +212,7 @@ export class IntersectionSickDatabase {
         .catch((error) => {
           console.log(error);
         })
-        .catch((error) => {
+        .catch(() => {
           console.log('echoTest failed - plugin not functional');
         });
     });
@@ -222,7 +222,7 @@ export class IntersectionSickDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('DELETE FROM IntersectingSick', []).then(([tx, results]) => {
+          tx.executeSql('DELETE FROM IntersectingSick', []).then(([, results]) => {
             const IntersectingSick = [];
             const len = results.rows.length;
             for (let i = 0; i < len; i++) {
@@ -231,7 +231,7 @@ export class IntersectionSickDatabase {
             }
             resolve(IntersectingSick);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -245,7 +245,7 @@ export class IntersectionSickDatabase {
   closeDatabase(db) {
     if (db) {
       db.close()
-        .catch((error) => {
+        .catch(() => {
           // this.errorCB(error);
           // TODO makes unhandled promise reject in addSample function - need to check why
         });
@@ -256,7 +256,7 @@ export class IntersectionSickDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('SELECT * FROM IntersectingSick', []).then(([tx, results]) => {
+          tx.executeSql('SELECT * FROM IntersectingSick', []).then(([, results]) => {
             const IntersectingSick = [];
             const len = results.rows.length;
             for (let i = 0; i < len; i++) {
@@ -265,7 +265,7 @@ export class IntersectionSickDatabase {
             }
             resolve(IntersectingSick);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -280,10 +280,10 @@ export class IntersectionSickDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql(`SELECT * FROM IntersectingSick WHERE OBJECTID =${OBJECTID}`).then(([tx, results]) => {
+          tx.executeSql(`SELECT * FROM IntersectingSick WHERE OBJECTID =${OBJECTID}`).then(([, results]) => {
             resolve(results.rows.length > 0);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -308,10 +308,10 @@ export class IntersectionSickDatabase {
               record.properties.toTime_utc,
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex]
-            ]).then(([tx, results]) => {
+            ]).then(([, results]) => {
             resolve(results);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -348,7 +348,7 @@ export class WifiMacAddressDatabase {
         .catch((error) => {
           console.log(error);
         })
-        .catch((error) => {
+        .catch(() => {
           console.log('echoTest failed - plugin not functional');
         });
     });
@@ -357,7 +357,7 @@ export class WifiMacAddressDatabase {
   closeDatabase(db) {
     if (db) {
       db.close()
-        .catch((error) => {
+        .catch(() => {
           // this.errorCB(error);
           // TODO makes unhandled promise reject in addSample function - need to check why
         });
@@ -368,7 +368,7 @@ export class WifiMacAddressDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('SELECT * FROM wifiTable', []).then(([tx, results]) => {
+          tx.executeSql('SELECT * FROM wifiTable', []).then(([, results]) => {
             const IntersectingSick = [];
             const len = results.rows.length;
             for (let i = 0; i < len; i++) {
@@ -377,7 +377,7 @@ export class WifiMacAddressDatabase {
             }
             resolve(IntersectingSick);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -392,10 +392,10 @@ export class WifiMacAddressDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('INSERT INTO wifiTable VALUES (?,?)', [record.wifiHash, record.wifiList]).then(([tx, results]) => {
+          tx.executeSql('INSERT INTO wifiTable VALUES (?,?)', [record.wifiHash, record.wifiList]).then(([, results]) => {
             resolve(results);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -410,10 +410,10 @@ export class WifiMacAddressDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('SELECT * FROM wifiTable WHERE wifiHash = ?', [wifiHash]).then(([tx, results]) => {
+          tx.executeSql('SELECT * FROM wifiTable WHERE wifiHash = ?', [wifiHash]).then(([, results]) => {
             resolve(results.rows.length > 0);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
