@@ -26,7 +26,7 @@ export const checkForceUpdate = () => async (dispatch: any) => {
     const appVersion = DeviceInfo.getVersion();
     const shouldForce = IS_IOS ? shouldForceIOS : shouldForceAndroid;
 
-    if ((appVersion !== storeVersion) && shouldForce) {
+    if ((appVersion !== storeVersion) && !shouldForce) {
       dispatch({ type: SHOW_FORCE_UPDATE });
     }
   } catch (error) {

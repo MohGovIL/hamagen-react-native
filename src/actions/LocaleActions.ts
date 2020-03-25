@@ -21,7 +21,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const { data } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { data } = await axios.get(`${config().stringsUrl}cdc?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     dispatch({
       type: INIT_LOCALE,

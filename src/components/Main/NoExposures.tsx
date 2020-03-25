@@ -2,24 +2,29 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-import GoogleTimeLine from './LocationsHistory/GoogleTimeLine';
+import LocationHistoryInfo from './LocationHistoryInfo';
 import { FadeInView, Text, TouchableOpacity } from '../common';
 import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
+  isRTL: boolean,
   firstPoint?: number,
   strings: any,
+  goToLocationHistory(): void,
   toggleWebview(isShow: boolean, usageType: string): void
 }
 
 const NoExposures = (
   {
+    isRTL,
     firstPoint,
     strings: {
       general: { additionalInfo },
-      scanHome: { noExposure, noExposure1, noExposure2, noExposure3, noExposure4, recommendation }
+      scanHome: { noExposure, noExposure1, noExposure2, noExposure3, noExposure4, recommendation },
+      locationHistory: { info, moreInfo }
     },
-    toggleWebview
+    toggleWebview,
+    goToLocationHistory
   }: Props
 ) => {
   const descriptions = () => {
@@ -32,6 +37,8 @@ const NoExposures = (
 
   return (
     <FadeInView style={styles.container}>
+      <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
+
       <View style={{ alignItems: 'center' }}>
         <LottieView
           style={styles.lottie}
@@ -45,8 +52,6 @@ const NoExposures = (
       </View>
 
       <Text style={[styles.text, { lineHeight: 22 }]}>{recommendation}</Text>
-
-      <GoogleTimeLine />
 
       <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
         <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
     height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
-    marginBottom: 25
+    marginBottom: IS_SMALL_SCREEN ? 10 : 25
   },
   text: {
     width: 220

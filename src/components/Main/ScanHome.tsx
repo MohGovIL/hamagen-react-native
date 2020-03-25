@@ -117,7 +117,15 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
       );
     }
 
-    return <NoExposures strings={strings} toggleWebview={toggleWebview} firstPoint={firstPoint} />;
+    return (
+      <NoExposures
+        isRTL={isRTL}
+        strings={strings}
+        toggleWebview={toggleWebview}
+        firstPoint={firstPoint}
+        goToLocationHistory={() => navigation.navigate('LocationHistory')}
+      />
+    );
   };
 
   return (
