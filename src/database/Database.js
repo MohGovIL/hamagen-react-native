@@ -114,6 +114,24 @@ export class UserLocationsDatabase {
       });
     });
   }
+
+  insertBulkSamples(data) {
+    return new Promise((resolve) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql(`INSERT INTO Samples VALUES ${data}`).then(([tx, results]) => {
+            resolve(results);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
 }
 
 export class IntersectionSickDatabase {

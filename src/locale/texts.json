@@ -78,7 +78,7 @@
       "inDate": "בתאריך",
       "fromHour": "משעה:",
       "toHour": "עד שעה:",
-      "wereYouThere": "האם היית בסביבת המקום באותה שעה?",
+      "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
       "no": "לא",
       "canContinue": "אפשר להמשיך",
       "yes": "כן",
@@ -97,15 +97,33 @@
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
       "reportSite": "לדיווח באתר"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "סגירת פינות אחרונות",
+      "beforeCheckDesc": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. מידע זה נשמר על הטלפון ולשימושך האישי בלבד ולא נשלח לאף גורם אחר",
+      "beforeCheckDesc2": "לצורך כך, עליך לאפשר גישה למיקומים ב-14 הימים האחרונים מגוגל",
+      "beforeCheckButton": "דיוק הנתונים",
+      "skip": "דילוג",
+      "successFoundTitle": "הנתונים מגוגל עודכנו בהצלחה",
+      "successFoundDesc": "איתור נקודות החפיפה עבור 14 הימים האחרונים יהיה בהתאם לנתוני המיקום שהתקבלו מגוגל",
+      "successFoundButton": "להמשך",
+      "successNotFoundTitle": "לא זוהו מיקומים",
+      "successNotFoundDesc": "הנתונים מגוגל התקבלו בהצלחה, אך לא זוהו מיקומים ב- 14 ימים האחרונים",
+      "successNotFoundButton": "הבנתי",
+      "failedTitle": "קבלת הנתונים מגוגל נכשלה",
+      "failedDesc": "מומלץ לבדוק חיבור לאינטרנט, שם משתמש וסיסמא לגוגל ולנסות בשנית",
+      "failedButton": "ניסיון נוסף",
+      "info": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. ",
+      "moreInfo": "מידע נוסף"
     }
   },
   "ar": {
     "general": {
-      "start": "إبلش",
-      "additionalInfo": "معلومات إضافية خصوصية"
+      "start": "إبدأ",
+      "additionalInfo": "معلومات إضافية "
     },
     "languages": {
-      "title": "إختار لغة",
+      "title": "إختر لغة",
       "short": {
         "he": "עב",
         "en": "En",
@@ -117,92 +135,110 @@
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
-        "ar": "عربيه",
+        "ar": "العربية",
         "am": "አማርኛ"
       }
     },
     "forceUpdate": {
       "title": "تحديث الإصدار",
-      "desc": "هناك إصدار جديد من التطبيق. للحفاظ على صحتنا جميعًا ، نوصي بتحديث الإصدار"
+      "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
     },
     "forceTerms": {
-      "title": "تحديث شروط الاستخدام",
-      "desc": "تحديث شروط استخدام التطبيق حتى نتمكن من الاستمرار في الحفاظ على صحتك يرجى قبول شروط الاستخدام الجديدة",
+      "title": "تحديث شروط الإستخدام",
+      "desc": "يجب تحديث شروط إستخدام التطبيق حتى نتمكن من الاستمرار في الحفاظ على صحتكم ، يرجى قبول شروط الاستخدام الجديدة",
       "approve": "موافقة"
     },
     "welcome": {
-      "title": "نحن سعيدين بإشتراكك من أجل المحاربة بالفيروس",
-      "subTitle1": "فيروس الكورونا ممكن يسبب ضرر صحي لآلاف الإسرئيليون.",
-      "subTitle2": "تشخيس مبكر وعزل بالوقت بإستطاعهم إنقاز حياة الناس. شكرا على مساعدتكم من أجل الناس."
+      "title": " نحن سعيدون بإشتراككم من أجل محاربة  فيروس كورونا",
+      "subTitle1": "من الممكن أن يسبب فيروس الكورونا الضرر الصحي لالاف الإسرائيليين",
+      "subTitle2": "بإستطاعة التشخيص المبكر والعزل  إنقاذ حياة الكثيرين. شكرا لمساعدتكم "
     },
     "location": {
-      "title": "مكان الوجود مهم جدا",
-      "subTitle1": "التطبيقة تجمع معطيات بخصوص مكان وجودكم وتقارنهم بالمعطيات العامة لدى مصابين الفيروس.",
-      "subTitle2IOS": "بحالة تشابك المقارنة، سوف تبلغو عن ذلك.",
-      "subTitle2Android": "من أجل ذلك عليكم تشغيل خدمات الموقع بشكل دائم.",
-      "dataAnonymous": "المعطيات سوف تحفظ بصورة إرتجالية.",
-      "consent1": "قريت ووافقت على ",
+      "title": "أماكن تواجدكم مهمة جدا",
+      "subTitle1": "إن هذا التطبيق يقوم بجمع معطيات بخصوص أماكن تواجدكم ويقوم بمقارنتها بالمعطيات العامة للأشخاص المصابين بالفيروس",
+      "subTitle2IOS": "في حال تطابق المعلومات سيتم إبلاغكم بذلك",
+      "subTitle2Android": "من أجل ذلك يجب عليكم تفعيل خدمات الموقع بشكل دائم",
+      "dataAnonymous": "سيتم حفظ المعلومات بشكل فوري",
+      "consent1": "لقد قرأت وأوافق على ",
       "consent2": "شروط الإستعمال",
       "approveLocation": "موافقة"
     },
     "locationIOS": {
-      "title": " تشغيل خدمات\nالمكان بالخلفية",
-      "subTitle1": "من اجل الاستلام على معلومات صحيحة بخصوص موقعك، يرجى السماح باستلام المواقع بشكل دائم.",
-      "subTitle2": "  يرجى تغيير ضبط الأماكن مثل الصور",
-      "goToSettings": "إضغطوا هون من أجل الضبط",
+      "title": "تفعيل خدمات الموقع في الخلفية",
+      "subTitle1": "من اجل الحصول على معلومات دقيقة بخصوص موقعكم، يرجى تفعيل خدمة المواقع بشكل دائم",
+      "subTitle2": "  يرجى تحديث ضبط الهاتف كما يظهر بالصور أدناه",
+      "goToSettings": "اضغط هنا من أجل ضبط الإعدادات",
       "set": " تم الضبط"
     },
     "notifications": {
-      "title": "مهم نبلغك",
-      "subTitle1": "من أجل تبليغك بخصوص حوادث كورونا وحالات بتعني لك،, عليك أن تعطي سماح لإستلام تحذيرات منا.",
-      "subTitle2": "إستلام تحذيرات مهمة إلك وإلى قرايبك",
-      "approveNotifications": "موافقة إستلام تحذيرات"
+      "title": "نود إعلامكم",
+      "subTitle1": "حتى يتم إبلاغكم عن حالات الكورونا ذات الصلة بكم يجب عليكم الموافقة على استلام تنبيهات عن طريق التطبيق ",
+      "subTitle2": "إستلام تنبيهات ذات أهمية لكم و للمحيطين بكم",
+      "approveNotifications": "الموافقة على إستلام التنبيهات"
     },
     "allSet": {
-      "allGood": "التطبيقة بتشتغل تماما!\nنبدا"
+      "allGood": "بدأ تشغيل التطبيق "
     },
     "scanHome": {
       "hasData": " توجد معلومات",
-      "noData": "لا يوجد إرسال",
-      "exposureHistory": " تاريخ تشابك",
-      "noDataDesc": "يرجى التاكيد على شبك الانترنت وتشغيل خدمات الموقع من أجل مقارنة موقعك بمصابين فيروس الكورونا حسب المعطيات التي تجمعت.",
-      "noExposure": "حسب المعطيات التي تجمعت حتى الآن، لا توجد إلك نقط تشابك مع مصاب بفيروس الكورونا",
-      "noExposure1": "حسب المعطيات الي تجمعت حتى الآن,",
+      "noData": "لا يوجد معلومات",
+      "exposureHistory": " تاريخ التطابق",
+      "noDataDesc": "يرجى تفعيل خدمات الموقع في إعدادات الهاتف و التأكد من إتصالكم بشبكة الإنترنت  حتى نتمكن من مقارنة موقعكم مع مواقع المصابين بالفيروس حسب المعطيات التي تم جمعها",
+      "noExposure": "حسب المعطيات التي تم جمعها حتى الآن، لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
+      "noExposure1": "حسب المعطيات الي تم جمعها حتى الآن",
       "noExposure2": "من التاريخ:",
       "noExposure3": "في الساعة:",
-      "noExposure4": "لا توجد إلك نقط تشابك مع مصاب بالكورونا",
-      "recommendation": "بإمكانك تسكير التطبيقة، سوف نبلغك بحالة تغيير وضعك.",
+      "noExposure4": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
+      "recommendation": "   بإمكانكم إغلاق التطبيق، سيتم إعلامكم في حال طرأ تغيير ",
       "found": "توجد",
-      "exposureEvents": "حالات تشابك",
-      "reportedAt": "سجل في:",
+      "exposureEvents": "حالات تطابق",
+      "reportedAt": "تم التبليغ في",
       "inDate": "في تاريخ",
       "fromHour": "من الساعة :",
       "toHour": " حتى الساعة:",
-      "wereYouThere": "هل تواجدت بالمكان بنفس الساعة؟?",
+      "whereYouThere": "هل تواجدتم في هذا المكان في هذه الساعة?",
       "no": "لا",
-      "canContinue": "ممكن أكمل",
+      "canContinue": "هل نستطيع التقدم؟",
       "yes": "نعم",
-      "needDirections": "حابب أستلم توصيات"
+      "needDirections": "أود إستلام توجيهات"
     },
     "exposuresHistory": {
-      "title": "تاريخ تشابك",
-      "noExposures": "لا توجد نقط تشابك\nتشابك "
+      "title": "تاريخ التطابق",
+      "noExposures": "لا يوجد نقاط تطابق "
     },
     "exposureInstructions": {
-      "title": "توصيات بعد تعرض",
-      "weUnderstand": "نحن نفهم إنك تواجدت في نقطة تشابك",
-      "wrong": "غلط، ما تواجدتش هناك",
-      "keepSafe": "من أجل الحفاظة على صحة عائلتك وقرايبك عليك أن تطبق توصيات وزارة الصحة وتدخل على حجر صحي لمدة ١٤ يوم من وقت تعرضك",
-      "goIntoIsolation": "يرجى الدخول فورا لحجر صحي لمدة ١٤ يوم من وقت التعرضض",
-      "reportIsolation": "عليك التبليغ لوزارة الصحة",
+      "title": "توصيات ",
+      "weUnderstand": "نحن نتفهم تواجدكم في نقطة تطابق",
+      "wrong": "هذا بلاغ خاطئ، لم أتواجد هناك",
+      "keepSafe": "من أجل الحفاظ على صحتكم و صحة عائلاتكم و المحيطين بكم يجب عليكم تطبيق توصيات وزارة الصحة و الدخول في حجر صحي لمدة 14 يوم من تاريخ اللقاء مع المصاب",
+      "goIntoIsolation": "يرجى الدخول فورا الى الحجر الصحي لمدة ١٤ يوم من وقت التعرض",
+      "reportIsolation": "يتوجب عليكم إبلاغ وزارة الصحة",
       "allInstructions": "لكل التوصيات",
-      "reportSite": "عليك التبليغ لوزارة الصحة"
+      "reportSite": "للإبلاغ"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "أغلق الزوايا الأخيرة",
+      "beforeCheckDesc": "لتحديد مواقعك بدقة خلال آخر 14 يومًا ، يجب عليك تمكين بيانات الموقع من حسابك على Google. يتم تخزين هذه المعلومات على الهاتف لاستخدامك الشخصي فقط ولا يتم إرسالها إلى أي طرف آخر",
+      "beforeCheckDesc2": "للقيام بذلك ، يجب عليك السماح بالوصول إلى موقعك من Google خلال آخر 14 يومًا",
+      "beforeCheckButton": "دقة البيانات",
+      "skip": "تخطي",
+      "successFoundTitle": "تم تحديث بيانات Google بنجاح",
+      "successFoundDesc": "يعتمد تحديد نقاط التداخل خلال آخر 14 يومًا على بيانات الموقع المستلمة من Google",
+      "successFoundButton": "هيا",
+      "successNotFoundTitle": "لم يتم العثور على مواقع",
+      "successNotFoundDesc": "كانت بيانات Google ناجحة ، ولكن لم يتم اكتشاف مواقع في آخر 14 يومًا",
+      "successNotFoundButton": "فهمت",
+      "failedTitle": "فشل الحصول على البيانات من Google",
+      "failedDesc": "نوصيك بالتحقق من اتصالك بالإنترنت واسم مستخدم Google وكلمة المرور والمحاولة مرة أخرى",
+      "failedButton": "محاولة أخرى",
+      "info": "لتحديد مواقعك بدقة خلال آخر 14 يومًا ، يجب تمكين بيانات موقعك من حسابك على Google. ",
+      "moreInfo": "اعرف المزيد"
     }
   },
   "en": {
     "general": {
       "start": "START",
-      "additionalInfo": "Additional Privacy Information"
+      "additionalInfo": "Additional Privacy information"
     },
     "languages": {
       "title": "Select language ",
@@ -227,7 +263,7 @@
     },
     "forceTerms": {
       "title": "Terms of Use Updated",
-      "desc": "Updated Terms of Use of the App. So that we can continue to keep you healthy please accept the new Terms of Use",
+      "desc": "Updated Terms of Use of the App, so that we can continue to keep you healthy Please accept the new Terms of Use",
       "approve": "APPROVE"
     },
     "welcome": {
@@ -240,9 +276,9 @@
       "subTitle1": "This app will collect your location data and compare it to the locations of people known to be infected with the virus. If any of those locations are found to overlap, you will receive a notification.",
       "subTitle2IOS": "In order for this to work, you must have location service activated on your phone.",
       "subTitle2Android": "In order for this to work, you must have location services activated on your phone at all times.",
-      "dataAnonymous": "Your location data will be anonymized",
-      "consent1": "I have read and approve the ",
-      "consent2": "Terms of Use",
+      "dataAnonymous": "Your location data will be anonymizedי",
+      "consent1": "I have read and approve of the ",
+      "consent2": "terms of use",
       "approveLocation": "APPROVE"
     },
     "locationIOS": {
@@ -253,7 +289,7 @@
       "set": "Settings updated, let’s continue"
     },
     "notifications": {
-      "title": "Important for us to keep you updated",
+      "title": "Important to keep you updated",
       "subTitle1": "You must have the location service on your phone activated at all times.",
       "subTitle2": "These notifications will contain critical information for you and those close to you.",
       "approveNotifications": "Approve Notifications"
@@ -265,12 +301,12 @@
       "hasData": "Data detected",
       "noData": "No data detected ",
       "exposureHistory": "Exposure History",
-      "noDataDesc": "Please make sure you are connected to the internet and that phone location services are enabled",
-      "noExposure": "Based on the data collected thus far, no points of overlap with known coronavirus patients have been found.",
+      "noDataDesc": "Please make sure you are connected to the internet and that location services are enabled",
+      "noExposure": "Based on the data collected thus far, no points of overlap with coronavirus patients have been found.",
       "noExposure1": "According to data collected thus far,",
       "noExposure2": "starting from:",
       "noExposure3": "at:",
-      "noExposure4": "no points of overlap have been found with known coronavirus patients",
+      "noExposure4": "no points of intersection have been found with CoronaVirus patients",
       "recommendation": "You can now close the app. We'll let you know if there's anything new.",
       "found": "Found",
       "exposureEvents": "Exposure events",
@@ -278,7 +314,7 @@
       "inDate": "In",
       "fromHour": "From:",
       "toHour": "Until:",
-      "wereYouThere": "Were you around this location at this time?",
+      "whereYouThere": "Where you around in this time?",
       "no": "No",
       "canContinue": "You can proceed",
       "yes": "Yes",
@@ -296,7 +332,25 @@
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
-      "reportSite": "To report at the MoH Site"
+      "reportSite": "To report at the Site"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "Closing the last corners",
+      "beforeCheckDesc": "In order to accurately determine your locations for the last 14 days, your location data must be enabled from your Google Account. This information is kept on the phone and for your personal use only and is not sent to any other party",
+      "beforeCheckDesc2": "To do this, you must allow access to locations within the last 14 days from Google",
+      "beforeCheckButton": "Data accuracy",
+      "skip": "Skip",
+      "successFoundTitle": "Google data was updated successfully",
+      "successFoundDesc": "Locating the overlap points for the last 14 days will be based on location data received from Google",
+      "successFoundButton": "Continue",
+      "successNotFoundTitle": "No locations detected",
+      "successNotFoundDesc": "Google data were successfully fetched, but no locations were detected in the last 14 days",
+      "successNotFoundButton": "Got It",
+      "failedTitle": "Failed to get data from Google",
+      "failedDesc": "We recommend that you check your Internet connection, Google username and password and try again",
+      "failedButton": "Try Again",
+      "info": "In order to accurately determine your locations for the last 14 days, your location data must be enabled from your Google Account. ",
+      "moreInfo": "More info"
     }
   },
   "ru": {
@@ -378,7 +432,7 @@
       "inDate": "Число",
       "fromHour": "С часов,:",
       "toHour": "до часов:",
-      "wereYouThere": "Были ли вы в этом месте в то же время?",
+      "whereYouThere": "Были ли вы в этом месте в то же время?",
       "no": "Нет",
       "canContinue": "Можно продолжить",
       "yes": "Да",
@@ -397,6 +451,24 @@
       "reportIsolation": "оставьте сообщение на сайте Министерства Здравоохранения о вашем карантине",
       "allInstructions": "Инструкции",
       "reportSite": "Поставить в известность"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "Закрытие последних углов",
+      "beforeCheckDesc": "Для точного определения вашего местоположения за последние 14 дней данные о вашем местоположении должны быть включены из вашей учетной записи Google. Эта информация хранится на телефоне и предназначена только для личного использования и не отправляется никаким другим лицам",
+      "beforeCheckDesc2": "Для этого вы должны разрешить доступ к местоположениям в течение последних 14 дней из Google",
+      "beforeCheckButton": "Точность данных",
+      "skip": "Пропуск",
+      "successFoundTitle": "Данные Google успешно обновлены",
+      "successFoundDesc": "Определение местоположения точек перекрытия за последние 14 дней будет основано на данных о местоположении, полученных от Google.",
+      "successFoundButton": "Продолжай",
+      "successNotFoundTitle": "Места не обнаружены",
+      "successNotFoundDesc": "Данные Google были успешными, но местоположения не были обнаружены за последние 14 дней",
+      "successNotFoundButton": "Я поняла",
+      "failedTitle": "Не удалось получить данные от Google",
+      "failedDesc": "Мы рекомендуем проверить подключение к Интернету, имя пользователя и пароль Google и повторить попытку.",
+      "failedButton": "Еще одна попытка",
+      "info": "Для точного определения вашего местоположения за последние 14 дней данные о вашем местоположении должны быть включены из вашей учетной записи Google. ",
+      "moreInfo": "Узнать больше"
     }
   },
   "am": {
@@ -439,7 +511,7 @@
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
       "subTitle1": "አፕሊኬሽኑ (መተግበሪያው) የአካባቢ ውሂብን በራሱ ይሰበስብና የእርስዎን ቦታ በአካባቢው ካሉ የኮሮና በሽተኞች ቦታ ጋር በማነፃጸር ማንኛውንም መደራረብ ካገኘ ያሳውቀዎታል ፡፡.",
       "subTitle2IOS": "አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
-      "subTitle2Android":",አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
+      "subTitle2Android": ",አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
       "dataAnonymous": "ውሂቡ በምስጢር ይጠበቃል",
       "consent1": "",
       "consent2": "ስለ አጠቃቀሙ የተፃፈውን  መመሪያ አንብቤያለሁ እስማማለሁ",
@@ -478,7 +550,7 @@
       "inDate": "ቀኑ",
       "fromHour": "ሰአቱ ከ፤:",
       "toHour": "ሰአቱ እስከ፤:",
-      "wereYouThere": "በዚያን ጊዜ በቦታው ዙሪያ ቆይተዋል?",
+      "whereYouThere": "በዚያን ጊዜ በቦታው ዙሪያ ቆይተዋል?",
       "no": "አልቆየሁም።",
       "canContinue": "ቀጥል",
       "yes": "ቆይቻለሁ።",
@@ -497,6 +569,24 @@
       "reportIsolation": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ የመከለል ሪፖርት ለማድረግ።",
       "allInstructions": "ለሁሉም መመርያዎች ።",
       "reportSite": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ ሪፖርት ለማድረግ።"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
+      "beforeCheckDesc": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ይህ መረጃ በስልክ ላይ እና ለግል ጥቅም ብቻ የሚቀመጥ እና ለሌላ ወገን የማይላክ ነው",
+      "beforeCheckDesc2": "ይህንን ለማድረግ ከ Google ጀምሮ በአለፉት 14 ቀናት ውስጥ መዳረሻዎችን መፍቀድ አለብዎት",
+      "beforeCheckButton": "የውሂብ ትክክለኛነት",
+      "skip": "ዝለል",
+      "successFoundTitle": "የጉግል ውሂብ በተሳካ ሁኔታ ዘምኗል",
+      "successFoundDesc": "ላለፉት 14 ቀናት የተደራራቢ ነጥቦችን መፈለግ ከ Google በተቀበለው የአካባቢ ውሂብ ላይ የተመሠረተ ይሆናል",
+      "successFoundButton": "ይቀጥሉ",
+      "successNotFoundTitle": "ምንም አካባቢዎች አልተገኙም",
+      "successNotFoundDesc": "የጉግል ውሂብ የተሳካ ነበር ፣ ነገር ግን ባለፉት 14 ቀናት ውስጥ ምንም ሥፍራዎች አልተገኙም",
+      "successNotFoundButton": "ገባኝ",
+      "failedTitle": "ከ Google ውሂብ ማግኘት አልተሳካም",
+      "failedDesc": "የእርስዎን የበይነመረብ ግንኙነት ፣ የ Google ተጠቃሚ ስም እና የይለፍ ቃል እንዲመለከቱ እና እንደገና እንዲሞክሩ እንመክራለን",
+      "failedButton": "ሌላ ሙከራ",
+      "info": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ",
+      "moreInfo": "የበለጠ ለመረዳት"
     }
   }
 }
