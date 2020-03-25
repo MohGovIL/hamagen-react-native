@@ -7,7 +7,7 @@ import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, USAGE_PRIVAC
 
 interface Props {
   isVisible: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   usageType: string,
   closeWebview(): void
 }

@@ -46,7 +46,7 @@ import {
 interface Props {
   isRTL: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
