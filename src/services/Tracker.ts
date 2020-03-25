@@ -96,16 +96,16 @@ export const getIntersectingSickRecords = (
 };
 
 export const checkSickPeople = async () => {
-  const lastFetch = JSON.parse(
-    (await AsyncStorage.getItem(LAST_FETCH_TS)) || '0',
-  );
+  // const lastFetch = JSON.parse(
+  //   (await AsyncStorage.getItem(LAST_FETCH_TS)) || '0',
+  // );
 
   // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
-    return;
-  }
+  // if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+  //   return;
+  // }
 
-  fetch(config().dataUrl, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
+  fetch(`${config().dataUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
     .then(response => response.json())
     .then(async (responseJson) => {
       const myData = await queryDB();
