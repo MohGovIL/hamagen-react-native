@@ -273,7 +273,7 @@
       "exposureHistory": "Exposure History",
       "noDataDesc": "Please make sure you are connected to the internet and that phone location services are enabled",
       "noExposure": "Based on the data collected thus far, no points of overlap with known coronavirus patients have been found.",
-   "noExposure1": "According to data collected thus far,",
+      "noExposure1": "According to data collected thus far,",
       "noExposure2": "starting from:",
       "noExposure3": "at:",
       "noExposure4": "no points of overlap have been found with known coronavirus patients",
@@ -449,7 +449,7 @@
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
       "subTitle1": "አፕሊኬሽኑ (መተግበሪያው) የአካባቢ ውሂብን በራሱ ይሰበስብና የእርስዎን ቦታ በአካባቢው ካሉ የኮሮና በሽተኞች ቦታ ጋር በማነፃጸር ማንኛውንም መደራረብ ካገኘ ያሳውቀዎታል ፡፡.",
       "subTitle2IOS": "አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
-      "subTitle2Android":",አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
+      "subTitle2Android": ",አፕሊኬሽኑ (መተግበሪያው) እንዲሠራ ያሉበትን ቦታ(GPS)በቁዋሚ ማመላከት ይፈለግብዎታል",
       "dataAnonymous": "ውሂቡ በምስጢር ይጠበቃል",
       "consent1": "",
       "consent2": "ስለ አጠቃቀሙ የተፃፈውን  መመሪያ አንብቤያለሁ እስማማለሁ",
@@ -558,7 +558,7 @@
       "approveLocation": "تأیید"
     },
     "locationIOS": {
-      "title": "مکان را فعال کنید \ n خدمات در پس زمینه",
+      "title": "مکان را فعال کنید  خدمات در پس زمینه",
       "subTitle1": "برای اینکه بتوانیم شما را در مورد وقایع مربوط به کوروی ویروس به روز کنیم ، ما باید اعلان هایی را برای شما ارسال کنیم.",
       "subTitle2": "تنظیمات خدمات موقعیت مکانی باید مطابق تصویر زیر تغییر یابد",
       "goToSettings": "برای تنظیمات اینجا را فشار دهید",
