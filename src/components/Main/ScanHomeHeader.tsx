@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { View, StyleSheet, ImageBackground, Alert } from 'react-native';
 import PopupForQA from '../PopupForQA';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
-import { BASIC_SHADOW_STYLES, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import {
+  BASIC_SHADOW_STYLES,
+  IS_SMALL_SCREEN,
+  MAIN_COLOR,
+  PADDING_TOP,
+  SCREEN_HEIGHT,
+  SCREEN_WIDTH
+} from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -24,7 +31,7 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
     >
       {
         showChangeLanguage && (
-          <View style={{ position: 'absolute', left: 20, top: PADDING_TOP(20) }}>
+          <View style={{ position: 'absolute', left: 20, top: PADDING_TOP(IS_SMALL_SCREEN ? 15 : 20) }}>
             <ChangeLanguageButton />
           </View>
         )
@@ -61,7 +68,7 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
 const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * 0.17,
+    height: SCREEN_HEIGHT * (IS_SMALL_SCREEN ? 0.20 : 0.17),
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: PADDING_TOP(0)
@@ -72,7 +79,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 15,
     paddingHorizontal: 20,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
@@ -89,7 +95,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12,
-    paddingHorizontal: 5
+    paddingHorizontal: 5,
+    maxWidth: SCREEN_WIDTH / 2.5
   }
 });
 

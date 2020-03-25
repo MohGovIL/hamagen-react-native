@@ -7,7 +7,7 @@ import * as Animatable from 'react-native-animatable';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } from '../common';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { requestPermissions } from '../../services/LocationService';
-import { IS_IOS, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
+import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -40,7 +40,8 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: 40 }}>
+      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 40, marginTop: IS_SMALL_SCREEN ? 20 : 0 }}>
+        {!IS_SMALL_SCREEN && (
         <LottieView
           style={styles.lottie}
           source={require('../../assets/lottie/location.json')}
@@ -48,6 +49,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
           autoPlay
           loop={false}
         />
+        )}
 
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.subTitle}>{subTitle1}</Text>
@@ -55,7 +57,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       </View>
 
       <View style={{ alignItems: 'center' }}>
-        <Animatable.View ref={animRef} style={{ marginBottom: 25 }}>
+        <Animatable.View ref={animRef} style={{ marginBottom: 25, marginTop: IS_SMALL_SCREEN ? 5 : 0 }}>
           <TermsOfUse
             isRTL={isRTL}
             strings={strings}

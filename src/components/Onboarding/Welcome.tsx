@@ -2,16 +2,22 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
+import { bindActionCreators } from 'redux';
+import { checkForceUpdate } from '../../actions/GeneralActions';
 import { ActionButton, GeneralContainer, Text, Icon, OnboardingHeader } from '../common';
 
 interface Props {
   navigation: any,
-  strings: any
+  strings: any,
+  checkForceUpdate(): void
 }
 
-const Welcome = ({ navigation, strings: { general: { start }, welcome: { title, subTitle1, subTitle2 } } }: Props) => {
+const Welcome = ({ navigation, strings: { general: { start }, welcome: { title, subTitle1, subTitle2 } }, checkForceUpdate }: Props) => {
   useEffect(() => {
-    setTimeout(SplashScreen.hide, 3000);
+    setTimeout(() => {
+      SplashScreen.hide();
+      checkForceUpdate();
+    }, 3000);
   }, []);
 
   return (
@@ -52,4 +58,10 @@ const mapStateToProps = (state: any) => {
   return { strings };
 };
 
-export default connect(mapStateToProps, null)(Welcome);
+const mapDispatchToProps = (dispatch: any) => {
+  return bindActionCreators({
+    checkForceUpdate
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Welcome);

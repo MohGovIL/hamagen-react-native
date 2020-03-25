@@ -10,22 +10,15 @@ import SplashScreen from 'react-native-splash-screen';
 import { useFocusEffect } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
-import moment from 'moment';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { toggleWebview } from '../../actions/GeneralActions';
-import {
-  dismissExposure,
-  removeValidExposure,
-  setValidExposure,
-  updatePointsFromFile
-} from '../../actions/ExposuresActions';
+import { checkForceUpdate, toggleWebview } from '../../actions/GeneralActions';
+import { dismissExposure, removeValidExposure, setValidExposure, updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
 import { Exposure } from '../../types';
-import { logEvent } from '../../services/AnalyticsService';
 import { TouchableOpacity } from '../common';
 import { checkSickPeopleFromFile } from '../../services/Tracker';
 import { UserLocationsDatabase } from '../../database/Database';
@@ -42,22 +35,23 @@ interface Props {
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
   toggleWebview(isShow: boolean, usageType: string): void,
+  checkForceUpdate(): void,
   updatePointsFromFile(points: Exposure[]): void
 }
 
 const SICK_FILE_TYPE = 1;
 const LOCATIONS_FILE_TYPE = 2;
 
-
-const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, updatePointsFromFile }: Props) => {
+const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, checkForceUpdate, updatePointsFromFile }: Props) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
   const [testName, setTestName] = useState('');
 
   useEffect(() => {
-    logEvent('Test', { time: moment().valueOf() });
-
-    setTimeout(SplashScreen.hide, 3000);
+    setTimeout(() => {
+      SplashScreen.hide();
+      checkForceUpdate();
+    }, 3000);
 
     checkConnectionStatusOnLoad();
 
@@ -270,7 +264,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeValidExposure,
     dismissExposure,
     toggleWebview,
-    updatePointsFromFile
+    updatePointsFromFile,
+    checkForceUpdate
   }, dispatch);
 };
 
