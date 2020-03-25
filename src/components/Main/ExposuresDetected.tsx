@@ -3,7 +3,13 @@ import { View, StyleSheet, Animated } from 'react-native';
 import moment from 'moment';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Exposure } from '../../types';
-import { BASIC_SHADOW_STYLES, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import {
+  BASIC_SHADOW_STYLES,
+  IS_SMALL_SCREEN,
+  MAIN_COLOR,
+  PADDING_BOTTOM,
+  SCREEN_WIDTH
+} from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -60,7 +66,7 @@ const ExposuresDetected = (
   const renderActionButton = (text1: string, text2: string, action: () => void) => (
     <TouchableOpacity onPress={action}>
       <View style={styles.actionButton}>
-        <Text style={[styles.actionButtonText, { fontSize: 25 }]} bold>{text1}</Text>
+        <Text style={[styles.actionButtonText, { fontSize: IS_SMALL_SCREEN ? 20 : 25 }]} bold>{text1}</Text>
         <Text style={styles.actionButtonText}>{text2}</Text>
       </View>
     </TouchableOpacity>
@@ -69,14 +75,14 @@ const ExposuresDetected = (
   return (
     <FadeInView style={styles.container}>
       <View style={{ alignItems: 'center' }}>
-        <Icon source={require('../../assets/main/exposures.png')} width={99} height={59} customStyles={{ marginBottom: 12 }} />
+        <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 12 }} />
         <Text style={styles.title} bold>{`${found} ${exposures.length} ${exposureEvents}`}</Text>
       </View>
 
       {renderExposure(exposures[0])}
 
       <View style={{ alignItems: 'center' }}>
-        <Text style={{ marginBottom: 25 }}>{wereYouThere}</Text>
+        <Text style={!IS_SMALL_SCREEN && { marginBottom: 25 }}>{wereYouThere}</Text>
 
         <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
           {renderActionButton(no, canContinue, onDismissExposure)}
@@ -95,7 +101,7 @@ const styles = StyleSheet.create({
     paddingBottom: PADDING_BOTTOM(0)
   },
   title: {
-    fontSize: 22
+    fontSize: IS_SMALL_SCREEN ? 18 : 22
   },
   detailsContainer: {
     ...BASIC_SHADOW_STYLES,
@@ -121,7 +127,7 @@ const styles = StyleSheet.create({
   actionButtonText: {
     color: '#fff',
     paddingVertical: 2,
-    fontSize: 20
+    fontSize: IS_SMALL_SCREEN ? 17 : 20
   }
 });
 

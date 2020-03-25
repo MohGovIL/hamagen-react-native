@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LottieView from 'lottie-react-native';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text } from '../common';
 import { initPushNotifications } from '../../services/PushService';
+import { IS_SMALL_SCREEN } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -24,7 +25,8 @@ const Notifications = ({ navigation, strings: { notifications: { title, subTitle
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: 40 }}>
+      <View style={[{ alignItems: 'center', paddingHorizontal: 40 }, IS_SMALL_SCREEN && { paddingTop: 5 }]}>
+        {!IS_SMALL_SCREEN && (
         <LottieView
           style={styles.lottie}
           source={require('../../assets/lottie/notifications.json')}
@@ -32,6 +34,7 @@ const Notifications = ({ navigation, strings: { notifications: { title, subTitle
           autoPlay
           loop={false}
         />
+        )}
 
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.subTitle}>{subTitle1}</Text>

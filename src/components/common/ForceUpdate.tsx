@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Modal, Linking } from 'react-native';
 import { ActionButton, Icon, Text } from '.';
-import { IS_IOS, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_IOS, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -38,7 +38,8 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: PADDING_TOP(70),
+    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 40 : 70),
+    paddingBottom: IS_SMALL_SCREEN ? 40 : 70,
     backgroundColor: '#fff'
   },
   title: {
