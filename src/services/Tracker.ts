@@ -137,7 +137,7 @@ export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radi
   return haversine(start, end, { threshold: radius || config().meterRadius, unit: config().bufferUnits });
 };
 
-export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
+export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[] = []) => {
   const dbSick = new IntersectionSickDatabase();
 
   const exposuresToUpdate: Exposure[] = [];
