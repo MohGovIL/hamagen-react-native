@@ -1,9 +1,14 @@
 import moment from 'moment';
+import _ from 'lodash';
 import geoHash from 'latlon-geohash';
 import { DOMParser } from 'xmldom';
+import AsyncStorage from '@react-native-community/async-storage';
 import { UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
-import {onError} from './ErrorService';
+import { checkIfHideLocationHistory } from '../actions/GeneralActions';
+import store from '../store';
+import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
+import { FIRST_POINT_TS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const togeojson = require('./ToGeoJson.js');
@@ -46,7 +51,7 @@ const createObject = (point: any, timespan: any) => {
 
 export const kmlToGeoJson = (text: any) => {
   const kml = new DOMParser().parseFromString(text);
-  const {features} = togeojson.kml(kml);
+  const { features } = togeojson.kml(kml);
 
   const objArray: any[] = [];
 
@@ -82,9 +87,24 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
 
       // remove last comma
       insertString = insertString.substring(0, insertString.length - 1);
-      debugger;
+
       // insert bulk samples to db
       await db.insertBulkSamples(insertString);
+
+      // insert first Point if needed
+      data = _.sortBy(data, (point: any) => point.startTime);
+
+      const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
+
+      if (!firstPointTS || (data[0].startTime < firstPointTS)) {
+        await AsyncStorage.setItem(FIRST_POINT_TS, JSON.stringify(data[0].startTime));
+        store().dispatch({ type: UPDATE_FIRST_POINT, payload: data[0].startTime });
+      }
+
+      // once 14 days flow completed for the first time
+      await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
+      store().dispatch(checkIfHideLocationHistory());
+
       resolve();
     }
   } catch (error) {

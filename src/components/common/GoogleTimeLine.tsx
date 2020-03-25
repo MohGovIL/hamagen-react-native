@@ -1,6 +1,7 @@
 import React, { RefObject, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import AsyncStorage from '@react-native-community/async-storage';
 import {
   getLastNrDaysKmlUrls,
   getLoadingHTML,
@@ -8,8 +9,16 @@ import {
   kmlToGeoJson
 } from '../../services/LocationHistoryService';
 import { WebviewHeader, TouchableOpacity, Icon, ActionButton, Text } from '.';
-import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
+import { checkIfHideLocationHistory } from '../../actions/GeneralActions';
 import { onError } from '../../services/ErrorService';
+import store from '../../store';
+import {
+  IS_SMALL_SCREEN,
+  MAIN_COLOR,
+  SCREEN_WIDTH,
+  SHOULD_HIDE_LOCATION_HISTORY,
+  USAGE_PRIVACY
+} from '../../constants/Constants';
 
 interface FetchHistoryModalProps {
   isVisible: boolean,
@@ -147,6 +156,9 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
         });
 
         if (pointsData.length === 0) {
+          // once 14 days flow completed for the first time
+          await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
+          store().dispatch(checkIfHideLocationHistory());
           return setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successNotFound' }));
         }
 

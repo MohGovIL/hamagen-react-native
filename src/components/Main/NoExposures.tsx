@@ -10,6 +10,7 @@ interface Props {
   isRTL: boolean,
   firstPoint?: number,
   strings: any,
+  hideLocationHistory: boolean,
   goToLocationHistory(): void,
   toggleWebview(isShow: boolean, usageType: string): void
 }
@@ -23,6 +24,7 @@ const NoExposures = (
       scanHome: { noExposure, noExposure1, noExposure2, noExposure3, noExposure4, recommendation },
       locationHistory: { info, moreInfo }
     },
+    hideLocationHistory,
     toggleWebview,
     goToLocationHistory
   }: Props
@@ -37,7 +39,7 @@ const NoExposures = (
 
   return (
     <FadeInView style={styles.container}>
-      <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
+      {!hideLocationHistory && <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />}
 
       <View style={{ alignItems: 'center' }}>
         <LottieView

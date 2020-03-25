@@ -19,7 +19,7 @@ const WebviewHeader = ({ hideClose, closeModal }: Props) => {
       {
         !hideClose && (
           <TouchableOpacity style={styles.close} onPress={closeModal}>
-            <Icon source={require('../../assets/onboarding/close.png')} width={IS_SMALL_SCREEN ? 20 : 31}/>
+            <Icon source={require('../../assets/onboarding/close.png')} width={IS_SMALL_SCREEN ? 20 : 31} />
           </TouchableOpacity>
         )
       }

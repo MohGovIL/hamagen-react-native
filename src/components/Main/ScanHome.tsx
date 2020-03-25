@@ -13,7 +13,7 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { checkForceUpdate, toggleWebview } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
 import { Exposure } from '../../types';
@@ -25,15 +25,34 @@ interface Props {
   locale: 'he'|'en'|'ar'|'am'|'ru',
   exposures: Exposure[],
   validExposure: Exposure,
-  firstPoint?: undefined,
+  firstPoint?: number,
+  hideLocationHistory: boolean,
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
   toggleWebview(isShow: boolean, usageType: string): void,
-  checkForceUpdate(): void
+  checkForceUpdate(): void,
+  checkIfHideLocationHistory(): void
 }
 
-const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, checkForceUpdate }: Props) => {
+const ScanHome = (
+  {
+    navigation,
+    isRTL,
+    strings,
+    locale,
+    exposures,
+    validExposure,
+    setValidExposure,
+    removeValidExposure,
+    dismissExposure,
+    toggleWebview,
+    firstPoint,
+    hideLocationHistory,
+    checkForceUpdate,
+    checkIfHideLocationHistory
+  }: Props
+) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
@@ -43,6 +62,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
       checkForceUpdate();
     }, 3000);
 
+    checkIfHideLocationHistory();
     checkConnectionStatusOnLoad();
 
     AppState.addEventListener('change', onAppStateChange);
@@ -83,6 +103,8 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
 
   const onAppStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appStateStatus.current !== 'active') {
+      checkIfHideLocationHistory();
+
       const locationPermission = await checkPermissions();
       const GPSStatus = await RNSettings.getSetting(RNSettings.LOCATION_SETTING);
 
@@ -123,6 +145,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
         strings={strings}
         toggleWebview={toggleWebview}
         firstPoint={firstPoint}
+        hideLocationHistory={hideLocationHistory}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
       />
     );
@@ -155,10 +178,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale },
+    general: { hideLocationHistory },
     exposures: { exposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, exposures, validExposure, firstPoint };
+  return { isRTL, strings, locale, exposures, validExposure, firstPoint, hideLocationHistory };
 };
 
 
@@ -168,7 +192,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeValidExposure,
     dismissExposure,
     toggleWebview,
-    checkForceUpdate
+    checkForceUpdate,
+    checkIfHideLocationHistory
   }, dispatch);
 };
 

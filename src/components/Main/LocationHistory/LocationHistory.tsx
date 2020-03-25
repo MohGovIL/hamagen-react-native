@@ -3,8 +3,8 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { toggleWebview } from '../../../actions/GeneralActions';
-import {IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP, USAGE_PRIVACY} from '../../../constants/Constants';
-import { GoogleTimeLine, Icon, TouchableOpacity } from '../../common';
+import { PADDING_BOTTOM, PADDING_TOP, USAGE_PRIVACY } from '../../../constants/Constants';
+import { GoogleTimeLine } from '../../common';
 
 interface Props {
   navigation: any,
