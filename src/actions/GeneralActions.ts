@@ -22,14 +22,24 @@ export const checkForceUpdate = () => async (dispatch: any) => {
       return dispatch({ type: SHOW_FORCE_TERMS, payload: { terms } });
     }
 
-    const storeVersion = IS_IOS ? ios : android;
-    const appVersion = DeviceInfo.getVersion();
+    const serverVersion = (IS_IOS ? ios : android).split('.').map((level: string) => parseFloat(level));
+    const appVersion = DeviceInfo.getVersion().split('.').map((level: string) => parseFloat(level));
     const shouldForce = IS_IOS ? shouldForceIOS : shouldForceAndroid;
 
-    if ((appVersion !== storeVersion) && shouldForce) {
+    if (shouldForce && isOlderVersion(serverVersion, appVersion)) {
       dispatch({ type: SHOW_FORCE_UPDATE });
     }
   } catch (error) {
     onError({ error });
   }
+};
+
+const isOlderVersion = (serverVersion: number[], appVersion: number[]) => {
+  for (let i = 0; i < serverVersion.length; i++) {
+    if (serverVersion[i] > appVersion[i]) {
+      return true;
+    }
+  }
+
+  return false;
 };
