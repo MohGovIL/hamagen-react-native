@@ -7,7 +7,7 @@ interface LocaleReducer {
   strings: any,
   isRTL: boolean,
   locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'|undefined,
-  localeData: { he: any, en: any, ar: any, am: any, ru: any }
+  localeData: { he: any, en: any, ar: any, am: any, ru: any, fr:any }
 }
 
 const INITIAL_STATE = {

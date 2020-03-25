@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, Text, TouchableOpacity } from '.';
 import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
-import { MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   languageButton: {
     width: SCREEN_WIDTH * 0.75,
-    height: 70,
+    height: IS_SMALL_SCREEN ? 50 : 70,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 22,

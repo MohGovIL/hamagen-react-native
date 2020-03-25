@@ -33,7 +33,7 @@ const ExposureInstructions = (
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={[styles.actionButtonContainer, !IS_SMALL_SCREEN && { height: 230 }]}>
-      <View style={{ alignItems: 'center', paddingHorizontal: 15 }}>
+      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 5 : 15 }}>
         <Icon source={icon} width={22} height={35} customStyles={{ marginBottom: 15 }} />
         <Text style={[{ lineHeight: 17, marginBottom: 20 }, locale === 'en' && text === goIntoIsolation && { fontSize: 13 }]}>{text}</Text>
       </View>
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   button: {
-    width: ((SCREEN_WIDTH - 60) / 2) - 50,
+    width: ((SCREEN_WIDTH - 60) / 2) - (IS_SMALL_SCREEN ? 10 : 50),
     height: 35,
     alignItems: 'center',
     justifyContent: 'center',
