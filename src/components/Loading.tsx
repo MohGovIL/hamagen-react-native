@@ -115,7 +115,7 @@ const Loading = (
       const state: State = await BackgroundGeolocation.getState();
       !state.enabled && await startSampling();
 
-      await startForegroundTimer();
+      // await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 

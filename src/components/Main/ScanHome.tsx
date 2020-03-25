@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, Text, DeviceEventEmitter } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, BackHandler, Text, DeviceEventEmitter, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS, check, request, PERMISSIONS } from 'react-native-permissions';
@@ -22,6 +22,7 @@ import { Exposure } from '../../types';
 import { TouchableOpacity } from '../common';
 import { checkSickPeopleFromFile } from '../../services/Tracker';
 import { UserLocationsDatabase } from '../../database/Database';
+import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 
 interface Props {
   navigation: any,
@@ -43,6 +44,7 @@ interface Props {
 
 const SICK_FILE_TYPE = 1;
 const LOCATIONS_FILE_TYPE = 2;
+const KML_FILE_TYPE = 3;
 
 const ScanHome = (
   {
@@ -165,7 +167,7 @@ const ScanHome = (
   const chooseFile = async (fileType: number) => {
     try {
       const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.plainText]
+        type: [DocumentPicker.types.allFiles]
       });
       console.log(
         res.uri,
@@ -173,13 +175,22 @@ const ScanHome = (
         res.name,
         res.size
       );
+
       const fileUri = res.uri;
       const rawText = await RNFS.readFile(fileUri);
+
       if (fileType === SICK_FILE_TYPE) {
         const pointsJSON = JSON.parse(rawText.trim());
         setTestName(pointsJSON?.testName ?? '');
         updatePointsFromFile(pointsJSON);
         await checkSickPeopleFromFile();
+      } else if (fileType === KML_FILE_TYPE) {
+        try {
+          const pointsEntered = await insertToSampleDB(kmlToGeoJson(rawText));
+          return Alert.alert(`KML loaded - ${pointsEntered} points`);
+        } catch (e) {
+          return Alert.alert('KML loading failed');
+        }
       } else {
         const db = new UserLocationsDatabase();
 
@@ -241,8 +252,11 @@ const ScanHome = (
           <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(SICK_FILE_TYPE); }}>
             <Text>Load Sick</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(LOCATIONS_FILE_TYPE); }}>
-            <Text>Load Locations</Text>
+          {/* <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(LOCATIONS_FILE_TYPE); }}> */}
+          {/*  <Text>Load Locations</Text> */}
+          {/* </TouchableOpacity> */}
+          <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(KML_FILE_TYPE); }}>
+            <Text>Load KML</Text>
           </TouchableOpacity>
         </View>
       </View>

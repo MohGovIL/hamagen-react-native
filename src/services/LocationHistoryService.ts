@@ -105,7 +105,7 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
       await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
       store().dispatch(checkIfHideLocationHistory());
 
-      resolve();
+      resolve(data.length);
     }
   } catch (error) {
     reject(error);
