@@ -84,7 +84,7 @@ export interface Fonts {
 export interface Exposure {
   properties: {
     OBJECTID: number,
-    OID: number,
+    Key_Field: number,
     Name: string,
     Place: string,
     fromTime: number,

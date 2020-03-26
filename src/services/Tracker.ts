@@ -142,13 +142,13 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
 
   for (const currSick of sickPeopleIntersected) {
     const queryResult = await dbSick.containsObjectID(
-      currSick.properties.OID,
+      currSick.properties.Key_Field,
     );
 
     if (!queryResult) {
       currSick.properties.fromTime = currSick.properties.fromTime_gmt;
       currSick.properties.toTime = currSick.properties.toTime_gmt;
-      currSick.properties.OBJECTID = currSick.properties.OID;
+      currSick.properties.OBJECTID = currSick.properties.Key_Field;
 
       exposuresToUpdate.push(currSick);
       await dbSick.addSickRecord(currSick);
