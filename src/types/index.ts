@@ -12,6 +12,7 @@ export interface Config {
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
+  locationHistoryIgnoreList: string[],
   sickMessage: {
     he: { title: string, body: string },
     en: { title: string, body: string },

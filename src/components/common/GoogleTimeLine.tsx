@@ -33,7 +33,7 @@ const FetchHistoryModal = ({ isVisible, isLoggedIn, webViewRef, onMessage, close
     <Modal
       visible={isVisible}
       animationType="slide"
-      onRequestClose={closeModal}
+      onRequestClose={isLoggedIn ? () => {} : closeModal}
     >
       <View style={styles.container}>
         <WebviewHeader hideClose={isLoggedIn} closeModal={closeModal} />
