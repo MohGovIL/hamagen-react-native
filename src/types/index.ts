@@ -88,9 +88,9 @@ export interface Exposure {
     Name: string,
     Place: string,
     fromTime: number,
-    fromTime_gmt: number,
+    fromTime_utc: number,
     toTime: number,
-    toTime_gmt: number
+    toTime_utc: number
   },
   geometry: {
     type: string,

@@ -31,24 +31,24 @@ const checkMillisecondsDiff = (to: number, from: number) => {
 export const isTimeOverlapping = (userRecord: any, sickRecord: any) => {
   // End time in the range
   return (
-    (userRecord.endTime > sickRecord.properties.fromTime_gmt
-      && userRecord.endTime < sickRecord.properties.toTime_gmt
+    (userRecord.endTime > sickRecord.properties.fromTime_utc
+      && userRecord.endTime < sickRecord.properties.toTime_utc
       && checkMillisecondsDiff(
         userRecord.endTime,
-        Math.max(sickRecord.properties.fromTime_gmt, userRecord.startTime),
+        Math.max(sickRecord.properties.fromTime_utc, userRecord.startTime),
       ))
     // in the range
-    || (userRecord.startTime < sickRecord.properties.fromTime_gmt
-      && userRecord.endTime > sickRecord.properties.toTime_gmt
+    || (userRecord.startTime < sickRecord.properties.fromTime_utc
+      && userRecord.endTime > sickRecord.properties.toTime_utc
       && checkMillisecondsDiff(
-        sickRecord.properties.toTime_gmt,
-        sickRecord.properties.fromTime_gmt,
+        sickRecord.properties.toTime_utc,
+        sickRecord.properties.fromTime_utc,
       ))
     // Start time in the range
-    || (userRecord.startTime > sickRecord.properties.fromTime_gmt
-      && userRecord.startTime < sickRecord.properties.toTime_gmt
+    || (userRecord.startTime > sickRecord.properties.fromTime_utc
+      && userRecord.startTime < sickRecord.properties.toTime_utc
       && checkMillisecondsDiff(
-        Math.min(sickRecord.properties.toTime_gmt, userRecord.endTime),
+        Math.min(sickRecord.properties.toTime_utc, userRecord.endTime),
         userRecord.startTime,
       ))
   );
@@ -146,8 +146,8 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
     );
 
     if (!queryResult) {
-      currSick.properties.fromTime = currSick.properties.fromTime_gmt;
-      currSick.properties.toTime = currSick.properties.toTime_gmt;
+      currSick.properties.fromTime = currSick.properties.fromTime_utc;
+      currSick.properties.toTime = currSick.properties.toTime_utc;
       currSick.properties.OBJECTID = currSick.properties.Key_Field;
 
       exposuresToUpdate.push(currSick);
