@@ -9,6 +9,7 @@ import { checkIfHideLocationHistory } from '../actions/GeneralActions';
 import store from '../store';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import { FIRST_POINT_TS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
+import config from '../config/config';
 
 // tslint:disable-next-line:no-var-requires
 const togeojson = require('./ToGeoJson.js');
@@ -60,7 +61,7 @@ export const kmlToGeoJson = (text: any) => {
       return;
     }
 
-    if (feature.properties.Category !== 'Driving') {
+    if (!config().locationHistoryIgnoreList.includes(feature.properties.Category)) {
       if (feature.geometry.type === 'Point') {
         objArray.push(createObject(feature.geometry.coordinates, feature.properties.timespan));
       } else if (feature.geometry.type === 'LineString') {
