@@ -1,5 +1,6 @@
 import SQLite from 'react-native-sqlite-storage';
 import config from '../config/config';
+import { onError } from '../services/ErrorService';
 
 SQLite.enablePromise(true);
 
@@ -111,6 +112,26 @@ export class UserLocationsDatabase {
         });
       }).catch((err) => {
         console.log(err);
+      });
+    });
+  }
+
+  updateSamplesToUTC() {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('UPDATE Samples set startTime = startTime - 7200000, endTime = endTime - 7200000').then(([tx, results]) => {
+            resolve(results);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          onError({ error: err });
+          reject(err);
+        });
+      }).catch((err) => {
+        onError({ error: err });
+        reject(err);
       });
     });
   }

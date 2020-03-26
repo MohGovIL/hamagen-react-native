@@ -44,8 +44,6 @@ export const insertDB = async (sample: any) => new Promise(async (resolve) => {
 
       const wifiMacAddressDatabase = new WifiMacAddressDatabase();
 
-      sample.timestamp += 2 * 60 * 60 * 1000;
-
       db.updateLastSampleEndTime(sample.timestamp).then(async () => {
         const sampleObj = {
           lat: sample.coords.latitude,

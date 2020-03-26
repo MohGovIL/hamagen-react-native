@@ -53,7 +53,7 @@ const ExposureInstructions = (
           <Text style={styles.title} bold>{title}</Text>
 
           <Text style={{ lineHeight: 22, marginBottom: 15 }}>
-            {`${weUnderstand}${Place} ${inDate} ${moment.utc(fromTime).format('DD.MM.YY')} ${fromHour} ${moment.utc(fromTime).format('HH:mm')} ${toHour} ${moment.utc(toTime).format('HH:mm')}`}
+            {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')} ${toHour} ${moment(toTime).format('HH:mm')}`}
           </Text>
 
           <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 20 : 0 }} onPress={removeValidExposure}>

@@ -22,6 +22,7 @@ import { setExposures } from '../actions/ExposuresActions';
 import { scheduleTask } from '../services/BackgroundService';
 import { onError } from '../services/ErrorService';
 import { startSampling } from '../services/SampleService';
+import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
@@ -93,6 +94,7 @@ const Loading = (
 
   const appLoadingActions = async () => {
     try {
+      await updateLocationsTimesToUTC();
       await initConfig();
       initLocale();
 

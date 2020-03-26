@@ -45,11 +45,11 @@ const ExposuresHistory = (
                 <Text style={styles.text}>{Place}</Text>
                 <Text>
                   <Text style={styles.text}>{`${inDate} `}</Text>
-                  <Text style={styles.text} bold>{`${moment.utc(fromTime).format('DD.MM.YY')} `}</Text>
+                  <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
                   <Text style={styles.text}>{`${fromHour} `}</Text>
-                  <Text style={styles.text} bold>{`${moment.utc(fromTime).format('HH:mm')} `}</Text>
+                  <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')} `}</Text>
                   <Text style={styles.text}>{`${toHour} `}</Text>
-                  <Text style={styles.text} bold>{`${moment.utc(toTime).format('HH:mm')}`}</Text>
+                  <Text style={styles.text} bold>{`${moment(toTime).format('HH:mm')}`}</Text>
                 </Text>
               </View>
             </View>
