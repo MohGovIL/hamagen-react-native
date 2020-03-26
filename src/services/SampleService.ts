@@ -6,7 +6,7 @@ import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Datab
 import { sha256 } from './sha256.js';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
-import {FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME} from '../constants/Constants';
+import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
 import store from '../store';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 

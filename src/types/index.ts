@@ -84,10 +84,13 @@ export interface Fonts {
 export interface Exposure {
   properties: {
     OBJECTID: number,
+    OID: number,
     Name: string,
     Place: string,
     fromTime: number,
-    toTime: number
+    fromTime_gmt: number,
+    toTime: number,
+    toTime_gmt: number
   },
   geometry: {
     type: string,

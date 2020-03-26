@@ -31,24 +31,24 @@ const checkMillisecondsDiff = (to: number, from: number) => {
 export const isTimeOverlapping = (userRecord: any, sickRecord: any) => {
   // End time in the range
   return (
-    (userRecord.endTime > sickRecord.properties.fromTime
-      && userRecord.endTime < sickRecord.properties.toTime
+    (userRecord.endTime > sickRecord.properties.fromTime_gmt
+      && userRecord.endTime < sickRecord.properties.toTime_gmt
       && checkMillisecondsDiff(
         userRecord.endTime,
-        Math.max(sickRecord.properties.fromTime, userRecord.startTime),
+        Math.max(sickRecord.properties.fromTime_gmt, userRecord.startTime),
       ))
     // in the range
-    || (userRecord.startTime < sickRecord.properties.fromTime
-      && userRecord.endTime > sickRecord.properties.toTime
+    || (userRecord.startTime < sickRecord.properties.fromTime_gmt
+      && userRecord.endTime > sickRecord.properties.toTime_gmt
       && checkMillisecondsDiff(
-        sickRecord.properties.toTime,
-        sickRecord.properties.fromTime,
+        sickRecord.properties.toTime_gmt,
+        sickRecord.properties.fromTime_gmt,
       ))
     // Start time in the range
-    || (userRecord.startTime > sickRecord.properties.fromTime
-      && userRecord.startTime < sickRecord.properties.toTime
+    || (userRecord.startTime > sickRecord.properties.fromTime_gmt
+      && userRecord.startTime < sickRecord.properties.toTime_gmt
       && checkMillisecondsDiff(
-        Math.min(sickRecord.properties.toTime, userRecord.endTime),
+        Math.min(sickRecord.properties.toTime_gmt, userRecord.endTime),
         userRecord.startTime,
       ))
   );
@@ -142,10 +142,14 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
 
   for (const currSick of sickPeopleIntersected) {
     const queryResult = await dbSick.containsObjectID(
-      currSick.properties.OBJECTID,
+      currSick.properties.OID,
     );
 
     if (!queryResult) {
+      currSick.properties.fromTime = currSick.properties.fromTime_gmt;
+      currSick.properties.toTime = currSick.properties.toTime_gmt;
+      currSick.properties.OBJECTID = currSick.properties.OID;
+
       exposuresToUpdate.push(currSick);
       await dbSick.addSickRecord(currSick);
     }
