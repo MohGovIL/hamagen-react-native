@@ -134,7 +134,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
       return;
     }
 
-    if (data === 'LOGGED_IN') {
+    if (data === 'LOGGED_IN' && !isLoggedIn) {
       try {
         webViewRef.current.injectJavaScript(`document.getElementsByTagName(\'html\')[0].innerHTML = \'${getLoadingHTML()}\'; true;`);
 
