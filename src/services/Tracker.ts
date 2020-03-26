@@ -11,6 +11,7 @@ import { registerLocalNotification } from './PushService';
 import { setExposures } from '../actions/ExposuresActions';
 import config from '../config/config';
 import store from '../store';
+import { downloadAndVerifySigning } from './SigningService';
 import { onError } from './ErrorService';
 import { IS_IOS, LAST_FETCH_TS } from '../constants/Constants';
 
@@ -96,37 +97,34 @@ export const getIntersectingSickRecords = (
 };
 
 export const checkSickPeople = async () => {
-  const lastFetch = JSON.parse(
-    (await AsyncStorage.getItem(LAST_FETCH_TS)) || '0',
-  );
+  try {
+    const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
-    return;
+    // prevent excessive calls to checkSickPeople
+    if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+      return;
+    }
+
+    const responseJson = await downloadAndVerifySigning(config().dataUrl);
+
+    const myData = await queryDB();
+
+    const sickPeopleIntersected: any = getIntersectingSickRecords(
+      myData,
+      responseJson,
+    );
+
+    if (sickPeopleIntersected.length > 0) {
+      await onSickPeopleNotify(sickPeopleIntersected);
+    }
+
+    await AsyncStorage.setItem(
+      LAST_FETCH_TS,
+      JSON.stringify(moment().valueOf()),
+    );
+  } catch (error) {
+    onError(error);
   }
-
-  fetch(`${config().dataUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
-    .then(response => response.json())
-    .then(async (responseJson) => {
-      const myData = await queryDB();
-
-      const sickPeopleIntersected: any = getIntersectingSickRecords(
-        myData,
-        responseJson,
-      );
-
-      if (sickPeopleIntersected.length > 0) {
-        await onSickPeopleNotify(sickPeopleIntersected);
-      }
-
-      await AsyncStorage.setItem(
-        LAST_FETCH_TS,
-        JSON.stringify(moment().valueOf()),
-      );
-    })
-    .catch((error) => {
-      onError(error);
-    });
 };
 
 export const queryDB = async () => {
@@ -163,10 +161,10 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   }
 
   exposuresToUpdate.length > 0
-    && (await registerLocalNotification(
-      config().sickMessage[locale].title,
-      config().sickMessage[locale].body,
-      config().sickMessage.duration,
-      'ms',
-    ));
+  && (await registerLocalNotification(
+    config().sickMessage[locale].title,
+    config().sickMessage[locale].body,
+    config().sickMessage.duration,
+    'ms',
+  ));
 };
