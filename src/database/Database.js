@@ -272,8 +272,8 @@ export class IntersectionSickDatabase {
               record.properties.Name,
               record.properties.Place,
               record.properties.Comments,
-              record.properties.fromTime_gmt,
-              record.properties.toTime_gmt,
+              record.properties.fromTime_utc,
+              record.properties.toTime_utc,
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex]
             ]).then(([tx, results]) => {
