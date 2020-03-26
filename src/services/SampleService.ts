@@ -1,6 +1,7 @@
 import geoHash from 'latlon-geohash';
 import AsyncStorage from '@react-native-community/async-storage';
 import AsyncLock from 'async-lock';
+import moment from 'moment';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
 import { sha256 } from './sha256.js';
@@ -102,6 +103,25 @@ const saveToStorage = (key: string, value: number) => new Promise(async (resolve
     resolve();
   } catch (error) {
     resolve();
+    onError({ error });
+  }
+});
+
+export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
+  const NUM_OF_WEEKS_TO_PURGE = 2;
+
+  try {
+    await lock.acquire('purgeDB', async (done) => {
+      const db = new UserLocationsDatabase();
+
+      await db.purgeSamplesTable(moment().subtract(NUM_OF_WEEKS_TO_PURGE, 'week').unix());
+
+      resolve();
+      done();
+      return true;
+    });
+  } catch (error) {
+    reject(error);
     onError({ error });
   }
 });

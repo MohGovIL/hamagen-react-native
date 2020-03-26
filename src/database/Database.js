@@ -114,6 +114,30 @@ export class UserLocationsDatabase {
       });
     });
   }
+
+  // TODO: Handle WIFI hashtable purging.
+  purgeSamplesTable(timestamp) {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('DELETE FROM Samples WHERE endTime < ?', [timestamp]).then(() => {
+            resolve(true);
+          }).catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
 }
 
 export class IntersectionSickDatabase {
