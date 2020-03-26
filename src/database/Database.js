@@ -268,7 +268,7 @@ export class IntersectionSickDatabase {
         db.transaction((tx) => {
           tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?)',
             [
-              record.properties.OID,
+              record.properties.Key_Field,
               record.properties.Name,
               record.properties.Place,
               record.properties.Comments,
