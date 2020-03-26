@@ -114,7 +114,7 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
     await lock.acquire('purgeDB', async (done) => {
       const db = new UserLocationsDatabase();
 
-      await db.purgeSamplesTable(moment().subtract(NUM_OF_WEEKS_TO_PURGE, 'week').unix());
+      await db.purgeSamplesTable(moment().subtract(NUM_OF_WEEKS_TO_PURGE, 'week').unix() * 1000);
 
       resolve();
       done();
