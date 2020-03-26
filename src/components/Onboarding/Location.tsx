@@ -30,7 +30,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       }
 
       await requestPermissions();
-      navigation.navigate(IS_IOS ? 'LocationIOS' : 'AllSet');
+      navigation.navigate(IS_IOS ? 'LocationIOS' : 'LocationHistoryOnBoarding');
     } catch (e) {
       // handled in service
     }

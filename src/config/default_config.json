@@ -11,6 +11,7 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationHistoryIgnoreList": ["On a train", "In a taxi or rideshare", "Driving", "Running", "Cycling", "Flying", "On a bus", "Boating", "Motorcycling", "Swimming"],
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -75,6 +76,7 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationHistoryIgnoreList": ["On a train", "In a taxi or rideshare", "Driving", "Running", "Cycling", "Flying", "On a bus", "Boating", "Motorcycling", "Swimming"],
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -139,6 +141,7 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationHistoryIgnoreList": ["On a train", "In a taxi or rideshare", "Driving", "Running", "Cycling", "Flying", "On a bus", "Boating", "Motorcycling", "Swimming"],
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",

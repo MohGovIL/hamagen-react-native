@@ -50,5 +50,6 @@
   },
   "plugins": [
     "react-hooks"
-  ]
+  ],
+  "globals": { "fetch": false }
 }

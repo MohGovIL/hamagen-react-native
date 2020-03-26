@@ -105,7 +105,7 @@ export const checkSickPeople = async () => {
     return;
   }
 
-  fetch(config().dataUrl, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
+  fetch(`${config().dataUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
     .then(response => response.json())
     .then(async (responseJson) => {
       const myData = await queryDB();
