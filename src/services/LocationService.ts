@@ -1,8 +1,10 @@
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import BackgroundGeolocation from 'react-native-background-geolocation';
+import AsyncStorage from '@react-native-community/async-storage';
+import { UserLocationsDatabase } from '../database/Database';
 import { onError } from './ErrorService';
 import config from '../config/config';
-import { IS_IOS } from '../constants/Constants';
+import { DID_UPDATE_LOCATIONS_TIME_TO_UTC, IS_IOS } from '../constants/Constants';
 
 export const permission = IS_IOS ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION;
 
@@ -83,3 +85,20 @@ export const startLocationTracking = async () => {
     onError({ error });
   }
 };
+
+export const updateLocationsTimesToUTC = () => new Promise(async (resolve) => {
+  try {
+    const didUpdate = await AsyncStorage.getItem(DID_UPDATE_LOCATIONS_TIME_TO_UTC);
+
+    if (!didUpdate) {
+      const db = new UserLocationsDatabase();
+      await db.updateSamplesToUTC();
+      await AsyncStorage.setItem(DID_UPDATE_LOCATIONS_TIME_TO_UTC, 'true');
+    }
+
+    resolve();
+  } catch (error) {
+    resolve();
+    onError({ error });
+  }
+});

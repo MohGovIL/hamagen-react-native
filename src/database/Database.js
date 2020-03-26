@@ -1,5 +1,6 @@
 import SQLite from 'react-native-sqlite-storage';
 import config from '../config/config';
+import { onError } from '../services/ErrorService';
 
 SQLite.enablePromise(true);
 
@@ -132,6 +133,26 @@ export class UserLocationsDatabase {
       });
     });
   }
+
+  updateSamplesToUTC() {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('UPDATE Samples set startTime = startTime - 7200000, endTime = endTime - 7200000').then(([tx, results]) => {
+            resolve(results);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          onError({ error: err });
+          reject(err);
+        });
+      }).catch((err) => {
+        onError({ error: err });
+        reject(err);
+      });
+    });
+  }
 }
 
 export class IntersectionSickDatabase {
@@ -247,12 +268,12 @@ export class IntersectionSickDatabase {
         db.transaction((tx) => {
           tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?)',
             [
-              record.properties.OBJECTID,
+              record.properties.OID,
               record.properties.Name,
               record.properties.Place,
               record.properties.Comments,
-              record.properties.fromTime,
-              record.properties.toTime,
+              record.properties.fromTime_gmt,
+              record.properties.toTime_gmt,
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex]
             ]).then(([tx, results]) => {

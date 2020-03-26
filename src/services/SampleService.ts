@@ -47,8 +47,6 @@ export const insertDB = async (sample: DBSample) => new Promise(async (resolve) 
 
       const wifiMacAddressDatabase = new WifiMacAddressDatabase();
 
-      sample.timestamp += 2 * 60 * 60 * 1000;
-
       const isLastPointFromTimeline = await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE);
 
       if (!isLastPointFromTimeline) {
