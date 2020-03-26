@@ -11,7 +11,7 @@ import { onError } from './ErrorService';
 import store from '../store';
 import { DBSample } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
-import { FIRST_POINT_TS, LAST_POINT_START_TIME } from '../constants/Constants';
+import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
 
 const lock = new AsyncLock();
 
@@ -49,31 +49,37 @@ export const insertDB = async (sample: DBSample) => new Promise(async (resolve) 
 
       sample.timestamp += 2 * 60 * 60 * 1000;
 
-      db.updateLastSampleEndTime(sample.timestamp).then(async () => {
-        const sampleObj = {
-          lat: sample.coords.latitude,
-          long: sample.coords.longitude,
-          accuracy: sample.coords.accuracy,
-          startTime: sample.timestamp,
-          endTime: sample.timestamp,
-          geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
-          wifiHash
-        };
+      const isLastPointFromTimeline = await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE);
 
-        const finalSample = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
+      if (!isLastPointFromTimeline) {
+        await db.updateLastSampleEndTime(sample.timestamp);
+      } else {
+        await AsyncStorage.removeItem(IS_LAST_POINT_FROM_TIMELINE);
+      }
 
-        await db.addSample(finalSample);
+      const sampleObj = {
+        lat: sample.coords.latitude,
+        long: sample.coords.longitude,
+        accuracy: sample.coords.accuracy,
+        startTime: sample.timestamp,
+        endTime: sample.timestamp,
+        geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
+        wifiHash
+      };
 
-        const isExist = await wifiMacAddressDatabase.containsWifiHash(wifiHash);
+      const finalSample = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
 
-        if (!isExist) {
-          await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
-        }
+      await db.addSample(finalSample);
 
-        resolve();
-        done();
-        return true;
-      });
+      const isExist = await wifiMacAddressDatabase.containsWifiHash(wifiHash);
+
+      if (!isExist) {
+        await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
+      }
+
+      resolve();
+      done();
+      return true;
     } catch (error) {
       resolve();
       onError({ error });
