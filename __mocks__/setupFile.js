@@ -71,3 +71,13 @@ jest.mock('react-native-background-timer', () => {
     runBackgroundTimer: jest.fn()
   };
 });
+
+
+jest.mock('../src/config/config.ts', () => {
+  const originalModule = require('../src/config/default_config.json');
+  return {
+    __esModule: true,
+    namedExport: jest.fn(),
+    default: jest.fn(() => originalModule['com.hamagen.dev']),
+  };
+});
