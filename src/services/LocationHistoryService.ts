@@ -7,9 +7,9 @@ import { UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
 import { checkIfHideLocationHistory } from '../actions/GeneralActions';
 import store from '../store';
-import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
-import { FIRST_POINT_TS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 import config from '../config/config';
+import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
+import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const togeojson = require('./ToGeoJson.js');
@@ -105,6 +105,9 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
       // once 14 days flow completed for the first time
       await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
       store().dispatch(checkIfHideLocationHistory());
+
+      // raise flag that last point in db is from timeline
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true');
 
       resolve();
     }
