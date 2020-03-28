@@ -11,14 +11,13 @@ import {
 } from '../../constants/Constants';
 
 interface Props {
-  isRTL: boolean,
   strings: any,
   isConnected: boolean,
   showChangeLanguage: boolean,
   goToExposureHistory(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
+const ScanHomeHeader = ({ strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -28,7 +27,7 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
     >
       {
         showChangeLanguage && (
-          <View style={{ position: 'absolute', left: 20, top: PADDING_TOP(IS_SMALL_SCREEN ? 15 : 20) }}>
+          <View style={{ position: 'absolute', end: 20, top: PADDING_TOP(IS_SMALL_SCREEN ? 15 : 20) }}>
             <ChangeLanguageButton />
           </View>
         )
@@ -39,17 +38,17 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
       </View>
 
       <View style={styles.subContainer}>
+        <View style={styles.headerItemContainer}>
+          <View style={[styles.indicator, { backgroundColor: isConnected ? MAIN_COLOR : '#b4b4b4' }]} />
+          <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
+        </View>
+
         <TouchableOpacity onPress={goToExposureHistory}>
-          <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+          <View style={styles.headerItemContainer}>
             <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
             <Text style={styles.text}>{exposureHistory}</Text>
           </View>
         </TouchableOpacity>
-
-        <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-          <View style={[styles.indicator, { backgroundColor: isConnected ? MAIN_COLOR : '#b4b4b4' }]} />
-          <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
-        </View>
       </View>
     </ImageBackground>
   );
@@ -75,7 +74,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   headerItemContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   indicator: {
     ...BASIC_SHADOW_STYLES,

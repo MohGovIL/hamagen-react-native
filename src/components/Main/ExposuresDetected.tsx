@@ -12,7 +12,6 @@ import {
 } from '../../constants/Constants';
 
 interface Props {
-  isRTL: boolean,
   strings: any,
   exposures: Exposure[],
   onValidExposure(exposure: Exposure): void,
@@ -21,7 +20,6 @@ interface Props {
 
 const ExposuresDetected = (
   {
-    isRTL,
     strings: { scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, toHour, wereYouThere, no, canContinue, yes, needDirections } },
     exposures,
     onValidExposure,
@@ -84,7 +82,7 @@ const ExposuresDetected = (
       <View style={{ alignItems: 'center' }}>
         <Text style={!IS_SMALL_SCREEN && { marginBottom: 25 }}>{wereYouThere}</Text>
 
-        <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+        <View style={[styles.actionButtonsWrapper, { flexDirection: 'row' }]}>
           {renderActionButton(no, canContinue, onDismissExposure)}
           {renderActionButton(yes, needDirections, () => onValidExposure(exposures[0]))}
         </View>

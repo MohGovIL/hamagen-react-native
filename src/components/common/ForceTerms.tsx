@@ -5,14 +5,13 @@ import { ActionButton, Icon, TermsOfUse, Text } from '.';
 import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
-  isRTL: boolean,
   strings: any,
   isVisible: boolean,
   onSeeTerms(): void,
   onApprovedTerms(): void
 }
 
-const ForceTerms = ({ isVisible, isRTL, strings, onSeeTerms, onApprovedTerms }: Props) => {
+const ForceTerms = ({ isVisible, strings, onSeeTerms, onApprovedTerms }: Props) => {
   const animRef = useRef<any>(null);
   const [isTOUAccepted, setIsTOUAccepted] = useState(false);
 
@@ -43,7 +42,6 @@ const ForceTerms = ({ isVisible, isRTL, strings, onSeeTerms, onApprovedTerms }: 
         <View style={{ alignItems: 'center' }}>
           <Animatable.View ref={animRef} style={{ marginBottom: 25 }}>
             <TermsOfUse
-              isRTL={isRTL}
               strings={strings}
               value={isTOUAccepted}
               onValueSelected={value => setIsTOUAccepted(value)}
