@@ -160,7 +160,7 @@ const Loading = (
 
   return (
     (_.isEmpty(strings) || !initialRoute) ? null : (
-      <View style={styles.container}>
+      <View style={[styles.container, { direction: isRTL ? 'rtl' : 'ltr' }]}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
