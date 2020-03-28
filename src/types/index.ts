@@ -8,7 +8,7 @@ export interface Config {
   versionsUrl: string,
   fetchMilliseconds: number,
   meterRadius: number,
-  intersectMilliseconds: number,
+  intersectMinutes: number,
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
