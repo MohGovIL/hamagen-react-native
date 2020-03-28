@@ -6,7 +6,7 @@ Thanks for considering contributing to Hamagen - Israel's Ministry of Health's C
 
 If you find a bug, please feel free to [open an issue](https://github.com/MohGovIL/hamagen-react-native/issues).
 
-If you taking the time to mention a problem, even a seemingly minor one, it is greatly appreciated, and a totally valid contribution to this project. Thank you!
+If you are taking the time to mention a problem, even a seemingly minor one, it is greatly appreciated, and a totally valid contribution to this project. Thank you!
 
 
 ## Adding new features
@@ -20,7 +20,7 @@ We love pull requests. Here’s a quick guide:
 1. [Fork this repository](https://github.com/MohGovIL/hamagen-react-native/) and then clone it locally:
 
   ```bash
-  git clone https://github.com/MohGovIL/hamagen-react-native/
+  git clone https://github.com/<yourUserName>/hamagen-react-native/
   ```
 
 2. Create a topic branch for your changes:
