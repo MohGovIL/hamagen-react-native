@@ -109,7 +109,7 @@ export const checkSickPeople = async () => {
     .then(response => response.json())
     .then(async (responseJson) => {
       const myData = await queryDB();
-      console.log(myData)
+
       const sickPeopleIntersected: any = getIntersectingSickRecords(
         myData,
         responseJson,

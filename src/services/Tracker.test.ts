@@ -5,7 +5,10 @@ import * as tracker from './Tracker';
 import * as db from '../database/Database';
 import * as constants from '../constants/Constants';
 
-jest.mock('./PushService')
+jest.mock('./PushService', () => {
+  const registerLocalNotification = jest.fn()
+  return { registerLocalNotification }
+})
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
