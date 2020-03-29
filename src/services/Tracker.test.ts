@@ -5,6 +5,8 @@ import * as tracker from './Tracker';
 import * as db from '../database/Database';
 import * as constants from '../constants/Constants';
 
+jest.mock('./PushService')
+
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
 const {intersectMilliseconds} = config()
