@@ -123,6 +123,7 @@ export class UserLocationsDatabase {
 
         await db.transaction(async (tx) => {
           data = data.replace(/[()]/g, '').split(',');
+          data = data.map(sample => isNaN(parseFloat(sample)) ? sample : parseFloat(sample));
 
           const numberOfBulks = Math.ceil(data.length / 800);
           const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 800, (index + 1) * 800));
