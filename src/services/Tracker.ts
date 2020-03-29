@@ -24,34 +24,18 @@ export const startForegroundTimer = async () => {
   }, config().sampleInterval);
 };
 
-const checkMillisecondsDiff = (to: number, from: number) => {
-  return to - from > config().intersectMilliseconds;
-};
-
 export const isTimeOverlapping = (userRecord: any, sickRecord: any) => {
-  // End time in the range
-  return (
-    (userRecord.endTime > sickRecord.properties.fromTime
-      && userRecord.endTime < sickRecord.properties.toTime
-      && checkMillisecondsDiff(
-        userRecord.endTime,
-        Math.max(sickRecord.properties.fromTime, userRecord.startTime),
-      ))
-    // in the range
-    || (userRecord.startTime < sickRecord.properties.fromTime
-      && userRecord.endTime > sickRecord.properties.toTime
-      && checkMillisecondsDiff(
-        sickRecord.properties.toTime,
-        sickRecord.properties.fromTime,
-      ))
-    // Start time in the range
-    || (userRecord.startTime > sickRecord.properties.fromTime
-      && userRecord.startTime < sickRecord.properties.toTime
-      && checkMillisecondsDiff(
-        Math.min(sickRecord.properties.toTime, userRecord.endTime),
-        userRecord.startTime,
-      ))
-  );
+
+  // formatting sick record as the user record.
+  const formattedSickRecord = {
+    startTime: sickRecord.properties.fromTime,
+    endTime: sickRecord.properties.toTime
+  };
+
+  const [previousRecord, nextRecord] = userRecord.startTime < formattedSickRecord.startTime ? [userRecord, formattedSickRecord] : [formattedSickRecord, userRecord];
+  const overlap = Math.min(previousRecord.endTime, nextRecord.endTime) - nextRecord.startTime;
+
+  return overlap >= 1000 * 60 * config().intersectMinutes;
 };
 
 export const isSpaceOverlapping = (userRecord: any, sickRecord: any) => {
