@@ -2,6 +2,7 @@ export interface Config {
   sampleDistance: number,
   sampleInterval: number,
   dataUrl: string,
+  dataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
   fetchMilliseconds: number,
