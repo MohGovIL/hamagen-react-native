@@ -731,22 +731,22 @@
       "reportSite": " Pour signaler sur le site"
     },
     "locationHistory": {
-      "beforeCheckTitle": "סגירת פינות אחרונות",
-      "beforeCheckDesc": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. מידע זה נשמר על הטלפון ולשימושך האישי בלבד ולא נשלח לאף גורם אחר",
-      "beforeCheckDesc2": "לצורך כך, עליך לאפשר גישה למיקומים ב-14 הימים האחרונים מגוגל",
-      "beforeCheckButton": "דיוק הנתונים",
-      "skip": "דילוג",
-      "successFoundTitle": "הנתונים מגוגל עודכנו בהצלחה",
-      "successFoundDesc": "איתור נקודות החפיפה עבור 14 הימים האחרונים יהיה בהתאם לנתוני המיקום שהתקבלו מגוגל",
-      "successFoundButton": "להמשך",
-      "successNotFoundTitle": "לא זוהו מיקומים",
-      "successNotFoundDesc": "הנתונים מגוגל התקבלו בהצלחה, אך לא זוהו מיקומים ב- 14 ימים האחרונים",
-      "successNotFoundButton": "הבנתי",
-      "failedTitle": "קבלת הנתונים מגוגל נכשלה",
-      "failedDesc": "מומלץ לבדוק חיבור לאינטרנט, שם משתמש וסיסמא לגוגל ולנסות בשנית",
-      "failedButton": "ניסיון נוסף",
-      "info": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. ",
-      "moreInfo": "מידע נוסף"
+      "beforeCheckTitle": "Fermeture des derniers virages",
+      "beforeCheckDesc": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. Ces informations sont conservées sur le téléphone et pour votre usage personnel uniquement et ne sont envoyées à aucune autre partie",
+      "beforeCheckDesc2": "Pour ce faire, vous devez autoriser l'accès aux emplacements au cours des 14 derniers jours à partir de Google",
+      "beforeCheckButton": "Précision des données",
+      "skip": "Sauter",
+      "successFoundTitle": "Mise à jour réussie des données Google",
+      "successFoundDesc": "La localisation des points de chevauchement au cours des 14 derniers jours sera basée sur les données de localisation reçues de Google",
+      "successFoundButton": "Continuez",
+      "successNotFoundTitle": "Aucun emplacement détecté",
+      "successNotFoundDesc": "Les données Google ont réussi, mais aucun emplacement n'a été détecté au cours des 14 derniers jours",
+      "successNotFoundButton": "J'ai compris",
+      "failedTitle": "Impossible d'obtenir des données de Google",
+      "failedDesc": "Nous vous recommandons de vérifier votre connexion Internet, votre nom d'utilisateur et votre mot de passe Google, puis de réessayer",
+      "failedButton": "Un autre essai",
+      "info": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. ",
+      "moreInfo": "En savoir plus"
     }
   }
 }
