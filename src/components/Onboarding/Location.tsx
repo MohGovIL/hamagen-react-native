@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LottieView from 'lottie-react-native';
@@ -40,7 +40,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 40, marginTop: IS_SMALL_SCREEN ? 20 : 0 }}>
+      <ScrollView style={{ flex: 0.6, paddingHorizontal: IS_SMALL_SCREEN ? 20 : 40, marginTop: IS_SMALL_SCREEN ? 20 : 0 }}>
         {!IS_SMALL_SCREEN && (
         <LottieView
           style={styles.lottie}
@@ -54,9 +54,9 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.subTitle}>{subTitle1}</Text>
         <Text bold>{IS_IOS ? subTitle2IOS : subTitle2Android}</Text>
-      </View>
+      </ScrollView>
 
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ flex: 0.4, alignItems: 'center', justifyContent: 'flex-start', }}>
         <Animatable.View ref={animRef} style={{ marginBottom: 25, marginTop: IS_SMALL_SCREEN ? 5 : 0 }}>
           <TermsOfUse
             isRTL={isRTL}
@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
   lottie: {
     width: 57,
     height: 94,
-    marginBottom: 20
+    marginBottom: 20,
+    alignSelf: "center"
   },
   title: {
     fontSize: 22,
