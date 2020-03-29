@@ -23,7 +23,7 @@ import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
 import { scheduleTask } from '../services/BackgroundService';
 import { onError } from '../services/ErrorService';
-import { startSampling } from '../services/SampleService';
+import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
@@ -113,6 +113,8 @@ const Loading = (
           await scheduleTask();
         }
       });
+
+      await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
       !state.enabled && await startSampling();
