@@ -63,7 +63,7 @@ export interface ErrorService {
 }
 
 export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   isRTL: boolean,
   strings: any
 }

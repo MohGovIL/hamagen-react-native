@@ -158,12 +158,12 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
 
   store().dispatch(setExposures(exposuresToUpdate));
 
-  let locale: 'he' | 'en' | 'ar' | 'am' | 'ru' = (IS_IOS
+  let locale: 'he' | 'en' | 'ar' | 'am' | 'ru' | 'fr' = (IS_IOS
     ? NativeModules.SettingsManager.settings.AppleLocale
     : NativeModules.I18nManager.localeIdentifier
   ).substr(0, 2);
 
-  if (!['he', 'en', 'ar', 'am', 'ru'].includes(locale)) {
+  if (!['he', 'en', 'ar', 'am', 'ru', 'fr'].includes(locale)) {
     locale = 'he';
   }
 

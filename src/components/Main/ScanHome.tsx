@@ -22,7 +22,7 @@ interface Props {
   navigation: any,
   isRTL: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   exposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,

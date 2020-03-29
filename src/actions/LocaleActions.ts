@@ -13,7 +13,7 @@ export const initLocale = () => async (dispatch: any) => {
   try {
     const locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
 
-    let activeLocale: 'he'|'iw'|'en'|'ar'|'am'|'ru' = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
+    let activeLocale: 'he'|'iw'|'en'|'ar'|'am'|'ru'|'fr' = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
 
     if (activeLocale === 'iw') {
       activeLocale = 'he';
@@ -38,7 +38,7 @@ export const initLocale = () => async (dispatch: any) => {
   }
 };
 
-export const changeLocale = (locale: 'he'|'en'|'ar'|'am'|'ru') => async (dispatch: any) => {
+export const changeLocale = (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => async (dispatch: any) => {
   try {
     await AsyncStorage.setItem(CURRENT_LOCALE, locale);
     dispatch({ type: LOCALE_CHANGED, payload: { locale } });
