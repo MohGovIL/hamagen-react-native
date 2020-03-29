@@ -17,7 +17,7 @@ const ExposuresHistory = (
   {
     navigation,
     strings: {
-      scanHome: { inDate, fromHour, toHour },
+      scanHome: { inDate, fromHour },
       exposuresHistory: { title, noExposures }
     },
     isRTL,
@@ -35,7 +35,7 @@ const ExposuresHistory = (
     <FlatList
       data={pastExposures}
       renderItem={({ item }) => {
-        const { properties: { Place, fromTime, toTime } } = item;
+        const { properties: { Place, fromTime } } = item;
 
         return (
           <View style={styles.listItemContainer}>
@@ -47,9 +47,7 @@ const ExposuresHistory = (
                   <Text style={styles.text}>{`${inDate} `}</Text>
                   <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
                   <Text style={styles.text}>{`${fromHour} `}</Text>
-                  <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')} `}</Text>
-                  <Text style={styles.text}>{`${toHour} `}</Text>
-                  <Text style={styles.text} bold>{`${moment(toTime).format('HH:mm')}`}</Text>
+                  <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
                 </Text>
               </View>
             </View>

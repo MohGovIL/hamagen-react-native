@@ -1,9 +1,8 @@
-import { Method } from 'axios';
-
 export interface Config {
   sampleDistance: number,
   sampleInterval: number,
   dataUrl: string,
+  dataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
   fetchMilliseconds: number,
@@ -56,13 +55,6 @@ export interface ReducerAction {
   payload: any
 }
 
-export interface RequestWrapperPayload {
-  method: Method,
-  url: string,
-  params?: any,
-  isAnonymous?: boolean
-}
-
 export interface ErrorService {
   error: any,
   actionType?: string,
@@ -72,13 +64,18 @@ export interface ErrorService {
 }
 
 export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   isRTL: boolean,
   strings: any
 }
 
 export interface Fonts {
   [key: string]: string
+}
+
+export interface SickJSON {
+  type: string,
+  features: Exposure[]
 }
 
 export interface Exposure {
@@ -90,12 +87,25 @@ export interface Exposure {
     fromTime: number,
     fromTime_utc: number,
     toTime: number,
-    toTime_utc: number
+    toTime_utc: number,
+    radius?: number
   },
   geometry: {
     type: string,
-    coordinates: number[]
+    coordinates: number[],
+    radius?: number
   }
+}
+
+export interface Location {
+  geoHash: string,
+  hash: string,
+  endTime: number,
+  wifiHash: string,
+  accuracy: number,
+  lat: number,
+  startTime: number,
+  long: number
 }
 
 export interface DBExposure {

@@ -7,7 +7,7 @@ import { USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   usageType: string,
   closeWebview(): void
 }

@@ -7,7 +7,7 @@ import { toggleChangeLanguage } from '../../actions/LocaleActions';
 
 interface Props {
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   toggleChangeLanguage(isShow: boolean): void
 }
 

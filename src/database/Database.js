@@ -120,7 +120,10 @@ export class UserLocationsDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql(`INSERT INTO Samples VALUES ${data}`).then(([tx, results]) => {
+          const samples = data.split('),').map(() => '(?,?,?,?,?,?,?,?)').toString();
+          data = data.replace(/[()]/g, '').split(',');
+
+          tx.executeSql(`INSERT INTO Samples VALUES ${samples}`, data).then(([tx, results]) => {
             resolve(results);
           });
         }).then((result) => {
@@ -130,6 +133,30 @@ export class UserLocationsDatabase {
         });
       }).catch((err) => {
         console.log(err);
+      });
+    });
+  }
+
+  // TODO: Handle WIFI hashtable purging.
+  purgeSamplesTable(timestamp) {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('DELETE FROM Samples WHERE endTime < ?', [timestamp]).then(() => {
+            resolve(true);
+          }).catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+        reject(err);
       });
     });
   }
