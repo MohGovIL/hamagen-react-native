@@ -11,14 +11,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -72,7 +74,7 @@
       "noExposure3": "בשעה:",
       "noExposure4": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "accordingToData": "לפי הנתונים שנאספו,",
-      "from": "מה -",
+      "from": "מאז",
       "at": "בשעה",
       "until": "ועד היום",
       "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
@@ -134,14 +136,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
-        "ar": "العربية",
-        "am": "አማርኛ"
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -195,7 +199,7 @@
       "noExposure3": "في الساعة:",
       "noExposure4": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
       "accordingToData": "وفقًا للبيانات التي تم جمعها،",
-      "from": "من -",
+      "from": "منذ",
       "at": "في",
       "until": "وحتى يومنا هذا",
       "notFound": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
@@ -257,14 +261,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -318,7 +324,7 @@
       "noExposure3": "at:",
       "noExposure4": "no points of intersection have been found with CoronaVirus patients",
       "accordingToData": "According to the data collected,",
-      "from": "from -",
+      "from": "since",
       "at": "at",
       "until": "until today",
       "notFound": "no points of intersection have been found with CoronaVirus patients",
@@ -380,14 +386,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -441,7 +449,7 @@
       "noExposure3": "в:",
       "noExposure4": "мы не обнаружили контакта с больным",
       "accordingToData": "Согласно собранным данным,",
-      "from": "от -",
+      "from": "c тех пор",
       "at": "в",
       "until": "И по сей день",
       "notFound": "мы не обнаружили контакта с больным",
@@ -503,14 +511,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -564,7 +574,7 @@
       "noExposure3": "ሰአቱ:",
       "noExposure4": "ምንም አይነት ንክኪ ከኮሮና ቫይረስ ከተያዘው ሠው ጋር እንዳልተገኘ ነው",
       "accordingToData": "በተሰበሰበው መረጃ መሠረት,",
-      "from": "ከ -",
+      "from": "ከዚያ ጊዜ ጀምሮ",
       "at": "በ",
       "until": "እስከዚህም ድረስ",
       "notFound": "ምንም አይነት ንክኪ ከኮሮና ቫይረስ ከተያዘው ሠው ጋር እንዳልተገኘ ነው",
@@ -689,7 +699,7 @@
       "noExposure3": "à:",
       "noExposure4": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",
       "accordingToData": "Selon les données collectées,",
-      "from": "À partir de -",
+      "from": "depuis lors",
       "at": "À",
       "until": "Et à ce jour",
       "notFound": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",

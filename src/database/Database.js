@@ -117,23 +117,27 @@ export class UserLocationsDatabase {
   }
 
   insertBulkSamples(data) {
-    return new Promise((resolve) => {
-      this.initDB().then((db) => {
-        db.transaction((tx) => {
-          const samples = data.split('),').map(() => '(?,?,?,?,?,?,?,?)').toString();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const db = await this.initDB();
+
+        await db.transaction(async (tx) => {
           data = data.replace(/[()]/g, '').split(',');
 
-          tx.executeSql(`INSERT INTO Samples VALUES ${samples}`, data).then(([tx, results]) => {
-            resolve(results);
-          });
-        }).then((result) => {
+          const numberOfBulks = Math.ceil(data.length / 800);
+          const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 800, (index + 1) * 800));
+
+          await Promise.all(bulks.map((bulkData) => {
+            const samples = Array.from({ length: bulkData.length / 8 }, () => '(?,?,?,?,?,?,?,?)').toString();
+            return tx.executeSql(`INSERT INTO Samples VALUES ${samples}`, bulkData);
+          }));
+
+          resolve();
           this.closeDatabase(db);
-        }).catch((err) => {
-          console.log(err);
         });
-      }).catch((err) => {
-        console.log(err);
-      });
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 
