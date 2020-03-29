@@ -2,7 +2,7 @@
   "he": {
     "general": {
       "start": "התחלה",
-      "additionalInfo": "מידע נוסף פרטיות"
+      "additionalInfo": "מידע נוסף ופרטיות"
     },
     "languages": {
       "title": "בחר שפה",
@@ -71,12 +71,17 @@
       "noExposure2": "מאז ה:",
       "noExposure3": "בשעה:",
       "noExposure4": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה",
+      "until": "ועד היום",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "ניתן לסגור את האפליקציה. אם יהיה צורך, נשלח לך התראה.",
       "found": "נמצאו",
       "exposureEvents": "אירועי חפיפה",
       "reportedAt": "תועד ב:",
       "inDate": "בתאריך",
-      "fromHour": "משעה:",
+      "fromHour": "בסביבות השעה",
       "toHour": "עד שעה:",
       "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
       "no": "לא",
@@ -90,7 +95,7 @@
     },
     "exposureInstructions": {
       "title": "הנחיות לאחר חשיפה",
-      "weUnderstand": "אנחנו מבינים שהיית בנקודת חפיפה ב",
+      "weUnderstand": "האם היית ב",
       "wrong": "טעות, לא הייתי שם",
       "keepSafe": "על מנת לשמור על בריאות משפחתך והסובבים אותך אלו ההנחיות של משרד הבריאות",
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
@@ -189,6 +194,11 @@
       "noExposure2": "من التاريخ:",
       "noExposure3": "في الساعة:",
       "noExposure4": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה -",
+      "until": "ועד ה -",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "   بإمكانكم إغلاق التطبيق، سيتم إعلامكم في حال طرأ تغيير ",
       "found": "توجد",
       "exposureEvents": "حالات تطابق",
@@ -241,7 +251,7 @@
       "additionalInfo": "Additional Privacy information"
     },
     "languages": {
-      "title": "Select language ",
+      "title": "Select language",
       "short": {
         "he": "עב",
         "en": "En",
@@ -307,6 +317,11 @@
       "noExposure2": "starting from:",
       "noExposure3": "at:",
       "noExposure4": "no points of intersection have been found with CoronaVirus patients",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה -",
+      "until": "ועד ה -",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "You can now close the app. We'll let you know if there's anything new.",
       "found": "Found",
       "exposureEvents": "Exposure events",
@@ -425,6 +440,11 @@
       "noExposure2": "с:",
       "noExposure3": "в:",
       "noExposure4": ",мы не обнаружили контакта с больным",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה -",
+      "until": "ועד ה -",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "Вы можете закрыть приложение.Вся необходимая информация поступит к вам отдельным сообщением.",
       "found": "Обнаружены",
       "exposureEvents": "Потенциальное соприкосновение",
@@ -543,6 +563,11 @@
       "noExposure2": "ከ:",
       "noExposure3": "ሰአቱ:",
       "noExposure4": "ምንም አይነት ንክኪ ከኮሮና ቫይረስ ከተያዘው ሠው ጋር እንዳልተገኘ ነው",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה -",
+      "until": "ועד ה -",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "አፕሊኬሽኑን መዝጋት ይቻላል አሰፈላጊ ከሆነ እናስታውቅዎታለን.",
       "found": "ተገኙ",
       "exposureEvents": "ድርርብ ተገኘ",
@@ -587,6 +612,131 @@
       "failedButton": "ሌላ ሙከራ",
       "info": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ",
       "moreInfo": "የበለጠ ለመረዳት"
+    }
+  },
+  "fr": {
+    "general": {
+      "start": "COMMENCER",
+      "additionalInfo": "Informations supplémentaires sur la confidentialité"
+    },
+    "languages": {
+      "title": "Choisir la langue",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ",
+        "fr": "Fr"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "fr": "Français"
+      }
+    },
+    "forceUpdate": {
+      "title": "Mise à jour de la version",
+      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
+    },
+    "forceTerms": {
+      "title": "Conditions d'utilisation mises à jour",
+      "desc": "Conditions d'utilisation mises à jour de l'application, afin que nous puissions continuer à vous maintenir en bonne santé Veuillez accepter les nouvelles conditions d'utilisation",
+      "approve": "APPROUVER"
+    },
+    "welcome": {
+      "title": "Nous sommes ravis que vous vous soyez joints à l'effort!",
+      "subTitle1": "Des milliers d'Israéliens pourraient subir les effets néfastes du coronavirus.",
+      "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
+    },
+    "location": {
+      "title": "La localisation est necessaire",
+      "subTitle1": "Cette application va collecter vos données de localisation et les comparer aux emplacements des personnes connues comme etant infectées par le virus. Si l'un de ces emplacements se chevauche, vous recevrez une notification.",
+      "subTitle2IOS": "Pour que cela fonctionne, vous devez activer le service de localisation sur votre téléphone.",
+      "subTitle2Android": "Pour que cela fonctionne, vous devez avoir à tout moment des services de localisation activés sur votre téléphone.",
+      "dataAnonymous": "\nVos données de localisation seront rendues anonymes",
+      "consent1": "J'ai lu et j'approuve les ",
+      "consent2": "conditions d'utilisation",
+      "approveLocation": "APPROUVER"
+    },
+    "locationIOS": {
+      "title": "Activer le service de localisation en arrière-plan",
+      "subTitle1": "Afin de pouvoir vous tenir au courant des événements liés au coronavirus, nous devrons vous envoyer des notifications.",
+      "subTitle2": "Les paramètres du service de localisation doivent être modifiés comme indiqué dans les images ci-dessous",
+      "goToSettings": "Appuyez ici pour les paramètres",
+      "set": "\nParamètres mis à jour, continuons"
+    },
+    "notifications": {
+      "title": "Important de vous tenir au courant",
+      "subTitle1": "Vous devez avoir le service de localisation sur votre téléphone activé à tout moment.",
+      "subTitle2": "Ces notifications contiendront des informations essentielles pour vous et vos proches.",
+      "approveNotifications": "Approuver les notifications"
+    },
+    "allSet": {
+      "allGood": "Tout\nfonctionne très bien"
+    },
+    "scanHome": {
+      "hasData": "Données détectées",
+      "noData": "Pas de données détectées ",
+      "exposureHistory": "Historique d'exposition",
+      "noDataDesc": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
+      "noExposure": "Sur la base des données recueillies jusqu'à présent, aucun point de chevauchement avec les patients atteints de coronavirus n'a été trouvé.",
+      "noExposure1": "Selon les données recueillies à ce jour,",
+      "noExposure2": "à partir de:",
+      "noExposure3": "à:",
+      "noExposure4": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מה -",
+      "at": "בשעה -",
+      "until": "ועד ה -",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
+      "recommendation": "Vous pouvez maintenant fermer l'application. Nous vous informerons s'il y a quelque chose de nouveau.",
+      "found": "Trouvé",
+      "exposureEvents": "Événements d'exposition",
+      "reportedAt": "Signalé à:\n",
+      "inDate": "à",
+      "fromHour": "De:",
+      "toHour": "Jusqu'à:",
+      "whereYouThere": "Etiez-vous a cet endroit à ce moment la?",
+      "no": "Non",
+      "canContinue": "Vous pouvez continuer",
+      "yes": "Oui",
+      "needDirections": "Recevez les instructions"
+    },
+    "exposuresHistory": {
+      "title": "Historique des intersections\n",
+      "noExposures": "Pas d'intersection trouvée"
+    },
+    "exposureInstructions": {
+      "title": "Guide post-exposition",
+      "weUnderstand": "Il semble que votre emplacement ait croisé une personne connue pour être infectée par le coronavirus",
+      "wrong": "Ça doit être une erreur, je n'etais pas a cet endroit",
+      "keepSafe": "Vous devez suivre les étapes suivantes",
+      "goIntoIsolation": "Restez à la maison et évitez tout contact avec d'autres personnes pendant 14 jours à compter du moment du contact",
+      "reportIsolation": "Signaler l'isolement",
+      "allInstructions": "Pour toutes les instructions",
+      "reportSite": " Pour signaler sur le site"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "סגירת פינות אחרונות",
+      "beforeCheckDesc": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. מידע זה נשמר על הטלפון ולשימושך האישי בלבד ולא נשלח לאף גורם אחר",
+      "beforeCheckDesc2": "לצורך כך, עליך לאפשר גישה למיקומים ב-14 הימים האחרונים מגוגל",
+      "beforeCheckButton": "דיוק הנתונים",
+      "skip": "דילוג",
+      "successFoundTitle": "הנתונים מגוגל עודכנו בהצלחה",
+      "successFoundDesc": "איתור נקודות החפיפה עבור 14 הימים האחרונים יהיה בהתאם לנתוני המיקום שהתקבלו מגוגל",
+      "successFoundButton": "להמשך",
+      "successNotFoundTitle": "לא זוהו מיקומים",
+      "successNotFoundDesc": "הנתונים מגוגל התקבלו בהצלחה, אך לא זוהו מיקומים ב- 14 ימים האחרונים",
+      "successNotFoundButton": "הבנתי",
+      "failedTitle": "קבלת הנתונים מגוגל נכשלה",
+      "failedDesc": "מומלץ לבדוק חיבור לאינטרנט, שם משתמש וסיסמא לגוגל ולנסות בשנית",
+      "failedButton": "ניסיון נוסף",
+      "info": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. ",
+      "moreInfo": "מידע נוסף"
     }
   }
 }

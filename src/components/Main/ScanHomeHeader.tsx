@@ -1,14 +1,8 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
+import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
-import {
-  BASIC_SHADOW_STYLES,
-  IS_SMALL_SCREEN,
-  MAIN_COLOR,
-  PADDING_TOP,
-  SCREEN_HEIGHT,
-  SCREEN_WIDTH
-} from '../../constants/Constants';
+import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -47,7 +41,21 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
         </TouchableOpacity>
 
         <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-          <View style={[styles.indicator, { backgroundColor: isConnected ? MAIN_COLOR : '#b4b4b4' }]} />
+          <View style={styles.indicatorWrapper}>
+            {
+              isConnected ? (
+                <LottieView
+                  style={styles.lottie}
+                  source={require('../../assets/lottie/blinking.json')}
+                  resizeMode="cover"
+                  autoPlay
+                  loop
+                />
+              ) : (
+                <View style={[styles.indicator, { backgroundColor: '#b4b4b4' }]} />
+              )
+            }
+          </View>
           <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
         </View>
       </View>
@@ -76,6 +84,16 @@ const styles = StyleSheet.create({
   },
   headerItemContainer: {
     alignItems: 'center'
+  },
+  indicatorWrapper: {
+    width: 15,
+    height: 15,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  lottie: {
+    width: 15,
+    height: 15
   },
   indicator: {
     ...BASIC_SHADOW_STYLES,

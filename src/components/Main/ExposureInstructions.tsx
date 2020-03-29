@@ -19,10 +19,10 @@ const ExposureInstructions = (
     isRTL,
     locale,
     strings: {
-      scanHome: { inDate, fromHour, toHour },
+      scanHome: { inDate, fromHour },
       exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
     },
-    exposure: { properties: { Place, fromTime, toTime } },
+    exposure: { properties: { Place, fromTime } },
     removeValidExposure
   }: Props
 ) => {
@@ -53,7 +53,7 @@ const ExposureInstructions = (
           <Text style={styles.title} bold>{title}</Text>
 
           <Text style={{ lineHeight: 22, marginBottom: 15 }}>
-            {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')} ${toHour} ${moment(toTime).format('HH:mm')}`}
+            {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
           </Text>
 
           <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 20 : 0 }} onPress={removeValidExposure}>

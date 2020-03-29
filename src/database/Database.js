@@ -120,7 +120,10 @@ export class UserLocationsDatabase {
     return new Promise((resolve) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql(`INSERT INTO Samples VALUES ${data}`).then(([tx, results]) => {
+          const samples = data.split('),').map(() => '(?,?,?,?,?,?,?,?)').toString();
+          data = data.replace(/[()]/g, '').split(',');
+
+          tx.executeSql(`INSERT INTO Samples VALUES ${samples}`, data).then(([tx, results]) => {
             resolve(results);
           });
         }).then((result) => {
