@@ -82,7 +82,8 @@ export const getIntersectingSickRecords = (
           && isSpaceOverlapping(userRecord, sickRecord)
         ) {
           // add sick people you intersects
-          sickRecord.properties.fromTime = userRecord.startTime;
+          sickRecord.properties.fromTime_utc = userRecord.startTime;
+          sickRecord.properties.toTime_utc = userRecord.endTime;
           sickPeopleIntersected.push(sickRecord);
         }
       });
