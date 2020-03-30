@@ -16,8 +16,8 @@ import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } fr
 
 const lock = new AsyncLock();
 
-export const startSampling = async () => {
-  await startLocationTracking();
+export const startSampling = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+  await startLocationTracking(locale);
 };
 
 export const insertDB = async (sample: DBSample) => new Promise(async (resolve) => {

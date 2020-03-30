@@ -114,7 +114,7 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
       // raise flag that last point in db is from timeline
       await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true');
 
-      resolve(data.length);
+      resolve();
     }
   } catch (error) {
     reject(error);

@@ -117,7 +117,7 @@ const Loading = (
       await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling();
+      !state.enabled && await startSampling(locale);
 
       // await startForegroundTimer();
 

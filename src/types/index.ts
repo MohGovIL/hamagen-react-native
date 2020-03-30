@@ -12,12 +12,14 @@ export interface Config {
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
   locationHistoryIgnoreList: string[],
+  androidNotification: { he: string, en: string, am: string, ru: string, ar: string, fr: string },
   sickMessage: {
     he: { title: string, body: string },
     en: { title: string, body: string },
     am: { title: string, body: string },
     ru: { title: string, body: string },
     ar: { title: string, body: string },
+    fr: { title: string, body: string }
     duration: number
   },
   furtherInstructions: {
@@ -25,28 +27,32 @@ export interface Config {
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   },
   reportForm: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   },
   usageTerms: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   },
   privacyTerms: {
     he: string,
     en: string,
     am: string,
     ru: string,
-    ar: string
+    ar: string,
+    fr: string
   }
 }
 

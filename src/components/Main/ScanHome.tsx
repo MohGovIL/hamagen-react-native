@@ -15,8 +15,8 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { dismissExposure, removeValidExposure, setValidExposure, updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
+import { dismissExposure, removeValidExposure, setValidExposure, updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
 import { Exposure } from '../../types';
 import { TouchableOpacity } from '../common';
@@ -39,6 +39,7 @@ interface Props {
   toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void,
   updatePointsFromFile(points: Exposure[]): void,
+  checkForceUpdate(): void,
   checkIfHideLocationHistory(): void
 }
 
