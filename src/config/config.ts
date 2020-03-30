@@ -17,8 +17,8 @@ export const initConfig = async () => new Promise(async (resolve) => {
     config = data[env];
     resolve();
   } catch (error) {
-    resolve();
     onError({ error });
+    resolve();
   }
 });
 

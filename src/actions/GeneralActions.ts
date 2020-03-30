@@ -1,10 +1,17 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
+import moment from 'moment';
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
-import { TOGGLE_LOADER, TOGGLE_WEBVIEW, SHOW_FORCE_UPDATE, SHOW_FORCE_TERMS } from '../constants/ActionTypes';
-import { CURRENT_TERMS_VERSION, IS_IOS } from '../constants/Constants';
+import {
+  TOGGLE_LOADER,
+  TOGGLE_WEBVIEW,
+  SHOW_FORCE_UPDATE,
+  SHOW_FORCE_TERMS,
+  HIDE_LOCATION_HISTORY
+} from '../constants/ActionTypes';
+import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
@@ -42,4 +49,17 @@ const isOlderVersion = (serverVersion: number[], appVersion: number[]) => {
   }
 
   return false;
+};
+
+export const checkIfHideLocationHistory = () => async (dispatch: any) => {
+  try {
+    const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
+    const shouldHide = await AsyncStorage.getItem(SHOULD_HIDE_LOCATION_HISTORY);
+
+    if (shouldHide || (firstPointTS && (moment().diff(moment(firstPointTS), 'days') > 14))) {
+      dispatch({ type: HIDE_LOCATION_HISTORY });
+    }
+  } catch (error) {
+    onError({ error });
+  }
 };

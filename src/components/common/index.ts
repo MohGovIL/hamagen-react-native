@@ -12,3 +12,5 @@ export * from './GeneralWebview';
 export * from './ForceUpdate';
 export * from './TermsOfUse';
 export * from './ForceTerms';
+export * from './GoogleTimeLine';
+export * from './WebviewHeader';

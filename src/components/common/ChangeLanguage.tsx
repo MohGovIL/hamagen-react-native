@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, Text, TouchableOpacity } from '.';
 import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
-import { MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
-  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'): void,
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'): void,
   toggleChangeLanguage(isShow: boolean): void
 }
 
 let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title, long } }, changeLocale, toggleChangeLanguage }: Props) => {
-  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru') => {
+  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   languageButton: {
     width: SCREEN_WIDTH * 0.75,
-    height: 70,
+    height: IS_SMALL_SCREEN ? 50 : 70,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 22,

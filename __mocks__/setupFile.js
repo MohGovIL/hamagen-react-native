@@ -98,4 +98,3 @@ jest.mock('../src/config/config.ts', () => {
     default: jest.fn(() => originalModule['com.hamagen.dev']),
   };
 });
-
