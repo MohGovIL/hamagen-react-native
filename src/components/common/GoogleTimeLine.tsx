@@ -142,8 +142,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         const kmlUrls = getLastNrDaysKmlUrls();
 
-        const responses = await Promise.all(kmlUrls.map(url => fetch(url)));
-        const texts = await Promise.all(responses.map(r => r.text()));
+        const texts = await Promise.all(kmlUrls.map(url => fetch(url)).then(r => r.text()));
 
         let pointsData: any[] = [];
 
