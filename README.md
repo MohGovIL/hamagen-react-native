@@ -1,4 +1,5 @@
 # Hamagen
+![](https://github.com/actions/hello-world/workflows/.github/workflows/main.yml/badge.svg)
 
 Israel's Ministry of Health's COVID-19 exposure prevention app.
 

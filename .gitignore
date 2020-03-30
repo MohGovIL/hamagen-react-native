@@ -64,3 +64,4 @@ debug.keystore
 /ios/Pods/
 
 *.hprof
+*.swp

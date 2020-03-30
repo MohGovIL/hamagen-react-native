@@ -1,4 +1,4 @@
-name: Lint, Test, Code Coverage
+name: CI - Lint, Test, Code Coverage
 on:
   pull_request:
     branches:
@@ -6,11 +6,11 @@ on:
 jobs:
   install-and-test:
     runs-on: ubuntu-latest
-    steps: 
+    steps:
       - uses: actions/checkout@v2
       - name: Install npm dependencies
         run: |
           yarn install
       - name: Run tests
         run: |
-          yarn test
+          yarn jest --coverage
