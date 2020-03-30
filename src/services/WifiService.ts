@@ -39,5 +39,5 @@ export const getWifiList = () => new Promise(async (resolve, reject) => {
 });
 
 const orderListOfMacAddresses = (list: any) => {
-  return list.sort((a, b) => a.BSSID.localeCompare(b.BSSID));
+  return list.sort((a: any, b: any) => a.BSSID.localeCompare(b.BSSID));
 };

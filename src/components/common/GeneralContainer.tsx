@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignSelf: 'stretch',
     alignItems: 'center',
-    paddingTop: 40,
+    paddingTop: 50,
     paddingBottom: 20,
     borderRadius: 30,
     backgroundColor: '#fff'

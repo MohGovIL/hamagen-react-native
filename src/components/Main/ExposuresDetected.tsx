@@ -22,7 +22,10 @@ interface Props {
 const ExposuresDetected = (
   {
     isRTL,
-    strings: { scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, toHour, wereYouThere, no, canContinue, yes, needDirections } },
+    strings: {
+      scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections },
+      exposureInstructions: { weUnderstand }
+    },
     exposures,
     onValidExposure,
     dismissExposure
@@ -49,15 +52,14 @@ const ExposuresDetected = (
     }
   };
 
-  const renderExposure = ({ properties: { Name, Place, fromTime, toTime } }: Exposure) => (
+  const renderExposure = ({ properties: { Name, Place, fromTime } }: Exposure) => (
     <Animated.View style={[styles.detailsContainer, scale]}>
       <Text style={{ fontSize: 14, marginBottom: 15 }}>{`${currentExposure.current}/${exposures.length}`}</Text>
-      <Text style={{ marginBottom: 15 }}>{`${Name} ${reportedAt}`}</Text>
       <Text
         style={{ fontSize: 18, lineHeight: 25 }}
         bold
       >
-        {`${Place} ${inDate} ${moment.utc(fromTime).format('DD.MM.YY')} ${fromHour} ${moment.utc(fromTime).format('HH:mm')} ${toHour} ${moment.utc(toTime).format('HH:mm')}`}
+        {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
       </Text>
 
     </Animated.View>
