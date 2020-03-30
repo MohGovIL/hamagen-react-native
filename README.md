@@ -1,5 +1,7 @@
 # Hamagen
-![Build](https://github.com/MohGovIL/hamagen-react-native/workflows/Build/badge.svg) 
+![Build](https://github.com/MohGovIL/hamagen-react-native/workflows/Build/badge.svg)
+[![CodeCov](https://codecov.io/gh/MohGovIL/hamagen-react-native/branch/master/graph/badge.svg)](https://codecov.io/gh/MohGovIL/hamagen-react-native)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Israel's Ministry of Health's COVID-19 exposure prevention app.
 
