@@ -13,4 +13,4 @@ jobs:
           yarn install
       - name: Run tests
         run: |
-          yarn test
+          yarn jest --coverage
