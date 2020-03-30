@@ -15,8 +15,6 @@ jobs:
         run: |
           yarn install
       - name: Run tests
-        body: |
-          Jest outputs code coverage data at ./coverage
         run: |
           yarn jest
       - name: Codecov
