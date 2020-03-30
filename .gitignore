@@ -4,6 +4,8 @@
 
 coverage/
 
+.vscode
+
 # Xcode
 #
 build/

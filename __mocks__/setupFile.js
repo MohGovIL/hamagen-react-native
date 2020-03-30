@@ -46,7 +46,9 @@ jest.mock('react-native-device-info', () => {
 });
 
 jest.mock('react-native-firebase', () => {
-  return {
+
+
+  const firebase = {
     messaging: jest.fn(() => {
       return {
         hasPermission: jest.fn(() => Promise.resolve(true)),
@@ -62,7 +64,22 @@ jest.mock('react-native-firebase', () => {
         onNotificationDisplayed: jest.fn()
       };
     })
+  }
+
+  firebase.notifications.Android = {
+    Channel: jest.fn(() => ({
+      setDescription: jest.fn(),
+      setSound: jest.fn(),
+      enableVibration: jest.fn(),
+      setVibrationPattern: jest.fn()
+    })),
+    Importance: {
+      Max: {}
+    }
   };
+
+  return firebase;
+  
 });
 
 
