@@ -142,8 +142,8 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         const kmlUrls = getLastNrDaysKmlUrls();
 
-        const texts = await Promise.all(kmlUrls.map(url => fetch(url)).then(r => r.text()));
-
+        const texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
+debugger;
         let pointsData: any[] = [];
 
         if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
