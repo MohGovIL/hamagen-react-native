@@ -53,43 +53,43 @@ workflows:
       - analyse_js:
           requires:
             - checkout_code
-      - rn/android_build:
-          build_type: debug
-          name: build_android_debug
-          project_path: android
-          requires:
-            - analyse_js
-      - rn/android_build:
-          build_type: release
-          name: build_android_release
-          project_path: android
-          requires:
-            - analyse_js
-      - rn/android_test:
-          detox_configuration: android.emu.release
-          requires:
-            - build_android_release
-      - rn/ios_build:
-          build_configuration: Release
-          device: iPhone X
-          name: build_ios_release
-          node_version: '10'
-          project_path: ios/codeAgainstCorona.xcodeproj
-          requires:
-            - analyse_js
-          scheme: hamagen
-      - rn/ios_build_and_test:
-          build_configuration: Release
-          detox_configuration: ios.sim.release
-          device: iPhone X
-          node_version: '10'
-          project_path: ios/codeAgainstCorona.xcodeproj
-          requires:
-            - analyse_js
-          scheme: hamagen
-      - fastlane_android_release:
-          requires:
-            - rn/android_test
-      - fastlane_ios_release:
-          requires:
-            - rn/ios_build_and_test
+#      - rn/android_build:
+#          build_type: debug
+#          name: build_android_debug
+#          project_path: android
+#          requires:
+#            - analyse_js
+#      - rn/android_build:
+#          build_type: release
+#          name: build_android_release
+#          project_path: android
+#          requires:
+#            - analyse_js
+#      - rn/android_test:
+#          detox_configuration: android.emu.release
+#          requires:
+#            - build_android_release
+#      - rn/ios_build:
+#          build_configuration: Release
+#          device: iPhone X
+#          name: build_ios_release
+#          node_version: '10'
+#          project_path: ios/codeAgainstCorona.xcodeproj
+#          requires:
+#            - analyse_js
+#          scheme: hamagen
+#      - rn/ios_build_and_test:
+#          build_configuration: Release
+#          detox_configuration: ios.sim.release
+#          device: iPhone X
+#          node_version: '10'
+#          project_path: ios/codeAgainstCorona.xcodeproj
+#          requires:
+#            - analyse_js
+#          scheme: hamagen
+#      - fastlane_android_release:
+#          requires:
+#            - rn/android_test
+#      - fastlane_ios_release:
+#          requires:
+#     - rn/ios_build_and_test
