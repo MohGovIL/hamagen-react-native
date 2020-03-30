@@ -12,7 +12,9 @@ import { onError } from './src/services/ErrorService';
 BackgroundGeolocation.onLocation(
   async (location) => {
     location.timestamp = moment(location.timestamp).valueOf();
-    await insertDB(location);
+    if (location.event.type != 'in_vehicle') {
+      await insertDB(location);
+    }
   }, (error) => {
     onError({ error });
   }
