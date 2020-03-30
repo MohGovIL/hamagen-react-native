@@ -13,10 +13,11 @@ import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   strings: any
 }
 
-const AllSet = ({ navigation, strings: { allSet: { allGood } } }: Props) => {
+const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       onboardingDoneActions();
@@ -42,7 +43,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } } }: Props) => {
       await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
 
       startForegroundTimer();
-      await startSampling();
+      await startSampling(locale);
       await scheduleTask();
 
       navigation.replace('ScanHome');
@@ -84,10 +85,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { strings }
+    locale: { strings, locale }
   } = state;
 
-  return { strings };
+  return { strings, locale };
 };
 
 export default connect(mapStateToProps, null)(AllSet);

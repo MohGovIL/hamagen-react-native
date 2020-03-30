@@ -13,8 +13,8 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 
 const lock = new AsyncLock();
 
-export const startSampling = async () => {
-  await startLocationTracking();
+export const startSampling = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+  await startLocationTracking(locale);
 };
 
 export const insertDB = async (sample: any) => new Promise(async (resolve) => {

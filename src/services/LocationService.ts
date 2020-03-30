@@ -44,7 +44,7 @@ export const requestPermissions = () => new Promise(async (resolve) => {
   }
 });
 
-export const startLocationTracking = async () => {
+export const startLocationTracking = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
   try {
     const status = await check(permission);
 
@@ -69,6 +69,9 @@ export const startLocationTracking = async () => {
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false,
       startOnBoot: true,
+      notification: {
+        text: config().androidNotification[locale]
+      }
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);
 
