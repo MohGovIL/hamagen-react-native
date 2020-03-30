@@ -4,7 +4,8 @@ import {
   TOGGLE_WEBVIEW,
   SHOW_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
-  HIDE_FORCE_TERMS
+  HIDE_FORCE_TERMS,
+  HIDE_LOCATION_HISTORY
 } from '../constants/ActionTypes';
 import { USAGE_PRIVACY } from '../constants/Constants';
 
@@ -13,7 +14,8 @@ interface GeneralReducer {
   showWebview: boolean,
   showForceUpdate: boolean,
   showForceTerms: boolean,
-  termsVersion: number
+  termsVersion: number,
+  hideLocationHistory: boolean
 }
 
 const INITIAL_STATE = {
@@ -22,7 +24,8 @@ const INITIAL_STATE = {
   showForceUpdate: false,
   showForceTerms: false,
   usageType: USAGE_PRIVACY,
-  termsVersion: 0
+  termsVersion: 0,
+  hideLocationHistory: false
 };
 
 export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) => {
@@ -48,6 +51,10 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
 
     case HIDE_FORCE_TERMS: {
       return { ...state, showForceTerms: false };
+    }
+
+    case HIDE_LOCATION_HISTORY: {
+      return { ...state, hideLocationHistory: true };
     }
 
     default:

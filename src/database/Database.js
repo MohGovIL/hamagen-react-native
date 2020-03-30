@@ -1,5 +1,6 @@
 import SQLite from 'react-native-sqlite-storage';
 import config from '../config/config';
+import { onError } from '../services/ErrorService';
 
 SQLite.enablePromise(true);
 
@@ -111,6 +112,76 @@ export class UserLocationsDatabase {
         });
       }).catch((err) => {
         console.log(err);
+      });
+    });
+  }
+
+  insertBulkSamples(data) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const db = await this.initDB();
+
+        await db.transaction(async (tx) => {
+          data = data.replace(/[()]/g, '').split(',');
+          data = data.map(sample => isNaN(parseFloat(sample)) ? sample : parseFloat(sample));
+
+          const numberOfBulks = Math.ceil(data.length / 800);
+          const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 800, (index + 1) * 800));
+
+          await Promise.all(bulks.map((bulkData) => {
+            const samples = Array.from({ length: bulkData.length / 8 }, () => '(?,?,?,?,?,?,?,?)').toString();
+            return tx.executeSql(`INSERT INTO Samples VALUES ${samples}`, bulkData);
+          }));
+
+          resolve();
+          this.closeDatabase(db);
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  // TODO: Handle WIFI hashtable purging.
+  purgeSamplesTable(timestamp) {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('DELETE FROM Samples WHERE endTime < ?', [timestamp]).then(() => {
+            resolve(true);
+          }).catch((err) => {
+            console.log(err);
+            reject(err);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+          reject(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+        reject(err);
+      });
+    });
+  }
+
+  updateSamplesToUTC() {
+    return new Promise((resolve, reject) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('UPDATE Samples set startTime = startTime - 7200000, endTime = endTime - 7200000').then(([tx, results]) => {
+            resolve(results);
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          onError({ error: err });
+          reject(err);
+        });
+      }).catch((err) => {
+        onError({ error: err });
+        reject(err);
       });
     });
   }
@@ -229,12 +300,12 @@ export class IntersectionSickDatabase {
         db.transaction((tx) => {
           tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?)',
             [
-              record.properties.OBJECTID,
+              record.properties.Key_Field,
               record.properties.Name,
               record.properties.Place,
               record.properties.Comments,
-              record.properties.fromTime,
-              record.properties.toTime,
+              record.properties.fromTime_utc,
+              record.properties.toTime_utc,
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex]
             ]).then(([tx, results]) => {

@@ -6,8 +6,8 @@ interface LocaleReducer {
   showChangeLanguage: boolean,
   strings: any,
   isRTL: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|undefined,
-  localeData: { he: any, en: any, ar: any, am: any, ru: any }
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'|undefined,
+  localeData: { he: any, en: any, ar: any, am: any, ru: any, fr:any }
 }
 
 const INITIAL_STATE = {
@@ -29,7 +29,7 @@ export default (state: LocaleReducer = INITIAL_STATE, action: ReducerAction) => 
     }
 
     case LOCALE_CHANGED: {
-      const { locale }: { locale: 'he'|'en'|'ar'|'am'|'ru' } = action.payload;
+      const { locale }: { locale: 'he'|'en'|'ar'|'am'|'ru'|'fr' } = action.payload;
       return { ...state, strings: { ...state.localeData[locale] }, locale, isRTL: ['he', 'ar'].includes(locale) };
     }
 
