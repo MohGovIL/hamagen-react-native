@@ -8,7 +8,6 @@ import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Con
 
 interface Props {
   navigation: any,
-  isRTL: boolean,
   strings: any,
   pastExposures: Exposure[]
 }
@@ -20,8 +19,7 @@ const ExposuresHistory = (
       scanHome: { inDate, fromHour, toHour },
       exposuresHistory: { title, noExposures }
     },
-    isRTL,
-    pastExposures
+    pastExposures,
   }: Props
 ) => {
   const renderEmptyState = () => (
@@ -39,9 +37,9 @@ const ExposuresHistory = (
 
         return (
           <View style={styles.listItemContainer}>
-            <View style={[styles.listItemSubContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+            <View style={[styles.listItemSubContainer, { flexDirection: 'row' }]}>
               <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginHorizontal: 7.5 }} />
-              <View style={{ alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
+              <View style={{ alignItems: 'flex-start', marginHorizontal: 7.5 }}>
                 <Text style={styles.text}>{Place}</Text>
                 <Text>
                   <Text style={styles.text}>{`${inDate} `}</Text>
@@ -123,11 +121,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { isRTL, strings },
+    locale: { strings },
     exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures };
+  return { strings, pastExposures };
 };
 
 export default connect(mapStateToProps, null)(ExposuresHistory);

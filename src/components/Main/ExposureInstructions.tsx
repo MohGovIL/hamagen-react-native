@@ -7,7 +7,6 @@ import config from '../../config/config';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
-  isRTL: boolean,
   strings: any,
   locale: 'he'|'en'|'ar'|'am'|'ru',
   exposure: Exposure,
@@ -16,7 +15,6 @@ interface Props {
 
 const ExposureInstructions = (
   {
-    isRTL,
     locale,
     strings: {
       scanHome: { inDate, fromHour, toHour },
@@ -65,7 +63,7 @@ const ExposureInstructions = (
         <View style={{ alignItems: 'center', paddingHorizontal: 25 }}>
           <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
 
-          <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }, IS_SMALL_SCREEN && { marginBottom: 100 }]}>
+          <View style={[styles.actionButtonsWrapper, { flexDirection: 'row' }, IS_SMALL_SCREEN && { marginBottom: 100 }]}>
             {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
             {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
           </View>

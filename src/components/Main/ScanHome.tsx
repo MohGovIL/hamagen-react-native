@@ -20,7 +20,6 @@ import { Exposure } from '../../types';
 
 interface Props {
   navigation: any,
-  isRTL: boolean,
   strings: any,
   locale: 'he'|'en'|'ar'|'am'|'ru',
   exposures: Exposure[],
@@ -33,7 +32,7 @@ interface Props {
   checkForceUpdate(): void
 }
 
-const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, checkForceUpdate }: Props) => {
+const ScanHome = ({ navigation, strings, locale, exposures, validExposure, setValidExposure, removeValidExposure, dismissExposure, toggleWebview, firstPoint, checkForceUpdate }: Props) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
@@ -99,7 +98,7 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
   const renderRelevantState = () => {
     if (validExposure) {
       return (
-        <ExposureInstructions isRTL={isRTL} strings={strings} locale={locale} exposure={validExposure} removeValidExposure={removeValidExposure} />
+        <ExposureInstructions strings={strings} locale={locale} exposure={validExposure} removeValidExposure={removeValidExposure} />
       );
     } if (!hasLocation || !hasNetwork) {
       return (
@@ -108,7 +107,6 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
     } if (exposures.length > 0) {
       return (
         <ExposuresDetected
-          isRTL={isRTL}
           strings={strings}
           exposures={exposures}
           onValidExposure={exposure => setValidExposure(exposure)}
@@ -123,7 +121,6 @@ const ScanHome = ({ navigation, isRTL, strings, locale, exposures, validExposure
   return (
     <View style={styles.container}>
       <ScanHomeHeader
-        isRTL={isRTL}
         strings={strings}
         isConnected={hasLocation && hasNetwork && hasGPS}
         showChangeLanguage
@@ -146,11 +143,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { isRTL, strings, locale },
+    locale: { strings, locale },
     exposures: { exposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, exposures, validExposure, firstPoint };
+  return { strings, locale, exposures, validExposure, firstPoint };
 };
 
 

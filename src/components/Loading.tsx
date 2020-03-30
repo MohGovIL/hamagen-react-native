@@ -160,7 +160,7 @@ const Loading = (
 
   return (
     (_.isEmpty(strings) || !initialRoute) ? null : (
-      <View style={styles.container}>
+      <View style={[styles.container, { direction: isRTL ? 'rtl' : 'ltr' }]}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
@@ -175,7 +175,7 @@ const Loading = (
         <ChangeLanguage isVisible={showChangeLanguage} />
         <GeneralWebview isVisible={showWebview} locale={locale} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
         <ForceUpdate isVisible={showForceUpdate} strings={strings} />
-        <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
+        <ForceTerms isVisible={showForceTerms} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
       </View>
     )
   );

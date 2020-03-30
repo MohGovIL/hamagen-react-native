@@ -11,12 +11,11 @@ import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../co
 
 interface Props {
   navigation: any,
-  isRTL: boolean,
   strings: any,
   toggleWebview(isShow: boolean, usageType: string): void
 }
 
-const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
+const Location = ({ navigation, strings, toggleWebview }: Props) => {
   const { location: { title, subTitle1, subTitle2IOS, subTitle2Android, approveLocation } } = strings;
 
   const animRef = useRef<any>(null);
@@ -59,7 +58,6 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       <View style={{ alignItems: 'center' }}>
         <Animatable.View ref={animRef} style={{ marginBottom: 25, marginTop: IS_SMALL_SCREEN ? 5 : 0 }}>
           <TermsOfUse
-            isRTL={isRTL}
             strings={strings}
             value={isTOUAccepted}
             onValueSelected={value => setIsTOUAccepted(value)}
@@ -102,10 +100,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { isRTL, strings }
+    locale: { strings }
   } = state;
 
-  return { isRTL, strings };
+  return { strings };
 };
 
 const mapDispatchToProps = (dispatch: any) => {
