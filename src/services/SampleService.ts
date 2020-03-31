@@ -13,7 +13,7 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 
 const lock = new AsyncLock();
 
-export const startSampling = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+export const startSampling = async (locale: string) => {
   await startLocationTracking(locale);
 };
 

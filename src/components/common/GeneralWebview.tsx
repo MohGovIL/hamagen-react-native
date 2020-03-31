@@ -7,15 +7,12 @@ import { USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: string,
   usageType: string,
   closeWebview(): void
 }
 
 const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) => {
-  const usageSourceOnBoarding = config().usageTerms;
-  const usageSourcePrivacy = config().privacyTerms;
-
   return (
     <Modal
       visible={isVisible}
@@ -28,7 +25,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
 
         <WebView
           style={{ flex: 1 }}
-          source={{ uri: usageType === USAGE_PRIVACY ? usageSourcePrivacy[locale] : usageSourceOnBoarding[locale] }}
+          source={{ uri: usageType === USAGE_PRIVACY ? config().privacyTerms[locale] : config().usageTerms[locale] }}
           startInLoadingState
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

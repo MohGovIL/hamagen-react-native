@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, TouchableOpacity, Text } from '.';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
+import { Strings } from '../../locale/LocaleData';
 
 interface Props {
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  strings: Strings,
+  locale: string,
   toggleChangeLanguage(isShow: boolean): void
 }
 

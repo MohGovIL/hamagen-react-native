@@ -9,12 +9,13 @@ import { scheduleTask } from '../../services/BackgroundService';
 import { startForegroundTimer } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
+import { Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  strings: any
+  locale: string,
+  strings: Strings
 }
 
 const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale }: Props) => {

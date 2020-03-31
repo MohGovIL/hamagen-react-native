@@ -29,6 +29,7 @@ import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
+import { Strings } from '../locale/LocaleData';
 import { ValidExposure } from '../types';
 import {
   SET_VALID_EXPOSURE,
@@ -48,8 +49,8 @@ import {
 
 interface Props {
   isRTL: boolean,
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  strings: Strings,
+  locale: string,
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,

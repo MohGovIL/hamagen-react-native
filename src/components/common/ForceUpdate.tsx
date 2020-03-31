@@ -1,11 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Modal, Linking } from 'react-native';
 import { ActionButton, Icon, Text } from '.';
+import { Strings } from '../../locale/LocaleData';
 import { IS_IOS, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  strings: any
+  strings: Strings
 }
 
 const ForceUpdate = ({ isVisible, strings: { forceUpdate: { title, desc } } }: Props) => {

@@ -12,47 +12,27 @@ export interface Config {
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
   locationHistoryIgnoreList: string[],
-  androidNotification: { he: string, en: string, am: string, ru: string, ar: string, fr: string },
+  androidNotification: {
+    [languageKey: string]: string
+  },
   sickMessage: {
-    he: { title: string, body: string },
-    en: { title: string, body: string },
-    am: { title: string, body: string },
-    ru: { title: string, body: string },
-    ar: { title: string, body: string },
-    fr: { title: string, body: string }
+    [languageKey: string]: {
+      title: string,
+      body: string
+    },
     duration: number
   },
   furtherInstructions: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
+    [languageKey: string]: string
   },
   reportForm: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
+    [languageKey: string]: string
   },
   usageTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
+    [languageKey: string]: string
   },
   privacyTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
+    [languageKey: string]: string
   }
 }
 
@@ -67,12 +47,6 @@ export interface ErrorService {
   dispatch?: (params: any) => void,
   customAction?: () => void,
   showError?: boolean
-}
-
-export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  isRTL: boolean,
-  strings: any
 }
 
 export interface Fonts {
@@ -112,14 +86,6 @@ export interface Location {
   lat: number,
   startTime: number,
   long: number
-}
-
-export interface DBExposure {
-  OBJECTID: number,
-  Name: string,
-  Place: string,
-  fromTime: number,
-  toTime: number
 }
 
 export interface ValidExposure {

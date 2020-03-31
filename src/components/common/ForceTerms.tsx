@@ -2,11 +2,12 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { ActionButton, Icon, TermsOfUse, Text } from '.';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   isVisible: boolean,
   onSeeTerms(): void,
   onApprovedTerms(): void

@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Icon, TouchableOpacity, Text } from '.';
+import { Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, TEXT_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   value: boolean,
   onValueSelected(value: boolean): void,
   toggleWebview(isShow: boolean, usageType: string): void

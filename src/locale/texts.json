@@ -1,4 +1,23 @@
 {
+  "languages": {
+    "title": "בחר שפה",
+    "short": {
+      "he": "עב",
+      "en": "En",
+      "ru": "Ru",
+      "ar": "عر",
+      "am": "አማ",
+      "fr": "Fr"
+    },
+    "long": {
+      "he": "עברית",
+      "en": "English",
+      "ru": "Русский",
+      "ar": "عربيه",
+      "am": "አማርኛ",
+      "fr": "Français"
+    }
+  },
   "he": {
     "general": {
       "start": "התחלה",

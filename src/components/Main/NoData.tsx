@@ -2,10 +2,11 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { FadeInView, Icon, Text } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
-  strings: any
+  strings: Strings
 }
 
 const NoData = ({ strings: { scanHome: { noData, noDataDesc } } }: Props) => {

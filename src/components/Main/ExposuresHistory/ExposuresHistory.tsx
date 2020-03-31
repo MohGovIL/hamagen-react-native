@@ -3,13 +3,14 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Icon, TouchableOpacity, Text } from '../../common';
+import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
 
 interface Props {
   navigation: any,
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   pastExposures: Exposure[]
 }
 

@@ -4,12 +4,14 @@ import moment from 'moment';
 import { Exposure } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import config from '../../config/config';
+import { Languages, Strings } from '../../locale/LocaleData';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  strings: Strings,
+  locale: string,
+  languages: Languages,
   exposure: Exposure,
   removeValidExposure(): void
 }
@@ -18,6 +20,7 @@ const ExposureInstructions = (
   {
     isRTL,
     locale,
+    languages,
     strings: {
       scanHome: { inDate, fromHour },
       exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
@@ -26,7 +29,7 @@ const ExposureInstructions = (
     removeValidExposure
   }: Props
 ) => {
-  const relevantLocale: 'he'|'en'|'ar'|'am'|'ru'|'fr' = ['he', 'en', 'ar', 'am', 'ru', 'fr'].includes(locale) ? locale : 'he';
+  const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
   const furtherInstructions = config().furtherInstructions[relevantLocale];
   const reportForm = config().reportForm[relevantLocale];

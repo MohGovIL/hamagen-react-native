@@ -4,12 +4,13 @@ import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
 import { FadeInView, Text, TouchableOpacity } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
   firstPoint?: number,
-  strings: any,
+  strings: Strings,
   hideLocationHistory: boolean,
   goToLocationHistory(): void,
   toggleWebview(isShow: boolean, usageType: string): void
