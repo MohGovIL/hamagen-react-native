@@ -187,7 +187,7 @@
   },
   "com.hamagen": {
     "dataUrl": "https://gisweb.azureedge.net/Points.json",
-    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsUtc.json",
+    "dataUrl_utc": "https://gisweb.azureedge.net/PointsUtc.json",
     "stringsUrl": "https://gisweb.azureedge.net/texts.json",
     "versionsUrl": "https://gisweb.azureedge.net/versions.json",
     "sampleDistance": 50,
