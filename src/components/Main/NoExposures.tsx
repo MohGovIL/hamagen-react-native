@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
@@ -21,7 +21,7 @@ const NoExposures = (
     firstPoint,
     strings: {
       general: { additionalInfo },
-      scanHome: { noExposure, noExposure1, noExposure2, noExposure3, noExposure4, recommendation },
+      scanHome: { noExposure, accordingToData, from, at, until, notFound, recommendation },
       locationHistory: { info, moreInfo }
     },
     hideLocationHistory,
@@ -29,9 +29,32 @@ const NoExposures = (
     goToLocationHistory
   }: Props
 ) => {
+  const appState = useRef<AppStateStatus>('active');
+  const [now, setNow] = useState(moment().valueOf());
+
+  useEffect(() => {
+    AppState.addEventListener('change', onStateChange);
+
+    return () => {
+      AppState.removeEventListener('change', onStateChange);
+    };
+  }, []);
+
+  const onStateChange = async (state: AppStateStatus) => {
+    if (state === 'active' && appState.current !== 'active') {
+      setNow(moment().valueOf());
+    }
+
+    appState.current = state;
+  };
+
   const descriptions = () => {
+    const FPDate = moment(firstPoint).format('DD.MM.YY');
+    const FPHour = moment(firstPoint).format('HH:mm');
+    const nowHour = moment(now).format('HH:mm');
+
     if (firstPoint) {
-      return `${noExposure1} ${noExposure2} ${moment(firstPoint).format('DD.MM.YY')} ${noExposure3} ${moment(firstPoint).format('HH:mm')} ${noExposure4}`;
+      return `${accordingToData} ${from} ${FPDate} ${at} ${FPHour} ${until} ${at} ${nowHour} ${notFound}`;
     }
 
     return noExposure;

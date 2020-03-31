@@ -23,7 +23,8 @@ import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
 import { scheduleTask } from '../services/BackgroundService';
 import { onError } from '../services/ErrorService';
-import { startSampling } from '../services/SampleService';
+import { purgeSamplesDB, startSampling } from '../services/SampleService';
+import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
@@ -48,7 +49,7 @@ import {
 interface Props {
   isRTL: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
@@ -95,6 +96,7 @@ const Loading = (
 
   const appLoadingActions = async () => {
     try {
+      await updateLocationsTimesToUTC();
       await initConfig();
       initLocale();
 
@@ -112,8 +114,10 @@ const Loading = (
         }
       });
 
+      await purgeSamplesDB();
+
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling();
+      !state.enabled && await startSampling(locale);
 
       await startForegroundTimer();
 

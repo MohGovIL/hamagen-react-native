@@ -75,7 +75,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     locationHistory: { beforeCheckTitle, beforeCheckDesc, beforeCheckDesc2, beforeCheckButton, skip, successFoundTitle, successFoundDesc, successFoundButton, successNotFoundTitle, successNotFoundDesc, successNotFoundButton, failedTitle, failedDesc, failedButton }
   } = strings;
 
-  const webViewRef = useRef<any>(null);
+  const webViewRef = useRef<WebView>(null);
 
   const [{ openWebview, isLoggedIn, state }, setState] = useState<State>({ openWebview: false, isLoggedIn: false, state: 'before' });
 
@@ -136,24 +136,19 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
     if (data === 'LOGGED_IN' && !isLoggedIn) {
       try {
-        webViewRef.current.injectJavaScript(`document.getElementsByTagName(\'html\')[0].innerHTML = \'${getLoadingHTML()}\'; true;`);
+        webViewRef.current?.injectJavaScript(`document.getElementsByTagName(\'html\')[0].innerHTML = \'${getLoadingHTML()}\'; true;`);
 
         setState(prevState => ({ ...prevState, isLoggedIn: true }));
 
         const kmlUrls = getLastNrDaysKmlUrls();
 
-        const responses = await Promise.all(kmlUrls.map(url => fetch(url)));
-        const texts = await Promise.all(responses.map(r => r.text()));
-
-        let pointsData: any[] = [];
+        const texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
 
         if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
           return onFetchError('Fetch KML error');
         }
 
-        texts.forEach((kml: string) => {
-          pointsData = [...pointsData, ...kmlToGeoJson(kml)];
-        });
+        const pointsData = texts.flatMap((kml: string) => kmlToGeoJson(kml));
 
         if (pointsData.length === 0) {
           // once 14 days flow completed for the first time
@@ -166,12 +161,12 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successFound' }));
       } catch (error) {
-        onFetchError(error);
+        await onFetchError(error);
       }
     }
   };
 
-  const onFetchError = (error: any) => {
+  const onFetchError = async (error: any) => {
     setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'failed' }));
     onError({ error });
   };

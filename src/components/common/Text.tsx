@@ -5,7 +5,7 @@ import { IS_SMALL_SCREEN, TEXT_COLOR } from '../../constants/Constants';
 
 interface Props extends TextProps {
   style?: TextStyle,
-  locale: 'he'|'en'|'ar'|'am'|'ru',
+  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
   reference?: MutableRefObject<any>,
   children?: ReactNode,
   bold?: boolean,

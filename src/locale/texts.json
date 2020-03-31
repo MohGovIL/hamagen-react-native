@@ -2,7 +2,7 @@
   "he": {
     "general": {
       "start": "התחלה",
-      "additionalInfo": "מידע נוסף פרטיות"
+      "additionalInfo": "מידע נוסף ופרטיות"
     },
     "languages": {
       "title": "בחר שפה",
@@ -11,14 +11,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -71,12 +73,17 @@
       "noExposure2": "מאז ה:",
       "noExposure3": "בשעה:",
       "noExposure4": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
+      "accordingToData": "לפי הנתונים שנאספו,",
+      "from": "מאז",
+      "at": "בשעה",
+      "until": "ועד היום",
+      "notFound": "לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "recommendation": "ניתן לסגור את האפליקציה. אם יהיה צורך, נשלח לך התראה.",
       "found": "נמצאו",
       "exposureEvents": "אירועי חפיפה",
       "reportedAt": "תועד ב:",
       "inDate": "בתאריך",
-      "fromHour": "משעה:",
+      "fromHour": "בסביבות השעה",
       "toHour": "עד שעה:",
       "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
       "no": "לא",
@@ -90,7 +97,7 @@
     },
     "exposureInstructions": {
       "title": "הנחיות לאחר חשיפה",
-      "weUnderstand": "אנחנו מבינים שהיית בנקודת חפיפה ב",
+      "weUnderstand": "האם היית ב",
       "wrong": "טעות, לא הייתי שם",
       "keepSafe": "על מנת לשמור על בריאות משפחתך והסובבים אותך אלו ההנחיות של משרד הבריאות",
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
@@ -129,14 +136,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
-        "ar": "العربية",
-        "am": "አማርኛ"
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -189,6 +198,11 @@
       "noExposure2": "من التاريخ:",
       "noExposure3": "في الساعة:",
       "noExposure4": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
+      "accordingToData": "وفقًا للبيانات التي تم جمعها،",
+      "from": "منذ",
+      "at": "في",
+      "until": "وحتى يومنا هذا",
+      "notFound": "لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
       "recommendation": "   بإمكانكم إغلاق التطبيق، سيتم إعلامكم في حال طرأ تغيير ",
       "found": "توجد",
       "exposureEvents": "حالات تطابق",
@@ -241,20 +255,22 @@
       "additionalInfo": "Additional Privacy information"
     },
     "languages": {
-      "title": "Select language ",
+      "title": "Select language",
       "short": {
         "he": "עב",
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -307,6 +323,11 @@
       "noExposure2": "starting from:",
       "noExposure3": "at:",
       "noExposure4": "no points of intersection have been found with CoronaVirus patients",
+      "accordingToData": "According to the data collected,",
+      "from": "since",
+      "at": "at",
+      "until": "until today",
+      "notFound": "no points of intersection have been found with CoronaVirus patients",
       "recommendation": "You can now close the app. We'll let you know if there's anything new.",
       "found": "Found",
       "exposureEvents": "Exposure events",
@@ -365,14 +386,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -424,7 +447,12 @@
       "noExposure1": "По данным собранным до сих пор,",
       "noExposure2": "с:",
       "noExposure3": "в:",
-      "noExposure4": ",мы не обнаружили контакта с больным",
+      "noExposure4": "мы не обнаружили контакта с больным",
+      "accordingToData": "Согласно собранным данным,",
+      "from": "c тех пор",
+      "at": "в",
+      "until": "И по сей день",
+      "notFound": "мы не обнаружили контакта с больным",
       "recommendation": "Вы можете закрыть приложение.Вся необходимая информация поступит к вам отдельным сообщением.",
       "found": "Обнаружены",
       "exposureEvents": "Потенциальное соприкосновение",
@@ -483,14 +511,16 @@
         "en": "En",
         "ru": "Ru",
         "ar": "عر",
-        "am": "አማ"
+        "am": "አማ",
+        "fr": "Fr"
       },
       "long": {
         "he": "עברית",
         "en": "English",
         "ru": "Русский",
         "ar": "عربيه",
-        "am": "አማርኛ"
+        "am": "አማርኛ",
+        "fr": "Français"
       }
     },
     "forceUpdate": {
@@ -543,17 +573,22 @@
       "noExposure2": "ከ:",
       "noExposure3": "ሰአቱ:",
       "noExposure4": "ምንም አይነት ንክኪ ከኮሮና ቫይረስ ከተያዘው ሠው ጋር እንዳልተገኘ ነው",
+      "accordingToData": "በተሰበሰበው መረጃ መሰረት,",
+      "from": "ከ",
+      "at": "ከሰአቱ",
+      "until": "እስከ ዛሬ",
+      "notFound": "በኮሮና ቫይረስ ከተያዘ ሰው ጋር ንክኪ የለወትም",
       "recommendation": "አፕሊኬሽኑን መዝጋት ይቻላል አሰፈላጊ ከሆነ እናስታውቅዎታለን.",
-      "found": "ተገኙ",
-      "exposureEvents": "ድርርብ ተገኘ",
+      "found": "ተገኝቶበወታል",
+      "exposureEvents": "በኮሮና ቫይረስ ከተያዘ ሰው ጋር ንክኪ",
       "reportedAt": "ሪፖርት ተደርጓል በ፤:",
-      "inDate": "ቀኑ",
-      "fromHour": "ሰአቱ ከ፤:",
-      "toHour": "ሰአቱ እስከ፤:",
-      "whereYouThere": "በዚያን ጊዜ በቦታው ዙሪያ ቆይተዋል?",
-      "no": "አልቆየሁም።",
+      "inDate": "በ",
+      "fromHour": "ከሰአቱ",
+      "toHour": "እስከ",
+      "whereYouThere": "ከዚህ ቦታ በተመሰሳሳይ ስአት ነበሩ ወይ?",
+      "no": "አልነበርሁም",
       "canContinue": "ቀጥል",
-      "yes": "ቆይቻለሁ።",
+      "yes": "አወ ነበርሁ",
       "needDirections": "ምን ማድረግ አለብኝ"
     },
     "exposuresHistory": {
@@ -587,6 +622,131 @@
       "failedButton": "ሌላ ሙከራ",
       "info": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ",
       "moreInfo": "የበለጠ ለመረዳት"
+    }
+  },
+  "fr": {
+    "general": {
+      "start": "COMMENCER",
+      "additionalInfo": "Informations supplémentaires sur la confidentialité"
+    },
+    "languages": {
+      "title": "Choisir la langue",
+      "short": {
+        "he": "עב",
+        "en": "En",
+        "ru": "Ru",
+        "ar": "عر",
+        "am": "አማ",
+        "fr": "Fr"
+      },
+      "long": {
+        "he": "עברית",
+        "en": "English",
+        "ru": "Русский",
+        "ar": "عربيه",
+        "am": "አማርኛ",
+        "fr": "Français"
+      }
+    },
+    "forceUpdate": {
+      "title": "Mise à jour de la version",
+      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
+    },
+    "forceTerms": {
+      "title": "Conditions d'utilisation mises à jour",
+      "desc": "Conditions d'utilisation mises à jour de l'application, afin que nous puissions continuer à vous maintenir en bonne santé Veuillez accepter les nouvelles conditions d'utilisation",
+      "approve": "APPROUVER"
+    },
+    "welcome": {
+      "title": "Nous sommes ravis que vous vous soyez joints à l'effort!",
+      "subTitle1": "Des milliers d'Israéliens pourraient subir les effets néfastes du coronavirus.",
+      "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
+    },
+    "location": {
+      "title": "La localisation est necessaire",
+      "subTitle1": "Cette application va collecter vos données de localisation et les comparer aux emplacements des personnes connues comme etant infectées par le virus. Si l'un de ces emplacements se chevauche, vous recevrez une notification.",
+      "subTitle2IOS": "Pour que cela fonctionne, vous devez activer le service de localisation sur votre téléphone.",
+      "subTitle2Android": "Pour que cela fonctionne, vous devez avoir à tout moment des services de localisation activés sur votre téléphone.",
+      "dataAnonymous": "\nVos données de localisation seront rendues anonymes",
+      "consent1": "J'ai lu et j'approuve les ",
+      "consent2": "conditions d'utilisation",
+      "approveLocation": "APPROUVER"
+    },
+    "locationIOS": {
+      "title": "Activer le service de localisation en arrière-plan",
+      "subTitle1": "Afin de pouvoir vous tenir au courant des événements liés au coronavirus, nous devrons vous envoyer des notifications.",
+      "subTitle2": "Les paramètres du service de localisation doivent être modifiés comme indiqué dans les images ci-dessous",
+      "goToSettings": "Appuyez ici pour les paramètres",
+      "set": "\nParamètres mis à jour, continuons"
+    },
+    "notifications": {
+      "title": "Important de vous tenir au courant",
+      "subTitle1": "Vous devez avoir le service de localisation sur votre téléphone activé à tout moment.",
+      "subTitle2": "Ces notifications contiendront des informations essentielles pour vous et vos proches.",
+      "approveNotifications": "Approuver les notifications"
+    },
+    "allSet": {
+      "allGood": "Tout\nfonctionne très bien"
+    },
+    "scanHome": {
+      "hasData": "Données détectées",
+      "noData": "Pas de données détectées ",
+      "exposureHistory": "Historique d'exposition",
+      "noDataDesc": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
+      "noExposure": "Sur la base des données recueillies jusqu'à présent, aucun point de chevauchement avec les patients atteints de coronavirus n'a été trouvé.",
+      "noExposure1": "Selon les données recueillies à ce jour,",
+      "noExposure2": "à partir de:",
+      "noExposure3": "à:",
+      "noExposure4": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",
+      "accordingToData": "Selon les données collectées,",
+      "from": "depuis lors",
+      "at": "À",
+      "until": "Et à ce jour",
+      "notFound": "aucun point d'intersection n'a été trouvé avec les malades du CoronaVirus",
+      "recommendation": "Vous pouvez maintenant fermer l'application. Nous vous informerons s'il y a quelque chose de nouveau.",
+      "found": "Trouvé",
+      "exposureEvents": "Événements d'exposition",
+      "reportedAt": "Signalé à:\n",
+      "inDate": "à",
+      "fromHour": "De:",
+      "toHour": "Jusqu'à:",
+      "whereYouThere": "Etiez-vous a cet endroit à ce moment la?",
+      "no": "Non",
+      "canContinue": "Vous pouvez continuer",
+      "yes": "Oui",
+      "needDirections": "Recevez les instructions"
+    },
+    "exposuresHistory": {
+      "title": "Historique des intersections\n",
+      "noExposures": "Pas d'intersection trouvée"
+    },
+    "exposureInstructions": {
+      "title": "Guide post-exposition",
+      "weUnderstand": "Il semble que votre emplacement ait croisé une personne connue pour être infectée par le coronavirus",
+      "wrong": "Ça doit être une erreur, je n'etais pas a cet endroit",
+      "keepSafe": "Vous devez suivre les étapes suivantes",
+      "goIntoIsolation": "Restez à la maison et évitez tout contact avec d'autres personnes pendant 14 jours à compter du moment du contact",
+      "reportIsolation": "Signaler l'isolement",
+      "allInstructions": "Pour toutes les instructions",
+      "reportSite": " Pour signaler sur le site"
+    },
+    "locationHistory": {
+      "beforeCheckTitle": "Fermeture des derniers virages",
+      "beforeCheckDesc": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. Ces informations sont conservées sur le téléphone et pour votre usage personnel uniquement et ne sont envoyées à aucune autre partie",
+      "beforeCheckDesc2": "Pour ce faire, vous devez autoriser l'accès aux emplacements au cours des 14 derniers jours à partir de Google",
+      "beforeCheckButton": "Précision des données",
+      "skip": "Sauter",
+      "successFoundTitle": "Mise à jour réussie des données Google",
+      "successFoundDesc": "La localisation des points de chevauchement au cours des 14 derniers jours sera basée sur les données de localisation reçues de Google",
+      "successFoundButton": "Continuez",
+      "successNotFoundTitle": "Aucun emplacement détecté",
+      "successNotFoundDesc": "Les données Google ont réussi, mais aucun emplacement n'a été détecté au cours des 14 derniers jours",
+      "successNotFoundButton": "J'ai compris",
+      "failedTitle": "Impossible d'obtenir des données de Google",
+      "failedDesc": "Nous vous recommandons de vérifier votre connexion Internet, votre nom d'utilisateur et votre mot de passe Google, puis de réessayer",
+      "failedButton": "Un autre essai",
+      "info": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. ",
+      "moreInfo": "En savoir plus"
     }
   }
 }

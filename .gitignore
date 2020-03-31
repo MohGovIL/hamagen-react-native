@@ -4,6 +4,8 @@
 
 coverage/
 
+.vscode
+
 # Xcode
 #
 build/
@@ -62,3 +64,4 @@ debug.keystore
 /ios/Pods/
 
 *.hprof
+*.swp

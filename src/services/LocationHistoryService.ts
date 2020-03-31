@@ -81,9 +81,14 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
       const db = new UserLocationsDatabase();
       let insertString = '';
 
+      /**
+       * !!!!!!!!!!!!
+       * if the number of samples change in the database change also the algorithm in the insertBulkSamples method in database.js
+       * !!!!!!!!!!!!
+       */
       // format data for bulk insert
       data.forEach((currRow) => {
-        insertString += `(${currRow.lat},${currRow.long},${currRow.accuracy},${currRow.startTime},${currRow.endTime},'${currRow.geoHash}', '', '${sha256(JSON.stringify(currRow))}'),`;
+        insertString += `(${currRow.lat},${currRow.long},${currRow.accuracy},${currRow.startTime},${currRow.endTime},'${currRow.geoHash}','','${sha256(JSON.stringify(currRow))}'),`;
       });
 
       // remove last comma
