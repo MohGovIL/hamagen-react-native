@@ -13,7 +13,7 @@ import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr',
   strings: any
 }
 
