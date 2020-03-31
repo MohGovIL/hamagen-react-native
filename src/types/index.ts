@@ -70,7 +70,7 @@ export interface ErrorService {
 }
 
 export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr',
   isRTL: boolean,
   strings: any
 }

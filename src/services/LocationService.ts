@@ -44,7 +44,7 @@ export const requestPermissions = () => new Promise(async (resolve) => {
   }
 });
 
-export const startLocationTracking = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+export const startLocationTracking = async (locale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr') => {
   try {
     const status = await check(permission);
 

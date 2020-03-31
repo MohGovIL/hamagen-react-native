@@ -28,6 +28,8 @@
       "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
       "en": "Hamagen runs in the background and protects you",
       "am": "የተከላካይ መተግበሪያ በጀርባ ውስጥ ይሠራል እና እርስዎን ይጠብቃል",
+      "ti": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ ይኽልክለልኩም እዩ",
+      "ti_": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ (ብቓልዕ ስለ ዘይሰርሕ) ይኽልክለልኩም (ይሕልወኩም) እዩ",
       "ru": "Хамаген бежит в фоновом режиме и защищает тебя",
       "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
       "fr": "Hamagen court en arrière-plan et vous protège"
@@ -44,6 +46,10 @@
       "am": {
         "title": "አንድ ወይም ከዚያ በላይ ተጋላጭነቶች ተከስተው ሊሆን ይችላል",
         "body": "የተጋለጡ መሆንዎን ለማወቅ እዚህ ጠቅ ያድርጉ"
+      },
+      "ti": {
+        "title": "ኣደዳ ሓደ ወይ ካብ ሓደ ንላዕሊ ምዃንኩም ተጠርጢሩ ኣሎ",
+        "body": "ኣደዳ ምዃንኩም ንምፍላጥ ኣብ’ዚ ጠውቑ"
       },
       "ru": {
         "title": "Возможно, обнаружено одно или несколько совпадений",
@@ -63,6 +69,7 @@
       "he": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
       "en": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
       "am": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
+      "ti": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
       "ru": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru",
       "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/",
       "fr": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/"
@@ -71,6 +78,7 @@
       "he": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "en": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "am": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ti": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "ru": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
       "fr": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
@@ -81,6 +89,7 @@
       "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
       "am": "https://go.gov.il/magen-terms-am",
+      "ti": "https://go.gov.il/magen-terms-en",
       "fr": "https://go.gov.il/magen-terms-fr"
     },
     "privacyTerms": {
@@ -89,6 +98,7 @@
       "ar": "https://go.gov.il/HAMAGEN-AR",
       "ru": "https://go.gov.il/HAMAGEN-RU",
       "am": "https://go.gov.il/HAMAGEN-AM",
+      "ti": "https://go.gov.il/HAMAGEN-EN",
       "fr": "https://go.gov.il/HAMAGEN-FR"
     }
   },
@@ -121,6 +131,8 @@
       "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
       "en": "Hamagen runs in the background and protects you",
       "am": "የተከላካይ መተግበሪያ በጀርባ ውስጥ ይሠራል እና እርስዎን ይጠብቃል",
+      "ti": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ ይኽልክለልኩም እዩ",
+      "ti_": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ (ብቓልዕ ስለ ዘይሰርሕ) ይኽልክለልኩም (ይሕልወኩም) እዩ",
       "ru": "Хамаген бежит в фоновом режиме и защищает тебя",
       "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
       "fr": "Hamagen court en arrière-plan et vous protège"
@@ -137,6 +149,10 @@
       "am": {
         "title": "አንድ ወይም ከዚያ በላይ ተጋላጭነቶች ተከስተው ሊሆን ይችላል",
         "body": "የተጋለጡ መሆንዎን ለማወቅ እዚህ ጠቅ ያድርጉ"
+      },
+      "ti": {
+        "title": "ኣደዳ ሓደ ወይ ካብ ሓደ ንላዕሊ ምዃንኩም ተጠርጢሩ ኣሎ",
+        "body": "ኣደዳ ምዃንኩም ንምፍላጥ ኣብ’ዚ ጠውቑ"
       },
       "ru": {
         "title": "Возможно, обнаружено одно или несколько совпадений",
@@ -174,6 +190,7 @@
       "ar": "https://go.gov.il/magen-terms-ar",
       "ru": "https://go.gov.il/magen-terms-ru",
       "am": "https://go.gov.il/magen-terms-am",
+      "ti": "https://go.gov.il/magen-terms-en",
       "fr": "https://go.gov.il/magen-terms-fr"
     },
     "privacyTerms": {
@@ -182,6 +199,7 @@
       "ar": "https://go.gov.il/HAMAGEN-AR",
       "ru": "https://go.gov.il/HAMAGEN-RU",
       "am": "https://go.gov.il/HAMAGEN-AM",
+      "ti": "https://go.gov.il/HAMAGEN-EN",
       "fr": "https://go.gov.il/HAMAGEN-FR"
     }
   },
@@ -214,6 +232,8 @@
       "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
       "en": "Hamagen runs in the background and protects you",
       "am": "የተከላካይ መተግበሪያ በጀርባ ውስጥ ይሠራል እና እርስዎን ይጠብቃል",
+      "ti": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ ይኽልክለልኩም እዩ",
+      "ti_": "ሃማጌን - ብድሕረ-ባይታ ስለ ዚሰርሕ (ብቓልዕ ስለ ዘይሰርሕ) ይኽልክለልኩም (ይሕልወኩም) እዩ",
       "ru": "Хамаген бежит в фоновом режиме и защищает тебя",
       "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
       "fr": "Hamagen court en arrière-plan et vous protège"
@@ -230,6 +250,10 @@
       "am": {
         "title": "አንድ ወይም ከዚያ በላይ ተጋላጭነቶች ተከስተው ሊሆን ይችላል",
         "body": "የተጋለጡ መሆንዎን ለማወቅ እዚህ ጠቅ ያድርጉ"
+      },
+      "ti": {
+        "title": "ኣደዳ ሓደ ወይ ካብ ሓደ ንላዕሊ ምዃንኩም ተጠርጢሩ ኣሎ",
+        "body": "ኣደዳ ምዃንኩም ንምፍላጥ ኣብ’ዚ ጠውቑ"
       },
       "ru": {
         "title": "Возможно, обнаружено одно или несколько совпадений",

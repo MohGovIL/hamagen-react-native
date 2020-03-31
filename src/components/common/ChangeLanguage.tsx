@@ -9,13 +9,13 @@ import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH }
 interface Props {
   isVisible: boolean,
   strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'): void,
+  locale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr',
+  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr'): void,
   toggleChangeLanguage(isShow: boolean): void
 }
 
 let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title, long } }, changeLocale, toggleChangeLanguage }: Props) => {
-  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ti'|'ru'|'fr') => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };
