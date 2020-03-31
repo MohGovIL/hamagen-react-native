@@ -40,7 +40,7 @@ export const checkSickPeople = async () => {
       return;
     }
 
-    const responseJson = await downloadAndVerifySigning(`${config().dataUrl_utc}?r=${Math.random()}`);
+    const responseJson = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB();
 
     const sickPeopleIntersected: any = getIntersectingSickRecords(

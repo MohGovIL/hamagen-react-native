@@ -1,5 +1,5 @@
 // import fetch from 'cross-fetch';
-import {NativeModules} from 'react-native';
+import { NativeModules } from 'react-native';
 import config from '../config/config';
 import * as tracker from './Tracker';
 import * as db from '../database/Database';
@@ -7,12 +7,12 @@ import * as constants from '../constants/Constants';
 
 jest.mock('./PushService', () => {
   const registerLocalNotification = jest.fn();
-  return {registerLocalNotification};
+  return { registerLocalNotification };
 });
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
-const {intersectMilliseconds} = config();
+const { intersectMilliseconds } = config();
 const largerThanIntersectMilliseconds = 1.1 * intersectMilliseconds;
 const smallerThanIntersectMilliseconds = 0.9 * intersectMilliseconds;
 const sickPeople = {
@@ -54,66 +54,66 @@ describe('Tracker', () => {
   // ====================================
 
   test('isTimeOverlapping()', async () => {
-    //Check user time not intersects before sick time range
+    // Check user time not intersects before sick time range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: oneHour, endTime: 2 * oneHour},
+        { startTime: oneHour, endTime: 2 * oneHour },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user no intersects same end time
+    // Check user no intersects same end time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 8 * oneHour, endTime: 10 * oneHour},
+        { startTime: 8 * oneHour, endTime: 10 * oneHour },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user end time intersects sick range
+    // Check user end time intersects sick range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 8 * oneHour, endTime: 12 * oneHour},
+        { startTime: 8 * oneHour, endTime: 12 * oneHour },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check sick user full time inside user time
+    // Check sick user full time inside user time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 9 * oneHour, endTime: 22 * oneHour},
+        { startTime: 9 * oneHour, endTime: 22 * oneHour },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check user full time in sick range
+    // Check user full time in sick range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 11 * oneHour, endTime: 12 * oneHour},
+        { startTime: 11 * oneHour, endTime: 12 * oneHour },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check user start time intersects with sick time
+    // Check user start time intersects with sick time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 15 * oneHour, endTime: 22 * oneHour},
+        { startTime: 15 * oneHour, endTime: 22 * oneHour },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check no intersects but same end time
+    // Check no intersects but same end time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 20 * oneHour, endTime: 22 * oneHour},
+        { startTime: 20 * oneHour, endTime: 22 * oneHour },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user time not intersects after sick time
+    // Check user time not intersects after sick time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 21 * oneHour, endTime: 26 * oneHour},
+        { startTime: 21 * oneHour, endTime: 26 * oneHour },
         sickRecord,
       ),
     ).toBe(false);
@@ -122,7 +122,7 @@ describe('Tracker', () => {
     //  Check the milliseconds overlapping restriction
     // ================================================
 
-    //Check smaller than intersect milliseconds
+    // Check smaller than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
@@ -133,7 +133,7 @@ describe('Tracker', () => {
       ),
     ).toBe(false);
 
-    //Check larger than intersect milliseconds
+    // Check larger than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
@@ -144,7 +144,7 @@ describe('Tracker', () => {
       ),
     ).toBe(true);
 
-    //Check larger than intersect milliseconds
+    // Check larger than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
@@ -159,33 +159,33 @@ describe('Tracker', () => {
   test('unitTestGeography()', async () => {
     // South
     expect(
-      tracker.isSpaceOverlapping({long: 34.612383, lat: 31.307915}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.612383, lat: 31.307915 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.612645, lat: 31.305848}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.612645, lat: 31.305848 }, sickRecord),
     ).toBe(false);
     // West
     expect(
-      tracker.isSpaceOverlapping({long: 34.609032, lat: 31.311498}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.609032, lat: 31.311498 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.604462, lat: 31.311608}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.604462, lat: 31.311608 }, sickRecord),
     ).toBe(false);
     // North-East
     expect(
-      tracker.isSpaceOverlapping({long: 34.615315, lat: 31.312473}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.615315, lat: 31.312473 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.618952, lat: 31.314902}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.618952, lat: 31.314902 }, sickRecord),
     ).toBe(false);
   });
 
   test('unitTestIntersectingRecords()', async () => {
     fetch(config().dataUrl_utc, {
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
     })
       .then(response => response.json())
-      .then(async responseJson => {
+      .then(async (responseJson) => {
         const myData = [
           {
             startTime: 1583144150000,

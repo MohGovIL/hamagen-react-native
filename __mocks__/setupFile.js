@@ -46,8 +46,6 @@ jest.mock('react-native-device-info', () => {
 });
 
 jest.mock('react-native-firebase', () => {
-
-
   const firebase = {
     messaging: jest.fn(() => {
       return {
@@ -64,7 +62,7 @@ jest.mock('react-native-firebase', () => {
         onNotificationDisplayed: jest.fn()
       };
     })
-  }
+  };
 
   firebase.notifications.Android = {
     Channel: jest.fn(() => ({
@@ -79,7 +77,6 @@ jest.mock('react-native-firebase', () => {
   };
 
   return firebase;
-  
 });
 
 
