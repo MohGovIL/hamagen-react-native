@@ -4,17 +4,18 @@ import AsyncLock from 'async-lock';
 import moment from 'moment';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
-import { sha256 } from './sha256.js';
+import { sha256 } from './sha256';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
 import store from '../store';
+import { NotificationData } from '../locale/LocaleData';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 
 const lock = new AsyncLock();
 
-export const startSampling = async (locale: string) => {
-  await startLocationTracking(locale);
+export const startSampling = async (locale: string, notificationData: NotificationData) => {
+  await startLocationTracking(locale, notificationData);
 };
 
 export const insertDB = async (sample: any) => new Promise(async (resolve) => {

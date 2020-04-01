@@ -11,29 +11,7 @@ export interface Config {
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
-  locationHistoryIgnoreList: string[],
-  androidNotification: {
-    [languageKey: string]: string
-  },
-  sickMessage: {
-    [languageKey: string]: {
-      title: string,
-      body: string
-    },
-    duration: number
-  },
-  furtherInstructions: {
-    [languageKey: string]: string
-  },
-  reportForm: {
-    [languageKey: string]: string
-  },
-  usageTerms: {
-    [languageKey: string]: string
-  },
-  privacyTerms: {
-    [languageKey: string]: string
-  }
+  locationHistoryIgnoreList: string[]
 }
 
 export interface ReducerAction {

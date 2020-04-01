@@ -17,23 +17,32 @@ export const initLocale = () => async (dispatch: any) => {
 
     const { data }: { data: LocaleData } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
+    const { languages, notificationData, externalUrls } = data;
+
     dispatch({
       type: INIT_LOCALE,
       payload: {
-        languages: data.languages,
+        languages,
+        notificationData,
+        externalUrls,
         strings: data[activeLocale] || data.he,
         locale: activeLocale,
         isRTL: ['he', 'ar'].includes(activeLocale),
         localeData: data
       }
     });
+
+    return Promise.resolve({ locale: activeLocale, notificationData });
   } catch (error) {
     const activeLocale = await getActiveLocale();
+    const { languages, externalUrls, notificationData } = localeData;
 
     dispatch({
       type: INIT_LOCALE,
       payload: {
-        languages: localeData.languages,
+        languages,
+        externalUrls,
+        notificationData,
         strings: localeData[activeLocale],
         locale: activeLocale,
         isRTL: true,
@@ -42,6 +51,8 @@ export const initLocale = () => async (dispatch: any) => {
     });
 
     onError({ error });
+
+    return Promise.resolve({ locale: activeLocale, notificationData });
   }
 };
 

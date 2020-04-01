@@ -16,7 +16,7 @@ import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
-import { Languages, Strings } from '../../locale/LocaleData';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 interface Props {
@@ -25,6 +25,7 @@ interface Props {
   strings: Strings,
   locale: string,
   languages: Languages,
+  externalUrls: ExternalUrls,
   exposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,
@@ -44,6 +45,7 @@ const ScanHome = (
     strings,
     locale,
     languages,
+    externalUrls,
     exposures,
     validExposure,
     setValidExposure,
@@ -129,6 +131,7 @@ const ScanHome = (
           strings={strings}
           locale={locale}
           languages={languages}
+          externalUrls={externalUrls}
           exposure={validExposure}
           removeValidExposure={removeValidExposure}
         />
@@ -187,12 +190,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { isRTL, strings, locale, languages },
+    locale: { isRTL, strings, locale, languages, externalUrls },
     general: { hideLocationHistory },
     exposures: { exposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, exposures, validExposure, firstPoint, hideLocationHistory };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, validExposure, firstPoint, hideLocationHistory };
 };
 
 

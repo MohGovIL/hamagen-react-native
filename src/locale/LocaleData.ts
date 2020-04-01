@@ -2,8 +2,11 @@ import texts from './texts.json';
 
 const localeData: LocaleData = texts;
 
+// TODO fix TS to allow both static and dynamic keys without error
 export interface LocaleData {
   languages: Languages,
+  externalUrls: ExternalUrls,
+  notificationData: NotificationData,
   [languageKey: string]: Strings
 }
 
@@ -14,6 +17,35 @@ export interface Languages {
   },
   long: {
     [languageKey: string]: string
+  }
+}
+
+export interface ExternalUrls {
+  furtherInstructions: {
+    [languageKey: string]: string
+  },
+  reportForm: {
+    [languageKey: string]: string
+  },
+  usageTerms: {
+    [languageKey: string]: string
+  },
+  privacyTerms: {
+    [languageKey: string]: string
+  }
+}
+
+// TODO fix TS to allow both static and dynamic keys without error
+export interface NotificationData {
+  androidNotification: {
+    [languageKey: string]: string
+  },
+  sickMessage: {
+    [languageKey: string]: {
+      title: string,
+      body: string
+    },
+    duration: number
   }
 }
 

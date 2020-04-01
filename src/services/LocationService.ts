@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { UserLocationsDatabase } from '../database/Database';
 import { onError } from './ErrorService';
 import config from '../config/config';
+import { NotificationData } from '../locale/LocaleData';
 import { DID_UPDATE_LOCATIONS_TIME_TO_UTC, IS_IOS } from '../constants/Constants';
 
 export const permission = IS_IOS ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION;
@@ -44,7 +45,7 @@ export const requestPermissions = () => new Promise(async (resolve) => {
   }
 });
 
-export const startLocationTracking = async (locale: string) => {
+export const startLocationTracking = async (locale: string, notificationData: NotificationData) => {
   try {
     const status = await check(permission);
 
@@ -70,7 +71,7 @@ export const startLocationTracking = async (locale: string) => {
       stopOnTerminate: false,
       startOnBoot: true,
       notification: {
-        text: config().androidNotification[locale]
+        text: notificationData.androidNotification[locale]
       }
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);

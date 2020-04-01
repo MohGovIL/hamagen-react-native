@@ -29,7 +29,7 @@ import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
-import { Strings } from '../locale/LocaleData';
+import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
 import { ValidExposure } from '../types';
 import {
   SET_VALID_EXPOSURE,
@@ -51,6 +51,8 @@ interface Props {
   isRTL: boolean,
   strings: Strings,
   locale: string,
+  externalUrls: ExternalUrls,
+  notificationData: NotificationData,
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
@@ -70,6 +72,8 @@ const Loading = (
     showChangeLanguage,
     strings,
     locale,
+    externalUrls,
+    notificationData,
     initLocale,
     showWebview,
     usageType,
@@ -118,7 +122,7 @@ const Loading = (
       await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling(locale);
+      !state.enabled && await startSampling(locale, notificationData);
 
       await startForegroundTimer();
 
@@ -182,7 +186,7 @@ const Loading = (
 
         <Loader isVisible={showLoader} />
         <ChangeLanguage isVisible={showChangeLanguage} />
-        <GeneralWebview isVisible={showWebview} locale={locale} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
+        <GeneralWebview isVisible={showWebview} locale={locale} externalUrls={externalUrls} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
         <ForceUpdate isVisible={showForceUpdate} strings={strings} />
         <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
       </View>
@@ -199,10 +203,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     general: { showLoader, showWebview, showForceUpdate, usageType, showForceTerms, termsVersion },
-    locale: { showChangeLanguage, strings, locale, isRTL }
+    locale: { showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
   } = state;
 
-  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, usageType, showForceTerms, isRTL, termsVersion };
+  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

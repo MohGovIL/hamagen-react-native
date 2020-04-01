@@ -3,8 +3,7 @@ import { View, StyleSheet, Linking, ScrollView } from 'react-native';
 import moment from 'moment';
 import { Exposure } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
-import config from '../../config/config';
-import { Languages, Strings } from '../../locale/LocaleData';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
@@ -12,6 +11,7 @@ interface Props {
   strings: Strings,
   locale: string,
   languages: Languages,
+  externalUrls: ExternalUrls,
   exposure: Exposure,
   removeValidExposure(): void
 }
@@ -21,6 +21,7 @@ const ExposureInstructions = (
     isRTL,
     locale,
     languages,
+    externalUrls,
     strings: {
       scanHome: { inDate, fromHour },
       exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
@@ -31,8 +32,8 @@ const ExposureInstructions = (
 ) => {
   const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
-  const furtherInstructions = config().furtherInstructions[relevantLocale];
-  const reportForm = config().reportForm[relevantLocale];
+  const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
+  const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={[styles.actionButtonContainer, !IS_SMALL_SCREEN && { height: 230 }]}>
