@@ -19,6 +19,7 @@
     "@react-navigation/native": "5.0.3",
     "@react-navigation/stack": "5.0.3",
     "@redux-offline/redux-offline": "2.5.2-native.3",
+    "@types/seedrandom": "^2.4.28",
     "async-lock": "1.2.2",
     "axios": "0.19.0",
     "events": "3.0.0",
@@ -55,6 +56,7 @@
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "rn-fetch-blob": "0.12.0",
+    "seedrandom": "^3.0.5",
     "sha256": "00.2.0",
     "xmldom": "0.3.0"
   },

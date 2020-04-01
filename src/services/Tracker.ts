@@ -98,28 +98,9 @@ const checkMillisecondsDiff = (to: number, from: number) => {
 };
 
 export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) => {
-  // End time in the range
-  return (
-    (userRecord.endTime > sickRecord.properties.fromTime_utc
-      && userRecord.endTime < sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        userRecord.endTime,
-        Math.max(sickRecord.properties.fromTime_utc, userRecord.startTime),
-      ))
-    // in the range
-    || (userRecord.startTime < sickRecord.properties.fromTime_utc
-      && userRecord.endTime > sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        sickRecord.properties.toTime_utc,
-        sickRecord.properties.fromTime_utc,
-      ))
-    // Start time in the range
-    || (userRecord.startTime > sickRecord.properties.fromTime_utc
-      && userRecord.startTime < sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        Math.min(sickRecord.properties.toTime_utc, userRecord.endTime),
-        userRecord.startTime,
-      ))
+  return checkMillisecondsDiff(
+    Math.min(userRecord.endTime, sickRecord.properties.toTime_utc),
+    Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc)
   );
 };
 

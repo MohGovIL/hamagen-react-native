@@ -4,12 +4,16 @@ import AsyncLock from 'async-lock';
 import moment from 'moment';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
-import { sha256 } from './sha256.js';
+import { sha256 } from './sha256';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
-import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
 import store from '../store';
+import { DBLocation, Sample, VelocityRecord } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
+import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
+
+// tslint:disable-next-line:no-var-requires
+const haversine = require('haversine');
 
 const lock = new AsyncLock();
 
@@ -17,7 +21,7 @@ export const startSampling = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
   await startLocationTracking(locale);
 };
 
-export const insertDB = async (sample: any) => new Promise(async (resolve) => {
+export const insertDB = async (sample: Sample) => new Promise(async (resolve) => {
   // prevent race condition of entering multiple points at the same time
   await lock.acquire('insertDB', async (done) => {
     try {
@@ -30,7 +34,7 @@ export const insertDB = async (sample: any) => new Promise(async (resolve) => {
       }
 
       // check last point timestamp and ignore if same point entered again.
-      const lastPointStartTime = hasLastPointTimestamp();
+      const lastPointStartTime = await hasLastPointTimestamp();
 
       if (lastPointStartTime && (lastPointStartTime === sample.timestamp)) {
         resolve();
@@ -63,7 +67,7 @@ export const insertDB = async (sample: any) => new Promise(async (resolve) => {
         wifiHash
       };
 
-      const finalSample = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
+      const finalSample: DBLocation = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
 
       await db.addSample(finalSample);
 
@@ -92,7 +96,7 @@ const hasFirstPointTimestamp = () => new Promise(async (resolve) => {
   }
 });
 
-const hasLastPointTimestamp = () => new Promise(async (resolve) => {
+const hasLastPointTimestamp = () => new Promise<number|boolean>(async (resolve) => {
   try {
     resolve(JSON.parse(await AsyncStorage.getItem(LAST_POINT_START_TIME) || 'false'));
   } catch (error) {
@@ -129,3 +133,33 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
     onError({ error });
   }
 });
+
+export const evalVelocity = (myData: Sample[]) => {
+  const velRec: VelocityRecord[] = mapPairs(myData, (a, b) => evalVelocity2Loc(a, b));
+
+  // TODO move to config
+  return velRec[velRec.length - 1].velocity > 2.8;
+};
+
+function mapPairs<T, U>(array: T[], fn: (first: T, second: T, index: number) => U): U[] {
+  if (array.length === 0) {
+    throw new Error('No pairs in empty array');
+  }
+
+  const ret: U[] = [];
+
+  for (let i = 0; i < array.length - 1; i++) {
+    ret.push(fn(array[i], array[i + 1], i));
+  }
+
+  return ret;
+}
+
+const evalVelocity2Loc = (prevData: Sample, currData: Sample) => {
+  const distMeter = haversine({ latitude: currData.coords.latitude, longitude: currData.coords.longitude }, { latitude: prevData.coords.latitude, longitude: prevData.coords.longitude });
+  const timeDiffInSeconds = Math.floor((currData.timestamp - prevData.timestamp) / 1000);
+
+  const velocity = (timeDiffInSeconds > 0) ? distMeter / timeDiffInSeconds : 0;
+
+  return { distMeter, timeDiff: timeDiffInSeconds, velocity };
+};

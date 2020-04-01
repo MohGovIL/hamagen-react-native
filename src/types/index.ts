@@ -103,6 +103,26 @@ export interface Exposure {
   }
 }
 
+export interface Sample {
+  coords: {
+    latitude: number,
+    longitude: number,
+    accuracy: number
+  },
+  timestamp: number
+}
+
+export interface DBLocation {
+  lat: number,
+  long: number,
+  accuracy: number,
+  startTime: number,
+  endTime: number,
+  geoHash: string,
+  wifiHash: string,
+  hash: string
+}
+
 export interface Location {
   geoHash: string,
   hash: string,
@@ -114,15 +134,13 @@ export interface Location {
   long: number
 }
 
-export interface DBExposure {
-  OBJECTID: number,
-  Name: string,
-  Place: string,
-  fromTime: number,
-  toTime: number
-}
-
 export interface ValidExposure {
   exposure: Exposure,
   timestamp: number
+}
+
+export interface VelocityRecord {
+  distMeter: number,
+  timeDiff: number,
+  velocity: number,
 }
