@@ -2,7 +2,7 @@
   "he": {
     "general": {
       "start": "התחלה",
-      "additionalInfo": "מידע נוסף ופרטיות"
+      "additionalInfo": "מדיניות פרטיות ומידע נוסף"
     },
     "languages": {
       "title": "בחר שפה",
@@ -106,22 +106,22 @@
       "reportSite": "לדיווח באתר"
     },
     "locationHistory": {
-      "beforeCheckTitle": "סגירת פינות אחרונות",
-      "beforeCheckDesc": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. מידע זה נשמר על הטלפון ולשימושך האישי בלבד ולא נשלח לאף גורם אחר",
+      "beforeCheckTitle": "הוספת נתונים קודמים",
+      "beforeCheckDesc": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים, נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל. מידע זה נשמר על הטלפון ולשימושך האישי בלבד ולא נשלח לאף גורם אחר",
       "beforeCheckDesc2": "לצורך כך, עליך לאפשר גישה למיקומים ב-14 הימים האחרונים מגוגל",
-      "beforeCheckButton": "דיוק הנתונים",
-      "skip": "דילוג",
-      "successFoundTitle": "הנתונים מגוגל עודכנו בהצלחה",
-      "successFoundDesc": "איתור נקודות החפיפה עבור 14 הימים האחרונים יהיה בהתאם לנתוני המיקום שהתקבלו מגוגל",
-      "successFoundButton": "להמשך",
-      "successNotFoundTitle": "לא זוהו מיקומים",
-      "successNotFoundDesc": "הנתונים מגוגל התקבלו בהצלחה, אך לא זוהו מיקומים ב- 14 ימים האחרונים",
+      "beforeCheckButton": "הוספת הנתונים מגוגל",
+      "skip": "המשך ללא נתונים קודמים",
+      "successFoundTitle": "הנתונים התקבלו מגוגל בהצלחה",
+      "successFoundDesc": "קיבלנו מגוגל את נתוני המיקום שלך מ-14 הימים האחרונים. בהתאמה לנתונים שנאספו מגוגל ומהאפליקציה, נבצע איתור לנקודות חפיפה עם חולי קורונה",
+      "successFoundButton": "המשך",
+      "successNotFoundTitle": "לא נאספו המיקומים שלך בגוגל",
+      "successNotFoundDesc": "נראה שאין לגוגל מידע על המיקומים שלך מ-14 הימים האחרונים. ייתכן שזה קרה כי לא אישרת לגוגל לאסוף את הנתונים האלו. במקרה כזה, האפליקציה מאתרת מוקדי חפיפה בינך ובין הסביבה - החל מרגע ההורדה בלבד",
       "successNotFoundButton": "הבנתי",
-      "failedTitle": "קבלת הנתונים מגוגל נכשלה",
-      "failedDesc": "מומלץ לבדוק חיבור לאינטרנט, שם משתמש וסיסמא לגוגל ולנסות בשנית",
+      "failedTitle": "לא הצלחנו לקבל נתונים מגוגל",
+      "failedDesc": "מומלץ לבדוק את החיבור שלך לאינטרנט, את שם המשתמש והסיסמא לגוגל ולנסות שוב",
       "failedButton": "ניסיון נוסף",
-      "info": "על מנת לדייק את המיקומים שלך ל-14 הימים האחרונים, יש לאפשר קבלת נתוני המיקום שלך מחשבון הגוגל. ",
-      "moreInfo": "מידע נוסף"
+      "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל",
+      "moreInfo": " להמשך"
     }
   },
   "ar": {
@@ -245,8 +245,8 @@
       "failedTitle": "فشل الحصول على البيانات من Google",
       "failedDesc": "نوصيك بالتحقق من اتصالك بالإنترنت واسم مستخدم Google وكلمة المرور والمحاولة مرة أخرى",
       "failedButton": "محاولة أخرى",
-      "info": "لتحديد مواقعك بدقة خلال آخر 14 يومًا ، يجب تمكين بيانات موقعك من حسابك على Google. ",
-      "moreInfo": "اعرف المزيد"
+      "info": "من أجل تحديد أماكن التطابق خلال ال ١٤ يوم الأخيرة، يجب الحصول على بيانات الموقع الخاصة بكم من خلال حساب google ",
+      "moreInfo": "للإستمرار"
     }
   },
   "en": {
@@ -472,18 +472,18 @@
     },
     "exposureInstructions": {
       "title": "Рекомендации после выявления контакта",
-      "weUnderstand": "Вы оказались в точке соприкосновения",
-      "wrong": "Ошибка, я там не был.",
-      "keepSafe": "В целях поддержания вашего здоровья, здоровья вашей семьи и окружающих вас людей руководствуйтесь рекомендациями Министерства Здравоохранения и пожалуйста, примите следующие меры",
-      "goIntoIsolation": "исключите полностью контакты с другими людьми на протяжении 14 дней, не выходя из дома",
-      "reportIsolation": "оставьте сообщение на сайте Министерства Здравоохранения о вашем карантине",
+      "weUnderstand": "Находились ли вы в пункте",
+      "wrong":"Ошибка, меня там не было.",
+      "keepSafe": "Для сохранения здоровья Вашей семьи и окружающих, следуйте рекомендациям Минздрава: ",
+      "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
+      "reportIsolation": "Сообщите о вашем карантине на сайте Минздрава",
       "allInstructions": "Инструкции",
-      "reportSite": "Поставить в известность"
+      "reportSite": "Сообщить"
     },
     "locationHistory": {
-      "beforeCheckTitle": "Закрытие последних углов",
-      "beforeCheckDesc": "Для точного определения вашего местоположения за последние 14 дней данные о вашем местоположении должны быть включены из вашей учетной записи Google. Эта информация хранится на телефоне и предназначена только для личного использования и не отправляется никаким другим лицам",
-      "beforeCheckDesc2": "Для этого вы должны разрешить доступ к местоположениям в течение последних 14 дней из Google",
+      "beforeCheckTitle": "Последний этап",
+      "beforeCheckDesc": "Для точного определения вашего местоположения за последние 14 дней, нам нужен доступ к вашей учетной записи Google. Эта информация предназначена только для личного использования и не отправляется никаким другим лицам",
+      "beforeCheckDesc2": "Для этого пожалуйста разрешите доступ к местоположениям в течение последних 14 дней из Google",
       "beforeCheckButton": "Точность данных",
       "skip": "Пропуск",
       "successFoundTitle": "Данные Google успешно обновлены",
@@ -596,14 +596,14 @@
       "noExposures": "ድርርብ አልተገኘም።"
     },
     "exposureInstructions": {
-      "title": "ከተያዘ ሰው ጋር ከተቀራረቡ ይህን መመርያ ይከተሉ።",
-      "weUnderstand": "እንደአስተያየታችን ከተያዘ ሰው ጋር ተቀራርበዋል።",
-      "wrong": "የለም፤ ስህተት ነው።",
-      "keepSafe": "የጤና ጥበቃ ሚኒስቴር በሚሰጠው ምክር መሰረት ራስዎንና በተሰብዎን ይጠብቁ፡",
-      "goIntoIsolation": "-በተቻለዉ መጠን በቤትዎ ይቆዩ እና በተጨናነቁ ስፍራዎች ውስጥ ቆይታዎን በተቻለ መጠን ይቀንሱ ፡፡",
-      "reportIsolation": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ የመከለል ሪፖርት ለማድረግ።",
-      "allInstructions": "ለሁሉም መመርያዎች ።",
-      "reportSite": "በጤና ጥበቃ ሚኒስቴር ድርጣቢያ ሪፖርት ለማድረግ።"
+      "title": "ለቫይረሱ ከተጋለጡ በኋላ የተሰጡ መመሪያዎች",
+      "weUnderstand": "ነበርክ?",
+      "wrong": "አልነበርኩም።,",
+      "keepSafe": "የቤተሰብህን ጤንነት ለመጠበቅ የሚከተሉትን የጤና ጥበቃ መ/ቤት መመሪያዎች ጠብቅ ፡,",
+      "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
+      "reportIsolation": "መገለያ ቦታ መግባትዎን በጤና ጥበቃ መ/ቤት ድረ-ገፅ ያስታውቁ።,",
+      "allInstructions": "ለሁሉም መመሪያዎች ።,",
+      "reportSite": "በድረ-ገፅ ያስታውቁ ።"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -663,8 +663,8 @@
       "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
     },
     "location": {
-      "title": "La localisation est necessaire",
-      "subTitle1": "Cette application va collecter vos données de localisation et les comparer aux emplacements des personnes connues comme etant infectées par le virus. Si l'un de ces emplacements se chevauche, vous recevrez une notification.",
+      "title": "La localisation est critique",
+      "subTitle1": "Cette application va collecter vos localisations et les comparer à celles des personnes infectées par le virus. Si l'un de ces emplacements se chevauche,vous recevrez une notification.",
       "subTitle2IOS": "Pour que cela fonctionne, vous devez activer le service de localisation sur votre téléphone.",
       "subTitle2Android": "Pour que cela fonctionne, vous devez avoir à tout moment des services de localisation activés sur votre téléphone.",
       "dataAnonymous": "\nVos données de localisation seront rendues anonymes",
@@ -722,22 +722,22 @@
     },
     "exposureInstructions": {
       "title": "Guide post-exposition",
-      "weUnderstand": "Il semble que votre emplacement ait croisé une personne connue pour être infectée par le coronavirus",
-      "wrong": "Ça doit être une erreur, je n'etais pas a cet endroit",
-      "keepSafe": "Vous devez suivre les étapes suivantes",
-      "goIntoIsolation": "Restez à la maison et évitez tout contact avec d'autres personnes pendant 14 jours à compter du moment du contact",
-      "reportIsolation": "Signaler l'isolement",
+      "weUnderstand": "Etiez-vous à",
+      "wrong": "Non, je n'y etais pas",
+      "keepSafe": "Pour votre protection, suivez les étapes suivantes",
+      "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",
+      "reportIsolation": "Signaler l’isolement",
       "allInstructions": "Pour toutes les instructions",
-      "reportSite": " Pour signaler sur le site"
+      "reportSite": "Pour signaler sur le sit"
     },
     "locationHistory": {
-      "beforeCheckTitle": "Fermeture des derniers virages",
-      "beforeCheckDesc": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. Ces informations sont conservées sur le téléphone et pour votre usage personnel uniquement et ne sont envoyées à aucune autre partie",
-      "beforeCheckDesc2": "Pour ce faire, vous devez autoriser l'accès aux emplacements au cours des 14 derniers jours à partir de Google",
+      "beforeCheckTitle": "Ajout des données précédentes ",
+      "beforeCheckDesc": "Afin de déterminer vos emplacements au cours des 14 derniers jours,nous devrons obtenir vos données de localisation à partir de votre compte Google. Ces informations sont conservées sur votre téléphone, pour votre usage personnel et ne sont envoyées à aucune autre partie",
+      "beforeCheckDesc2": "Pour ce faire,merci d’autoriser l'accès aux emplacements des 14 derniers jours à partir de Google",
       "beforeCheckButton": "Précision des données",
       "skip": "Sauter",
       "successFoundTitle": "Mise à jour réussie des données Google",
-      "successFoundDesc": "La localisation des points de chevauchement au cours des 14 derniers jours sera basée sur les données de localisation reçues de Google",
+      "successFoundDesc": "La localisation des points de chevauchement des 14 derniers jours sera basée sur les données de localisation reçues de Google",
       "successFoundButton": "Continuez",
       "successNotFoundTitle": "Aucun emplacement détecté",
       "successNotFoundDesc": "Les données Google ont réussi, mais aucun emplacement n'a été détecté au cours des 14 derniers jours",
@@ -745,8 +745,8 @@
       "failedTitle": "Impossible d'obtenir des données de Google",
       "failedDesc": "Nous vous recommandons de vérifier votre connexion Internet, votre nom d'utilisateur et votre mot de passe Google, puis de réessayer",
       "failedButton": "Un autre essai",
-      "info": "Afin de déterminer avec précision vos emplacements au cours des 14 derniers jours, vos données de localisation doivent être activées à partir de votre compte Google. ",
-      "moreInfo": "En savoir plus"
+      "info": "Afin de trouver des emplacements qui se chevauchent au cours des 14 derniers jours, nous devons obtenir vos données de localisation de Google ",
+      "moreInfo": "Continuer"
     }
   }
 }
