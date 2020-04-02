@@ -11,6 +11,9 @@ export interface Config {
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
+  locationServiceIgnoreList: string[],
+  locationServiceIgnoreConfidenceThreshold: number,
+  locationServiceIgnoreSampleVelocityThreshold: number,
   locationHistoryIgnoreList: string[],
   androidNotification: { he: string, en: string, am: string, ru: string, ar: string, fr: string },
   sickMessage: {
@@ -19,7 +22,7 @@ export interface Config {
     am: { title: string, body: string },
     ru: { title: string, body: string },
     ar: { title: string, body: string },
-    fr: { title: string, body: string }
+    fr: { title: string, body: string },
     duration: number
   },
   furtherInstructions: {
@@ -104,6 +107,10 @@ export interface Exposure {
 }
 
 export interface Sample {
+  activity: {
+    type: string,
+    confidence: number
+  },
   coords: {
     latitude: number,
     longitude: number,

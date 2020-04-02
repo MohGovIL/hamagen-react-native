@@ -5,9 +5,9 @@ import DefaultConfig from './default_config.json';
 import { Config } from '../types';
 
 // @ts-ignore
-const env: 'com.hamagen.dev'|'com.hamagen.qa'|'com.hamagen' = DeviceInfo.getBundleId();
+const env: 'com.hamagen.qa'|'com.hamagen' = DeviceInfo.getBundleId();
 
-let config: Config = DefaultConfig[env];
+let config: Config = DefaultConfig[env] || DefaultConfig['com.hamagen.qa'];
 
 export const initConfig = async () => new Promise(async (resolve) => {
   try {

@@ -8,9 +8,15 @@ import { sha256 } from './sha256';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import store from '../store';
+import config from '../config/config';
 import { DBLocation, Sample, VelocityRecord } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
-import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, LAST_POINT_START_TIME } from '../constants/Constants';
+import {
+  FIRST_POINT_TS,
+  HIGH_VELOCITY_POINTS,
+  IS_LAST_POINT_FROM_TIMELINE,
+  LAST_POINT_START_TIME
+} from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -134,11 +140,56 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
   }
 });
 
-export const evalVelocity = (myData: Sample[]) => {
+export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
+  try {
+    const { type, confidence } = location.activity;
+
+    const db = new UserLocationsDatabase();
+
+    if (config().locationServiceIgnoreList.includes(type) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
+      await db.updateLastSampleEndTime(location.timestamp);
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      return;
+    }
+
+    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+    let pointsToCheck;
+
+    if (highVelocityPoints.length === 0) {
+      const lastPointFromDB = await db.getLastPointEntered();
+      pointsToCheck = [{
+        coords: {
+          latitude: lastPointFromDB.lat,
+          longitude: lastPointFromDB.long,
+          accuracy: lastPointFromDB.accuracy
+        },
+        timestamp: lastPointFromDB.endTime
+      }];
+    } else {
+      pointsToCheck = highVelocityPoints;
+    }
+
+    const isHighVelocity = evalVelocity([...pointsToCheck, location]);
+
+    if (isHighVelocity) {
+      if (highVelocityPoints.length === 0) {
+        await db.updateLastSampleEndTime(location.timestamp);
+        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      }
+      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
+    } else {
+      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
+      await insertDB(location);
+    }
+  } catch (error) {
+    onError({ error });
+  }
+};
+
+const evalVelocity = (myData: Sample[]) => {
   const velRec: VelocityRecord[] = mapPairs(myData, (a, b) => evalVelocity2Loc(a, b));
 
-  // TODO move to config
-  return velRec[velRec.length - 1].velocity > 2.8;
+  return velRec[velRec.length - 1].velocity > config().locationServiceIgnoreSampleVelocityThreshold;
 };
 
 function mapPairs<T, U>(array: T[], fn: (first: T, second: T, index: number) => U): U[] {
