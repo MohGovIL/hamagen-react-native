@@ -8,10 +8,12 @@ import { name as appName } from './app.json';
 import { checkSickPeople } from './src/services/Tracker';
 import { insertDB } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
+import { initConfig } from './src/config/config';
 
 BackgroundGeolocation.onLocation(
   async (location) => {
     location.timestamp = moment(location.timestamp).valueOf();
+    await initConfig();
     await insertDB(location);
   }, (error) => {
     onError({ error });
@@ -23,6 +25,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     const { taskId } = event;
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
+    await initConfig();
     await checkSickPeople();
 
     BackgroundFetch.finish(taskId);
