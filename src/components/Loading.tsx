@@ -26,7 +26,7 @@ import { onError } from '../services/ErrorService';
 import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
-import { IntersectionSickDatabase, UserLocationsDatabase } from '../database/Database';
+import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
 import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
@@ -90,24 +90,7 @@ const Loading = (
 
   useEffect(() => {
     appLoadingActions();
-
-    // insertLocation();
   }, []);
-
-  const insertLocation = async () => {
-    const db = new UserLocationsDatabase();
-
-    await db.addSample({
-      lat: 31,
-      long: 36,
-      accuracy: 0,
-      startTime: moment().valueOf() - 300000,
-      endTime: moment().valueOf() - 300000,
-      geoHash: '',
-      wifiHash: '',
-      hash: ''
-    });
-  };
 
   useEffect(() => {
     if (!showWebview && shouldShowForceTerms.current) {
