@@ -16,7 +16,7 @@ interface Props {
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguage: ElementType = ({ isVisible, locale, languages: { title, long }, changeLocale, toggleChangeLanguage }: Props) => {
+let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
   const onButtonPress = (selectedLocale: string) => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
