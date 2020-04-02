@@ -1,5 +1,5 @@
 import BackgroundFetch from 'react-native-background-fetch';
-import config from '../config/config';
+import config, { initConfig } from '../config/config';
 import { checkSickPeople } from './Tracker';
 import { onError } from './ErrorService';
 
@@ -14,9 +14,14 @@ export const scheduleTask = async () => {
         enableHeadless: true
       },
       async () => {
-        console.log('Background fetch event fired');
-        await checkSickPeople();
-        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+        try {
+          console.log('Background fetch event fired');
+          await initConfig();
+          await checkSickPeople();
+          BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+        } catch (error) {
+          onError({ error });
+        }
       },
       (error: any) => onError({ error })
     );
