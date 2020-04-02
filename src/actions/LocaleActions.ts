@@ -2,7 +2,7 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NativeModules } from 'react-native';
 import { onError } from '../services/ErrorService';
-import LocaleData from '../locale/LocaleData';
+import localeData, { LocaleData } from '../locale/LocaleData';
 import config from '../config/config';
 import { TOGGLE_CHANGE_LANGUAGE, LOCALE_CHANGED, INIT_LOCALE } from '../constants/ActionTypes';
 import { CURRENT_LOCALE, IS_IOS } from '../constants/Constants';
@@ -11,34 +11,52 @@ export const toggleChangeLanguage = (isShow: boolean) => (dispatch: any) => disp
 
 export const initLocale = () => async (dispatch: any) => {
   try {
-    const locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
-
-    let activeLocale: 'he'|'iw'|'en'|'ar'|'am'|'ru'|'fr' = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
-
-    if (activeLocale === 'iw') {
-      activeLocale = 'he';
-    }
+    const activeLocale = await getActiveLocale();
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const { data } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { data }: { data: LocaleData } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+
+    const { languages, notificationData, externalUrls } = data;
 
     dispatch({
       type: INIT_LOCALE,
       payload: {
+        languages,
+        notificationData,
+        externalUrls,
         strings: data[activeLocale] || data.he,
         locale: activeLocale,
         isRTL: ['he', 'ar'].includes(activeLocale),
         localeData: data
       }
     });
+
+    return Promise.resolve({ locale: activeLocale, notificationData });
   } catch (error) {
-    dispatch({ type: LOCALE_CHANGED, payload: { strings: LocaleData.he, locale: 'he', isRTL: true } });
+    const activeLocale = await getActiveLocale();
+    const { languages, externalUrls, notificationData } = localeData;
+
+    dispatch({
+      type: INIT_LOCALE,
+      payload: {
+        languages,
+        externalUrls,
+        notificationData,
+        strings: localeData[activeLocale],
+        locale: activeLocale,
+        isRTL: true,
+        localeData
+      }
+    });
+
     onError({ error });
+
+    return Promise.resolve({ locale: activeLocale, notificationData });
   }
 };
 
-export const changeLocale = (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => async (dispatch: any) => {
+export const changeLocale = (locale: string) => async (dispatch: any) => {
   try {
     await AsyncStorage.setItem(CURRENT_LOCALE, locale);
     dispatch({ type: LOCALE_CHANGED, payload: { locale } });
@@ -46,3 +64,15 @@ export const changeLocale = (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => async (di
     onError({ error });
   }
 };
+
+const getActiveLocale = () => new Promise<string>(async (resolve) => {
+  const locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
+
+  let activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
+
+  if (activeLocale === 'iw') {
+    activeLocale = 'he';
+  }
+
+  resolve(activeLocale);
+});

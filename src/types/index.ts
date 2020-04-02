@@ -14,49 +14,7 @@ export interface Config {
   locationServiceIgnoreList: string[],
   locationServiceIgnoreConfidenceThreshold: number,
   locationServiceIgnoreSampleVelocityThreshold: number,
-  locationHistoryIgnoreList: string[],
-  androidNotification: { he: string, en: string, am: string, ru: string, ar: string, fr: string },
-  sickMessage: {
-    he: { title: string, body: string },
-    en: { title: string, body: string },
-    am: { title: string, body: string },
-    ru: { title: string, body: string },
-    ar: { title: string, body: string },
-    fr: { title: string, body: string },
-    duration: number
-  },
-  furtherInstructions: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  reportForm: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  usageTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  privacyTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  }
+  locationHistoryIgnoreList: string[]
 }
 
 export interface ReducerAction {
@@ -70,12 +28,6 @@ export interface ErrorService {
   dispatch?: (params: any) => void,
   customAction?: () => void,
   showError?: boolean
-}
-
-export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  isRTL: boolean,
-  strings: any
 }
 
 export interface Fonts {

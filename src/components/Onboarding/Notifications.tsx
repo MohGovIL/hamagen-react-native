@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import LottieView from 'lottie-react-native';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text } from '../common';
 import { initPushNotifications } from '../../services/PushService';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  strings: any
+  strings: Strings
 }
 
 const Notifications = ({ navigation, strings: { notifications: { title, subTitle1, subTitle2, approveNotifications } } }: Props) => {

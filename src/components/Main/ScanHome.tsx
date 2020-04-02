@@ -16,13 +16,16 @@ import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkPermissions } from '../../services/LocationService';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 interface Props {
   navigation: any,
   isRTL: boolean,
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  strings: Strings,
+  locale: string,
+  languages: Languages,
+  externalUrls: ExternalUrls,
   exposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,
@@ -41,6 +44,8 @@ const ScanHome = (
     isRTL,
     strings,
     locale,
+    languages,
+    externalUrls,
     exposures,
     validExposure,
     setValidExposure,
@@ -121,7 +126,15 @@ const ScanHome = (
   const renderRelevantState = () => {
     if (validExposure) {
       return (
-        <ExposureInstructions isRTL={isRTL} strings={strings} locale={locale} exposure={validExposure} removeValidExposure={removeValidExposure} />
+        <ExposureInstructions
+          isRTL={isRTL}
+          strings={strings}
+          locale={locale}
+          languages={languages}
+          externalUrls={externalUrls}
+          exposure={validExposure}
+          removeValidExposure={removeValidExposure}
+        />
       );
     } if (!hasLocation || !hasNetwork) {
       return (
@@ -177,12 +190,12 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { isRTL, strings, locale },
+    locale: { isRTL, strings, locale, languages, externalUrls },
     general: { hideLocationHistory },
     exposures: { exposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, exposures, validExposure, firstPoint, hideLocationHistory };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, validExposure, firstPoint, hideLocationHistory };
 };
 
 

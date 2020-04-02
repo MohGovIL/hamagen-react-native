@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { ActionButton, GeneralContainer, TouchableOpacity, Text, OnboardingHeader, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  strings: any,
+  strings: Strings,
   isRTL: boolean
 }
 

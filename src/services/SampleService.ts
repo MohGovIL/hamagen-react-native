@@ -9,6 +9,7 @@ import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import store from '../store';
 import config from '../config/config';
+import { NotificationData } from '../locale/LocaleData';
 import { DBLocation, Sample, VelocityRecord } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import {
@@ -23,8 +24,8 @@ const haversine = require('haversine');
 
 const lock = new AsyncLock();
 
-export const startSampling = async (locale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
-  await startLocationTracking(locale);
+export const startSampling = async (locale: string, notificationData: NotificationData) => {
+  await startLocationTracking(locale, notificationData);
 };
 
 export const insertDB = async (sample: Sample) => new Promise(async (resolve) => {

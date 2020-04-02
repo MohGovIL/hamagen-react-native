@@ -12,6 +12,7 @@ import { WebviewHeader, TouchableOpacity, Icon, ActionButton, Text } from '.';
 import { checkIfHideLocationHistory } from '../../actions/GeneralActions';
 import { onError } from '../../services/ErrorService';
 import store from '../../store';
+import { Strings } from '../../locale/LocaleData';
 import {
   IS_SMALL_SCREEN,
   MAIN_COLOR,
@@ -58,7 +59,7 @@ const FetchHistoryModal = ({ isVisible, isLoggedIn, webViewRef, onMessage, close
 };
 
 interface GoogleTimeLineProps {
-  strings: any,
+  strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void,
   onCompletion(): void
 }

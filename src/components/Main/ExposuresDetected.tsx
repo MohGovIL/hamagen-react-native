@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet, Animated } from 'react-native';
 import moment from 'moment';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 import {
   BASIC_SHADOW_STYLES,
@@ -13,7 +14,7 @@ import {
 
 interface Props {
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   exposures: Exposure[],
   onValidExposure(exposure: Exposure): void,
   dismissExposure(exposureId: number): void
