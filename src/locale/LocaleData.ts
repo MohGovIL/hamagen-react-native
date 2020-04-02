@@ -162,6 +162,14 @@ export interface Strings {
     failedButton: string,
     info: string,
     moreInfo: string
+  },
+  filterDriving: {
+    title: string,
+    desc1: string,
+    desc2: string,
+    desc3: string,
+    button: string,
+    skip: string
   }
 }
 

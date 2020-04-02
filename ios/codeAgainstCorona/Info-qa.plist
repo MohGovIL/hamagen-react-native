@@ -47,6 +47,8 @@
 	<string>יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
+	<key>NSMotionUsageDescription</key>
+	<string>יש לאפשר גישה לחיישני תנועה על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>SimplerPro_V3-Black.otf</string>

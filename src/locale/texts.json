@@ -212,6 +212,14 @@
       "failedButton": "ניסיון נוסף",
       "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל",
       "moreInfo": " להמשך"
+    },
+    "filterDriving": {
+      "title": "סינון נסיעות",
+      "desc1": "אנחנו יודעים שנסיעות עלולות להוסיף נתונים לא רלוונטיים להשוואה, ולכן חשוב לעדכן אותנו על ידי",
+      "desc2": "הפעלת גישה לפעולות תנועה,",
+      "desc3": "כדי שלא נכלול את מיקומי הנסיעה שלך בהשוואה למיקומים של חולי קורונה",
+      "button": "גישה לפעולות תנועה",
+      "skip": "אל תורידו נסיעות מהמיקומים שלי"
     }
   },
   "ar": {
@@ -337,6 +345,14 @@
       "failedButton": "محاولة أخرى",
       "info": "من أجل تحديد أماكن التطابق خلال ال ١٤ يوم الأخيرة، يجب الحصول على بيانات الموقع الخاصة بكم من خلال حساب google ",
       "moreInfo": "للإستمرار"
+    },
+    "filterDriving": {
+      "title": "تصفية القيادة",
+      "desc1": "نحن نعلم أن القيادة يمكن أن تضيف بيانات غير ذات صلة للمقارنة ، لذلك من المهم أن تحدثنا بها",
+      "desc2": "من خلال تمكين الوصول إلى أجهزة استشعار الحركة,",
+      "desc3": "لذلك ، نحن لا نقوم بتضمين مواقع القيادة الخاصة بك مقارنة بمواقع المرضى",
+      "button": "الوصول إلى أجهزة استشعار الحركة",
+      "skip": "لا تقم بإزالة القيادة من مواقعي"
     }
   },
   "en": {
@@ -462,6 +478,14 @@
       "failedButton": "Try Again",
       "info": "In order to accurately determine your locations for the last 14 days, your location data must be enabled from your Google Account. ",
       "moreInfo": "More info"
+    },
+    "filterDriving": {
+      "title": "Driving filtering",
+      "desc1": "We know that driving can add irrelevant data for comparison, so it's important to update us by",
+      "desc2": "by enabling access to motion sensors,",
+      "desc3": "so we don't include your driving locations compared to Corona patients locations",
+      "button": "Access to motion sensors",
+      "skip": "Don't remove driving from my locations"
     }
   },
   "ru": {
@@ -587,6 +611,14 @@
       "failedButton": "Еще одна попытка",
       "info": "Для точного определения вашего местоположения за последние 14 дней данные о вашем местоположении должны быть включены из вашей учетной записи Google. ",
       "moreInfo": "Узнать больше"
+    },
+    "filterDriving": {
+      "title": "Дорожная фильтрация",
+      "desc1": "Мы знаем, что вождение может добавить несущественные данные для сравнения, поэтому важно, чтобы мы",
+      "desc2": "предоставляя доступ к датчикам движения,",
+      "desc3": "поэтому мы не включаем ваши места вождения по сравнению с местами пациентов Corona",
+      "button": "Доступ к датчикам движения",
+      "skip": "Не удаляйте вождение из моих мест"
     }
   },
   "am": {
@@ -712,6 +744,14 @@
       "failedButton": "ሌላ ሙከራ",
       "info": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ",
       "moreInfo": "የበለጠ ለመረዳት"
+    },
+    "filterDriving": {
+      "title": "ማጣሪያ ማሽከርከር",
+      "desc1": "መንዳት ለማነፃፀር ምንም ፋይዳ የሌለውን ውሂብ ሊጨምር እንደሚችል እናውቃለን ፣ ስለሆነም በኛ ማዘመን አስፈላጊ ነው",
+      "desc2": "የእንቅስቃሴ ዳሳሾች መድረሻን በማንቃት,",
+      "desc3": "ስለዚህ ከኮሮ ሕመምተኞች አካባቢዎች ጋር ሲነፃፀር የማሽከርከር ቦታዎን አናካትትም",
+      "button": "የእንቅስቃሴ ዳሳሾች መዳረሻ",
+      "skip": "ከአካባቢያዎ መንዳት አያስወግዱት"
     }
   },
   "fr": {
@@ -837,6 +877,14 @@
       "failedButton": "Un autre essai",
       "info": "Afin de trouver des emplacements qui se chevauchent au cours des 14 derniers jours, nous devons obtenir vos données de localisation de Google ",
       "moreInfo": "Continuer"
+    },
+    "filterDriving": {
+      "title": "Filtre de conduite",
+      "desc1": "Nous savons que la conduite peut ajouter des données non pertinentes à des fins de comparaison, il est donc important de nous mettre à jour en",
+      "desc2": "en permettant l'accès aux détecteurs de mouvement,",
+      "desc3": "donc nous n'incluons pas vos emplacements de conduite par rapport aux emplacements des patients Corona",
+      "button": "Accès aux détecteurs de mouvement",
+      "skip": "Ne supprimez pas la conduite de mes emplacements"
     }
   }
 }
