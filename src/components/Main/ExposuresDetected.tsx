@@ -59,7 +59,7 @@ const ExposuresDetected = (
         style={{ fontSize: 18, lineHeight: 25 }}
         bold
       >
-        {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
+        {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).local().format('DD.MM.YY')} ${fromHour} ${moment(fromTime).local().format('HH:mm')}?`}
       </Text>
 
     </Animated.View>
