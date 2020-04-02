@@ -65,7 +65,7 @@
     "@babel/runtime": "7.6.2",
     "@react-native-community/eslint-config": "0.0.5",
     "@types/async-lock": "1.1.1",
-    "@types/jest": "24.0.24",
+    "@types/jest": "^25.1.4",
     "@types/latlon-geohash": "2.0.0",
     "@types/lodash": "4.14.149",
     "@types/node": "13.1.0",
@@ -88,7 +88,7 @@
     "eslint-plugin-jsx-a11y": "6.2.1",
     "eslint-plugin-react": "7.13.0",
     "eslint-plugin-react-hooks": "1.6.0",
-    "jest": "24.9.0",
+    "jest": "^25.2.4",
     "jest-fetch-mock": "3.0.3",
     "metro-react-native-babel-preset": "0.56.0",
     "mock-async-storage": "2.2.0",
@@ -99,22 +99,5 @@
     "tslint-eslint-rules": "5.4.0",
     "tslint-react": "4.0.0",
     "typescript": "3.7.3"
-  },
-  "jest": {
-    "preset": "react-native",
-    "setupFilesAfterEnv": [
-      "./__mocks__/setupFile.js"
-    ],
-    "transformIgnorePatterns": [
-      "react-native-device-info"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-    ]
   }
 }
