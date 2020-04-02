@@ -1,5 +1,5 @@
 import React, { ElementType } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
+import { View, StyleSheet, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, Text, TouchableOpacity } from '.';
@@ -34,17 +34,24 @@ let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { 
           <Icon source={require('../../assets/onboarding/close.png')} width={31} />
         </TouchableOpacity>
 
-        <Text style={styles.title} bold>{title}</Text>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title} bold>{title}</Text>
+        </View>
 
-        {
-          Object.keys(long).map((key: string, index: number) => (
-            <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
-              <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
-                <Text style={[styles.text, key === locale && { color: '#fff' }]} black>{long[key]}</Text>
-              </View>
-            </TouchableOpacity>
-          ))
-        }
+        <ScrollView
+          contentContainerStyle={{ alignItems: 'center' }}
+          showsVerticalScrollIndicator={false}
+        >
+          {
+            Object.keys(long).map((key: string, index: number) => (
+              <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
+                <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
+                  <Text style={[styles.text, key === locale && { color: '#fff' }]} black>{long[key]}</Text>
+                </View>
+              </TouchableOpacity>
+            ))
+          }
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -54,8 +61,6 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#fff'
   },
   close: {
@@ -63,6 +68,13 @@ const styles = StyleSheet.create({
     top: PADDING_TOP(20),
     left: 20,
     zIndex: 1000
+  },
+  titleWrapper: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT * 0.2,
+    paddingTop: SCREEN_HEIGHT * 0.1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: 22,
