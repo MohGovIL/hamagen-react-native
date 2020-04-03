@@ -153,7 +153,7 @@ export class UserLocationsDatabase {
             console.log(err);
             reject(err);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           console.log(err);
@@ -170,10 +170,10 @@ export class UserLocationsDatabase {
     return new Promise((resolve, reject) => {
       this.initDB().then((db) => {
         db.transaction((tx) => {
-          tx.executeSql('UPDATE Samples set startTime = startTime - 7200000, endTime = endTime - 7200000').then(([tx, results]) => {
+          tx.executeSql('UPDATE Samples set startTime = startTime - 7200000, endTime = endTime - 7200000').then(([, results]) => {
             resolve(results);
           });
-        }).then((result) => {
+        }).then(() => {
           this.closeDatabase(db);
         }).catch((err) => {
           onError({ error: err });

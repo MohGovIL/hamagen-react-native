@@ -23,7 +23,7 @@ const ExposuresDetected = (
   {
     isRTL,
     strings: {
-      scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections },
+      scanHome: { found, exposureEvents, inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections },
       exposureInstructions: { weUnderstand }
     },
     exposures,
@@ -52,7 +52,7 @@ const ExposuresDetected = (
     }
   };
 
-  const renderExposure = ({ properties: { Name, Place, fromTime } }: Exposure) => (
+  const renderExposure = ({ properties: { Place, fromTime } }: Exposure) => (
     <Animated.View style={[styles.detailsContainer, scale]}>
       <Text style={{ fontSize: 14, marginBottom: 15 }}>{`${currentExposure.current}/${exposures.length}`}</Text>
       <Text
