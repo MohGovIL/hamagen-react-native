@@ -4,7 +4,7 @@ import geoHash from 'latlon-geohash';
 import { DOMParser } from 'xmldom';
 import AsyncStorage from '@react-native-community/async-storage';
 import { UserLocationsDatabase } from '../database/Database';
-import { sha256 } from './sha256';
+import { sha256 } from 'js-sha256';
 import { checkIfHideLocationHistory } from '../actions/GeneralActions';
 import store from '../store';
 import config from '../config/config';
