@@ -115,7 +115,8 @@
     },
     "forceUpdate": {
       "title": "עדכון גרסה",
-      "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
+      "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה",
+      "dontForceDesc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
     },
     "forceTerms": {
       "title": "עדכון תנאי השימוש",
@@ -210,8 +211,8 @@
       "failedTitle": "לא הצלחנו לקבל נתונים מגוגל",
       "failedDesc": "מומלץ לבדוק את החיבור שלך לאינטרנט, את שם המשתמש והסיסמא לגוגל ולנסות שוב",
       "failedButton": "ניסיון נוסף",
-      "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל",
-      "moreInfo": " להמשך"
+      "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל ",
+      "moreInfo": "להמשך"
     },
     "filterDriving": {
       "title": "סינון נסיעות",
@@ -248,7 +249,8 @@
     },
     "forceUpdate": {
       "title": "تحديث الإصدار",
-      "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
+      "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار",
+      "dontForceDesc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
     },
     "forceTerms": {
       "title": "تحديث شروط الإستخدام",
@@ -381,7 +383,8 @@
     },
     "forceUpdate": {
       "title": "Version Update",
-      "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
+      "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app",
+      "dontForceDesc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
     },
     "forceTerms": {
       "title": "Terms of Use Updated",
@@ -514,7 +517,8 @@
     },
     "forceUpdate": {
       "title": "Обновить версию",
-      "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
+      "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию",
+      "dontForceDesc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
     },
     "forceTerms": {
       "title": "Обновить Условия использования",
@@ -647,7 +651,8 @@
     },
     "forceUpdate": {
       "title": "ሥሪት አዘምን",
-      "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
+      "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን",
+      "dontForceDesc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
     },
     "forceTerms": {
       "title": "የአጠቃቀም ውሎችን አዘምን",
@@ -780,7 +785,8 @@
     },
     "forceUpdate": {
       "title": "Mise à jour de la version",
-      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
+      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application",
+      "dontForceDesc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
     },
     "forceTerms": {
       "title": "Conditions d'utilisation mises à jour",

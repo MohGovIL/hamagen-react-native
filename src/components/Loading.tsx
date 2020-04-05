@@ -58,6 +58,7 @@ interface Props {
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
+  shouldForce: boolean,
   showChangeLanguage: boolean,
   usageType: string,
   showForceTerms: boolean,
@@ -81,6 +82,7 @@ const Loading = (
     usageType,
     toggleWebview,
     showForceUpdate,
+    shouldForce,
     showForceTerms,
     checkForceUpdate,
     termsVersion
@@ -191,7 +193,7 @@ const Loading = (
         <Loader isVisible={showLoader} />
         <ChangeLanguage isVisible={showChangeLanguage} />
         <GeneralWebview isVisible={showWebview} locale={locale} externalUrls={externalUrls} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
-        <ForceUpdate isVisible={showForceUpdate} strings={strings} />
+        <ForceUpdate isVisible={showForceUpdate} shouldForce={shouldForce} strings={strings} />
         <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
       </View>
     )
@@ -206,11 +208,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    general: { showLoader, showWebview, showForceUpdate, usageType, showForceTerms, termsVersion },
+    general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
     locale: { showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
   } = state;
 
-  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
+  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

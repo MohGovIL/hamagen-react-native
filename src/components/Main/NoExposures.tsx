@@ -71,7 +71,7 @@ const NoExposures = (
           source={require('../../assets/lottie/magen logo.json')}
           resizeMode="cover"
           autoPlay
-          loop={false}
+          loop
         />
 
         <Text style={styles.text} bold>{descriptions()}</Text>
@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     paddingBottom: PADDING_BOTTOM(50)
   },
   lottie: {
-    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
-    height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
+    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
+    height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     marginBottom: IS_SMALL_SCREEN ? 10 : 25
   },
   text: {

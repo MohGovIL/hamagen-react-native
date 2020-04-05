@@ -65,7 +65,8 @@ export interface Strings {
   },
   forceUpdate: {
     title: string,
-    desc: string
+    desc: string,
+    dontForceDesc: string
   },
   forceTerms: {
     title: string,

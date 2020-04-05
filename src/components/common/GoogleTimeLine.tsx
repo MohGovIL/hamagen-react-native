@@ -76,6 +76,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     locationHistory: { beforeCheckTitle, beforeCheckDesc, beforeCheckDesc2, beforeCheckButton, skip, successFoundTitle, successFoundDesc, successFoundButton, successNotFoundTitle, successNotFoundDesc, successNotFoundButton, failedTitle, failedDesc, failedButton }
   } = strings;
 
+  const didRetry = useRef<boolean>(false);
   const webViewRef = useRef<WebView>(null);
 
   const [{ openWebview, isLoggedIn, state }, setState] = useState<State>({ openWebview: false, isLoggedIn: false, state: 'before' });
@@ -143,10 +144,15 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         const kmlUrls = getLastNrDaysKmlUrls();
 
-        const texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
+        let texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
 
         if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
-          return onFetchError('Fetch KML error');
+          if (!didRetry.current) {
+            didRetry.current = true;
+            texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
+          } else {
+            return onFetchError('Fetch KML error');
+          }
         }
 
         const pointsData = texts.flatMap((kml: string) => kmlToGeoJson(kml));
@@ -155,12 +161,21 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
           // once 14 days flow completed for the first time
           await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
           store().dispatch(checkIfHideLocationHistory());
-          return setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successNotFound' }));
+          return setState(prevState => ({
+            ...prevState,
+            openWebview: false,
+            isLoggedIn: false,
+            state: 'successNotFound'
+          }));
         }
 
         await insertToSampleDB(pointsData);
 
-        setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successFound' }));
+        webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 100)');
+        setTimeout(() => {
+          didRetry.current = false;
+          setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successFound' }));
+        }, 300);
       } catch (error) {
         await onFetchError(error);
       }
@@ -168,7 +183,11 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
   };
 
   const onFetchError = async (error: any) => {
-    setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'failed' }));
+    webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 100)');
+    setTimeout(() => {
+      didRetry.current = false;
+      setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'failed' }));
+    }, 300);
     onError({ error });
   };
 

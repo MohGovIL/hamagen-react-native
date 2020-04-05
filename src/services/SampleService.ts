@@ -158,6 +158,12 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
 
     if (highVelocityPoints.length === 0) {
       const lastPointFromDB = await db.getLastPointEntered();
+
+      // in case this is the first point entered
+      if (!lastPointFromDB) {
+        return await insertDB(location);
+      }
+
       pointsToCheck = [{
         coords: {
           latitude: lastPointFromDB.lat,
