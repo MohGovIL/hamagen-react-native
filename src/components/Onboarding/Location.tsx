@@ -2,17 +2,19 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import DeviceInfo from 'react-native-device-info';
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } from '../common';
 import { toggleWebview } from '../../actions/GeneralActions';
-import { requestPermissions } from '../../services/LocationService';
+import { requestLocationPermissions } from '../../services/LocationService';
+import { Strings } from '../../locale/LocaleData';
 import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void
 }
 
@@ -23,14 +25,20 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
 
   const [isTOUAccepted, setIsTOUAccepted] = useState(false);
 
-  const requestLocationPermissions = async () => {
+  const requestPermissions = async () => {
     try {
       if (!isTOUAccepted) {
         return animRef.current.shake(1000);
       }
 
-      await requestPermissions();
-      navigation.navigate(IS_IOS ? 'LocationIOS' : 'LocationHistoryOnBoarding');
+      await requestLocationPermissions();
+
+      if (IS_IOS) {
+        navigation.navigate('LocationIOS');
+      } else {
+        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
+        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
+      }
     } catch (e) {
       // handled in service
     }
@@ -41,15 +49,17 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       <OnboardingHeader />
 
       <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 10 : 40, marginTop: IS_SMALL_SCREEN ? 20 : 0 }}>
-        {!IS_SMALL_SCREEN && (
-        <LottieView
-          style={styles.lottie}
-          source={require('../../assets/lottie/location.json')}
-          resizeMode="cover"
-          autoPlay
-          loop={false}
-        />
-        )}
+        {
+          !IS_SMALL_SCREEN && (
+            <LottieView
+              style={styles.lottie}
+              source={require('../../assets/lottie/location.json')}
+              resizeMode="cover"
+              autoPlay
+              loop={false}
+            />
+          )
+        }
 
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.subTitle}>{subTitle1}</Text>
@@ -67,7 +77,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
           />
         </Animatable.View>
 
-        <ActionButton text={approveLocation} onPress={requestLocationPermissions} containerStyle={{ marginBottom: 20, opacity: isTOUAccepted ? 1 : 0.6 }} />
+        <ActionButton text={approveLocation} onPress={requestPermissions} containerStyle={{ marginBottom: 20, opacity: isTOUAccepted ? 1 : 0.6 }} />
       </View>
     </GeneralContainer>
   );

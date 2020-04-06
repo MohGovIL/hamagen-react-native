@@ -2,20 +2,18 @@ import React from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import WebView from 'react-native-webview';
 import { WebviewHeader } from '.';
-import config from '../../config/config';
+import { ExternalUrls } from '../../locale/LocaleData';
 import { USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: string,
+  externalUrls: ExternalUrls,
   usageType: string,
   closeWebview(): void
 }
 
-const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) => {
-  const usageSourceOnBoarding = config().usageTerms;
-  const usageSourcePrivacy = config().privacyTerms;
-
+const GeneralWebview = ({ isVisible, locale, externalUrls, closeWebview, usageType }: Props) => {
   return (
     <Modal
       visible={isVisible}
@@ -28,7 +26,7 @@ const GeneralWebview = ({ isVisible, locale, closeWebview, usageType }: Props) =
 
         <WebView
           style={{ flex: 1 }}
-          source={{ uri: usageType === USAGE_PRIVACY ? usageSourcePrivacy[locale] : usageSourceOnBoarding[locale] }}
+          source={{ uri: usageType === USAGE_PRIVACY ? externalUrls.privacyTerms[locale] : externalUrls.usageTerms[locale] }}
           startInLoadingState
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}

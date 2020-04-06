@@ -9,15 +9,17 @@ import { scheduleTask } from '../../services/BackgroundService';
 import { startForegroundTimer } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
+import { NotificationData, Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  strings: any
+  locale: string,
+  notificationData: NotificationData,
+  strings: Strings
 }
 
-const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale }: Props) => {
+const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notificationData }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       onboardingDoneActions();
@@ -42,9 +44,9 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale }: Props)
     try {
       await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
 
-      // startForegroundTimer();
-      await startSampling();
-      // await scheduleTask();
+      //startForegroundTimer();
+      await startSampling(locale, notificationData);
+      //await scheduleTask();
 
       navigation.replace('ScanHome');
     } catch (error) {
@@ -85,10 +87,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { strings, locale }
+    locale: { strings, locale, notificationData }
   } = state;
 
-  return { strings, locale };
+  return { strings, locale, notificationData };
 };
 
 export default connect(mapStateToProps, null)(AllSet);

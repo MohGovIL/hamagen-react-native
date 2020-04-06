@@ -26,7 +26,6 @@ import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -45,7 +44,6 @@ public class MainApplication extends Application implements ReactApplication {
                     // packages.add(new MyReactNativePackage());
                     packages.add(new RNFirebaseMessagingPackage());
                     packages.add(new RNFirebaseNotificationsPackage());
-                    packages.add(new RNFirebaseAnalyticsPackage());
 //                    packages.add(new DocumentPickerPackage());
                     return packages;
                 }

@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { ActionButton, GeneralContainer, TouchableOpacity, Text, OnboardingHeader, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
-  strings: any,
+  strings: Strings,
   isRTL: boolean
 }
 
@@ -65,7 +66,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
       <ActionButton
         text={set}
         isDisabled={!isLocationAllowed}
-        onPress={() => navigation.navigate('LocationHistoryOnBoarding')}
+        onPress={() => navigation.navigate('FilterDrivingOnBoarding')}
         containerStyle={{ marginVertical: IS_SMALL_SCREEN ? 0 : 20 }}
       />
     </GeneralContainer>
