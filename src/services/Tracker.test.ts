@@ -227,17 +227,17 @@ describe('Tracker', () => {
   });
 
   test('queryDB()', async () => {
-    const userLocationDB = new db.UserLocationsDatabase();
     const rows = ['data1', 'data2', 'data3'];
-    userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(rows));
-    await expect(tracker.queryDB()).resolves.toEqual(rows);
+    const userLocationDB = new db.UserLocationsDatabase();
+    userLocationDB.listSamples.mockResolvedValueOnce(rows);
+    expect(tracker.queryDB()).resolves.toEqual(rows);
   });
 
   test('onSickPeopleNotify()', async () => {
     const sickDB = new db.IntersectionSickDatabase();
     const rows: any = [];
-    sickDB.addSickRecord.mockReturnValueOnce(Promise.resolve(rows));
-    sickDB.containsObjectID.mockReturnValueOnce(Promise.resolve(rows));
+    sickDB.addSickRecord.mockResolvedValueOnce(rows);
+    sickDB.containsObjectID.mockResolvedValueOnce(rows);
     // check he
     await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
