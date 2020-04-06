@@ -44,9 +44,9 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
     try {
       await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
 
-      //startForegroundTimer();
+      // startForegroundTimer();
       await startSampling(locale, notificationData);
-      //await scheduleTask();
+      // await scheduleTask();
 
       navigation.replace('ScanHome');
     } catch (error) {
