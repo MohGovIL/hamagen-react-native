@@ -22,7 +22,7 @@ export const startForegroundTimer = async () => {
 
   BackgroundTimer.runBackgroundTimer(async () => {
     await checkSickPeople();
-  }, config().sampleInterval);
+  }, config().fetchMilliseconds);
 };
 
 export const queryDB = async () => {
