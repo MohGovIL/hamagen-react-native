@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import {View, Text, StyleSheet, Button, Alert, ScrollView} from 'react-native';
+import { View, StyleSheet, Button, Alert, ScrollView, Clipboard } from 'react-native';
 import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
 import RNFS from 'react-native-fs';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
+import AsyncStorage from '@react-native-community/async-storage';
 import PopupForQA from './PopupForQA';
-import { Icon, TouchableOpacity } from '../common';
+import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
-import { checkSickPeopleFromFile } from '../../services/Tracker';
+import { checkSickPeople, checkSickPeopleFromFile } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { UserLocationsDatabase } from '../../database/Database';
+import config from '../../config/config';
 import { Exposure } from '../../types';
-import { PADDING_TOP } from '../../constants/Constants';
+import { HIGH_VELOCITY_POINTS_QA, PADDING_TOP } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -24,8 +26,7 @@ const LOCATIONS_FILE_TYPE = 2;
 const KML_FILE_TYPE = 3;
 
 const QA = ({ navigation, updatePointsFromFile }: Props) => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [testName, setTestName] = useState('');
+  const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
   const fetchPointsFromFile = async (fileType: number) => {
     try {
@@ -48,19 +49,12 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles]
       });
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.name,
-        res.size
-      );
 
       const fileUri = res.uri;
       const rawText = await RNFS.readFile(fileUri);
 
       if (fileType === SICK_FILE_TYPE) {
         const pointsJSON = JSON.parse(rawText.trim());
-        setTestName(pointsJSON?.testName ?? '');
         updatePointsFromFile(pointsJSON);
         await checkSickPeopleFromFile();
       } else if (fileType === KML_FILE_TYPE) {
@@ -107,33 +101,72 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
+  const copyConfig = () => {
+    Alert.alert('Config was copied', '', [{ text: 'OK' }]);
+    Clipboard.setString(JSON.stringify(config()));
+  };
+
+  const initCheckSickPeople = async () => {
+    try {
+      await checkSickPeople();
+      Alert.alert('Checking...', '', [{ text: 'OK' }]);
+    } catch (e) {
+      Alert.alert('Error', '', [{ text: 'OK' }]);
+    }
+  };
+
+  const clearHVP = async () => {
+    try {
+      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS_QA);
+      Alert.alert('Cleared', '', [{ text: 'OK' }]);
+    } catch (e) {
+      Alert.alert('Error', '', [{ text: 'OK' }]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
         <Icon source={require('../../assets/onboarding/close.png')} width={31} />
       </TouchableOpacity>
 
-      <Text style={{ marginBottom: 30 }}>{`TestName: ${testName}`}</Text>
+      <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
       <ScrollView>
         <View style={styles.buttonWrapper}>
-          <Button title="Load Sick" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE)} />
+          <Button title="הצלבה מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="Load Locations" onPress={() => fetchPointsFromFile(LOCATIONS_FILE_TYPE)} />
+          <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchPointsFromFile(LOCATIONS_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="Load KML" onPress={() => fetchPointsFromFile(KML_FILE_TYPE)} />
+          <Button title="טעינת KML מקובץ" onPress={() => fetchPointsFromFile(KML_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="Show saved locations" onPress={() => setShowPopup(!showPopup)} />
+          <Button title="הצג 'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'locations' })} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="העתק קובץ קונפיגורציה פעיל" onPress={copyConfig} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבה מול JSON מאומתים משרת" onPress={initCheckSickPeople} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצג 'דקירות' במהירות גבוהה" onPress={() => setShowPopup({ showPopup: true, type: 'velocity' })} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
         </View>
       </ScrollView>
 
-      <PopupForQA isVisible={showPopup} closeModal={() => setShowPopup(!showPopup)} />
+      <PopupForQA isVisible={showPopup} type={type} closeModal={() => setShowPopup({ showPopup: false, type: '' })} />
     </View>
   );
 };

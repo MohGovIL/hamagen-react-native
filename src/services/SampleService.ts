@@ -15,6 +15,7 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import {
   FIRST_POINT_TS,
   HIGH_VELOCITY_POINTS,
+  HIGH_VELOCITY_POINTS_QA,
   IS_LAST_POINT_FROM_TIMELINE,
   LAST_POINT_START_TIME
 } from '../constants/Constants';
@@ -147,13 +148,25 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
 
     const db = new UserLocationsDatabase();
 
+    const highVelocityPointsForQA = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
+
     if (config().locationServiceIgnoreList.includes(type) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
       await db.updateLastSampleEndTime(location.timestamp);
       await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+
+      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS_QA, JSON.stringify([...highVelocityPointsForQA, {
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+        accuracy: location.coords.accuracy,
+        startTime: location.timestamp,
+        endTime: location.timestamp,
+        reason: `SDK: ${type}`
+      }]));
       return;
     }
 
     const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+
     let pointsToCheck;
 
     if (highVelocityPoints.length === 0) {
@@ -183,7 +196,17 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
         await db.updateLastSampleEndTime(location.timestamp);
         await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
       }
+
       await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
+
+      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS_QA, JSON.stringify([...highVelocityPointsForQA, {
+        lat: location.coords.latitude,
+        long: location.coords.longitude,
+        accuracy: location.coords.accuracy,
+        startTime: location.timestamp,
+        endTime: location.timestamp,
+        reason: 'algorithm'
+      }]));
     } else {
       await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
       await insertDB(location);

@@ -2,17 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Modal, FlatList, Clipboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import AsyncStorage from '@react-native-community/async-storage';
 import { Text, TouchableOpacity } from '../common';
 import { queryDB } from '../../services/Tracker';
 import { DBLocation } from '../../types';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { HIGH_VELOCITY_POINTS_QA, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
+  type: string,
   closeModal(): void
 }
 
-const PopupForQA = ({ isVisible, closeModal }: Props) => {
+const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
   const [listOfSamples, setListOfSamples] = useState<DBLocation[]>([]);
 
   useEffect(() => {
@@ -20,16 +22,16 @@ const PopupForQA = ({ isVisible, closeModal }: Props) => {
   }, [isVisible]);
 
   const updateList = async () => {
-    const list = await queryDB();
+    const list = type === 'locations' ? await queryDB() : JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
     setListOfSamples(list);
   };
 
   const copyClicked = (arr: any) => {
-    let csv = 'lat, long, accuracy, startTime, endTime\n';
+    let csv = 'lat, long, accuracy, startTime, endTime, reason\n';
 
     arr.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime}\n`;
+      const { lat, long, accuracy, startTime, endTime, reason } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
     });
 
     Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
@@ -69,14 +71,6 @@ const PopupForQA = ({ isVisible, closeModal }: Props) => {
           <TouchableOpacity onPress={() => copyClicked(listOfSamples)}>
             <Text style={styles.button}>Copy</Text>
           </TouchableOpacity>
-
-
-          {/* <TouchableOpacity onPress={() => deleteAllLocations()}> */}
-          {/*  <View style={styles.button}> */}
-          {/*    <Text>מחק הכל</Text> */}
-          {/*  </View> */}
-          {/* </TouchableOpacity> */}
-
         </View>
       </View>
     </Modal>
