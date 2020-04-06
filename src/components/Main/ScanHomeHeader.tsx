@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, ImageBackground, Button } from 'react-native';
 import LottieView from 'lottie-react-native';
-import PopupForQA from '../PopupForQA';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
@@ -9,14 +8,13 @@ import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREE
 interface Props {
   isRTL: boolean,
   strings: Strings,
+  navigation: any,
   isConnected: boolean,
   showChangeLanguage: boolean,
   goToExposureHistory(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
-  const [showPopup, setShowPopup] = useState(false);
-
+const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory, navigation }: Props) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -32,6 +30,10 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
         )
       }
 
+      <View style={{ position: 'absolute', right: 20, top: PADDING_TOP(IS_SMALL_SCREEN ? 15 : 20) }}>
+        <Button title="QA" onPress={() => navigation.navigate('QA')} />
+      </View>
+
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Icon source={require('../../assets/onboarding/israeliMinistryOfHealthLogo.png')} width={80} height={40} />
       </View>
@@ -42,10 +44,6 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
             <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
             <Text style={styles.text}>{exposureHistory}</Text>
           </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setShowPopup(!showPopup)} style={{ backgroundColor: '#FF22AA', height: 30, borderRadius: 20, justifyContent: 'center' }}>
-          <Text>Show saved locations</Text>
         </TouchableOpacity>
 
         <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
@@ -67,9 +65,6 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
           <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
         </View>
       </View>
-
-      <PopupForQA isVisible={showPopup} closeModal={() => setShowPopup(!showPopup)} />
-
     </ImageBackground>
   );
 };

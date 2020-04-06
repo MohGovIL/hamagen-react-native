@@ -19,6 +19,7 @@ import ScanHome from './Main/ScanHome';
 import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
 import LocationHistory from './Main/LocationHistory/LocationHistory';
 import FilterDriving from './Main/FilterDriving/FilterDriving';
+import QA from './QA/QA';
 import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
@@ -128,7 +129,7 @@ const Loading = (
       const state: State = await BackgroundGeolocation.getState();
       !state.enabled && await startSampling(locale, notificationData);
 
-      // await startForegroundTimer();
+      await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 
@@ -188,6 +189,7 @@ const Loading = (
           <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="QA" component={QA} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />

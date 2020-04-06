@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, Text, DeviceEventEmitter, Alert } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter } from 'react-native';
 import { connect } from 'react-redux';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
-import { RESULTS, check, request, PERMISSIONS } from 'react-native-permissions';
+import { RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
-import DocumentPicker from 'react-native-document-picker';
-import RNFS from 'react-native-fs';
 import SplashScreen from 'react-native-splash-screen';
 import { useFocusEffect } from '@react-navigation/native';
 // @ts-ignore
@@ -16,14 +14,10 @@ import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
-import { dismissExposure, removeValidExposure, setValidExposure, updatePointsFromFile } from '../../actions/ExposuresActions';
+import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
-import { TouchableOpacity } from '../common';
-import { checkSickPeopleFromFile } from '../../services/Tracker';
-import { UserLocationsDatabase } from '../../database/Database';
-import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 
 interface Props {
   navigation: any,
@@ -41,13 +35,8 @@ interface Props {
   dismissExposure(exposureId: number): void,
   toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void,
-  updatePointsFromFile(points: Exposure[]): void,
   checkIfHideLocationHistory(): void
 }
-
-const SICK_FILE_TYPE = 1;
-const LOCATIONS_FILE_TYPE = 2;
-const KML_FILE_TYPE = 3;
 
 const ScanHome = (
   {
@@ -66,13 +55,11 @@ const ScanHome = (
     firstPoint,
     hideLocationHistory,
     checkForceUpdate,
-    checkIfHideLocationHistory,
-    updatePointsFromFile
+    checkIfHideLocationHistory
   }: Props
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
-  const [testName, setTestName] = useState('');
 
   useEffect(() => {
     setTimeout(() => {
@@ -178,115 +165,16 @@ const ScanHome = (
     );
   };
 
-  const chooseFile = async (fileType: number) => {
-    try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.allFiles]
-      });
-      console.log(
-        res.uri,
-        res.type, // mime type
-        res.name,
-        res.size
-      );
-
-      const fileUri = res.uri;
-      const rawText = await RNFS.readFile(fileUri);
-
-      if (fileType === SICK_FILE_TYPE) {
-        const pointsJSON = JSON.parse(rawText.trim());
-        setTestName(pointsJSON?.testName ?? '');
-        updatePointsFromFile(pointsJSON);
-        await checkSickPeopleFromFile();
-      } else if (fileType === KML_FILE_TYPE) {
-        try {
-          const pointsEntered = await insertToSampleDB(kmlToGeoJson(rawText));
-          return Alert.alert(`KML loaded - ${pointsEntered} points`);
-        } catch (e) {
-          return Alert.alert('KML loading failed');
-        }
-      } else {
-        const db = new UserLocationsDatabase();
-
-        // location file
-        const pointsArr: string[] = rawText.split('\n');
-
-        let isFirst = true;
-
-        for (const item of pointsArr) {
-          if (!isFirst) { // to ignore the first row which holds the titles...
-            const sampleArr = item.split(',');
-
-            for (let i = 0; i < sampleArr.length; i++) {
-              await db.addSample({
-                lat: parseFloat(sampleArr[0]),
-                long: parseFloat(sampleArr[1]),
-                accuracy: parseFloat(sampleArr[2]),
-                startTime: parseFloat(sampleArr[3]),
-                endTime: parseFloat(sampleArr[4]),
-                geoHash: '',
-                wifiHash: ''
-              });
-            }
-          }
-
-          isFirst = false;
-        }
-      }
-    } catch (error) {
-      if (DocumentPicker.isCancel(error)) {
-        // User cancelled the picker, exit any dialogs or menus and move on
-      } else {
-        throw error;
-      }
-    }
-  };
-
-  const fetchPointsFromFile = async (fileType: number) => {
-    try {
-      const isStoragePermissionGranted = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
-      if (isStoragePermissionGranted === RESULTS.GRANTED) {
-        await chooseFile(fileType);
-      } else {
-        const requestPermissionRes = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
-        if (requestPermissionRes === RESULTS.GRANTED) {
-          await chooseFile(fileType);
-        }
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const renderDebugView = () => {
-    return (
-      <View style={styles.debugContainerStyle}>
-        <Text style={{ marginBottom: 10 }}>{`TestName: ${testName}`}</Text>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignSelf: 'stretch' }}>
-          <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(SICK_FILE_TYPE); }}>
-            <Text>Load Sick</Text>
-          </TouchableOpacity>
-          {/* <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(LOCATIONS_FILE_TYPE); }}> */}
-          {/*  <Text>Load Locations</Text> */}
-          {/* </TouchableOpacity> */}
-          <TouchableOpacity style={styles.debugButtonStyle} onPress={() => { fetchPointsFromFile(KML_FILE_TYPE); }}>
-            <Text>Load KML</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  };
-
   return (
     <View style={styles.container}>
       <ScanHomeHeader
         isRTL={isRTL}
         strings={strings}
+        navigation={navigation}
         isConnected={hasLocation && hasNetwork}
         showChangeLanguage
         goToExposureHistory={() => navigation.navigate('ExposuresHistory')}
       />
-      {renderDebugView()}
       {renderRelevantState()}
     </View>
   );
@@ -296,15 +184,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff'
-  },
-  debugContainerStyle: {
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  debugButtonStyle: {
-    borderWidth: 1,
-    paddingHorizontal: 3
   }
 });
 
@@ -325,7 +204,6 @@ const mapDispatchToProps = (dispatch: any) => {
     removeValidExposure,
     dismissExposure,
     toggleWebview,
-    updatePointsFromFile,
     checkForceUpdate,
     checkIfHideLocationHistory
   }, dispatch);

@@ -16,7 +16,7 @@ export default function () {
     ...offlineConfig,
     rehydrate: true,
     persistOptions: {
-      whitelist: ['MyLocation']
+      whitelist: []
     }
   };
 

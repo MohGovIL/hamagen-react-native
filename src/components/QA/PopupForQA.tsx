@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Modal, FlatList, Clipboard, Alert } from 'react-native';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Text, TouchableOpacity } from './common';
-import { deleteAllLocations } from '../actions/MyLocationActions';
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../constants/Constants';
-import { queryDB } from '../services/Tracker';
+import { Text, TouchableOpacity } from '../common';
+import { queryDB } from '../../services/Tracker';
+import { DBLocation } from '../../types';
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  latelyEnteredPoints: any,
-  closeModal(): void,
-  deleteAllLocations(): void
+  closeModal(): void
 }
 
-const PopupForQA = ({ isVisible, closeModal, deleteAllLocations, latelyEnteredPoints }: Props) => {
-  const [listOfSamples, setListOfSamples] = useState([]);
+const PopupForQA = ({ isVisible, closeModal }: Props) => {
+  const [listOfSamples, setListOfSamples] = useState<DBLocation[]>([]);
 
   useEffect(() => {
     isVisible && updateList();
@@ -29,6 +26,7 @@ const PopupForQA = ({ isVisible, closeModal, deleteAllLocations, latelyEnteredPo
 
   const copyClicked = (arr: any) => {
     let csv = 'lat, long, accuracy, startTime, endTime\n';
+
     arr.forEach((point: any) => {
       const { lat, long, accuracy, startTime, endTime } = point;
       csv += `${lat},${long},${accuracy},${startTime},${endTime}\n`;
@@ -41,14 +39,14 @@ const PopupForQA = ({ isVisible, closeModal, deleteAllLocations, latelyEnteredPo
   return (
     <Modal
       visible={isVisible}
-      animationType="fade"
+      animationType="slide"
       transparent
-      onRequestClose={() => {}}
+      onRequestClose={closeModal}
     >
       <View style={styles.mainContainer}>
         <View style={styles.container}>
 
-          <TouchableOpacity onPress={() => closeModal()} style={{ alignSelf: 'flex-start', marginHorizontal: 10 }}>
+          <TouchableOpacity onPress={closeModal} style={{ alignSelf: 'flex-start', marginHorizontal: 10 }}>
             <View style={styles.exit}>
               <Text>X</Text>
             </View>
@@ -125,18 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state: any) => {
-  const {
-    MyLocation: { latelyEnteredPoints }
-  } = state;
-
-  return { latelyEnteredPoints };
-};
-
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    deleteAllLocations
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(PopupForQA);
+export default connect(null, null)(PopupForQA);

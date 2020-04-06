@@ -1,11 +1,9 @@
 import geoHash from 'latlon-geohash';
-import { Alert, Clipboard } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import AsyncLock from 'async-lock';
 import moment from 'moment';
 import { startLocationTracking } from './LocationService';
 import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
-import { updateLocations } from '../actions/MyLocationActions';
 import { sha256 } from './sha256';
 import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
@@ -123,20 +121,6 @@ const saveToStorage = (key: string, value: number) => new Promise(async (resolve
     onError({ error });
   }
 });
-
-export const alertOfLocation = (objForQA: any) => {
-  const message = `lat: ${objForQA.lat} \nlong: ${objForQA.long} \ntime: ${objForQA.startTime}`;
-
-  Alert.alert('new location added', message, [{ text: 'OK', onPress: () => console.log('OK Pressed') }, { text: 'Copy', onPress: () => copyClicked(message) }]);
-
-  console.log(`location added: ${objForQA}`);
-  store().dispatch(updateLocations(objForQA));
-};
-
-const copyClicked = (str: string) => {
-  Clipboard.setString(str);
-  Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
-};
 
 export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
   const NUM_OF_WEEKS_TO_PURGE = 2;
