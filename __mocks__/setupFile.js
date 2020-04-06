@@ -23,18 +23,37 @@ NativeModules.I18nManager = {
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
 jest.mock('../src/database/Database.js', () => {
-  const listSamples = jest.fn();
-
-  const UserLocationsDatabase = function () {
-    return { listSamples };
-  };
+  
   const containsObjectID = jest.fn();
   const addSickRecord = jest.fn();
 
-  const IntersectionSickDatabase = function () {
-    return { containsObjectID, addSickRecord };
-  };
-  return { UserLocationsDatabase, IntersectionSickDatabase };
+  const IntersectionSickDatabase = jest.fn().mockImplementation(() => ({
+    containsObjectID, addSickRecord 
+  }))
+
+  const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
+    containsWifiHash: jest.fn(),
+    addWifiMacAddresses:jest.fn()
+  }))
+
+  const UserLocationsDatabase = jest.fn().mockImplementation(() => ({
+      updateLastSampleEndTime: jest.fn(),
+      addSample: jest.fn(),
+      listSamples: jest.fn(),
+      purgeSamplesTable: jest.fn()
+  }))
+
+  return { 
+    UserLocationsDatabase,
+    WifiMacAddressDatabase, 
+    IntersectionSickDatabase,
+    mockClear(){
+      UserLocationsDatabase.mockClear()
+      WifiMacAddressDatabase.mockClear()
+      IntersectionSickDatabase.mockClear()
+    } 
+};
+  
 });
 
 jest.mock('react-native-device-info', () => {
