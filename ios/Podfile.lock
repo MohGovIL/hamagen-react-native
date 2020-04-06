@@ -64,7 +64,6 @@ PODS:
     - GoogleUtilities/Network (~> 5.2)
     - "GoogleUtilities/NSData+zlib (~> 5.2)"
     - nanopb (~> 0.3)
-  - GoogleIDFASupport (3.14.0)
   - GoogleUtilities/AppDelegateSwizzler (5.8.0):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -357,7 +356,6 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 5.20.2)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - GoogleIDFASupport (~> 3.14.0)
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
@@ -421,7 +419,6 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - GoogleAppMeasurement
-    - GoogleIDFASupport
     - GoogleUtilities
     - nanopb
     - Protobuf
@@ -547,7 +544,6 @@ SPEC CHECKSUMS:
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
-  GoogleIDFASupport: aaf8c10bd429abb1c15349d5252244f5eda8ead1
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   lottie-react-native: 2a1a82bb326ae51331a5520de0cf706733c6db69
@@ -598,6 +594,6 @@ SPEC CHECKSUMS:
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: 3433e0c923a6341879328f5a02869893044b6634
+PODFILE CHECKSUM: d1a9e37d36f29edcc78431c125e44debfdac8991
 
 COCOAPODS: 1.8.4

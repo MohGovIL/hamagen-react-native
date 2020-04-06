@@ -4,7 +4,13 @@ import moment from 'moment';
 import { Exposure } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
-import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
+import {
+  BASIC_SHADOW_STYLES,
+  IS_SMALL_SCREEN,
+  MAIN_COLOR,
+  PADDING_BOTTOM,
+  SCREEN_WIDTH
+} from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -36,11 +42,10 @@ const ExposureInstructions = (
   const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer, !IS_SMALL_SCREEN && { height: 230 }]}>
-      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 5 : 15 }}>
-        <Icon source={icon} width={22} height={35} customStyles={{ marginBottom: 15 }} />
-        <Text style={[{ lineHeight: 17, marginBottom: 20 }, locale === 'en' && text === goIntoIsolation && { fontSize: 13 }]}>{text}</Text>
-      </View>
+    <View style={[styles.actionButtonContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+      <Icon source={icon} width={22} height={35} />
+
+      <Text style={styles.actionText}>{text}</Text>
 
       <TouchableOpacity style={styles.button} onPress={action}>
         <Text style={styles.buttonText} bold>{buttonText}</Text>
@@ -48,33 +53,30 @@ const ExposureInstructions = (
     </View>
   );
 
-  const ContentContainer = IS_SMALL_SCREEN ? ScrollView : View;
-
   return (
     <FadeInView style={{ flex: 1 }}>
-      <ContentContainer style={!IS_SMALL_SCREEN ? styles.container : {}} scrollEnabled showsVerticalScrollIndicator={false}>
-        <View style={{ alignItems: 'center', paddingHorizontal: 30 }}>
+      <ScrollView
+        contentContainerStyle={styles.subContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ alignItems: 'center' }}>
           <Text style={styles.title} bold>{title}</Text>
 
           <Text style={{ lineHeight: 22, marginBottom: 15 }}>
             {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
           </Text>
 
-          <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 20 : 0 }} onPress={removeValidExposure}>
+          <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 30 : 50 }} onPress={removeValidExposure}>
             <Text style={{ fontSize: 14 }}>{wrong}</Text>
             <View style={styles.bottomBorder} />
           </TouchableOpacity>
         </View>
 
-        <View style={{ alignItems: 'center', paddingHorizontal: 25 }}>
-          <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
+        <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
 
-          <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }, IS_SMALL_SCREEN && { marginBottom: 100 }]}>
-            {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-            {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
-          </View>
-        </View>
-      </ContentContainer>
+        {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+        {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+      </ScrollView>
     </FadeInView>
   );
 };
@@ -84,6 +86,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'center'
+  },
+  subContainer: {
+    paddingHorizontal: 30,
+    alignItems: 'center',
+    paddingTop: IS_SMALL_SCREEN ? 25 : 40,
+    paddingBottom: PADDING_BOTTOM(10)
   },
   title: {
     fontSize: 22,
@@ -101,22 +109,30 @@ const styles = StyleSheet.create({
   },
   actionButtonContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: (SCREEN_WIDTH - 60) / 2,
-    paddingVertical: 20,
-    borderRadius: 20,
+    width: SCREEN_WIDTH - 40,
+    paddingVertical: 15,
+    paddingHorizontal: 18,
+    borderRadius: 16,
+    marginBottom: 12,
     alignItems: 'center',
     justifyContent: 'space-between'
   },
   button: {
-    width: ((SCREEN_WIDTH - 60) / 2) - (IS_SMALL_SCREEN ? 10 : 50),
-    height: 35,
+    width: 82,
+    height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7,
+    borderRadius: 6,
     backgroundColor: MAIN_COLOR
   },
+  actionText: {
+    flex: 1,
+    lineHeight: 16,
+    fontSize: IS_SMALL_SCREEN ? 14 : 16,
+    paddingHorizontal: 10
+  },
   buttonText: {
-    fontSize: 14,
+    fontSize: IS_SMALL_SCREEN ? 12 : 14,
     color: '#fff'
   }
 });

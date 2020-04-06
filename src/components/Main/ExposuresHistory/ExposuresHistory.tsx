@@ -42,7 +42,7 @@ const ExposuresHistory = (
           <View style={styles.listItemContainer}>
             <View style={[styles.listItemSubContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
               <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginHorizontal: 7.5 }} />
-              <View style={{ alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
+              <View style={{ flex: 1, alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
                 <Text style={styles.text}>{Place}</Text>
                 <Text>
                   <Text style={styles.text}>{`${inDate} `}</Text>
@@ -109,10 +109,9 @@ const styles = StyleSheet.create({
   },
   listItemSubContainer: {
     width: SCREEN_WIDTH * 0.875,
-    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15
+    paddingVertical: 5
   },
   text: {
     fontSize: 14,

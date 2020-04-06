@@ -176,19 +176,23 @@
       "inDate": "בתאריך",
       "fromHour": "בסביבות השעה",
       "toHour": "עד שעה:",
-      "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
+      "wereYouThere": "האם היית בסביבת המקום באותו זמן?",
       "no": "לא",
       "canContinue": "אפשר להמשיך",
       "yes": "כן",
-      "needDirections": "אשמח להנחיות"
+      "needDirections": "אשמח להנחיות",
+      "suspectedExposure": "חשד לחשיפה:",
+      "events": "אירועים",
+      "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
+      "atPlace": "ב"
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",
       "noExposures": "אין נקודות\nחפיפה"
     },
     "exposureInstructions": {
-      "title": "הנחיות לאחר חשיפה",
-      "weUnderstand": "האם היית ב",
+      "title": "חשד לחשיפה: מה לעשות?",
+      "weUnderstand": "אנחנו מבינים שהיית בנקודת חפיפה ב",
       "wrong": "טעות, לא הייתי שם",
       "keepSafe": "על מנת לשמור על בריאות משפחתך והסובבים אותך אלו ההנחיות של משרד הבריאות",
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
@@ -310,18 +314,22 @@
       "inDate": "في تاريخ",
       "fromHour": "من الساعة :",
       "toHour": " حتى الساعة:",
-      "whereYouThere": "هل تواجدتم في هذا المكان في هذه الساعة?",
+      "wereYouThere": "هل تواجدتم في هذا المكان في هذه الساعة?",
       "no": "لا",
       "canContinue": "هل نستطيع التقدم؟",
       "yes": "نعم",
-      "needDirections": "أود إستلام توجيهات"
+      "needDirections": "أود إستلام توجيهات",
+      "suspectedExposure": "الاشتباه في التعرض:",
+      "events": "أحداث",
+      "possibleExposure": "قد يكون هناك تداخل مع مريض كورونا:",
+      "atPlace": "في"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق "
     },
     "exposureInstructions": {
-      "title": "توصيات ",
+      "title": "الاشتباه في التعرض: ماذا تفعل؟",
       "weUnderstand": "نحن نتفهم تواجدكم في نقطة تطابق",
       "wrong": "هذا بلاغ خاطئ، لم أتواجد هناك",
       "keepSafe": "من أجل الحفاظ على صحتكم و صحة عائلاتكم و المحيطين بكم يجب عليكم تطبيق توصيات وزارة الصحة و الدخول في حجر صحي لمدة 14 يوم من تاريخ اللقاء مع المصاب",
@@ -442,21 +450,25 @@
       "exposureEvents": "Exposure events",
       "reportedAt": "Reported At:",
       "inDate": "In",
-      "fromHour": "From:",
+      "fromHour": "from",
       "toHour": "Until:",
-      "whereYouThere": "Where you around in this time?",
+      "wereYouThere": "Where you around in this time?",
       "no": "No",
       "canContinue": "You can proceed",
       "yes": "Yes",
-      "needDirections": "Receive instructions"
+      "needDirections": "Receive instructions",
+      "suspectedExposure": "Suspected Exposure:",
+      "events": "Events",
+      "possibleExposure": "There may have been an exposure to a Corona patient:",
+      "atPlace": "At "
     },
     "exposuresHistory": {
       "title": "Overlap history",
       "noExposures": "No overlap points found"
     },
     "exposureInstructions": {
-      "title": "Post-exposure guidelines",
-      "weUnderstand": "It appears your location has intersected with a person known to be infected with the coronavirus",
+      "title": "Suspicion of exposure: What to do?",
+      "weUnderstand": "It appears your location has intersected with a person known to be infected with the coronavirus at ",
       "wrong": "Must be a mistake, I wasn’t there",
       "keepSafe": "You must take the following steps",
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
@@ -576,21 +588,25 @@
       "exposureEvents": "Потенциальное соприкосновение",
       "reportedAt": "Документально записан",
       "inDate": "Число",
-      "fromHour": "С часов,:",
+      "fromHour": "С часов",
       "toHour": "до часов:",
-      "whereYouThere": "Были ли вы в этом месте в то же время?",
+      "wereYouThere": "Были ли вы в этом месте в то же время?",
       "no": "Нет",
       "canContinue": "Можно продолжить",
       "yes": "Да",
-      "needDirections": "Инструкции"
+      "needDirections": "Инструкции",
+      "suspectedExposure": "Подозрение на разоблачение:",
+      "events": "события",
+      "possibleExposure": "Там, возможно, был контакт с пациентом корона:",
+      "atPlace": "B "
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения"
     },
     "exposureInstructions": {
-      "title": "Рекомендации после выявления контакта",
-      "weUnderstand": "Находились ли вы в пункте",
+      "title": "Подозрение на воздействие: что делать?",
+      "weUnderstand": "Находились ли вы в пункте в ",
       "wrong":"Ошибка, меня там не было.",
       "keepSafe": "Для сохранения здоровья Вашей семьи и окружающих, следуйте рекомендациям Минздрава: ",
       "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
@@ -712,19 +728,23 @@
       "inDate": "በ",
       "fromHour": "ከሰአቱ",
       "toHour": "እስከ",
-      "whereYouThere": "ከዚህ ቦታ በተመሰሳሳይ ስአት ነበሩ ወይ?",
+      "wereYouThere": "ከዚህ ቦታ በተመሰሳሳይ ስአት ነበሩ ወይ?",
       "no": "አልነበርሁም",
       "canContinue": "ቀጥል",
       "yes": "አወ ነበርሁ",
-      "needDirections": "ምን ማድረግ አለብኝ"
+      "needDirections": "ምን ማድረግ አለብኝ",
+      "suspectedExposure": "የተጋለጡ ተጋላጭነቶች:",
+      "events": "ክስተቶች",
+      "possibleExposure": "ለኮሮና ህመምተኛ ተጋላጭ ሊኖር ይችላል:",
+      "atPlace": "በ "
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።"
     },
     "exposureInstructions": {
-      "title": "ለቫይረሱ ከተጋለጡ በኋላ የተሰጡ መመሪያዎች",
-      "weUnderstand": "ነበርክ?",
+      "title": "የተጋላጭነት ጥርጣሬ-ምን ማድረግ?",
+      "weUnderstand": "ነበርክ? በ ",
       "wrong": "አልነበርኩም።,",
       "keepSafe": "የቤተሰብህን ጤንነት ለመጠበቅ የሚከተሉትን የጤና ጥበቃ መ/ቤት መመሪያዎች ጠብቅ ፡,",
       "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
@@ -844,21 +864,25 @@
       "exposureEvents": "Événements d'exposition",
       "reportedAt": "Signalé à:\n",
       "inDate": "à",
-      "fromHour": "De:",
+      "fromHour": "de",
       "toHour": "Jusqu'à:",
-      "whereYouThere": "Etiez-vous a cet endroit à ce moment la?",
+      "wereYouThere": "Etiez-vous a cet endroit à ce moment la?",
       "no": "Non",
       "canContinue": "Vous pouvez continuer",
       "yes": "Oui",
-      "needDirections": "Recevez les instructions"
+      "needDirections": "Recevez les instructions",
+      "suspectedExposure": "Suspicion d'exposition:",
+      "events": "les événements",
+      "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
+      "atPlace": "À "
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
       "noExposures": "Pas d'intersection trouvée"
     },
     "exposureInstructions": {
-      "title": "Guide post-exposition",
-      "weUnderstand": "Etiez-vous à",
+      "title": "Suspicion d'exposition: que faire?",
+      "weUnderstand": "Etiez-vous à ",
       "wrong": "Non, je n'y etais pas",
       "keepSafe": "Pour votre protection, suivez les étapes suivantes",
       "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",

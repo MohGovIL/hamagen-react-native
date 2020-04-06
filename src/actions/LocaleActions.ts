@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const { data }: { data: LocaleData } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { data }: { data: LocaleData } = await axios.get(`${config().stringsUrl}erf?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     const { languages, notificationData, externalUrls } = data;
 
@@ -66,7 +66,12 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
 };
 
 const getActiveLocale = () => new Promise<string>(async (resolve) => {
-  const locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
+  let locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
+
+  if (locale === undefined) {
+    // eslint-disable-next-line prefer-destructuring
+    locale = NativeModules.SettingsManager.settings.AppleLanguages[0];
+  }
 
   let activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
 

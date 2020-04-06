@@ -130,7 +130,11 @@ export interface Strings {
     no: string,
     canContinue: string,
     yes: string,
-    needDirections: string
+    needDirections: string,
+    suspectedExposure: string,
+    events: string,
+    possibleExposure: string,
+    atPlace: string
   },
   exposuresHistory: {
     title: string,
