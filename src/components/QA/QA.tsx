@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Button, Alert, ScrollView, Clipboard } from 'react-native';
 import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
+import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
@@ -14,7 +15,7 @@ import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistorySe
 import { UserLocationsDatabase } from '../../database/Database';
 import config from '../../config/config';
 import { Exposure } from '../../types';
-import { HIGH_VELOCITY_POINTS_QA, PADDING_TOP } from '../../constants/Constants';
+import {HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP} from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -166,6 +167,9 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
       </ScrollView>
 
+      <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
+        <Text>{DeviceInfo.getVersion()}</Text>
+      </View>
       <PopupForQA isVisible={showPopup} type={type} closeModal={() => setShowPopup({ showPopup: false, type: '' })} />
     </View>
   );
