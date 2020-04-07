@@ -131,6 +131,13 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     }
   };
 
+  const retryKMLDownload = (didRetry: any, kmlUrls: string[]) => new Promise<string[]>((resolve) => {
+    setTimeout(async () => {
+      didRetry.current = true;
+      resolve(await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text()))));
+    }, 10);
+  });
+
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
     if (!data) {
       return;
@@ -148,8 +155,11 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
           if (!didRetry.current) {
-            didRetry.current = true;
-            texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
+            texts = await retryKMLDownload(didRetry, kmlUrls);
+
+            if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
+              return onFetchError('Fetch KML error');
+            }
           } else {
             return onFetchError('Fetch KML error');
           }

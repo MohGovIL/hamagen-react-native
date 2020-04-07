@@ -113,8 +113,9 @@ const ScanHome = (
 
       const locationPermission = await checkLocationPermissions();
       const GPSStatus = await RNSettings.getSetting(RNSettings.LOCATION_SETTING);
+      const networkStatus = await NetInfo.fetch();
 
-      setIsConnected({ hasLocation: locationPermission === RESULTS.GRANTED, hasNetwork, hasGPS: GPSStatus === RNSettings.ENABLED });
+      setIsConnected({ hasLocation: locationPermission === RESULTS.GRANTED, hasNetwork: networkStatus.isConnected, hasGPS: GPSStatus === RNSettings.ENABLED });
     }
 
     appStateStatus.current = state;

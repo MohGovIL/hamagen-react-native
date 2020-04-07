@@ -43,8 +43,8 @@ const ExposuresHistory = (
             <View style={[styles.listItemSubContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
               <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginHorizontal: 7.5 }} />
               <View style={{ flex: 1, alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
-                <Text style={styles.text}>{Place}</Text>
-                <Text>
+                <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{Place}</Text>
+                <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
                   <Text style={styles.text}>{`${inDate} `}</Text>
                   <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
                   <Text style={styles.text}>{`${fromHour} `}</Text>
