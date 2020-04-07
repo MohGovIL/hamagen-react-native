@@ -5,10 +5,11 @@ import SplashScreen from 'react-native-splash-screen';
 import { bindActionCreators } from 'redux';
 import { checkForceUpdate } from '../../actions/GeneralActions';
 import { ActionButton, GeneralContainer, Text, Icon, OnboardingHeader } from '../common';
+import { Strings } from '../../locale/LocaleData';
 
 interface Props {
   navigation: any,
-  strings: any,
+  strings: Strings,
   checkForceUpdate(): void
 }
 

@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">המגן QA</string>
     <string name="default_notification_channel_id">LocalPush</string>
-    <string name="transistorsoft_key">c10047e800a8d08ee0e7236fc2b35d595bf89f020d99ea125eaf578c5a6180bd</string>
+    <string name="transistorsoft_key">5ae5c10d23f016a9fb6946e0d0c51b44aa582e9c1a8fcd8b41235b4b0d7769f8</string>
 </resources>

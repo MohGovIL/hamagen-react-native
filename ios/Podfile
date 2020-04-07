@@ -35,10 +35,10 @@ def project_pods
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   pod 'Permission-LocationAlways', :path => "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
+  pod 'Permission-Motion', :path => "../node_modules/react-native-permissions/ios/Motion.podspec"
 
   pod 'Firebase/Core', '~> 5.20.2'
   pod 'Firebase/Messaging', '~> 5.20.2'
-  pod 'GoogleIDFASupport', '~> 3.14.0'
 
   use_native_modules!
 end

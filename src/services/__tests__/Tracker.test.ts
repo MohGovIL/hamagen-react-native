@@ -1,18 +1,18 @@
-// import fetch from 'cross-fetch';
-import {NativeModules} from 'react-native';
-import config from '../config/config';
-import * as tracker from './Tracker';
-import * as db from '../database/Database';
-import * as constants from '../constants/Constants';
+import { NativeModules } from 'react-native';
+import fetch from 'jest-fetch-mock';
+import config from '../../config/config';
+import * as tracker from '../Tracker';
+import * as db from '../../database/Database';
+import * as constants from '../../constants/Constants';
 
-jest.mock('./PushService', () => {
+jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
-  return {registerLocalNotification};
+  return { registerLocalNotification };
 });
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
-const {intersectMilliseconds} = config();
+const { intersectMilliseconds } = config();
 const largerThanIntersectMilliseconds = 1.1 * intersectMilliseconds;
 const smallerThanIntersectMilliseconds = 0.9 * intersectMilliseconds;
 const sickPeople = {
@@ -22,6 +22,7 @@ const sickPeople = {
   },
   properties: {
     OBJECTID: 1720,
+    Key_Field: 1720,
     Name: 'חולה 15',
     Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
     Comments:
@@ -30,6 +31,8 @@ const sickPeople = {
     POINT_Y: 32.11549963,
     fromTime: 1583144100000,
     toTime: 1583147700000,
+    fromTime_utc: 1583144100000,
+    toTime_utc: 1583147700000,
     sourceOID: 1,
     stayTimes: '10:15-11:15',
   },
@@ -41,11 +44,35 @@ const sickRecord = {
     fromTime_utc: 10 * oneHour,
     toTime_utc: 20 * oneHour,
     radius: 500,
+    OBJECTID: 1,
+    Key_Field: 1,
+    Name: 'name',
+    Place: 'place',
+    fromTime: 10 * oneHour,
+    toTime: 20 * oneHour
   },
   geometry: {
     type: 'Point',
     coordinates: [34.61261540000004, 31.31095400000004],
   },
+};
+
+const userRecordExtras = {
+  lat: 32,
+  long: 34,
+  accuracy: 0,
+  geoHash: '',
+  hash: '',
+  wifiHash: ''
+};
+
+const userRecordExtras2 = {
+  startTime: oneHour,
+  endTime: 2 * oneHour,
+  accuracy: 0,
+  geoHash: '',
+  hash: '',
+  wifiHash: ''
 };
 
 describe('Tracker', () => {
@@ -54,66 +81,66 @@ describe('Tracker', () => {
   // ====================================
 
   test('isTimeOverlapping()', async () => {
-    //Check user time not intersects before sick time range
+    // Check user time not intersects before sick time range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: oneHour, endTime: 2 * oneHour},
+        { startTime: oneHour, endTime: 2 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user no intersects same end time
+    // Check user no intersects same end time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 8 * oneHour, endTime: 10 * oneHour},
+        { startTime: 8 * oneHour, endTime: 10 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user end time intersects sick range
+    // Check user end time intersects sick range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 8 * oneHour, endTime: 12 * oneHour},
+        { startTime: 8 * oneHour, endTime: 12 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check sick user full time inside user time
+    // Check sick user full time inside user time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 9 * oneHour, endTime: 22 * oneHour},
+        { startTime: 9 * oneHour, endTime: 22 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check user full time in sick range
+    // Check user full time in sick range
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 11 * oneHour, endTime: 12 * oneHour},
+        { startTime: 11 * oneHour, endTime: 12 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check user start time intersects with sick time
+    // Check user start time intersects with sick time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 15 * oneHour, endTime: 22 * oneHour},
+        { startTime: 15 * oneHour, endTime: 22 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check no intersects but same end time
+    // Check no intersects but same end time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 20 * oneHour, endTime: 22 * oneHour},
+        { startTime: 20 * oneHour, endTime: 22 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check user time not intersects after sick time
+    // Check user time not intersects after sick time
     expect(
       tracker.isTimeOverlapping(
-        {startTime: 21 * oneHour, endTime: 26 * oneHour},
+        { startTime: 21 * oneHour, endTime: 26 * oneHour, ...userRecordExtras },
         sickRecord,
       ),
     ).toBe(false);
@@ -122,34 +149,37 @@ describe('Tracker', () => {
     //  Check the milliseconds overlapping restriction
     // ================================================
 
-    //Check smaller than intersect milliseconds
+    // Check smaller than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
           startTime: 8 * oneHour,
           endTime: 10 * oneHour + smallerThanIntersectMilliseconds,
+          ...userRecordExtras
         },
         sickRecord,
       ),
     ).toBe(false);
 
-    //Check larger than intersect milliseconds
+    // Check larger than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
           startTime: 9 * oneHour,
           endTime: 10 * oneHour + largerThanIntersectMilliseconds,
+          ...userRecordExtras
         },
         sickRecord,
       ),
     ).toBe(true);
 
-    //Check larger than intersect milliseconds
+    // Check larger than intersect milliseconds
     expect(
       tracker.isTimeOverlapping(
         {
           startTime: 18 * oneHour + smallerThanIntersectMilliseconds,
           endTime: 21 * oneHour,
+          ...userRecordExtras
         },
         sickRecord,
       ),
@@ -159,33 +189,33 @@ describe('Tracker', () => {
   test('unitTestGeography()', async () => {
     // South
     expect(
-      tracker.isSpaceOverlapping({long: 34.612383, lat: 31.307915}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.612383, lat: 31.307915, ...userRecordExtras2 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.612645, lat: 31.305848}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.612645, lat: 31.305848, ...userRecordExtras2 }, sickRecord),
     ).toBe(false);
     // West
     expect(
-      tracker.isSpaceOverlapping({long: 34.609032, lat: 31.311498}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.609032, lat: 31.311498, ...userRecordExtras2 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.604462, lat: 31.311608}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.604462, lat: 31.311608, ...userRecordExtras2 }, sickRecord),
     ).toBe(false);
     // North-East
     expect(
-      tracker.isSpaceOverlapping({long: 34.615315, lat: 31.312473}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.615315, lat: 31.312473, ...userRecordExtras2 }, sickRecord),
     ).toBe(true);
     expect(
-      tracker.isSpaceOverlapping({long: 34.618952, lat: 31.314902}, sickRecord),
+      tracker.isSpaceOverlapping({ long: 34.618952, lat: 31.314902, ...userRecordExtras2 }, sickRecord),
     ).toBe(false);
   });
 
   test('unitTestIntersectingRecords()', async () => {
     fetch(config().dataUrl_utc, {
-      headers: {'Content-Type': 'application/json;charset=utf-8'},
+      headers: { 'Content-Type': 'application/json;charset=utf-8' },
     })
       .then(response => response.json())
-      .then(async responseJson => {
+      .then(async (responseJson) => {
         const myData = [
           {
             startTime: 1583144150000,
@@ -193,6 +223,9 @@ describe('Tracker', () => {
             accuracy: 5,
             long: 34.807731241000056,
             lat: 32.115499628000066,
+            geoHash: '',
+            hash: '',
+            wifiHash: ''
           },
           {
             startTime: 1583346600000,
@@ -200,6 +233,9 @@ describe('Tracker', () => {
             accuracy: 10,
             long: 35.535289000000034,
             lat: 32.78675100000004,
+            geoHash: '',
+            hash: '',
+            wifiHash: ''
           },
           {
             startTime: 1583346600000,
@@ -207,6 +243,9 @@ describe('Tracker', () => {
             accuracy: 10,
             long: 37.535289000000034,
             lat: 32.78675100000004,
+            geoHash: '',
+            hash: '',
+            wifiHash: ''
           },
           {
             startTime: 1584391600000,
@@ -214,6 +253,9 @@ describe('Tracker', () => {
             accuracy: 10,
             long: 35.535289000000034,
             lat: 32.78675100000004,
+            geoHash: '',
+            hash: '',
+            wifiHash: ''
           },
         ];
 

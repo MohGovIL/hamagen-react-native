@@ -1,4 +1,3 @@
-import { NativeModules } from 'react-native';
 import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
@@ -9,11 +8,13 @@ import {
 import { Exposure, Location, SickJSON } from '../types';
 import { registerLocalNotification } from './PushService';
 import { setExposures } from '../actions/ExposuresActions';
+import { onError } from './ErrorService';
+import { initLocale } from '../actions/LocaleActions';
 import config from '../config/config';
 import store from '../store';
-import { onError } from './ErrorService';
-import { IS_IOS, LAST_FETCH_TS } from '../constants/Constants';
+import { LAST_FETCH_TS } from '../constants/Constants';
 
+// tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
@@ -21,7 +22,7 @@ export const startForegroundTimer = async () => {
 
   BackgroundTimer.runBackgroundTimer(async () => {
     await checkSickPeople();
-  }, config().sampleInterval);
+  }, config().fetchMilliseconds);
 };
 
 export const queryDB = async () => {
@@ -82,7 +83,7 @@ export const getIntersectingSickRecords = (
           && isSpaceOverlapping(userRecord, sickRecord)
         ) {
           // add sick people you intersects
-          sickRecord.properties.fromTime_utc = userRecord.startTime;
+          sickRecord.properties.fromTime_utc = Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc);
           sickRecord.properties.toTime_utc = userRecord.endTime;
           sickPeopleIntersected.push(sickRecord);
         }
@@ -98,28 +99,9 @@ const checkMillisecondsDiff = (to: number, from: number) => {
 };
 
 export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) => {
-  // End time in the range
-  return (
-    (userRecord.endTime > sickRecord.properties.fromTime_utc
-      && userRecord.endTime < sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        userRecord.endTime,
-        Math.max(sickRecord.properties.fromTime_utc, userRecord.startTime),
-      ))
-    // in the range
-    || (userRecord.startTime < sickRecord.properties.fromTime_utc
-      && userRecord.endTime > sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        sickRecord.properties.toTime_utc,
-        sickRecord.properties.fromTime_utc,
-      ))
-    // Start time in the range
-    || (userRecord.startTime > sickRecord.properties.fromTime_utc
-      && userRecord.startTime < sickRecord.properties.toTime_utc
-      && checkMillisecondsDiff(
-        Math.min(sickRecord.properties.toTime_utc, userRecord.endTime),
-        userRecord.startTime,
-      ))
+  return checkMillisecondsDiff(
+    Math.min(userRecord.endTime, sickRecord.properties.toTime_utc),
+    Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc)
   );
 };
 
@@ -138,41 +120,37 @@ export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radi
 };
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
-  const dbSick = new IntersectionSickDatabase();
+  try {
+    const dbSick = new IntersectionSickDatabase();
 
-  const exposuresToUpdate = [];
+    const exposuresToUpdate = [];
 
-  for (const currSick of sickPeopleIntersected) {
-    const queryResult = await dbSick.containsObjectID(
-      currSick.properties.Key_Field,
-    );
+    for (const currSick of sickPeopleIntersected) {
+      const queryResult = await dbSick.containsObjectID(
+        currSick.properties.Key_Field,
+      );
 
-    if (!queryResult) {
-      currSick.properties.fromTime = currSick.properties.fromTime_utc;
-      currSick.properties.toTime = currSick.properties.toTime_utc;
-      currSick.properties.OBJECTID = currSick.properties.Key_Field;
+      if (!queryResult) {
+        currSick.properties.fromTime = currSick.properties.fromTime_utc;
+        currSick.properties.toTime = currSick.properties.toTime_utc;
+        currSick.properties.OBJECTID = currSick.properties.Key_Field;
 
-      exposuresToUpdate.push(currSick);
-      await dbSick.addSickRecord(currSick);
+        exposuresToUpdate.push(currSick);
+        await dbSick.addSickRecord(currSick);
+      }
     }
-  }
 
-  store().dispatch(setExposures(exposuresToUpdate));
+    store().dispatch(setExposures(exposuresToUpdate));
 
-  let locale: 'he' | 'en' | 'ar' | 'am' | 'ru' | 'fr' = (IS_IOS
-    ? NativeModules.SettingsManager.settings.AppleLocale
-    : NativeModules.I18nManager.localeIdentifier
-  ).substr(0, 2);
+    const { locale, notificationData } = await store().dispatch(initLocale());
 
-  if (!['he', 'en', 'ar', 'am', 'ru', 'fr'].includes(locale)) {
-    locale = 'he';
-  }
-
-  exposuresToUpdate.length > 0
-    && (await registerLocalNotification(
-      config().sickMessage[locale].title,
-      config().sickMessage[locale].body,
-      config().sickMessage.duration,
+    exposuresToUpdate.length > 0 && await registerLocalNotification(
+      notificationData.sickMessage[locale].title,
+      notificationData.sickMessage[locale].body,
+      notificationData.sickMessage.duration,
       'ms',
-    ));
+    );
+  } catch (error) {
+    onError({ error });
+  }
 };

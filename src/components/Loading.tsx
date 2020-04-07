@@ -11,12 +11,14 @@ import BackgroundGeolocation, { State } from 'react-native-background-geolocatio
 import Welcome from './Onboarding/Welcome';
 import Location from './Onboarding/Location';
 import LocationIOS from './Onboarding/LocationIOS';
+import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
 import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
 import Notifications from './Onboarding/Notifications';
 import AllSet from './Onboarding/AllSet';
 import ScanHome from './Main/ScanHome';
 import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
 import LocationHistory from './Main/LocationHistory/LocationHistory';
+import FilterDriving from './Main/FilterDriving/FilterDriving';
 import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
@@ -29,6 +31,7 @@ import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
+import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
 import { ValidExposure } from '../types';
 import {
   SET_VALID_EXPOSURE,
@@ -48,11 +51,14 @@ import {
 
 interface Props {
   isRTL: boolean,
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  strings: Strings,
+  locale: string,
+  externalUrls: ExternalUrls,
+  notificationData: NotificationData,
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
+  shouldForce: boolean,
   showChangeLanguage: boolean,
   usageType: string,
   showForceTerms: boolean,
@@ -69,11 +75,14 @@ const Loading = (
     showChangeLanguage,
     strings,
     locale,
+    externalUrls,
+    notificationData,
     initLocale,
     showWebview,
     usageType,
     toggleWebview,
     showForceUpdate,
+    shouldForce,
     showForceTerms,
     checkForceUpdate,
     termsVersion
@@ -117,7 +126,7 @@ const Loading = (
       await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling(locale);
+      !state.enabled && await startSampling(locale, notificationData);
 
       await startForegroundTimer();
 
@@ -171,18 +180,20 @@ const Loading = (
           <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="LocationIOS" component={LocationIOS} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+          <Stack.Screen name="FilterDrivingOnBoarding" component={FilterDrivingOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />
         <ChangeLanguage isVisible={showChangeLanguage} />
-        <GeneralWebview isVisible={showWebview} locale={locale} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
-        <ForceUpdate isVisible={showForceUpdate} strings={strings} />
+        <GeneralWebview isVisible={showWebview} locale={locale} externalUrls={externalUrls} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
+        <ForceUpdate isVisible={showForceUpdate} shouldForce={shouldForce} strings={strings} />
         <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
       </View>
     )
@@ -197,11 +208,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    general: { showLoader, showWebview, showForceUpdate, usageType, showForceTerms, termsVersion },
-    locale: { showChangeLanguage, strings, locale, isRTL }
+    general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
+    locale: { showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
   } = state;
 
-  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, usageType, showForceTerms, isRTL, termsVersion };
+  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

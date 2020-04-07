@@ -1,7 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { View, StyleSheet, Animated } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Animated, ScrollView } from 'react-native';
 import moment from 'moment';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 import {
   BASIC_SHADOW_STYLES,
@@ -13,7 +14,7 @@ import {
 
 interface Props {
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   exposures: Exposure[],
   onValidExposure(exposure: Exposure): void,
   dismissExposure(exposureId: number): void
@@ -23,16 +24,14 @@ const ExposuresDetected = (
   {
     isRTL,
     strings: {
-      scanHome: { found, exposureEvents, reportedAt, inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections },
-      exposureInstructions: { weUnderstand }
+      scanHome: { inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections, suspectedExposure, events, possibleExposure, atPlace },
     },
     exposures,
     onValidExposure,
     dismissExposure
   }: Props
 ) => {
-  const currentExposure = useRef(1);
-
+  const [containerHeight, setContainerHeight] = useState(0);
   const [anim] = useState(new Animated.Value(1));
 
   const scale = {
@@ -52,14 +51,15 @@ const ExposuresDetected = (
     }
   };
 
-  const renderExposure = ({ properties: { Name, Place, fromTime } }: Exposure) => (
+  const renderExposure = ({ properties: { Place, fromTime } }: Exposure) => (
     <Animated.View style={[styles.detailsContainer, scale]}>
-      <Text style={{ fontSize: 14, marginBottom: 15 }}>{`${currentExposure.current}/${exposures.length}`}</Text>
+      <Text style={{ fontSize: 13, marginBottom: 5 }}>{`1/${exposures.length}`}</Text>
+      <Text style={{ fontSize: 14, marginBottom: 15 }}>{possibleExposure}</Text>
       <Text
         style={{ fontSize: 18, lineHeight: 25 }}
         bold
       >
-        {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
+        {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
       </Text>
 
     </Animated.View>
@@ -76,15 +76,23 @@ const ExposuresDetected = (
 
   return (
     <FadeInView style={styles.container}>
-      <View style={{ alignItems: 'center' }}>
-        <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 12 }} />
-        <Text style={styles.title} bold>{`${found} ${exposures.length} ${exposureEvents}`}</Text>
-      </View>
+      <ScrollView
+        onLayout={({ nativeEvent: { layout: { height } } }) => setContainerHeight(height)}
+        contentContainerStyle={[styles.subContainer, { minHeight: containerHeight }]}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={{ alignItems: 'center', marginBottom: 10 }}>
+          <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 20 }} />
+          <Text style={styles.title} bold>{`${suspectedExposure} ${exposures.length} ${events}`}</Text>
+        </View>
 
-      {renderExposure(exposures[0])}
+        {renderExposure(exposures[0])}
 
-      <View style={{ alignItems: 'center' }}>
-        <Text style={!IS_SMALL_SCREEN && { marginBottom: 25 }}>{wereYouThere}</Text>
+        <View />
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <Text style={{ marginBottom: 15 }}>{wereYouThere}</Text>
 
         <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
           {renderActionButton(no, canContinue, onDismissExposure)}
@@ -98,9 +106,13 @@ const ExposuresDetected = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center'
+  },
+  subContainer: {
+    width: SCREEN_WIDTH,
     justifyContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: PADDING_BOTTOM(0)
+    paddingBottom: 10
   },
   title: {
     fontSize: IS_SMALL_SCREEN ? 18 : 22
@@ -112,6 +124,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 8,
     padding: 25
+  },
+  footer: {
+    width: SCREEN_WIDTH,
+    paddingTop: 10,
+    paddingBottom: PADDING_BOTTOM(10),
+    alignItems: 'center',
+    backgroundColor: '#fff'
   },
   actionButtonsWrapper: {
     width: SCREEN_WIDTH * 0.88,

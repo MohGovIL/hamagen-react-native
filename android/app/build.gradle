@@ -137,8 +137,8 @@ android {
         applicationId "com.hamagen"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 27
-        versionName "1.1.3"
+        versionCode 29
+        versionName "1.2.1"
     }
 
     dexOptions {
@@ -177,14 +177,14 @@ android {
 
     buildTypes {
         debug {
-            versionNameSuffix ".dev"
-            applicationIdSuffix ".dev"
+            versionNameSuffix ".qa"
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.debug
         }
         qa {
             initWith release
-            versionNameSuffix ".dev"
-            applicationIdSuffix ".dev"
+            versionNameSuffix ".qa"
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.release
             matchingFallbacks = ["release"]
         }

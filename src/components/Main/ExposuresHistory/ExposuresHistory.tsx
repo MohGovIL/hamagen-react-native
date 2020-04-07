@@ -3,13 +3,14 @@ import { View, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Icon, TouchableOpacity, Text } from '../../common';
+import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
 
 interface Props {
   navigation: any,
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   pastExposures: Exposure[]
 }
 
@@ -41,9 +42,9 @@ const ExposuresHistory = (
           <View style={styles.listItemContainer}>
             <View style={[styles.listItemSubContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
               <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginHorizontal: 7.5 }} />
-              <View style={{ alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
-                <Text style={styles.text}>{Place}</Text>
-                <Text>
+              <View style={{ flex: 1, alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
+                <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{Place}</Text>
+                <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
                   <Text style={styles.text}>{`${inDate} `}</Text>
                   <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
                   <Text style={styles.text}>{`${fromHour} `}</Text>
@@ -108,10 +109,9 @@ const styles = StyleSheet.create({
   },
   listItemSubContainer: {
     width: SCREEN_WIDTH * 0.875,
-    height: 80,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 15
+    paddingVertical: 5
   },
   text: {
     fontSize: 14,

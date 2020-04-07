@@ -75,6 +75,28 @@ jest.mock('../src/config/config.ts', () => {
   return {
     __esModule: true,
     namedExport: jest.fn(),
-    default: jest.fn(() => originalModule['com.hamagen.dev']),
+    default: jest.fn(() => originalModule['com.hamagen']),
+  };
+});
+
+jest.mock('../src/store.ts', () => {
+  const dispatch = jest.fn(() => ({
+    locale: 'he',
+    notificationData: {
+      sickMessage: {
+        he: {
+          title: 'כותרת',
+          body: 'הודעה'
+        }
+      }
+    }
+  }));
+
+  const store = jest.fn(() => ({ dispatch }));
+
+  return {
+    __esModule: true,
+    namedExport: jest.fn(),
+    default: store
   };
 });

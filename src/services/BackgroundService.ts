@@ -14,10 +14,14 @@ export const scheduleTask = async () => {
         enableHeadless: true
       },
       async () => {
-        console.log('Background fetch event fired');
-        await initConfig();
-        await checkSickPeople();
-        BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+        try {
+          console.log('Background fetch event fired');
+          await initConfig();
+          await checkSickPeople();
+          BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
+        } catch (error) {
+          onError({ error });
+        }
       },
       (error: any) => onError({ error })
     );
