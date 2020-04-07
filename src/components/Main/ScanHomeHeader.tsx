@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   headerItemContainer: {
+    height: 45,
     alignItems: 'center'
   },
   indicatorWrapper: {
