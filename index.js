@@ -12,6 +12,11 @@ import { initConfig } from './src/config/config';
 
 BackgroundGeolocation.onLocation(
   async (location) => {
+    // ignore non-distinct locations from the SDK
+    if (location.sample) {
+      return;
+    }
+
     try {
       location.timestamp = moment(location.timestamp).valueOf();
       await initConfig();
