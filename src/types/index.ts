@@ -66,8 +66,10 @@ export interface Sample {
   coords: {
     latitude: number,
     longitude: number,
-    accuracy: number
+    accuracy: number,
+    speed: number
   },
+  is_moving: boolean,
   timestamp: number
 }
 
