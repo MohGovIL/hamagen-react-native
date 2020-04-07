@@ -239,12 +239,12 @@ describe('Tracker', () => {
     sickDB.addSickRecord.mockResolvedValueOnce(rows);
     sickDB.containsObjectID.mockResolvedValueOnce(rows);
     // check he
-    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
     // check unsupported language
     NativeModules.SettingsManager.settings.AppleLocale = 'gh';
-    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
 

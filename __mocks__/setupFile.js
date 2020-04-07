@@ -24,11 +24,9 @@ jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
 jest.mock('../src/database/Database.js', () => {
   
-  const containsObjectID = jest.fn();
-  const addSickRecord = jest.fn();
-
   const IntersectionSickDatabase = jest.fn().mockImplementation(() => ({
-    containsObjectID, addSickRecord 
+    containsObjectID: jest.fn(),
+     addSickRecord: jest.fn()
   }))
 
   const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
