@@ -360,7 +360,6 @@ DEPENDENCIES:
   - Firebase/Messaging (~> 5.20.2)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - GoogleIDFASupport (~> 3.14.0)
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
@@ -607,6 +606,6 @@ SPEC CHECKSUMS:
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: d1a9e37d36f29edcc78431c125e44debfdac8991
+PODFILE CHECKSUM: 027e29d046a2029f824a653ca35140278f7f5196
 
 COCOAPODS: 1.8.4

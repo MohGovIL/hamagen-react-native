@@ -15,7 +15,7 @@ import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistorySe
 import { UserLocationsDatabase } from '../../database/Database';
 import config from '../../config/config';
 import { Exposure } from '../../types';
-import {HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP} from '../../constants/Constants';
+import { HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
