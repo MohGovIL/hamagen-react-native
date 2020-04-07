@@ -1,4 +1,94 @@
 {
+  "languages": {
+    "title": "בחר שפה",
+    "short": {
+      "he": "עב",
+      "en": "En",
+      "ru": "Ru",
+      "ar": "عر",
+      "am": "አማ",
+      "fr": "Fr"
+    },
+    "long": {
+      "he": "עברית",
+      "en": "English",
+      "ru": "Русский",
+      "ar": "عربيه",
+      "am": "አማርኛ",
+      "fr": "Français"
+    }
+  },
+  "externalUrls": {
+    "furtherInstructions": {
+      "he": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
+      "en": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-en/",
+      "am": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/",
+      "ru": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ru",
+      "ar": "https://govextra.gov.il/ministry-of-health/corona/corona-virus-ar/",
+      "fr": "https://govextra.gov.il/ministry-of-health/corona/corona-virus/"
+    },
+    "reportForm": {
+      "he": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "en": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "am": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ru": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "ar": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il",
+      "fr": "https://govforms.gov.il/mw/forms/QuarantineForExposees%40health.gov.il"
+    },
+    "usageTerms": {
+      "he": "https://go.gov.il/magen-terms-he",
+      "en": "https://go.gov.il/magen-terms-en",
+      "ar": "https://go.gov.il/magen-terms-ar",
+      "ru": "https://go.gov.il/magen-terms-ru",
+      "am": "https://go.gov.il/magen-terms-am",
+      "fr": "https://go.gov.il/magen-terms-fr"
+    },
+    "privacyTerms": {
+      "he": "https://go.gov.il/HAMAGEN",
+      "en": "https://go.gov.il/HAMAGEN-EN",
+      "ar": "https://go.gov.il/HAMAGEN-AR",
+      "ru": "https://go.gov.il/HAMAGEN-RU",
+      "am": "https://go.gov.il/HAMAGEN-AM",
+      "fr": "https://go.gov.il/HAMAGEN-FR"
+    }
+  },
+  "notificationData": {
+    "androidNotification": {
+      "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
+      "en": "Hamagen runs in the background and protects you",
+      "am": "የተከላካይ መተግበሪያ በጀርባ ውስጥ ይሠራል እና እርስዎን ይጠብቃል",
+      "ru": "Хамаген бежит в фоновом режиме и защищает тебя",
+      "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
+      "fr": "Hamagen court en arrière-plan et vous protège"
+    },
+    "sickMessage": {
+      "he": {
+        "title": "יתכן כי זוהתה חשיפה אחת או יותר",
+        "body": "יש ללחוץ כאן כדי לברר אם נחשפת"
+      },
+      "en": {
+        "title": "One or more exposures may have been detected",
+        "body": "Click here to find out if you have been exposed"
+      },
+      "am": {
+        "title": "አንድ ወይም ከዚያ በላይ ተጋላጭነቶች ተከስተው ሊሆን ይችላል",
+        "body": "የተጋለጡ መሆንዎን ለማወቅ እዚህ ጠቅ ያድርጉ"
+      },
+      "ru": {
+        "title": "Возможно, обнаружено одно или несколько совпадений",
+        "body": "Нажмите здесь, чтобы узнать, если вы были выставлены"
+      },
+      "ar": {
+        "title": "ربما تم الكشف عن تداخل واحد أو أكثر",
+        "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
+      },
+      "fr": {
+        "title": "Une ou plusieurs expositions peuvent avoir été détectées",
+        "body": "Cliquez ici pour savoir si vous avez été exposé "
+      },
+      "duration": 10000
+    }
+  },
   "he": {
     "general": {
       "start": "התחלה",
@@ -25,7 +115,8 @@
     },
     "forceUpdate": {
       "title": "עדכון גרסה",
-      "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
+      "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה",
+      "dontForceDesc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
     },
     "forceTerms": {
       "title": "עדכון תנאי השימוש",
@@ -85,19 +176,23 @@
       "inDate": "בתאריך",
       "fromHour": "בסביבות השעה",
       "toHour": "עד שעה:",
-      "whereYouThere": "האם היית בסביבת המקום באותה שעה?",
+      "wereYouThere": "האם היית בסביבת המקום באותו זמן?",
       "no": "לא",
       "canContinue": "אפשר להמשיך",
       "yes": "כן",
-      "needDirections": "אשמח להנחיות"
+      "needDirections": "אשמח להנחיות",
+      "suspectedExposure": "חשד לחשיפה:",
+      "events": "אירועים",
+      "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
+      "atPlace": "ב"
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",
       "noExposures": "אין נקודות\nחפיפה"
     },
     "exposureInstructions": {
-      "title": "הנחיות לאחר חשיפה",
-      "weUnderstand": "האם היית ב",
+      "title": "חשד לחשיפה: מה לעשות?",
+      "weUnderstand": "אנחנו מבינים שהיית בנקודת חפיפה ב",
       "wrong": "טעות, לא הייתי שם",
       "keepSafe": "על מנת לשמור על בריאות משפחתך והסובבים אותך אלו ההנחיות של משרד הבריאות",
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
@@ -120,8 +215,16 @@
       "failedTitle": "לא הצלחנו לקבל נתונים מגוגל",
       "failedDesc": "מומלץ לבדוק את החיבור שלך לאינטרנט, את שם המשתמש והסיסמא לגוגל ולנסות שוב",
       "failedButton": "ניסיון נוסף",
-      "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל",
-      "moreInfo": " להמשך"
+      "info": "על מנת לאתר מוקדי חפיפה מ-14 הימים האחרונים,  נצטרך לקבל את נתוני המיקום שלך מהחשבון בגוגל ",
+      "moreInfo": "להמשך"
+    },
+    "filterDriving": {
+      "title": "סינון נסיעות",
+      "desc1": "אנחנו יודעים שנסיעות עלולות להוסיף נתונים לא רלוונטיים להשוואה, ולכן חשוב לעדכן אותנו על ידי",
+      "desc2": "הפעלת גישה לפעולות תנועה,",
+      "desc3": "כדי שלא נכלול את מיקומי הנסיעה שלך בהשוואה למיקומים של חולי קורונה",
+      "button": "גישה לפעולות תנועה",
+      "skip": "אל תורידו נסיעות מהמיקומים שלי"
     }
   },
   "ar": {
@@ -150,7 +253,8 @@
     },
     "forceUpdate": {
       "title": "تحديث الإصدار",
-      "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
+      "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار",
+      "dontForceDesc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
     },
     "forceTerms": {
       "title": "تحديث شروط الإستخدام",
@@ -210,18 +314,22 @@
       "inDate": "في تاريخ",
       "fromHour": "من الساعة :",
       "toHour": " حتى الساعة:",
-      "whereYouThere": "هل تواجدتم في هذا المكان في هذه الساعة?",
+      "wereYouThere": "هل تواجدتم في هذا المكان في هذه الساعة?",
       "no": "لا",
       "canContinue": "هل نستطيع التقدم؟",
       "yes": "نعم",
-      "needDirections": "أود إستلام توجيهات"
+      "needDirections": "أود إستلام توجيهات",
+      "suspectedExposure": "الاشتباه في التعرض:",
+      "events": "أحداث",
+      "possibleExposure": "قد يكون هناك تداخل مع مريض كورونا:",
+      "atPlace": "في"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق "
     },
     "exposureInstructions": {
-      "title": "توصيات ",
+      "title": "الاشتباه في التعرض: ماذا تفعل؟",
       "weUnderstand": "نحن نتفهم تواجدكم في نقطة تطابق",
       "wrong": "هذا بلاغ خاطئ، لم أتواجد هناك",
       "keepSafe": "من أجل الحفاظ على صحتكم و صحة عائلاتكم و المحيطين بكم يجب عليكم تطبيق توصيات وزارة الصحة و الدخول في حجر صحي لمدة 14 يوم من تاريخ اللقاء مع المصاب",
@@ -247,6 +355,14 @@
       "failedButton": "محاولة أخرى",
       "info": "من أجل تحديد أماكن التطابق خلال ال ١٤ يوم الأخيرة، يجب الحصول على بيانات الموقع الخاصة بكم من خلال حساب google ",
       "moreInfo": "للإستمرار"
+    },
+    "filterDriving": {
+      "title": "تصفية القيادة",
+      "desc1": "نحن نعلم أن القيادة يمكن أن تضيف بيانات غير ذات صلة للمقارنة ، لذلك من المهم أن تحدثنا بها",
+      "desc2": "من خلال تمكين الوصول إلى أجهزة استشعار الحركة,",
+      "desc3": "لذلك ، نحن لا نقوم بتضمين مواقع القيادة الخاصة بك مقارنة بمواقع المرضى",
+      "button": "الوصول إلى أجهزة استشعار الحركة",
+      "skip": "لا تقم بإزالة القيادة من مواقعي"
     }
   },
   "en": {
@@ -275,7 +391,8 @@
     },
     "forceUpdate": {
       "title": "Version Update",
-      "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
+      "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app",
+      "dontForceDesc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
     },
     "forceTerms": {
       "title": "Terms of Use Updated",
@@ -333,21 +450,25 @@
       "exposureEvents": "Exposure events",
       "reportedAt": "Reported At:",
       "inDate": "In",
-      "fromHour": "From:",
+      "fromHour": "from",
       "toHour": "Until:",
-      "whereYouThere": "Where you around in this time?",
+      "wereYouThere": "Where you around in this time?",
       "no": "No",
       "canContinue": "You can proceed",
       "yes": "Yes",
-      "needDirections": "Receive instructions"
+      "needDirections": "Receive instructions",
+      "suspectedExposure": "Suspected Exposure:",
+      "events": "Events",
+      "possibleExposure": "There may have been an exposure to a Corona patient:",
+      "atPlace": "At "
     },
     "exposuresHistory": {
       "title": "Overlap history",
       "noExposures": "No overlap points found"
     },
     "exposureInstructions": {
-      "title": "Post-exposure guidelines",
-      "weUnderstand": "It appears your location has intersected with a person known to be infected with the coronavirus",
+      "title": "Suspicion of exposure: What to do?",
+      "weUnderstand": "It appears your location has intersected with a person known to be infected with the coronavirus at ",
       "wrong": "Must be a mistake, I wasn’t there",
       "keepSafe": "You must take the following steps",
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
@@ -372,6 +493,14 @@
       "failedButton": "Try Again",
       "info": "In order to accurately determine your locations for the last 14 days, your location data must be enabled from your Google Account. ",
       "moreInfo": "More info"
+    },
+    "filterDriving": {
+      "title": "Driving filtering",
+      "desc1": "We know that driving can add irrelevant data for comparison, so it's important to update us by",
+      "desc2": "by enabling access to motion sensors,",
+      "desc3": "so we don't include your driving locations compared to Corona patients locations",
+      "button": "Access to motion sensors",
+      "skip": "Don't remove driving from my locations"
     }
   },
   "ru": {
@@ -400,7 +529,8 @@
     },
     "forceUpdate": {
       "title": "Обновить версию",
-      "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
+      "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию",
+      "dontForceDesc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
     },
     "forceTerms": {
       "title": "Обновить Условия использования",
@@ -458,21 +588,25 @@
       "exposureEvents": "Потенциальное соприкосновение",
       "reportedAt": "Документально записан",
       "inDate": "Число",
-      "fromHour": "С часов,:",
+      "fromHour": "С часов",
       "toHour": "до часов:",
-      "whereYouThere": "Были ли вы в этом месте в то же время?",
+      "wereYouThere": "Были ли вы в этом месте в то же время?",
       "no": "Нет",
       "canContinue": "Можно продолжить",
       "yes": "Да",
-      "needDirections": "Инструкции"
+      "needDirections": "Инструкции",
+      "suspectedExposure": "Подозрение на разоблачение:",
+      "events": "события",
+      "possibleExposure": "Там, возможно, был контакт с пациентом корона:",
+      "atPlace": "B "
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения"
     },
     "exposureInstructions": {
-      "title": "Рекомендации после выявления контакта",
-      "weUnderstand": "Находились ли вы в пункте",
+      "title": "Подозрение на воздействие: что делать?",
+      "weUnderstand": "Находились ли вы в пункте в ",
       "wrong":"Ошибка, меня там не было.",
       "keepSafe": "Для сохранения здоровья Вашей семьи и окружающих, следуйте рекомендациям Минздрава: ",
       "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
@@ -497,6 +631,14 @@
       "failedButton": "Еще одна попытка",
       "info": "Для точного определения вашего местоположения за последние 14 дней данные о вашем местоположении должны быть включены из вашей учетной записи Google. ",
       "moreInfo": "Узнать больше"
+    },
+    "filterDriving": {
+      "title": "Дорожная фильтрация",
+      "desc1": "Мы знаем, что вождение может добавить несущественные данные для сравнения, поэтому важно, чтобы мы",
+      "desc2": "предоставляя доступ к датчикам движения,",
+      "desc3": "поэтому мы не включаем ваши места вождения по сравнению с местами пациентов Corona",
+      "button": "Доступ к датчикам движения",
+      "skip": "Не удаляйте вождение из моих мест"
     }
   },
   "am": {
@@ -525,7 +667,8 @@
     },
     "forceUpdate": {
       "title": "ሥሪት አዘምን",
-      "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
+      "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን",
+      "dontForceDesc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
     },
     "forceTerms": {
       "title": "የአጠቃቀም ውሎችን አዘምን",
@@ -585,19 +728,23 @@
       "inDate": "በ",
       "fromHour": "ከሰአቱ",
       "toHour": "እስከ",
-      "whereYouThere": "ከዚህ ቦታ በተመሰሳሳይ ስአት ነበሩ ወይ?",
+      "wereYouThere": "ከዚህ ቦታ በተመሰሳሳይ ስአት ነበሩ ወይ?",
       "no": "አልነበርሁም",
       "canContinue": "ቀጥል",
       "yes": "አወ ነበርሁ",
-      "needDirections": "ምን ማድረግ አለብኝ"
+      "needDirections": "ምን ማድረግ አለብኝ",
+      "suspectedExposure": "የተጋለጡ ተጋላጭነቶች:",
+      "events": "ክስተቶች",
+      "possibleExposure": "ለኮሮና ህመምተኛ ተጋላጭ ሊኖር ይችላል:",
+      "atPlace": "በ "
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።"
     },
     "exposureInstructions": {
-      "title": "ለቫይረሱ ከተጋለጡ በኋላ የተሰጡ መመሪያዎች",
-      "weUnderstand": "ነበርክ?",
+      "title": "የተጋላጭነት ጥርጣሬ-ምን ማድረግ?",
+      "weUnderstand": "ነበርክ? በ ",
       "wrong": "አልነበርኩም።,",
       "keepSafe": "የቤተሰብህን ጤንነት ለመጠበቅ የሚከተሉትን የጤና ጥበቃ መ/ቤት መመሪያዎች ጠብቅ ፡,",
       "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
@@ -622,6 +769,14 @@
       "failedButton": "ሌላ ሙከራ",
       "info": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ",
       "moreInfo": "የበለጠ ለመረዳት"
+    },
+    "filterDriving": {
+      "title": "ማጣሪያ ማሽከርከር",
+      "desc1": "መንዳት ለማነፃፀር ምንም ፋይዳ የሌለውን ውሂብ ሊጨምር እንደሚችል እናውቃለን ፣ ስለሆነም በኛ ማዘመን አስፈላጊ ነው",
+      "desc2": "የእንቅስቃሴ ዳሳሾች መድረሻን በማንቃት,",
+      "desc3": "ስለዚህ ከኮሮ ሕመምተኞች አካባቢዎች ጋር ሲነፃፀር የማሽከርከር ቦታዎን አናካትትም",
+      "button": "የእንቅስቃሴ ዳሳሾች መዳረሻ",
+      "skip": "ከአካባቢያዎ መንዳት አያስወግዱት"
     }
   },
   "fr": {
@@ -650,7 +805,8 @@
     },
     "forceUpdate": {
       "title": "Mise à jour de la version",
-      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
+      "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application",
+      "dontForceDesc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
     },
     "forceTerms": {
       "title": "Conditions d'utilisation mises à jour",
@@ -708,21 +864,25 @@
       "exposureEvents": "Événements d'exposition",
       "reportedAt": "Signalé à:\n",
       "inDate": "à",
-      "fromHour": "De:",
+      "fromHour": "de",
       "toHour": "Jusqu'à:",
-      "whereYouThere": "Etiez-vous a cet endroit à ce moment la?",
+      "wereYouThere": "Etiez-vous a cet endroit à ce moment la?",
       "no": "Non",
       "canContinue": "Vous pouvez continuer",
       "yes": "Oui",
-      "needDirections": "Recevez les instructions"
+      "needDirections": "Recevez les instructions",
+      "suspectedExposure": "Suspicion d'exposition:",
+      "events": "les événements",
+      "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
+      "atPlace": "À "
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
       "noExposures": "Pas d'intersection trouvée"
     },
     "exposureInstructions": {
-      "title": "Guide post-exposition",
-      "weUnderstand": "Etiez-vous à",
+      "title": "Suspicion d'exposition: que faire?",
+      "weUnderstand": "Etiez-vous à ",
       "wrong": "Non, je n'y etais pas",
       "keepSafe": "Pour votre protection, suivez les étapes suivantes",
       "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",
@@ -747,6 +907,14 @@
       "failedButton": "Un autre essai",
       "info": "Afin de trouver des emplacements qui se chevauchent au cours des 14 derniers jours, nous devons obtenir vos données de localisation de Google ",
       "moreInfo": "Continuer"
+    },
+    "filterDriving": {
+      "title": "Filtre de conduite",
+      "desc1": "Nous savons que la conduite peut ajouter des données non pertinentes à des fins de comparaison, il est donc important de nous mettre à jour en",
+      "desc2": "en permettant l'accès aux détecteurs de mouvement,",
+      "desc3": "donc nous n'incluons pas vos emplacements de conduite par rapport aux emplacements des patients Corona",
+      "button": "Accès aux détecteurs de mouvement",
+      "skip": "Ne supprimez pas la conduite de mes emplacements"
     }
   }
 }

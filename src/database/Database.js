@@ -185,6 +185,29 @@ export class UserLocationsDatabase {
       });
     });
   }
+
+  getLastPointEntered() {
+    return new Promise((resolve) => {
+      this.initDB().then((db) => {
+        db.transaction((tx) => {
+          tx.executeSql('SELECT * from Samples WHERE rowid=(SELECT MAX(rowid) from Samples)').then(([tx, results]) => {
+            if (results.rows.length > 0) {
+              const row = results.rows.item(0);
+              resolve(row);
+            } else {
+              resolve(null);
+            }
+          });
+        }).then((result) => {
+          this.closeDatabase(db);
+        }).catch((err) => {
+          console.log(err);
+        });
+      }).catch((err) => {
+        console.log(err);
+      });
+    });
+  }
 }
 
 export class IntersectionSickDatabase {

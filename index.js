@@ -5,14 +5,25 @@ import BackgroundFetch from 'react-native-background-fetch';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import App from './src/App';
 import { name as appName } from './app.json';
+import { updateDBAccordingToSampleVelocity } from './src/services/SampleService';
 import { checkSickPeople } from './src/services/Tracker';
-import { insertDB } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
+import { initConfig } from './src/config/config';
 
 BackgroundGeolocation.onLocation(
   async (location) => {
-    location.timestamp = moment(location.timestamp).valueOf();
-    await insertDB(location);
+    // ignore non-distinct locations from the SDK
+    if (location.sample) {
+      return;
+    }
+
+    try {
+      location.timestamp = moment(location.timestamp).valueOf();
+      await initConfig();
+      await updateDBAccordingToSampleVelocity(location);
+    } catch (error) {
+      onError({ error });
+    }
   }, (error) => {
     onError({ error });
   }
@@ -23,6 +34,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     const { taskId } = event;
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
+    await initConfig();
     await checkSickPeople();
 
     BackgroundFetch.finish(taskId);

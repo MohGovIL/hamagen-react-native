@@ -11,49 +11,10 @@ export interface Config {
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
-  locationHistoryIgnoreList: string[],
-  androidNotification: { he: string, en: string, am: string, ru: string, ar: string, fr: string },
-  sickMessage: {
-    he: { title: string, body: string },
-    en: { title: string, body: string },
-    am: { title: string, body: string },
-    ru: { title: string, body: string },
-    ar: { title: string, body: string },
-    fr: { title: string, body: string }
-    duration: number
-  },
-  furtherInstructions: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  reportForm: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  usageTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  },
-  privacyTerms: {
-    he: string,
-    en: string,
-    am: string,
-    ru: string,
-    ar: string,
-    fr: string
-  }
+  locationServiceIgnoreList: string[],
+  locationServiceIgnoreConfidenceThreshold: number,
+  locationServiceIgnoreSampleVelocityThreshold: number,
+  locationHistoryIgnoreList: string[]
 }
 
 export interface ReducerAction {
@@ -67,12 +28,6 @@ export interface ErrorService {
   dispatch?: (params: any) => void,
   customAction?: () => void,
   showError?: boolean
-}
-
-export interface Locale {
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  isRTL: boolean,
-  strings: any
 }
 
 export interface Fonts {
@@ -103,6 +58,32 @@ export interface Exposure {
   }
 }
 
+export interface Sample {
+  activity: {
+    type: string,
+    confidence: number
+  },
+  coords: {
+    latitude: number,
+    longitude: number,
+    accuracy: number,
+    speed: number
+  },
+  is_moving: boolean,
+  timestamp: number
+}
+
+export interface DBLocation {
+  lat: number,
+  long: number,
+  accuracy: number,
+  startTime: number,
+  endTime: number,
+  geoHash: string,
+  wifiHash: string,
+  hash: string
+}
+
 export interface Location {
   geoHash: string,
   hash: string,
@@ -114,15 +95,13 @@ export interface Location {
   long: number
 }
 
-export interface DBExposure {
-  OBJECTID: number,
-  Name: string,
-  Place: string,
-  fromTime: number,
-  toTime: number
-}
-
 export interface ValidExposure {
   exposure: Exposure,
   timestamp: number
+}
+
+export interface VelocityRecord {
+  distMeter: number,
+  timeDiff: number,
+  velocity: number,
 }

@@ -3,6 +3,7 @@ import {
   TOGGLE_LOADER,
   TOGGLE_WEBVIEW,
   SHOW_FORCE_UPDATE,
+  HIDE_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
   HIDE_FORCE_TERMS,
   HIDE_LOCATION_HISTORY
@@ -13,6 +14,7 @@ interface GeneralReducer {
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
+  shouldForce: boolean,
   showForceTerms: boolean,
   termsVersion: number,
   hideLocationHistory: boolean
@@ -22,6 +24,7 @@ const INITIAL_STATE = {
   showLoader: false,
   showWebview: false,
   showForceUpdate: false,
+  shouldForce: false,
   showForceTerms: false,
   usageType: USAGE_PRIVACY,
   termsVersion: 0,
@@ -41,7 +44,12 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
     }
 
     case SHOW_FORCE_UPDATE: {
-      return { ...state, showForceUpdate: true };
+      const { shouldForce } = action.payload;
+      return { ...state, showForceUpdate: true, shouldForce };
+    }
+
+    case HIDE_FORCE_UPDATE: {
+      return { ...state, showForceUpdate: false };
     }
 
     case SHOW_FORCE_TERMS: {

@@ -2,11 +2,12 @@ import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
-  strings: any,
+  strings: Strings,
   isConnected: boolean,
   showChangeLanguage: boolean,
   goToExposureHistory(): void
@@ -83,6 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   headerItemContainer: {
+    height: 45,
     alignItems: 'center'
   },
   indicatorWrapper: {

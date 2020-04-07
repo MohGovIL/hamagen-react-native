@@ -4,14 +4,15 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, TouchableOpacity, Text } from '.';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
+import { Languages } from '../../locale/LocaleData';
 
 interface Props {
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: string,
+  languages: Languages,
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguageButton: ElementType = ({ locale, strings: { languages: { short } }, toggleChangeLanguage }: Props) => {
+let ChangeLanguageButton: ElementType = ({ locale, languages: { short }, toggleChangeLanguage }: Props) => {
   return (
     <TouchableOpacity onPress={() => toggleChangeLanguage(true)}>
       <View style={styles.container}>
@@ -37,10 +38,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { strings, locale }
+    locale: { locale, languages }
   } = state;
 
-  return { strings, locale };
+  return { locale, languages };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

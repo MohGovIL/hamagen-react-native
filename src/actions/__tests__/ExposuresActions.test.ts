@@ -1,18 +1,23 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actionTypes from '../constants/ActionTypes';
-import * as constants from '../constants/Constants';
-import * as ExposuresActions from './ExposuresActions';
-import { Exposure } from '../types';
+import * as actionTypes from '../../constants/ActionTypes';
+import * as constants from '../../constants/Constants';
+import { setExposures, setValidExposure, dismissExposure, removeValidExposure } from '../ExposuresActions';
+import { Exposure } from '../../types';
 
 const mockStore = configureMockStore([thunk]);
-
 
 describe('ExposuresActions', () => {
   test('setExposures()', async () => {
     const sickRecord: Exposure = {
       properties: {
+        OBJECTID: 2,
+        Key_Field: 2,
+        Name: 'name',
+        Place: 'place',
+        fromTime_utc: 10 * 60 * 60 * 1000,
+        toTime_utc: 20 * 60 * 60 * 1000,
         fromTime: 10 * 60 * 60 * 1000,
         toTime: 20 * 60 * 60 * 1000,
       },
@@ -24,6 +29,12 @@ describe('ExposuresActions', () => {
     const exposures: Exposure[] = [
       {
         properties: {
+          OBJECTID: 2,
+          Key_Field: 2,
+          Name: 'name',
+          Place: 'place',
+          fromTime_utc: 10 * 60 * 60 * 1000,
+          toTime_utc: 20 * 60 * 60 * 1000,
           fromTime: 10 * 60 * 60 * 1000,
           toTime: 20 * 60 * 60 * 1000,
         },
@@ -39,7 +50,7 @@ describe('ExposuresActions', () => {
     ];
     await AsyncStorage.setItem(constants.DISMISSED_EXPOSURES, '[1]');
     const store = mockStore({});
-    return store.dispatch(ExposuresActions.setExposures([sickRecord])).then(() => {
+    return store.dispatch(setExposures([sickRecord])).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
@@ -48,6 +59,12 @@ describe('ExposuresActions', () => {
   test('setValidExposure()', async () => {
     const sickExposure: Exposure = {
       properties: {
+        OBJECTID: 1,
+        Key_Field: 1,
+        Name: 'name',
+        Place: 'place',
+        fromTime_utc: 10 * 60 * 60 * 1000,
+        toTime_utc: 20 * 60 * 60 * 1000,
         fromTime: 10 * 60 * 60 * 1000,
         toTime: 20 * 60 * 60 * 1000,
       },
@@ -60,7 +77,7 @@ describe('ExposuresActions', () => {
       { type: actionTypes.SET_VALID_EXPOSURE, payload: { validExposure: sickExposure } },
     ];
     const store = mockStore({});
-    store.dispatch(ExposuresActions.setValidExposure(sickExposure)).then(() => {
+    store.dispatch(setValidExposure(sickExposure)).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
@@ -71,7 +88,7 @@ describe('ExposuresActions', () => {
       { type: actionTypes.REMOVE_VALID_EXPOSURE },
     ];
     const store = mockStore({});
-    return store.dispatch(ExposuresActions.removeValidExposure()).then(() => {
+    return store.dispatch(removeValidExposure()).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
@@ -83,12 +100,12 @@ describe('ExposuresActions', () => {
     ];
     await AsyncStorage.setItem(constants.DISMISSED_EXPOSURES, '[1]');
     const store = mockStore({});
-    store.dispatch(ExposuresActions.dismissExposure(1)).then(() => {
+    store.dispatch(dismissExposure(1)).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
     await AsyncStorage.removeItem(constants.DISMISSED_EXPOSURES);
-    store.dispatch(ExposuresActions.dismissExposure(1)).then(() => {
+    store.dispatch(dismissExposure(1)).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
