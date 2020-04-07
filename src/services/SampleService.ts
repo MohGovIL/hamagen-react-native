@@ -144,14 +144,14 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
 
 export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
   try {
-    const { type, confidence } = location.activity;
+    const { is_moving, activity: { confidence }, coords: { speed } } = location;
 
     const db = new UserLocationsDatabase();
 
     const highVelocityPointsForQA = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
     const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
 
-    if (config().locationServiceIgnoreList.includes(type) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
+    if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
       if (!isLastPointEndTimeUpdated) {
         await db.updateLastSampleEndTime(location.timestamp);
         await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
@@ -163,7 +163,7 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
         accuracy: location.coords.accuracy,
         startTime: location.timestamp,
         endTime: location.timestamp,
-        reason: `SDK: ${type}`
+        reason: 'SDK'
       }]));
       return;
     }
@@ -240,7 +240,12 @@ function mapPairs<T, U>(array: T[], fn: (first: T, second: T, index: number) => 
 }
 
 const evalVelocity2Loc = (prevData: Sample, currData: Sample) => {
-  const distMeter = haversine({ latitude: currData.coords.latitude, longitude: currData.coords.longitude }, { latitude: prevData.coords.latitude, longitude: prevData.coords.longitude });
+  const distMeter = haversine(
+    { latitude: currData.coords.latitude, longitude: currData.coords.longitude },
+    { latitude: prevData.coords.latitude, longitude: prevData.coords.longitude },
+    { unit: config().bufferUnits }
+  );
+
   const timeDiffInSeconds = Math.floor((currData.timestamp - prevData.timestamp) / 1000);
 
   const velocity = (timeDiffInSeconds > 0) ? distMeter / timeDiffInSeconds : 0;
