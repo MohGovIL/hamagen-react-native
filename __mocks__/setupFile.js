@@ -24,9 +24,13 @@ jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
 jest.mock('../src/database/Database.js', () => {
   
+  const getLastPointEntered = jest.fn()
+  const containsObjectID = jest.fn()
+  const addSickRecord = jest.fn()
+
   const IntersectionSickDatabase = jest.fn().mockImplementation(() => ({
-    containsObjectID: jest.fn(),
-     addSickRecord: jest.fn()
+    containsObjectID,
+     addSickRecord
   }))
 
   const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
@@ -38,13 +42,18 @@ jest.mock('../src/database/Database.js', () => {
       updateLastSampleEndTime: jest.fn(),
       addSample: jest.fn(),
       listSamples: jest.fn(),
-      purgeSamplesTable: jest.fn()
+      purgeSamplesTable: jest.fn(),
+      getLastPointEntered
   }))
 
   return { 
     UserLocationsDatabase,
     WifiMacAddressDatabase, 
     IntersectionSickDatabase,
+    getLastPointEntered,
+    containsObjectID,
+    addSickRecord,
+
     mockClear(){
       UserLocationsDatabase.mockClear()
       WifiMacAddressDatabase.mockClear()
@@ -75,6 +84,8 @@ jest.mock('../src/config/config.ts', () => {
   return {
     __esModule: true,
     namedExport: jest.fn(),
+    "locationServiceIgnoreConfidenceThreshold": 80,
+    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
     default: jest.fn(() => originalModule['com.hamagen']),
   };
 });
@@ -92,7 +103,7 @@ jest.mock('../src/store.ts', () => {
     }
   }));
 
-  const store = jest.fn(() => ({ dispatch }));
+  const store = jest.fn(() => ({ dispatch: jest.fn() }));
 
   return {
     __esModule: true,
