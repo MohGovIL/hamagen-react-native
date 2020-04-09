@@ -24,7 +24,6 @@ jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
 jest.mock('../src/database/Database.js', () => {
   
-  const getLastPointEntered = jest.fn()
   const containsObjectID = jest.fn()
   const addSickRecord = jest.fn()
 
@@ -33,16 +32,24 @@ jest.mock('../src/database/Database.js', () => {
      addSickRecord
   }))
 
+  const containsWifiHash = jest.fn()
+  const addWifiMacAddresses = jest.fn()
   const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
-    containsWifiHash: jest.fn(),
-    addWifiMacAddresses:jest.fn()
+    containsWifiHash,
+    addWifiMacAddresses
   }))
 
+  const updateLastSampleEndTime = jest.fn()
+  const addSample = jest.fn()
+  const listSamples = jest.fn()
+  const purgeSamplesTable = jest.fn()
+  const getLastPointEntered = jest.fn()
+
   const UserLocationsDatabase = jest.fn().mockImplementation(() => ({
-      updateLastSampleEndTime: jest.fn(),
-      addSample: jest.fn(),
-      listSamples: jest.fn(),
-      purgeSamplesTable: jest.fn(),
+      updateLastSampleEndTime,
+      addSample,
+      listSamples,
+      purgeSamplesTable,
       getLastPointEntered
   }))
 
@@ -50,10 +57,15 @@ jest.mock('../src/database/Database.js', () => {
     UserLocationsDatabase,
     WifiMacAddressDatabase, 
     IntersectionSickDatabase,
-    getLastPointEntered,
     containsObjectID,
     addSickRecord,
-
+    containsWifiHash,
+    addWifiMacAddresses,
+    updateLastSampleEndTime,
+    addSample,
+    listSamples,
+    purgeSamplesTable,
+    getLastPointEntered,
     mockClear(){
       UserLocationsDatabase.mockClear()
       WifiMacAddressDatabase.mockClear()
