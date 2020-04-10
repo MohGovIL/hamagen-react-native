@@ -5,6 +5,11 @@
 
 Israel's Ministry of Health's COVID-19 exposure prevention app.
 
+## Roadmap
+### Version 2.0
+[hello](https://example.com)
+
+
 ## Hacking
 
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
