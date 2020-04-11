@@ -5,6 +5,33 @@
 
 Israel's Ministry of Health's COVID-19 exposure prevention app.
 
+## Roadmap
+### Version 2.0
+#### Improving exposure algorithm:
+•	Adding user's duration time (t=15 minutes) at certain place <br>
+•	Crossing via polygon <br>
+•	Bluetooth <br>
+•	Changing the Covid-19 patients history locations service from total to incremental <br>
+#### New features:
+•	Given user's consent, uploading epidemiologically significant locations of confirmed covid19 patients (in research on how to do it in a privacy preserving way) <br>
+•	Telemetry, given user's consent <br>
+•	Add ability to share the app <br>
+•	IOS: Access to phone  locations within the last 14 days by API (in research) <br>
+#### User Experience:
+•	Externalized the app's version number <br>
+•	App is running <br>
+•	Adding exposure location on map (point x, point y, radius or by polygon) <br>
+•	Differentiation between users who press on "been there" to "not been there". Ability to delete the places the user declare "not been there". <br>
+#### Tests:
+•	Accessibility tests
+
+### Version 3.0
+•	Improving exposure algorithm - by WIFI <br>
+•	Translation of covid-19 patient's location <br>
+•	Adding manually history locations by the user <br>
+•	Improving exposure algorithm - Public transport <br>
+•	Delete user's history location from his phone after period of time (configurable)
+
 ## Hacking
 
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
