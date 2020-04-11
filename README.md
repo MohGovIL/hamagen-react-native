@@ -15,7 +15,7 @@ Israel's Ministry of Health's COVID-19 exposure prevention app.
 #### New features:
 •	Given user's consent, uploading epidemiologically significant locations of confirmed covid19 patients (in research on how to do it in a privacy preserving way) <br>
 •	Telemetry, given user's consent <br>
-•	Add ability to share the app <br>
+•	Add ability to share the app [#61](https://github.com/MohGovIL/hamagen-react-native/pull/61) <br>
 •	IOS: Access to phone  locations within the last 14 days by API (in research) <br>
 #### User Experience:
 •	Externalized the app's version number <br>
