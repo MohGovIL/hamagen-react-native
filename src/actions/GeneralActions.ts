@@ -1,7 +1,7 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
+import { downloadAndVerifySigning } from '../services/SigningService';
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
 import {
@@ -19,7 +19,7 @@ export const toggleWebview = (isShow: boolean, usageType:string) => (dispatch: a
 
 export const checkForceUpdate = () => async (dispatch: any) => {
   try {
-    const { data: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } = await axios.get(`${config().versionsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { ios, android, shouldForceIOS, shouldForceAndroid, terms } = await downloadAndVerifySigning(config().versionsUrl);
 
     const termsVersion = JSON.parse(await AsyncStorage.getItem(CURRENT_TERMS_VERSION) || '0');
 

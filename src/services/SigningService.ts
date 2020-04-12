@@ -1,55 +1,41 @@
-import crypto from 'isomorphic-webcrypto';
-import ab2b64 from 'base64-arraybuffer';
 import axios from 'axios';
-import { Base64 } from 'js-base64';
+import KJUR from 'jsrsasign';
 import { onError } from './ErrorService';
-import publicJwkKeyData from '../keys/publicJwk.json';
-import { SickJSON } from '../types';
+import { env } from '../config/config';
 
-const SIGNATURE_LENGTH = 64;
-
-export const downloadAndVerifySigning = (url: string) => new Promise<SickJSON>(async (resolve, reject) => {
+export const downloadAndVerifySigning = (url: string) => new Promise<any>(async (resolve, reject) => {
   try {
-    const signatureWithDataB64 = await axios.get(`${'https://matrixdemos.blob.core.windows.net/mabar/Points.signed.json.b64'}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { data }: { data: string } = await axios.get(`${url}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
-    const signatureWithData = ab2b64.decode(signatureWithDataB64.data);
-
-    const signature = signatureWithData.slice(0, SIGNATURE_LENGTH);
-
-    const data = signatureWithData.slice(SIGNATURE_LENGTH);
-
-    // @ts-ignore
-    const publicKey = await crypto.subtle.importKey(
-      'jwk',
-      publicJwkKeyData,
-      {
-        name: 'ECDSA',
-        namedCurve: 'P-256'
-      },
-      false,
-      ['verify']
-    );
-
-    // @ts-ignore
-    const isValid = await crypto.subtle.verify(
-      {
-        name: 'ECDSA',
-        hash: { name: 'SHA-256' } // can be "SHA-1", "SHA-256", "SHA-384", or "SHA-512"
-      },
-      publicKey, // from generateKey or importKey above
-      signature, // ArrayBuffer of the signature
-      data // ArrayBuffer of the data
-    );
-
-    if (isValid) {
-      const dataAsBase64 = ab2b64.encode(data);
-      const responseJson: SickJSON = JSON.parse(Base64.decode(dataAsBase64));
-
-      resolve(responseJson);
-    } else {
-      onError({ error: 'Unapproved source' });
-      reject('Unapproved source');
+    if (env === 'com.hamagen.qa') {
+      resolve(data);
+      return;
     }
+
+    const curve = 'secp256r1';
+    const sigalg = 'SHA256withECDSA';
+    const pubkey = '04c9635247abc25e9edf80bbebaa0ed74b4c4febeff3237787fb86d675a9f8dd878f9ec5d91fd4219496192ee10ed3daa36df2acf966a1bd9df7ee3d1c299f3260';
+
+    const signatureLength = data.indexOf('{');
+
+    const signature = data.slice(0, signatureLength);
+    const jsonB64 = data.slice(signatureLength);
+    const json = JSON.parse(jsonB64);
+
+    // @ts-ignore
+    const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
+
+    sig.init({ xy: pubkey, curve });
+
+    sig.updateString(jsonB64);
+
+    const result = sig.verify(signature);
+
+    if (result) {
+      resolve(json);
+    }
+
+    reject('invalid ECDSA signature');
   } catch (error) {
     reject(error);
     onError({ error });
