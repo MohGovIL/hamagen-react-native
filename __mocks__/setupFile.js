@@ -20,7 +20,13 @@ NativeModules.I18nManager = {
   localeIdentifier: 'he'
 };
 
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
+jest.mock('@react-native-community/async-storage', () => ({
+  ...mockAsyncStorage, 
+  mockClear() {
+    Object.keys(mockAsyncStorage).forEach(key => mockAsyncStorage[key]?.mockClear?.())
+    mockAsyncStorage.clear()
+  }})
+)
 
 jest.mock('../src/services/ErrorService', () => ({
   onError: jest.fn()
@@ -57,8 +63,7 @@ jest.mock('../src/database/Database.js', () => {
       purgeSamplesTable,
       getLastPointEntered
   }))
-
-  return { 
+  const db = {
     UserLocationsDatabase,
     WifiMacAddressDatabase, 
     IntersectionSickDatabase,
@@ -71,10 +76,12 @@ jest.mock('../src/database/Database.js', () => {
     listSamples,
     purgeSamplesTable,
     getLastPointEntered,
+  }
+
+  return { 
+    ...db,
     mockClear(){
-      UserLocationsDatabase.mockClear()
-      WifiMacAddressDatabase.mockClear()
-      IntersectionSickDatabase.mockClear()
+      Object.keys(db).forEach((key) => db[key]?.mockClear?.())
     } 
 };
   
