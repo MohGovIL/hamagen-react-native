@@ -1332,6 +1332,10 @@
   dependencies:
     type-detect "4.0.8"
 
+"@tmcw/togeojson@https://github.com/tmcw/togeojson.git":
+  version "4.0.0"
+  resolved "https://github.com/tmcw/togeojson.git#47a726b69bd8b7f0eb4adcb27c021136e86afdae"
+
 "@types/async-lock@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/async-lock/-/async-lock-1.1.1.tgz#81f218213bebcc5f740efe9648272c774a2e4b4b"

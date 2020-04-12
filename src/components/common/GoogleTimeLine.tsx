@@ -135,7 +135,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     setTimeout(async () => {
       didRetry.current = true;
       resolve(await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text()))));
-    }, 10);
+    }, 5000);
   });
 
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
