@@ -126,7 +126,12 @@ const Loading = (
       await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling(locale, notificationData);
+
+      if (!state.enabled) {
+        await startSampling(locale, notificationData);
+      } else if (!state.enableHeadless) {
+        await BackgroundGeolocation.setConfig({ enableHeadless: true });
+      }
 
       await startForegroundTimer();
 

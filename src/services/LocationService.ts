@@ -131,7 +131,8 @@ export const startLocationTracking = async (locale: string, notificationData: No
       startOnBoot: true,
       notification: {
         text: notificationData.androidNotification[locale]
-      }
+      },
+      enableHeadless: true
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);
 

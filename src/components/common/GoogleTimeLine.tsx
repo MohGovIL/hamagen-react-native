@@ -14,6 +14,7 @@ import { onError } from '../../services/ErrorService';
 import store from '../../store';
 import { Strings } from '../../locale/LocaleData';
 import {
+  IS_IOS,
   IS_SMALL_SCREEN,
   MAIN_COLOR,
   SCREEN_WIDTH,
@@ -135,7 +136,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     setTimeout(async () => {
       didRetry.current = true;
       resolve(await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text()))));
-    }, 5000);
+    }, IS_IOS ? 5000 : 10);
   });
 
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
