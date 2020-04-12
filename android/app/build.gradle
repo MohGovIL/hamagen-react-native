@@ -223,7 +223,6 @@ android {
 }
 
 dependencies {
-    implementation 'io.radar:sdk:2.1.+'
     implementation "com.google.android.gms:play-services-base:17.1.0"
     implementation 'com.google.firebase:firebase-core:17.2.3'
     implementation "com.google.firebase:firebase-messaging:20.1.2"
