@@ -22,6 +22,11 @@ NativeModules.I18nManager = {
 
 jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
 
+jest.mock('../src/services/ErrorService', () => ({
+  onError: jest.fn()
+  // onError: jest.fn(e => console.log(e))
+}))
+
 jest.mock('../src/database/Database.js', () => {
   
   const containsObjectID = jest.fn()
@@ -106,6 +111,7 @@ jest.mock('../src/store.ts', () => {
   const dispatch = jest.fn(() => ({
     locale: 'he',
     notificationData: {
+      androidNotification: {},
       sickMessage: {
         he: {
           title: 'כותרת',
@@ -115,11 +121,12 @@ jest.mock('../src/store.ts', () => {
     }
   }));
 
-  const store = jest.fn(() => ({ dispatch: jest.fn() }));
+  const store = jest.fn().mockImplementation(() => ({ dispatch }))
 
   return {
     __esModule: true,
     namedExport: jest.fn(),
-    default: store
+    default: store,
+    dispatch
   };
 });

@@ -9,19 +9,26 @@ import {
 } from '../../constants/Constants';
 // import WifiService from './WifiService'
 import * as db from '../../database/Database'
+import {onError} from '../ErrorService'
 
 jest.mock('../WifiService', () => ({
   getWifiList: jest.fn().mockResolvedValue(['ssdid']),
 }));
 
+beforeEach(() => {
+  onError.mockClear()
+})
+
 describe('Sample Service', () => {
   describe('startSampling', () => {
     test('check resolves', async () => {
       expect(startSampling('en')).resolves.toBeTruthy();
+      expect(onError).toBeCalledTimes(0)
     });
 
     test('check resolves for unknown language', async () => {
       expect(startSampling('ge')).resolves.toBeTruthy();
+      expect(onError).toBeCalledTimes(0)
     });
   });
 
@@ -47,7 +54,7 @@ describe('Sample Service', () => {
 
       expect(await insertDB(DBSample)).toBeTruthy();
       expect(AsyncStorage.setItem).toBeCalledTimes(2);
-
+      expect(onError).toBeCalledTimes(0)
     })
 
     test('check storage not empty', async () => {
@@ -55,6 +62,7 @@ describe('Sample Service', () => {
         AsyncStorage.getItem.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
 
         expect(await insertDB(DBSample)).toBeTruthy();
+        expect(onError).toBeCalledTimes(0)
     })
   });
 
@@ -65,6 +73,7 @@ describe('Sample Service', () => {
     test('check purge DB returning resolved true', async () => {
         new db.UserLocationsDatabase().purgeSamplesTable.mockResolvedValueOnce(true)
         expect(purgeSamplesDB()).resolves.toBeUndefined()
+        expect(onError).toBeCalledTimes(0)
     });
 
     test('check purge DB returning resolved true', async () => {
@@ -72,7 +81,7 @@ describe('Sample Service', () => {
         
         
         expect(purgeSamplesDB()).rejects.toBeUndefined()
-        // console.log(purgeSamplesTable.mock)
+        expect(onError).toBeCalledTimes(0)
       });
   });
 
@@ -104,7 +113,7 @@ describe('Sample Service', () => {
         await updateDBAccordingToSampleVelocity(sample)
         expect(AsyncStorage.setItem).toBeCalledTimes(1)
         expect(AsyncStorage.setItem).toHaveBeenCalledWith(IS_LAST_POINT_FROM_TIMELINE, "true")
-        
+        expect(onError).toBeCalledTimes(0)
       })
 
       test('with not velocity points', async () => {
@@ -114,7 +123,7 @@ describe('Sample Service', () => {
         AsyncStorage.getItem.mockResolvedValueOnce(true).mockResolvedValueOnce(undefined)
 
         expect(updateDBAccordingToSampleVelocity(sample)).resolves.toBeTruthy()
-        // console.log(await AsyncStorage.getAllKeys())
+        expect(onError).toBeCalledTimes(0)
       })
 
       test('with last point from DB', async () => {
@@ -123,6 +132,7 @@ describe('Sample Service', () => {
         db.getLastPointEntered.mockResolvedValueOnce({lat: 123.123, long: 321.321, accuracy: 0.7, endTime: 123456789})
         expect(await updateDBAccordingToSampleVelocity(sample)).toBeTruthy()
         expect(AsyncStorage.removeItem).toBeCalledWith(HIGH_VELOCITY_POINTS)
+        expect(onError).toBeCalledTimes(0)
       })
   })  
 });
