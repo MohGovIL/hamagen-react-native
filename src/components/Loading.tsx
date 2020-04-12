@@ -153,8 +153,8 @@ const Loading = (
 
       setInitialRoute('ScanHome');
     } catch (error) {
-      // TODO handle in error handling phase
-      setInitialRoute('ScanHome');
+      const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
+      setInitialRoute(notFirstTime === null ? 'Welcome' : 'ScanHome');
       onError({ error });
     }
   };

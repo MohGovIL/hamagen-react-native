@@ -19,7 +19,7 @@ export const toggleWebview = (isShow: boolean, usageType:string) => (dispatch: a
 
 export const checkForceUpdate = () => async (dispatch: any) => {
   try {
-    const { ios, android, shouldForceIOS, shouldForceAndroid, terms } = await downloadAndVerifySigning(config().versionsUrl);
+    const { v2: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } = await downloadAndVerifySigning(config().versionsUrl);
 
     const termsVersion = JSON.parse(await AsyncStorage.getItem(CURRENT_TERMS_VERSION) || '0');
 

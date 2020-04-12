@@ -78,7 +78,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     entryFile: "index.js",
-    enableHermes: false,  // clean and rebuild if changing
+    enableHermes: true,  // clean and rebuild if changing
     bundleInQa: true,
     devDisabledInQa: true
 ]
@@ -137,8 +137,8 @@ android {
         applicationId "com.hamagen"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 30
-        versionName "1.2.2"
+        versionCode 31
+        versionName "1.2.3"
     }
 
     dexOptions {
@@ -223,16 +223,16 @@ android {
 }
 
 dependencies {
-    implementation 'io.radar:sdk:2.1.+'
-    implementation "com.google.android.gms:play-services-base:17.1.0"
-    implementation 'com.google.firebase:firebase-core:17.2.3'
-    implementation "com.google.firebase:firebase-messaging:20.1.2"
+    implementation "com.google.android.gms:play-services-base:17.2.1"
+    implementation 'com.google.firebase:firebase-core:17.3.0'
+    implementation "com.google.firebase:firebase-messaging:20.1.5"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";
         debugImplementation files(hermesPath + "hermes-debug.aar")
+        qaImplementation files(hermesPath + "hermes-release.aar")
         releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
         implementation jscFlavor

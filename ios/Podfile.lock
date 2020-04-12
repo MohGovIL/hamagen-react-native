@@ -321,7 +321,7 @@ PODS:
     - React
   - RNCAsyncStorage (1.7.1):
     - React
-  - RNCMaskedView (0.1.1):
+  - RNCMaskedView (0.1.8):
     - React
   - RNDeviceInfo (5.4.0):
     - React
@@ -583,7 +583,7 @@ SPEC CHECKSUMS:
   RNBackgroundFetch: 8d8d66b47eafcb9e772b2eb95057939038b3ef95
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566
   RNCAsyncStorage: 44395cb9c7c1523104c2b499eb426ef7aff82bca
-  RNCMaskedView: b79e193409a90bf6b5170d421684f437ff4e2278
+  RNCMaskedView: 4383c3140f1235391fd6029968c166f09ddd0973
   RNDeviceInfo: c7b1dc457611b9231bb780a882102e2c93edc7af
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
@@ -596,4 +596,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: d1a9e37d36f29edcc78431c125e44debfdac8991
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1
