@@ -15,7 +15,7 @@ import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistorySe
 import { UserLocationsDatabase } from '../../database/Database';
 import config from '../../config/config';
 import { Exposure } from '../../types';
-import { HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
+import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -125,6 +125,15 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
+  const clearAllPoints = async () => {
+    try {
+      await AsyncStorage.removeItem(ALL_POINTS_QA);
+      Alert.alert('Cleared', '', [{ text: 'OK' }]);
+    } catch (e) {
+      Alert.alert('Error', '', [{ text: 'OK' }]);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
@@ -164,6 +173,14 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצג את כל ה'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'all' })} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה את כל ה'דקירות'" onPress={clearAllPoints} />
         </View>
       </ScrollView>
 

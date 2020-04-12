@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Text, TouchableOpacity } from '../common';
 import { queryDB } from '../../services/Tracker';
 import { DBLocation } from '../../types';
-import { HIGH_VELOCITY_POINTS_QA, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -22,7 +22,7 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
   }, [isVisible]);
 
   const updateList = async () => {
-    const list = type === 'locations' ? await queryDB() : JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
+    const list = type === 'locations' ? await queryDB() : JSON.parse(await AsyncStorage.getItem(type === 'all' ? ALL_POINTS_QA : HIGH_VELOCITY_POINTS_QA) || '[]');
     setListOfSamples(list);
   };
 

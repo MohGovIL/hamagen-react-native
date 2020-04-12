@@ -15,6 +15,7 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import {
   FIRST_POINT_TS,
   HIGH_VELOCITY_POINTS,
+  ALL_POINTS_QA,
   HIGH_VELOCITY_POINTS_QA,
   IS_LAST_POINT_FROM_TIMELINE,
   LAST_POINT_START_TIME
@@ -148,6 +149,8 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
 
     const db = new UserLocationsDatabase();
 
+    await saveSampleForQAAllPoints(location);
+
     const highVelocityPointsForQA = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
     const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
 
@@ -252,3 +255,22 @@ const evalVelocity2Loc = (prevData: Sample, currData: Sample) => {
 
   return { distMeter, timeDiff: timeDiffInSeconds, velocity };
 };
+
+const saveSampleForQAAllPoints = (location: Sample) => new Promise(async (resolve) => {
+  try {
+    const allPointsForQA = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
+
+    await AsyncStorage.setItem(ALL_POINTS_QA, JSON.stringify([...allPointsForQA, {
+      lat: location.coords.latitude,
+      long: location.coords.longitude,
+      accuracy: location.coords.accuracy,
+      startTime: location.timestamp,
+      endTime: location.timestamp,
+      reason: ''
+    }]));
+
+    resolve();
+  } catch (e) {
+    resolve();
+  }
+});
