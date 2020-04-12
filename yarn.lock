@@ -1257,9 +1257,10 @@
     eslint-plugin-react-native "3.6.0"
     prettier "1.16.4"
 
-"@react-native-community/masked-view@https://github.com/greenyossi/react-native-masked-view.git":
-  version "0.1.1"
-  resolved "https://github.com/greenyossi/react-native-masked-view.git#eaadd2b66420dae9ce9c0520d2af7491181f7699"
+"@react-native-community/masked-view@^0.1.8":
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/@react-native-community/masked-view/-/masked-view-0.1.8.tgz#05c9c800f258274a34abd584596464b86fbd92dc"
+  integrity sha512-y+mnsPPC4Etzs/waHIC9Pj3DwhVQGqVru0n1KSqHZc0moKNAZ0NRBWYVat9awLIjjVrnepUva/+/bi31T4hR4A==
 
 "@react-native-community/netinfo@5.6.2":
   version "5.6.2"
@@ -1330,6 +1331,10 @@
   integrity sha512-Debi3Baff1Qu1Unc3mjJ96MgpbwTn43S1+9yJ0llWygPwDNu2aaWBD6yc9y/Z8XDRNhx7U+u2UDg2OGQXkclUQ==
   dependencies:
     type-detect "4.0.8"
+
+"@tmcw/togeojson@https://github.com/tmcw/togeojson.git":
+  version "4.0.0"
+  resolved "https://github.com/tmcw/togeojson.git#47a726b69bd8b7f0eb4adcb27c021136e86afdae"
 
 "@types/async-lock@1.1.1":
   version "1.1.1"
