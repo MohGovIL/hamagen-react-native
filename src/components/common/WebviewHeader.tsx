@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
+import { CloseButton } from '.';
 import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
-import { Icon, TouchableOpacity } from '.';
 
 interface Props {
   hideClose?: boolean,
@@ -18,9 +18,7 @@ const WebviewHeader = ({ hideClose, closeModal }: Props) => {
     >
       {
         !hideClose && (
-          <TouchableOpacity style={styles.close} onPress={closeModal}>
-            <Icon source={require('../../assets/onboarding/close.png')} width={IS_SMALL_SCREEN ? 20 : 31} />
-          </TouchableOpacity>
+          <CloseButton isSmall={IS_SMALL_SCREEN} onPress={closeModal} />
         )
       }
 
@@ -30,12 +28,6 @@ const WebviewHeader = ({ hideClose, closeModal }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  close: {
-    position: 'absolute',
-    top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
-    left: IS_SMALL_SCREEN ? 10 : 20,
-    zIndex: 1000
-  },
   headerContainer: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT * 0.17,

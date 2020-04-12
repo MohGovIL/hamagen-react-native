@@ -11,7 +11,6 @@ export interface LocaleData {
 }
 
 export interface Languages {
-  title: string,
   short: {
     [languageKey: string]: string
   },
@@ -52,7 +51,10 @@ export interface NotificationData {
 export interface Strings {
   general: {
     start: string,
-    additionalInfo: string
+    additionalInfo: string,
+    close: string,
+    readTOU: string,
+    approveTOU: string
   },
   languages: {
     title: string,

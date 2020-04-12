@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
-import { Icon, TouchableOpacity, Text } from '../../common';
+import { Icon, Text, CloseButton } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
@@ -63,9 +63,7 @@ const ExposuresHistory = (
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={navigation.goBack}>
-        <Icon source={require('../../../assets/onboarding/close.png')} width={31} customStyles={{ marginLeft: 20 }} />
-      </TouchableOpacity>
+      <CloseButton onPress={navigation.goBack} />
 
       <View style={styles.headerContainer}>
         <View style={styles.headerSubContainer}>
