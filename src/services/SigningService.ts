@@ -1,16 +1,10 @@
 import axios from 'axios';
 import KJUR from 'jsrsasign';
 import { onError } from './ErrorService';
-import { env } from '../config/config';
 
 export const downloadAndVerifySigning = (url: string) => new Promise<any>(async (resolve, reject) => {
   try {
-    const { data }: { data: string } = await axios.get(`${url}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
-
-    if (env === 'com.hamagen.qa') {
-      resolve(data);
-      return;
-    }
+    const { data }: { data: string } = await axios.get(`${url}.sign?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     const curve = 'secp256r1';
     const sigalg = 'SHA256withECDSA';
