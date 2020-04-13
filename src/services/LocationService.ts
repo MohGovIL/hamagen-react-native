@@ -129,6 +129,7 @@ export const startLocationTracking = async (locale: string, notificationData: No
       logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false,
       startOnBoot: true,
+      foregroundService: true,
       notification: {
         text: notificationData.androidNotification[locale]
       },
