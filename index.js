@@ -50,14 +50,9 @@ const BackgroundFetchHeadlessTask = async (event) => {
 const BackgroundGeolocationHeadlessTask = async (event) => {
   console.log('[BackgroundGeolocation HeadlessTask] -', event.name);
 
-  BackgroundGeolocation.getCurrentPosition({
-    samples: 1,
-    persist: false
-  }, async (location) => {
-    await onLocationReceived(location);
-  }, (error) => {
-    onError({ error });
-  });
+  if (event.name === 'location') {
+    await onLocationReceived(event.params);
+  }
 };
 
 AppRegistry.registerComponent(appName, () => App);

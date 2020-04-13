@@ -86,7 +86,7 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
         await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
       }
 
-      resolve();
+      resolve(true);
       done();
       return true;
     } catch (error) {

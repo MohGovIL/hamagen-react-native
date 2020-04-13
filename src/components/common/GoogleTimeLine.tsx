@@ -1,6 +1,7 @@
 import React, { RefObject, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import CookieManager from '@react-native-community/cookies';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   getLastNrDaysKmlUrls,
@@ -169,24 +170,12 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
         const pointsData = texts.flatMap((kml: string) => kmlToGeoJson(kml));
 
         if (pointsData.length === 0) {
-          // once 14 days flow completed for the first time
-          await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
-          store().dispatch(checkIfHideLocationHistory());
-          return setState(prevState => ({
-            ...prevState,
-            openWebview: false,
-            isLoggedIn: false,
-            state: 'successNotFound'
-          }));
+          return onFlowEnd('successNotFound');
         }
 
         await insertToSampleDB(pointsData);
 
-        webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 100)');
-        setTimeout(() => {
-          didRetry.current = false;
-          setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successFound' }));
-        }, 300);
+        return onFlowEnd('successFound');
       } catch (error) {
         await onFetchError(error);
       }
@@ -194,12 +183,24 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
   };
 
   const onFetchError = async (error: any) => {
-    webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 100)');
-    setTimeout(() => {
-      didRetry.current = false;
-      setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'failed' }));
-    }, 300);
+    await onFlowEnd('failed');
     onError({ error });
+  };
+
+  const onFlowEnd = async (state: 'before'|'successFound'|'successNotFound'|'failed') => {
+    if (state !== 'failed') {
+      // once 14 days flow completed for the first time
+      await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
+      store().dispatch(checkIfHideLocationHistory());
+    }
+
+    webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 10)');
+
+    setTimeout(async () => {
+      didRetry.current = false;
+      setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state }));
+      await CookieManager.clearAll(true);
+    }, 300);
   };
 
   return (

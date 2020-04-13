@@ -17,7 +17,7 @@ const Welcome = ({ navigation, strings: { general: { start }, welcome: { title, 
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-      checkForceUpdate();
+      setTimeout(() => checkForceUpdate(), 1000);
     }, 3000);
   }, []);
 
