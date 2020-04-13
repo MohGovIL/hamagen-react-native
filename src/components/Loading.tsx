@@ -126,7 +126,12 @@ const Loading = (
       await purgeSamplesDB();
 
       const state: State = await BackgroundGeolocation.getState();
-      !state.enabled && await startSampling(locale, notificationData);
+
+      if (!state.enabled) {
+        await startSampling(locale, notificationData);
+      } else if (!state.enableHeadless) {
+        await BackgroundGeolocation.setConfig({ enableHeadless: true });
+      }
 
       await startForegroundTimer();
 
@@ -153,8 +158,8 @@ const Loading = (
 
       setInitialRoute('ScanHome');
     } catch (error) {
-      // TODO handle in error handling phase
-      setInitialRoute('ScanHome');
+      const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
+      setInitialRoute(notFirstTime === null ? 'Welcome' : 'ScanHome');
       onError({ error });
     }
   };

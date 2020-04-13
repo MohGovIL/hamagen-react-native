@@ -1,5 +1,5 @@
-import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock';
 import { NativeModules } from 'react-native';
+import mockAsyncStorage from '@react-native-community/async-storage/jest/async-storage-mock';
 
 global.fetch = require('jest-fetch-mock');
 
@@ -21,51 +21,49 @@ NativeModules.I18nManager = {
 };
 
 jest.mock('@react-native-community/async-storage', () => ({
-  ...mockAsyncStorage, 
+  ...mockAsyncStorage,
   mockClear() {
-    Object.keys(mockAsyncStorage).forEach(key => mockAsyncStorage[key]?.mockClear?.())
-    mockAsyncStorage.clear()
-  }})
-)
+    Object.keys(mockAsyncStorage).forEach(key => mockAsyncStorage[key]?.mockClear?.());
+    mockAsyncStorage.clear();
+  } }));
 
 jest.mock('../src/services/ErrorService', () => ({
   onError: jest.fn()
   // onError: jest.fn(e => console.log(e))
-}))
+}));
 
 jest.mock('../src/database/Database.js', () => {
-  
-  const containsObjectID = jest.fn()
-  const addSickRecord = jest.fn()
+  const containsObjectID = jest.fn();
+  const addSickRecord = jest.fn();
 
   const IntersectionSickDatabase = jest.fn().mockImplementation(() => ({
     containsObjectID,
-     addSickRecord
-  }))
+    addSickRecord
+  }));
 
-  const containsWifiHash = jest.fn()
-  const addWifiMacAddresses = jest.fn()
-  const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
+  const containsWifiHash = jest.fn();
+  const addWifiMacAddresses = jest.fn();
+  const WifiMacAddressDatabase = jest.fn().mockImplementation(() => ({
     containsWifiHash,
     addWifiMacAddresses
-  }))
+  }));
 
-  const updateLastSampleEndTime = jest.fn()
-  const addSample = jest.fn()
-  const listSamples = jest.fn()
-  const purgeSamplesTable = jest.fn()
-  const getLastPointEntered = jest.fn()
+  const updateLastSampleEndTime = jest.fn();
+  const addSample = jest.fn();
+  const listSamples = jest.fn();
+  const purgeSamplesTable = jest.fn();
+  const getLastPointEntered = jest.fn();
 
   const UserLocationsDatabase = jest.fn().mockImplementation(() => ({
-      updateLastSampleEndTime,
-      addSample,
-      listSamples,
-      purgeSamplesTable,
-      getLastPointEntered
-  }))
+    updateLastSampleEndTime,
+    addSample,
+    listSamples,
+    purgeSamplesTable,
+    getLastPointEntered
+  }));
   const db = {
     UserLocationsDatabase,
-    WifiMacAddressDatabase, 
+    WifiMacAddressDatabase,
     IntersectionSickDatabase,
     containsObjectID,
     addSickRecord,
@@ -76,15 +74,14 @@ jest.mock('../src/database/Database.js', () => {
     listSamples,
     purgeSamplesTable,
     getLastPointEntered,
-  }
+  };
 
-  return { 
+  return {
     ...db,
-    mockClear(){
-      Object.keys(db).forEach((key) => db[key]?.mockClear?.())
-    } 
-};
-  
+    mockClear() {
+      Object.keys(db).forEach(key => db[key]?.mockClear?.());
+    }
+  };
 });
 
 jest.mock('react-native-device-info', () => {
@@ -108,8 +105,8 @@ jest.mock('../src/config/config.ts', () => {
   return {
     __esModule: true,
     namedExport: jest.fn(),
-    "locationServiceIgnoreConfidenceThreshold": 80,
-    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
+    locationServiceIgnoreConfidenceThreshold: 80,
+    locationServiceIgnoreSampleVelocityThreshold: 2.8,
     default: jest.fn(() => originalModule['com.hamagen']),
   };
 });
@@ -128,7 +125,7 @@ jest.mock('../src/store.ts', () => {
     }
   }));
 
-  const store = jest.fn().mockImplementation(() => ({ dispatch }))
+  const store = jest.fn().mockImplementation(() => ({ dispatch }));
 
   return {
     __esModule: true,

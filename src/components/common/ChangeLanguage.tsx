@@ -2,10 +2,10 @@ import React, { ElementType } from 'react';
 import { View, StyleSheet, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Icon, Text, TouchableOpacity } from '.';
+import { CloseButton, Text, TouchableOpacity } from '.';
 import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
 import { Languages, Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -30,9 +30,7 @@ let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { 
       onRequestClose={() => toggleChangeLanguage(false)}
     >
       <View style={styles.container}>
-        <TouchableOpacity style={styles.close} onPress={() => toggleChangeLanguage(false)}>
-          <Icon source={require('../../assets/onboarding/close.png')} width={31} />
-        </TouchableOpacity>
+        <CloseButton onPress={() => toggleChangeLanguage(false)} />
 
         <View style={styles.titleWrapper}>
           <Text style={styles.title} bold>{title}</Text>
@@ -62,12 +60,6 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
     backgroundColor: '#fff'
-  },
-  close: {
-    position: 'absolute',
-    top: PADDING_TOP(20),
-    left: 20,
-    zIndex: 1000
   },
   titleWrapper: {
     width: SCREEN_WIDTH,

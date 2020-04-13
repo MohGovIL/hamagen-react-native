@@ -12,7 +12,7 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
-const togeojson = require('./ToGeoJson.js');
+const togeojson = require('@tmcw/togeojson');
 
 export const getLoadingHTML = () => {
   return '<head>'

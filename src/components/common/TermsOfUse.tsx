@@ -12,20 +12,22 @@ interface Props {
   toggleWebview(isShow: boolean, usageType: string): void
 }
 
-const TermsOfUse = ({ isRTL, strings: { location: { consent1, consent2 } }, value, onValueSelected, toggleWebview }: Props) => {
+const TermsOfUse = ({ isRTL, strings: { general: { readTOU, approveTOU }, location: { consent1, consent2 } }, value, onValueSelected, toggleWebview }: Props) => {
   return (
-    <TouchableOpacity onPress={() => onValueSelected(!value)}>
-      <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+      <TouchableOpacity onPress={() => onValueSelected(!value)} accessibilityLabel={approveTOU} accessibilityRole="checkbox" checked={value}>
         <View style={styles.box}>
           {value && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
         </View>
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={() => toggleWebview(true, USAGE_ON_BOARDING)} accessibilityHint={readTOU}>
         <Text style={{ paddingHorizontal: 10, textAlign: isRTL ? 'right' : 'left' }}>
           <Text style={[styles.text]}>{consent1}</Text>
-          <Text style={[styles.text, { textDecorationLine: 'underline' }]} onPress={() => toggleWebview(true, USAGE_ON_BOARDING)}>{consent2}</Text>
+          <Text style={[styles.text, { textDecorationLine: 'underline' }]}>{consent2}</Text>
         </Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 

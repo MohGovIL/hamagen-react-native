@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, StyleSheet, Modal, Linking } from 'react-native';
-import { ActionButton, Icon, Text, TouchableOpacity } from '.';
+import { ActionButton, CloseButton, Icon, Text } from '.';
 import store from '../../store';
 import { Strings } from '../../locale/LocaleData';
-import { IS_IOS, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 import { HIDE_FORCE_UPDATE } from '../../constants/ActionTypes';
+import { IS_IOS, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -28,9 +28,7 @@ const ForceUpdate = ({ isVisible, shouldForce, strings: { forceUpdate: { title, 
       <View style={styles.container}>
         {
           !shouldForce && (
-            <TouchableOpacity style={styles.close} onPress={closeModal}>
-              <Icon source={require('../../assets/onboarding/close.png')} width={31} />
-            </TouchableOpacity>
+            <CloseButton onPress={closeModal} />
           )
         }
 
@@ -55,12 +53,6 @@ const styles = StyleSheet.create({
     paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 40 : 70),
     paddingBottom: IS_SMALL_SCREEN ? 40 : 70,
     backgroundColor: '#fff'
-  },
-  close: {
-    position: 'absolute',
-    top: PADDING_TOP(20),
-    left: 20,
-    zIndex: 1000
   },
   title: {
     fontSize: 22,

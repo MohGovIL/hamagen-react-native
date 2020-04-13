@@ -1,8 +1,9 @@
 import { NativeModules } from 'react-native';
 import fetch from 'jest-fetch-mock';
-import config from '../../config/config';
 import * as tracker from '../Tracker';
+import { onError } from '../ErrorService';
 import * as db from '../../database/Database';
+import config from '../../config/config';
 import * as constants from '../../constants/Constants';
 import {onError} from '../ErrorService'
 jest.mock('../PushService', () => {
@@ -76,12 +77,12 @@ const userRecordExtras2 = {
 };
 
 beforeEach(() => {
-  onError.mockClear()
-})
+  onError.mockClear();
+});
 
 afterEach(() => {
-  expect(onError).toBeCalledTimes(0)
-})
+  expect(onError).toBeCalledTimes(0);
+});
 
 describe('Tracker', () => {
   
@@ -302,7 +303,7 @@ describe('Tracker', () => {
     );
 
     constants.IS_IOS = false;
-    expect( tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
   });
