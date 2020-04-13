@@ -1240,6 +1240,13 @@
     wcwidth "^1.0.1"
     ws "^1.1.0"
 
+"@react-native-community/cookies@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@react-native-community/cookies/-/cookies-2.0.8.tgz#baedf268fc32d463d3314f2d9f4b50c977c8f1d2"
+  integrity sha512-uIb+VBMoOz/zlh2FxZ1FEXc+/RpgD+YrF8XG7jvQcJu3GimsD8mf6hxfjHUDnFonilQgL0jDB2biTR5rF1XGbg==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-community/eslint-config@0.0.5":
   version "0.0.5"
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-config/-/eslint-config-0.0.5.tgz#584f6493258202a57efc22e7be66966e43832795"
