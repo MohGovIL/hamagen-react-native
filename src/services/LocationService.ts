@@ -61,8 +61,8 @@ export const requestMotionPermissions = (updateService: boolean) => new Promise(
   try {
     const res = await request(motionPermission);
 
-    if (updateService && res === RESULTS.GRANTED) {
-      await BackgroundGeolocation.setConfig({ disableMotionActivityUpdates: true });
+    if (updateService && (res === RESULTS.GRANTED || res === RESULTS.UNAVAILABLE)) {
+      await BackgroundGeolocation.setConfig({ disableMotionActivityUpdates: false });
     }
 
     resolve(res === RESULTS.GRANTED);
@@ -114,7 +114,8 @@ export const startLocationTracking = async (locale: string, notificationData: No
       }
     }
 
-    const disableMotionActivityUpdates = await checkMotionPermissions() !== RESULTS.GRANTED;
+    const motionPermissions = await checkMotionPermissions();
+    const disableMotionActivityUpdates = (motionPermissions !== RESULTS.GRANTED && motionPermissions !== RESULTS.UNAVAILABLE);
 
     await BackgroundGeolocation.ready({
       // Geolocation Config
