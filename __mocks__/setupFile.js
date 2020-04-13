@@ -20,21 +20,71 @@ NativeModules.I18nManager = {
   localeIdentifier: 'he'
 };
 
-jest.mock('@react-native-community/async-storage', () => mockAsyncStorage);
+jest.mock('@react-native-community/async-storage', () => ({
+  ...mockAsyncStorage, 
+  mockClear() {
+    Object.keys(mockAsyncStorage).forEach(key => mockAsyncStorage[key]?.mockClear?.())
+    mockAsyncStorage.clear()
+  }})
+)
+
+jest.mock('../src/services/ErrorService', () => ({
+  onError: jest.fn()
+  // onError: jest.fn(e => console.log(e))
+}))
 
 jest.mock('../src/database/Database.js', () => {
-  const listSamples = jest.fn();
+  
+  const containsObjectID = jest.fn()
+  const addSickRecord = jest.fn()
 
-  const UserLocationsDatabase = function () {
-    return { listSamples };
-  };
-  const containsObjectID = jest.fn();
-  const addSickRecord = jest.fn();
+  const IntersectionSickDatabase = jest.fn().mockImplementation(() => ({
+    containsObjectID,
+     addSickRecord
+  }))
 
-  const IntersectionSickDatabase = function () {
-    return { containsObjectID, addSickRecord };
-  };
-  return { UserLocationsDatabase, IntersectionSickDatabase };
+  const containsWifiHash = jest.fn()
+  const addWifiMacAddresses = jest.fn()
+  const WifiMacAddressDatabase =  jest.fn().mockImplementation(() => ({
+    containsWifiHash,
+    addWifiMacAddresses
+  }))
+
+  const updateLastSampleEndTime = jest.fn()
+  const addSample = jest.fn()
+  const listSamples = jest.fn()
+  const purgeSamplesTable = jest.fn()
+  const getLastPointEntered = jest.fn()
+
+  const UserLocationsDatabase = jest.fn().mockImplementation(() => ({
+      updateLastSampleEndTime,
+      addSample,
+      listSamples,
+      purgeSamplesTable,
+      getLastPointEntered
+  }))
+  const db = {
+    UserLocationsDatabase,
+    WifiMacAddressDatabase, 
+    IntersectionSickDatabase,
+    containsObjectID,
+    addSickRecord,
+    containsWifiHash,
+    addWifiMacAddresses,
+    updateLastSampleEndTime,
+    addSample,
+    listSamples,
+    purgeSamplesTable,
+    getLastPointEntered,
+  }
+
+  return { 
+    ...db,
+    mockClear(){
+      Object.keys(db).forEach((key) => db[key]?.mockClear?.())
+    } 
+};
+  
 });
 
 jest.mock('react-native-device-info', () => {
@@ -43,40 +93,6 @@ jest.mock('react-native-device-info', () => {
     getApplicationName: jest.fn(() => Promise.resolve('My App')),
     getBundleId: jest.fn()
   };
-});
-
-jest.mock('react-native-firebase', () => {
-  const firebase = {
-    messaging: jest.fn(() => {
-      return {
-        hasPermission: jest.fn(() => Promise.resolve(true)),
-        subscribeToTopic: jest.fn(),
-        unsubscribeFromTopic: jest.fn(),
-        requestPermission: jest.fn(() => Promise.resolve(true)),
-        getToken: jest.fn(() => Promise.resolve('myMockToken'))
-      };
-    }),
-    notifications: jest.fn(() => {
-      return {
-        onNotification: jest.fn(),
-        onNotificationDisplayed: jest.fn()
-      };
-    })
-  };
-
-  firebase.notifications.Android = {
-    Channel: jest.fn(() => ({
-      setDescription: jest.fn(),
-      setSound: jest.fn(),
-      enableVibration: jest.fn(),
-      setVibrationPattern: jest.fn()
-    })),
-    Importance: {
-      Max: {}
-    }
-  };
-
-  return firebase;
 });
 
 
@@ -92,6 +108,8 @@ jest.mock('../src/config/config.ts', () => {
   return {
     __esModule: true,
     namedExport: jest.fn(),
+    "locationServiceIgnoreConfidenceThreshold": 80,
+    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
     default: jest.fn(() => originalModule['com.hamagen']),
   };
 });
@@ -100,6 +118,7 @@ jest.mock('../src/store.ts', () => {
   const dispatch = jest.fn(() => ({
     locale: 'he',
     notificationData: {
+      androidNotification: {},
       sickMessage: {
         he: {
           title: 'כותרת',
@@ -109,11 +128,12 @@ jest.mock('../src/store.ts', () => {
     }
   }));
 
-  const store = jest.fn(() => ({ dispatch }));
+  const store = jest.fn().mockImplementation(() => ({ dispatch }))
 
   return {
     __esModule: true,
     namedExport: jest.fn(),
-    default: store
+    default: store,
+    dispatch
   };
 });
