@@ -1,12 +1,10 @@
-import * as RNPermission from 'react-native-permissions/lib/typescript';
-const { PERMISSIONS, RESULTS } = require('react-native-permissions/lib/commonjs/constants.js');
+import { Permission } from 'react-native-permissions';
 
-export { PERMISSIONS, RESULTS };
 // mock out any functions you want in this style...
-export async function check(permission: RNPermission.Permission) {
-  jest.fn();
-}
+export const check = async (permission: Permission) => {
+  return jest.fn().mockResolvedValue(true);
+};
 
-export async function request(permission: RNPermission.Permission) {
-    return jest.fn().mockResolvedValue(true)
-}
+export const request = async (permission: Permission) => {
+  return jest.fn().mockResolvedValue(true);
+};

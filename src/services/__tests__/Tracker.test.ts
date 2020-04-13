@@ -1,10 +1,11 @@
 import { NativeModules } from 'react-native';
 import fetch from 'jest-fetch-mock';
-import config from '../../config/config';
 import * as tracker from '../Tracker';
+import { onError } from '../ErrorService';
 import * as db from '../../database/Database';
+import config from '../../config/config';
 import * as constants from '../../constants/Constants';
-import {onError} from '../ErrorService'
+
 jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
   return { registerLocalNotification };
@@ -76,15 +77,14 @@ const userRecordExtras2 = {
 };
 
 beforeEach(() => {
-  onError.mockClear()
-})
+  onError.mockClear();
+});
 
 afterEach(() => {
-  expect(onError).toBeCalledTimes(0)
-})
+  expect(onError).toBeCalledTimes(0);
+});
 
 describe('Tracker', () => {
-  
   // ====================================
   //  Check all TimeOverlapping Scenario
   // ====================================
@@ -193,7 +193,6 @@ describe('Tracker', () => {
         sickRecord,
       ),
     ).toBe(true);
-
   });
 
   test('unitTestGeography()', () => {
@@ -276,7 +275,6 @@ describe('Tracker', () => {
 
         expect(intersectingRecords.length).toEqual(2);
       });
-
   });
 
   test('queryDB()', async () => {
@@ -302,7 +300,7 @@ describe('Tracker', () => {
     );
 
     constants.IS_IOS = false;
-    expect( tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
   });
