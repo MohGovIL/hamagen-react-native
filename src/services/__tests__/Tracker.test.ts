@@ -5,7 +5,7 @@ import { onError } from '../ErrorService';
 import * as db from '../../database/Database';
 import config from '../../config/config';
 import * as constants from '../../constants/Constants';
-import {onError} from '../ErrorService'
+
 jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
   return { registerLocalNotification };
