@@ -12,7 +12,8 @@ NativeModules.RNCNetInfo = {
 
 NativeModules.SettingsManager = {
   settings: {
-    AppleLocale: 'he'
+    AppleLocale: 'he',
+    AppleLanguages: ['he']
   }
 };
 
