@@ -130,7 +130,10 @@ const Loading = (
       if (!state.enabled) {
         await startSampling(locale, notificationData);
       } else if (!state.enableHeadless) {
-        await BackgroundGeolocation.setConfig({ enableHeadless: true });
+        await BackgroundGeolocation.setConfig({
+          enableHeadless: true,
+          foregroundService: true
+        });
       }
 
       await startForegroundTimer();
