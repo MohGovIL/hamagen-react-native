@@ -121,18 +121,7 @@ jest.mock('../src/config/config.ts', () => {
 });
 
 jest.mock('../src/store.ts', () => {
-  const dispatch = jest.fn().mockImplementation(() => ({
-    locale: 'he',
-    notificationData: {
-      androidNotification: {},
-      sickMessage: {
-        he: {
-          title: 'כותרת',
-          body: 'הודעה'
-        }
-      }
-    }
-  }))
+  const dispatch = jest.fn()
 
   const store = jest.fn().mockImplementation(() => ({ dispatch }));
   

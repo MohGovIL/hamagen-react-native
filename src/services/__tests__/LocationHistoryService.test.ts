@@ -61,11 +61,11 @@ describe('LocationHistoryService', () => {
             expect(db.insertBulkSamples).toBeCalledWith(sampleData.reduce((curr, sample) => `${curr}(${sample.lat},${sample.long},${sample.accuracy},${sample.startTime},${sample.endTime},'${sample.geoHash}','','a'),`,'').slice(0, -1))
 
             expect(actionSpy).toBeCalledTimes(1)
-            console.log(dispatch.mock.calls);
+            
             
         } )
 
-        test.only('with FIRST_POINT_TS', async () => {
+        test('with FIRST_POINT_TS', async () => {
             await AsyncStorage.setItem(FIRST_POINT_TS, (sampleData[0].startTime - 2000).toString())
 
             expect(await insertToSampleDB(sampleData)).toBeUndefined()
