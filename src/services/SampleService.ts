@@ -147,6 +147,16 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
 
     const db = new UserLocationsDatabase();
 
+    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+
+    const lastPointFromDB = await db.getLastPointEntered();
+    const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
+
+    // ignore locations with timestamp earlier then the last location saved
+    if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
+      return;
+    }
+
     const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
 
     if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
@@ -157,12 +167,9 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
       return;
     }
 
-    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
     let pointsToCheck;
 
     if (highVelocityPoints.length === 0) {
-      const lastPointFromDB = await db.getLastPointEntered();
-
       // in case this is the first point entered
       if (!lastPointFromDB) {
         return await insertDB(location);
