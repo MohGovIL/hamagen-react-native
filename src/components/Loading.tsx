@@ -29,7 +29,7 @@ import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { IntersectionSickDatabase } from '../database/Database';
-import { initConfig } from '../config/config';
+import config, { initConfig } from '../config/config';
 import store from '../store';
 import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
 import { ValidExposure } from '../types';
@@ -132,7 +132,9 @@ const Loading = (
       } else if (!state.enableHeadless) {
         await BackgroundGeolocation.setConfig({
           enableHeadless: true,
-          foregroundService: true
+          foregroundService: true,
+          distanceFilter: IS_IOS ? config().sampleDistance : 1,
+          disableElasticity: !IS_IOS
         });
       }
 
