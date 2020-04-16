@@ -234,8 +234,8 @@
       "start": "إبدأ",
       "additionalInfo": "معلومات إضافية ",
       "close": "أغلق",
-      "readTOU": "اقرأ شروط الاستخدام",
-      "approveTOU": "وافق على شروط الاستخدام"
+      "readTOU": "إقرأ شروط الإستعمال",
+      "approveTOU": "قبول شروط الإستخدام"
     },
     "languages": {
       "title": "إختر لغة",
@@ -375,8 +375,8 @@
       "start": "START",
       "additionalInfo": "Additional Privacy information",
       "close": "Close",
-      "readTOU": "Read the Terms of Use",
-      "approveTOU": "Approve the Terms of Use"
+      "readTOU": "Read the terms of use",
+      "approveTOU": "Confirm the terms of use"
     },
     "languages": {
       "title": "Select language",
@@ -515,9 +515,9 @@
     "general": {
       "start": "Начать",
       "additionalInfo": "политика конфиденциальности",
-      "close": "близко",
-      "readTOU": "прочитайте условия использования",
-      "approveTOU": "Подтвердите условия использования"
+      "close": "закрыть:",
+      "readTOU": "см. Руководство:",
+      "approveTOU": "согласен с условиями"
     },
     "languages": {
       "title": "Выберите язык",
@@ -656,9 +656,9 @@
     "general": {
       "start": "ጀምር",
       "additionalInfo": "ስለግላዊነት የበለጠ ለመረዳት",
-      "close": "ገጠመ",
-      "readTOU": "የአገልግሎት ውሎችን ያንብቡ",
-      "approveTOU": "የአገልግሎት ውልን ያጽድቁ"
+      "close": "ዝጋው",
+      "readTOU": "የአጠቃቁም ቅድመ ሁኔታ አንብብ",
+      "approveTOU": "በአጠቃቀሙን ቅድመ ሁኔታ መስማማትህን ግለፅ"
     },
     "languages": {
       "title": "ቋንቋ ይምረጡ",
@@ -798,8 +798,8 @@
       "start": "COMMENCER",
       "additionalInfo": "Informations supplémentaires sur la confidentialité",
       "close": "Fermer",
-      "readTOU": "Lisez les conditions d'utilisation",
-      "approveTOU": "Approuver les conditions d'utilisation"
+      "readTOU": "Lire les conditions d'utilisation",
+      "approveTOU": "Accepter les conditions d'utilisation"
     },
     "languages": {
       "title": "Choisir la langue",
