@@ -173,7 +173,7 @@ const ScanHome = (
         strings={strings}
         isConnected={hasLocation && hasNetwork && hasGPS}
         showChangeLanguage
-        goToExposureHistory={() => navigation.navigate('ExposuresHistory')}
+        openDrawer={navigation.openDrawer}
       />
 
       {
@@ -186,7 +186,7 @@ const ScanHome = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   }
 });
 

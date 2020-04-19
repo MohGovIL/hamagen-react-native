@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground } from 'react-native';
+import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
 import { Strings } from '../../locale/LocaleData';
@@ -10,10 +10,10 @@ interface Props {
   strings: Strings,
   isConnected: boolean,
   showChangeLanguage: boolean,
-  goToExposureHistory(): void
+  openDrawer(): void
 }
 
-const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposureHistory } }, isConnected, showChangeLanguage, goToExposureHistory }: Props) => {
+const ScanHomeHeader = ({openDrawer}) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -21,45 +21,23 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
       resizeMode="cover"
       resizeMethod="resize"
     >
-      {
-        showChangeLanguage && (
-          <View style={{ position: 'absolute', left: 20, top: PADDING_TOP(IS_SMALL_SCREEN ? 15 : 20) }}>
-            <ChangeLanguageButton />
-          </View>
-        )
-      }
+      <View style={{flexDirection: 'row', paddingBottom: 14}}>
 
-      <View style={{ flex: 1, justifyContent: 'center' }}>
-        <Icon source={require('../../assets/onboarding/israeliMinistryOfHealthLogo.png')} width={80} height={40} />
-      </View>
-
-      <View style={styles.subContainer}>
-        <TouchableOpacity onPress={goToExposureHistory}>
-          <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-            <Icon source={require('../../assets/main/history.png')} width={12} height={9} />
-            <Text style={styles.text}>{exposureHistory}</Text>
-          </View>
-        </TouchableOpacity>
-
-        <View style={[styles.headerItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-          <View style={styles.indicatorWrapper}>
-            {
-              isConnected ? (
-                <LottieView
-                  style={styles.lottie}
-                  source={require('../../assets/lottie/blinking.json')}
-                  resizeMode="cover"
-                  autoPlay
-                  loop
-                />
-              ) : (
-                <View style={[styles.indicator, { backgroundColor: '#b4b4b4' }]} />
-              )
-            }
-          </View>
-          <Text style={styles.text}>{isConnected ? hasData : noData}</Text>
+        <View style={{ flex:1,justifyContent: 'center', alignItems: 'flex-start'}}>
+            <Icon source={require('../../assets/main/share.png')} width={20} />
         </View>
+
+        <View style={{ flex:3, justifyContent: 'center', alignItems: 'center' }}>
+          <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
+        </View>
+
+        <TouchableWithoutFeedback onPress={openDrawer}>
+          <View style={{ flex:1, alignItems: 'flex-end' ,justifyContent: 'center'}}>
+            <Icon source={require('../../assets/main/menu.png')} width={20} />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
+      <View style={styles.subContainer} />
     </ImageBackground>
   );
 };
@@ -67,10 +45,10 @@ const ScanHomeHeader = ({ isRTL, strings: { scanHome: { noData, hasData, exposur
 const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * (IS_SMALL_SCREEN ? 0.20 : 0.17),
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: PADDING_TOP(0)
+    paddingTop: PADDING_TOP(10),
+    paddingHorizontal: 20
   },
   subContainer: {
     width: SCREEN_WIDTH,

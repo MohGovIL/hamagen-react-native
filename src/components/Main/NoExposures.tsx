@@ -1,11 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
+
 import LocationHistoryInfo from './LocationHistoryInfo';
-import { FadeInView, Text, TouchableOpacity } from '../common';
+import { FadeInView, Text,Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, BASIC_SHADOW_STYLES } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
@@ -30,9 +31,15 @@ const NoExposures = (
     goToLocationHistory
   }: Props
 ) => {
+  
   const appState = useRef<AppStateStatus>('active');
   const [now, setNow] = useState(moment().valueOf());
+  const { FPDate, nowHour} = useMemo(() => ({
+    FPDate : moment(firstPoint).format('D.M.YY'),
+    nowHour : moment(now).format('HH:mm')
+  }), [firstPoint,now])
 
+  // redundant ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
 
@@ -49,22 +56,8 @@ const NoExposures = (
     appState.current = state;
   };
 
-  const descriptions = () => {
-    const FPDate = moment(firstPoint).format('DD.MM.YY');
-    const FPHour = moment(firstPoint).format('HH:mm');
-    const nowHour = moment(now).format('HH:mm');
-
-    if (firstPoint) {
-      return `${accordingToData} ${from} ${FPDate} ${at} ${FPHour} ${until} ${at} ${nowHour} ${notFound}`;
-    }
-
-    return noExposure;
-  };
-
   return (
     <FadeInView style={styles.container}>
-      {!hideLocationHistory && <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />}
-
       <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>
         <LottieView
           style={styles.lottie}
@@ -74,15 +67,22 @@ const NoExposures = (
           loop
         />
 
-        <Text bold>{descriptions()}</Text>
+        <Text bold style={{fontSize: 17, marginBottom: 20}}>אפליקציית המגן פועלת כל הזמן</Text>
+        <Text bold style={{fontSize: 30}}>לא נמצאו</Text>
+        <Text bold style={{fontSize: 30}}>נקודות חפיפה</Text>
       </View>
+      <View style={styles.bottomCard}>
 
-      <Text style={{ lineHeight: 22, paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>{recommendation}</Text>
-
-      <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
-        <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
-        <View style={styles.bottomBorder} />
-      </TouchableOpacity>
+        <Text  style={{fontSize: 14, marginBottom: 10, }}>נכון לתאריך:</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center',flexDirection: 'row'}}>
+            <Icon source={require('../../assets/main/moreInfo.png')} width={15} customStyles={{marginRight: 6}}/>
+            <Text >
+              <Text bold style={{fontSize: 15,}}>{FPDate}</Text>
+              <Text style={{fontSize: 13,}}> בשעה </Text>
+              <Text bold style={{fontSize: 15,}}>{nowHour}</Text>
+            </Text>
+        </View>
+      </View>
     </FadeInView>
   );
 };
@@ -92,19 +92,19 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 25,
-    paddingBottom: PADDING_BOTTOM(50)
+    paddingBottom: PADDING_BOTTOM(58)
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     marginBottom: IS_SMALL_SCREEN ? 10 : 25
   },
-  bottomBorder: {
-    alignSelf: 'stretch',
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: MAIN_COLOR
+  bottomCard: {
+    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.76 : 0.82),
+    paddingVertical: 22, 
+    borderRadius: 13,
+    backgroundColor: '#FDFDFD',
+    ...BASIC_SHADOW_STYLES
   }
 });
 

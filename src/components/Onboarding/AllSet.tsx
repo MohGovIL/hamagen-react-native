@@ -48,7 +48,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await startSampling(locale, notificationData);
       await scheduleTask();
 
-      navigation.replace('ScanHome');
+      navigation.replace('Home');
     } catch (error) {
       onError({ error });
     }
