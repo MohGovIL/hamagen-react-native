@@ -12,7 +12,8 @@ NativeModules.RNCNetInfo = {
 
 NativeModules.SettingsManager = {
   settings: {
-    AppleLocale: 'he'
+    AppleLocale: 'he',
+    AppleLanguages: ['he']
   }
 };
 
@@ -27,10 +28,18 @@ jest.mock('@react-native-community/async-storage', () => ({
     mockAsyncStorage.clear();
   } }));
 
+jest.mock('@tmcw/togeojson', () => ({
+    kml: jest.fn()  
+}))
+
 jest.mock('../src/services/ErrorService', () => ({
   onError: jest.fn()
   // onError: jest.fn(e => console.log(e))
 }));
+
+jest.mock('../src/services/sha256', () => ({
+  sha256: jest.fn().mockImplementation(char => 'a')
+}))
 
 jest.mock('../src/database/Database.js', () => {
   const containsObjectID = jest.fn();
@@ -53,14 +62,17 @@ jest.mock('../src/database/Database.js', () => {
   const listSamples = jest.fn();
   const purgeSamplesTable = jest.fn();
   const getLastPointEntered = jest.fn();
+  const insertBulkSamples = jest.fn();
 
   const UserLocationsDatabase = jest.fn().mockImplementation(() => ({
     updateLastSampleEndTime,
     addSample,
     listSamples,
     purgeSamplesTable,
-    getLastPointEntered
+    getLastPointEntered,
+    insertBulkSamples
   }));
+
   const db = {
     UserLocationsDatabase,
     WifiMacAddressDatabase,
@@ -74,6 +86,7 @@ jest.mock('../src/database/Database.js', () => {
     listSamples,
     purgeSamplesTable,
     getLastPointEntered,
+    insertBulkSamples
   };
 
   return {
@@ -107,26 +120,16 @@ jest.mock('../src/config/config.ts', () => {
     namedExport: jest.fn(),
     locationServiceIgnoreConfidenceThreshold: 80,
     locationServiceIgnoreSampleVelocityThreshold: 2.8,
+    locationHistoryIgnoreList: ['should ignore from test'],
     default: jest.fn(() => originalModule['com.hamagen']),
   };
 });
 
 jest.mock('../src/store.ts', () => {
-  const dispatch = jest.fn(() => ({
-    locale: 'he',
-    notificationData: {
-      androidNotification: {},
-      sickMessage: {
-        he: {
-          title: 'כותרת',
-          body: 'הודעה'
-        }
-      }
-    }
-  }));
+  const dispatch = jest.fn()
 
   const store = jest.fn().mockImplementation(() => ({ dispatch }));
-
+  
   return {
     __esModule: true,
     namedExport: jest.fn(),
@@ -134,3 +137,4 @@ jest.mock('../src/store.ts', () => {
     dispatch
   };
 });
+
