@@ -12,10 +12,7 @@ import java.util.List;
 
 import android.view.WindowManager;
 import android.content.res.Configuration;
-import android.content.Context;
 import android.util.DisplayMetrics;
-
-import io.radar.sdk.Radar;
 
 import android.content.IntentFilter;
 import io.rumors.reactnativesettings.RNSettingsPackage;
@@ -25,7 +22,6 @@ import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
-import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -44,7 +40,6 @@ public class MainApplication extends Application implements ReactApplication {
                     // packages.add(new MyReactNativePackage());
                     packages.add(new RNFirebaseMessagingPackage());
                     packages.add(new RNFirebaseNotificationsPackage());
-                    packages.add(new RNFirebaseAnalyticsPackage());
                     return packages;
                 }
 
@@ -62,8 +57,6 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Radar.initialize("prj_test_pk_0c1593aef4c81653ef790cd63e33f6ac61195590");
 
         // disable font scaling
         adjustFontScale(getApplicationContext(),getResources().getConfiguration());

@@ -1,7 +1,7 @@
 {
   "com.hamagen.dev": {
-    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsUtc.json",
-    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsUtc.json",
+    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
+    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "sampleDistance": 50,
@@ -12,6 +12,13 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationServiceIgnoreList": [
+      "running",
+      "on_bicycle",
+      "in_vehicle"
+    ],
+    "locationServiceIgnoreConfidenceThreshold": 80,
+    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
     "locationHistoryIgnoreList": [
       "On a train",
       "In a taxi or rideshare",
@@ -54,8 +61,8 @@
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
       "fr": {
-          "title": "Une ou plusieurs expositions peuvent avoir été détectées",
-          "body": "Cliquez ici pour savoir si vous avez été exposé "
+        "title": "Une ou plusieurs expositions peuvent avoir été détectées",
+        "body": "Cliquez ici pour savoir si vous avez été exposé "
       },
       "duration": 10000
     },
@@ -93,8 +100,8 @@
     }
   },
   "com.hamagen.qa": {
-    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsUtc.json",
-    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsUtc.json",
+    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
+    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "sampleDistance": 50,
@@ -105,6 +112,13 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationServiceIgnoreList": [
+      "running",
+      "on_bicycle",
+      "in_vehicle"
+    ],
+    "locationServiceIgnoreConfidenceThreshold": 80,
+    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
     "locationHistoryIgnoreList": [
       "On a train",
       "In a taxi or rideshare",
@@ -147,8 +161,8 @@
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
       "fr": {
-          "title": "Une ou plusieurs expositions peuvent avoir été détectées",
-          "body": "Cliquez ici pour savoir si vous avez été exposé "
+        "title": "Une ou plusieurs expositions peuvent avoir été détectées",
+        "body": "Cliquez ici pour savoir si vous avez été exposé "
       },
       "duration": 10000
     },
@@ -186,7 +200,7 @@
     }
   },
   "com.hamagen": {
-    "dataUrl": "https://gisweb.azureedge.net/Points.json",
+    "dataUrl": "https://gisweb.azureedge.net/PointsUtc.json",
     "dataUrl_utc": "https://gisweb.azureedge.net/PointsUtc.json",
     "stringsUrl": "https://gisweb.azureedge.net/texts.json",
     "versionsUrl": "https://gisweb.azureedge.net/versions.json",
@@ -198,6 +212,13 @@
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
+    "locationServiceIgnoreList": [
+      "running",
+      "on_bicycle",
+      "in_vehicle"
+    ],
+    "locationServiceIgnoreConfidenceThreshold": 80,
+    "locationServiceIgnoreSampleVelocityThreshold": 2.8,
     "locationHistoryIgnoreList": [
       "On a train",
       "In a taxi or rideshare",
@@ -240,8 +261,8 @@
         "body": "انقر هنا لمعرفة ما إذا كنت قد تعرضت"
       },
       "fr": {
-          "title": "Une ou plusieurs expositions peuvent avoir été détectées",
-          "body": "Cliquez ici pour savoir si vous avez été exposé "
+        "title": "Une ou plusieurs expositions peuvent avoir été détectées",
+        "body": "Cliquez ici pour savoir si vous avez été exposé "
       },
       "duration": 10000
     },

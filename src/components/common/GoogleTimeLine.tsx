@@ -1,6 +1,7 @@
 import React, { RefObject, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
+import CookieManager from '@react-native-community/cookies';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   getLastNrDaysKmlUrls,
@@ -12,7 +13,9 @@ import { WebviewHeader, TouchableOpacity, Icon, ActionButton, Text } from '.';
 import { checkIfHideLocationHistory } from '../../actions/GeneralActions';
 import { onError } from '../../services/ErrorService';
 import store from '../../store';
+import { Strings } from '../../locale/LocaleData';
 import {
+  IS_IOS,
   IS_SMALL_SCREEN,
   MAIN_COLOR,
   SCREEN_WIDTH,
@@ -58,7 +61,7 @@ const FetchHistoryModal = ({ isVisible, isLoggedIn, webViewRef, onMessage, close
 };
 
 interface GoogleTimeLineProps {
-  strings: any,
+  strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void,
   onCompletion(): void
 }
@@ -75,6 +78,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     locationHistory: { beforeCheckTitle, beforeCheckDesc, beforeCheckDesc2, beforeCheckButton, skip, successFoundTitle, successFoundDesc, successFoundButton, successNotFoundTitle, successNotFoundDesc, successNotFoundButton, failedTitle, failedDesc, failedButton }
   } = strings;
 
+  const didRetry = useRef<boolean>(false);
   const webViewRef = useRef<WebView>(null);
 
   const [{ openWebview, isLoggedIn, state }, setState] = useState<State>({ openWebview: false, isLoggedIn: false, state: 'before' });
@@ -129,6 +133,13 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     }
   };
 
+  const retryKMLDownload = (didRetry: any, kmlUrls: string[]) => new Promise<string[]>((resolve) => {
+    setTimeout(async () => {
+      didRetry.current = true;
+      resolve(await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text()))));
+    }, IS_IOS ? 5000 : 10);
+  });
+
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
     if (!data) {
       return;
@@ -142,24 +153,29 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
         const kmlUrls = getLastNrDaysKmlUrls();
 
-        const texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
+        let texts = await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text())));
 
         if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
-          return onFetchError('Fetch KML error');
+          if (!didRetry.current) {
+            texts = await retryKMLDownload(didRetry, kmlUrls);
+
+            if (texts[0].indexOf('DOCTYPE') > -1 && texts[0].indexOf('Error') > -1) {
+              return onFetchError('Fetch KML error');
+            }
+          } else {
+            return onFetchError('Fetch KML error');
+          }
         }
 
         const pointsData = texts.flatMap((kml: string) => kmlToGeoJson(kml));
 
         if (pointsData.length === 0) {
-          // once 14 days flow completed for the first time
-          await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
-          store().dispatch(checkIfHideLocationHistory());
-          return setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successNotFound' }));
+          return onFlowEnd('successNotFound');
         }
 
         await insertToSampleDB(pointsData);
 
-        setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'successFound' }));
+        return onFlowEnd('successFound');
       } catch (error) {
         await onFetchError(error);
       }
@@ -167,8 +183,24 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
   };
 
   const onFetchError = async (error: any) => {
-    setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state: 'failed' }));
+    await onFlowEnd('failed');
     onError({ error });
+  };
+
+  const onFlowEnd = async (state: 'before'|'successFound'|'successNotFound'|'failed') => {
+    if (state !== 'failed') {
+      // once 14 days flow completed for the first time
+      await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
+      store().dispatch(checkIfHideLocationHistory());
+    }
+
+    webViewRef.current?.injectJavaScript('setTimeout(() => { document.location = "https://accounts.google.com/logout"; true; }, 10)');
+
+    setTimeout(async () => {
+      didRetry.current = false;
+      setState(prevState => ({ ...prevState, openWebview: false, isLoggedIn: false, state }));
+      await CookieManager.clearAll(true);
+    }, 300);
   };
 
   return (

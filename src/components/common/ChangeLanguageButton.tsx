@@ -4,16 +4,24 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Icon, TouchableOpacity, Text } from '.';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
+import { Languages, Strings } from '../../locale/LocaleData';
 
 interface Props {
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
+  locale: string,
+  languages: Languages,
+  strings: Strings,
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguageButton: ElementType = ({ locale, strings: { languages: { short } }, toggleChangeLanguage }: Props) => {
+let ChangeLanguageButton: ElementType = ({ locale, strings: { languages: { title } }, languages: { short, long }, toggleChangeLanguage }: Props) => {
   return (
-    <TouchableOpacity onPress={() => toggleChangeLanguage(true)}>
+    <TouchableOpacity
+      onPress={() => toggleChangeLanguage(true)}
+      importantForAccessibility="no-hide-descendants"
+      accessibilityElementsHidden
+      accessibilityHint={long[locale]}
+      accessibilityLabel={title}
+    >
       <View style={styles.container}>
         <Text style={styles.text}>{short[locale]}</Text>
         <Icon source={require('../../assets/onboarding/lang.png')} width={20} />
@@ -37,10 +45,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { strings, locale }
+    locale: { locale, languages, strings }
   } = state;
 
-  return { strings, locale };
+  return { locale, languages, strings };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

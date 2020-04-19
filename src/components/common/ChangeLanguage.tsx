@@ -1,21 +1,23 @@
 import React, { ElementType } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
+import { View, StyleSheet, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Icon, Text, TouchableOpacity } from '.';
+import { CloseButton, Text, TouchableOpacity } from '.';
 import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
-import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { Languages, Strings } from '../../locale/LocaleData';
+import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
-  strings: any,
-  locale: 'he'|'en'|'ar'|'am'|'ru'|'fr',
-  changeLocale(locale: 'he'|'en'|'ar'|'am'|'ru'|'fr'): void,
+  strings: Strings,
+  locale: string,
+  languages: Languages,
+  changeLocale(locale: string): void,
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title, long } }, changeLocale, toggleChangeLanguage }: Props) => {
-  const onButtonPress = (selectedLocale: 'he'|'en'|'ar'|'am'|'ru'|'fr') => {
+let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
+  const onButtonPress = (selectedLocale: string) => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };
@@ -28,21 +30,26 @@ let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { 
       onRequestClose={() => toggleChangeLanguage(false)}
     >
       <View style={styles.container}>
-        <TouchableOpacity style={styles.close} onPress={() => toggleChangeLanguage(false)}>
-          <Icon source={require('../../assets/onboarding/close.png')} width={31} />
-        </TouchableOpacity>
+        <CloseButton onPress={() => toggleChangeLanguage(false)} />
 
-        <Text style={styles.title} bold>{title}</Text>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title} bold>{title}</Text>
+        </View>
 
-        {
-          Object.keys(long).map((key: string, index: number) => (
-            <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
-              <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
-                <Text style={[styles.text, key === locale && { color: '#fff' }]} black>{long[key]}</Text>
-              </View>
-            </TouchableOpacity>
-          ))
-        }
+        <ScrollView
+          contentContainerStyle={{ alignItems: 'center' }}
+          showsVerticalScrollIndicator={false}
+        >
+          {
+            Object.keys(long).map((key: string, index: number) => (
+              <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
+                <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
+                  <Text style={[styles.text, key === locale && { color: '#fff' }]} black>{long[key]}</Text>
+                </View>
+              </TouchableOpacity>
+            ))
+          }
+        </ScrollView>
       </View>
     </Modal>
   );
@@ -52,15 +59,14 @@ const styles = StyleSheet.create({
   container: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#fff'
   },
-  close: {
-    position: 'absolute',
-    top: PADDING_TOP(20),
-    left: 20,
-    zIndex: 1000
+  titleWrapper: {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT * 0.2,
+    paddingTop: SCREEN_HEIGHT * 0.1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   title: {
     fontSize: 22,
@@ -83,10 +89,10 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    locale: { strings, locale }
+    locale: { strings, locale, languages }
   } = state;
 
-  return { strings, locale };
+  return { strings, locale, languages };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

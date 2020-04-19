@@ -2,13 +2,14 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { toggleWebview } from '../../../actions/GeneralActions';
-import { PADDING_BOTTOM, PADDING_TOP, USAGE_PRIVACY } from '../../../constants/Constants';
 import { GoogleTimeLine } from '../../common';
+import { toggleWebview } from '../../../actions/GeneralActions';
+import { Strings } from '../../../locale/LocaleData';
+import { PADDING_BOTTOM, PADDING_TOP, USAGE_PRIVACY } from '../../../constants/Constants';
 
 interface Props {
   navigation: any,
-  strings: any,
+  strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void
 }
 

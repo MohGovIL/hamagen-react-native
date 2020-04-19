@@ -5,16 +5,29 @@ import BackgroundFetch from 'react-native-background-fetch';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import App from './src/App';
 import { name as appName } from './app.json';
+import { updateDBAccordingToSampleVelocity } from './src/services/SampleService';
 import { checkSickPeople } from './src/services/Tracker';
-import { insertDB } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
 
-BackgroundGeolocation.onLocation(
-  async (location) => {
+const onLocationReceived = async (location) => {
+  // ignore non-distinct locations from the SDK
+  if (location.sample) {
+    return;
+  }
+
+  try {
     location.timestamp = moment(location.timestamp).valueOf();
     await initConfig();
-    await insertDB(location);
+    await updateDBAccordingToSampleVelocity(location);
+  } catch (error) {
+    onError({ error });
+  }
+};
+
+BackgroundGeolocation.onLocation(
+  async (location) => {
+    await onLocationReceived(location);
   }, (error) => {
     onError({ error });
   }
@@ -34,8 +47,12 @@ const BackgroundFetchHeadlessTask = async (event) => {
   }
 };
 
-const BackgroundGeolocationHeadlessTask = async (event, params) => {
-  console.log('[BackgroundGeolocation HeadlessTask] -', event.name, params);
+const BackgroundGeolocationHeadlessTask = async (event) => {
+  console.log('[BackgroundGeolocation HeadlessTask] -', event.name);
+
+  if (event.name === 'location') {
+    await onLocationReceived(event.params);
+  }
 };
 
 AppRegistry.registerComponent(appName, () => App);

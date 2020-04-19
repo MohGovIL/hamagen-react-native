@@ -4,12 +4,13 @@ import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
 import { FadeInView, Text, TouchableOpacity } from '../common';
+import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
   isRTL: boolean,
   firstPoint?: number,
-  strings: any,
+  strings: Strings,
   hideLocationHistory: boolean,
   goToLocationHistory(): void,
   toggleWebview(isShow: boolean, usageType: string): void
@@ -64,19 +65,19 @@ const NoExposures = (
     <FadeInView style={styles.container}>
       {!hideLocationHistory && <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />}
 
-      <View style={{ alignItems: 'center' }}>
+      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>
         <LottieView
           style={styles.lottie}
           source={require('../../assets/lottie/magen logo.json')}
           resizeMode="cover"
           autoPlay
-          loop={false}
+          loop
         />
 
-        <Text style={styles.text} bold>{descriptions()}</Text>
+        <Text bold>{descriptions()}</Text>
       </View>
 
-      <Text style={[styles.text, { lineHeight: 22 }]}>{recommendation}</Text>
+      <Text style={{ lineHeight: 22, paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>{recommendation}</Text>
 
       <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
         <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
@@ -95,12 +96,9 @@ const styles = StyleSheet.create({
     paddingBottom: PADDING_BOTTOM(50)
   },
   lottie: {
-    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
-    height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.3 : 0.5),
+    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
+    height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     marginBottom: IS_SMALL_SCREEN ? 10 : 25
-  },
-  text: {
-    width: 220
   },
   bottomBorder: {
     alignSelf: 'stretch',

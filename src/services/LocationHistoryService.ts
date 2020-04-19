@@ -12,7 +12,7 @@ import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
-const togeojson = require('./ToGeoJson.js');
+const togeojson = require('@tmcw/togeojson');
 
 export const getLoadingHTML = () => {
   return '<head>'
@@ -38,8 +38,7 @@ export const getLastNrDaysKmlUrls = () => {
   });
 };
 
-const createObject = (point: any, timespan: any) => {
-  return {
+const createObject = (point: any, timespan: any) => ({
     startTime: moment(timespan.begin).valueOf(),
     endTime: moment(timespan.end).valueOf(),
     long: point[0],
@@ -47,8 +46,7 @@ const createObject = (point: any, timespan: any) => {
     geoHash: geoHash.encode(point[1], point[0]),
     accuracy: 0,
     wifiHash: ''
-  };
-};
+})
 
 export const kmlToGeoJson = (text: any) => {
   const kml = new DOMParser().parseFromString(text);
