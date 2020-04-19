@@ -178,6 +178,7 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
         endTime: location.timestamp,
         reason: 'SDK'
       }]));
+
       return;
     }
 
