@@ -21,7 +21,7 @@ afterEach(() => {
 describe('Sample Service', () => {
   describe('startSampling', () => {
     test('check resolves', async () => {
-      onError.mockImplementationOnce(console.log);
+      // onError.mockImplementationOnce(console.log);
       expect(startSampling('en', { androidNotification: {} })).resolves.toBeTruthy();
     });
 
@@ -102,18 +102,18 @@ describe('Sample Service', () => {
       // lower speed
       sample.coords.speed = 2;
       // mock IS_LAST_POINT_FROM_TIMELINE
-      AsyncStorage.getItem.mockResolvedValueOnce(true).mockResolvedValueOnce(undefined);
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true')
       // return insertDB
       expect(await updateDBAccordingToSampleVelocity(sample)).toBeTruthy();
     });
 
     test('with one point from DB', async () => {
+      sample.coords.speed = 2;
       // mock IS_LAST_POINT_FROM_TIMELINE
-      AsyncStorage.getItem
-        .mockResolvedValueOnce(true)
-        .mockResolvedValueOnce(undefined);
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true')
+      
       db.getLastPointEntered.mockResolvedValueOnce({ lat: 123.123, long: 321.321, accuracy: 0.7, endTime: new Date().getTime() });
-      expect(await updateDBAccordingToSampleVelocity(sample)).toBeUndefined();
+      await updateDBAccordingToSampleVelocity(sample)
       expect(AsyncStorage.removeItem).toBeCalledWith(HIGH_VELOCITY_POINTS);
     });
 
