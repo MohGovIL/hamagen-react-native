@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios --scheme hamagen",
+    "ios-qa": "react-native run-ios --scheme hamagen-qa",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -16,7 +17,7 @@
     "@react-native-community/masked-view": "^0.1.8",
     "@react-native-community/netinfo": "5.6.2",
     "@react-navigation/bottom-tabs": "5.0.3",
-    "@react-navigation/drawer": "5.0.3",
+    "@react-navigation/drawer": "5.4.0",
     "@react-navigation/native": "5.0.3",
     "@react-navigation/stack": "5.0.3",
     "@redux-offline/redux-offline": "2.5.2-native.3",
@@ -101,6 +102,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",
     "tslint-react": "4.0.0",
-    "typescript": "3.7.3"
+    "typescript": "3.8.3"
   }
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import _ from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -67,6 +68,24 @@ interface Props {
   toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void
 }
+
+const Drawer = createDrawerNavigator()
+
+const Home = () => (
+  <Drawer.Navigator 
+    screenOptions={{gestureEnabled: false}}
+    drawerPosition="right" 
+    initialRouteName="ScanHome" 
+    drawerStyle={{
+      backgroundColor: 'rgb(235,246,252)',
+      width: Dimensions.get('window').width,
+    }}>
+    <Drawer.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+    <Drawer.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+    <Drawer.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+    <Drawer.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+  </Drawer.Navigator>
+)
 
 const Loading = (
   {
@@ -159,10 +178,10 @@ const Loading = (
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
       firstPointTS && store().dispatch({ type: UPDATE_FIRST_POINT, payload: firstPointTS });
 
-      setInitialRoute('ScanHome');
+      setInitialRoute('Home');
     } catch (error) {
       const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
-      setInitialRoute(notFirstTime === null ? 'Welcome' : 'ScanHome');
+      setInitialRoute(notFirstTime === null ? 'Welcome' : 'Home');
       onError({ error });
     }
   };
@@ -180,7 +199,8 @@ const Loading = (
   };
 
   const Stack = createStackNavigator();
-
+  
+  
   return (
     (_.isEmpty(strings) || !initialRoute) ? null : (
       <View style={styles.container}>
@@ -192,17 +212,15 @@ const Loading = (
           <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-          <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-          <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} isRTL={isRTL}/>
+          
         </Stack.Navigator>
-
         <Loader isVisible={showLoader} />
         <ChangeLanguage isVisible={showChangeLanguage} />
         <GeneralWebview isVisible={showWebview} locale={locale} externalUrls={externalUrls} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
         <ForceUpdate isVisible={showForceUpdate} shouldForce={shouldForce} strings={strings} />
         <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
+        
       </View>
     )
   );
