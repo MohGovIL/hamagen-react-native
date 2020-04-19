@@ -28,6 +28,10 @@ jest.mock('@react-native-community/async-storage', () => ({
     mockAsyncStorage.clear();
   } }));
 
+jest.mock('@tmcw/togeojson', () => ({
+    kml: jest.fn()  
+}))
+
 jest.mock('../src/services/ErrorService', () => ({
   onError: jest.fn()
   // onError: jest.fn(e => console.log(e))
@@ -116,6 +120,7 @@ jest.mock('../src/config/config.ts', () => {
     namedExport: jest.fn(),
     locationServiceIgnoreConfidenceThreshold: 80,
     locationServiceIgnoreSampleVelocityThreshold: 2.8,
+    locationHistoryIgnoreList: ['should ignore from test'],
     default: jest.fn(() => originalModule['com.hamagen']),
   };
 });
@@ -132,3 +137,4 @@ jest.mock('../src/store.ts', () => {
     dispatch
   };
 });
+

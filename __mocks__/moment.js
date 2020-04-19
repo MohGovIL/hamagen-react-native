@@ -13,9 +13,9 @@ const moment = jest.fn().mockImplementation(() => ({
 }))
 
 moment.mockClear = function(){
-    moment.forEach(element => {
+    for(const element in moment){
         moment[element]?.mockClear?.()
-    });
+    }
 }
 
 export default moment

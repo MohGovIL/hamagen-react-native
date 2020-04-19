@@ -1,29 +1,133 @@
 import { onError } from '../ErrorService';
 import AsyncStorage from '@react-native-community/async-storage'
+import moment,{valueOf,subtract,date,month,year,} from 'moment';
+import {encode} from 'latlon-geohash';
 import * as db from '../../database/Database';
 import {sha256} from '../sha256'
 import {dispatch} from '../../store'
-import { FIRST_POINT_TS } from '../../constants/Constants';
+import { FIRST_POINT_TS, SHOULD_HIDE_LOCATION_HISTORY } from '../../constants/Constants';
 import * as generalActions from '../../actions/GeneralActions'
-import {insertToSampleDB,getLoadingHTML} from '../LocationHistoryService'
+import {insertToSampleDB,kmlToGeoJson,getLoadingHTML, getLastNrDaysKmlUrls} from '../LocationHistoryService'
+
+import {kml} from '@tmcw/togeojson'
+
 
 const actionSpy = jest.spyOn(generalActions, 'checkIfHideLocationHistory')
 
+beforeEach(() => {
+    AsyncStorage.mockClear()
+    moment.mockClear()
+})
+
+
+jest.mock('xmldom', () => ({
+    DOMParser: jest.fn().mockImplementation(() => ({
+        parseFromString: jest.fn()
+    }))
+}))
+
+// const {subtract, date, month, year} = momentSubFn
+
 describe('LocationHistoryService', () => {
 
-    xdescribe('getLoadingHTML', () => {
+    describe('getLoadingHTML', () => {
         test('Is valid HTML', () => {
+            const { DOMParser } = jest.requireActual('xmldom')
             const loadedHTML = getLoadingHTML()
+            // check if parsing the dom works
+            expect(new DOMParser().parseFromString(loadedHTML)).toBeDefined()
             
         })
     })
 
-    xdescribe('getLastNrDaysKmlUrls', () => {
-
+    describe('getLastNrDaysKmlUrls', () => {
+        
+        test('make an array for 2 weeks', ()=> {
+            subtract.mockImplementation(() => ({
+                date,
+                month,
+                year,
+            }))
+            expect(getLastNrDaysKmlUrls()).toHaveLength(14)
+            // length of 2 weeks
+            expect(subtract).toBeCalledTimes(14)        
+        })
     })
 
-    xdescribe('kmlToGeoJson', () => {
+    describe('kmlToGeoJson', () => {    
+        
+        beforeEach(() => {
+            kml.mockClear()
+        })
 
+        test('no text', () => {
+            kml.mockReturnValue({features: []})
+            expect(kmlToGeoJson()).toHaveLength(0)  
+            expect(kmlToGeoJson('')).toHaveLength(0)  
+        })
+
+        test('filters results', () => {
+            const features = [
+                {
+                    geometry: {
+                        type: 'Point',
+
+                    },
+                    properties: {
+                        timespan: {
+                            begin: 1,
+                            end: 2
+                        },
+                        coordinates: [1, 1],
+                        Category: 'should ignore from test',
+
+                    }
+                },
+            ]
+            kml.mockReturnValue({features})
+            expect(kmlToGeoJson('')).toHaveLength(0)  
+        })
+
+        test('make proper sample obj', () => {
+            const features = [
+                {
+                    geometry: {
+                      type: 'Point',
+                      coordinates: [34.8077312410001, 32.1154996280001],
+                    },
+                    properties: {
+                      OBJECTID: 1720,
+                      Key_Field: 1720,
+                      Name: 'חולה 15',
+                      Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+                      Comments:
+                        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+                      POINT_X: 34.80773124,
+                      POINT_Y: 32.11549963,
+                      timespan: {
+                        begin:1583144100000,
+                        end: 1583147700000
+                      },
+                      sourceOID: 1,
+                      stayTimes: '10:15-11:15',
+                    },
+                  }
+            ]
+            valueOf.mockReturnValueOnce(1).mockReturnValueOnce(2)
+            kml.mockReturnValue({features})
+            encode.mockReturnValueOnce(1)
+
+            expect(kmlToGeoJson('')).toEqual([{
+                startTime: 1,
+                endTime: 2,
+                long: 34.8077312410001,
+                lat:  32.1154996280001,
+                geoHash: 1,
+                accuracy: 0,
+                wifiHash: ''
+            }])  
+        })
+        
     })
 
     describe('insertToSampleDB', () => {
@@ -70,7 +174,9 @@ describe('LocationHistoryService', () => {
 
             expect(await insertToSampleDB(sampleData)).toBeUndefined()
 
+            expect(AsyncStorage.setItem).toBeCalledWith(SHOULD_HIDE_LOCATION_HISTORY,'true')
             expect(actionSpy).toBeCalledTimes(1)
+            expect(dispatch).toBeCalledTimes(1)
             
         })
 
