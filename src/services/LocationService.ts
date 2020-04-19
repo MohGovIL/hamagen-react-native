@@ -120,8 +120,7 @@ export const startLocationTracking = async (locale: string, notificationData: No
     await BackgroundGeolocation.ready({
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
-      distanceFilter: IS_IOS ? config().sampleDistance : 1,
-      disableElasticity: !IS_IOS,
+      distanceFilter: config().sampleDistance,
       locationUpdateInterval: config().sampleInterval,
       fastestLocationUpdateInterval: config().sampleInterval,
       // Activity Recognition
