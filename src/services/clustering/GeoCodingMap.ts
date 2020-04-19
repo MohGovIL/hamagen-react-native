@@ -32,7 +32,7 @@ export const geoHashWithBoundBox = (loc: DBLocation, defPrecision = 6): GeoCode 
     timeInter: [loc.startTime, loc.endTime],
     bound: [
       { latitude: box.ne.lat, longitude: box.ne.lon },
-      { latitude: box.sw.lon, longitude: box.sw.lon }
+      { latitude: box.sw.lat, longitude: box.sw.lon }
     ]
   };
 };
