@@ -6,37 +6,41 @@ import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
 import { FadeInView, Text,Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, BASIC_SHADOW_STYLES } from '../../constants/Constants';
-import InfoModal from './InfoModal'
+import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import InfoModal, {InfoModalTypes} from './InfoModal'
 
-interface Props {
+interface NoExposuresProps {
   isRTL: boolean,
   firstPoint?: number,
   strings: Strings,
-  hideLocationHistory: boolean,
-  goToLocationHistory(): void,
-  toggleWebview(isShow: boolean, usageType: string): void
 }
 
 const NoExposures = (
   {
     isRTL,
     firstPoint,
-    strings: {
-      general: { additionalInfo },
-      scanHome: { noExposure, accordingToData, from, at, until, notFound, recommendation },
-      locationHistory: { info, moreInfo }
-    },
-  }: Props
+    strings,
+  }: NoExposuresProps
 ) => {
   
   const appState = useRef<AppStateStatus>('active');
-  const modalRef = useRef(null)
+  const modalRef = useRef<InfoModalTypes>(null)
   const [now, setNow] = useState(moment().valueOf());
   const { FPDate, nowHour} = useMemo(() => ({
     FPDate : moment(firstPoint).format('D.M.YY'),
     nowHour : moment(now).format('HH:mm')
   }), [firstPoint,now])
+
+  const  {
+    scanHome: {
+      noExposures: {
+        card: {
+          title,
+          atHour
+        }
+      }
+    } 
+  } = strings
 
   // redundant ScanHome calls it
   useEffect(() => {
@@ -68,28 +72,27 @@ const NoExposures = (
         />
 
         <Text bold style={{fontSize: 17, marginBottom: 20}}>אפליקציית המגן פועלת כל הזמן</Text>
-        <Text bold style={{fontSize: 30}}>לא נמצאו</Text>
-        <Text bold style={{fontSize: 30}}>נקודות חפיפה</Text>
+        <Text bold style={styles.bigText}>לא נמצאו</Text>
+        <Text bold style={styles.bigText}>נקודות חפיפה</Text>
       </View>
       <View style={styles.bottomCard}>
 
-        <Text style={{fontSize: 14, marginBottom: 10, }}>נכון לתאריך:</Text>
-        <View style={{justifyContent: 'center', alignItems: 'center',flexDirection: 'row'}}>
+        <Text style={styles.cardHeaderText}>{title}</Text>
+        <View style={styles.cardBody}>
             <TouchableOpacity 
-              onPress={() => modalRef.current.toggleModal()}
-              hitSlop={{top: 10, right: 10, left: 10, bottom: 10}} 
-            >
-              <Icon source={require('../../assets/main/moreInfoBig.png')} width={15} customStyles={{marginRight: 6}}/>
+              onPress={() => modalRef?.current?.toggleModal()}
+              hitSlop={HIT_SLOP}  >
+              <Icon source={require('../../assets/main/moreInfoBig.png')} width={15} customStyles={styles.infoIcon}/>
             </TouchableOpacity>
             <Text >
               <Text bold style={{fontSize: 15,}}>{FPDate}</Text>
-              <Text style={{fontSize: 13,}}> בשעה </Text>
+              <Text style={{fontSize: 13,}}>{` ${atHour.trim()} `}</Text>
               <Text bold style={{fontSize: 15,}}>{nowHour}</Text>
             </Text>
         </View>
       </View>
     </FadeInView >
-    <InfoModal ref={modalRef}/>
+    <InfoModal strings={strings} ref={modalRef}/>
     </>
   );
 };
@@ -116,6 +119,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 9,
     elevation: 5,
+  },
+  cardHeaderText: {
+    fontSize: 14, 
+    marginBottom: 10, 
+  },
+  cardBody: {
+    justifyContent: 'center', 
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  infoIcon: {
+    marginRight: 6
+  },
+  bigText: {
+    fontSize: 30
   }
 });
 

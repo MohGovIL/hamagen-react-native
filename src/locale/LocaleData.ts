@@ -142,9 +142,15 @@ export interface Strings {
       title: string,
       androidTitle: string
     },
-    infoModal: {
-      textBodyPt1: string,
-      textBodyPt2: string
+    noExposures: {
+      infoModal: {
+        textBodyPt1: string,
+        textBodyPt2: string
+      },
+      card: {
+        title: string,
+        atHour: string
+      }
     }
   },
   exposuresHistory: {

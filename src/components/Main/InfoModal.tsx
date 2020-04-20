@@ -23,7 +23,7 @@ const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) =>
     const [modalVisible, setModalVisibility] = useState(false)
     const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'),[firstPoint])
     const windowWidth = useWindowDimensions().width
-    
+
     const toggleModal = () => {
         setModalVisibility(!modalVisible)
     }
@@ -37,9 +37,11 @@ const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) =>
 
     const {
         scanHome: {
-            infoModal: {
-                textBodyPt1,
-                textBodyPt2
+            noExposures:{
+                infoModal: {
+                    textBodyPt1,
+                    textBodyPt2
+                }
             }
         } 
     } = strings
