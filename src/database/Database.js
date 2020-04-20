@@ -9,46 +9,41 @@ const database_version = '1.0';
 const database_displayname = 'SQLite React Offline Database';
 const database_size = 10000000;
 
-export class UserLocationsDatabase {
-  initDB() {
-    let db;
-    return new Promise((resolve, reject) => {
-      SQLite.echoTest()
-        .then(() => {
-          SQLite.openDatabase(
-            database_name,
-            database_version,
-            database_displayname,
-            database_size
-          )
-            .then((DB) => {
-              db = DB;
-              db.executeSql('CREATE TABLE IF NOT EXISTS Samples (lat,long,accuracy,startTime,endTime,geoHash,wifiHash,hash);').then(() => {
-                resolve(db);
-              }).catch((error) => {
-                reject(error);
-              });
-            })
-            .catch((error) => {
-              console.log(error);
-              reject(error);
-            });
-        })
-        .catch((error) => {
-          console.log('echoTest failed - plugin not functional');
-          reject(error);
-        });
-    });
+class Database {
+  async initDB(initializationStatement) {
+    try {
+      await SQLite.echoTest()
+      const db = await SQLite.openDatabase(
+        database_name,
+        database_version,
+        database_displayname,
+        database_size
+      )
+      await db.executeSql(initializationStatement)
+      return db
+    }
+    catch (error) {
+      console.log('echoTest failed - plugin not functional');
+      throw error;
+    };
   }
 
   closeDatabase(db) {
     if (db) {
       db.close()
-        .catch((error) => {
+        .catch(error => {
           // this.errorCB(error);
           // TODO makes unhandled promise reject in addSample function - need to check why
-        });
+          console.log('Closing the database failed', error)
+        })
     }
+  }
+}
+
+
+export class UserLocationsDatabase extends Database {
+  initDB() {
+    return super.initDB('CREATE TABLE IF NOT EXISTS Samples (lat,long,accuracy,startTime,endTime,geoHash,wifiHash,hash);')
   }
 
   listSamples() {
@@ -210,35 +205,9 @@ export class UserLocationsDatabase {
   }
 }
 
-export class IntersectionSickDatabase {
+export class IntersectionSickDatabase extends Database {
   initDB() {
-    let db;
-    return new Promise((resolve, reject) => {
-      SQLite.echoTest()
-        .then(() => {
-          SQLite.openDatabase(
-            database_name,
-            database_version,
-            database_displayname,
-            database_size
-          )
-            .then((DB) => {
-              db = DB;
-              db.executeSql('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat);')
-                .then(() => { resolve(db); })
-                .catch((error) => {
-                  console.log(error);
-                  reject(error);
-                });
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .catch((error) => {
-          console.log('echoTest failed - plugin not functional');
-        });
-    });
+    return super.initDB('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat);')
   }
 
   clearDatabase() {
@@ -263,16 +232,6 @@ export class IntersectionSickDatabase {
         console.log(err);
       });
     });
-  }
-
-  closeDatabase(db) {
-    if (db) {
-      db.close()
-        .catch((error) => {
-          // this.errorCB(error);
-          // TODO makes unhandled promise reject in addSample function - need to check why
-        });
-    }
   }
 
   listAllRecords() {
@@ -332,8 +291,8 @@ export class IntersectionSickDatabase {
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex]
             ]).then(([tx, results]) => {
-            resolve(results);
-          });
+              resolve(results);
+            });
         }).then((result) => {
           this.closeDatabase(db);
         }).catch((err) => {
@@ -346,45 +305,9 @@ export class IntersectionSickDatabase {
   }
 }
 
-export class WifiMacAddressDatabase {
+export class WifiMacAddressDatabase extends Database {
   initDB() {
-    let db;
-    return new Promise((resolve, reject) => {
-      SQLite.echoTest()
-        .then(() => {
-          SQLite.openDatabase(
-            database_name,
-            database_version,
-            database_displayname,
-            database_size
-          )
-            .then((DB) => {
-              db = DB;
-              db.executeSql('CREATE TABLE IF NOT EXISTS wifiTable (wifiHash, wifiList);')
-                .then(() => { resolve(db); })
-                .catch((error) => {
-                  console.log(error);
-                  reject(error);
-                });
-            });
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .catch((error) => {
-          console.log('echoTest failed - plugin not functional');
-        });
-    });
-  }
-
-  closeDatabase(db) {
-    if (db) {
-      db.close()
-        .catch((error) => {
-          // this.errorCB(error);
-          // TODO makes unhandled promise reject in addSample function - need to check why
-        });
-    }
+    return super.initDB('CREATE TABLE IF NOT EXISTS wifiTable (wifiHash, wifiList);')
   }
 
   listAllRecords() {
