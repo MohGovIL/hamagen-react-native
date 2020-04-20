@@ -29,8 +29,8 @@ jest.mock('@react-native-community/async-storage', () => ({
   } }));
 
 jest.mock('@tmcw/togeojson', () => ({
-    kml: jest.fn()  
-}))
+  kml: jest.fn()
+}));
 
 jest.mock('../src/services/ErrorService', () => ({
   onError: jest.fn()
@@ -39,7 +39,7 @@ jest.mock('../src/services/ErrorService', () => ({
 
 jest.mock('../src/services/sha256', () => ({
   sha256: jest.fn().mockImplementation(char => 'a')
-}))
+}));
 
 jest.mock('../src/database/Database.js', () => {
   const containsObjectID = jest.fn();
@@ -126,10 +126,10 @@ jest.mock('../src/config/config.ts', () => {
 });
 
 jest.mock('../src/store.ts', () => {
-  const dispatch = jest.fn()
+  const dispatch = jest.fn();
 
   const store = jest.fn().mockImplementation(() => ({ dispatch }));
-  
+
   return {
     __esModule: true,
     namedExport: jest.fn(),
@@ -137,4 +137,3 @@ jest.mock('../src/store.ts', () => {
     dispatch
   };
 });
-

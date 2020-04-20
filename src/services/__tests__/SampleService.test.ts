@@ -102,7 +102,7 @@ describe('Sample Service', () => {
       // lower speed
       sample.coords.speed = 2;
       // mock IS_LAST_POINT_FROM_TIMELINE
-      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true')
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true');
       // return insertDB
       expect(await updateDBAccordingToSampleVelocity(sample)).toBeTruthy();
     });
@@ -110,10 +110,10 @@ describe('Sample Service', () => {
     test('with one point from DB', async () => {
       sample.coords.speed = 2;
       // mock IS_LAST_POINT_FROM_TIMELINE
-      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true')
-      
+      await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true');
+
       db.getLastPointEntered.mockResolvedValueOnce({ lat: 123.123, long: 321.321, accuracy: 0.7, endTime: new Date().getTime() });
-      await updateDBAccordingToSampleVelocity(sample)
+      await updateDBAccordingToSampleVelocity(sample);
       expect(AsyncStorage.removeItem).toBeCalledWith(HIGH_VELOCITY_POINTS);
     });
 
