@@ -26,9 +26,6 @@ const NoExposures = (
       scanHome: { noExposure, accordingToData, from, at, until, notFound, recommendation },
       locationHistory: { info, moreInfo }
     },
-    hideLocationHistory,
-    toggleWebview,
-    goToLocationHistory
   }: Props
 ) => {
   
