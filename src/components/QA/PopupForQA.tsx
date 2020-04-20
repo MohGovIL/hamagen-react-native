@@ -104,8 +104,11 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
             ItemSeparatorComponent={() => <View style={styles.separatorStyle} />}
           />
 
+          <Text>{`ס"כ נקודות: ${listOfSamples.length}`}</Text>
           <TouchableOpacity onPress={() => copyClicked(listOfSamples)}>
-            <Text style={styles.button}>Copy</Text>
+            <View style={styles.button}>
+              <Text>Copy</Text>
+            </View>
           </TouchableOpacity>
         </View>
       </View>
