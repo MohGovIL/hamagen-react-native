@@ -176,6 +176,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
+          <Button title="הצג 'דקירות' מה-SDK" onPress={() => setShowPopup({ showPopup: true, type: 'SDK' })} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
           <Button title="הצג את כל ה'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'all' })} />
         </View>
 

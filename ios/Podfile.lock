@@ -265,8 +265,6 @@ PODS:
     - React
   - react-native-document-picker (3.3.0):
     - React
-  - react-native-cookies (2.0.8):
-    - React
   - react-native-netinfo (5.6.2):
     - React
   - react-native-network-info (5.2.1):

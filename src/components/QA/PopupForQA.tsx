@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Modal, FlatList, Clipboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Text, TouchableOpacity } from '../common';
 import { queryDB } from '../../services/Tracker';
@@ -22,7 +23,42 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
   }, [isVisible]);
 
   const updateList = async () => {
-    const list = type === 'locations' ? await queryDB() : JSON.parse(await AsyncStorage.getItem(type === 'all' ? ALL_POINTS_QA : HIGH_VELOCITY_POINTS_QA) || '[]');
+    let list;
+
+    switch (type) {
+      case 'locations': {
+        list = await queryDB();
+        break;
+      }
+
+      case 'all': {
+        list = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
+        break;
+      }
+
+      case 'velocity': {
+        list = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
+        break;
+      }
+
+      case 'SDK': {
+        list = await BackgroundGeolocation.getLocations();
+        list = list.map((location: any) => ({
+          lat: location.coords.latitude,
+          long: location.coords.longitude,
+          accuracy: location.coords.accuracy,
+          startTime: location.timestamp,
+          endTime: location.timestamp,
+          reason: 'SDK'
+        }));
+        break;
+      }
+
+      default: {
+        list = [];
+      }
+    }
+
     setListOfSamples(list);
   };
 
