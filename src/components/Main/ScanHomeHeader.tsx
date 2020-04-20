@@ -3,12 +3,16 @@ import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback, Share, Aler
 import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
 import { Strings } from '../../locale/LocaleData';
-import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { HIT_SLOP, PADDING_TOP, SCREEN_WIDTH } from '../../constants/Constants';
 import { onError } from '../../services/ErrorService';
 
 
+interface ShareBtnProps {
+  strings: Strings,
+  
+}
 
-const ShareBtn = ({strings}) => {
+const ShareBtn = ({strings}: ShareBtnProps) => {
   
   const {
     scanHome:{
@@ -18,6 +22,7 @@ const ShareBtn = ({strings}) => {
       androidTitle
     }
     }} = strings
+
   const onShare = async () => {
     try{
       const result = await Share.share({
@@ -25,8 +30,6 @@ const ShareBtn = ({strings}) => {
         title,
 
       }, {dialogTitle: androidTitle});
-
-      console.log(result);
       
     }
     catch(error) {
@@ -35,15 +38,15 @@ const ShareBtn = ({strings}) => {
   }
 
   return (
-    <View style={{ flex:1,justifyContent: 'center', alignItems: 'flex-start'}}>
-        <TouchableOpacity onPress={onShare}>
+    <View style={styles.shareBtnContainer}>
+        <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
           <Icon source={require('../../assets/main/share.png')} width={20} />
         </TouchableOpacity>
     </View>
     )
 }
 
-interface Props {
+interface ScanHomeHeaderProps {
   isRTL: boolean,
   strings: Strings,
   isConnected: boolean,
@@ -51,42 +54,44 @@ interface Props {
   openDrawer(): void
 }
 
-const ScanHomeHeader = ({strings,openDrawer}) => {
+const ScanHomeHeader = ({strings,openDrawer}: ScanHomeHeaderProps) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
-      style={styles.container}
+      style={styles.imageContainer}
       resizeMode="stretch"
       resizeMethod="resize"
     >
-      <View style={{flexDirection: 'row', paddingBottom: 14}}>
-
+      <View style={styles.container}>
         <ShareBtn strings={strings}/>
-
-        <View style={{ flex:3, justifyContent: 'center', alignItems: 'center' }}>
+        <View style={styles.logoContainer}>
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
-
-        <TouchableWithoutFeedback onPress={openDrawer}>
-          <View style={{ flex:1, alignItems: 'flex-end' ,justifyContent: 'center'}}>
-            <Icon source={require('../../assets/main/menu.png')} width={20} />
+          <View style={styles.menuContainer}>
+            <TouchableOpacity hitSlop={HIT_SLOP} onPress={openDrawer}>
+              <Icon source={require('../../assets/main/menu.png')} width={20} />
+            </TouchableOpacity>
           </View>
-        </TouchableWithoutFeedback>
       </View>
-      <View style={styles.subContainer} />
+      <View style={styles.bottomEdge} />
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+
+  imageContainer: {
     width: SCREEN_WIDTH,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingTop: PADDING_TOP(10),
     paddingHorizontal: 20
   },
-  subContainer: {
+  container: {
+    flexDirection: 'row',
+    paddingBottom: 14
+  },
+  bottomEdge: {
     width: SCREEN_WIDTH,
     height: 45,
     flexDirection: 'row',
@@ -97,30 +102,20 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     backgroundColor: '#fff'
   },
-  headerItemContainer: {
-    height: 45,
-    alignItems: 'center'
+  shareBtnContainer: { 
+    flex:1,
+    justifyContent: 'center', 
+    alignItems: 'flex-start'
   },
-  indicatorWrapper: {
-    width: 15,
-    height: 15,
-    alignItems: 'center',
+  logoContainer: { 
+    flex:3,
+    justifyContent: 'center',
+    alignItems: 'center' 
+  },
+  menuContainer: { 
+    flex:1, 
+    alignItems: 'flex-end',
     justifyContent: 'center'
-  },
-  lottie: {
-    width: 15,
-    height: 15
-  },
-  indicator: {
-    ...BASIC_SHADOW_STYLES,
-    width: 10,
-    height: 10,
-    borderRadius: 5
-  },
-  text: {
-    fontSize: 12,
-    paddingHorizontal: 5,
-    maxWidth: SCREEN_WIDTH / 2.5
   }
 });
 
