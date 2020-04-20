@@ -84,7 +84,7 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
         await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
       }
 
-      resolve();
+      resolve(true);
       done();
       return true;
     } catch (error) {
@@ -163,6 +163,103 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
     if (highVelocityPoints.length === 0) {
       const lastPointFromDB = await db.getLastPointEntered();
 
+      // in case this is the first point entered
+      if (!lastPointFromDB) {
+        return await insertDB(location);
+      }
+
+      pointsToCheck = [{
+        coords: {
+          latitude: lastPointFromDB.lat,
+          longitude: lastPointFromDB.long,
+          accuracy: lastPointFromDB.accuracy
+        },
+        timestamp: lastPointFromDB.endTime
+      }];
+    } else {
+      pointsToCheck = highVelocityPoints;
+    }
+
+    const isHighVelocity = evalVelocity([...pointsToCheck, location]);
+
+    if (isHighVelocity) {
+      if (highVelocityPoints.length === 0 && !isLastPointEndTimeUpdated) {
+        await db.updateLastSampleEndTime(location.timestamp);
+        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      }
+      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
+    } else {
+      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
+      await insertDB(location);
+    }
+  } catch (error) {
+    onError({ error });
+  }
+};
+
+const evalVelocity = (myData: Sample[]) => {
+  const velRec: VelocityRecord[] = mapPairs(myData, (a, b) => evalVelocity2Loc(a, b));
+
+  return velRec[velRec.length - 1].velocity > config().locationServiceIgnoreSampleVelocityThreshold;
+};
+
+function mapPairs<T, U>(array: T[], fn: (first: T, second: T, index: number) => U): U[] {
+  if (array.length === 0) {
+    throw new Error('No pairs in empty array');
+  }
+
+  const ret: U[] = [];
+
+  for (let i = 0; i < array.length - 1; i++) {
+    ret.push(fn(array[i], array[i + 1], i));
+  }
+
+  return ret;
+}
+
+const evalVelocity2Loc = (prevData: Sample, currData: Sample) => {
+  const distMeter = haversine(
+    { latitude: currData.coords.latitude, longitude: currData.coords.longitude },
+    { latitude: prevData.coords.latitude, longitude: prevData.coords.longitude },
+    { unit: config().bufferUnits }
+  );
+
+  const timeDiffInSeconds = Math.floor((currData.timestamp - prevData.timestamp) / 1000);
+
+  const velocity = (timeDiffInSeconds > 0) ? distMeter / timeDiffInSeconds : 0;
+
+  return { distMeter, timeDiff: timeDiffInSeconds, velocity };
+};
+
+export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
+  try {
+    const { is_moving, activity: { confidence }, coords: { speed } } = location;
+
+    const db = new UserLocationsDatabase();
+
+    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+
+    const lastPointFromDB = await db.getLastPointEntered();
+    const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
+
+    // ignore locations with timestamp earlier then the last location saved
+    if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
+      return;
+    }
+
+    const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
+
+    if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
+      if (!isLastPointEndTimeUpdated) {
+        await db.updateLastSampleEndTime(location.timestamp);
+        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      }
+      return;
+    }
+
+    let pointsToCheck;
+
+    if (highVelocityPoints.length === 0) {
       // in case this is the first point entered
       if (!lastPointFromDB) {
         return await insertDB(location);

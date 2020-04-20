@@ -38,17 +38,15 @@ export const getLastNrDaysKmlUrls = () => {
   });
 };
 
-const createObject = (point: any, timespan: any) => {
-  return {
-    startTime: moment(timespan.begin).valueOf(),
-    endTime: moment(timespan.end).valueOf(),
-    long: point[0],
-    lat: point[1],
-    geoHash: geoHash.encode(point[1], point[0]),
-    accuracy: 0,
-    wifiHash: ''
-  };
-};
+const createObject = (point: any, timespan: any) => ({
+  startTime: moment(timespan.begin).valueOf(),
+  endTime: moment(timespan.end).valueOf(),
+  long: point[0],
+  lat: point[1],
+  geoHash: geoHash.encode(point[1], point[0]),
+  accuracy: 0,
+  wifiHash: ''
+});
 
 export const kmlToGeoJson = (text: any) => {
   const kml = new DOMParser().parseFromString(text);

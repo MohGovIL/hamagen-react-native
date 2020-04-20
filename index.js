@@ -10,20 +10,24 @@ import { checkSickPeople } from './src/services/Tracker';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
 
+const onLocationReceived = async (location) => {
+  // ignore non-distinct locations from the SDK
+  if (location.sample) {
+    return;
+  }
+
+  try {
+    location.timestamp = moment(location.timestamp).valueOf();
+    await initConfig();
+    await updateDBAccordingToSampleVelocity(location);
+  } catch (error) {
+    onError({ error });
+  }
+};
+
 BackgroundGeolocation.onLocation(
   async (location) => {
-    // ignore non-distinct locations from the SDK
-    if (location.sample) {
-      return;
-    }
-
-    try {
-      location.timestamp = moment(location.timestamp).valueOf();
-      await initConfig();
-      await updateDBAccordingToSampleVelocity(location);
-    } catch (error) {
-      onError({ error });
-    }
+    await onLocationReceived(location);
   }, (error) => {
     onError({ error });
   }
@@ -43,8 +47,12 @@ const BackgroundFetchHeadlessTask = async (event) => {
   }
 };
 
-const BackgroundGeolocationHeadlessTask = async (event, params) => {
-  console.log('[BackgroundGeolocation HeadlessTask] -', event.name, params);
+const BackgroundGeolocationHeadlessTask = async (event) => {
+  console.log('[BackgroundGeolocation HeadlessTask] -', event.name);
+
+  if (event.name === 'location') {
+    await onLocationReceived(event.params);
+  }
 };
 
 AppRegistry.registerComponent(appName, () => App);

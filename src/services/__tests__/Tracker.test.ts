@@ -1,14 +1,18 @@
 import { NativeModules } from 'react-native';
 import fetch from 'jest-fetch-mock';
-import config from '../../config/config';
+import { valueOf } from 'moment';
 import * as tracker from '../Tracker';
+import { onError } from '../ErrorService';
 import * as db from '../../database/Database';
+import config from '../../config/config';
 import * as constants from '../../constants/Constants';
+import { dispatch } from '../../store';
 
 jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
   return { registerLocalNotification };
 });
+
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
@@ -75,12 +79,39 @@ const userRecordExtras2 = {
   wifiHash: ''
 };
 
+beforeAll(() => {
+  dispatch.mockImplementation(() => ({
+    locale: 'he',
+    notificationData: {
+      androidNotification: {},
+      sickMessage: {
+        he: {
+          title: 'כותרת',
+          body: 'הודעה'
+        }
+      }
+    }
+  }));
+});
+
+afterAll(() => {
+  dispatch.mockClear();
+});
+
+beforeEach(() => {
+  onError.mockClear();
+});
+
+afterEach(() => {
+  expect(onError).toBeCalledTimes(0);
+});
+
 describe('Tracker', () => {
   // ====================================
   //  Check all TimeOverlapping Scenario
   // ====================================
 
-  test('isTimeOverlapping()', async () => {
+  test('isTimeOverlapping()', () => {
     // Check user time not intersects before sick time range
     expect(
       tracker.isTimeOverlapping(
@@ -186,7 +217,7 @@ describe('Tracker', () => {
     ).toBe(true);
   });
 
-  test('unitTestGeography()', async () => {
+  test('unitTestGeography()', () => {
     // South
     expect(
       tracker.isSpaceOverlapping({ long: 34.612383, lat: 31.307915, ...userRecordExtras2 }, sickRecord),
@@ -269,29 +300,29 @@ describe('Tracker', () => {
   });
 
   test('queryDB()', async () => {
-    const userLocationDB = new db.UserLocationsDatabase();
     const rows = ['data1', 'data2', 'data3'];
-    userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(rows));
-    await expect(tracker.queryDB()).resolves.toEqual(rows);
+    const userLocationDB = new db.UserLocationsDatabase();
+    userLocationDB.listSamples.mockResolvedValueOnce(rows);
+    expect(tracker.queryDB()).resolves.toEqual(rows);
   });
 
   test('onSickPeopleNotify()', async () => {
     const sickDB = new db.IntersectionSickDatabase();
     const rows: any = [];
-    sickDB.addSickRecord.mockReturnValueOnce(Promise.resolve(rows));
-    sickDB.containsObjectID.mockReturnValueOnce(Promise.resolve(rows));
+    sickDB.addSickRecord.mockResolvedValueOnce(rows);
+    sickDB.containsObjectID.mockResolvedValueOnce(rows);
     // check he
-    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
     // check unsupported language
     NativeModules.SettingsManager.settings.AppleLocale = 'gh';
-    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
 
     constants.IS_IOS = false;
-    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
   });
@@ -340,8 +371,9 @@ describe('Tracker', () => {
         },
       ],
     };
-    fetch.mockResponseOnce(JSON.stringify(responseJSON));
+    fetch.once(JSON.stringify(responseJSON));
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(sampleData));
+    valueOf.mockReturnValueOnce(new Date().getTime());
     await tracker.checkSickPeople();
   });
 
@@ -350,18 +382,30 @@ describe('Tracker', () => {
     const responseJSON = {
       features: 'asd',
     };
-    fetch.mockResponseOnce(JSON.stringify(responseJSON));
+    fetch.once(JSON.stringify(responseJSON));
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve([]));
+
     await tracker.checkSickPeople();
   });
 
   test('checkSickPeople() - fetch error', async () => {
+    fetch.mockReject(new Error('fake error message'));
     const userLocationDB = new db.UserLocationsDatabase();
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve([]));
+    // valueOf.mockReturnValueOnce(new Date().getTime())
+
     await tracker.checkSickPeople();
+
+    expect(onError).toBeCalledTimes(1);
+    // make sure after all wont fail
+    onError.mockClear();
   });
 
   test('startForegroundTimer()', async () => {
+    const responseJSON = {
+      features: 'asd',
+    };
+    fetch.once(JSON.stringify(responseJSON));
     await tracker.startForegroundTimer();
   });
 });

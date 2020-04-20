@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --scheme hamagen",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-community/async-storage": "1.7.1",
     "@react-native-community/cli": "2.9.0",
+    "@react-native-community/cookies": "^2.0.8",
     "@react-native-community/masked-view": "^0.1.8",
     "@react-native-community/netinfo": "5.6.2",
     "@react-navigation/bottom-tabs": "5.0.3",
@@ -98,6 +99,7 @@
     "metro-react-native-babel-preset": "0.56.0",
     "mock-async-storage": "2.2.0",
     "react-test-renderer": "16.9.0",
+    "redux-mock-store": "^1.5.4",
     "tslint": "5.17.0",
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",

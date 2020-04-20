@@ -8,9 +8,9 @@ import {
 import { Exposure, Location, SickJSON } from '../types';
 import { setExposures } from '../actions/ExposuresActions';
 import { registerLocalNotification } from './PushService';
+import { downloadAndVerifySigning } from './SigningService';
 import { initLocale } from '../actions/LocaleActions';
 import { onError } from './ErrorService';
-import { downloadAndVerifySigning } from './SigningService';
 import config from '../config/config';
 import store from '../store';
 import { LAST_FETCH_TS } from '../constants/Constants';
