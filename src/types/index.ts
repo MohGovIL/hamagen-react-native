@@ -1,3 +1,5 @@
+import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
+
 export interface Config {
   sampleDistance: number,
   sampleInterval: number,
@@ -76,6 +78,7 @@ export interface Sample {
 export interface DBLocation {
   lat: number,
   long: number,
+  _long?: number,
   accuracy: number,
   startTime: number,
   endTime: number,
@@ -104,4 +107,38 @@ export interface VelocityRecord {
   distMeter: number,
   timeDiff: number,
   velocity: number,
+}
+
+export interface Store {
+  general: GeneralReducer,
+  locale: LocaleReducer,
+  exposures: ExposuresReducer
+}
+
+export interface GeneralReducer {
+  showLoader: boolean,
+  showWebview: boolean,
+  showForceUpdate: boolean,
+  shouldForce: boolean,
+  showForceTerms: boolean,
+  termsVersion: number,
+  hideLocationHistory: boolean
+}
+
+export interface ExposuresReducer {
+  exposures: Exposure[],
+  pastExposures: Exposure[],
+  validExposure?: Exposure,
+  firstPoint?: number
+}
+
+export interface LocaleReducer {
+  showChangeLanguage: boolean,
+  languages: Languages|{},
+  externalUrls: ExternalUrls|{},
+  notificationData: NotificationData|{},
+  strings: Strings|{},
+  isRTL: boolean,
+  locale: string,
+  localeData: LocaleData
 }

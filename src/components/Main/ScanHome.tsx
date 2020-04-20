@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
@@ -16,11 +17,12 @@ import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
+import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -62,10 +64,16 @@ const ScanHome = (
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       SplashScreen.hide();
       checkForceUpdate();
       goToFilterDrivingIfNeeded(navigation);
+
+      const url = await Linking.getInitialURL();
+
+      if (url) {
+        return onOpenedFromDeepLink(url, navigation);
+      }
     }, 3000);
 
     checkIfHideLocationHistory();

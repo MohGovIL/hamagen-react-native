@@ -19,6 +19,7 @@ import ScanHome from './Main/ScanHome';
 import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
 import LocationHistory from './Main/LocationHistory/LocationHistory';
 import FilterDriving from './Main/FilterDriving/FilterDriving';
+import ShareLocations from './ShareLocations/ShareLocations';
 import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
@@ -117,6 +118,15 @@ const Loading = (
         return setInitialRoute('Welcome');
       }
 
+      await onBoardingCompletedActions();
+    } catch (error) {
+      setInitialRoute('Welcome');
+      onError({ error });
+    }
+  };
+
+  const onBoardingCompletedActions = async () => {
+    try {
       BackgroundFetch.status(async (status) => {
         if (status !== BackgroundFetch.STATUS_AVAILABLE) {
           await scheduleTask();
@@ -161,8 +171,7 @@ const Loading = (
 
       setInitialRoute('ScanHome');
     } catch (error) {
-      const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
-      setInitialRoute(notFirstTime === null ? 'Welcome' : 'ScanHome');
+      setInitialRoute('ScanHome');
       onError({ error });
     }
   };
@@ -196,6 +205,7 @@ const Loading = (
           <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="ShareLocations" component={ShareLocations} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />
