@@ -143,6 +143,9 @@ export interface Strings {
       androidTitle: string
     },
     noExposures: {
+      bannerTextPt1: string,
+      bannerTextPt2: string,
+      workAllTheTime: string,
       infoModal: {
         textBodyPt1: string,
         textBodyPt2: string

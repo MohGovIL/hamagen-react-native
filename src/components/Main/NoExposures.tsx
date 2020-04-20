@@ -34,6 +34,9 @@ const NoExposures = (
   const  {
     scanHome: {
       noExposures: {
+        bannerTextPt1,
+        bannerTextPt2,
+        workAllTheTime,
         card: {
           title,
           atHour
@@ -61,8 +64,8 @@ const NoExposures = (
 
   return (
     <>
-    <FadeInView style={styles.container}>
-      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>
+    <FadeInView style={styles.fadeContainer}>
+      <View style={styles.container}>
         <LottieView
           style={styles.lottie}
           source={require('../../assets/lottie/magen logo.json')}
@@ -71,23 +74,26 @@ const NoExposures = (
           loop
         />
 
-        <Text bold style={{fontSize: 17, marginBottom: 20}}>אפליקציית המגן פועלת כל הזמן</Text>
-        <Text bold style={styles.bigText}>לא נמצאו</Text>
-        <Text bold style={styles.bigText}>נקודות חפיפה</Text>
+        <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
+        <Text bold style={styles.bannerText}>{bannerTextPt1}</Text>
+        <Text bold style={styles.bannerText}>{bannerTextPt2}</Text>
       </View>
       <View style={styles.bottomCard}>
 
         <Text style={styles.cardHeaderText}>{title}</Text>
         <View style={styles.cardBody}>
             <TouchableOpacity 
-              onPress={() => modalRef?.current?.toggleModal()}
+              onPress={modalRef?.current?.toggleModal}
               hitSlop={HIT_SLOP}  >
-              <Icon source={require('../../assets/main/moreInfoBig.png')} width={15} customStyles={styles.infoIcon}/>
+              <Icon 
+                width={15} 
+                source={require('../../assets/main/moreInfoBig.png')} 
+                customStyles={styles.infoIcon}/>
             </TouchableOpacity>
             <Text >
-              <Text bold style={{fontSize: 15,}}>{FPDate}</Text>
-              <Text style={{fontSize: 13,}}>{` ${atHour.trim()} `}</Text>
-              <Text bold style={{fontSize: 15,}}>{nowHour}</Text>
+              <Text bold style={styles.toTimeDate}>{FPDate}</Text>
+              <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
+              <Text bold style={styles.toTimeDate}>{nowHour}</Text>
             </Text>
         </View>
       </View>
@@ -98,11 +104,15 @@ const NoExposures = (
 };
 
 const styles = StyleSheet.create({
-  container: {
+  fadeContainer: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingBottom: PADDING_BOTTOM(58)
+  },
+  container: { 
+    alignItems: 'center', 
+    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
@@ -132,8 +142,18 @@ const styles = StyleSheet.create({
   infoIcon: {
     marginRight: 6
   },
-  bigText: {
+  bannerText: {
     fontSize: 30
+  },
+  workAllTimeTxt: {
+    fontSize: 17, 
+    marginBottom: 20
+  },
+  toTimeDate: {
+    fontSize: 15
+  },
+  toTimeText: {
+    fontSize: 13
   }
 });
 

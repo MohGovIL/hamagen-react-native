@@ -16,11 +16,11 @@ const ShareBtn = ({strings}: ShareBtnProps) => {
   
   const {
     scanHome:{
-    share: {
-      message,
-      title,
-      androidTitle
-    }
+      share: {
+        message,
+        title,
+        androidTitle
+      }
     }} = strings
 
   const onShare = async () => {
