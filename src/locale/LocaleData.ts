@@ -141,6 +141,10 @@ export interface Strings {
       message: string,
       title: string,
       androidTitle: string
+    },
+    infoModal: {
+      textBodyPt1: string,
+      textBodyPt2: string
     }
   },
   exposuresHistory: {
