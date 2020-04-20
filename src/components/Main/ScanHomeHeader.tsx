@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback, Share } from 'react-native';
+import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback, Share, Alert } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
 import { Strings } from '../../locale/LocaleData';
@@ -8,12 +8,23 @@ import { onError } from '../../services/ErrorService';
 
 
 
-const ShareBtn = () => {
+const ShareBtn = ({strings}) => {
+  
+  const {
+    scanHome:{
+    share: {
+      message,
+      title,
+      androidTitle
+    }
+    }} = strings
   const onShare = async () => {
     try{
       const result = await Share.share({
-        message: "Hamagen share"
-      });
+        message ,
+        title,
+
+      }, {dialogTitle: androidTitle});
 
       console.log(result);
       
@@ -40,17 +51,17 @@ interface Props {
   openDrawer(): void
 }
 
-const ScanHomeHeader = ({openDrawer}) => {
+const ScanHomeHeader = ({strings,openDrawer}) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
       style={styles.container}
-      resizeMode="cover"
+      resizeMode="stretch"
       resizeMethod="resize"
     >
       <View style={{flexDirection: 'row', paddingBottom: 14}}>
 
-        <ShareBtn />
+        <ShareBtn strings={strings}/>
 
         <View style={{ flex:3, justifyContent: 'center', alignItems: 'center' }}>
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />

@@ -7,6 +7,7 @@ import LocationHistoryInfo from './LocationHistoryInfo';
 import { FadeInView, Text,Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, BASIC_SHADOW_STYLES } from '../../constants/Constants';
+import InfoModal from './InfoModal'
 
 interface Props {
   isRTL: boolean,
@@ -30,6 +31,7 @@ const NoExposures = (
 ) => {
   
   const appState = useRef<AppStateStatus>('active');
+  const modalRef = useRef(null)
   const [now, setNow] = useState(moment().valueOf());
   const { FPDate, nowHour} = useMemo(() => ({
     FPDate : moment(firstPoint).format('D.M.YY'),
@@ -54,6 +56,7 @@ const NoExposures = (
   };
 
   return (
+    <>
     <FadeInView style={styles.container}>
       <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>
         <LottieView
@@ -70,9 +73,14 @@ const NoExposures = (
       </View>
       <View style={styles.bottomCard}>
 
-        <Text  style={{fontSize: 14, marginBottom: 10, }}>נכון לתאריך:</Text>
+        <Text style={{fontSize: 14, marginBottom: 10, }}>נכון לתאריך:</Text>
         <View style={{justifyContent: 'center', alignItems: 'center',flexDirection: 'row'}}>
-            <Icon source={require('../../assets/main/moreInfo.png')} width={15} customStyles={{marginRight: 6}}/>
+            <TouchableOpacity 
+              onPress={() => modalRef.current.toggleModal()}
+              hitSlop={{top: 10, right: 10, left: 10, bottom: 10}} 
+            >
+              <Icon source={require('../../assets/main/moreInfoBig.png')} width={15} customStyles={{marginRight: 6}}/>
+            </TouchableOpacity>
             <Text >
               <Text bold style={{fontSize: 15,}}>{FPDate}</Text>
               <Text style={{fontSize: 13,}}> בשעה </Text>
@@ -80,7 +88,9 @@ const NoExposures = (
             </Text>
         </View>
       </View>
-    </FadeInView>
+    </FadeInView >
+    <InfoModal ref={modalRef}/>
+    </>
   );
 };
 
@@ -101,7 +111,11 @@ const styles = StyleSheet.create({
     paddingVertical: 22, 
     borderRadius: 13,
     backgroundColor: '#FDFDFD',
-    ...BASIC_SHADOW_STYLES
+    shadowColor: '#084473',
+    shadowOffset: { width: 0, height: 9 },
+    shadowOpacity: 0.1,
+    shadowRadius: 9,
+    elevation: 5,
   }
 });
 

@@ -136,7 +136,12 @@ export interface Strings {
     suspectedExposure: string,
     events: string,
     possibleExposure: string,
-    atPlace: string
+    atPlace: string,
+    share: {
+      message: string,
+      title: string,
+      androidTitle: string
+    }
   },
   exposuresHistory: {
     title: string,

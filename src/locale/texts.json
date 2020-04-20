@@ -186,7 +186,12 @@
       "suspectedExposure": "חשד לחשיפה:",
       "events": "אירועים",
       "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
-      "atPlace": "ב"
+      "atPlace": "ב",
+      "share": {
+        "message": "שתף עם קורונה",
+        "title": "שתף עם קורונה",
+        "androidTitle": "שתף עם קורונה"
+      }
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",

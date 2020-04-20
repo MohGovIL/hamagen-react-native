@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter,Modal, Dimensions } from 'react-native';
 import { connect } from 'react-redux';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
@@ -18,6 +18,7 @@ import { dismissExposure, removeValidExposure, setValidExposure } from '../../ac
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+
 
 interface Props {
   navigation: any,
