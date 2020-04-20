@@ -51,7 +51,8 @@ export interface Exposure {
     fromTime_utc: number,
     toTime: number,
     toTime_utc: number,
-    radius?: number
+    radius?: number,
+    geohashFilter: string
   },
   geometry: {
     type: string,
