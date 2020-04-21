@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import { Icon, Text, CloseButton } from '../../common';
@@ -8,7 +9,7 @@ import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
   pastExposures: Exposure[]

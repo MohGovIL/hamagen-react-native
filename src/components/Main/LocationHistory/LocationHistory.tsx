@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { GoogleTimeLine } from '../../common';
@@ -8,7 +9,7 @@ import { Strings } from '../../../locale/LocaleData';
 import { PADDING_BOTTOM, PADDING_TOP, USAGE_PRIVACY } from '../../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void
 }

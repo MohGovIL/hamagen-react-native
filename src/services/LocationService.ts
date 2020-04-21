@@ -1,3 +1,4 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import moment from 'moment';
@@ -72,7 +73,7 @@ export const requestMotionPermissions = (updateService: boolean) => new Promise(
   }
 });
 
-export const goToFilterDrivingIfNeeded = async (navigation: any) => {
+export const goToFilterDrivingIfNeeded = async (navigation: StackNavigationProp<any>) => {
   try {
     const res = await checkMotionPermissions();
 

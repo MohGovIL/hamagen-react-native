@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Exposure, ReducerAction } from '../types';
+import { ExposuresReducer, ReducerAction } from '../types';
 import {
   DISMISS_EXPOSURE,
   REMOVE_VALID_EXPOSURE,
@@ -10,14 +10,6 @@ import {
   UPDATE_POINTS_FROM_FILE,
   UPDATE_FIRST_POINT
 } from '../constants/ActionTypes';
-
-interface ExposuresReducer {
-  exposures: Exposure[],
-  pastExposures: Exposure[],
-  validExposure?: Exposure,
-  firstPoint?: number,
-  points: Exposure[]
-}
 
 const INITIAL_STATE = {
   exposures: [],

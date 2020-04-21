@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
 import { ActionButton, Text, Icon, TouchableOpacity } from '../../common';
 import { onMotionPermissionSkipped, requestMotionPermissions } from '../../../services/LocationService';
@@ -8,7 +9,7 @@ import { Strings } from '../../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, PADDING_TOP } from '../../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   strings: Strings,
 }
 
