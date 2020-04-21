@@ -54,7 +54,8 @@ export interface Strings {
     additionalInfo: string,
     close: string,
     readTOU: string,
-    approveTOU: string
+    approveTOU: string,
+    versionNumber: string
   },
   languages: {
     title: string,

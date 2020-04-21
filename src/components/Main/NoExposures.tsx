@@ -2,12 +2,11 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-
 import LocationHistoryInfo from './LocationHistoryInfo';
+import InfoModal, { InfoModalTypes } from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
-import InfoModal, { InfoModalTypes } from './InfoModal';
 
 interface NoExposuresProps {
   isRTL: boolean,

@@ -1,10 +1,10 @@
-import React, { ElementType } from 'react';
+import React from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import { connect } from 'react-redux';
+import ChangeLanguage from './ChangeLanguage';
 import { CloseButton } from '../common';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
-import ChangeLanguage from './ChangeLanguage';
 
 interface Props {
     isVisible: boolean,

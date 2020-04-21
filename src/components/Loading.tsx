@@ -15,10 +15,7 @@ import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
 import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
 import Notifications from './Onboarding/Notifications';
 import AllSet from './Onboarding/AllSet';
-import LocationHistory from './Main/LocationHistory/LocationHistory';
-import FilterDriving from './Main/FilterDriving/FilterDriving';
-import ShareLocations from './ShareLocations/ShareLocations';
-import Home from './Drawer';
+import Home from './Drawer/Home';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
 import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
@@ -190,7 +187,6 @@ const Loading = (
 
   const Stack = createStackNavigator();
 
-
   return (
     (_.isEmpty(strings) || !initialRoute) ? null : (
       <View style={styles.container}>
@@ -202,17 +198,14 @@ const Loading = (
           <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="ShareLocations" component={ShareLocations} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
+
         <Loader isVisible={showLoader} />
         <ChangeLanguage isVisible={showChangeLanguage} />
         <GeneralWebview isVisible={showWebview} locale={locale} externalUrls={externalUrls} closeWebview={() => toggleWebview(false, '')} usageType={usageType} />
         <ForceUpdate isVisible={showForceUpdate} shouldForce={shouldForce} strings={strings} />
         <ForceTerms isVisible={showForceTerms} isRTL={isRTL} strings={strings} onSeeTerms={onSeeTerms} onApprovedTerms={onApprovedTerms} />
-
       </View>
     )
   );

@@ -1,14 +1,14 @@
-import React, { ElementType } from 'react';
+import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { PADDING_TOP, isSmall, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH, HIT_SLOP } from '../../constants/Constants';
+import { StackNavigationProp } from '@react-navigation/stack';
 import ChangeLanguage from './ChangeLanguage';
 import { Icon } from '../common';
+import { PADDING_TOP, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH, HIT_SLOP } from '../../constants/Constants';
 
 interface Props {
-    isVisible: boolean,
-    navigation: any,
-    toggleChangeLanguage(isShow: boolean): void
+  navigation: StackNavigationProp<any>
 }
+
 const ChangeLanguageScreen = ({ navigation }: Props) => {
   return (
     <View style={styles.container}>
@@ -16,11 +16,10 @@ const ChangeLanguageScreen = ({ navigation }: Props) => {
         style={[{
           position: 'absolute',
           zIndex: 1000,
-          top: PADDING_TOP(isSmall ? 10 : 20),
-          right: isSmall ? 10 : 20
+          top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
+          right: IS_SMALL_SCREEN ? 10 : 20
         }]}
       >
-
         <TouchableOpacity
           hitSlop={HIT_SLOP}
           onPress={navigation.goBack}
@@ -28,10 +27,11 @@ const ChangeLanguageScreen = ({ navigation }: Props) => {
           accessibilityElementsHidden
           accessibilityLabel="go back"
         >
-          <Icon source={require('../../assets/main/back.png')} width={isSmall ? 20 : 31} />
+          <Icon source={require('../../assets/main/back.png')} width={IS_SMALL_SCREEN ? 20 : 31} />
         </TouchableOpacity>
       </View>
-      <ChangeLanguage toggleChangeLanguage={navigation.back} />
+
+      <ChangeLanguage toggleChangeLanguage={() => navigation.pop()} />
     </View>
   );
 };
