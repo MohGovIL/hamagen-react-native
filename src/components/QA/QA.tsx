@@ -7,6 +7,7 @@ import RNFS from 'react-native-fs';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
+import moment from 'moment';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
@@ -142,6 +143,12 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
+  const clearLocationsDB = () => {
+    const db = new UserLocationsDatabase();
+    db.purgeSamplesTable(moment().valueOf());
+    Alert.alert('Cleared', '', [{ text: 'OK' }]);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
@@ -196,7 +203,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="העתק מידע לשיתוף מיקומים " onPress={copyShareLocationsInfo} />
+          <Button title="העתק מידע לשיתוף מיקומים" onPress={copyShareLocationsInfo} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="!!!!!נקה את כל ה'דקירות' מה-DB!!!!!" onPress={clearLocationsDB} color="red" />
         </View>
       </ScrollView>
 
