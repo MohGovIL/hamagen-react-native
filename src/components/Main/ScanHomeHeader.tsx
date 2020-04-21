@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback, Share, Alert } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { TouchableOpacity, Text, Icon, ChangeLanguageButton } from '../common';
+import { TouchableOpacity, Text, Icon } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { HIT_SLOP, PADDING_TOP, SCREEN_WIDTH } from '../../constants/Constants';
 import { onError } from '../../services/ErrorService';

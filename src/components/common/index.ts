@@ -4,8 +4,6 @@ export * from './ActionButton';
 export * from './Loader';
 export * from './GeneralContainer';
 export * from './Icon';
-export * from './ChangeLanguage';
-export * from './ChangeLanguageButton';
 export * from './OnboardingHeader';
 export * from './FadeInView';
 export * from './GeneralWebview';

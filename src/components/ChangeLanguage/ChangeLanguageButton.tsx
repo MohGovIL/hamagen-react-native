@@ -2,7 +2,7 @@ import React, { ElementType } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Icon, TouchableOpacity, Text } from '.';
+import { Icon, TouchableOpacity, Text } from '../common';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
 import { Languages, Strings } from '../../locale/LocaleData';
 
@@ -59,4 +59,4 @@ const mapDispatchToProps = (dispatch: any) => {
 
 ChangeLanguageButton = connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageButton);
 
-export { ChangeLanguageButton };
+export default ChangeLanguageButton 

@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { createDrawerNavigator } from '@react-navigation/drawer';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import _ from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -16,11 +15,11 @@ import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
 import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
 import Notifications from './Onboarding/Notifications';
 import AllSet from './Onboarding/AllSet';
-import ScanHome from './Main/ScanHome';
-import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
 import LocationHistory from './Main/LocationHistory/LocationHistory';
 import FilterDriving from './Main/FilterDriving/FilterDriving';
-import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
+import Home from './Drawer'
+import { Loader,  GeneralWebview, ForceUpdate, ForceTerms } from './common';
+import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal'
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
@@ -68,24 +67,6 @@ interface Props {
   toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void
 }
-
-const Drawer = createDrawerNavigator()
-
-const Home = () => (
-  <Drawer.Navigator 
-    screenOptions={{gestureEnabled: false}}
-    drawerPosition="right" 
-    initialRouteName="ScanHome" 
-    drawerStyle={{
-      backgroundColor: 'rgb(235,246,252)',
-      width: Dimensions.get('window').width,
-    }}>
-    <Drawer.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-    <Drawer.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-    <Drawer.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-    <Drawer.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-  </Drawer.Navigator>
-)
 
 const Loading = (
   {
@@ -212,7 +193,9 @@ const Loading = (
           <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} isRTL={isRTL}/>
+          <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }}/>
+          <Stack.Screen name="FilterDriving" component={FilterDriving}  options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }}/>
+          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{isRTL}}/>
           
         </Stack.Navigator>
         <Loader isVisible={showLoader} />

@@ -2,8 +2,8 @@ import React, { ElementType } from 'react';
 import { View, StyleSheet, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { CloseButton, Text, TouchableOpacity } from '.';
-import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
+import { Text, TouchableOpacity } from '../common';
+import { changeLocale } from '../../actions/LocaleActions';
 import { Languages, Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
@@ -16,22 +16,14 @@ interface Props {
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
+  let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
   const onButtonPress = (selectedLocale: string) => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };
 
   return (
-    <Modal
-      visible={isVisible}
-      animationType="slide"
-      transparent
-      onRequestClose={() => toggleChangeLanguage(false)}
-    >
-      <View style={styles.container}>
-        <CloseButton onPress={() => toggleChangeLanguage(false)} />
-
+    <>
         <View style={styles.titleWrapper}>
           <Text style={styles.title} bold>{title}</Text>
         </View>
@@ -50,8 +42,7 @@ let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { 
             ))
           }
         </ScrollView>
-      </View>
-    </Modal>
+      </>
   );
 };
 
@@ -98,10 +89,9 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
     changeLocale,
-    toggleChangeLanguage
   }, dispatch);
 };
 
 ChangeLanguage = connect(mapStateToProps, mapDispatchToProps)(ChangeLanguage);
 
-export { ChangeLanguage };
+export default ChangeLanguage 
