@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Icon } from '.';
-import ChangeLanguageButton from '../ChangeLanguage/ChangeLanguageButton'
+import ChangeLanguageButton from '../ChangeLanguage/ChangeLanguageButton';
 import { SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {

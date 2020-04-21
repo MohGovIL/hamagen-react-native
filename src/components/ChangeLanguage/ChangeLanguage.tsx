@@ -16,7 +16,7 @@ interface Props {
   toggleChangeLanguage(isShow: boolean): void
 }
 
-  let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
+let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
   const onButtonPress = (selectedLocale: string) => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
@@ -24,15 +24,15 @@ interface Props {
 
   return (
     <>
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title} bold>{title}</Text>
-        </View>
+      <View style={styles.titleWrapper}>
+        <Text style={styles.title} bold>{title}</Text>
+      </View>
 
-        <ScrollView
-          contentContainerStyle={{ alignItems: 'center' }}
-          showsVerticalScrollIndicator={false}
-        >
-          {
+      <ScrollView
+        contentContainerStyle={{ alignItems: 'center' }}
+        showsVerticalScrollIndicator={false}
+      >
+        {
             Object.keys(long).map((key: string, index: number) => (
               <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
                 <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
@@ -41,8 +41,8 @@ interface Props {
               </TouchableOpacity>
             ))
           }
-        </ScrollView>
-      </>
+      </ScrollView>
+    </>
   );
 };
 
@@ -94,4 +94,4 @@ const mapDispatchToProps = (dispatch: any) => {
 
 ChangeLanguage = connect(mapStateToProps, mapDispatchToProps)(ChangeLanguage);
 
-export default ChangeLanguage 
+export default ChangeLanguage;

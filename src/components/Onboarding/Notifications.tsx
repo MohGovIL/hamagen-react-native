@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text } from '../common';
 import { initPushNotifications } from '../../services/PushService';
@@ -8,7 +9,7 @@ import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN } from '../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   strings: Strings
 }
 

@@ -1,5 +1,6 @@
+import axios from 'axios';
 import DeviceInfo from 'react-native-device-info';
-import axios, { AxiosResponse } from 'axios';
+import { downloadAndVerifySigning } from '../services/SigningService';
 import { onError } from '../services/ErrorService';
 import DefaultConfig from './default_config.json';
 import { Config } from '../types';
@@ -11,8 +12,8 @@ let config: Config = DefaultConfig[env] || DefaultConfig['com.hamagen.qa'];
 
 export const initConfig = async () => new Promise(async (resolve) => {
   try {
-    const res: AxiosResponse = await axios.get(`https://gisweb.azureedge.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
-    const { data } = await axios.get(`${res.data[env]}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const configUrls = await axios.get(`https://gisweb.azureedge.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const data = await downloadAndVerifySigning(configUrls.data[env]);
 
     config = data[env];
     resolve();

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ImageBackground,TouchableWithoutFeedback, Share, Alert } from 'react-native';
+import { View, StyleSheet, ImageBackground, TouchableWithoutFeedback, Share, Alert } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { TouchableOpacity, Text, Icon } from '../common';
 import { Strings } from '../../locale/LocaleData';
@@ -9,42 +9,39 @@ import { onError } from '../../services/ErrorService';
 
 interface ShareBtnProps {
   strings: Strings,
-  
+
 }
 
-const ShareBtn = ({strings}: ShareBtnProps) => {
-  
+const ShareBtn = ({ strings }: ShareBtnProps) => {
   const {
-    scanHome:{
+    scanHome: {
       share: {
         message,
         title,
         androidTitle
       }
-    }} = strings
+    } } = strings;
 
   const onShare = async () => {
-    try{
+    try {
       const result = await Share.share({
-        message ,
+        message,
         title,
 
-      }, {dialogTitle: androidTitle});
-      
+      }, { dialogTitle: androidTitle });
+    } catch (error) {
+      onError({ error });
     }
-    catch(error) {
-      onError({error})
-    }
-  }
+  };
 
   return (
     <View style={styles.shareBtnContainer}>
-        <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
-          <Icon source={require('../../assets/main/share.png')} width={20} />
-        </TouchableOpacity>
+      <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
+        <Icon source={require('../../assets/main/share.png')} width={20} />
+      </TouchableOpacity>
     </View>
-    )
-}
+  );
+};
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -54,7 +51,7 @@ interface ScanHomeHeaderProps {
   openDrawer(): void
 }
 
-const ScanHomeHeader = ({strings,openDrawer}: ScanHomeHeaderProps) => {
+const ScanHomeHeader = ({ strings, openDrawer }: ScanHomeHeaderProps) => {
   return (
     <ImageBackground
       source={require('../../assets/main/headerBG.png')}
@@ -63,15 +60,15 @@ const ScanHomeHeader = ({strings,openDrawer}: ScanHomeHeaderProps) => {
       resizeMethod="resize"
     >
       <View style={styles.container}>
-        <ShareBtn strings={strings}/>
+        <ShareBtn strings={strings} />
         <View style={styles.logoContainer}>
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
-          <View style={styles.menuContainer}>
-            <TouchableOpacity hitSlop={HIT_SLOP} onPress={openDrawer}>
-              <Icon source={require('../../assets/main/menu.png')} width={20} />
-            </TouchableOpacity>
-          </View>
+        <View style={styles.menuContainer}>
+          <TouchableOpacity hitSlop={HIT_SLOP} onPress={openDrawer}>
+            <Icon source={require('../../assets/main/menu.png')} width={20} />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={styles.bottomEdge} />
     </ImageBackground>
@@ -102,18 +99,18 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 24,
     backgroundColor: '#fff'
   },
-  shareBtnContainer: { 
-    flex:1,
-    justifyContent: 'center', 
+  shareBtnContainer: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'flex-start'
   },
-  logoContainer: { 
-    flex:3,
+  logoContainer: {
+    flex: 3,
     justifyContent: 'center',
-    alignItems: 'center' 
+    alignItems: 'center'
   },
-  menuContainer: { 
-    flex:1, 
+  menuContainer: {
+    flex: 1,
     alignItems: 'flex-end',
     justifyContent: 'center'
   }

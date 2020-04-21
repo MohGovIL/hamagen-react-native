@@ -59,4 +59,4 @@ const mapDispatchToProps = (dispatch: any) => {
 
 ChangeLanguageButton = connect(mapStateToProps, mapDispatchToProps)(ChangeLanguageButton);
 
-export default ChangeLanguageButton 
+export default ChangeLanguageButton;

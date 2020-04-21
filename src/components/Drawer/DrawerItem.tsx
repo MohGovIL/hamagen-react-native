@@ -8,7 +8,7 @@ import {
   TextStyle,
   TouchableOpacity
 } from 'react-native';
-import { CommonActions, DrawerActions, DrawerNavigationState} from '@react-navigation/native';
+import { CommonActions, DrawerActions, DrawerNavigationState } from '@react-navigation/native';
 
 
 type Props = {
@@ -76,32 +76,33 @@ const DrawerItem = (props: Props) => {
     name,
     ...rest
   } = props;
- 
+
   const iconNode = icon ? icon({ size: 24, focused }) : null;
 
   return (
-        <View style= {{borderBottomColor: 'white',
-        borderBottomWidth: 1.5,}}>
+    <View style={{ borderBottomColor: 'white',
+      borderBottomWidth: 1.5, }}
+    >
 
-        <TouchableOpacity 
-            {...rest}
-            style={[styles.container, {flexDirection: isRTL ? 'row-reverse': 'row'}]}
-            onPress={() => {
-                navigation.dispatch({
-                    ...(focused
-                      ? DrawerActions.closeDrawer()
-                      : CommonActions.navigate(name))
-                  })
-            }}
-            >
-            {iconNode}
-            <Text style={[styles.label, isRTL ? styles.labelRight : styles.labelLeft]} >{label}</Text>
-        
-            </TouchableOpacity>
-        </View>
-    
+      <TouchableOpacity
+        {...rest}
+        style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}
+        onPress={() => {
+          navigation.dispatch({
+            ...(focused
+              ? DrawerActions.closeDrawer()
+              : CommonActions.navigate(name))
+          });
+        }}
+      >
+        {iconNode}
+        <Text style={[styles.label, isRTL ? styles.labelRight : styles.labelLeft]}>{label}</Text>
+
+      </TouchableOpacity>
+    </View>
+
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -113,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   label: {
-      fontSize: 18
+    fontSize: 18
   },
   labelRight: {
     marginRight: 19,
@@ -123,7 +124,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DrawerItem
+export default DrawerItem;
 
 
 /*

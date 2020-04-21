@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import { Exposure, ReducerAction } from '../types';
+import { ExposuresReducer, ReducerAction } from '../types';
 import {
   DISMISS_EXPOSURE,
   REMOVE_VALID_EXPOSURE,
@@ -9,13 +9,6 @@ import {
   UPDATE_PAST_EXPOSURES,
   UPDATE_FIRST_POINT
 } from '../constants/ActionTypes';
-
-interface ExposuresReducer {
-  exposures: Exposure[],
-  pastExposures: Exposure[],
-  validExposure?: Exposure,
-  firstPoint?: number
-}
 
 const INITIAL_STATE = {
   exposures: [],
