@@ -154,7 +154,10 @@ export interface Strings {
         title: string,
         atHour: string
       }
-    }
+    },
+    showOnMap: string,
+    wasNotMe: string,
+    wasMe: string
   },
   exposuresHistory: {
     title: string,

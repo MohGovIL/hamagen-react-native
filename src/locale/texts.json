@@ -204,7 +204,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",
@@ -346,7 +349,8 @@
       "suspectedExposure": "إشتباه بالتعرض لمريض كورونا:",
       "events": " أحداث ",
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
-      "atPlace": " في"
+      "atPlace": " في",
+      "showOnMap": "הציגו לי במפה"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -487,7 +491,8 @@
       "suspectedExposure": "Suspected Exposure:",
       "events": "Events",
       "possibleExposure": "There may have been an exposure to a Corona patient:",
-      "atPlace": "At "
+      "atPlace": "At ",
+      "showOnMap": "הציגו לי במפה"
     },
     "exposuresHistory": {
       "title": "Overlap history",
@@ -628,7 +633,8 @@
       "suspectedExposure": "Подозрение на контакт:",
       "events": "случая",
       "possibleExposure": "Возможно контакт с больным был :",
-      "atPlace": "в "
+      "atPlace": "в ",
+      "showOnMap": "הציגו לי במפה"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -769,7 +775,8 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
-      "atPlace": "በ "
+      "atPlace": "በ ",
+      "showOnMap": "הציגו לי במפה"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -910,7 +917,8 @@
       "suspectedExposure": "Suspicion d'exposition:",
       "events": "les événements",
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
-      "atPlace": "À "
+      "atPlace": "À ",
+      "showOnMap": "הציגו לי במפה"
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
