@@ -10,11 +10,11 @@ import AsyncStorage from '@react-native-community/async-storage';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
-import { checkSickPeople, checkSickPeopleFromFile } from '../../services/Tracker';
+import { checkSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { UserLocationsDatabase } from '../../database/Database';
 import config from '../../config/config';
-import { Exposure } from '../../types';
+import { DBLocation, Exposure } from '../../types';
 import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
 
 interface Props {
@@ -107,6 +107,14 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Clipboard.setString(JSON.stringify(config()));
   };
 
+  const copyShareLocationsInfo = async () => {
+    const locations: DBLocation[] = await queryDB();
+    const dataRows = locations.map(location => ({ ...location, _long: location.long }));
+
+    Clipboard.setString(JSON.stringify({ token: 'XXXX', dataRows }));
+    Alert.alert('Locations are copied', '', [{ text: 'OK' }]);
+  };
+
   const initCheckSickPeople = async () => {
     try {
       await checkSickPeople();
@@ -185,6 +193,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="נקה את כל ה'דקירות'" onPress={clearAllPoints} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="העתק מידע לשיתוף מיקומים " onPress={copyShareLocationsInfo} />
         </View>
       </ScrollView>
 

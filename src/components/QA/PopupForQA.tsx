@@ -66,8 +66,8 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
     let csv = 'lat, long, accuracy, startTime, endTime, reason\n';
 
     arr.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
+      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
     });
 
     Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
