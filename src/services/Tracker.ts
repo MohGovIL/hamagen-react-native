@@ -1,17 +1,15 @@
 import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
-import {
-  UserLocationsDatabase,
-  IntersectionSickDatabase,
-} from '../database/Database';
-import { Exposure, Location, SickJSON } from '../types';
-import { registerLocalNotification } from './PushService';
 import { setExposures } from '../actions/ExposuresActions';
-import { onError } from './ErrorService';
 import { initLocale } from '../actions/LocaleActions';
+import { UserLocationsDatabase, IntersectionSickDatabase } from '../database/Database';
+import { registerLocalNotification } from './PushService';
+import { downloadAndVerifySigning } from './SigningService';
+import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
+import { Exposure, Location, SickJSON } from '../types';
 import { LAST_FETCH_TS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
@@ -32,43 +30,34 @@ export const queryDB = async () => {
 };
 
 export const checkSickPeople = async () => {
-  const lastFetch = JSON.parse(
-    (await AsyncStorage.getItem(LAST_FETCH_TS)) || '0',
-  );
+  try {
+    const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
-    return;
+    // prevent excessive calls to checkSickPeople
+    if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+      return;
+    }
+
+    const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
+    const myData = await queryDB();
+
+    const shouldFilterByGeohash = !!responseJson.features[0].properties.geohashFilter;
+    const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
+
+    if (sickPeopleIntersected.length > 0) {
+      await onSickPeopleNotify(sickPeopleIntersected);
+    }
+
+    await AsyncStorage.setItem(
+      LAST_FETCH_TS,
+      JSON.stringify(moment().valueOf()),
+    );
+  } catch (error) {
+    onError(error);
   }
-
-  fetch(`${config().dataUrl_utc}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } })
-    .then(response => response.json())
-    .then(async (responseJson) => {
-      const myData = await queryDB();
-
-      const sickPeopleIntersected: any = getIntersectingSickRecords(
-        myData,
-        responseJson,
-      );
-
-      if (sickPeopleIntersected.length > 0) {
-        await onSickPeopleNotify(sickPeopleIntersected);
-      }
-
-      await AsyncStorage.setItem(
-        LAST_FETCH_TS,
-        JSON.stringify(moment().valueOf()),
-      );
-    })
-    .catch((error) => {
-      onError(error);
-    });
 };
 
-export const getIntersectingSickRecords = (
-  myData: Location[],
-  sickRecordsJson: SickJSON,
-) => {
+export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: SickJSON) => {
   const sickPeopleIntersected: any = [];
 
   if (myData.length === 0) {
@@ -88,6 +77,45 @@ export const getIntersectingSickRecords = (
           sickPeopleIntersected.push(sickRecord);
         }
       });
+    });
+  }
+
+  return sickPeopleIntersected;
+};
+
+export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON) => {
+  const sickPeopleIntersected: any = [];
+
+  if (myData.length === 0) {
+    console.log('Could not find data');
+  } else {
+    const mappedLocations: {[key: string]: Location[]} = {};
+
+    myData.forEach((location) => {
+      const locationGeohashPrefix = location.geoHash.slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
+
+      if (mappedLocations[locationGeohashPrefix]) {
+        mappedLocations[locationGeohashPrefix].push(location);
+      } else {
+        mappedLocations[locationGeohashPrefix] = [location];
+      }
+    });
+
+    // for each feature in json data
+    sickRecordsJson.features.map((sickRecord: Exposure) => {
+      const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
+
+      // for each raw in user data
+      if (mappedLocations[sickRecordGeohashPrefix]) {
+        mappedLocations[sickRecordGeohashPrefix].reverse().forEach((userRecord: Location) => {
+          if (isTimeOverlapping(userRecord, sickRecord) && isSpaceOverlapping(userRecord, sickRecord)) {
+            // add sick people you intersects
+            sickRecord.properties.fromTime_utc = Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc);
+            sickRecord.properties.toTime_utc = userRecord.endTime;
+            sickPeopleIntersected.push(sickRecord);
+          }
+        });
+      }
     });
   }
 

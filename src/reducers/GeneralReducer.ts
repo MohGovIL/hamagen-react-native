@@ -1,4 +1,4 @@
-import { ReducerAction } from '../types';
+import { GeneralReducer, ReducerAction } from '../types';
 import {
   TOGGLE_LOADER,
   TOGGLE_WEBVIEW,
@@ -9,16 +9,6 @@ import {
   HIDE_LOCATION_HISTORY
 } from '../constants/ActionTypes';
 import { USAGE_PRIVACY } from '../constants/Constants';
-
-interface GeneralReducer {
-  showLoader: boolean,
-  showWebview: boolean,
-  showForceUpdate: boolean,
-  shouldForce: boolean,
-  showForceTerms: boolean,
-  termsVersion: number,
-  hideLocationHistory: boolean
-}
 
 const INITIAL_STATE = {
   showLoader: false,

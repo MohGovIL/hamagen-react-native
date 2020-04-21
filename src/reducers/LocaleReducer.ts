@@ -1,17 +1,6 @@
-import localeData, { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
-import { ReducerAction } from '../types';
+import localeData from '../locale/LocaleData';
+import { LocaleReducer, ReducerAction } from '../types';
 import { TOGGLE_CHANGE_LANGUAGE, LOCALE_CHANGED, INIT_LOCALE } from '../constants/ActionTypes';
-
-interface LocaleReducer {
-  showChangeLanguage: boolean,
-  languages: Languages|{},
-  externalUrls: ExternalUrls|{},
-  notificationData: NotificationData|{},
-  strings: Strings|{},
-  isRTL: boolean,
-  locale: string,
-  localeData: LocaleData
-}
 
 const INITIAL_STATE = {
   showChangeLanguage: false,

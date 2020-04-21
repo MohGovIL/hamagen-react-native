@@ -3,12 +3,13 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import SplashScreen from 'react-native-splash-screen';
 import { bindActionCreators } from 'redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { checkForceUpdate } from '../../actions/GeneralActions';
 import { ActionButton, GeneralContainer, Text, Icon, OnboardingHeader } from '../common';
 import { Strings } from '../../locale/LocaleData';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   strings: Strings,
   checkForceUpdate(): void
 }

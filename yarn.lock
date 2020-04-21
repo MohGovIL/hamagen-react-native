@@ -1432,6 +1432,11 @@
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.4.tgz#38fd73ddfd9b55abb1e1b2ed578cb55bd7b7d339"
   integrity sha512-8+KAKzEvSUdeo+kmqnKrqgeE+LcA0tjYWFY7RPProVYwnqDjukzO+3b6dLD56rYX5TdWejnEOLJYOIeh4CXKuA==
 
+"@types/jsrsasign@^8.0.2":
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/@types/jsrsasign/-/jsrsasign-8.0.2.tgz#39f19045f33a7e2bd09a195556c1450d2e82f4c9"
+  integrity sha512-H9E1AhOgouH0Zi7O1TAfntNXzMgFZWncB0MY/bfVs4v4gUBVsEM/ZCjBqPmw3QfsL2ZdcBb7YunXykMLpqNBhQ==
+
 "@types/latlon-geohash@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/latlon-geohash/-/latlon-geohash-2.0.0.tgz#384723d354cfe40197bb0fadaf2e72f649736314"
@@ -5178,6 +5183,11 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
+jsrsasign@^8.0.14:
+  version "8.0.14"
+  resolved "https://registry.yarnpkg.com/jsrsasign/-/jsrsasign-8.0.14.tgz#6d5385fd97a9b9064c16fc859884cb7f776a4302"
+  integrity sha512-W2kger4StyvK5UWD5HCaSmOiJZXLgFflQYPlNtRC6zxu81QWBoW2A7kZvsWO1C5kqpxXL/7z4Mq7vWv/BsvGaA==
+
 jsx-ast-utils@^2.0.1, jsx-ast-utils@^2.1.0:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/jsx-ast-utils/-/jsx-ast-utils-2.2.3.tgz#8a9364e402448a3ce7f14d357738310d9248054f"
@@ -7162,7 +7172,7 @@ realpath-native@^2.0.0:
   resolved "https://registry.yarnpkg.com/realpath-native/-/realpath-native-2.0.0.tgz#7377ac429b6e1fd599dc38d08ed942d0d7beb866"
   integrity sha512-v1SEYUOXXdbBZK8ZuNgO4TBjamPsiSgcFr0aP+tEKpQZK8vooEUqV6nm6Cv502mX4NF2EfsnVqtNAHG+/6Ur1Q==
 
-redux-mock-store@^1.5.4:
+redux-mock-store@1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/redux-mock-store/-/redux-mock-store-1.5.4.tgz#90d02495fd918ddbaa96b83aef626287c9ab5872"
   integrity sha512-xmcA0O/tjCLXhh9Fuiq6pMrJCwFRaouA8436zcikdIpYWWCjU76CRk+i2bHx8EeiSiMGnB85/lZdU3wIJVXHTA==

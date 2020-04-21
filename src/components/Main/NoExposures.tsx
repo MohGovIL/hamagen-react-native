@@ -4,10 +4,10 @@ import moment from 'moment';
 import LottieView from 'lottie-react-native';
 
 import LocationHistoryInfo from './LocationHistoryInfo';
-import { FadeInView, Text,Icon, TouchableOpacity } from '../common';
+import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
-import InfoModal, {InfoModalTypes} from './InfoModal'
+import InfoModal, { InfoModalTypes } from './InfoModal';
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -22,16 +22,15 @@ const NoExposures = (
     strings,
   }: NoExposuresProps
 ) => {
-  
   const appState = useRef<AppStateStatus>('active');
-  const modalRef = useRef<InfoModalTypes>(null)
+  const modalRef = useRef<InfoModalTypes>(null);
   const [now, setNow] = useState(moment().valueOf());
-  const { FPDate, nowHour} = useMemo(() => ({
-    FPDate : moment(firstPoint).format('D.M.YY'),
-    nowHour : moment(now).format('HH:mm')
-  }), [firstPoint,now])
+  const { FPDate, nowHour } = useMemo(() => ({
+    FPDate: moment(firstPoint).format('D.M.YY'),
+    nowHour: moment(now).format('HH:mm')
+  }), [firstPoint, now]);
 
-  const  {
+  const {
     scanHome: {
       noExposures: {
         bannerTextPt1,
@@ -42,8 +41,8 @@ const NoExposures = (
           atHour
         }
       }
-    } 
-  } = strings
+    }
+  } = strings;
 
   // redundant ScanHome calls it
   useEffect(() => {
@@ -64,41 +63,43 @@ const NoExposures = (
 
   return (
     <>
-    <FadeInView style={styles.fadeContainer}>
-      <View style={styles.container}>
-        <LottieView
-          style={styles.lottie}
-          source={require('../../assets/lottie/magen logo.json')}
-          resizeMode="cover"
-          autoPlay
-          loop
-        />
+      <FadeInView style={styles.fadeContainer}>
+        <View style={styles.container}>
+          <LottieView
+            style={styles.lottie}
+            source={require('../../assets/lottie/magen logo.json')}
+            resizeMode="cover"
+            autoPlay
+            loop
+          />
 
-        <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-        <Text bold style={styles.bannerText}>{bannerTextPt1}</Text>
-        <Text bold style={styles.bannerText}>{bannerTextPt2}</Text>
-      </View>
-      <View style={styles.bottomCard}>
+          <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
+          <Text bold style={styles.bannerText}>{bannerTextPt1}</Text>
+          <Text bold style={styles.bannerText}>{bannerTextPt2}</Text>
+        </View>
+        <View style={styles.bottomCard}>
 
-        <Text style={styles.cardHeaderText}>{title}</Text>
-        <View style={styles.cardBody}>
-            <TouchableOpacity 
+          <Text style={styles.cardHeaderText}>{title}</Text>
+          <View style={styles.cardBody}>
+            <TouchableOpacity
               onPress={modalRef?.current?.toggleModal}
-              hitSlop={HIT_SLOP}  >
-              <Icon 
-                width={15} 
-                source={require('../../assets/main/moreInfoBig.png')} 
-                customStyles={styles.infoIcon}/>
+              hitSlop={HIT_SLOP}
+            >
+              <Icon
+                width={15}
+                source={require('../../assets/main/moreInfoBig.png')}
+                customStyles={styles.infoIcon}
+              />
             </TouchableOpacity>
-            <Text >
+            <Text>
               <Text bold style={styles.toTimeDate}>{FPDate}</Text>
               <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
               <Text bold style={styles.toTimeDate}>{nowHour}</Text>
             </Text>
+          </View>
         </View>
-      </View>
-    </FadeInView >
-    <InfoModal strings={strings} ref={modalRef}/>
+      </FadeInView>
+      <InfoModal strings={strings} ref={modalRef} />
     </>
   );
 };
@@ -110,9 +111,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingBottom: PADDING_BOTTOM(58)
   },
-  container: { 
-    alignItems: 'center', 
-    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 
+  container: {
+    alignItems: 'center',
+    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   },
   bottomCard: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.76 : 0.82),
-    paddingVertical: 22, 
+    paddingVertical: 22,
     borderRadius: 13,
     backgroundColor: '#FDFDFD',
     shadowColor: '#084473',
@@ -131,11 +132,11 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   cardHeaderText: {
-    fontSize: 14, 
-    marginBottom: 10, 
+    fontSize: 14,
+    marginBottom: 10,
   },
   cardBody: {
-    justifyContent: 'center', 
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
   },
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   workAllTimeTxt: {
-    fontSize: 17, 
+    fontSize: 17,
     marginBottom: 20
   },
   toTimeDate: {
