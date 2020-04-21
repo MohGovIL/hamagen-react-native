@@ -218,7 +218,8 @@
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
-      "reportSite": "לדיווח באתר"
+      "reportSite": "לדיווח באתר",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:" 
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",

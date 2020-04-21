@@ -168,7 +168,8 @@ export interface Strings {
     goIntoIsolation: string,
     reportIsolation: string,
     allInstructions: string,
-    reportSite: string
+    reportSite: string,
+    keepSafeNew: string
   },
   locationHistory: {
     beforeCheckTitle: string,

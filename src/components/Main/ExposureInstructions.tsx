@@ -30,7 +30,7 @@ const ExposureInstructions = (
     externalUrls,
     strings: {
       scanHome: { inDate, fromHour },
-      exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
+      exposureInstructions: { title, weUnderstand, wrong, keepSafeNew, goIntoIsolation, reportIsolation, allInstructions, reportSite }
     },
     exposure: { properties: { Place, fromTime } },
     removeValidExposure
@@ -42,7 +42,7 @@ const ExposureInstructions = (
   const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.actionButtonContainer]}>
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
@@ -56,13 +56,14 @@ const ExposureInstructions = (
   return (
     <FadeInView style={{ flex: 1 }}>
       <ScrollView
+        bounces={false}
         contentContainerStyle={styles.subContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ flex:1,alignItems: 'center' }}>
           <Text style={styles.title} bold>{title}</Text>
 
-          <Text style={{ lineHeight: 22, marginBottom: 15 }}>
+          <Text style={{ lineHeight: 22, marginBottom: 15, paddingHorizontal: 10 }}>
             {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
           </Text>
 
@@ -71,11 +72,13 @@ const ExposureInstructions = (
             <View style={styles.bottomBorder} />
           </TouchableOpacity>
         </View>
-
-        <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
-
-        {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-        {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+        <View style={{ flex:1, justifyContent: 'flex-end' }}>
+          <Text style={{ marginBottom: 25, }} bold>{keepSafeNew}</Text>
+          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' , justifyContent: 'space-between'}}>
+            {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+            {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+          </View>
+        </View>
       </ScrollView>
     </FadeInView>
   );
@@ -88,10 +91,12 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   subContainer: {
-    paddingHorizontal: 30,
-    alignItems: 'center',
+    flex:1,
+    
+    justifyContent: 'space-around',
+    paddingHorizontal: 23,
     paddingTop: IS_SMALL_SCREEN ? 25 : 40,
-    paddingBottom: PADDING_BOTTOM(10)
+    paddingBottom: PADDING_BOTTOM(30),
   },
   title: {
     fontSize: 22,
@@ -101,35 +106,36 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     height: 2,
     borderRadius: 1,
-    backgroundColor: MAIN_COLOR
-  },
-  actionButtonsWrapper: {
-    width: SCREEN_WIDTH - 50,
-    justifyContent: 'space-between'
+    backgroundColor: MAIN_COLOR,
+    marginTop: 3
   },
   actionButtonContainer: {
+    // flex: 1,
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH - 40,
-    paddingVertical: 15,
+    width: SCREEN_WIDTH/2 - 32,
+    paddingVertical: 26,
     paddingHorizontal: 18,
     borderRadius: 16,
-    marginBottom: 12,
+    // marginBottom: 12,
     alignItems: 'center',
     justifyContent: 'space-between'
   },
   button: {
-    width: 82,
-    height: 32,
+    width: '100%',
+    marginHorizontal: 25,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
-    backgroundColor: MAIN_COLOR
+    backgroundColor: MAIN_COLOR,
+    paddingTop: 5,
+    paddingBottom: 8
   },
   actionText: {
-    flex: 1,
     lineHeight: 16,
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    paddingHorizontal: 10
+    paddingHorizontal: 15,
+    paddingTop: 12,
+    paddingBottom: 23
   },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
