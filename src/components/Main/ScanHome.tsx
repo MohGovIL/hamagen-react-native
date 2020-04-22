@@ -144,7 +144,7 @@ const ScanHome = (
           removeValidExposure={removeValidExposure}
         />
       );
-    } if (hasLocation || !hasNetwork || !hasGPS) {
+    } if (!hasLocation || !hasNetwork || !hasGPS) {
       return (
         <NoData strings={strings} />
       );
