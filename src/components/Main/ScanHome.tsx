@@ -14,7 +14,7 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview,showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -57,7 +57,8 @@ const ScanHome = (
     firstPoint,
     hideLocationHistory,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }: Props
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
@@ -158,6 +159,7 @@ const ScanHome = (
           exposures={exposures}
           onValidExposure={exposure => setValidExposure(exposure)}
           dismissExposure={exposureId => dismissExposure(exposureId)}
+          showMapModal={showMapModal}
         />
       );
     }
@@ -216,7 +218,8 @@ const mapDispatchToProps = (dispatch: any) => {
     dismissExposure,
     toggleWebview,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }, dispatch);
 };
 
