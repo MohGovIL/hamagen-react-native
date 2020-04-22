@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Animated, ScrollView } from 'react-native';
 import moment from 'moment';
+import { Region } from 'react-native-maps';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
@@ -11,7 +12,6 @@ import {
   PADDING_BOTTOM,
   SCREEN_WIDTH
 } from '../../constants/Constants';
-import { Region } from 'react-native-maps';
 
 interface Props {
   isRTL: boolean,
@@ -26,7 +26,7 @@ const ExposuresDetected = (
   {
     isRTL,
     strings: {
-      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, canContinue, wasMe, needDirections, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
+      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
     },
     exposures,
     onValidExposure,
@@ -57,23 +57,12 @@ const ExposuresDetected = (
     <Animated.View style={[styles.detailsContainer, scale]}>
       <Text style={{ fontSize: 13, marginBottom: 8 }}>{`1/${exposures.length}`}</Text>
       <Text style={{ fontSize: 14, marginBottom: 18 }}>{possibleExposure}</Text>
-      <Text
-        style={{ fontSize: 18, lineHeight: 25 }}
-        bold
-      >
+      <Text style={{ fontSize: 18, lineHeight: 25 }} bold>
         {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
       </Text>
-      <View
-        style={{ marginTop: 12, paddingBottom: 3, borderBottomWidth: 1.5, borderColor: MAIN_COLOR }}
-      >
-        <Text
-          style={{ fontSize: 14 }}
-          onPress={() => showMapModal(exposures[0])}
-        >
-          {showOnMap}
-        </Text>
+      <View style={{ marginTop: 12, paddingBottom: 3, borderBottomWidth: 1.5, borderColor: MAIN_COLOR }}>
+        <Text style={{ fontSize: 14 }} onPress={() => showMapModal(exposures[0])}>{showOnMap}</Text>
       </View>
-
     </Animated.View>
   ), [exposures[0]]);
 
@@ -86,6 +75,7 @@ const ExposuresDetected = (
   return (
     <FadeInView style={styles.container}>
       <ScrollView
+        contentContainerStyle={{ paddingBottom: 10 }}
         bounces={false}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{paddingBottom: 18}}

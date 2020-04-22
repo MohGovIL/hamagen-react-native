@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
@@ -14,7 +14,7 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -22,7 +22,7 @@ import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 interface Props {
-  navigation: StackNavigationProp<any>,
+  navigation: DrawerNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -35,7 +35,6 @@ interface Props {
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
-  toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void
 }
@@ -53,7 +52,6 @@ const ScanHome = (
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    toggleWebview,
     firstPoint,
     hideLocationHistory,
     checkForceUpdate,
@@ -166,7 +164,6 @@ const ScanHome = (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
-        toggleWebview={toggleWebview}
         firstPoint={firstPoint}
         hideLocationHistory={hideLocationHistory}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
@@ -179,8 +176,6 @@ const ScanHome = (
       <ScanHomeHeader
         isRTL={isRTL}
         strings={strings}
-        isConnected={hasLocation && hasNetwork && hasGPS}
-        showChangeLanguage
         openDrawer={navigation.openDrawer}
       />
 
@@ -214,7 +209,6 @@ const mapDispatchToProps = (dispatch: any) => {
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    toggleWebview,
     checkForceUpdate,
     checkIfHideLocationHistory
   }, dispatch);

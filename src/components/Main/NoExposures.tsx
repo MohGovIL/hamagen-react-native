@@ -12,36 +12,22 @@ interface NoExposuresProps {
   isRTL: boolean,
   firstPoint?: number,
   strings: Strings,
+  hideLocationHistory: boolean,
+  goToLocationHistory(): void
 }
 
-const NoExposures = (
-  {
-    isRTL,
-    firstPoint,
-    strings,
-  }: NoExposuresProps
-) => {
+const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
   const appState = useRef<AppStateStatus>('active');
   const modalRef = useRef<InfoModalTypes>(null);
+
   const [now, setNow] = useState(moment().valueOf());
+
   const { FPDate, nowHour } = useMemo(() => ({
     FPDate: moment(firstPoint).format('D.M.YY'),
     nowHour: moment(now).format('HH:mm')
   }), [firstPoint, now]);
 
-  const {
-    scanHome: {
-      noExposures: {
-        bannerTextPt1,
-        bannerTextPt2,
-        workAllTheTime,
-        card: {
-          title,
-          atHour
-        }
-      }
-    }
-  } = strings;
+  const { scanHome: { noExposures: { bannerText, workAllTheTime, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant ScanHome calls it
   useEffect(() => {
@@ -64,6 +50,11 @@ const NoExposures = (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
+          {
+            !hideLocationHistory && (
+              <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
+            )
+          }
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
@@ -73,8 +64,7 @@ const NoExposures = (
           />
 
           <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-          <Text bold style={styles.bannerText}>{bannerTextPt1}</Text>
-          <Text bold style={styles.bannerText}>{bannerTextPt2}</Text>
+          <Text bold style={styles.bannerText}>{bannerText}</Text>
         </View>
         <View style={styles.bottomCard}>
 
@@ -98,6 +88,7 @@ const NoExposures = (
           </View>
         </View>
       </FadeInView>
+
       <InfoModal strings={strings} ref={modalRef} />
     </>
   );

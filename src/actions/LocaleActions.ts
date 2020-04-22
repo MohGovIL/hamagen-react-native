@@ -45,7 +45,7 @@ export const initLocale = () => async (dispatch: any) => {
         notificationData,
         strings: localeData[activeLocale],
         locale: activeLocale,
-        isRTL: true,
+        isRTL: ['he', 'ar'].includes(activeLocale),
         localeData
       }
     });
