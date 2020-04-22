@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import { connect } from 'react-redux';
 import ChangeLanguage from './ChangeLanguage';
-import { CloseButton } from '../common';
+import { HeaderButton } from '../common';
 import { toggleChangeLanguage } from '../../actions/LocaleActions';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
@@ -20,7 +20,7 @@ const ChangeLanguageModal = ({ isVisible, toggleChangeLanguage }: Props) => {
       onRequestClose={() => toggleChangeLanguage(false)}
     >
       <View style={styles.container}>
-        <CloseButton onPress={() => toggleChangeLanguage(false)} />
+        <HeaderButton type="close" onPress={() => toggleChangeLanguage(false)} />
         <ChangeLanguage toggleChangeLanguage={toggleChangeLanguage} />
       </View>
 

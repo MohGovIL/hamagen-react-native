@@ -68,6 +68,7 @@ export interface Strings {
   },
   forceUpdate: {
     title: string,
+    subTitle: string,
     desc: string,
     dontForceDesc: string
   },
@@ -111,7 +112,8 @@ export interface Strings {
     hasData: string,
     noData: string,
     exposureHistory: string,
-    noDataDesc: string,
+    noDataDesc1: string,
+    noDataDesc2: string,
     noExposure: string,
     noExposure1: string,
     noExposure2: string,
@@ -144,8 +146,7 @@ export interface Strings {
       androidTitle: string
     },
     noExposures: {
-      bannerTextPt1: string,
-      bannerTextPt2: string,
+      bannerText: string,
       workAllTheTime: string,
       infoModal: {
         textBodyPt1: string,
@@ -162,7 +163,8 @@ export interface Strings {
   },
   exposuresHistory: {
     title: string,
-    noExposures: string
+    noExposures: string,
+    keepInstructions: string
   },
   exposureInstructions: {
     title: string,
@@ -200,6 +202,24 @@ export interface Strings {
     desc3: string,
     button: string,
     skip: string
+  },
+  shareLocation: {
+    title: {
+      beforeShare: string,
+      afterShare: string
+    },
+    description: {
+      beforeShare: string,
+      afterShare: string
+    },
+    greeting: {
+      beforeShare: string,
+      afterShare: string
+    },
+    button: {
+      beforeShare: string,
+      afterShare: string
+    }
   }
 }
 

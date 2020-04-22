@@ -27,7 +27,7 @@ const DrawerStack = () => {
 };
 
 const Home = () => {
-  const { locale, isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
 
   const Drawer = createDrawerNavigator();
 

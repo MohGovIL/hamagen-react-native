@@ -24,7 +24,7 @@ const ExposuresDetected = (
   {
     isRTL,
     strings: {
-      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, canContinue, wasMe, needDirections, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
+      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
     },
     exposures,
     onValidExposure,
@@ -54,23 +54,12 @@ const ExposuresDetected = (
     <Animated.View style={[styles.detailsContainer, scale]}>
       <Text style={{ fontSize: 13, marginBottom: 8 }}>{`1/${exposures.length}`}</Text>
       <Text style={{ fontSize: 14, marginBottom: 18 }}>{possibleExposure}</Text>
-      <Text
-        style={{ fontSize: 18, lineHeight: 25 }}
-        bold
-      >
+      <Text style={{ fontSize: 18, lineHeight: 25 }} bold>
         {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
       </Text>
-      <View
-        style={{ marginTop: 12, paddingBottom: 3, borderBottomWidth: 1.5, borderColor: MAIN_COLOR }}
-      >
-        <Text
-          style={{ fontSize: 14 }}
-          onPress={() => console.log('show map')}
-        >
-          {showOnMap}
-        </Text>
+      <View style={{ marginTop: 12, paddingBottom: 3, borderBottomWidth: 1.5, borderColor: MAIN_COLOR }}>
+        <Text style={{ fontSize: 14 }} onPress={() => console.log('show map')}>{showOnMap}</Text>
       </View>
-
     </Animated.View>
   ), [exposures[0]]);
 
@@ -83,6 +72,7 @@ const ExposuresDetected = (
   return (
     <FadeInView style={styles.container}>
       <ScrollView
+        contentContainerStyle={{ paddingBottom: 10 }}
         bounces={false}
         showsVerticalScrollIndicator={false}
       >

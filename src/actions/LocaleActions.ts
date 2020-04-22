@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
+    const data: LocaleData = await downloadAndVerifySigning(`${config().stringsUrl}frfr`);
 
     const { languages, notificationData, externalUrls } = data;
 
@@ -45,7 +45,7 @@ export const initLocale = () => async (dispatch: any) => {
         notificationData,
         strings: localeData[activeLocale],
         locale: activeLocale,
-        isRTL: true,
+        isRTL: ['he', 'ar'].includes(activeLocale),
         localeData
       }
     });
