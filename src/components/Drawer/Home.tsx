@@ -34,18 +34,18 @@ const Home = () => {
 
   return (
     <>
-    <Drawer.Navigator
-      screenOptions={{ gestureEnabled: false }}
-      drawerContent={props => <DrawerContent {...props} />}
-      drawerPosition={isRTL ? 'right' : 'left'}
-      drawerStyle={{
-        width: '100%'
-      }}
-    >
-      <Drawer.Screen name="DrawerStack" component={DrawerStack} />
-      
-    </Drawer.Navigator>
-    <MapModal/>
+      <Drawer.Navigator
+        screenOptions={{ gestureEnabled: false }}
+        drawerContent={props => <DrawerContent {...props} />}
+        drawerPosition={isRTL ? 'right' : 'left'}
+        drawerStyle={{
+          width: '100%'
+        }}
+      >
+        <Drawer.Screen name="DrawerStack" component={DrawerStack} />
+
+      </Drawer.Navigator>
+      <MapModal />
     </>
   );
 };
