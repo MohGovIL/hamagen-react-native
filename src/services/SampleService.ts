@@ -31,7 +31,7 @@ export const startSampling = async (locale: string, notificationData: Notificati
 
 export const syncLocationsDBOnLocationEvent = async () => {
   // prevent race condition of entering multiple points at the same time
-  await lock.acquire('updateDBAccordingToSampleVelocity', async (done) => {
+  await lock.acquire('syncLocationsDBOnLocationEvent', async (done) => {
     try {
       await initConfig();
 
