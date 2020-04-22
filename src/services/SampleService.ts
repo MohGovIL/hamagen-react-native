@@ -165,67 +165,75 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
 });
 
 export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
-  try {
-    const { is_moving, activity: { confidence }, coords: { speed } } = location;
+  // prevent race condition of entering multiple points at the same time
+  await lock.acquire('updateDBAccordingToSampleVelocity', async (done) => {
+    try {
+      const { is_moving, activity: { confidence }, coords: { speed } } = location;
 
-    const db = new UserLocationsDatabase();
+      const db = new UserLocationsDatabase();
 
-    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+      const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
 
-    const lastPointFromDB = await db.getLastPointEntered();
-    const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
+      const lastPointFromDB = await db.getLastPointEntered();
+      const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
 
-    // ignore locations with timestamp earlier then the last location saved
-    if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
-      return;
-    }
-
-    const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
-
-    if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
-      if (!isLastPointEndTimeUpdated) {
-        await db.updateLastSampleEndTime(location.timestamp);
-        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
-      }
-      return;
-    }
-
-    let pointsToCheck;
-
-    if (highVelocityPoints.length === 0) {
-      // in case this is the first point entered
-      if (!lastPointFromDB) {
-        await insertDB(location);
+      // ignore locations with timestamp earlier then the last location saved
+      if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
+        done();
         return;
       }
 
-      pointsToCheck = [{
-        coords: {
-          latitude: lastPointFromDB.lat,
-          longitude: lastPointFromDB.long,
-          accuracy: lastPointFromDB.accuracy
-        },
-        timestamp: lastPointFromDB.endTime
-      }];
-    } else {
-      pointsToCheck = highVelocityPoints;
-    }
+      const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
 
-    const isHighVelocity = evalVelocity([...pointsToCheck, location]);
-
-    if (isHighVelocity) {
-      if (highVelocityPoints.length === 0 && !isLastPointEndTimeUpdated) {
-        await db.updateLastSampleEndTime(location.timestamp);
-        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
+        if (!isLastPointEndTimeUpdated) {
+          await db.updateLastSampleEndTime(location.timestamp);
+          await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+        }
+        done();
+        return;
       }
-      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
-    } else {
-      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
-      await insertDB(location);
+
+      let pointsToCheck;
+
+      if (highVelocityPoints.length === 0) {
+        // in case this is the first point entered
+        if (!lastPointFromDB) {
+          await insertDB(location);
+          done();
+          return;
+        }
+
+        pointsToCheck = [{
+          coords: {
+            latitude: lastPointFromDB.lat,
+            longitude: lastPointFromDB.long,
+            accuracy: lastPointFromDB.accuracy
+          },
+          timestamp: lastPointFromDB.endTime
+        }];
+      } else {
+        pointsToCheck = highVelocityPoints;
+      }
+
+      const isHighVelocity = evalVelocity([...pointsToCheck, location]);
+
+      if (isHighVelocity) {
+        if (highVelocityPoints.length === 0 && !isLastPointEndTimeUpdated) {
+          await db.updateLastSampleEndTime(location.timestamp);
+          await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+        }
+        await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
+      } else {
+        await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
+        await insertDB(location);
+      }
+      done();
+    } catch (error) {
+      onError({ error });
+      done();
     }
-  } catch (error) {
-    onError({ error });
-  }
+  });
 };
 
 const evalVelocity = (myData: Sample[]) => {
