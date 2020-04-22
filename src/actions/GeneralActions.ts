@@ -71,11 +71,10 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
   }
 };
 
-
-export const showMapModal = ({ geometry: { coordinates } }: Exposure) => ({ type: SHOW_MAP_MODAL,
+export const showMapModal = ({ properties: { lat, long } }: Exposure) => ({ type: SHOW_MAP_MODAL,
   payload: {
-    latitude: coordinates[config().sickGeometryLatIndex],
-    longitude: coordinates[config().sickGeometryLongIndex],
+    latitude: lat,
+    longitude: long,
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   } });

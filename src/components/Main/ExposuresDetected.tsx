@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Animated, ScrollView } from 'react-native';
 import moment from 'moment';
-import { Region } from 'react-native-maps';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
@@ -19,7 +18,7 @@ interface Props {
   exposures: Exposure[],
   onValidExposure(exposure: Exposure): void,
   dismissExposure(exposureId: number): void,
-  showMapModal(region: Region): void
+  showMapModal(exposure: Exposure): void
 }
 
 const ExposuresDetected = (
@@ -78,7 +77,6 @@ const ExposuresDetected = (
         contentContainerStyle={{ paddingBottom: 10 }}
         bounces={false}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 18 }}
       >
         <View style={{ alignItems: 'center' }}>
           <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 33 }} />

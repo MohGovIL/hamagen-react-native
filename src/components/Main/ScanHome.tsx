@@ -14,7 +14,7 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { checkForceUpdate, checkIfHideLocationHistory } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -36,7 +36,8 @@ interface Props {
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
   checkForceUpdate(): void,
-  checkIfHideLocationHistory(): void
+  checkIfHideLocationHistory(): void,
+  showMapModal(exposure: Exposure): void
 }
 
 const ScanHome = (
@@ -55,7 +56,8 @@ const ScanHome = (
     firstPoint,
     hideLocationHistory,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }: Props
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
@@ -156,6 +158,7 @@ const ScanHome = (
           exposures={exposures}
           onValidExposure={exposure => setValidExposure(exposure)}
           dismissExposure={exposureId => dismissExposure(exposureId)}
+          showMapModal={showMapModal}
         />
       );
     }
@@ -210,7 +213,8 @@ const mapDispatchToProps = (dispatch: any) => {
     removeValidExposure,
     dismissExposure,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }, dispatch);
 };
 

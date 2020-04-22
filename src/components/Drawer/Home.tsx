@@ -43,8 +43,8 @@ const Home = () => {
         }}
       >
         <Drawer.Screen name="DrawerStack" component={DrawerStack} />
-
       </Drawer.Navigator>
+
       <MapModal />
     </>
   );

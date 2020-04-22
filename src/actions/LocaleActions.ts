@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
+    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl + 'er');
 
     const { languages, notificationData, externalUrls } = data;
 
