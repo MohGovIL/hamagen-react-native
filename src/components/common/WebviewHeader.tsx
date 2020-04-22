@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, ImageBackground } from 'react-native';
-import { CloseButton } from '.';
+import { HeaderButton } from '.';
 import { IS_SMALL_SCREEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
@@ -18,7 +18,7 @@ const WebviewHeader = ({ hideClose, closeModal }: Props) => {
     >
       {
         !hideClose && (
-          <CloseButton isSmall={IS_SMALL_SCREEN} onPress={closeModal} />
+          <HeaderButton type="close" onPress={closeModal} />
         )
       }
 

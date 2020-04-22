@@ -10,7 +10,7 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS } from '../constants/Constants';
+import { SERVICE_TRACKER, LAST_FETCH_TS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -19,6 +19,9 @@ export const startForegroundTimer = async () => {
   await checkSickPeople();
 
   BackgroundTimer.runBackgroundTimer(async () => {
+    const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+    await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
+
     await checkSickPeople();
   }, config().fetchMilliseconds);
 };

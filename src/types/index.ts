@@ -1,3 +1,4 @@
+import { Region } from 'react-native-maps';
 import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
 
 export interface Config {
@@ -29,7 +30,8 @@ export interface ErrorService {
   actionType?: string,
   dispatch?: (params: any) => void,
   customAction?: () => void,
-  showError?: boolean
+  showError?: boolean,
+  messageToShow?: string
 }
 
 export interface Fonts {
@@ -52,7 +54,9 @@ export interface Exposure {
     toTime: number,
     toTime_utc: number,
     radius?: number,
-    geohashFilter: string
+    geohashFilter: string,
+    lat?: number,
+    long?: number
   },
   geometry: {
     type: string,
@@ -123,7 +127,11 @@ export interface GeneralReducer {
   shouldForce: boolean,
   showForceTerms: boolean,
   termsVersion: number,
-  hideLocationHistory: boolean
+  hideLocationHistory: boolean,
+  showMap: {
+    visible: boolean,
+    region: Region
+  }
 }
 
 export interface ExposuresReducer {
@@ -135,10 +143,10 @@ export interface ExposuresReducer {
 
 export interface LocaleReducer {
   showChangeLanguage: boolean,
-  languages: Languages|{},
-  externalUrls: ExternalUrls|{},
-  notificationData: NotificationData|{},
-  strings: Strings|{},
+  languages: Languages,
+  externalUrls: ExternalUrls,
+  notificationData: NotificationData,
+  strings: Strings,
   isRTL: boolean,
   locale: string,
   localeData: LocaleData

@@ -2,8 +2,8 @@ import React, { ElementType } from 'react';
 import { View, StyleSheet, Modal, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { CloseButton, Text, TouchableOpacity } from '.';
-import { changeLocale, toggleChangeLanguage } from '../../actions/LocaleActions';
+import { Text, TouchableOpacity } from '../common';
+import { changeLocale } from '../../actions/LocaleActions';
 import { Languages, Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
@@ -16,31 +16,23 @@ interface Props {
   toggleChangeLanguage(isShow: boolean): void
 }
 
-let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
+let ChangeLanguage: ElementType = ({ locale, strings: { languages: { title } }, languages: { long }, changeLocale, toggleChangeLanguage }: Props) => {
   const onButtonPress = (selectedLocale: string) => {
     selectedLocale !== locale && changeLocale(selectedLocale);
     toggleChangeLanguage(false);
   };
 
   return (
-    <Modal
-      visible={isVisible}
-      animationType="slide"
-      transparent
-      onRequestClose={() => toggleChangeLanguage(false)}
-    >
-      <View style={styles.container}>
-        <CloseButton onPress={() => toggleChangeLanguage(false)} />
+    <>
+      <View style={styles.titleWrapper}>
+        <Text style={styles.title} bold>{title}</Text>
+      </View>
 
-        <View style={styles.titleWrapper}>
-          <Text style={styles.title} bold>{title}</Text>
-        </View>
-
-        <ScrollView
-          contentContainerStyle={{ alignItems: 'center' }}
-          showsVerticalScrollIndicator={false}
-        >
-          {
+      <ScrollView
+        contentContainerStyle={{ alignItems: 'center' }}
+        showsVerticalScrollIndicator={false}
+      >
+        {
             Object.keys(long).map((key: string, index: number) => (
               <TouchableOpacity key={index} onPress={() => onButtonPress(key)}>
                 <View style={[styles.languageButton, key === locale && { backgroundColor: MAIN_COLOR }]}>
@@ -49,9 +41,8 @@ let ChangeLanguage: ElementType = ({ isVisible, locale, strings: { languages: { 
               </TouchableOpacity>
             ))
           }
-        </ScrollView>
-      </View>
-    </Modal>
+      </ScrollView>
+    </>
   );
 };
 
@@ -98,10 +89,9 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
     changeLocale,
-    toggleChangeLanguage
   }, dispatch);
 };
 
 ChangeLanguage = connect(mapStateToProps, mapDispatchToProps)(ChangeLanguage);
 
-export { ChangeLanguage };
+export default ChangeLanguage;

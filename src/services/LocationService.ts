@@ -136,10 +136,9 @@ export const startLocationTracking = async (locale: string, notificationData: No
         text: notificationData.androidNotification[locale]
       },
       enableHeadless: true,
-      // QA
       persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
       maxRecordsToPersist: -1,
-      maxDaysToPersist: 1000
+      maxDaysToPersist: 10000000
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);
 

@@ -54,7 +54,8 @@ export interface Strings {
     additionalInfo: string,
     close: string,
     readTOU: string,
-    approveTOU: string
+    approveTOU: string,
+    versionNumber: string
   },
   languages: {
     title: string,
@@ -67,6 +68,7 @@ export interface Strings {
   },
   forceUpdate: {
     title: string,
+    subTitle: string,
     desc: string,
     dontForceDesc: string
   },
@@ -110,7 +112,8 @@ export interface Strings {
     hasData: string,
     noData: string,
     exposureHistory: string,
-    noDataDesc: string,
+    noDataDesc1: string,
+    noDataDesc2: string,
     noExposure: string,
     noExposure1: string,
     noExposure2: string,
@@ -136,11 +139,32 @@ export interface Strings {
     suspectedExposure: string,
     events: string,
     possibleExposure: string,
-    atPlace: string
+    atPlace: string,
+    share: {
+      message: string,
+      title: string,
+      androidTitle: string
+    },
+    noExposures: {
+      bannerText: string,
+      workAllTheTime: string,
+      infoModal: {
+        textBodyPt1: string,
+        textBodyPt2: string
+      },
+      card: {
+        title: string,
+        atHour: string
+      }
+    },
+    showOnMap: string,
+    wasNotMe: string,
+    wasMe: string
   },
   exposuresHistory: {
     title: string,
-    noExposures: string
+    noExposures: string,
+    keepInstructions: string
   },
   exposureInstructions: {
     title: string,
@@ -150,7 +174,8 @@ export interface Strings {
     goIntoIsolation: string,
     reportIsolation: string,
     allInstructions: string,
-    reportSite: string
+    reportSite: string,
+    keepSafeNew: string
   },
   locationHistory: {
     beforeCheckTitle: string,
@@ -177,6 +202,24 @@ export interface Strings {
     desc3: string,
     button: string,
     skip: string
+  },
+  shareLocation: {
+    title: {
+      beforeShare: string,
+      afterShare: string
+    },
+    description: {
+      beforeShare: string,
+      afterShare: string
+    },
+    greeting: {
+      beforeShare: string,
+      afterShare: string
+    },
+    button: {
+      beforeShare: string,
+      afterShare: string
+    }
   }
 }
 

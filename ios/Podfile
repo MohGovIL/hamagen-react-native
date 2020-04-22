@@ -40,7 +40,13 @@ def project_pods
   pod 'Firebase/Core', '~> 5.20.2'
   pod 'Firebase/Messaging', '~> 5.20.2'
 
-  pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
+   # React Native Maps dependencies
+   rn_maps_path = '../node_modules/react-native-maps'
+   pod 'react-native-google-maps', :path => rn_maps_path
+   pod 'GoogleMaps'
+   pod 'Google-Maps-iOS-Utils'
+
+   pod 'react-native-document-picker', :path => '../node_modules/react-native-document-picker'
 
   use_native_modules!
 end

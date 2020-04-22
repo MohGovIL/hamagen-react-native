@@ -16,7 +16,13 @@ import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistorySe
 import { UserLocationsDatabase } from '../../database/Database';
 import config from '../../config/config';
 import { DBLocation, Exposure } from '../../types';
-import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
+import {
+  ALL_POINTS_QA,
+  HIGH_VELOCITY_POINTS_QA,
+  PADDING_BOTTOM,
+  PADDING_TOP,
+  SERVICE_TRACKER
+} from '../../constants/Constants';
 
 interface Props {
   navigation: any,
@@ -149,6 +155,24 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Alert.alert('Cleared', '', [{ text: 'OK' }]);
   };
 
+  const copyServicesTrackingData = async () => {
+    const res: { source: string, timestamp: number }[] = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+
+    let csv = 'source, timestamp\n';
+
+    res.forEach(({ source, timestamp }: any) => {
+      csv += `${source},${timestamp}\n`;
+    });
+
+    Clipboard.setString(csv);
+    Alert.alert('Services data copied', '', [{ text: 'OK' }]);
+  };
+
+  const clearServicesTrackingData = async () => {
+    await AsyncStorage.removeItem(SERVICE_TRACKER);
+    Alert.alert('Cleared', '', [{ text: 'OK' }]);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
@@ -204,6 +228,14 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="העתק מידע לשיתוף מיקומים" onPress={copyShareLocationsInfo} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="העתק מידע מעקב שירותים" onPress={copyServicesTrackingData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
         </View>
 
         <View style={styles.buttonWrapper}>
