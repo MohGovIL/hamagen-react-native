@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Animated, ScrollView } from 'react-native';
 import moment from 'moment';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
@@ -24,14 +24,13 @@ const ExposuresDetected = (
   {
     isRTL,
     strings: {
-      scanHome: { inDate, fromHour, wereYouThere, no, canContinue, yes, needDirections, suspectedExposure, events, possibleExposure, atPlace },
+      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, canContinue, wasMe, needDirections, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
     },
     exposures,
     onValidExposure,
     dismissExposure
   }: Props
 ) => {
-  const [containerHeight, setContainerHeight] = useState(0);
   const [anim] = useState(new Animated.Value(1));
 
   const scale = {
@@ -51,38 +50,44 @@ const ExposuresDetected = (
     }
   };
 
-  const renderExposure = ({ properties: { Place, fromTime } }: Exposure) => (
+  const renderExposure = useCallback(({ properties: { Place, fromTime } }: Exposure) => (
     <Animated.View style={[styles.detailsContainer, scale]}>
-      <Text style={{ fontSize: 13, marginBottom: 5 }}>{`1/${exposures.length}`}</Text>
-      <Text style={{ fontSize: 14, marginBottom: 15 }}>{possibleExposure}</Text>
+      <Text style={{ fontSize: 13, marginBottom: 8 }}>{`1/${exposures.length}`}</Text>
+      <Text style={{ fontSize: 14, marginBottom: 18 }}>{possibleExposure}</Text>
       <Text
         style={{ fontSize: 18, lineHeight: 25 }}
         bold
       >
         {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
       </Text>
+      <View
+        style={{ marginTop: 12, paddingBottom: 3, borderBottomWidth: 1.5, borderColor: MAIN_COLOR }}
+      >
+        <Text
+          style={{ fontSize: 14 }}
+          onPress={() => console.log('show map')}
+        >
+          {showOnMap}
+        </Text>
+      </View>
 
     </Animated.View>
-  );
+  ), [exposures[0]]);
 
-  const renderActionButton = (text1: string, text2: string, action: () => void) => (
-    <TouchableOpacity onPress={action}>
-      <View style={styles.actionButton}>
-        <Text style={[styles.actionButtonText, { fontSize: IS_SMALL_SCREEN ? 20 : 25 }]} bold>{text1}</Text>
-        <Text style={styles.actionButtonText}>{text2}</Text>
-      </View>
+  const renderActionButton = (text: string, action: () => void) => (
+    <TouchableOpacity onPress={action} style={styles.actionButton}>
+      <Text bold style={styles.actionButtonText}>{text}</Text>
     </TouchableOpacity>
   );
 
   return (
     <FadeInView style={styles.container}>
       <ScrollView
-        onLayout={({ nativeEvent: { layout: { height } } }) => setContainerHeight(height)}
-        contentContainerStyle={[styles.subContainer, { minHeight: containerHeight }]}
+        bounces={false}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: 'center', marginBottom: 10 }}>
-          <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 20 }} />
+        <View style={{ alignItems: 'center', marginBottom: 18 }}>
+          <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 33 }} />
           <Text style={styles.title} bold>{`${suspectedExposure} ${exposures.length} ${events}`}</Text>
         </View>
 
@@ -95,8 +100,8 @@ const ExposuresDetected = (
         <Text style={{ marginBottom: 15 }}>{wereYouThere}</Text>
 
         <View style={[styles.actionButtonsWrapper, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-          {renderActionButton(no, canContinue, onDismissExposure)}
-          {renderActionButton(yes, needDirections, () => onValidExposure(exposures[0]))}
+          {renderActionButton(wasMe, () => onValidExposure(exposures[0]))}
+          {renderActionButton(wasNotMe, onDismissExposure)}
         </View>
       </View>
     </FadeInView>
@@ -106,29 +111,22 @@ const ExposuresDetected = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center'
-  },
-  subContainer: {
-    width: SCREEN_WIDTH,
-    justifyContent: 'space-around',
     alignItems: 'center',
-    paddingBottom: 10
+    paddingBottom: PADDING_BOTTOM(45)
   },
   title: {
     fontSize: IS_SMALL_SCREEN ? 18 : 22
   },
   detailsContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH * 0.88,
+    marginHorizontal: 18,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
     padding: 25
   },
   footer: {
-    width: SCREEN_WIDTH,
     paddingTop: 10,
-    paddingBottom: PADDING_BOTTOM(10),
     alignItems: 'center',
     backgroundColor: '#fff'
   },
@@ -139,7 +137,7 @@ const styles = StyleSheet.create({
   actionButton: {
     ...BASIC_SHADOW_STYLES,
     width: SCREEN_WIDTH * 0.424,
-    height: 80,
+    paddingVertical: 12,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 7,

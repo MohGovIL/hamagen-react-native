@@ -155,7 +155,10 @@ export interface Strings {
         title: string,
         atHour: string
       }
-    }
+    },
+    showOnMap: string,
+    wasNotMe: string,
+    wasMe: string
   },
   exposuresHistory: {
     title: string,
@@ -169,7 +172,8 @@ export interface Strings {
     goIntoIsolation: string,
     reportIsolation: string,
     allInstructions: string,
-    reportSite: string
+    reportSite: string,
+    keepSafeNew: string
   },
   locationHistory: {
     beforeCheckTitle: string,

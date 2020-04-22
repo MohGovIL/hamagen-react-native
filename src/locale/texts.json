@@ -205,7 +205,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "היסטוריית חפיפות",
@@ -219,7 +222,8 @@
       "goIntoIsolation": "להיכנס באופן מידי לבידוד למשך 14 יום מרגע החפיפה",
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
-      "reportSite": "לדיווח באתר"
+      "reportSite": "לדיווח באתר",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -365,7 +369,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -525,7 +532,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "Overlap history",
@@ -685,7 +695,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -845,7 +858,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1005,7 +1021,10 @@
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
         }
-      }
+      },
+      "showOnMap": "הציגו לי במפה",
+      "wasNotMe": "לא הייתי שם",
+      "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
