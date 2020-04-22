@@ -25,7 +25,7 @@ const INITIAL_STATE = {
   showMap: {
     visible: false,
     region: {
-      latitude:31.4117257,
+      latitude: 31.4117257,
       longitude: 35.0818155,
       latitudeDelta: 2,
       longitudeDelta: 2,
@@ -68,11 +68,11 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
     }
 
     case SHOW_MAP_MODAL: {
-      return {...state, showMap: {visible: true, region: action.payload }}
+      return { ...state, showMap: { visible: true, region: action.payload } };
     }
 
     case HIDE_MAP_MODAL: {
-      return {...state, showMap: {...INITIAL_STATE.showMap}}
+      return { ...state, showMap: { ...INITIAL_STATE.showMap } };
     }
 
     default:
