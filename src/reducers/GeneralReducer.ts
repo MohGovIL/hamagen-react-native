@@ -6,8 +6,11 @@ import {
   HIDE_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
   HIDE_FORCE_TERMS,
-  HIDE_LOCATION_HISTORY
+  HIDE_LOCATION_HISTORY,
+  SHOW_MAP_MODAL,
+  HIDE_MAP_MODAL
 } from '../constants/ActionTypes';
+
 import { USAGE_PRIVACY } from '../constants/Constants';
 
 const INITIAL_STATE = {
@@ -18,7 +21,16 @@ const INITIAL_STATE = {
   showForceTerms: false,
   usageType: USAGE_PRIVACY,
   termsVersion: 0,
-  hideLocationHistory: false
+  hideLocationHistory: false,
+  showMap: {
+    visible: false,
+    region: {
+      latitude:31.4117257,
+      longitude: 35.0818155,
+      latitudeDelta: 2,
+      longitudeDelta: 2,
+    }
+  }
 };
 
 export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) => {
@@ -53,6 +65,14 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
 
     case HIDE_LOCATION_HISTORY: {
       return { ...state, hideLocationHistory: true };
+    }
+
+    case SHOW_MAP_MODAL: {
+      return {...state, showMap: {visible: true, region: action.payload }}
+    }
+
+    case HIDE_MAP_MODAL: {
+      return {...state, showMap: {...INITIAL_STATE.showMap}}
     }
 
     default:

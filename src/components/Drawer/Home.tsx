@@ -10,6 +10,7 @@ import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
 import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, Store } from '../../types';
+import MapModal from '../Main/MapModal';
 
 const DrawerStack = () => {
   const Stack = createStackNavigator();
@@ -32,6 +33,7 @@ const Home = () => {
   const Drawer = createDrawerNavigator();
 
   return (
+    <>
     <Drawer.Navigator
       screenOptions={{ gestureEnabled: false }}
       drawerContent={props => <DrawerContent {...props} />}
@@ -41,7 +43,10 @@ const Home = () => {
       }}
     >
       <Drawer.Screen name="DrawerStack" component={DrawerStack} />
+      
     </Drawer.Navigator>
+    <MapModal/>
+    </>
   );
 };
 

@@ -11,13 +11,15 @@ import {
   PADDING_BOTTOM,
   SCREEN_WIDTH
 } from '../../constants/Constants';
+import { Region } from 'react-native-maps';
 
 interface Props {
   isRTL: boolean,
   strings: Strings,
   exposures: Exposure[],
   onValidExposure(exposure: Exposure): void,
-  dismissExposure(exposureId: number): void
+  dismissExposure(exposureId: number): void,
+  showMapModal(region: Region): void
 }
 
 const ExposuresDetected = (
@@ -28,7 +30,8 @@ const ExposuresDetected = (
     },
     exposures,
     onValidExposure,
-    dismissExposure
+    dismissExposure,
+    showMapModal
   }: Props
 ) => {
   const [anim] = useState(new Animated.Value(1));
@@ -65,7 +68,7 @@ const ExposuresDetected = (
       >
         <Text
           style={{ fontSize: 14 }}
-          onPress={() => console.log('show map')}
+          onPress={() => showMapModal(exposures[0])}
         >
           {showOnMap}
         </Text>
@@ -85,8 +88,9 @@ const ExposuresDetected = (
       <ScrollView
         bounces={false}
         showsVerticalScrollIndicator={false}
+        contentContainerStyle={{paddingBottom: 18}}
       >
-        <View style={{ alignItems: 'center', marginBottom: 18 }}>
+        <View style={{ alignItems: 'center' }}>
           <Icon source={require('../../assets/main/exposures.png')} width={IS_SMALL_SCREEN ? 66 : 99} height={IS_SMALL_SCREEN ? 40 : 59} customStyles={{ marginBottom: 33 }} />
           <Text style={styles.title} bold>{`${suspectedExposure} ${exposures.length} ${events}`}</Text>
         </View>

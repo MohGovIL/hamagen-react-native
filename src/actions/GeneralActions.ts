@@ -9,9 +9,12 @@ import {
   TOGGLE_WEBVIEW,
   SHOW_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
-  HIDE_LOCATION_HISTORY
+  HIDE_LOCATION_HISTORY,
+  SHOW_MAP_MODAL
 } from '../constants/ActionTypes';
+
 import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
+import { Exposure } from '../types';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
@@ -67,3 +70,11 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
     onError({ error });
   }
 };
+
+
+export const showMapModal = ({geometry: { coordinates }}: Exposure) => ({ type: SHOW_MAP_MODAL, payload: {
+  latitude: coordinates[config().sickGeometryLatIndex],
+  longitude: coordinates[config().sickGeometryLongIndex],
+  latitudeDelta: 0.01,
+  longitudeDelta: 0.001,
+}})

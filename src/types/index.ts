@@ -1,5 +1,5 @@
 import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
-
+import {Region } from 'react-native-maps'
 export interface Config {
   sampleDistance: number,
   sampleInterval: number,
@@ -123,7 +123,11 @@ export interface GeneralReducer {
   shouldForce: boolean,
   showForceTerms: boolean,
   termsVersion: number,
-  hideLocationHistory: boolean
+  hideLocationHistory: boolean,
+  showMap: {
+    visible: boolean,
+    region: Region
+  }
 }
 
 export interface ExposuresReducer {
