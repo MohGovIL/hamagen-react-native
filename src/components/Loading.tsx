@@ -137,11 +137,21 @@ const Loading = (
 
       if (!state.enabled) {
         await startSampling(locale, notificationData);
-      } else if (!state.enableHeadless) {
-        await BackgroundGeolocation.setConfig({
-          enableHeadless: true,
-          foregroundService: true
-        });
+      } else {
+        if (!IS_IOS && !state.enableHeadless) {
+          await BackgroundGeolocation.setConfig({
+            enableHeadless: true,
+            foregroundService: true
+          });
+        }
+
+        if (state.maxDaysToPersist === 1) {
+          await BackgroundGeolocation.setConfig({
+            persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
+            maxRecordsToPersist: -1,
+            maxDaysToPersist: 10000000
+          });
+        }
       }
 
       await startForegroundTimer();

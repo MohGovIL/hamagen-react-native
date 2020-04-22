@@ -17,6 +17,7 @@ import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
+import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
@@ -66,14 +67,17 @@ const ScanHome = (
   useEffect(() => {
     setTimeout(async () => {
       SplashScreen.hide();
+
       checkForceUpdate();
-      goToFilterDrivingIfNeeded(navigation);
+      await goToFilterDrivingIfNeeded(navigation);
 
       const url = await Linking.getInitialURL();
 
       if (url) {
         return onOpenedFromDeepLink(url, navigation);
       }
+
+      await syncLocationsDBOnLocationEvent();
     }, 3000);
 
     checkIfHideLocationHistory();
