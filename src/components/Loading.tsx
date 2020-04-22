@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import _ from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import BackgroundFetch from 'react-native-background-fetch';
@@ -48,6 +47,7 @@ import {
 } from '../constants/Constants';
 
 interface Props {
+  isInitLocale: boolean,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -68,6 +68,7 @@ interface Props {
 
 const Loading = (
   {
+    isInitLocale,
     isRTL,
     showLoader,
     showChangeLanguage,
@@ -188,7 +189,7 @@ const Loading = (
   const Stack = createStackNavigator();
 
   return (
-    (_.isEmpty(strings) || !initialRoute) ? null : (
+    (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
           <Stack.Screen name="Welcome" component={Welcome} />
@@ -220,10 +221,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
-    locale: { showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
+    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
   } = state;
 
-  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
+  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

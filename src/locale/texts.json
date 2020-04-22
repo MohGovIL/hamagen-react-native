@@ -95,7 +95,8 @@
       "close": "סגור",
       "readTOU": "קרא את תנאי השימוש",
       "approveTOU": "אשר את תנאי השימוש",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "בחר שפה",
@@ -118,6 +119,7 @@
     },
     "forceUpdate": {
       "title": "עדכון גרסה",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה",
       "dontForceDesc": "קיימת גרסה חדשה לאפלקציה. על מנת שנוכל להמשיך לשמור על הבריאות של כולנו, אנו ממליצים לעדכן את הגרסה"
     },
@@ -161,7 +163,8 @@
       "hasData": "יש קליטת נתונים",
       "noData": "אין קליטת נתונים",
       "exposureHistory": "היסטוריית חפיפה",
-      "noDataDesc": "יש לוודא חיבור לאינטרנט ואישור שירותי מיקום באופן קבוע כדי שנוכל להשוות את מיקומך למאובחני קורונה",
+      "noDataDesc1": "יש לוודא חיבור לאינטרנט ואישור שירותי מיקום באופן קבוע כדי שנוכל להשוות את מיקומך למאובחני קורונה",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "לפי הנתונים שנאספו עד כה, לא מצאנו נקודות חפיפה שלך עם חולה קורונה",
       "noExposure1": "לפי הנתונים שנאספו עד כה,",
       "noExposure2": "מאז ה:",
@@ -194,8 +197,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -211,8 +213,9 @@
       "wasMe": "ייתכן שכן"
     },
     "exposuresHistory": {
-      "title": "היסטוריית חפיפות",
-      "noExposures": "אין נקודות\nחפיפה"
+      "title": "היסטוריית נקודות חפיפה",
+      "noExposures": "לשמחתנו, אין אירועים ב-14 הימים האחרונים״  ",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -250,6 +253,24 @@
       "desc3": "כדי שלא נכלול את מיקומי הנסיעה שלך בהשוואה למיקומים של חולי קורונה",
       "button": "גישה לפעולות תנועה",
       "skip": "אל תורידו נסיעות מהמיקומים שלי"
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   },
   "ar": {
@@ -259,7 +280,8 @@
       "close": "أغلق",
       "readTOU": "إقرأ شروط الإستعمال",
       "approveTOU": "قبول شروط الإستخدام",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "إختر لغة",
@@ -282,6 +304,7 @@
     },
     "forceUpdate": {
       "title": "تحديث الإصدار",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار",
       "dontForceDesc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
     },
@@ -325,7 +348,8 @@
       "hasData": " توجد معلومات",
       "noData": "لا يوجد معلومات",
       "exposureHistory": " تاريخ التطابق",
-      "noDataDesc": "يرجى تفعيل خدمات الموقع في إعدادات الهاتف و التأكد من إتصالكم بشبكة الإنترنت  حتى نتمكن من مقارنة موقعكم مع مواقع المصابين بالفيروس حسب المعطيات التي تم جمعها",
+      "noDataDesc1": "يرجى تفعيل خدمات الموقع في إعدادات الهاتف و التأكد من إتصالكم بشبكة الإنترنت  حتى نتمكن من مقارنة موقعكم مع مواقع المصابين بالفيروس حسب المعطيات التي تم جمعها",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "حسب المعطيات التي تم جمعها حتى الآن، لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
       "noExposure1": "حسب المعطيات الي تم جمعها حتى الآن",
       "noExposure2": "من التاريخ:",
@@ -358,8 +382,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -376,7 +399,8 @@
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
-      "noExposures": "لا يوجد نقاط تطابق"
+      "noExposures": "لا يوجد نقاط تطابق",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -413,6 +437,24 @@
       "desc3": "حتى لا نشمل أماكن التنقل الخاصة بك بالمقارنة مع أماكن تواجد مرضى كورونا",
       "button": "الوصول الى حركات التنقل",
       "skip": "لا تقوموا بإزالة أماكن السفريات من أماكن الموقع الخاصة بي"
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   },
   "en": {
@@ -422,7 +464,8 @@
       "close": "Close",
       "readTOU": "Read the terms of use",
       "approveTOU": "Confirm the terms of use",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "Select language",
@@ -445,6 +488,7 @@
     },
     "forceUpdate": {
       "title": "Version Update",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app",
       "dontForceDesc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
     },
@@ -488,7 +532,8 @@
       "hasData": "Data detected",
       "noData": "No data detected ",
       "exposureHistory": "Exposure History",
-      "noDataDesc": "Please make sure you are connected to the internet and that location services are enabled",
+      "noDataDesc1": "Please make sure you are connected to the internet and that location services are enabled",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "Based on the data collected thus far, no points of overlap with coronavirus patients have been found.",
       "noExposure1": "According to data collected thus far,",
       "noExposure2": "starting from:",
@@ -521,8 +566,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -539,7 +583,8 @@
     },
     "exposuresHistory": {
       "title": "Overlap history",
-      "noExposures": "No overlap points found"
+      "noExposures": "No overlap points found",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -576,6 +621,24 @@
       "desc3": "so we don't include your driving locations compared to Corona patients locations",
       "button": "Access to motion sensors",
       "skip": "Don't remove driving from my locations"
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   },
   "ru": {
@@ -585,7 +648,8 @@
       "close": "закрыть:",
       "readTOU": "см. Руководство:",
       "approveTOU": "согласен с условиями",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "Выберите язык",
@@ -608,6 +672,7 @@
     },
     "forceUpdate": {
       "title": "Обновить версию",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию",
       "dontForceDesc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
     },
@@ -651,7 +716,8 @@
       "hasData": "успешная передача данных",
       "noData": "Нет передачи данных",
       "exposureHistory": "История контактов",
-      "noDataDesc": "Проверьте связь к интернету и услуги местонахождения",
+      "noDataDesc1": "Проверьте связь к интернету и услуги местонахождения",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "По имеющимся данным, вы не контактировали с больным.",
       "noExposure1": "По данным собранным до сих пор,",
       "noExposure2": "с:",
@@ -684,8 +750,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -702,7 +767,8 @@
     },
     "exposuresHistory": {
       "title": "История контактов",
-      "noExposures": "Нет точек соприкосновения"
+      "noExposures": "Нет точек соприкосновения",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -739,6 +805,24 @@
       "desc3": "так ваши поездки не войдут в места соприкосновений с больными",
       "button": "Доступ к трафику ",
       "skip": "Оставить поездки для сравнения  "
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   },
   "am": {
@@ -748,7 +832,8 @@
       "close": "ዝጋው",
       "readTOU": "የአጠቃቁም ቅድመ ሁኔታ አንብብ",
       "approveTOU": "በአጠቃቀሙን ቅድመ ሁኔታ መስማማትህን ግለፅ",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "ቋንቋ ይምረጡ",
@@ -771,6 +856,7 @@
     },
     "forceUpdate": {
       "title": "ሥሪት አዘምን",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን",
       "dontForceDesc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
     },
@@ -814,7 +900,8 @@
       "hasData": "ውሂብ ይሰበሰባል።",
       "noData": "ውሂብ መሰብሰብ አይቻልም",
       "exposureHistory": "ከተያዘ ሰው ጋር ተቀራርበዋል",
-      "noDataDesc": "የኢንትርነት ግንኙነት መኖሩንና ያሉበት ቦታ በስልክዎ መመላከቱን ያረጋግጡ።",
+      "noDataDesc1": "የኢንትርነት ግንኙነት መኖሩንና ያሉበት ቦታ በስልክዎ መመላከቱን ያረጋግጡ።",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "እስካሁን በተሰበሰበው መረጃ መሠረት ከኮሮና በሽተኛ ጋር መደራረብዎን ማግኘት አልቻልንም",
       "noExposure1": "እስካሁን በተሠበሠቡት መረጃወች መሠረት ማለትም,",
       "noExposure2": "ከ:",
@@ -847,8 +934,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -865,7 +951,8 @@
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
-      "noExposures": "ድርርብ አልተገኘም።"
+      "noExposures": "ድርርብ አልተገኘም።",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -902,6 +989,24 @@
       "desc3": "የጉዞ እንቅስቃሴዎችን ከኮሮና ህመምተኛ የጉዞ እንቅስቃሴ ጋር ለማነፃፀር እንዳይጨምር",
       "button": "የእንቅስቃሴ መረጃ ላይ መስማማት/መፍቀድ",
       "skip": "የጉዞ መረጃ ታሪኬን አትውሰዱ/ አታውርዱ"
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   },
   "fr": {
@@ -911,7 +1016,8 @@
       "close": "Fermer",
       "readTOU": "Lire les conditions d'utilisation",
       "approveTOU": "Accepter les conditions d'utilisation",
-      "versionNumber": "מספר גרסה:"
+      "versionNumber": "מספר גרסה:",
+      "error": "ארעה שגיאה, אנא נסו שנית"
     },
     "languages": {
       "title": "Choisir la langue",
@@ -934,6 +1040,7 @@
     },
     "forceUpdate": {
       "title": "Mise à jour de la version",
+      "subTitle": "חשוב להשאר מעודכנים",
       "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application",
       "dontForceDesc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
     },
@@ -977,7 +1084,8 @@
       "hasData": "Données détectées",
       "noData": "Pas de données détectées ",
       "exposureHistory": "Historique d'exposition",
-      "noDataDesc": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
+      "noDataDesc1": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
+      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
       "noExposure": "Sur la base des données recueillies jusqu'à présent, aucun point de chevauchement avec les patients atteints de coronavirus n'a été trouvé.",
       "noExposure1": "Selon les données recueillies à ce jour,",
       "noExposure2": "à partir de:",
@@ -1010,8 +1118,7 @@
         "androidTitle": "שתף עם קורונה"
       },
       "noExposures": {
-        "bannerTextPt1": "לא נמצאו",
-        "bannerTextPt2": "נקודות חפיפה",
+        "bannerText": "לא נמצאו\nנקודות חפיפה",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -1028,7 +1135,8 @@
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
-      "noExposures": "Pas d'intersection trouvée"
+      "noExposures": "Pas d'intersection trouvée",
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1065,6 +1173,24 @@
       "desc3": "donc nous n'incluons pas vos emplacements de conduite par rapport aux emplacements des patients Corona",
       "button": "Accès aux détecteurs de mouvement",
       "skip": "Ne supprimez pas la conduite de mes emplacements"
+    },
+    "shareLocation": {
+      "title": {
+        "beforeShare": "השיתוף שלך יכול להציל חיים",
+        "afterShare": "הנתונים התקבלו בהצלחה"
+      },
+      "description": {
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+      },
+      "greeting": {
+        "beforeShare": "המידע האישי שלך - יישאר חסוי",
+        "afterShare": "תודה רבה ורפואה שלמה"
+      },
+      "button": {
+        "beforeShare": "שיתוף הנתונים שלי",
+        "afterShare": "חזרה לאפליקציה"
+      }
     }
   }
 }

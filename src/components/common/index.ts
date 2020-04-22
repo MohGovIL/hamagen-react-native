@@ -12,4 +12,4 @@ export * from './TermsOfUse';
 export * from './ForceTerms';
 export * from './GoogleTimeLine';
 export * from './WebviewHeader';
-export * from './CloseButton';
+export * from './HeaderButton';

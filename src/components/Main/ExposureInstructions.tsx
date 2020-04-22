@@ -30,7 +30,7 @@ const ExposureInstructions = (
     externalUrls,
     strings: {
       scanHome: { inDate, fromHour },
-      exposureInstructions: { title, weUnderstand, wrong, keepSafeNew, goIntoIsolation, reportIsolation, allInstructions, reportSite }
+      exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
     },
     exposure: { properties: { Place, fromTime } },
     removeValidExposure
@@ -42,7 +42,7 @@ const ExposureInstructions = (
   const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer]}>
+    <View style={[styles.actionButtonContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
@@ -72,13 +72,11 @@ const ExposureInstructions = (
             <View style={styles.bottomBorder} />
           </TouchableOpacity>
         </View>
-        <View style={{ flex: 1, justifyContent: 'flex-end' }}>
-          <Text style={{ marginBottom: 25, }} bold>{keepSafeNew}</Text>
-          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', justifyContent: 'space-between' }}>
-            {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-            {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
-          </View>
-        </View>
+
+        <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
+
+        {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+        {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
       </ScrollView>
     </FadeInView>
   );
@@ -91,12 +89,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   subContainer: {
-    flex: 1,
-
-    justifyContent: 'space-around',
-    paddingHorizontal: 23,
+    paddingHorizontal: 30,
+    alignItems: 'center',
     paddingTop: IS_SMALL_SCREEN ? 25 : 40,
-    paddingBottom: PADDING_BOTTOM(30),
+    paddingBottom: PADDING_BOTTOM(10),
   },
   title: {
     fontSize: 22,
@@ -106,36 +102,31 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     height: 2,
     borderRadius: 1,
-    backgroundColor: MAIN_COLOR,
-    marginTop: 3
+    backgroundColor: MAIN_COLOR
   },
   actionButtonContainer: {
-    // flex: 1,
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH / 2 - 32,
-    paddingVertical: 26,
+    width: SCREEN_WIDTH - 50,
+    justifyContent: 'space-between',
+    paddingVertical: 15,
     paddingHorizontal: 18,
     borderRadius: 16,
-    // marginBottom: 12,
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    marginBottom: 12,
+    alignItems: 'center'
   },
   button: {
-    width: '100%',
-    marginHorizontal: 25,
+    width: 82,
+    height: 32,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
-    backgroundColor: MAIN_COLOR,
-    paddingTop: 5,
-    paddingBottom: 8
+    backgroundColor: MAIN_COLOR
   },
   actionText: {
+    flex: 1,
     lineHeight: 16,
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    paddingHorizontal: 15,
-    paddingTop: 12,
-    paddingBottom: 23
+    paddingHorizontal: 10
   },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
