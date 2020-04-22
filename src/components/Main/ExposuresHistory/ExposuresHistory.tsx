@@ -7,12 +7,14 @@ import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
+import { showMapModal } from '../../../actions/GeneralActions';
 
 interface Props {
   navigation: StackNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
-  pastExposures: Exposure[]
+  pastExposures: Exposure[],
+  showMapModal(exposures: Exposure): void
 }
 
 const ExposuresHistory = (
@@ -20,7 +22,8 @@ const ExposuresHistory = (
     navigation,
     strings,
     isRTL,
-    pastExposures
+    pastExposures,
+    showMapModal
   }: Props
 ) => {
   const { exposuresHistory: { title, noExposures, keepInstructions } } = strings;
@@ -41,7 +44,7 @@ const ExposuresHistory = (
     <FlatList
       contentContainerStyle={styles.listContainer}
       data={pastExposures}
-      renderItem={({ item: { properties: { Place, fromTime } } }) => <ExposureHistoryListItem isRTL={isRTL} strings={strings} Place={Place} fromTime={fromTime} showExposureOnMap={() => {}} />}
+      renderItem={({ item }) => <ExposureHistoryListItem isRTL={isRTL} strings={strings} Place={item.properties.Place} fromTime={item.properties.fromTime} showExposureOnMap={() => showMapModal(item)} />}
       keyExtractor={(_, index) => index.toString()}
       ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       showsVerticalScrollIndicator={false}
@@ -89,10 +92,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings },
-    exposures: { pastExposures }
+    exposures: { pastExposures  }
   } = state;
 
-  return { isRTL, strings, pastExposures };
+  return { isRTL, strings, pastExposures};
 };
 
-export default connect(mapStateToProps, null)(ExposuresHistory);
+export default connect(mapStateToProps, {showMapModal})(ExposuresHistory);
