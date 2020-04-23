@@ -24,7 +24,6 @@ const INITIAL_STATE = {
   hideLocationHistory: false,
   showMap: {
     visible: false,
-    properties: {},
     region: {
       latitude:31.4117257,
       longitude: 35.0818155,
