@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl+'123');
+    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
 
     const { languages, notificationData, externalUrls } = data;
 
@@ -65,7 +65,8 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
   }
 };
 
-const getActiveLocale = () => new Promise<string>(async (resolve) => {
+const getActiveLocale = async () => {
+  
   let locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
 
   if (locale === undefined) {
@@ -73,11 +74,11 @@ const getActiveLocale = () => new Promise<string>(async (resolve) => {
     locale = NativeModules.SettingsManager.settings.AppleLanguages[0];
   }
 
-  let activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
+  const activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale)?.substr?.(0, 2);
 
   if (activeLocale === 'iw') {
-    activeLocale = 'he';
+   return 'he';
   }
 
-  resolve(activeLocale);
-});
+  return activeLocale
+};
