@@ -29,7 +29,7 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
 
   const { scanHome: { noExposures: { bannerText, workAllTheTime, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
-  // redundant ScanHome calls it
+  // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
 
