@@ -3,7 +3,7 @@ import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
-import InfoModal, { InfoModalTypes } from './InfoModal';
+import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
@@ -18,7 +18,7 @@ interface NoExposuresProps {
 
 const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
   const appState = useRef<AppStateStatus>('active');
-  const modalRef = useRef<InfoModalTypes>(null);
+  const [showModal, setModalVisibility] = useState(false)
 
   const [now, setNow] = useState(moment().valueOf());
 
@@ -71,7 +71,7 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
           <Text style={styles.cardHeaderText}>{title}</Text>
           <View style={styles.cardBody}>
             <TouchableOpacity
-              onPress={modalRef?.current?.toggleModal}
+              onPress={() => setModalVisibility(true)}
               hitSlop={HIT_SLOP}
             >
               <Icon
@@ -89,7 +89,12 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
         </View>
       </FadeInView>
 
-      <InfoModal strings={strings} ref={modalRef} />
+      <InfoModal 
+        strings={strings} 
+        showModal={showModal} 
+        firstPointDate={FPDate} 
+        closeModal={() => setModalVisibility(false)}
+      />
     </>
   );
 };

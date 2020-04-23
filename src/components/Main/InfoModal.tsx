@@ -1,39 +1,21 @@
 import React, {useState,useMemo, useImperativeHandle} from 'react';
-import { View,ImageBackground,TouchableWithoutFeedback, StyleSheet,Modal, useWindowDimensions } from 'react-native';
+import { View,ImageBackground,TouchableWithoutFeedback, StyleSheet,Modal } from 'react-native';
 import moment from 'moment';
 import { Text, Icon, TouchableOpacity} from '../common';
-import { HIT_SLOP } from '../../constants/Constants';
-import { Strings } from 'src/locale/LocaleData';
+import { HIT_SLOP, SCREEN_WIDTH } from '../../constants/Constants';
+import { Strings } from '../../locale/LocaleData';
+
 
 const MODAL_MARGIN = 26
 
-export interface InfoModalTypes {
-    openModal(): void,
-    closeModal(): void,
-    toggleModal(): void
-    isModalOpen(): boolean,
-}
-
 interface InfoModalProps {
     strings: Strings,
-    firstPoint?: number
+    showModal: boolean,
+    firstPointDate: string,
+    closeModal(): void
 }
 
-const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) => {
-    const [modalVisible, setModalVisibility] = useState(false)
-    const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'),[firstPoint])
-    const windowWidth = useWindowDimensions().width
-
-    const toggleModal = () => {
-        setModalVisibility(!modalVisible)
-    }
-
-    useImperativeHandle(ref,() => ({
-        openModal: () => setModalVisibility(true),
-        closeModal: () => setModalVisibility(false),
-        isModalOpen: () => modalVisible,
-        toggleModal,
-    }))
+const InfoModal = ({strings,firstPointDate,closeModal,showModal}: InfoModalProps) => {
 
     const {
         scanHome: {
@@ -48,20 +30,20 @@ const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) =>
     
     return (
         <Modal
-            onRequestClose={toggleModal}
             animationType="fade"
-            visible={modalVisible}>
-            <TouchableWithoutFeedback onPress={toggleModal}>
+            onRequestClose={closeModal}
+            visible={showModal}
+            >
+            <TouchableWithoutFeedback onPress={closeModal}>
             <ImageBackground
                 resizeMode="cover"
-                source={require('../../assets/main/infoModalBG.png')} 
                 style={styles.imageContainer}
+                source={require('../../assets/main/infoModalBG.png')} 
                 
             >
-                <View 
-                    style={[styles.container,{width: windowWidth - (MODAL_MARGIN*2)}]}>
-                <View style={[styles.closeBtnContainer,{width: windowWidth - (MODAL_MARGIN*2)}]}>
-                    <TouchableOpacity hitSlop={HIT_SLOP} onPress={toggleModal}>
+                <View style={[styles.container]}>
+                <View style={[styles.closeBtnContainer]}>
+                    <TouchableOpacity hitSlop={HIT_SLOP} onPress={closeModal}>
                         <Icon source={require('../../assets/onboarding/close.png')} width={19}/>
                     </TouchableOpacity>
                 </View>
@@ -73,7 +55,7 @@ const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) =>
                     />
                     <Text >
                         <Text style={styles.infoText} >{textBodyPt1.trim()}</Text>
-                        <Text style={styles.infoText} bold>{` ${FPDate} `}</Text>
+                        <Text style={styles.infoText} bold>{` ${firstPointDate} `}</Text>
                         <Text style={styles.infoText} >{textBodyPt2.trim()}</Text>
                     </Text>
                     </View>
@@ -82,7 +64,9 @@ const InfoModal = React.forwardRef(({strings,firstPoint}: InfoModalProps,ref) =>
             </TouchableWithoutFeedback>
         </Modal>
     )
-})
+}
+
+
 const styles = StyleSheet.create({
     imageContainer: {
         flex: 1,
@@ -100,12 +84,14 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 23,
         elevation: 5,
+        width: SCREEN_WIDTH - (MODAL_MARGIN*2)
     },
     closeBtnContainer: {
         flex: 1,
         paddingLeft: 14,
         justifyContent: 'center',
         alignItems: 'flex-start',
+        width: SCREEN_WIDTH - (MODAL_MARGIN*2)
     },
     bodyContainer: {
         flex: 3,
