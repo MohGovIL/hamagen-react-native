@@ -25,7 +25,12 @@ const INITIAL_STATE = {
   showMap: {
     visible: false,
     properties: {},
-    region: {}
+    region: {
+      latitude:31.4117257,
+      longitude: 35.0818155,
+      latitudeDelta: 2,
+      longitudeDelta: 2,
+    }
   }
 };
 
