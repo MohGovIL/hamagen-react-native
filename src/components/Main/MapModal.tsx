@@ -11,28 +11,30 @@ import { Store, GeneralReducer, LocaleReducer } from '../../types';
 const MapModal = () => {
   const dispatch = useDispatch();
   const {
-    showMap: { visible, region, properties: { Place, fromTime } },
+    showMap: { visible, region, properties },
   } = useSelector<Store, GeneralReducer>(state => state.general);
   const {
     strings: {
-      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
+      scanHome: { inDate, fromHour },
     },
   } = useSelector<Store, LocaleReducer>(state => state.locale);
 
 
   const [date, hour] = useMemo(() => {
-    const time = moment(fromTime);
+    const time = moment(properties?.fromTime);
     return [time.format('DD.MM.YY'), time.format('DD.MM.YY')];
-  }, [fromTime]);
+  }, [properties?.fromTime]);
 
   return (
     <Modal visible={visible} animationType="slide">
       <HeaderButton type="close" onPress={() => dispatch({ type: HIDE_MAP_MODAL })} />
+
       <View style={styles.headerContainer}>
         <Icon source={require('../../assets/main/exposuresSmall.png')} width={27} height={17} customStyles={styles.headerIcon} />
-        <Text bold style={styles.place}>{Place}</Text>
+        <Text bold style={styles.place} numberOfLines={20}>{properties?.Place || ''}</Text>
         <Text style={styles.aroundTime}>{`${inDate} ${date} ${fromHour} ${hour}`}</Text>
       </View>
+
       <MapView
         style={styles.mapStyle}
         region={region}
@@ -49,10 +51,25 @@ const MapModal = () => {
 
 
 const styles = StyleSheet.create({
-  headerContainer: { height: SCREEN_HEIGHT * 0.22, justifyContent: 'center', alignItems: 'center', paddingTop: PADDING_TOP(51), marginBottom: IS_SMALL_SCREEN ? 28 : 0 },
-  headerIcon: { marginBottom: 8 },
-  place: { fontSize: 16 },
-  aroundTime: { fontSize: 14, marginTop: 10 },
+  headerContainer: {
+    height: SCREEN_HEIGHT * 0.22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: PADDING_TOP(51),
+    paddingHorizontal: 30,
+    paddingBottom: 20,
+    marginBottom: IS_SMALL_SCREEN ? 28 : 0
+  },
+  headerIcon: {
+    marginBottom: 8
+  },
+  place: {
+    fontSize: 16
+  },
+  aroundTime: {
+    fontSize: 14,
+    marginTop: 10
+  },
   mapStyle: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT * 0.78,

@@ -49,7 +49,9 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await startSampling(locale, notificationData);
       await scheduleTask();
 
-      navigation.replace('Home');
+
+      // TODO: figure out why replace crash android on first upload
+      navigation.navigate('Home');
     } catch (error) {
       onError({ error });
     }

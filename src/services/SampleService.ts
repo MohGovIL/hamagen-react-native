@@ -30,9 +30,9 @@ export const startSampling = async (locale: string, notificationData: Notificati
   await startLocationTracking(locale, notificationData);
 };
 
-export const syncLocationsDBOnLocationEvent = async () => {
+export const syncLocationsDBOnLocationEvent = () => {
   // prevent race condition of entering multiple points at the same time
-  await lock.acquire('syncLocationsDBOnLocationEvent', async (done) => {
+  lock.acquire('syncLocationsDBOnLocationEvent', async (done) => {
     try {
       await initConfig();
 
@@ -47,8 +47,8 @@ export const syncLocationsDBOnLocationEvent = async () => {
 
       await saveSampleForQAAllPoints(locations);
 
-      for (const location of locations) {
-        await updateDBAccordingToSampleVelocity(location);
+      for (let i = 0; i < locations.length; i++) {
+        updateDBAccordingToSampleVelocity(locations[i]);
       }
 
       done();
