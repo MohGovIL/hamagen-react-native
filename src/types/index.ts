@@ -8,6 +8,7 @@ export interface Config {
   dataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
+  dataShareUrl: string,
   fetchMilliseconds: number,
   meterRadius: number,
   intersectMilliseconds: number,
