@@ -35,6 +35,7 @@ const Home = () => {
   return (
     <>
       <Drawer.Navigator
+        drawerType="back"
         screenOptions={{ gestureEnabled: false }}
         drawerContent={props => <DrawerContent {...props} />}
         drawerPosition={isRTL ? 'right' : 'left'}
