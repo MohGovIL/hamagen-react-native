@@ -173,6 +173,44 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Alert.alert('Cleared', '', [{ text: 'OK' }]);
   };
 
+  const copyAllData = async () => {
+    const allPoints = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
+    const DBPoints = await queryDB();
+    const HVPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
+    const services = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+
+    let csv = 'All Points\n';
+
+    allPoints.forEach((point: any) => {
+      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
+    });
+
+    csv += 'DB Points\n';
+
+    DBPoints.forEach((point: any) => {
+      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
+    });
+
+    csv += 'HV Points\n';
+
+    HVPoints.forEach((point: any) => {
+      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
+    });
+
+    csv += 'Services\n';
+
+    services.forEach((point: any) => {
+      const { source, timestamp } = point;
+      csv += `${source},${timestamp}\n`;
+    });
+
+    Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
+    Clipboard.setString(csv);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
@@ -236,6 +274,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="העתק את כל הנתונים" onPress={copyAllData} />
         </View>
 
         <View style={styles.buttonWrapper}>
