@@ -65,7 +65,7 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
   }
 };
 
-const getActiveLocale = () => new Promise<string>(async (resolve) => {
+const getActiveLocale = async () => {
   let locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
 
   if (locale === undefined) {
@@ -73,11 +73,11 @@ const getActiveLocale = () => new Promise<string>(async (resolve) => {
     locale = NativeModules.SettingsManager.settings.AppleLanguages[0];
   }
 
-  let activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
+  const activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale)?.substr?.(0, 2);
 
   if (activeLocale === 'iw') {
-    activeLocale = 'he';
+    return 'he';
   }
 
-  resolve(activeLocale);
-});
+  return activeLocale;
+};

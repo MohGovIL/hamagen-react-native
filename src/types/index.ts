@@ -44,26 +44,30 @@ export interface SickJSON {
   features: Exposure[]
 }
 
+export interface ExposureProperties {
+  OBJECTID: number,
+  Key_Field: number,
+  Name: string,
+  Place: string,
+  fromTime: number,
+  fromTime_utc: number,
+  toTime: number,
+  toTime_utc: number,
+  radius?: number,
+  geohashFilter: string,
+  lat?: number,
+  long?: number
+}
+
+export interface ExposureGeometry {
+  type: string,
+  coordinates: number[],
+  radius?: number
+}
+
 export interface Exposure {
-  properties: {
-    OBJECTID: number,
-    Key_Field: number,
-    Name: string,
-    Place: string,
-    fromTime: number,
-    fromTime_utc: number,
-    toTime: number,
-    toTime_utc: number,
-    radius?: number,
-    geohashFilter: string,
-    lat?: number,
-    long?: number
-  },
-  geometry: {
-    type: string,
-    coordinates: number[],
-    radius?: number
-  }
+  properties:ExposureProperties,
+  geometry: ExposureGeometry
 }
 
 export interface Sample {
@@ -131,6 +135,7 @@ export interface GeneralReducer {
   hideLocationHistory: boolean,
   showMap: {
     visible: boolean,
+    properties?: ExposureProperties,
     region: Region
   }
 }
