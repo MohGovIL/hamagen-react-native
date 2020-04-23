@@ -92,10 +92,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings },
-    exposures: { pastExposures  }
+    exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures};
+  return { isRTL, strings, pastExposures };
 };
 
-export default connect(mapStateToProps, {showMapModal})(ExposuresHistory);
+export default connect(mapStateToProps, { showMapModal })(ExposuresHistory);
