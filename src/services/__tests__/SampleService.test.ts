@@ -3,15 +3,22 @@ import { startSampling, insertDB, purgeSamplesDB, updateDBAccordingToSampleVeloc
 import { onError } from '../ErrorService';
 import * as db from '../../database/Database';
 import { IS_LAST_POINT_FROM_TIMELINE, HIGH_VELOCITY_POINTS } from '../../constants/Constants';
+import { startLocationTracking } from '../LocationService';
+
 
 jest.mock('../WifiService', () => ({
   getWifiList: jest.fn().mockResolvedValue(['ssdid']),
+}));
+
+jest.mock('../LocationService', () => ({
+  startLocationTracking: jest.fn()
 }));
 
 beforeEach(() => {
   onError.mockClear();
   db.mockClear();
   AsyncStorage.mockClear();
+  startLocationTracking.mockClear();
 });
 
 afterEach(() => {
@@ -21,12 +28,21 @@ afterEach(() => {
 describe('Sample Service', () => {
   describe('startSampling', () => {
     test('check resolves', async () => {
-      // onError.mockImplementationOnce(console.log);
-      expect(startSampling('en', { androidNotification: {} })).resolves.toBeTruthy();
+      startLocationTracking.mockResolvedValueOnce();
+      await startSampling('en', { androidNotification: {} });
+      expect(startLocationTracking).toBeCalledTimes(1);
     });
 
     test('check resolves for unknown language', async () => {
+      startLocationTracking.mockResolvedValueOnce();
       expect(startSampling('ge', { androidNotification: {} })).resolves.toBeTruthy();
+      expect(startLocationTracking).toBeCalledTimes(1);
+    });
+
+    test('startLocationTracking reject', async () => {
+      startLocationTracking.mockRejectedValueOnce();
+      expect(startSampling('en', { androidNotification: {} })).rejects.toBeTruthy();
+      expect(startLocationTracking).toBeCalledTimes(1);
     });
   });
 
@@ -104,7 +120,7 @@ describe('Sample Service', () => {
       // mock IS_LAST_POINT_FROM_TIMELINE
       await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true');
       // return insertDB
-      expect(await updateDBAccordingToSampleVelocity(sample)).toBeTruthy();
+      await updateDBAccordingToSampleVelocity(sample);
     });
 
     test('with one point from DB', async () => {
