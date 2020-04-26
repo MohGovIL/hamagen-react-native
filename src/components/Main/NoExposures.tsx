@@ -18,7 +18,7 @@ interface NoExposuresProps {
 
 const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
   const appState = useRef<AppStateStatus>('active');
-  const [showModal, setModalVisibility] = useState(false)
+  const [showModal, setModalVisibility] = useState(false);
 
   const [now, setNow] = useState(moment().valueOf());
 
@@ -89,10 +89,10 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
         </View>
       </FadeInView>
 
-      <InfoModal 
-        strings={strings} 
-        showModal={showModal} 
-        firstPointDate={FPDate} 
+      <InfoModal
+        strings={strings}
+        showModal={showModal}
+        firstPointDate={FPDate}
         closeModal={() => setModalVisibility(false)}
       />
     </>

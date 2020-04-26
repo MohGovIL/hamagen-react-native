@@ -2,13 +2,13 @@ import geoHash from 'latlon-geohash';
 import AsyncStorage from '@react-native-community/async-storage';
 import AsyncLock from 'async-lock';
 import moment from 'moment';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import { startLocationTracking } from './LocationService';
-import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
+import { UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
-import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import store from '../store';
-import config from '../config/config';
+import config, { initConfig } from '../config/config';
 import { NotificationData } from '../locale/LocaleData';
 import { DBLocation, Sample, VelocityRecord } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
@@ -26,6 +26,33 @@ const lock = new AsyncLock();
 
 export const startSampling = async (locale: string, notificationData: NotificationData) => {
   await startLocationTracking(locale, notificationData);
+};
+
+export const syncLocationsDBOnLocationEvent = () => {
+  // prevent race condition of entering multiple points at the same time
+  lock.acquire('syncLocationsDBOnLocationEvent', async (done) => {
+    try {
+      await initConfig();
+
+      // @ts-ignore
+      const rawLocations: Sample[] = await BackgroundGeolocation.getLocations();
+      await BackgroundGeolocation.destroyLocations();
+
+      const locations = rawLocations.map(location => ({
+        ...location,
+        timestamp: moment(location.timestamp).valueOf()
+      }));
+
+      for (let i = 0; i < locations.length; i++) {
+        updateDBAccordingToSampleVelocity(locations[i]);
+      }
+
+      done();
+    } catch (error) {
+      done();
+      onError({ error });
+    }
+  });
 };
 
 export const insertDB = async (sample: Sample) => new Promise(async (resolve) => {
@@ -48,10 +75,7 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
 
     await saveToStorage(LAST_POINT_START_TIME, sample.timestamp);
 
-    const { wifiHash, wifiList }: any = await getWifiList();
     const db = new UserLocationsDatabase();
-
-    const wifiMacAddressDatabase = new WifiMacAddressDatabase();
 
     const isLastPointFromTimeline = await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE);
 
@@ -68,18 +92,12 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
       startTime: sample.timestamp,
       endTime: sample.timestamp,
       geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
-      wifiHash
+      wifiHash: ''
     };
 
     const finalSample: DBLocation = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
 
     await db.addSample(finalSample);
-
-    const isExist = await wifiMacAddressDatabase.containsWifiHash(wifiHash);
-
-    if (!isExist) {
-      await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
-    }
 
     resolve(true);
     return true;
@@ -200,11 +218,10 @@ export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
         await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
         await insertDB(location);
       }
-
       done();
     } catch (error) {
-      done();
       onError({ error });
+      done();
     }
   });
 };

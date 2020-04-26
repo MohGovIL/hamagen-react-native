@@ -8,6 +8,7 @@ export interface Config {
   dataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
+  dataShareUrl: string,
   fetchMilliseconds: number,
   meterRadius: number,
   intersectMilliseconds: number,
@@ -43,7 +44,7 @@ export interface SickJSON {
   features: Exposure[]
 }
 
-export interface ExposureProperties  {
+export interface ExposureProperties {
   OBJECTID: number,
   Key_Field: number,
   Name: string,
