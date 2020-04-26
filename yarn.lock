@@ -1467,6 +1467,11 @@
   resolved "https://registry.yarnpkg.com/@types/react-native-background-timer/-/react-native-background-timer-2.0.0.tgz#c44c57f8fbca9d9d5521fdd72a8f55232b79381e"
   integrity sha512-y5VW82dL/ESOLg+5QQHyBdsFVA4ZklENxmOyxv8o06T+3HBG2JOSuz/CIPz1vKdB7dmWDGPZNuPosdtnp+xv2A==
 
+"@types/react-native-sqlite-storage@^3.3.2":
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-sqlite-storage/-/react-native-sqlite-storage-3.3.2.tgz#d5372c8e766995ba7f521f53f4c5a5ee40790da9"
+  integrity sha512-LzRrAidwgOVql64I3XU+jQ+SO09P/UF8mZOiy4qGw9uyWMxIC/3+i9EYPEfGfw0OqIJ5YpQCha9Gjiq3pWticA==
+
 "@types/react-native-uuid-generator@4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-uuid-generator/-/react-native-uuid-generator-4.0.0.tgz#a8cec2287873a287ca85c269a2da627026c3f913"
