@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import NetInfo,{NetInfoState} from "@react-native-community/netinfo";
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionButton, HeaderButton, Icon, Text } from '../common';
 import { ShareUserLocations } from '../../actions/DeepLinkActions';
@@ -14,48 +15,67 @@ interface Props {
   strings: Strings
 }
 
+const SHARE_FAIL_ICON = require('../../assets/shareLocation/shareFail.png')
+
 const ICON = {
   beforeShare: require('../../assets/shareLocation/beforeShare.png'),
-  afterShare: require('../../assets/shareLocation/shareSuccess.png')
+  shareSuccess: require('../../assets/shareLocation/shareSuccess.png'),
+  shareNoConnection: SHARE_FAIL_ICON,
+  shareFail: SHARE_FAIL_ICON,
 };
+
+type ShareStates = 'beforeShare'|'shareNoConnection'|'shareSuccess'|'shareFail'
+type ShareFailState = ''|'InvalidToken'
 
 const ShareLocations = ({ route, navigation }: Props) => {
   const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const dispatch = useDispatch();
-
-  const [state, setState] = useState<'beforeShare'|'afterShare'>('beforeShare');
+  
+  const [state, setState] = useState<ShareStates>('beforeShare');
+  const [failState, setFailState] = useState<ShareFailState>('')
+  const [canRetry, setRetryState] = useState(true)
   const { token } = route.params;
+
+  useEffect(() => {
+    const netInfoUnsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
+      if(!state.isConnected) {
+        setState('shareNoConnection')
+      }
+    })
+    return netInfoUnsubscribe
+  })
 
   const onButtonPress = async () => {
     try {
-      if (state === 'beforeShare') {
-        await dispatch(ShareUserLocations(token));
-        setState('afterShare');
+      if (canRetry) {        
+        const res = await dispatch(ShareUserLocations(token));
+        setState('shareSuccess');
       } else {
         navigation.goBack();
       }
     } catch (error) {
+      setState('shareFail')
+      setRetryState(false)
       // handled in action
     }
   };
 
+  const Header = canRetry ? <HeaderButton type="close" onPress={() => navigation.pop()} /> : null
+
+  
   return (
     <View style={styles.container}>
-      {
-        state === 'beforeShare' && (
-          <HeaderButton type="close" onPress={() => navigation.pop()} />
-        )
-      }
+      {Header}
 
       <View style={{ alignItems: 'center' }}>
         <Icon source={ICON[state]} width={IS_SMALL_SCREEN ? 66 : 88} height={IS_SMALL_SCREEN ? 45 : 60} />
 
-        <Text style={styles.title} bold>{title[state]}</Text>
-        <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[state]}</Text>
-        <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state]}</Text>
+        <Text style={styles.title} bold>{title[state+failState]}</Text>
+        <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[state+failState]}</Text>
+        <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state+failState]}</Text>
       </View>
 
-      <ActionButton text={button[state]} onPress={onButtonPress} />
+      <ActionButton text={button[state+failState]} onPress={onButtonPress} />
     </View>
   );
 };

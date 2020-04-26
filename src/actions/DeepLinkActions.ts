@@ -7,10 +7,10 @@ import config from '../config/config';
 
 export const ShareUserLocations = (token: string) => async (dispatch: any, getState: any) => new Promise(async (resolve, reject) => {
   const { locale: { strings: { general: { error } } } } = getState();
-
+  
   try {
     dispatch(toggleLoader(true));
-
+    
     const locations: DBLocation[] = await queryDB();
     const dataRows = locations.map(location => ({ ...location, _long: location.long }));
 
@@ -20,6 +20,6 @@ export const ShareUserLocations = (token: string) => async (dispatch: any, getSt
     resolve();
   } catch (e) {
     reject();
-    onError({ error: e, showError: true, messageToShow: error });
+    onError({ error: e, showError: false, messageToShow: error });
   }
 });
