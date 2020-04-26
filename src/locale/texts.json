@@ -288,8 +288,8 @@
       "close": "أغلق",
       "readTOU": "إقرأ شروط الإستعمال",
       "approveTOU": "قبول شروط الإستخدام",
-      "versionNumber": "מספר גרסה:",
-      "error": "ארעה שגיאה, אנא נסו שנית"
+      "versionNumber": "رقم الإصدار:",
+      "error": "حدث خطأ ، يرجى المحاولة مرة أخرى"
     },
     "languages": {
       "title": "إختر لغة",
@@ -312,7 +312,7 @@
     },
     "forceUpdate": {
       "title": "تحديث الإصدار",
-      "subTitle": "חשוב להשאר מעודכנים",
+      "subTitle": "من المهم أن تبقى حتى الآن",
       "desc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار",
       "dontForceDesc": "هنالك إصدار جديد من التطبيق، للحفاظ على صحتنا جميعا ، نوصي بتحديث الإصدار"
     },
@@ -357,7 +357,7 @@
       "noData": "لا يوجد معلومات",
       "exposureHistory": " تاريخ التطابق",
       "noDataDesc1": "يرجى تفعيل خدمات الموقع في إعدادات الهاتف و التأكد من إتصالكم بشبكة الإنترنت  حتى نتمكن من مقارنة موقعكم مع مواقع المصابين بالفيروس حسب المعطيات التي تم جمعها",
-      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
+      "noDataDesc2": "من المهم معالجة هذه المشكلة حتى نتمكن من مقارنة المواقع لك",
       "noExposure": "حسب المعطيات التي تم جمعها حتى الآن، لا يوجد لديكم نقاط تطابق مع احد المصابين بفيروس كورونا",
       "noExposure1": "حسب المعطيات الي تم جمعها حتى الآن",
       "noExposure2": "من التاريخ:",
@@ -385,30 +385,30 @@
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
       "atPlace": " في",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "شارك مع كورونا",
+        "title": "شارك مع كورونا",
+        "androidTitle": "شارك مع كورونا"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
-        "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
+        "bannerText": "لم يتم العثور على \ n نقاط تداخل",
+        "workAllTheTime": "يعمل التطبيق الوقائي طوال الوقت",
         "infoModal": {
-          "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
-          "textBodyPt2": " אל מול נתוני המיקומים של כל החולים המאומתים בארץ עבור 14 הימים האחרונים, ומתעדכנת כל הזמן"
+          "textBodyPt1": "تتم المقارنة من اللحظة التي تتلقى فيها مواقعك في",
+          "textBodyPt2": "في مواجهة بيانات الموقع لجميع المرضى الذين تم التحقق منهم في إسرائيل خلال الـ 14 يومًا الماضية ، ويتم تحديثها باستمرار"
         },
         "card": {
-          "title": "נכון לתאריך:",
-          "atHour": "בשעה"
+          "title": "اعتبارًا من:",
+          "atHour": "في"
         }
       },
-      "showOnMap": "הציגו לי במפה",
-      "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "showOnMap": "تعرفت على الخريطة",
+      "wasNotMe": "لم أكن هناك",
+      "wasMe": "قد يكون"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -448,20 +448,28 @@
     },
     "shareLocation": {
       "title": {
-        "beforeShare": "השיתוף שלך יכול להציל חיים",
-        "afterShare": "הנתונים התקבלו בהצלחה"
+        "beforeShare": "مشاركتك يمكن أن تنقذ الأرواح",
+        "shareSuccess": "تم الحصول على البيانات بنجاح",
+        "shareNoConnection": "لم نتمكن من الحصول على البيانات",
+        "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
-        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+        "beforeShare": "في هذه العملية (تسمى "الاستقصاء الوبائي") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال الـ 14 يومًا الماضية لحماية الصحة العامة.",
+        "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
+        "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
+        "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول"
       },
       "greeting": {
-        "beforeShare": "המידע האישי שלך - יישאר חסוי",
-        "afterShare": "תודה רבה ורפואה שלמה"
+        "beforeShare": "معلوماتك الشخصية - ستبقى سرية",
+        "shareSuccess": "شكرا جزيلا والطب الكامل",
+        "shareNoConnection": "",
+        "shareFail": ""
       },
       "button": {
-        "beforeShare": "שיתוף הנתונים שלי",
-        "afterShare": "חזרה לאפליקציה"
+        "beforeShare": "مشاركة بياناتي",
+        "shareSuccess": "العودة إلى التطبيق",
+        "shareNoConnection": "محاولة أخرى",
+        "shareFail": "أفهم ، شكرا لك"
       }
     }
   },
@@ -472,8 +480,8 @@
       "close": "Close",
       "readTOU": "Read the terms of use",
       "approveTOU": "Confirm the terms of use",
-      "versionNumber": "מספר גרסה:",
-      "error": "ארעה שגיאה, אנא נסו שנית"
+      "versionNumber": "Version number:",
+      "error": "There was an error, please try again"
     },
     "languages": {
       "title": "Select language",
@@ -496,7 +504,7 @@
     },
     "forceUpdate": {
       "title": "Version Update",
-      "subTitle": "חשוב להשאר מעודכנים",
+      "subTitle": "It is important to stay up to date",
       "desc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app",
       "dontForceDesc": "There is a new version of the app. In order for us to continue to maintain the health of us all, we recommend updating the app"
     },
@@ -541,7 +549,7 @@
       "noData": "No data detected ",
       "exposureHistory": "Exposure History",
       "noDataDesc1": "Please make sure you are connected to the internet and that location services are enabled",
-      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
+      "noDataDesc2": "It's important to address this issue so we can compare locations for you",
       "noExposure": "Based on the data collected thus far, no points of overlap with coronavirus patients have been found.",
       "noExposure1": "According to data collected thus far,",
       "noExposure2": "starting from:",
@@ -569,30 +577,30 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "Share with Corona",
+        "title": "Share with Corona",
+        "androidTitle": "Share with Corona"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
-        "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
+        "bannerText": "No \ n overlap points found",
+        "workAllTheTime": "The protective app works all the time",
         "infoModal": {
-          "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
-          "textBodyPt2": " אל מול נתוני המיקומים של כל החולים המאומתים בארץ עבור 14 הימים האחרונים, ומתעדכנת כל הזמן"
+          "textBodyPt1": "The comparison is made from the moment you receive your locations on",
+          "textBodyPt2": "In the face of the location data of all verified patients in the country for the last 14 days, and is constantly updated"
         },
         "card": {
-          "title": "נכון לתאריך:",
-          "atHour": "בשעה"
+          "title": "As of:",
+          "atHour": "at"
         }
       },
-      "showOnMap": "הציגו לי במפה",
-      "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "showOnMap": "Show me on the map",
+      "wasNotMe": "Was not there",
+      "wasMe": "Might be"
     },
     "exposuresHistory": {
       "title": "Overlap history",
       "noExposures": "No overlap points found",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "It is important to keep following the guidelines"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -632,20 +640,28 @@
     },
     "shareLocation": {
       "title": {
-        "beforeShare": "השיתוף שלך יכול להציל חיים",
-        "afterShare": "הנתונים התקבלו בהצלחה"
+        "beforeShare": "Your sharing can save lives",
+        "shareSuccess": "The data was successfully obtained",
+        "shareNoConnection": "We were unable to get data",
+        "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
-        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+        "beforeShare": "In this process (called 'epidemiological investigation') we will collect your location data from the app. We will publish your public places data for the past 14 days for public health protection.",
+        "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
+        "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
+        "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in"
       },
       "greeting": {
-        "beforeShare": "המידע האישי שלך - יישאר חסוי",
-        "afterShare": "תודה רבה ורפואה שלמה"
+        "beforeShare": "Your personal information - will remain confidential",
+        "shareSuccess": "Many thanks and complete medicine",
+        "shareNoConnection": "",
+        "shareFail": ""
       },
       "button": {
-        "beforeShare": "שיתוף הנתונים שלי",
-        "afterShare": "חזרה לאפליקציה"
+        "beforeShare": "Sharing my data",
+        "shareSuccess": "Back to the app",
+        "shareNoConnection": "another try",
+        "shareFail": "I understood, thank you"
       }
     }
   },
@@ -656,8 +672,8 @@
       "close": "закрыть:",
       "readTOU": "см. Руководство:",
       "approveTOU": "согласен с условиями",
-      "versionNumber": "מספר גרסה:",
-      "error": "ארעה שגיאה, אנא נסו שנית"
+      "versionNumber": "Номер версии:",
+      "error": "Произошла ошибка, пожалуйста, попробуйте еще раз"
     },
     "languages": {
       "title": "Выберите язык",
@@ -680,7 +696,7 @@
     },
     "forceUpdate": {
       "title": "Обновить версию",
-      "subTitle": "חשוב להשאר מעודכנים",
+      "subTitle": "Важно быть в курсе",
       "desc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию",
       "dontForceDesc": "Появилась новая версия приложения. Чтобы продолжать поддерживать здоровье всех нас, мы рекомендуем обновить версию"
     },
@@ -725,7 +741,7 @@
       "noData": "Нет передачи данных",
       "exposureHistory": "История контактов",
       "noDataDesc1": "Проверьте связь к интернету и услуги местонахождения",
-      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
+      "noDataDesc2": "Важно решить эту проблему, чтобы мы могли сравнить места для вас",
       "noExposure": "По имеющимся данным, вы не контактировали с больным.",
       "noExposure1": "По данным собранным до сих пор,",
       "noExposure2": "с:",
@@ -753,30 +769,30 @@
       "possibleExposure": "Возможно контакт с больным был :",
       "atPlace": "в ",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "Поделиться с Corona",
+        "title": "Поделиться с Corona",
+        "androidTitle": "Поделиться с Corona"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
-        "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
+        "bannerText": "Не найдено точек перекрытия \ n",
+        "workAllTheTime": "Защитное приложение работает все время",
         "infoModal": {
-          "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
-          "textBodyPt2": " אל מול נתוני המיקומים של כל החולים המאומתים בארץ עבור 14 הימים האחרונים, ומתעדכנת כל הזמן"
+          "textBodyPt1": "Сравнение производится с момента получения вашего местоположения на",
+          "textBodyPt2": "Перед лицом данных о местонахождении всех проверенных пациентов в стране за последние 14 дней, и постоянно обновляется"
         },
         "card": {
-          "title": "נכון לתאריך:",
-          "atHour": "בשעה"
+          "title": "По состоянию на:",
+          "atHour": "в"
         }
       },
-      "showOnMap": "הציגו לי במפה",
-      "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "showOnMap": "Меня познакомили с картой",
+      "wasNotMe": "Меня там не было",
+      "wasMe": "Может быть"
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "Важно продолжать следовать рекомендациям"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -816,20 +832,28 @@
     },
     "shareLocation": {
       "title": {
-        "beforeShare": "השיתוף שלך יכול להציל חיים",
-        "afterShare": "הנתונים התקבלו בהצלחה"
+        "beforeShare": "Ваш обмен может спасти жизни",
+        "shareSuccess": "Данные были успешно получены",
+        "shareNoConnection": "Мы не смогли получить данные",
+        "shareFail": "Что-то пошло не так"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
-        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+        "beforeShare": "В этом процессе (так называемое «эпидемиологическое расследование») мы будем собирать данные о вашем местонахождении из приложения. Мы опубликуем данные о ваших общественных местах за последние 14 дней для защиты общественного здоровья.",
+        "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
+        "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
+        "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите"
       },
       "greeting": {
-        "beforeShare": "המידע האישי שלך - יישאר חסוי",
-        "afterShare": "תודה רבה ורפואה שלמה"
+        "beforeShare": "Ваша личная информация - останется конфиденциальной",
+        "shareSuccess": "Большое спасибо и полное лекарство",
+        "shareNoConnection": "",
+        "shareFail": ""
       },
       "button": {
-        "beforeShare": "שיתוף הנתונים שלי",
-        "afterShare": "חזרה לאפליקציה"
+        "beforeShare": "Поделиться моими данными",
+        "shareSuccess": "Вернуться в приложение",
+        "shareNoConnection": "Еще одна попытка",
+        "shareFail": "Я понимаю спасибо"
       }
     }
   },
@@ -840,8 +864,8 @@
       "close": "ዝጋው",
       "readTOU": "የአጠቃቁም ቅድመ ሁኔታ አንብብ",
       "approveTOU": "በአጠቃቀሙን ቅድመ ሁኔታ መስማማትህን ግለፅ",
-      "versionNumber": "מספר גרסה:",
-      "error": "ארעה שגיאה, אנא נסו שנית"
+      "versionNumber": "የስሪት ቁጥር",
+      "error": "አንድ ስህተት ነበር ፣ እባክዎ እንደገና ይሞክሩ"
     },
     "languages": {
       "title": "ቋንቋ ይምረጡ",
@@ -864,7 +888,7 @@
     },
     "forceUpdate": {
       "title": "ሥሪት አዘምን",
-      "subTitle": "חשוב להשאר מעודכנים",
+      "subTitle": "ወቅታዊ መሆኑን ማረጋገጥ አስፈላጊ ነው",
       "desc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን",
       "dontForceDesc": "አዲስ የመተግበሪያው ስሪት አለ። የሁላችንን ጤና ለመጠበቅ ፣ ስሪቱን ማዘመን እንመክራለን"
     },
@@ -909,7 +933,7 @@
       "noData": "ውሂብ መሰብሰብ አይቻልም",
       "exposureHistory": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noDataDesc1": "የኢንትርነት ግንኙነት መኖሩንና ያሉበት ቦታ በስልክዎ መመላከቱን ያረጋግጡ።",
-      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
+      "noDataDesc2": "አካባቢዎችን ለእርስዎ ማነፃፀር እንድንችል ይህንን ጉዳይ መፍታት አስፈላጊ ነው",
       "noExposure": "እስካሁን በተሰበሰበው መረጃ መሠረት ከኮሮና በሽተኛ ጋር መደራረብዎን ማግኘት አልቻልንም",
       "noExposure1": "እስካሁን በተሠበሠቡት መረጃወች መሠረት ማለትም,",
       "noExposure2": "ከ:",
@@ -937,30 +961,30 @@
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
       "atPlace": "በ ",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "ከኮሮና ጋር ያጋሩ",
+        "title": "ከኮሮና ጋር ያጋሩ",
+        "androidTitle": "ከኮሮና ጋር ያጋሩ"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
-        "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
+        "bannerText": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
+        "workAllTheTime": "የመከላከያ መተግበሪያው ሁልጊዜ ይሠራል",
         "infoModal": {
-          "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
-          "textBodyPt2": " אל מול נתוני המיקומים של כל החולים המאומתים בארץ עבור 14 הימים האחרונים, ומתעדכנת כל הזמן"
+          "textBodyPt1": "ንፅፅሩ የተሰራው እርስዎ አካባቢዎን ከተቀበሉበት ጊዜ ጀምሮ ነው",
+          "textBodyPt2": "ላለፉት 14 ቀናት በእስራኤል ውስጥ ሁሉም የተረጋገጡ በሽተኞች የቦታ ውሂብ ፊትለፊት እና ሁልጊዜም ይዘምናል"
         },
         "card": {
-          "title": "נכון לתאריך:",
-          "atHour": "בשעה"
+          "title": "እንደ:",
+          "atHour": "በ"
         }
       },
-      "showOnMap": "הציגו לי במפה",
-      "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
+      "wasNotMe": "እዚያ አልነበርኩም",
+      "wasMe": "ሊሆን ይችላል"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1000,20 +1024,28 @@
     },
     "shareLocation": {
       "title": {
-        "beforeShare": "השיתוף שלך יכול להציל חיים",
-        "afterShare": "הנתונים התקבלו בהצלחה"
+        "beforeShare": "መጋራት የሰዎችን ሕይወት ሊያድን ይችላል",
+        "shareSuccess": "ውሂቡ በተሳካ ሁኔታ ተገኝቷል",
+        "shareNoConnection": "ውሂብ ማግኘት አልቻልንም",
+        "shareFail": "የሆነ ችግር ተፈጥሯል"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
-        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+        "beforeShare": "በዚህ ሂደት ('ኤፒዲሚዮሎጂካል ምርመራ' ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። የህዝብ ጤና ጥበቃ ላለፉት 14 ቀናት የሕዝብ ቦታዎችዎን መረጃ እናዘጋጃለን ፡፡",
+        "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
+        "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
+        "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ"
       },
       "greeting": {
-        "beforeShare": "המידע האישי שלך - יישאר חסוי",
-        "afterShare": "תודה רבה ורפואה שלמה"
+        "beforeShare": "የእርስዎ የግል መረጃ - በሚስጥር ይቀጥላል",
+        "shareSuccess": "ብዙ ምስጋና እና የተሟላ መድሃኒት",
+        "shareNoConnection": "",
+        "shareFail": ""
       },
       "button": {
-        "beforeShare": "שיתוף הנתונים שלי",
-        "afterShare": "חזרה לאפליקציה"
+        "beforeShare": "ውሂቤን በማጋራት ላይ",
+        "shareSuccess": "ወደ መተግበሪያው ይመለሱ",
+        "shareNoConnection": "ሌላ ሙከራ",
+        "shareFail": "ገባኝ ፣ አመሰግናለሁ"
       }
     }
   },
@@ -1024,8 +1056,8 @@
       "close": "Fermer",
       "readTOU": "Lire les conditions d'utilisation",
       "approveTOU": "Accepter les conditions d'utilisation",
-      "versionNumber": "מספר גרסה:",
-      "error": "ארעה שגיאה, אנא נסו שנית"
+      "versionNumber": "Numéro de version:",
+      "error": "Une erreur s'est produite, veuillez réessayer"
     },
     "languages": {
       "title": "Choisir la langue",
@@ -1048,7 +1080,7 @@
     },
     "forceUpdate": {
       "title": "Mise à jour de la version",
-      "subTitle": "חשוב להשאר מעודכנים",
+      "subTitle": "Il est important de rester à jour",
       "desc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application",
       "dontForceDesc": "Il existe une nouvelle version de l'application. Afin de continuer à maintenir la santé de nous tous, nous vous recommandons de mettre à jour l'application"
     },
@@ -1093,7 +1125,7 @@
       "noData": "Pas de données détectées ",
       "exposureHistory": "Historique d'exposition",
       "noDataDesc1": "Veuillez vous assurer que vous êtes connecté à Internet et que les services de localisation sont activés",
-      "noDataDesc2": "חשוב לטפל בנושא כדי שנוכל לבצע עבורך השוואת מיקומים",
+      "noDataDesc2": "Il est important de résoudre ce problème afin que nous puissions comparer les emplacements pour vous",
       "noExposure": "Sur la base des données recueillies jusqu'à présent, aucun point de chevauchement avec les patients atteints de coronavirus n'a été trouvé.",
       "noExposure1": "Selon les données recueillies à ce jour,",
       "noExposure2": "à partir de:",
@@ -1121,30 +1153,30 @@
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
       "atPlace": "À ",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "Partagez avec Corona",
+        "title": "Partagez avec Corona",
+        "androidTitle": "Partagez avec Corona"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
-        "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
+        "bannerText": "Aucun \ n point de chevauchement trouvé",
+        "workAllTheTime": "L'application de protection fonctionne tout le temps",
         "infoModal": {
-          "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
-          "textBodyPt2": " אל מול נתוני המיקומים של כל החולים המאומתים בארץ עבור 14 הימים האחרונים, ומתעדכנת כל הזמן"
+          "textBodyPt1": "La comparaison est faite à partir du moment où vous recevez vos emplacements sur",
+          "textBodyPt2": "Face aux données de localisation de tous les patients vérifiés dans le pays au cours des 14 derniers jours, et est constamment mis à jour"
         },
         "card": {
-          "title": "נכון לתאריך:",
-          "atHour": "בשעה"
+          "title": "Au:",
+          "atHour": "À"
         }
       },
-      "showOnMap": "הציגו לי במפה",
-      "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "showOnMap": "J'ai été présenté à la carte",
+      "wasNotMe": "Je n'étais pas là",
+      "wasMe": "Cela peut être"
     },
     "exposuresHistory": {
       "title": "Historique des intersections\n",
       "noExposures": "Pas d'intersection trouvée",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "Il est important de continuer à suivre les directives"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1184,20 +1216,28 @@
     },
     "shareLocation": {
       "title": {
-        "beforeShare": "השיתוף שלך יכול להציל חיים",
-        "afterShare": "הנתונים התקבלו בהצלחה"
+        "beforeShare": "Votre partage peut sauver des vies",
+        "shareSuccess": "Les données ont été obtenues avec succès",
+        "shareNoConnection": "Nous n'avons pas pu obtenir de données",
+        "shareFail": "Quelque chose a mal tourné"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
-        "afterShare": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה."
+        "beforeShare": "Dans ce processus (appelé 'enquête épidémiologique'), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics des 14 derniers jours pour la protection de la santé publique.",
+        "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
+        "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
+        "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter"
       },
       "greeting": {
-        "beforeShare": "המידע האישי שלך - יישאר חסוי",
-        "afterShare": "תודה רבה ורפואה שלמה"
+        "beforeShare": "Vos informations personnelles - resteront confidentielles",
+        "shareSuccess": "Merci beaucoup et médecine complète",
+        "shareNoConnection": "",
+        "shareFail": ""
       },
       "button": {
-        "beforeShare": "שיתוף הנתונים שלי",
-        "afterShare": "חזרה לאפליקציה"
+        "beforeShare": "Partager mes données",
+        "shareSuccess": "Retour à l'appli",
+        "shareNoConnection": "Un autre essai",
+        "shareFail": "Je comprends merci"
       }
     }
   }
