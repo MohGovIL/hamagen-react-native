@@ -15,11 +15,10 @@ const MapModal = () => {
   } = useSelector<Store, GeneralReducer>(state => state.general);
   const {
     strings: {
-      scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, suspectedExposure, events, possibleExposure, atPlace, showOnMap },
+      scanHome: { inDate, fromHour },
     },
   } = useSelector<Store, LocaleReducer>(state => state.locale);
-  
-  
+
   const [date, hour] = useMemo(() => {
     const time = moment(properties?.fromTime);
     return [time.format('DD.MM.YY'), time.format('DD.MM.YY')];
