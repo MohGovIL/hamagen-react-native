@@ -19,10 +19,9 @@ const MapModal = () => {
     },
   } = useSelector<Store, LocaleReducer>(state => state.locale);
 
-
   const [date, hour] = useMemo(() => {
     const time = moment(properties?.fromTime);
-    return [time.format('DD.MM.YY'), time.format('DD.MM.YY')];
+    return [time.format('DD.MM.YY'), time.format('HH:mm')];
   }, [properties?.fromTime]);
 
   return (

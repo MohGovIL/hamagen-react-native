@@ -63,7 +63,7 @@ const ExposuresDetected = (
         <Text style={{ fontSize: 14 }} onPress={() => showMapModal(exposures[0])}>{showOnMap}</Text>
       </View>
     </Animated.View>
-  ), [exposures[0]]);
+  ), [exposures[0],possibleExposure] );
 
   const renderActionButton = (text: string, action: () => void) => (
     <TouchableOpacity onPress={action} style={styles.actionButton}>
