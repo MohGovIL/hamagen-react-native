@@ -75,8 +75,8 @@ export const showMapModal = ({ properties }: Exposure) => ({ type: SHOW_MAP_MODA
   payload: {
     properties,
     region: {
-      latitude: properties.lat,
-      longitude: properties.long,
+      latitude: properties.lat || 0,
+      longitude: properties.long || 0,
       latitudeDelta: 0.01,
       longitudeDelta: 0.001,
     }

@@ -162,6 +162,8 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
         currSick.properties.fromTime = currSick.properties.fromTime_utc;
         currSick.properties.toTime = currSick.properties.toTime_utc;
         currSick.properties.OBJECTID = currSick.properties.Key_Field;
+        currSick.properties.lat = currSick.geometry.coordinates[config().sickGeometryLatIndex];
+        currSick.properties.long = currSick.geometry.coordinates[config().sickGeometryLongIndex];
 
         exposuresToUpdate.push(currSick);
         await dbSick.addSickRecord(currSick);
