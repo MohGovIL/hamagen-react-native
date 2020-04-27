@@ -25,7 +25,7 @@ const ICON = {
 };
 
 type ShareStates = 'beforeShare'|'shareNoConnection'|'shareSuccess'|'shareFail'
-type ShareFailState = ''|'InvalidToken'
+type ShareFailState = ''|'InvalidToken'|'MissingToken'|'Token1'|'Token2'|'Token3'
 
 const ShareLocations = ({ route, navigation }: Props) => {
   const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -70,9 +70,9 @@ const ShareLocations = ({ route, navigation }: Props) => {
       <View style={{ alignItems: 'center' }}>
         <Icon source={ICON[state]} width={IS_SMALL_SCREEN ? 66 : 88} height={IS_SMALL_SCREEN ? 45 : 60} />
 
-        <Text style={styles.title} bold>{title[state + failState]}</Text>
+        <Text style={styles.title} bold>{title[state]}</Text>
         <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[state + failState]}</Text>
-        <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state + failState]}</Text>
+        <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state]}</Text>
       </View>
 
       <ActionButton text={button[state + failState]} onPress={onButtonPress} />

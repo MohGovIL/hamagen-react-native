@@ -265,7 +265,9 @@
         "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
         "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
-        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו"
+        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
+        "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
+        "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב"
       },
       "greeting": {
         "beforeShare": "המידע האישי שלך - יישאר חסוי",
@@ -277,7 +279,9 @@
         "beforeShare": "שיתוף הנתונים שלי",
         "shareSuccess": "חזרה לאפליקציה",
         "shareNoConnection": "ניסיון נוסף",
-        "shareFail": "הבנתי, תודה"
+        "shareFail": "הבנתי, תודה",
+        "shareFailMissingToken": "הבנתי, תודה",
+        "shareFailTokenError": "נסה שנית"
       }
     }
   },
@@ -390,7 +394,7 @@
         "androidTitle": "شارك مع كورونا"
       },
       "noExposures": {
-        "bannerText": "لم يتم العثور على \ n نقاط تداخل",
+        "bannerText": "لم يتم العثور على \n نقاط تداخل",
         "workAllTheTime": "يعمل التطبيق الوقائي طوال الوقت",
         "infoModal": {
           "textBodyPt1": "تتم المقارنة من اللحظة التي تتلقى فيها مواقعك في",
@@ -454,10 +458,12 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى 'الاستقصاء الوبائي') سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال الـ 14 يومًا الماضية لحماية الصحة العامة.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال الـ 14 يومًا الماضية لحماية الصحة العامة.",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
-        "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول"
+        "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
+        "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
+        "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى"
       },
       "greeting": {
         "beforeShare": "معلوماتك الشخصية - ستبقى سرية",
@@ -469,7 +475,9 @@
         "beforeShare": "مشاركة بياناتي",
         "shareSuccess": "العودة إلى التطبيق",
         "shareNoConnection": "محاولة أخرى",
-        "shareFail": "أفهم ، شكرا لك"
+        "shareFail": "أفهم ، شكرا لك",
+        "shareFailMissingToken": "أفهم ، شكرا لك",
+        "shareFailTokenError": "يرجى المحاولة مرة أخرى"
       }
     }
   },
@@ -582,7 +590,7 @@
         "androidTitle": "Share with Corona"
       },
       "noExposures": {
-        "bannerText": "No \ n overlap points found",
+        "bannerText": "No \n overlap points found",
         "workAllTheTime": "The protective app works all the time",
         "infoModal": {
           "textBodyPt1": "The comparison is made from the moment you receive your locations on",
@@ -649,7 +657,9 @@
         "beforeShare": "In this process (called 'epidemiological investigation') we will collect your location data from the app. We will publish your public places data for the past 14 days for public health protection.",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
-        "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in"
+        "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
+        "shareFailMissingToken": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
+        "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again"
       },
       "greeting": {
         "beforeShare": "Your personal information - will remain confidential",
@@ -661,7 +671,9 @@
         "beforeShare": "Sharing my data",
         "shareSuccess": "Back to the app",
         "shareNoConnection": "another try",
-        "shareFail": "I understood, thank you"
+        "shareFail": "I understood, thank you",
+        "shareFailMissingToken": "I understood, thank you",
+        "shareFailTokenError": "try again"
       }
     }
   },
@@ -774,7 +786,7 @@
         "androidTitle": "Поделиться с Corona"
       },
       "noExposures": {
-        "bannerText": "Не найдено точек перекрытия \ n",
+        "bannerText": "Не найдено точек перекрытия",
         "workAllTheTime": "Защитное приложение работает все время",
         "infoModal": {
           "textBodyPt1": "Сравнение производится с момента получения вашего местоположения на",
@@ -841,7 +853,9 @@
         "beforeShare": "В этом процессе (так называемое «эпидемиологическое расследование») мы будем собирать данные о вашем местонахождении из приложения. Мы опубликуем данные о ваших общественных местах за последние 14 дней для защиты общественного здоровья.",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
-        "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите"
+        "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
+        "shareFailMissingToken": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
+        "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз"
       },
       "greeting": {
         "beforeShare": "Ваша личная информация - останется конфиденциальной",
@@ -853,7 +867,9 @@
         "beforeShare": "Поделиться моими данными",
         "shareSuccess": "Вернуться в приложение",
         "shareNoConnection": "Еще одна попытка",
-        "shareFail": "Я понимаю спасибо"
+        "shareFail": "Я понимаю спасибо",
+        "shareFailMissingToken": "Я понимаю спасибо",
+        "shareFailTokenError": "Пожалуйста, попробуйте еще раз"
       }
     }
   },
@@ -1033,7 +1049,9 @@
         "beforeShare": "በዚህ ሂደት ('ኤፒዲሚዮሎጂካል ምርመራ' ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። የህዝብ ጤና ጥበቃ ላለፉት 14 ቀናት የሕዝብ ቦታዎችዎን መረጃ እናዘጋጃለን ፡፡",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
-        "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ"
+        "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
+        "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
+        "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ"
       },
       "greeting": {
         "beforeShare": "የእርስዎ የግል መረጃ - በሚስጥር ይቀጥላል",
@@ -1045,7 +1063,9 @@
         "beforeShare": "ውሂቤን በማጋራት ላይ",
         "shareSuccess": "ወደ መተግበሪያው ይመለሱ",
         "shareNoConnection": "ሌላ ሙከራ",
-        "shareFail": "ገባኝ ፣ አመሰግናለሁ"
+        "shareFail": "ገባኝ ፣ አመሰግናለሁ",
+        "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
+        "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ"
       }
     }
   },
@@ -1158,7 +1178,7 @@
         "androidTitle": "Partagez avec Corona"
       },
       "noExposures": {
-        "bannerText": "Aucun \ n point de chevauchement trouvé",
+        "bannerText": "Aucun \n point de chevauchement trouvé",
         "workAllTheTime": "L'application de protection fonctionne tout le temps",
         "infoModal": {
           "textBodyPt1": "La comparaison est faite à partir du moment où vous recevez vos emplacements sur",
@@ -1225,7 +1245,9 @@
         "beforeShare": "Dans ce processus (appelé 'enquête épidémiologique'), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics des 14 derniers jours pour la protection de la santé publique.",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
-        "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter"
+        "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
+        "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
+        "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer"
       },
       "greeting": {
         "beforeShare": "Vos informations personnelles - resteront confidentielles",
@@ -1237,7 +1259,9 @@
         "beforeShare": "Partager mes données",
         "shareSuccess": "Retour à l'appli",
         "shareNoConnection": "Un autre essai",
-        "shareFail": "Je comprends merci"
+        "shareFail": "Je comprends merci",
+        "shareFailMissingToken": "Je comprends merci",
+        "shareFailTokenError": "Veuillez réessayer"
       }
     }
   }
