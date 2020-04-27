@@ -7,12 +7,20 @@ import config from '../config/config';
 
 export const ShareUserLocations = (token: string) => async (dispatch: any, getState: any) => new Promise(async (resolve, reject) => {
   const { locale: { strings: { general: { error } } } } = getState();
-  
+
   try {
     dispatch(toggleLoader(true));
-    
+
     const locations: DBLocation[] = await queryDB();
-    const dataRows = locations.map(location => ({ ...location, _long: location.long }));
+    const dataRows = locations.map((location) => {
+      location._long = location.long;
+
+      delete location.long;
+      delete location.hash;
+      delete location.wifiHash;
+
+      return location;
+    });
 
     await axios.post(config().dataShareUrl, { token, dataRows });
 
