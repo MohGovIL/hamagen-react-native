@@ -22,8 +22,9 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
 
   const [now, setNow] = useState(moment().valueOf());
 
-  const { FPDate, nowHour } = useMemo(() => ({
+  const { FPDate,nowDate, nowHour } = useMemo(() => ({
     FPDate: moment(firstPoint).format('D.M.YY'),
+    nowDate: moment(now).format('D.M.YY'),
     nowHour: moment(now).format('HH:mm')
   }), [firstPoint, now]);
 
@@ -81,7 +82,7 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
               />
             </TouchableOpacity>
             <Text>
-              <Text bold style={styles.toTimeDate}>{FPDate}</Text>
+              <Text bold style={styles.toTimeDate}>{nowDate}</Text>
               <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
               <Text bold style={styles.toTimeDate}>{nowHour}</Text>
             </Text>
