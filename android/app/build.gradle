@@ -179,18 +179,21 @@ android {
         debug {
             versionNameSuffix ".qa"
             applicationIdSuffix ".qa"
+            buildConfigField "String", "PROVIDER_AUTHORITY", '"com.hamagen.qa.provider"'
             signingConfig signingConfigs.debug
         }
         qa {
             initWith release
             versionNameSuffix ".qa"
             applicationIdSuffix ".qa"
+            buildConfigField "String", "PROVIDER_AUTHORITY", '"com.hamagen.qa.provider"'
             signingConfig signingConfigs.release
             matchingFallbacks = ["release"]
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://facebook.github.io/react-native/docs/signed-apk-android.
+            buildConfigField "String", "PROVIDER_AUTHORITY", '"com.hamagen.provider"'
             signingConfig signingConfigs.release
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro", "${background_geolocation.projectDir}/proguard-rules.pro"

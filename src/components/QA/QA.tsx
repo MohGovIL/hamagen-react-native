@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs';
+import Share from 'react-native-share';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -14,11 +15,12 @@ import { updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { UserLocationsDatabase } from '../../database/Database';
+import { onError } from '../../services/ErrorService';
 import config from '../../config/config';
 import { DBLocation, Exposure } from '../../types';
 import {
   ALL_POINTS_QA,
-  HIGH_VELOCITY_POINTS_QA,
+  HIGH_VELOCITY_POINTS_QA, IS_IOS,
   PADDING_BOTTOM,
   PADDING_TOP,
   SERVICE_TRACKER
@@ -114,12 +116,20 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Clipboard.setString(JSON.stringify(config()));
   };
 
-  const copyShareLocationsInfo = async () => {
-    const locations: DBLocation[] = await queryDB();
-    const dataRows = locations.map(location => ({ ...location, _long: location.long }));
+  const shareShareLocationsInfo = async () => {
+    try {
+      const locations: DBLocation[] = await queryDB();
+      const dataRows = locations.map(location => ({ ...location, _long: location.long }));
 
-    Clipboard.setString(JSON.stringify({ token: 'XXXX', dataRows }));
-    Alert.alert('Locations are copied', '', [{ text: 'OK' }]);
+      const filename = 'locationsData.json';
+      const baseDir = RNFS.CachesDirectoryPath;
+      const filepath = `${baseDir}/${filename}`;
+
+      await RNFS.writeFile(filepath, JSON.stringify({ token: 'XXXX', dataRows }), 'utf8');
+      await Share.open({ title: 'שיתוף מיקומי חולה מאומת', url: IS_IOS ? filepath : `file://${filepath}` });
+    } catch (error) {
+      onError({ error });
+    }
   };
 
   const initCheckSickPeople = async () => {
@@ -265,7 +275,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="העתק מידע לשיתוף מיקומים" onPress={copyShareLocationsInfo} />
+          <Button title="שתף מידע לשיתוף מיקומים" onPress={shareShareLocationsInfo} />
         </View>
 
         <View style={styles.buttonWrapper}>

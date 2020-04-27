@@ -15,15 +15,20 @@ import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
 import android.content.IntentFilter;
-import io.rumors.reactnativesettings.RNSettingsPackage;
 import io.rumors.reactnativesettings.receivers.GpsLocationReceiver;
 import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
 
+import cl.json.ShareApplication;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
-public class MainApplication extends Application implements ReactApplication {
+public class MainApplication extends Application implements ShareApplication, ReactApplication {
+
+    @Override
+    public String getFileProviderAuthority() {
+        return BuildConfig.PROVIDER_AUTHORITY;
+    }
 
     private final ReactNativeHost mReactNativeHost =
             new ReactNativeHost(this) {

@@ -75,5 +75,16 @@
         />
 
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                tools:replace="android:resource"
+                android:resource="@xml/filepaths" />
+        </provider>
     </application>
 </manifest>

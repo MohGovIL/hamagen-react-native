@@ -377,6 +377,8 @@ PODS:
     - React
   - RNSha1 (1.2.3):
     - React
+  - RNShare (3.3.0):
+    - React
   - RNWifi (2.4.0):
     - React
   - Yoga (1.14.0)
@@ -443,6 +445,7 @@ DEPENDENCIES:
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSha1 (from `../node_modules/react-native-sha1`)
+  - RNShare (from `../node_modules/react-native-share`)
   - RNWifi (from `../node_modules/react-native-wifi-reborn`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -574,6 +577,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSha1:
     :path: "../node_modules/react-native-sha1"
+  RNShare:
+    :path: "../node_modules/react-native-share"
   RNWifi:
     :path: "../node_modules/react-native-wifi-reborn"
   Yoga:
@@ -650,6 +655,7 @@ SPEC CHECKSUMS:
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: 5e4758109c6d35f9a009ce72af873df907548020
   RNSha1: 6de589cd0b0397d0f6248a2e5ee9e5f0d7da38dc
+  RNShare: fea1801315aa8875d6db73a4010b14afcd568765
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
