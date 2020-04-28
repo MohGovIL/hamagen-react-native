@@ -41,7 +41,7 @@ export const checkSickPeople = async () => {
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB();
 
-    const shouldFilterByGeohash = !!responseJson.features[0].properties.geohashFilter;
+    const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
 
     if (sickPeopleIntersected.length > 0) {
