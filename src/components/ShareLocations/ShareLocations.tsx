@@ -25,7 +25,7 @@ const ICON = {
 };
 
 type ShareStates = 'beforeShare'|'shareNoConnection'|'shareSuccess'|'shareFail'
-type ShareFailState = ''|'InvalidToken'|'MissingToken'|'Token1'|'Token2'|'Token3'
+type ShareFailState = ''|'MissingToken'|'TokenError'
 
 const ShareLocations = ({ route, navigation }: Props) => {
   const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -48,15 +48,49 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const onButtonPress = async () => {
     try {
       if (canRetry) {        
-        const res = await dispatch(ShareUserLocations(token));
-        setState('shareSuccess');
+        const {StatusCode,StatusDesc} = await dispatch(ShareUserLocations(token));
+
+        switch(StatusCode) {
+          case 'CompletSuccessfully': {
+            setState('shareSuccess')
+            setRetryState(false);
+            break
+          }
+          case 'RunTimeError': {
+            setState('shareFail')
+            setFailState('MissingToken')
+            break
+          }
+          case 'InvalidOperation': {
+            switch(StatusDesc) {
+              case 1: 
+              case 2:{
+                setState('shareFail')
+                setFailState('TokenError')
+                break
+              }
+              case 3: {
+                setState('shareSuccess')
+                setRetryState(false);
+              }
+              default: {
+                setState('shareFail') 
+                setRetryState(false);
+              }
+            }
+          }
+          default:{
+            setState('shareFail')
+            setRetryState(false);
+          }
+        }
+        
       } else {
         navigation.goBack();
       }
     } catch (error) {
       setState('shareFail');
       setRetryState(false);
-      // handled in action
     }
   };
 
