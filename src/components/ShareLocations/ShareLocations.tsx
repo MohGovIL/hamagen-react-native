@@ -48,43 +48,42 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const onButtonPress = async () => {
     try {
       if (canRetry) {        
-        const {StatusCode,StatusDesc} = await dispatch(ShareUserLocations(token));
+        const { StatusCode, StatusDesc } = await dispatch(ShareUserLocations(token));
 
-        switch(StatusCode) {
+        switch (StatusCode) {
           case 'CompletSuccessfully': {
-            setState('shareSuccess')
+            setState('shareSuccess');
             setRetryState(false);
-            break
+            break;
           }
           case 'RunTimeError': {
-            setState('shareFail')
-            setFailState('MissingToken')
-            break
+            setState('shareFail');
+            setFailState('MissingToken');
+            break;
           }
           case 'InvalidOperation': {
-            switch(StatusDesc) {
+            switch (StatusDesc) {
               case 1: 
-              case 2:{
-                setState('shareFail')
-                setFailState('TokenError')
-                break
+              case 2: {
+                setState('shareFail');
+                setFailState('TokenError');
+                break;
               }
               case 3: {
-                setState('shareSuccess')
+                setState('shareSuccess');
                 setRetryState(false);
               }
               default: {
-                setState('shareFail') 
+                setState('shareFail'); 
                 setRetryState(false);
               }
             }
           }
-          default:{
-            setState('shareFail')
+          default: {
+            setState('shareFail');
             setRetryState(false);
           }
         }
-        
       } else {
         navigation.goBack();
       }
