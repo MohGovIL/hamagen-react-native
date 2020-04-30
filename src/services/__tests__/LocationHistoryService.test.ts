@@ -122,6 +122,60 @@ describe('LocationHistoryService', () => {
         wifiHash: ''
       }]);
     });
+
+    test('geometry type LineString', () => {
+      const features = [
+        {
+          geometry: {
+            type: 'LineString',
+            coordinates: [[34.8077312410001, 32.1154996280001], [21, 32]],
+          },
+          properties: {
+            OBJECTID: 1720,
+            Key_Field: 1720,
+            Name: 'חולה 15',
+            Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+            Comments:
+                        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+            POINT_X: 34.80773124,
+            POINT_Y: 32.11549963,
+            timespan: {
+              begin: 1583144100000,
+              end: 1583147700000
+            },
+            sourceOID: 1,
+            stayTimes: '10:15-11:15',
+          },
+        }
+      ];
+      valueOf
+        .mockReturnValueOnce(1)
+        .mockReturnValueOnce(2);
+
+      kml.mockReturnValue({ features });
+      encode.mockReturnValueOnce(1);
+      
+      expect(kmlToGeoJson('')).toEqual([
+      {
+        startTime: 1,
+        endTime: 2,
+        long: 34.8077312410001,
+        lat: 32.1154996280001,
+        geoHash: 1,
+        accuracy: 0,
+        wifiHash: ''
+      },
+      {
+        startTime: undefined,
+        endTime: undefined,
+        long: 21,
+        lat: 32,
+        geoHash: undefined,
+        accuracy: 0,
+        wifiHash: ''
+      }
+    ]);
+    })
   });
 
   describe('insertToSampleDB', () => {
@@ -169,5 +223,13 @@ describe('LocationHistoryService', () => {
       expect(actionSpy).toBeCalledTimes(1);
       expect(dispatch).toBeCalledTimes(1);
     });
+
+    test('handles error', async () => {
+      await AsyncStorage.setItem(FIRST_POINT_TS, (sampleData[0].startTime - 2000).toString());
+      db.insertBulkSamples.mockRejectedValueOnce('error')
+      
+      
+      await expect(insertToSampleDB(sampleData)).rejects.toEqual('error')
+    })
   });
 });
