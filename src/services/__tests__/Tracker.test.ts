@@ -7,12 +7,16 @@ import * as db from '../../database/Database';
 import config from '../../config/config';
 import * as constants from '../../constants/Constants';
 import { dispatch } from '../../store';
+import {downloadAndVerifySigning } from '../SigningService'
 
 jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
   return { registerLocalNotification };
 });
 
+jest.mock('../SigningService', () => ({
+  downloadAndVerifySigning: jest.fn()
+}))
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
@@ -96,6 +100,7 @@ beforeAll(() => {
 
 afterAll(() => {
   dispatch.mockClear();
+  downloadAndVerifySigning.mockClear()
 });
 
 beforeEach(() => {
@@ -371,28 +376,30 @@ describe('Tracker', () => {
         },
       ],
     };
-    fetch.once(JSON.stringify(responseJSON));
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
+
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(sampleData));
     valueOf.mockReturnValueOnce(new Date().getTime());
     await tracker.checkSickPeople();
   });
 
   test('checkSickPeople() - NoData', async () => {
-    const userLocationDB = new db.UserLocationsDatabase();
     const responseJSON = {
       features: 'asd',
     };
-    fetch.once(JSON.stringify(responseJSON));
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
+    const userLocationDB = new db.UserLocationsDatabase();
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve([]));
-
+    const getIntersectingSickRecordsByGeoHashSpy = jest.spyOn(tracker, 'getIntersectingSickRecordsByGeoHash')
+    getIntersectingSickRecordsByGeoHashSpy.mockReturnValueOnce([])
     await tracker.checkSickPeople();
+    getIntersectingSickRecordsByGeoHashSpy.mockReset()
   });
 
   test('checkSickPeople() - fetch error', async () => {
-    fetch.mockReject(new Error('fake error message'));
-    const userLocationDB = new db.UserLocationsDatabase();
-    userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve([]));
-    // valueOf.mockReturnValueOnce(new Date().getTime())
+    downloadAndVerifySigning.mockRejectedValueOnce()
+    new db.UserLocationsDatabase().listSamples.mockResolvedValueOnce([])
+    // userLocationDB.listSamples.mockResolvedValueOnce([])
 
     await tracker.checkSickPeople();
 
@@ -405,7 +412,14 @@ describe('Tracker', () => {
     const responseJSON = {
       features: 'asd',
     };
-    fetch.once(JSON.stringify(responseJSON));
+
+    const userLocationDB = new db.UserLocationsDatabase();
+    userLocationDB.listSamples.mockResolvedValueOnce([])
+
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
+
+
+
     await tracker.startForegroundTimer();
   });
 });

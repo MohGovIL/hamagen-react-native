@@ -13,8 +13,6 @@ export const ShareUserLocations = (token: string) => async (dispatch: any, getSt
 
     const locations: DBLocation[] = await queryDB();
     const dataRows = locations.map((location) => {
-      location._long = location.long;
-
       delete location.long;
       delete location.hash;
       delete location.wifiHash;
@@ -22,12 +20,13 @@ export const ShareUserLocations = (token: string) => async (dispatch: any, getSt
       return location;
     });
 
-    await axios.post(config().dataShareUrl, { token, dataRows });
+    const res = await axios.post(config().dataShareUrl, { token, dataRows });
 
     dispatch(toggleLoader(false));
-    resolve();
-  } catch (e) {
+    
+    resolve(res);
+  } catch (error) {
     reject();
-    onError({ error: e, showError: false, messageToShow: error });
+    onError({ error });
   }
 });

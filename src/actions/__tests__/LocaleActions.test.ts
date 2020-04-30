@@ -1,5 +1,4 @@
 import { NativeModules } from 'react-native';
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
@@ -7,14 +6,18 @@ import { LOCALE_CHANGED } from '../../constants/ActionTypes';
 
 import { initLocale, changeLocale } from '../LocaleActions';
 import { onError } from '../../services/ErrorService';
-
+import {downloadAndVerifySigning} from '../../services/SigningService'
 const mockStore = configureMockStore([thunk]);
 
 const MAthRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
 
+jest.mock('../../services/SigningService', () => ({
+  downloadAndVerifySigning: jest.fn()
+}))
+
 beforeEach(() => {
   onError.mockClear();
-  axios.mockClear();
+  downloadAndVerifySigning.mockClear()
   AsyncStorage.mockClear();
 });
 
@@ -37,7 +40,7 @@ describe('Locale action', () => {
         config: {},
       };
 
-      axios.get.mockResolvedValueOnce(mockResponse);
+      downloadAndVerifySigning.mockResolvedValueOnce(mockResponse);
 
 
       await store.dispatch(initLocale());
@@ -62,7 +65,7 @@ describe('Locale action', () => {
         config: {},
       };
 
-      axios.get.mockResolvedValueOnce(mockResponse);
+      downloadAndVerifySigning.mockResolvedValueOnce(mockResponse);
 
       const store = mockStore();
       await store.dispatch(initLocale());
@@ -85,7 +88,7 @@ describe('Locale action', () => {
         config: {},
       };
 
-      axios.get.mockResolvedValueOnce(mockResponse);
+      downloadAndVerifySigning.mockResolvedValueOnce(mockResponse);
 
       const store = mockStore();
       await store.dispatch(initLocale());
