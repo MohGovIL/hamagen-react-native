@@ -222,31 +222,24 @@ describe('Tracker', () => {
     ).toBe(true);
   });
 
-  test('unitTestGeography()', () => {
+  test.each([
     // South
+   [ { long: 34.612383, lat: 31.307915, ...userRecordExtras2 },true],
+   [{ long: 34.612645, lat: 31.305848, ...userRecordExtras2 },false],
+   // West
+   [{ long: 34.609032, lat: 31.311498, ...userRecordExtras2 },true],
+   [{ long: 34.604462, lat: 31.311608, ...userRecordExtras2 },false],
+   // North-East
+   [{ long: 34.615315, lat: 31.312473, ...userRecordExtras2 },true],
+   [{ long: 34.618952, lat: 31.314902, ...userRecordExtras2 },false],
+
+  ])('unitTestGeography()', (positionObj, expected) => {
     expect(
-      tracker.isSpaceOverlapping({ long: 34.612383, lat: 31.307915, ...userRecordExtras2 }, sickRecord),
-    ).toBe(true);
-    expect(
-      tracker.isSpaceOverlapping({ long: 34.612645, lat: 31.305848, ...userRecordExtras2 }, sickRecord),
-    ).toBe(false);
-    // West
-    expect(
-      tracker.isSpaceOverlapping({ long: 34.609032, lat: 31.311498, ...userRecordExtras2 }, sickRecord),
-    ).toBe(true);
-    expect(
-      tracker.isSpaceOverlapping({ long: 34.604462, lat: 31.311608, ...userRecordExtras2 }, sickRecord),
-    ).toBe(false);
-    // North-East
-    expect(
-      tracker.isSpaceOverlapping({ long: 34.615315, lat: 31.312473, ...userRecordExtras2 }, sickRecord),
-    ).toBe(true);
-    expect(
-      tracker.isSpaceOverlapping({ long: 34.618952, lat: 31.314902, ...userRecordExtras2 }, sickRecord),
-    ).toBe(false);
+      tracker.isSpaceOverlapping(positionObj,sickRecord)
+    ).toBe(expected);
   });
 
-  test('unitTestIntersectingRecords()', async () => {
+  test('unitTestIntersectingRecords()', () => {
     fetch(config().dataUrl_utc, {
       headers: { 'Content-Type': 'application/json;charset=utf-8' },
     })
@@ -308,7 +301,7 @@ describe('Tracker', () => {
     const rows = ['data1', 'data2', 'data3'];
     const userLocationDB = new db.UserLocationsDatabase();
     userLocationDB.listSamples.mockResolvedValueOnce(rows);
-    expect(tracker.queryDB()).resolves.toEqual(rows);
+    await expect(tracker.queryDB()).resolves.toEqual(rows);
   });
 
   test('onSickPeopleNotify()', async () => {
@@ -317,17 +310,17 @@ describe('Tracker', () => {
     sickDB.addSickRecord.mockResolvedValueOnce(rows);
     sickDB.containsObjectID.mockResolvedValueOnce(rows);
     // check he
-    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
     // check unsupported language
     NativeModules.SettingsManager.settings.AppleLocale = 'gh';
-    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
 
     constants.IS_IOS = false;
-    expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
+    await expect(tracker.onSickPeopleNotify(sickPeopleArray)).resolves.toEqual(
       undefined,
     );
   });
@@ -378,7 +371,7 @@ describe('Tracker', () => {
     };
     downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
 
-    userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(sampleData));
+    userLocationDB.listSamples.mockResolvedValueOnce(sampleData);
     valueOf.mockReturnValueOnce(new Date().getTime());
     await tracker.checkSickPeople();
   });
