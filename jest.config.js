@@ -5,4 +5,5 @@ module.exports = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{js,ts,tsx,jsx}', '!node_modules/*'],
+  coverageReporters: ['json', 'lcov', 'text', 'clover', 'html']
 };
