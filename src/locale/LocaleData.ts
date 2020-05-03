@@ -206,19 +206,31 @@ export interface Strings {
   shareLocation: {
     title: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string
     },
     description: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string,
+      shareFailMissingToken: string,
+      shareFailTokenError: string
     },
     greeting: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string
     },
     button: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string,
+      shareFailMissingToken: string,
+      shareFailTokenError: string
     }
   }
 }

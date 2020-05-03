@@ -18,6 +18,7 @@
     "no-unused-expression": false,
     "no-shadowed-variable": false,
     "jsx-boolean-value": false,
-    "no-bitwise": false
+    "no-bitwise": false,
+    "no-var-requires": false
   }
 }

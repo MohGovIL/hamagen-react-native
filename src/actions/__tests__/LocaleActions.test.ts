@@ -6,18 +6,19 @@ import { LOCALE_CHANGED } from '../../constants/ActionTypes';
 
 import { initLocale, changeLocale } from '../LocaleActions';
 import { onError } from '../../services/ErrorService';
-import {downloadAndVerifySigning} from '../../services/SigningService'
+import { downloadAndVerifySigning } from '../../services/SigningService';
+
 const mockStore = configureMockStore([thunk]);
 
 const MAthRandomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.5);
 
 jest.mock('../../services/SigningService', () => ({
   downloadAndVerifySigning: jest.fn()
-}))
+}));
 
 beforeEach(() => {
   onError.mockClear();
-  downloadAndVerifySigning.mockClear()
+  downloadAndVerifySigning.mockClear();
   AsyncStorage.mockClear();
 });
 

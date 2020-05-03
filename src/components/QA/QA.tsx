@@ -14,10 +14,11 @@ import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
+import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { UserLocationsDatabase } from '../../database/Database';
 import { onError } from '../../services/ErrorService';
 import config from '../../config/config';
-import { DBLocation, Exposure } from '../../types';
+import { Exposure } from '../../types';
 import {
   ALL_POINTS_QA,
   HIGH_VELOCITY_POINTS_QA, IS_IOS,
@@ -118,14 +119,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
   const shareShareLocationsInfo = async () => {
     try {
-      const locations: DBLocation[] = await queryDB();
-      const dataRows = locations.map(location => ({ ...location, _long: location.long }));
-
       const filename = 'locationsData.json';
       const baseDir = RNFS.CachesDirectoryPath;
       const filepath = `${baseDir}/${filename}`;
 
-      await RNFS.writeFile(filepath, JSON.stringify({ token: 'XXXX', dataRows }), 'utf8');
+      await RNFS.writeFile(filepath, JSON.stringify(await getUserLocationsReadyForServer('XXXX')), 'utf8');
       await Share.open({ title: 'שיתוף מיקומי חולה מאומת', url: IS_IOS ? filepath : `file://${filepath}` });
     } catch (error) {
       onError({ error });
@@ -166,7 +164,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
   };
 
   const copyServicesTrackingData = async () => {
-    const res: { source: string, timestamp: number }[] = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+    const res: Array<{ source: string, timestamp: number }> = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
 
     let csv = 'source, timestamp\n';
 
