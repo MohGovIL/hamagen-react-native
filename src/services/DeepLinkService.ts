@@ -47,10 +47,12 @@ export const getUserLocationsReadyForServer = (token: string) => new Promise(asy
   try {
     const locations: DBLocation[] = await queryDB();
     const dataRows = locations.map((location) => {
+      location._long = parseFloat(location.long.toFixed(6))
+      location.lat = parseFloat(location.lat.toFixed(6))
       delete location.long;
       delete location.hash;
       delete location.wifiHash;
-
+      
       return location;
     });
 
