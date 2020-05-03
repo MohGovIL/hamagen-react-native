@@ -60,7 +60,7 @@ describe('Sample Service', () => {
       // mock async storage has no value for FIRST_POINT_TS
       AsyncStorage.getItem.mockResolvedValueOnce(undefined);
 
-      expect(await insertDB(DBSample)).toBeTruthy();
+      await expect( insertDB(DBSample)).resolves.toBeTruthy();
       expect(AsyncStorage.setItem).toBeCalledTimes(2);
     });
 
@@ -68,7 +68,7 @@ describe('Sample Service', () => {
       // mock async storage has value for FIRST_POINT_TS
       AsyncStorage.getItem.mockResolvedValueOnce(true).mockResolvedValueOnce(false);
 
-      expect(await insertDB(DBSample)).toBeTruthy();
+      await expect(insertDB(DBSample)).resolves.toBeTruthy();
     });
   });
 
@@ -105,7 +105,7 @@ describe('Sample Service', () => {
     test('with last point missing', async () => {
       // mock IS_LAST_POINT_FROM_TIMELINE not there
       AsyncStorage.getItem.mockResolvedValueOnce(false);
-      expect(await updateDBAccordingToSampleVelocity(sample)).toBeFalsy();
+      await expect(updateDBAccordingToSampleVelocity(sample)).resolves.toBeFalsy();
       // check the storage is set with correct args
       expect(AsyncStorage.setItem).toHaveBeenCalledWith(IS_LAST_POINT_FROM_TIMELINE, 'true');
       expect(AsyncStorage.setItem).toBeCalledTimes(1);

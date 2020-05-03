@@ -203,7 +203,7 @@ describe('LocationHistoryService', () => {
     ];
 
     test('two data point', async () => {
-      expect(await insertToSampleDB(sampleData)).toBeUndefined();
+      await expect(insertToSampleDB(sampleData)).resolves.toBeUndefined();
       // sha was called with all the sample data
       expect(sha256).toHaveBeenCalledWith(JSON.stringify(sampleData[0]));
       expect(sha256).toHaveBeenCalledWith(JSON.stringify(sampleData[1]));
@@ -217,7 +217,7 @@ describe('LocationHistoryService', () => {
     test('with FIRST_POINT_TS', async () => {
       await AsyncStorage.setItem(FIRST_POINT_TS, (sampleData[0].startTime - 2000).toString());
 
-      expect(await insertToSampleDB(sampleData)).toBeUndefined();
+      await expect(insertToSampleDB(sampleData)).resolves.toBeUndefined();
 
       expect(AsyncStorage.setItem).toBeCalledWith(SHOULD_HIDE_LOCATION_HISTORY, 'true');
       expect(actionSpy).toBeCalledTimes(1);
