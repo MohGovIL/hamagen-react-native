@@ -48,9 +48,9 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const onButtonPress = async () => {
     try {
       if (canRetry) {
-        const { StatusCode, StatusDesc }: any = await dispatch(shareUserLocations(token));
-
-        switch (StatusCode) {
+        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token));
+        
+        switch (statusCode) {
           case 'CompletSuccessfully': {
             setState('shareSuccess');
             setRetryState(false);
@@ -62,7 +62,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
             break;
           }
           case 'InvalidOperation': {
-            switch (StatusDesc) {
+            switch (statusDesc) {
               case 1:
               case 2: {
                 setState('shareFail');
