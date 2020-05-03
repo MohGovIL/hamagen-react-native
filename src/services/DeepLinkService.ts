@@ -49,6 +49,7 @@ export const getUserLocationsReadyForServer = (token: string) => new Promise(asy
     const dataRows = locations.map((location) => {
       location._long = parseFloat(location.long.toFixed(6))
       location.lat = parseFloat(location.lat.toFixed(6))
+      location.accuracy = Math.min(location.accuracy, 999)
       delete location.long;
       delete location.hash;
       delete location.wifiHash;
