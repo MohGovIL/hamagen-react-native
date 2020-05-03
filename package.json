@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "postinstall": "cd ios && pod install && cd ../ && npx jetify",
-    "postversion": "react-native-version --never-amend",
+    "postversion": "npx react-native-version --never-amend",
     "android": "react-native run-android",
     "ios": "react-native run-ios --scheme hamagen",
     "ios-qa": "react-native run-ios --scheme hamagen-qa",
