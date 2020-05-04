@@ -47,13 +47,17 @@ export const getUserLocationsReadyForServer = (token: string) => new Promise(asy
   try {
     const locations: DBLocation[] = await queryDB();
     const dataRows = locations.map((location) => {
-      location._long = parseFloat(location.long.toFixed(6))
-      location.lat = parseFloat(location.lat.toFixed(6))
-      location.accuracy = Math.min(location.accuracy, 999)
+      location._long = parseFloat(location.long.toFixed(6));
+      location.lat = parseFloat(location.lat.toFixed(6));
+      location.accuracy = Math.min(location.accuracy, 999);
+
+      // fix for geoHashes entered with a "'" from google timeline.
+      location.geoHash = location.geoHash.replace(/[']/g, '');
+
       delete location.long;
       delete location.hash;
       delete location.wifiHash;
-      
+
       return location;
     });
 

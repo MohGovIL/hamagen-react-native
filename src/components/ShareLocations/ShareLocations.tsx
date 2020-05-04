@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet,AppState,AppStateStatus, View } from 'react-native';
+import { StyleSheet, AppState, AppStateStatus, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,23 +43,23 @@ const ShareLocations = ({ route, navigation }: Props) => {
       }
     });
 
-    AppState.addEventListener('change',(state: AppStateStatus) => {
+    AppState.addEventListener('change', (state: AppStateStatus) => {
       if (state === 'background') {
-        navigation.pop()
+        navigation.pop();
       }
-    })
+    });
 
     return () => {
-      netInfoUnsubscribe()
+      netInfoUnsubscribe();
       AppState.removeEventListener('change', () => {});
-    }
-  },[])
+    };
+  }, []);
 
   const onButtonPress = async () => {
     try {
       if (canRetry) {
         const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token));
-        
+
         switch (statusCode) {
           case 'CompletSuccessfully': {
             setState('shareSuccess');
