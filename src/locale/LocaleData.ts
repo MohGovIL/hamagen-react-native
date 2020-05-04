@@ -32,6 +32,9 @@ export interface ExternalUrls {
   privacyTerms: {
     [languageKey: string]: string
   }
+  shareMessage: {
+    [languageKey: string]: string
+  }
 }
 
 // TODO fix TS to allow both static and dynamic keys without error

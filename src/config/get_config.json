@@ -1,5 +1,5 @@
 {
-  "com.hamagen.dev": "https://gisweb.azureedge.net/config1.json",
-  "com.hamagen.qa": "https://gisweb.azureedge.net/config1.json",
-  "com.hamagen": "https://gisweb.azureedge.net/config1.json"
+  "com.hamagen.dev": "https://gisweb.azureedge.net/config.json",
+  "com.hamagen.qa": "https://gisweb.azureedge.net/config.json",
+  "com.hamagen": "https://gisweb.azureedge.net/config.json"
 }
