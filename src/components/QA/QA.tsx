@@ -80,14 +80,14 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         // location file
         const pointsArr: string[] = rawText.split('\n');
-
+        debugger;
         let isFirst = true;
 
         for (const item of pointsArr) {
           if (!isFirst) { // to ignore the first row which holds the titles...
             const sampleArr = item.split(',');
 
-            for (let i = 0; i < sampleArr.length; i++) {
+            if (sampleArr.length >= 4) {
               await db.addSample({
                 lat: parseFloat(sampleArr[0]),
                 long: parseFloat(sampleArr[1]),
