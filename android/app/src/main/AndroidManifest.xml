@@ -8,7 +8,9 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" tools:node="remove"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:node="remove" />
 
     <application
         android:name="com.hamagen.MainApplication"
@@ -31,20 +33,33 @@
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="hamagen" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="matrixdemos.z6.web.core.windows.net" />
             </intent-filter>
         </activity>
 
-        <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="@string/transistorsoft_key" />
+        <meta-data
+            android:name="com.transistorsoft.locationmanager.license"
+            android:value="@string/transistorsoft_key" />
 
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
 
         <service
             android:name="io.invertase.firebase.messaging.RNFirebaseMessagingService"
-            android:exported="false"
-            >
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -52,14 +67,17 @@
 
         <receiver
             android:exported="false"
-            android:name="io.invertase.firebase.notifications.RNFirebaseNotificationReceiver"
-            />
+            android:name="io.invertase.firebase.notifications.RNFirebaseNotificationReceiver" />
 
-        <receiver android:enabled="true" android:exported="false"  android:name="io.invertase.firebase.notifications.RNFirebaseNotificationsRebootReceiver">
+        <receiver
+            android:enabled="true"
+            android:exported="false"
+            android:name="io.invertase.firebase.notifications.RNFirebaseNotificationsRebootReceiver">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
@@ -70,9 +88,10 @@
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="@string/google_maps_api_key"
-        />
+            android:value="@string/google_maps_api_key" />
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 </manifest>
