@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet,AppState,AppStateStatus, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { useDispatch, useSelector } from 'react-redux';
 import { ActionButton, HeaderButton, Icon, Text } from '../common';
-import { ShareUserLocations } from '../../actions/DeepLinkActions';
+import { shareUserLocations } from '../../actions/DeepLinkActions';
 import { Strings } from '../../locale/LocaleData';
 import { LocaleReducer, Store } from '../../types';
 import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
@@ -30,7 +30,7 @@ type ShareFailState = ''|'MissingToken'|'TokenError'
 const ShareLocations = ({ route, navigation }: Props) => {
   const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const dispatch = useDispatch();
-  
+
   const [state, setState] = useState<ShareStates>('beforeShare');
   const [failState, setFailState] = useState<ShareFailState>('');
   const [canRetry, setRetryState] = useState(true);
@@ -42,15 +42,25 @@ const ShareLocations = ({ route, navigation }: Props) => {
         setState('shareNoConnection');
       }
     });
-    return netInfoUnsubscribe;
-  });
+
+    AppState.addEventListener('change',(state: AppStateStatus) => {
+      if (state === 'background') {
+        navigation.pop()
+      }
+    })
+
+    return () => {
+      netInfoUnsubscribe()
+      AppState.removeEventListener('change', () => {});
+    }
+  },[])
 
   const onButtonPress = async () => {
     try {
-      if (canRetry) {        
-        const { StatusCode, StatusDesc } = await dispatch(ShareUserLocations(token));
-
-        switch (StatusCode) {
+      if (canRetry) {
+        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token));
+        
+        switch (statusCode) {
           case 'CompletSuccessfully': {
             setState('shareSuccess');
             setRetryState(false);
@@ -62,8 +72,8 @@ const ShareLocations = ({ route, navigation }: Props) => {
             break;
           }
           case 'InvalidOperation': {
-            switch (StatusDesc) {
-              case 1: 
+            switch (statusDesc) {
+              case 1:
               case 2: {
                 setState('shareFail');
                 setFailState('TokenError');
@@ -72,12 +82,14 @@ const ShareLocations = ({ route, navigation }: Props) => {
               case 3: {
                 setState('shareSuccess');
                 setRetryState(false);
+                break;
               }
               default: {
-                setState('shareFail'); 
+                setState('shareFail');
                 setRetryState(false);
               }
             }
+            break;
           }
           default: {
             setState('shareFail');
@@ -94,8 +106,9 @@ const ShareLocations = ({ route, navigation }: Props) => {
   };
 
   const Header = canRetry ? <HeaderButton type="close" onPress={() => navigation.pop()} /> : null;
+  // @ts-ignore
+  const combinedState: ShareStates & ShareFailState = state + failState;
 
-  
   return (
     <View style={styles.container}>
       {Header}
@@ -104,11 +117,11 @@ const ShareLocations = ({ route, navigation }: Props) => {
         <Icon source={ICON[state]} width={IS_SMALL_SCREEN ? 66 : 88} height={IS_SMALL_SCREEN ? 45 : 60} />
 
         <Text style={styles.title} bold>{title[state]}</Text>
-        <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[state + failState]}</Text>
+        <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[combinedState]}</Text>
         <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state]}</Text>
       </View>
 
-      <ActionButton text={button[state + failState]} onPress={onButtonPress} />
+      <ActionButton text={button[combinedState]} onPress={onButtonPress} />
     </View>
   );
 };

@@ -1,30 +1,18 @@
 import axios from 'axios';
 import { toggleLoader } from './GeneralActions';
-import { queryDB } from '../services/Tracker';
+import { getUserLocationsReadyForServer } from '../services/DeepLinkService';
 import { onError } from '../services/ErrorService';
-import { DBLocation } from '../types';
 import config from '../config/config';
 
-export const ShareUserLocations = (token: string) => async (dispatch: any, getState: any) => new Promise(async (resolve, reject) => {
-  const { locale: { strings: { general: { error } } } } = getState();
-
+export const shareUserLocations = (token: string) => async (dispatch: any) => new Promise(async (resolve, reject) => {
   try {
     dispatch(toggleLoader(true));
 
-    const locations: DBLocation[] = await queryDB();
-    const dataRows = locations.map((location) => {
-      delete location.long;
-      delete location.hash;
-      delete location.wifiHash;
-
-      return location;
-    });
-
-    const res = await axios.post(config().dataShareUrl, { token, dataRows });
-
+    // TODO check if should resolve res.data and not res.
+    const {data} = await axios.post(config().dataShareUrl, await getUserLocationsReadyForServer(token));
     dispatch(toggleLoader(false));
-    
-    resolve(res);
+
+    resolve(data);
   } catch (error) {
     reject();
     onError({ error });

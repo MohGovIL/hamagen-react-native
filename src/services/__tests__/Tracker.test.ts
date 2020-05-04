@@ -7,7 +7,7 @@ import * as db from '../../database/Database';
 import config from '../../config/config';
 import * as constants from '../../constants/Constants';
 import { dispatch } from '../../store';
-import {downloadAndVerifySigning } from '../SigningService'
+import { downloadAndVerifySigning } from '../SigningService';
 
 jest.mock('../PushService', () => {
   const registerLocalNotification = jest.fn();
@@ -16,7 +16,7 @@ jest.mock('../PushService', () => {
 
 jest.mock('../SigningService', () => ({
   downloadAndVerifySigning: jest.fn()
-}))
+}));
 
 const oneMinute = 60 * 1000;
 const oneHour = 60 * oneMinute;
@@ -100,7 +100,7 @@ beforeAll(() => {
 
 afterAll(() => {
   dispatch.mockClear();
-  downloadAndVerifySigning.mockClear()
+  downloadAndVerifySigning.mockClear();
 });
 
 beforeEach(() => {
@@ -376,7 +376,7 @@ describe('Tracker', () => {
         },
       ],
     };
-    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON);
 
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve(sampleData));
     valueOf.mockReturnValueOnce(new Date().getTime());
@@ -387,18 +387,18 @@ describe('Tracker', () => {
     const responseJSON = {
       features: 'asd',
     };
-    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON);
     const userLocationDB = new db.UserLocationsDatabase();
     userLocationDB.listSamples.mockReturnValueOnce(Promise.resolve([]));
-    const getIntersectingSickRecordsByGeoHashSpy = jest.spyOn(tracker, 'getIntersectingSickRecordsByGeoHash')
-    getIntersectingSickRecordsByGeoHashSpy.mockReturnValueOnce([])
+    const getIntersectingSickRecordsByGeoHashSpy = jest.spyOn(tracker, 'getIntersectingSickRecordsByGeoHash');
+    getIntersectingSickRecordsByGeoHashSpy.mockReturnValueOnce([]);
     await tracker.checkSickPeople();
-    getIntersectingSickRecordsByGeoHashSpy.mockReset()
+    getIntersectingSickRecordsByGeoHashSpy.mockReset();
   });
 
   test('checkSickPeople() - fetch error', async () => {
-    downloadAndVerifySigning.mockRejectedValueOnce()
-    new db.UserLocationsDatabase().listSamples.mockResolvedValueOnce([])
+    downloadAndVerifySigning.mockRejectedValueOnce();
+    new db.UserLocationsDatabase().listSamples.mockResolvedValueOnce([]);
     // userLocationDB.listSamples.mockResolvedValueOnce([])
 
     await tracker.checkSickPeople();
@@ -414,10 +414,9 @@ describe('Tracker', () => {
     };
 
     const userLocationDB = new db.UserLocationsDatabase();
-    userLocationDB.listSamples.mockResolvedValueOnce([])
+    userLocationDB.listSamples.mockResolvedValueOnce([]);
 
-    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON)
-
+    downloadAndVerifySigning.mockResolvedValueOnce(responseJSON);
 
 
     await tracker.startForegroundTimer();

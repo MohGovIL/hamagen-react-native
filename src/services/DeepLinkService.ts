@@ -1,4 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { queryDB } from './Tracker';
+import { DBLocation } from '../types';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -40,3 +42,23 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
 
   return obj;
 };
+
+export const getUserLocationsReadyForServer = (token: string) => new Promise(async (resolve, reject) => {
+  try {
+    const locations: DBLocation[] = await queryDB();
+    const dataRows = locations.map((location) => {
+      location._long = parseFloat(location.long.toFixed(6))
+      location.lat = parseFloat(location.lat.toFixed(6))
+      location.accuracy = Math.min(location.accuracy, 999)
+      delete location.long;
+      delete location.hash;
+      delete location.wifiHash;
+      
+      return location;
+    });
+
+    resolve({ token, dataRows });
+  } catch (e) {
+    reject(e);
+  }
+});
