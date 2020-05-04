@@ -14,7 +14,7 @@ interface ScanHomeHeaderProps {
 const ScanHomeHeader = ({ isRTL, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }: ScanHomeHeaderProps) => {
   const onShare = async () => {
     try {
-      await Share.share({ message, title }, { dialogTitle: androidTitle });
+      await Share.share({ message, title }, { dialogTitle: androidTitle, subject: title});
     } catch (error) {
       onError({ error });
     }
