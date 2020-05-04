@@ -192,9 +192,9 @@
       "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
       "atPlace": "ב",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-he",
+        "title": "כותרת עם קורונה",
+        "androidTitle": "שתף עם קורונה לאנדרואיד"
       },
       "noExposures": {
         "bannerText": "לא נמצאו\nנקודות חפיפה",
@@ -389,7 +389,7 @@
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
       "atPlace": " في",
       "share": {
-        "message": "شارك مع كورونا",
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar",
         "title": "شارك مع كورونا",
         "androidTitle": "شارك مع كورونا"
       },
@@ -585,7 +585,7 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "Share with Corona",
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-en",
         "title": "Share with Corona",
         "androidTitle": "Share with Corona"
       },
@@ -781,7 +781,7 @@
       "possibleExposure": "Возможно контакт с больным был :",
       "atPlace": "в ",
       "share": {
-        "message": "Поделиться с Corona",
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-ru",
         "title": "Поделиться с Corona",
         "androidTitle": "Поделиться с Corona"
       },
@@ -977,7 +977,7 @@
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
       "atPlace": "በ ",
       "share": {
-        "message": "ከኮሮና ጋር ያጋሩ",
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-am",
         "title": "ከኮሮና ጋር ያጋሩ",
         "androidTitle": "ከኮሮና ጋር ያጋሩ"
       },
@@ -1173,7 +1173,7 @@
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
       "atPlace": "À ",
       "share": {
-        "message": "Partagez avec Corona",
+        "message": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-fr",
         "title": "Partagez avec Corona",
         "androidTitle": "Partagez avec Corona"
       },
