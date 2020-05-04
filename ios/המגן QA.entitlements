@@ -4,8 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>applinks:localhost:3000</string>
-		<string>webcredentials:localhost:3000</string>
+		<string>applinks:matrixdemos.z6.web.core.windows.net</string>
+		<string>webcredentials:matrixdemos.z6.web.core.windows.net</string>
 	</array>
 	<key>com.apple.developer.networking.wifi-info</key>
 	<true/>
