@@ -79,7 +79,9 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: SCREEN_WIDTH,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingVertical: 10,
+    
   },
   emptyStateContainer: {
     flex: 1,
@@ -95,7 +97,49 @@ const mapStateToProps = (state: any) => {
     exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures };
+  return { isRTL, strings, pastExposures: [{
+    geometry: {
+      type: 'Point',
+      coordinates: [34.8077312410001, 32.1154996280001],
+    },
+    properties: {
+      OBJECTID: 1720,
+      Key_Field: 1720,
+      Name: 'חולה 15',
+      Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+      Comments:
+        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+      POINT_X: 34.80773124,
+      POINT_Y: 32.11549963,
+      fromTime: 1583144100000,
+      toTime: 1583147700000,
+      fromTime_utc: 1583144100000,
+      toTime_utc: 1583147700000,
+      sourceOID: 1,
+      stayTimes: '10:15-11:15',
+    },
+  },{
+    geometry: {
+      type: 'Point',
+      coordinates: [34.8077312410001, 32.1154996280001],
+    },
+    properties: {
+      OBJECTID: 1720,
+      Key_Field: 1720,
+      Name: 'חולה 15',
+      Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+      Comments:
+        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+      POINT_X: 34.80773124,
+      POINT_Y: 32.11549963,
+      fromTime: 1583144100000,
+      toTime: 1583147700000,
+      fromTime_utc: 1583144100000,
+      toTime_utc: 1583147700000,
+      sourceOID: 1,
+      stayTimes: '10:15-11:15',
+    },
+  }] };
 };
 
 export default connect(mapStateToProps, { showMapModal })(ExposuresHistory);
