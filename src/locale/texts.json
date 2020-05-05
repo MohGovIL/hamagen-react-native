@@ -49,6 +49,14 @@
       "ru": "https://go.gov.il/HAMAGEN-RU",
       "am": "https://go.gov.il/HAMAGEN-AM",
       "fr": "https://go.gov.il/HAMAGEN-FR"
+    },
+    "shareMessage": {
+      "he": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-he",
+      "en": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-en",
+      "ar": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-ar",
+      "ru": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-ru",
+      "am": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-am",
+      "fr": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-fr"
     }
   },
   "notificationData": {
@@ -192,9 +200,9 @@
       "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
       "atPlace": "ב",
       "share": {
-        "message": "שתף עם קורונה",
-        "title": "שתף עם קורונה",
-        "androidTitle": "שתף עם קורונה"
+        "message": "שיתוף אפליקציית המגן",
+        "title": "שיתוף אפליקציית המגן",
+        "androidTitle": "שיתוף אפליקציית המגן"
       },
       "noExposures": {
         "bannerText": "לא נמצאו\nנקודות חפיפה",
@@ -262,7 +270,7 @@
         "shareFail": "משהו השתבש"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם לצורך הגנה על בריאות הציבור.",
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\nהמידע האישי שלך - ישאר חסוי",
         "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
         "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
@@ -389,9 +397,9 @@
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
       "atPlace": " في",
       "share": {
-        "message": "شارك مع كورونا",
-        "title": "شارك مع كورونا",
-        "androidTitle": "شارك مع كورونا"
+        "message": "مشاركة تطبيق الحماية",
+        "title": "مشاركة تطبيق الحماية",
+        "androidTitle": "مشاركة تطبيق الحماية"
       },
       "noExposures": {
         "bannerText": "لم يتم العثور على \n نقاط تداخل",
@@ -458,7 +466,7 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال الـ 14 يومًا الماضية لحماية الصحة العامة.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا. \n\n لن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة. \n ستظل معلوماتك الشخصية سرية.",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
@@ -585,9 +593,9 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "Share with Corona",
-        "title": "Share with Corona",
-        "androidTitle": "Share with Corona"
+        "message": "Sharing Hamagn",
+        "title": "Sharing Hamagn",
+        "androidTitle": "Sharing Hamagn"
       },
       "noExposures": {
         "bannerText": "No \n overlap points found",
@@ -654,7 +662,7 @@
         "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "In this process (called 'epidemiological investigation') we will collect your location data from the app. We will publish your public places data for the past 14 days for public health protection.",
+        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nnPublic health information will only be published on public places.\nYour personal information will remain confidential.",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
@@ -781,9 +789,9 @@
       "possibleExposure": "Возможно контакт с больным был :",
       "atPlace": "в ",
       "share": {
-        "message": "Поделиться с Corona",
-        "title": "Поделиться с Corona",
-        "androidTitle": "Поделиться с Corona"
+        "message": "Совместное использование защитного приложения",
+        "title": "Совместное использование защитного приложения",
+        "androidTitle": "Совместное использование защитного приложения"
       },
       "noExposures": {
         "bannerText": "Не найдено точек перекрытия",
@@ -850,7 +858,7 @@
         "shareFail": "Что-то пошло не так"
       },
       "description": {
-        "beforeShare": "В этом процессе (так называемое «эпидемиологическое расследование») мы будем собирать данные о вашем местонахождении из приложения. Мы опубликуем данные о ваших общественных местах за последние 14 дней для защиты общественного здоровья.",
+        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\nYour Ваша личная информация будет оставаться конфиденциальной.",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
         "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
@@ -977,9 +985,9 @@
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
       "atPlace": "በ ",
       "share": {
-        "message": "ከኮሮና ጋር ያጋሩ",
-        "title": "ከኮሮና ጋር ያጋሩ",
-        "androidTitle": "ከኮሮና ጋር ያጋሩ"
+        "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
+        "title": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
+        "androidTitle": "የመከላከያ መተግበሪያውን በማጋራት ላይ"
       },
       "noExposures": {
         "bannerText": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
@@ -1046,7 +1054,7 @@
         "shareFail": "የሆነ ችግር ተፈጥሯል"
       },
       "description": {
-        "beforeShare": "በዚህ ሂደት ('ኤፒዲሚዮሎጂካል ምርመራ' ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። የህዝብ ጤና ጥበቃ ላለፉት 14 ቀናት የሕዝብ ቦታዎችዎን መረጃ እናዘጋጃለን ፡፡",
+        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\nየግል መረጃዎ ሚስጥራዊ እንደሆነ ይቆያል ፡፡",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
         "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
@@ -1173,9 +1181,9 @@
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
       "atPlace": "À ",
       "share": {
-        "message": "Partagez avec Corona",
-        "title": "Partagez avec Corona",
-        "androidTitle": "Partagez avec Corona"
+        "message": "Partager l'application de protection",
+        "title": "Partager l'application de protection",
+        "androidTitle": "Partager l'application de protection"
       },
       "noExposures": {
         "bannerText": "Aucun \n point de chevauchement trouvé",
@@ -1242,7 +1250,7 @@
         "shareFail": "Quelque chose a mal tourné"
       },
       "description": {
-        "beforeShare": "Dans ce processus (appelé 'enquête épidémiologique'), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics des 14 derniers jours pour la protection de la santé publique.",
+        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\nVos informations personnelles resteront confidentielles.",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
         "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",

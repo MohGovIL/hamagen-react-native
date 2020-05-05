@@ -171,6 +171,7 @@ const ScanHome = (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
+        
         firstPoint={firstPoint}
         hideLocationHistory={hideLocationHistory}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
@@ -181,7 +182,10 @@ const ScanHome = (
   return (
     <View style={styles.container}>
       <ScanHomeHeader
+        languages={languages}
         isRTL={isRTL}
+        locale={locale}
+        externalUrls={externalUrls}
         strings={strings}
         openDrawer={navigation.openDrawer}
       />

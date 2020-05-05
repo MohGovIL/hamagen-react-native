@@ -92,7 +92,8 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
     const mappedLocations: {[key: string]: Location[]} = {};
 
     myData.forEach((location) => {
-      const locationGeohashPrefix = location.geoHash.slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
+      // fix for geoHashes entered with a "'" from google timeline.
+      const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
 
       if (mappedLocations[locationGeohashPrefix]) {
         mappedLocations[locationGeohashPrefix].push(location);

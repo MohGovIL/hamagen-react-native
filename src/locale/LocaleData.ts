@@ -32,6 +32,9 @@ export interface ExternalUrls {
   privacyTerms: {
     [languageKey: string]: string
   }
+  shareMessage: {
+    [languageKey: string]: string
+  }
 }
 
 // TODO fix TS to allow both static and dynamic keys without error
@@ -206,19 +209,31 @@ export interface Strings {
   shareLocation: {
     title: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string
     },
     description: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string,
+      shareFailMissingToken: string,
+      shareFailTokenError: string
     },
     greeting: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string
     },
     button: {
       beforeShare: string,
-      afterShare: string
+      shareSuccess: string,
+      shareNoConnection: string,
+      shareFail: string,
+      shareFailMissingToken: string,
+      shareFailTokenError: string
     }
   }
 }
