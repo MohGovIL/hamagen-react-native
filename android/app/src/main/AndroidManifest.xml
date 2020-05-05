@@ -37,9 +37,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data
-                    android:scheme="https"
-                    android:host="matrixdemos.z6.web.core.windows.net" />
+                <data android:scheme="hamagen" />
+                <data android:scheme="Hamagen" />
             </intent-filter>
         </activity>
 
