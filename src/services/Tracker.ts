@@ -46,12 +46,12 @@ export const checkSickPeopleFromFile = async () => {
   }
 };
 
-export const checkSickPeople = async () => {
+export const checkSickPeople = async (forceCheck: boolean = false) => {
   try {
     const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
     // prevent excessive calls to checkSickPeople
-    if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+    if (!forceCheck && lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
       return;
     }
 

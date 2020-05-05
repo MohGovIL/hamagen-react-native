@@ -132,7 +132,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
   const initCheckSickPeople = async () => {
     try {
-      await checkSickPeople();
+      await checkSickPeople(true);
       Alert.alert('Checking...', '', [{ text: 'OK' }]);
     } catch (e) {
       Alert.alert('Error', '', [{ text: 'OK' }]);
