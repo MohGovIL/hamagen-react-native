@@ -42,7 +42,7 @@ const ExposureInstructions = (
   const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
@@ -74,9 +74,11 @@ const ExposureInstructions = (
         </View>
 
         <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
+    <View style={!IS_SMALL_SCREEN  && {width: SCREEN_WIDTH - 23*2, flexDirection :'row', flexWrap: 'wrap', justifyContent: 'space-between',}}>
 
         {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
         {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+    </View>
       </ScrollView>
     </FadeInView>
   );
@@ -106,10 +108,10 @@ const styles = StyleSheet.create({
   },
   actionButtonContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH - 50,
+    width: IS_SMALL_SCREEN ? SCREEN_WIDTH - 50 : (SCREEN_WIDTH / 2) - (23 + 5.5),
     justifyContent: 'space-between',
     paddingVertical: 15,
-    paddingHorizontal: 18,
+    paddingHorizontal: 23,
     borderRadius: 16,
     marginBottom: 12,
     alignItems: 'center'
@@ -120,13 +122,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
-    backgroundColor: MAIN_COLOR
+    backgroundColor: MAIN_COLOR,
+    
   },
   actionText: {
     flex: 1,
     lineHeight: 16,
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginBottom: IS_SMALL_SCREEN ? 0 : 23,
+    marginTop: IS_SMALL_SCREEN ? 0 : 13
   },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
