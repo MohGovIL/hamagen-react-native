@@ -1,7 +1,10 @@
-// import mockAxios from 'jest-mock-axios';
+
+export const get = jest.fn();
+export const post = jest.fn();
+
 const axios = {
-  get: jest.fn(),
-  post: jest.fn()
+  get,
+  post
 };
 
 axios.mockClear = function () {
