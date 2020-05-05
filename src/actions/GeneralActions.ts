@@ -73,11 +73,11 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 
 export const showMapModal = ({ properties }: Exposure) => {
   let latitude = 0;
-  const longitude = 0;
+  let longitude = 0;
 
   if (typeof properties.lat === 'string') { latitude = parseFloat(properties.lat); } else if (typeof properties.lat === 'number') { latitude = properties.lat; }
 
-  if (typeof properties.long === 'string') { latitude = parseFloat(properties.long); } else if (typeof properties.long === 'number') { latitude = properties.long; }
+  if (typeof properties.long === 'string') { longitude = parseFloat(properties.long); } else if (typeof properties.long === 'number') { longitude = properties.long; }
 
   return ({
     type: SHOW_MAP_MODAL,
