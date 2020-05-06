@@ -9,6 +9,7 @@ import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
+import Geohash from 'latlon-geohash';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
@@ -80,7 +81,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         // location file
         const pointsArr: string[] = rawText.split('\n');
-        debugger;
         let isFirst = true;
 
         for (const item of pointsArr) {
@@ -94,7 +94,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
                 accuracy: parseFloat(sampleArr[2]),
                 startTime: parseFloat(sampleArr[3]),
                 endTime: parseFloat(sampleArr[4]),
-                geoHash: '',
+                geoHash: Geohash.encode(parseFloat(sampleArr[0]), parseFloat(sampleArr[1]), 12),
                 wifiHash: ''
               });
             }
