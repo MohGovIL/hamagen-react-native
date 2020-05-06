@@ -2,13 +2,13 @@ import geoHash from 'latlon-geohash';
 import AsyncStorage from '@react-native-community/async-storage';
 import AsyncLock from 'async-lock';
 import moment from 'moment';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import { startLocationTracking } from './LocationService';
-import { UserLocationsDatabase, WifiMacAddressDatabase } from '../database/Database';
+import { UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
-import { getWifiList } from './WifiService';
 import { onError } from './ErrorService';
 import store from '../store';
-import config from '../config/config';
+import config, { initConfig } from '../config/config';
 import { NotificationData } from '../locale/LocaleData';
 import { DBLocation, Sample, VelocityRecord } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
@@ -28,70 +28,83 @@ export const startSampling = async (locale: string, notificationData: Notificati
   await startLocationTracking(locale, notificationData);
 };
 
-export const insertDB = async (sample: Sample) => new Promise(async (resolve) => {
+export const syncLocationsDBOnLocationEvent = () => {
   // prevent race condition of entering multiple points at the same time
-  await lock.acquire('insertDB', async (done) => {
+  lock.acquire('syncLocationsDBOnLocationEvent', async (done) => {
     try {
-      // save first point timestamp (if needed), displayed in the main screen.
-      const firstPointTS = await hasFirstPointTimestamp();
+      await initConfig();
 
-      if (!firstPointTS) {
-        store().dispatch({ type: UPDATE_FIRST_POINT, payload: sample.timestamp });
-        await saveToStorage(FIRST_POINT_TS, sample.timestamp);
+      // @ts-ignore
+      const rawLocations: Sample[] = await BackgroundGeolocation.getLocations();
+      await BackgroundGeolocation.destroyLocations();
+
+      const locations = rawLocations.map(location => ({
+        ...location,
+        timestamp: moment(location.timestamp).valueOf()
+      }));
+
+      for (let i = 0; i < locations.length; i++) {
+        updateDBAccordingToSampleVelocity(locations[i]);
       }
 
-      // check last point timestamp and ignore if same point entered again.
-      const lastPointStartTime = await hasLastPointTimestamp();
-
-      if (lastPointStartTime && (lastPointStartTime === sample.timestamp)) {
-        resolve();
-        done();
-        return true;
-      }
-
-      await saveToStorage(LAST_POINT_START_TIME, sample.timestamp);
-
-      const { wifiHash, wifiList }: any = await getWifiList();
-      const db = new UserLocationsDatabase();
-
-      const wifiMacAddressDatabase = new WifiMacAddressDatabase();
-
-      const isLastPointFromTimeline = await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE);
-
-      if (!isLastPointFromTimeline) {
-        await db.updateLastSampleEndTime(sample.timestamp);
-      } else {
-        await AsyncStorage.removeItem(IS_LAST_POINT_FROM_TIMELINE);
-      }
-
-      const sampleObj = {
-        lat: sample.coords.latitude,
-        long: sample.coords.longitude,
-        accuracy: sample.coords.accuracy,
-        startTime: sample.timestamp,
-        endTime: sample.timestamp,
-        geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
-        wifiHash
-      };
-
-      const finalSample: DBLocation = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
-
-      await db.addSample(finalSample);
-
-      const isExist = await wifiMacAddressDatabase.containsWifiHash(wifiHash);
-
-      if (!isExist) {
-        await wifiMacAddressDatabase.addWifiMacAddresses({ wifiHash, wifiList });
-      }
-
-      resolve(true);
       done();
-      return true;
     } catch (error) {
-      resolve();
+      done();
       onError({ error });
     }
   });
+};
+
+export const insertDB = async (sample: Sample) => new Promise(async (resolve) => {
+  try {
+    // save first point timestamp (if needed), displayed in the main screen.
+    const firstPointTS = await hasFirstPointTimestamp();
+
+    if (!firstPointTS) {
+      store().dispatch({ type: UPDATE_FIRST_POINT, payload: sample.timestamp });
+      await saveToStorage(FIRST_POINT_TS, sample.timestamp);
+    }
+
+    // check last point timestamp and ignore if same point entered again.
+    const lastPointStartTime = await hasLastPointTimestamp();
+
+    if (lastPointStartTime && (lastPointStartTime === sample.timestamp)) {
+      resolve();
+      return true;
+    }
+
+    await saveToStorage(LAST_POINT_START_TIME, sample.timestamp);
+
+    const db = new UserLocationsDatabase();
+
+    const isLastPointFromTimeline = await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE);
+
+    if (!isLastPointFromTimeline) {
+      await db.updateLastSampleEndTime(sample.timestamp);
+    } else {
+      await AsyncStorage.removeItem(IS_LAST_POINT_FROM_TIMELINE);
+    }
+
+    const sampleObj = {
+      lat: sample.coords.latitude,
+      long: sample.coords.longitude,
+      accuracy: sample.coords.accuracy,
+      startTime: sample.timestamp,
+      endTime: sample.timestamp,
+      geoHash: geoHash.encode(sample.coords.latitude, sample.coords.longitude),
+      wifiHash: ''
+    };
+
+    const finalSample: DBLocation = { ...sampleObj, hash: sha256(JSON.stringify(sampleObj)) };
+
+    await db.addSample(finalSample);
+
+    resolve(true);
+    return true;
+  } catch (error) {
+    resolve();
+    onError({ error });
+  }
 });
 
 const hasFirstPointTimestamp = () => new Promise(async (resolve) => {
@@ -142,66 +155,75 @@ export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
 });
 
 export const updateDBAccordingToSampleVelocity = async (location: Sample) => {
-  try {
-    const { is_moving, activity: { confidence }, coords: { speed } } = location;
+  // prevent race condition of entering multiple points at the same time
+  await lock.acquire('updateDBAccordingToSampleVelocity', async (done) => {
+    try {
+      const { is_moving, activity: { confidence }, coords: { speed } } = location;
 
-    const db = new UserLocationsDatabase();
+      const db = new UserLocationsDatabase();
 
-    const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
+      const highVelocityPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS) || '[]');
 
-    const lastPointFromDB = await db.getLastPointEntered();
-    const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
+      const lastPointFromDB = await db.getLastPointEntered();
+      const lastPointFromHVP = highVelocityPoints[highVelocityPoints.length - 1];
 
-    // ignore locations with timestamp earlier then the last location saved
-    if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
-      return;
-    }
-
-    const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
-
-    if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
-      if (!isLastPointEndTimeUpdated) {
-        await db.updateLastSampleEndTime(location.timestamp);
-        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
-      }
-      return;
-    }
-
-    let pointsToCheck;
-
-    if (highVelocityPoints.length === 0) {
-      // in case this is the first point entered
-      if (!lastPointFromDB) {
-        return await insertDB(location);
+      // ignore locations with timestamp earlier then the last location saved
+      if ((lastPointFromHVP && (lastPointFromHVP.timestamp > location.timestamp)) || (lastPointFromDB && (lastPointFromDB.startTime > location.timestamp))) {
+        done();
+        return;
       }
 
-      pointsToCheck = [{
-        coords: {
-          latitude: lastPointFromDB.lat,
-          longitude: lastPointFromDB.long,
-          accuracy: lastPointFromDB.accuracy
-        },
-        timestamp: lastPointFromDB.endTime
-      }];
-    } else {
-      pointsToCheck = highVelocityPoints;
-    }
+      const isLastPointEndTimeUpdated = JSON.parse(await AsyncStorage.getItem(IS_LAST_POINT_FROM_TIMELINE) || 'false');
 
-    const isHighVelocity = evalVelocity([...pointsToCheck, location]);
-
-    if (isHighVelocity) {
-      if (highVelocityPoints.length === 0 && !isLastPointEndTimeUpdated) {
-        await db.updateLastSampleEndTime(location.timestamp);
-        await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+      if (is_moving && (speed > config().locationServiceIgnoreSampleVelocityThreshold) && (confidence > config().locationServiceIgnoreConfidenceThreshold)) {
+        if (!isLastPointEndTimeUpdated) {
+          await db.updateLastSampleEndTime(location.timestamp);
+          await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+        }
+        done();
+        return;
       }
-      await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
-    } else {
-      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
-      await insertDB(location);
+
+      let pointsToCheck;
+
+      if (highVelocityPoints.length === 0) {
+        // in case this is the first point entered
+        if (!lastPointFromDB) {
+          await insertDB(location);
+          done();
+          return;
+        }
+
+        pointsToCheck = [{
+          coords: {
+            latitude: lastPointFromDB.lat,
+            longitude: lastPointFromDB.long,
+            accuracy: lastPointFromDB.accuracy
+          },
+          timestamp: lastPointFromDB.endTime
+        }];
+      } else {
+        pointsToCheck = highVelocityPoints;
+      }
+
+      const isHighVelocity = evalVelocity([...pointsToCheck, location]);
+
+      if (isHighVelocity) {
+        if (highVelocityPoints.length === 0 && !isLastPointEndTimeUpdated) {
+          await db.updateLastSampleEndTime(location.timestamp);
+          await AsyncStorage.setItem(IS_LAST_POINT_FROM_TIMELINE, 'true'); // raise this flag to prevent next point to override the previous point endTime
+        }
+        await AsyncStorage.setItem(HIGH_VELOCITY_POINTS, JSON.stringify([...highVelocityPoints, location]));
+      } else {
+        await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS);
+        await insertDB(location);
+      }
+      done();
+    } catch (error) {
+      onError({ error });
+      done();
     }
-  } catch (error) {
-    onError({ error });
-  }
+  });
 };
 
 const evalVelocity = (myData: Sample[]) => {

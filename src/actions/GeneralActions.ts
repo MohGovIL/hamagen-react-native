@@ -1,7 +1,7 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
+import { downloadAndVerifySigning } from '../services/SigningService';
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
 import {
@@ -9,9 +9,12 @@ import {
   TOGGLE_WEBVIEW,
   SHOW_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
-  HIDE_LOCATION_HISTORY
+  HIDE_LOCATION_HISTORY,
+  SHOW_MAP_MODAL
 } from '../constants/ActionTypes';
+
 import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
+import { Exposure } from '../types';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
@@ -19,7 +22,7 @@ export const toggleWebview = (isShow: boolean, usageType:string) => (dispatch: a
 
 export const checkForceUpdate = () => async (dispatch: any) => {
   try {
-    const { data: { v2: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } } = await axios.get(`${config().versionsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const { v2: { ios, android, shouldForceIOS, shouldForceAndroid, terms } } = await downloadAndVerifySigning(config().versionsUrl);
 
     const termsVersion = JSON.parse(await AsyncStorage.getItem(CURRENT_TERMS_VERSION) || '0');
 
@@ -66,4 +69,26 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
   } catch (error) {
     onError({ error });
   }
+};
+
+export const showMapModal = ({ properties }: Exposure) => {
+  let latitude = 0;
+  let longitude = 0;
+
+  if (typeof properties.lat === 'string') { latitude = parseFloat(properties.lat); } else if (typeof properties.lat === 'number') { latitude = properties.lat; }
+
+  if (typeof properties.long === 'string') { longitude = parseFloat(properties.long); } else if (typeof properties.long === 'number') { longitude = properties.long; }
+
+  return ({
+    type: SHOW_MAP_MODAL,
+    payload: {
+      properties,
+      region: {
+        latitude,
+        longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.001,
+      }
+    }
+  });
 };

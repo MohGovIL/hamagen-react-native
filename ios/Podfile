@@ -40,6 +40,12 @@ def project_pods
   pod 'Firebase/Core', '~> 5.20.2'
   pod 'Firebase/Messaging', '~> 5.20.2'
 
+   # React Native Maps dependencies
+   rn_maps_path = '../node_modules/react-native-maps'
+   pod 'react-native-google-maps', :path => rn_maps_path
+   pod 'GoogleMaps'
+   pod 'Google-Maps-iOS-Utils'
+
   use_native_modules!
 end
 

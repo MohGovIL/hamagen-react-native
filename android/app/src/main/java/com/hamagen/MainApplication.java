@@ -15,7 +15,6 @@ import android.content.res.Configuration;
 import android.util.DisplayMetrics;
 
 import android.content.IntentFilter;
-import io.rumors.reactnativesettings.RNSettingsPackage;
 import io.rumors.reactnativesettings.receivers.GpsLocationReceiver;
 import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
 

@@ -3,8 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "postinstall": "cd ios && pod install && cd ../ && npx jetify",
     "android": "react-native run-android",
     "ios": "react-native run-ios --scheme hamagen",
+    "ios-qa": "react-native run-ios --scheme hamagen-qa",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
@@ -16,7 +18,7 @@
     "@react-native-community/masked-view": "^0.1.8",
     "@react-native-community/netinfo": "5.6.2",
     "@react-navigation/bottom-tabs": "5.0.3",
-    "@react-navigation/drawer": "5.0.3",
+    "@react-navigation/drawer": "5.4.0",
     "@react-navigation/native": "5.0.3",
     "@react-navigation/stack": "5.0.3",
     "@redux-offline/redux-offline": "2.5.2-native.3",
@@ -25,6 +27,7 @@
     "axios": "0.19.0",
     "events": "3.0.0",
     "haversine": "1.1.1",
+    "jsrsasign": "^8.0.14",
     "latlon-geohash": "02.0.0",
     "lodash": "4.17.15",
     "lottie-ios": "03.1.6",
@@ -42,6 +45,7 @@
     "react-native-extra-dimensions-android": "https://github.com/greenyossi/react-native-extra-dimensions-android.git",
     "react-native-firebase": "5.6.0",
     "react-native-gesture-handler": "1.5.2",
+    "react-native-maps": "0.27.1",
     "react-native-network-info": "5.2.1",
     "react-native-permissions": "2.0.10",
     "react-native-reanimated": "1.4.0",
@@ -68,12 +72,14 @@
     "@react-native-community/eslint-config": "0.0.5",
     "@types/async-lock": "1.1.1",
     "@types/jest": "^25.1.4",
+    "@types/jsrsasign": "^8.0.2",
     "@types/latlon-geohash": "2.0.0",
     "@types/lodash": "4.14.149",
     "@types/node": "13.1.0",
     "@types/react": "16.9.19",
     "@types/react-native": "0.60.25",
     "@types/react-native-background-timer": "02.0.0",
+    "@types/react-native-sqlite-storage": "^3.3.2",
     "@types/react-native-uuid-generator": "4.0.0",
     "@types/react-redux": "7.1.5",
     "@types/react-test-renderer": "16.9.1",
@@ -102,6 +108,6 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-eslint-rules": "5.4.0",
     "tslint-react": "4.0.0",
-    "typescript": "3.7.3"
+    "typescript": "3.8.3"
   }
 }

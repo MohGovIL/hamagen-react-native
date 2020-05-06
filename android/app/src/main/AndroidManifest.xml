@@ -29,6 +29,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="hamagen" />
+            </intent-filter>
         </activity>
 
         <meta-data android:name="com.transistorsoft.locationmanager.license" android:value="@string/transistorsoft_key" />
@@ -61,5 +67,12 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_api_key"
+        />
+
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 </manifest>

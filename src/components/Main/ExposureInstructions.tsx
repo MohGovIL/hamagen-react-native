@@ -42,7 +42,7 @@ const ExposureInstructions = (
   const reportForm = externalUrls.reportForm[relevantLocale];
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
@@ -56,13 +56,14 @@ const ExposureInstructions = (
   return (
     <FadeInView style={{ flex: 1 }}>
       <ScrollView
+        bounces={false}
         contentContainerStyle={styles.subContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={styles.title} bold>{title}</Text>
 
-          <Text style={{ lineHeight: 22, marginBottom: 15 }}>
+          <Text style={{ lineHeight: 22, marginBottom: 15, paddingHorizontal: 10 }}>
             {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
           </Text>
 
@@ -73,9 +74,11 @@ const ExposureInstructions = (
         </View>
 
         <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
+    <View style={!IS_SMALL_SCREEN  && {width: SCREEN_WIDTH - 23*2, flexDirection :'row', flexWrap: 'wrap', justifyContent: 'space-between',}}>
 
         {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
         {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+    </View>
       </ScrollView>
     </FadeInView>
   );
@@ -91,7 +94,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     alignItems: 'center',
     paddingTop: IS_SMALL_SCREEN ? 25 : 40,
-    paddingBottom: PADDING_BOTTOM(10)
+    paddingBottom: PADDING_BOTTOM(10),
   },
   title: {
     fontSize: 22,
@@ -103,19 +106,15 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     backgroundColor: MAIN_COLOR
   },
-  actionButtonsWrapper: {
-    width: SCREEN_WIDTH - 50,
-    justifyContent: 'space-between'
-  },
   actionButtonContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH - 40,
+    width: IS_SMALL_SCREEN ? SCREEN_WIDTH - 50 : (SCREEN_WIDTH / 2) - (23 + 5.5),
+    justifyContent: 'space-between',
     paddingVertical: 15,
-    paddingHorizontal: 18,
+    paddingHorizontal: 23,
     borderRadius: 16,
     marginBottom: 12,
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   },
   button: {
     width: 82,
@@ -123,13 +122,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
-    backgroundColor: MAIN_COLOR
+    backgroundColor: MAIN_COLOR,
+    
   },
   actionText: {
     flex: 1,
     lineHeight: 16,
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    marginBottom: IS_SMALL_SCREEN ? 0 : 23,
+    marginTop: IS_SMALL_SCREEN ? 0 : 13
   },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,

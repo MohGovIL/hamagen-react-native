@@ -1,9 +1,9 @@
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
 import { NativeModules } from 'react-native';
+import { downloadAndVerifySigning } from '../services/SigningService';
 import { onError } from '../services/ErrorService';
-import localeData, { LocaleData } from '../locale/LocaleData';
 import config from '../config/config';
+import localeData, { LocaleData } from '../locale/LocaleData';
 import { TOGGLE_CHANGE_LANGUAGE, LOCALE_CHANGED, INIT_LOCALE } from '../constants/ActionTypes';
 import { CURRENT_LOCALE, IS_IOS } from '../constants/Constants';
 
@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const { data }: { data: LocaleData } = await axios.get(`${config().stringsUrl}?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
 
     const { languages, notificationData, externalUrls } = data;
 
@@ -45,7 +45,7 @@ export const initLocale = () => async (dispatch: any) => {
         notificationData,
         strings: localeData[activeLocale],
         locale: activeLocale,
-        isRTL: true,
+        isRTL: ['he', 'ar'].includes(activeLocale),
         localeData
       }
     });
@@ -65,7 +65,7 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
   }
 };
 
-const getActiveLocale = () => new Promise<string>(async (resolve) => {
+const getActiveLocale = async () => {
   let locale = IS_IOS ? NativeModules.SettingsManager.settings.AppleLocale : NativeModules.I18nManager.localeIdentifier;
 
   if (locale === undefined) {
@@ -73,11 +73,11 @@ const getActiveLocale = () => new Promise<string>(async (resolve) => {
     locale = NativeModules.SettingsManager.settings.AppleLanguages[0];
   }
 
-  let activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale).substr(0, 2);
+  const activeLocale: string = (await AsyncStorage.getItem(CURRENT_LOCALE) || locale)?.substr?.(0, 2);
 
   if (activeLocale === 'iw') {
-    activeLocale = 'he';
+    return 'he';
   }
 
-  resolve(activeLocale);
-});
+  return activeLocale;
+};

@@ -255,6 +255,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				FE63C222F867FA412F11C22C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -275,6 +276,7 @@
 				D52A57C724203FBB00521B22 /* Frameworks */,
 				D52A57C924203FBB00521B22 /* Resources */,
 				D52A57D124203FBB00521B22 /* Bundle React Native code and images */,
+				5C5EF8D1F5A4F25F4FEE9AD9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -388,6 +390,24 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
 		};
+		5C5EF8D1F5A4F25F4FEE9AD9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		662079B2274E5169A4CE3760 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -484,6 +504,24 @@
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		FE63C222F867FA412F11C22C /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-hamagen/Pods-hamagen-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-hamagen/Pods-hamagen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -534,12 +572,12 @@
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 39;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -547,7 +585,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
 				PRODUCT_NAME = "המגן";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -565,11 +603,11 @@
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 39;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.2;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -577,7 +615,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
 				PRODUCT_NAME = "המגן";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Store";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -691,9 +729,9 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 45;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -704,7 +742,7 @@
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -712,7 +750,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen.qa;
 				PRODUCT_NAME = "המגן QA";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -730,7 +768,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 32;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -740,7 +778,7 @@
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 1.2.4;
+				MARKETING_VERSION = 1.3.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
