@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     alignItems: 'center',
     paddingVertical: 10,
-    
+
   },
   emptyStateContainer: {
     flex: 1,
@@ -97,7 +97,7 @@ const mapStateToProps = (state: any) => {
     exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures};
+  return { isRTL, strings, pastExposures };
 };
 
 export default connect(mapStateToProps, { showMapModal })(ExposuresHistory);

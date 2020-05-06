@@ -197,6 +197,210 @@ export class UserLocationsDatabase {
       }
     });
   }
+
+  getBufferSamplesForClustering(bufferSize) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            const [_, results] = await tx.executeSql('select * from (select * from Samples order by rowid DESC limit ?);', [bufferSize]);
+
+            const samples = [];
+            const len = results.rows.length;
+
+            for (let i = 0; i < len; i++) {
+              const row = results.rows.item(i);
+              samples.push(row);
+            }
+
+            resolve(samples.reverse());
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+}
+
+export class UserClusteredLocationsDatabase {
+  initDB() {
+    let db;
+    return new Promise(async (resolve, reject) => {
+      try {
+        await SQLite.echoTest();
+
+        const DB = await SQLite.openDatabase(
+          database_name,
+          database_version,
+          database_displayname,
+          database_size
+        );
+
+        db = DB;
+
+        await db.executeSql('CREATE TABLE IF NOT EXISTS Clusters (lat,long,startTime,endTime,geoHash,size);');
+
+        resolve(db);
+      } catch (error) {
+        reject(error);
+        onError({ error });
+      }
+    });
+  }
+
+  listClusters() {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            const [_, results] = await tx.executeSql('SELECT * FROM Clusters', []);
+
+            const samples = [];
+            const len = results.rows.length;
+
+            for (let i = 0; i < len; i++) {
+              const row = results.rows.item(i);
+              samples.push(row);
+            }
+
+            resolve(samples);
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+
+  addCluster(cluster) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            const [_, results] = await tx.executeSql('INSERT INTO Clusters VALUES (?,?,?,?,?,?)', [cluster.lat, cluster.long, cluster.startTime, cluster.endTime, cluster.geoHash, cluster.size]);
+            resolve(results);
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+
+  insertBulkClusters(data) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const db = await this.initDB();
+
+        await db.transaction(async (tx) => {
+          try {
+            const numberOfBulks = Math.ceil(data.length / 600);
+            const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 600, (index + 1) * 600));
+
+            await Promise.all(bulks.map((bulkData) => {
+              const clusters = Array.from({ length: bulkData.length / 6 }, () => '(?,?,?,?,?,?)').toString();
+              return tx.executeSql(`INSERT INTO Clusters VALUES ${clusters}`, bulkData);
+            }));
+
+            resolve();
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  getLastClusterEntered() {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            const [_, results] = await tx.executeSql('SELECT * from Clusters WHERE rowid=(SELECT MAX(rowid) from Clusters)');
+
+            if (results.rows.length > 0) {
+              const row = results.rows.item(0);
+              resolve(row);
+            } else {
+              resolve(null);
+            }
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+
+  updateLastCluster(cluster) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            const [_, results] = await tx.executeSql('UPDATE Clusters set lat=?, long=?, startTime=?, endTime=?, geoHash=?, size=? WHERE rowid=(SELECT MAX(rowid) from Clusters)', [
+              cluster.lat,
+              cluster.long,
+              cluster.startTime,
+              cluster.endTime,
+              cluster.geoHash,
+              cluster.size
+            ]);
+
+            if (results.rows.length > 0) {
+              const row = results.rows.item(0);
+              resolve(row);
+            } else {
+              resolve(null);
+            }
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+
+  purgeClustersTable(timestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            await tx.executeSql('DELETE FROM Clusters WHERE endTime < ?', [timestamp]);
+            resolve(true);
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
 }
 
 export class IntersectionSickDatabase {
@@ -303,106 +507,3 @@ export class IntersectionSickDatabase {
     });
   }
 }
-
-// TODO see if relevant and remove if not/fix if does.
-// export class WifiMacAddressDatabase {
-//   initDB() {
-//     let db;
-//     return new Promise((resolve, reject) => {
-//       SQLite.echoTest()
-//         .then(() => {
-//           SQLite.openDatabase(
-//             database_name,
-//             database_version,
-//             database_displayname,
-//             database_size
-//           )
-//             .then((DB) => {
-//               db = DB;
-//               db.executeSql('CREATE TABLE IF NOT EXISTS wifiTable (wifiHash, wifiList);')
-//                 .then(() => { resolve(db); })
-//                 .catch((error) => {
-//                   console.log(error);
-//                   reject(error);
-//                 });
-//             });
-//         })
-//         .catch((error) => {
-//           console.log(error);
-//         })
-//         .catch((error) => {
-//           console.log('echoTest failed - plugin not functional');
-//         });
-//     });
-//   }
-//
-//   closeDatabase(db) {
-//     if (db) {
-//       db.close()
-//         .catch((error) => {
-//           // this.errorCB(error);
-//           // TODO makes unhandled promise reject in addSample function - need to check why
-//         });
-//     }
-//   }
-//
-//   listAllRecords() {
-//     return new Promise((resolve) => {
-//       this.initDB().then((db) => {
-//         db.transaction((tx) => {
-//           tx.executeSql('SELECT * FROM wifiTable', []).then(([tx, results]) => {
-//             const IntersectingSick = [];
-//             const len = results.rows.length;
-//             for (let i = 0; i < len; i++) {
-//               const row = results.rows.item(i);
-//               IntersectingSick.push(row);
-//             }
-//             resolve(IntersectingSick);
-//           });
-//         }).then((result) => {
-//           this.closeDatabase(db);
-//         }).catch((err) => {
-//           console.log(err);
-//         });
-//       }).catch((err) => {
-//         console.log(err);
-//       });
-//     });
-//   }
-//
-//   addWifiMacAddresses(record) {
-//     return new Promise((resolve) => {
-//       this.initDB().then((db) => {
-//         db.transaction((tx) => {
-//           tx.executeSql('INSERT INTO wifiTable VALUES (?,?)', [record.wifiHash, record.wifiList]).then(([tx, results]) => {
-//             resolve(results);
-//           });
-//         }).then((result) => {
-//           this.closeDatabase(db);
-//         }).catch((err) => {
-//           console.log(err);
-//         });
-//       }).catch((err) => {
-//         console.log(err);
-//       });
-//     });
-//   }
-//
-//   containsWifiHash(wifiHash) {
-//     return new Promise((resolve) => {
-//       this.initDB().then((db) => {
-//         db.transaction((tx) => {
-//           tx.executeSql('SELECT * FROM wifiTable WHERE wifiHash = ?', [wifiHash]).then(([tx, results]) => {
-//             resolve(results.rows.length > 0);
-//           });
-//         }).then((result) => {
-//           this.closeDatabase(db);
-//         }).catch((err) => {
-//           console.log(err);
-//         });
-//       }).catch((err) => {
-//         console.log(err);
-//       });
-//     });
-//   }
-// }

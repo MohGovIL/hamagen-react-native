@@ -74,11 +74,11 @@ const ExposureInstructions = (
         </View>
 
         <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
-    <View style={!IS_SMALL_SCREEN  && {width: SCREEN_WIDTH - 23*2, flexDirection :'row', flexWrap: 'wrap', justifyContent: 'space-between',}}>
+        <View style={!IS_SMALL_SCREEN && { width: SCREEN_WIDTH - 23 * 2, flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', }}>
 
-        {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-        {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
-    </View>
+          {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+          {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
+        </View>
       </ScrollView>
     </FadeInView>
   );
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 6,
     backgroundColor: MAIN_COLOR,
-    
+
   },
   actionText: {
     flex: 1,
