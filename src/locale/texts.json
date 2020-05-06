@@ -593,9 +593,9 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "Sharing Hamagn",
-        "title": "Sharing Hamagn",
-        "androidTitle": "Sharing Hamagn"
+        "message": "Sharing Hamagen",
+        "title": "Sharing Hamagen",
+        "androidTitle": "Sharing Hamagen"
       },
       "noExposures": {
         "bannerText": "No \n overlap points found",
