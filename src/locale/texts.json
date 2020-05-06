@@ -153,7 +153,7 @@
     },
     "locationIOS": {
       "title": "הפעלת שירותי\nמיקום ברקע",
-      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
+      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטיים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
       "subTitle2": "יש לשנות את הגדרות המיקום כפי שמופיע בתמונות",
       "goToSettings": "לחצו כאן כדי להיכנס להגדרות",
       "set": "הגדרתי, המשך"
@@ -614,7 +614,7 @@
       "wasMe": "Might be"
     },
     "exposuresHistory": {
-      "title": "Overlap history",
+      "title": "Exposure history",
       "noExposures": "No overlap points found",
       "keepInstructions": "It is important to keep following the guidelines"
     },
