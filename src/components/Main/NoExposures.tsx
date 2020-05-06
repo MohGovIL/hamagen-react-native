@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
-    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40
+    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 30
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     marginRight: 6
   },
   bannerText: {
-    fontSize: 30
+    fontSize: IS_SMALL_SCREEN ? 22:  26
   },
   workAllTimeTxt: {
     fontSize: 17,

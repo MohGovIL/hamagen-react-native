@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Icon, Text, HeaderButton } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
+import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { showMapModal } from '../../../actions/GeneralActions';
 
@@ -79,13 +79,15 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: SCREEN_WIDTH,
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingVertical: 10,
+    
   },
   emptyStateContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 35
+    paddingHorizontal: IS_SMALL_SCREEN ? 20 : 35
   }
 });
 
@@ -95,7 +97,7 @@ const mapStateToProps = (state: any) => {
     exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures };
+  return { isRTL, strings, pastExposures};
 };
 
 export default connect(mapStateToProps, { showMapModal })(ExposuresHistory);
