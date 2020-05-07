@@ -593,13 +593,13 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "Sharing Hamagn",
-        "title": "Sharing Hamagn",
-        "androidTitle": "Sharing Hamagn"
+        "message": "Sharing Hamagen",
+        "title": "Sharing Hamagen",
+        "androidTitle": "Sharing Hamagen"
       },
       "noExposures": {
         "bannerText": "No \n overlap points found",
-        "workAllTheTime": "The protective app works all the time",
+        "workAllTheTime": "Hamagen app works all the time",
         "infoModal": {
           "textBodyPt1": "The comparison is made from the moment you receive your locations on",
           "textBodyPt2": "In the face of the location data of all verified patients in the country for the last 14 days, and is constantly updated"
