@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { GeneralContainer, GoogleTimeLine, OnboardingHeader } from '../common';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { Strings } from '../../locale/LocaleData';
 import { IS_IOS, USAGE_PRIVACY } from '../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void
 }

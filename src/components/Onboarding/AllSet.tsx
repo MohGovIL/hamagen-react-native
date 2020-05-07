@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,7 +14,7 @@ import { NotificationData, Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   locale: string,
   notificationData: NotificationData,
   strings: Strings
@@ -48,7 +49,9 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await startSampling(locale, notificationData);
       await scheduleTask();
 
-      navigation.replace('ScanHome');
+
+      // TODO: figure out why replace crash android on first upload
+      navigation.navigate('Home');
     } catch (error) {
       onError({ error });
     }

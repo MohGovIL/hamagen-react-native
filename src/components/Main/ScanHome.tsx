@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
@@ -13,14 +14,16 @@ import NoData from './NoData';
 import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
 import ExposureInstructions from './ExposureInstructions';
-import { checkForceUpdate, checkIfHideLocationHistory, toggleWebview } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
+import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
+import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 interface Props {
-  navigation: any,
+  navigation: DrawerNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -33,9 +36,9 @@ interface Props {
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
   dismissExposure(exposureId: number): void,
-  toggleWebview(isShow: boolean, usageType: string): void,
   checkForceUpdate(): void,
-  checkIfHideLocationHistory(): void
+  checkIfHideLocationHistory(): void,
+  showMapModal(exposure: Exposure): void
 }
 
 const ScanHome = (
@@ -51,21 +54,30 @@ const ScanHome = (
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    toggleWebview,
     firstPoint,
     hideLocationHistory,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }: Props
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
   useEffect(() => {
-    setTimeout(() => {
+    setTimeout(async () => {
       SplashScreen.hide();
+
       checkForceUpdate();
-      goToFilterDrivingIfNeeded(navigation);
+      await goToFilterDrivingIfNeeded(navigation);
+
+      const url = await Linking.getInitialURL();
+
+      if (url) {
+        return onOpenedFromDeepLink(url, navigation);
+      }
+
+      await syncLocationsDBOnLocationEvent();
     }, 3000);
 
     checkIfHideLocationHistory();
@@ -150,6 +162,7 @@ const ScanHome = (
           exposures={exposures}
           onValidExposure={exposure => setValidExposure(exposure)}
           dismissExposure={exposureId => dismissExposure(exposureId)}
+          showMapModal={showMapModal}
         />
       );
     }
@@ -158,7 +171,7 @@ const ScanHome = (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
-        toggleWebview={toggleWebview}
+        
         firstPoint={firstPoint}
         hideLocationHistory={hideLocationHistory}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
@@ -169,11 +182,12 @@ const ScanHome = (
   return (
     <View style={styles.container}>
       <ScanHomeHeader
+        languages={languages}
         isRTL={isRTL}
+        locale={locale}
+        externalUrls={externalUrls}
         strings={strings}
-        isConnected={hasLocation && hasNetwork && hasGPS}
-        showChangeLanguage
-        goToExposureHistory={() => navigation.navigate('ExposuresHistory')}
+        openDrawer={navigation.openDrawer}
       />
 
       {
@@ -186,7 +200,7 @@ const ScanHome = (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   }
 });
 
@@ -206,9 +220,9 @@ const mapDispatchToProps = (dispatch: any) => {
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    toggleWebview,
     checkForceUpdate,
-    checkIfHideLocationHistory
+    checkIfHideLocationHistory,
+    showMapModal
   }, dispatch);
 };
 

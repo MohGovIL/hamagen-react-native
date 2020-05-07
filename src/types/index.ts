@@ -1,3 +1,6 @@
+import { Region } from 'react-native-maps';
+import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
+
 export interface Config {
   sampleDistance: number,
   sampleInterval: number,
@@ -5,6 +8,7 @@ export interface Config {
   dataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
+  dataShareUrl: string,
   fetchMilliseconds: number,
   meterRadius: number,
   intersectMilliseconds: number,
@@ -27,7 +31,8 @@ export interface ErrorService {
   actionType?: string,
   dispatch?: (params: any) => void,
   customAction?: () => void,
-  showError?: boolean
+  showError?: boolean,
+  messageToShow?: string
 }
 
 export interface Fonts {
@@ -39,23 +44,30 @@ export interface SickJSON {
   features: Exposure[]
 }
 
+export interface ExposureProperties {
+  OBJECTID: number,
+  Key_Field: number,
+  Name: string,
+  Place: string,
+  fromTime: number,
+  fromTime_utc: number,
+  toTime: number,
+  toTime_utc: number,
+  radius?: number,
+  geohashFilter: string,
+  lat?: number,
+  long?: number
+}
+
+export interface ExposureGeometry {
+  type: string,
+  coordinates: number[],
+  radius?: number
+}
+
 export interface Exposure {
-  properties: {
-    OBJECTID: number,
-    Key_Field: number,
-    Name: string,
-    Place: string,
-    fromTime: number,
-    fromTime_utc: number,
-    toTime: number,
-    toTime_utc: number,
-    radius?: number
-  },
-  geometry: {
-    type: string,
-    coordinates: number[],
-    radius?: number
-  }
+  properties:ExposureProperties,
+  geometry: ExposureGeometry
 }
 
 export interface Sample {
@@ -76,6 +88,7 @@ export interface Sample {
 export interface DBLocation {
   lat: number,
   long: number,
+  _long?: number,
   accuracy: number,
   startTime: number,
   endTime: number,
@@ -104,4 +117,43 @@ export interface VelocityRecord {
   distMeter: number,
   timeDiff: number,
   velocity: number,
+}
+
+export interface Store {
+  general: GeneralReducer,
+  locale: LocaleReducer,
+  exposures: ExposuresReducer
+}
+
+export interface GeneralReducer {
+  showLoader: boolean,
+  showWebview: boolean,
+  showForceUpdate: boolean,
+  shouldForce: boolean,
+  showForceTerms: boolean,
+  termsVersion: number,
+  hideLocationHistory: boolean,
+  showMap: {
+    visible: boolean,
+    properties?: ExposureProperties,
+    region: Region
+  }
+}
+
+export interface ExposuresReducer {
+  exposures: Exposure[],
+  pastExposures: Exposure[],
+  validExposure?: Exposure,
+  firstPoint?: number
+}
+
+export interface LocaleReducer {
+  showChangeLanguage: boolean,
+  languages: Languages,
+  externalUrls: ExternalUrls,
+  notificationData: NotificationData,
+  strings: Strings,
+  isRTL: boolean,
+  locale: string,
+  localeData: LocaleData
 }

@@ -1,77 +1,63 @@
 import React from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
-import moment from 'moment';
-import { Icon, Text, CloseButton } from '../../common';
+import { Icon, Text, HeaderButton } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../../constants/Constants';
+import ExposureHistoryListItem from './ExposureHistoryListItem';
+import { showMapModal } from '../../../actions/GeneralActions';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
-  pastExposures: Exposure[]
+  pastExposures: Exposure[],
+  showMapModal(exposures: Exposure): void
 }
 
 const ExposuresHistory = (
   {
     navigation,
-    strings: {
-      scanHome: { inDate, fromHour },
-      exposuresHistory: { title, noExposures }
-    },
+    strings,
     isRTL,
-    pastExposures
+    pastExposures,
+    showMapModal
   }: Props
 ) => {
+  const { exposuresHistory: { title, noExposures, keepInstructions } } = strings;
+
   const renderEmptyState = () => (
-    <View style={styles.headerSubContainer}>
-      <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginBottom: 10 }} />
-      <Text style={{ fontSize: 20 }}>{noExposures}</Text>
-    </View>
+    <>
+      <View style={styles.emptyStateContainer}>
+        <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginBottom: 10 }} />
+        <Text style={{ marginBottom: 30 }}>{noExposures}</Text>
+        <Text bold>{keepInstructions}</Text>
+      </View>
+
+      <View style={{ flex: 1 }} />
+    </>
   );
 
   const renderList = () => (
     <FlatList
+      contentContainerStyle={styles.listContainer}
       data={pastExposures}
-      renderItem={({ item }) => {
-        const { properties: { Place, fromTime } } = item;
-
-        return (
-          <View style={styles.listItemContainer}>
-            <View style={[styles.listItemSubContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-              <Icon source={require('../../../assets/main/exposuresSmall.png')} width={21} height={13} customStyles={{ marginHorizontal: 7.5 }} />
-              <View style={{ flex: 1, alignItems: isRTL ? 'flex-end' : 'flex-start', marginHorizontal: 7.5 }}>
-                <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{Place}</Text>
-                <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
-                  <Text style={styles.text}>{`${inDate} `}</Text>
-                  <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
-                  <Text style={styles.text}>{`${fromHour} `}</Text>
-                  <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
-                </Text>
-              </View>
-            </View>
-            <View style={styles.separator} />
-          </View>
-        );
-      }}
+      renderItem={({ item }) => <ExposureHistoryListItem isRTL={isRTL} strings={strings} Place={item.properties.Place} fromTime={item.properties.fromTime} showExposureOnMap={() => showMapModal(item)} />}
       keyExtractor={(_, index) => index.toString()}
+      ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       showsVerticalScrollIndicator={false}
     />
   );
 
   return (
     <View style={styles.container}>
-      <CloseButton onPress={navigation.goBack} />
+      <HeaderButton type="back" onPress={navigation.goBack} />
 
       <View style={styles.headerContainer}>
-        <View style={styles.headerSubContainer}>
-          <Icon source={require('../../../assets/main/history.png')} width={27} height={20} customStyles={{ marginBottom: 15 }} />
-          <Text bold>{title}</Text>
-        </View>
-
-        <View style={styles.separator} />
+        <Icon source={require('../../../assets/main/history.png')} width={27} height={20} customStyles={{ marginBottom: 15 }} />
+        <Text bold>{title}</Text>
       </View>
 
       {pastExposures.length === 0 ? renderEmptyState() : renderList()}
@@ -88,32 +74,20 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT * 0.16,
+    justifyContent: 'center',
     alignItems: 'center'
   },
-  headerSubContainer: {
+  listContainer: {
+    width: SCREEN_WIDTH,
+    alignItems: 'center',
+    paddingVertical: 10,
+    
+  },
+  emptyStateContainer: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
-  },
-  separator: {
-    width: SCREEN_WIDTH * 0.875,
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: '#eaeaea'
-  },
-  listItemContainer: {
-    width: SCREEN_WIDTH,
-    alignItems: 'center'
-  },
-  listItemSubContainer: {
-    width: SCREEN_WIDTH * 0.875,
-    justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 5
-  },
-  text: {
-    fontSize: 14,
-    lineHeight: 20
+    paddingHorizontal: 35
   }
 });
 
@@ -123,7 +97,49 @@ const mapStateToProps = (state: any) => {
     exposures: { pastExposures }
   } = state;
 
-  return { isRTL, strings, pastExposures };
+  return { isRTL, strings, pastExposures: [{
+    geometry: {
+      type: 'Point',
+      coordinates: [34.8077312410001, 32.1154996280001],
+    },
+    properties: {
+      OBJECTID: 1720,
+      Key_Field: 1720,
+      Name: 'חולה 15',
+      Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+      Comments:
+        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+      POINT_X: 34.80773124,
+      POINT_Y: 32.11549963,
+      fromTime: 1583144100000,
+      toTime: 1583147700000,
+      fromTime_utc: 1583144100000,
+      toTime_utc: 1583147700000,
+      sourceOID: 1,
+      stayTimes: '10:15-11:15',
+    },
+  },{
+    geometry: {
+      type: 'Point',
+      coordinates: [34.8077312410001, 32.1154996280001],
+    },
+    properties: {
+      OBJECTID: 1720,
+      Key_Field: 1720,
+      Name: 'חולה 15',
+      Place: 'קלאוזנר 14, רמת אביב (קלפי ייעודית למבודדי בית)',
+      Comments:
+        'על מי ששעת הגעתו לקלפי זו היתה בין השעות 10:15-11:15 להאריך את הבידוד הביתי ל14 יום מיום הבחירות',
+      POINT_X: 34.80773124,
+      POINT_Y: 32.11549963,
+      fromTime: 1583144100000,
+      toTime: 1583147700000,
+      fromTime_utc: 1583144100000,
+      toTime_utc: 1583147700000,
+      sourceOID: 1,
+      stayTimes: '10:15-11:15',
+    },
+  }] };
 };
 
-export default connect(mapStateToProps, null)(ExposuresHistory);
+export default connect(mapStateToProps, { showMapModal })(ExposuresHistory);

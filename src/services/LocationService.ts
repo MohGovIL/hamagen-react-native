@@ -1,3 +1,4 @@
+import { StackNavigationProp } from '@react-navigation/stack';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import moment from 'moment';
@@ -72,7 +73,7 @@ export const requestMotionPermissions = (updateService: boolean) => new Promise(
   }
 });
 
-export const goToFilterDrivingIfNeeded = async (navigation: any) => {
+export const goToFilterDrivingIfNeeded = async (navigation: StackNavigationProp<any>) => {
   try {
     const res = await checkMotionPermissions();
 
@@ -134,7 +135,10 @@ export const startLocationTracking = async (locale: string, notificationData: No
       notification: {
         text: notificationData.androidNotification[locale]
       },
-      enableHeadless: true
+      enableHeadless: true,
+      persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
+      maxRecordsToPersist: -1,
+      maxDaysToPersist: 10000000
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);
 

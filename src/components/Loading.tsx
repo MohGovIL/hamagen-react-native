@@ -3,7 +3,6 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import _ from 'lodash';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import BackgroundFetch from 'react-native-background-fetch';
@@ -15,11 +14,9 @@ import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
 import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
 import Notifications from './Onboarding/Notifications';
 import AllSet from './Onboarding/AllSet';
-import ScanHome from './Main/ScanHome';
-import ExposuresHistory from './Main/ExposuresHistory/ExposuresHistory';
-import LocationHistory from './Main/LocationHistory/LocationHistory';
-import FilterDriving from './Main/FilterDriving/FilterDriving';
-import { Loader, ChangeLanguage, GeneralWebview, ForceUpdate, ForceTerms } from './common';
+import Home from './Drawer/Home';
+import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
+import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
@@ -50,6 +47,7 @@ import {
 } from '../constants/Constants';
 
 interface Props {
+  isInitLocale: boolean,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -70,6 +68,7 @@ interface Props {
 
 const Loading = (
   {
+    isInitLocale,
     isRTL,
     showLoader,
     showChangeLanguage,
@@ -117,6 +116,15 @@ const Loading = (
         return setInitialRoute('Welcome');
       }
 
+      await onBoardingCompletedActions();
+    } catch (error) {
+      setInitialRoute('Welcome');
+      onError({ error });
+    }
+  };
+
+  const onBoardingCompletedActions = async () => {
+    try {
       BackgroundFetch.status(async (status) => {
         if (status !== BackgroundFetch.STATUS_AVAILABLE) {
           await scheduleTask();
@@ -129,11 +137,21 @@ const Loading = (
 
       if (!state.enabled) {
         await startSampling(locale, notificationData);
-      } else if (!state.enableHeadless) {
-        await BackgroundGeolocation.setConfig({
-          enableHeadless: true,
-          foregroundService: true
-        });
+      } else {
+        if (!IS_IOS && !state.enableHeadless) {
+          await BackgroundGeolocation.setConfig({
+            enableHeadless: true,
+            foregroundService: true
+          });
+        }
+
+        if (state.maxDaysToPersist === 1) {
+          await BackgroundGeolocation.setConfig({
+            persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
+            maxRecordsToPersist: -1,
+            maxDaysToPersist: 10000000
+          });
+        }
       }
 
       await startForegroundTimer();
@@ -159,10 +177,9 @@ const Loading = (
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
       firstPointTS && store().dispatch({ type: UPDATE_FIRST_POINT, payload: firstPointTS });
 
-      setInitialRoute('ScanHome');
+      setInitialRoute('Home');
     } catch (error) {
-      const notFirstTime = await AsyncStorage.getItem(IS_FIRST_TIME);
-      setInitialRoute(notFirstTime === null ? 'Welcome' : 'ScanHome');
+      setInitialRoute('Home');
       onError({ error });
     }
   };
@@ -182,7 +199,7 @@ const Loading = (
   const Stack = createStackNavigator();
 
   return (
-    (_.isEmpty(strings) || !initialRoute) ? null : (
+    (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
           <Stack.Screen name="Welcome" component={Welcome} />
@@ -192,10 +209,7 @@ const Loading = (
           <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-          <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-          <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />
@@ -217,10 +231,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
-    locale: { showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
+    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
   } = state;
 
-  return { strings, showLoader, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
+  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
 const mapDispatchToProps = (dispatch: any) => {

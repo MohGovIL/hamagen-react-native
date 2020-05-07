@@ -56,13 +56,14 @@ const ExposureInstructions = (
   return (
     <FadeInView style={{ flex: 1 }}>
       <ScrollView
+        bounces={false}
         contentContainerStyle={styles.subContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={{ alignItems: 'center' }}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
           <Text style={styles.title} bold>{title}</Text>
 
-          <Text style={{ lineHeight: 22, marginBottom: 15 }}>
+          <Text style={{ lineHeight: 22, marginBottom: 15, paddingHorizontal: 10 }}>
             {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
           </Text>
 
@@ -91,7 +92,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     alignItems: 'center',
     paddingTop: IS_SMALL_SCREEN ? 25 : 40,
-    paddingBottom: PADDING_BOTTOM(10)
+    paddingBottom: PADDING_BOTTOM(10),
   },
   title: {
     fontSize: 22,
@@ -103,19 +104,15 @@ const styles = StyleSheet.create({
     borderRadius: 1,
     backgroundColor: MAIN_COLOR
   },
-  actionButtonsWrapper: {
-    width: SCREEN_WIDTH - 50,
-    justifyContent: 'space-between'
-  },
   actionButtonContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH - 40,
+    width: SCREEN_WIDTH - 50,
+    justifyContent: 'space-between',
     paddingVertical: 15,
     paddingHorizontal: 18,
     borderRadius: 16,
     marginBottom: 12,
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   },
   button: {
     width: 82,

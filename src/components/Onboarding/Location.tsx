@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { StackNavigationProp } from '@react-navigation/stack';
 import DeviceInfo from 'react-native-device-info';
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
@@ -12,7 +13,7 @@ import { Strings } from '../../locale/LocaleData';
 import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
 
 interface Props {
-  navigation: any,
+  navigation: StackNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
   toggleWebview(isShow: boolean, usageType: string): void

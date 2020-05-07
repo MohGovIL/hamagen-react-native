@@ -1,38 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
-import { FadeInView, Text, TouchableOpacity } from '../common';
+import InfoModal from './InfoModal';
+import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, PADDING_BOTTOM, SCREEN_WIDTH, USAGE_PRIVACY } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
 
-interface Props {
+interface NoExposuresProps {
   isRTL: boolean,
   firstPoint?: number,
   strings: Strings,
   hideLocationHistory: boolean,
-  goToLocationHistory(): void,
-  toggleWebview(isShow: boolean, usageType: string): void
+  goToLocationHistory(): void
 }
 
-const NoExposures = (
-  {
-    isRTL,
-    firstPoint,
-    strings: {
-      general: { additionalInfo },
-      scanHome: { noExposure, accordingToData, from, at, until, notFound, recommendation },
-      locationHistory: { info, moreInfo }
-    },
-    hideLocationHistory,
-    toggleWebview,
-    goToLocationHistory
-  }: Props
-) => {
+const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
   const appState = useRef<AppStateStatus>('active');
+  const [showModal, setModalVisibility] = useState(false);
+
   const [now, setNow] = useState(moment().valueOf());
 
+  const { FPDate, nowDate, nowHour } = useMemo(() => ({
+    FPDate: moment(firstPoint).format('D.M.YY'),
+    nowDate: moment(now).format('D.M.YY'),
+    nowHour: moment(now).format('HH:mm')
+  }), [firstPoint, now]);
+
+  const { scanHome: { noExposures: { bannerText, workAllTheTime, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+
+  // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
 
@@ -49,62 +47,110 @@ const NoExposures = (
     appState.current = state;
   };
 
-  const descriptions = () => {
-    const FPDate = moment(firstPoint).format('DD.MM.YY');
-    const FPHour = moment(firstPoint).format('HH:mm');
-    const nowHour = moment(now).format('HH:mm');
-
-    if (firstPoint) {
-      return `${accordingToData} ${from} ${FPDate} ${at} ${FPHour} ${until} ${at} ${nowHour} ${notFound}`;
-    }
-
-    return noExposure;
-  };
-
   return (
-    <FadeInView style={styles.container}>
-      {!hideLocationHistory && <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />}
+    <>
+      <FadeInView style={styles.fadeContainer}>
+        <View style={styles.container}>
+          {
+            !hideLocationHistory && (
+              <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
+            )
+          }
+          <LottieView
+            style={styles.lottie}
+            source={require('../../assets/lottie/magen logo.json')}
+            resizeMode="cover"
+            autoPlay
+            loop
+          />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>
-        <LottieView
-          style={styles.lottie}
-          source={require('../../assets/lottie/magen logo.json')}
-          resizeMode="cover"
-          autoPlay
-          loop
-        />
+          <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
+          <Text bold style={styles.bannerText}>{bannerText}</Text>
+        </View>
+        <View style={styles.bottomCard}>
 
-        <Text bold>{descriptions()}</Text>
-      </View>
+          <Text style={styles.cardHeaderText}>{title}</Text>
+          <View style={styles.cardBody}>
+            <TouchableOpacity
+              onPress={() => setModalVisibility(true)}
+              hitSlop={HIT_SLOP}
+            >
+              <Icon
+                width={15}
+                source={require('../../assets/main/moreInfoBig.png')}
+                customStyles={styles.infoIcon}
+              />
+            </TouchableOpacity>
+            <Text>
+              <Text bold style={styles.toTimeDate}>{nowDate}</Text>
+              <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
+              <Text bold style={styles.toTimeDate}>{nowHour}</Text>
+            </Text>
+          </View>
+        </View>
+      </FadeInView>
 
-      <Text style={{ lineHeight: 22, paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40 }}>{recommendation}</Text>
-
-      <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
-        <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
-        <View style={styles.bottomBorder} />
-      </TouchableOpacity>
-    </FadeInView>
+      <InfoModal
+        strings={strings}
+        showModal={showModal}
+        firstPointDate={FPDate}
+        closeModal={() => setModalVisibility(false)}
+      />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  fadeContainer: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: 25,
-    paddingBottom: PADDING_BOTTOM(50)
+    paddingBottom: PADDING_BOTTOM(58)
+  },
+  container: {
+    alignItems: 'center',
+    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 40
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     height: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
     marginBottom: IS_SMALL_SCREEN ? 10 : 25
   },
-  bottomBorder: {
-    alignSelf: 'stretch',
-    height: 2,
-    borderRadius: 1,
-    backgroundColor: MAIN_COLOR
+  bottomCard: {
+    width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.76 : 0.82),
+    paddingVertical: 22,
+    borderRadius: 13,
+    backgroundColor: '#FDFDFD',
+    shadowColor: '#084473',
+    shadowOffset: { width: 0, height: 9 },
+    shadowOpacity: 0.1,
+    shadowRadius: 9,
+    elevation: 5,
+  },
+  cardHeaderText: {
+    fontSize: 14,
+    marginBottom: 10,
+  },
+  cardBody: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  infoIcon: {
+    marginRight: 6
+  },
+  bannerText: {
+    fontSize: 30
+  },
+  workAllTimeTxt: {
+    fontSize: 17,
+    marginBottom: 20
+  },
+  toTimeDate: {
+    fontSize: 15
+  },
+  toTimeText: {
+    fontSize: 13
   }
 });
 
