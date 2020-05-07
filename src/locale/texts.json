@@ -153,7 +153,7 @@
     },
     "locationIOS": {
       "title": "הפעלת שירותי\nמיקום ברקע",
-      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
+      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטיים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
       "subTitle2": "יש לשנות את הגדרות המיקום כפי שמופיע בתמונות",
       "goToSettings": "לחצו כאן כדי להיכנס להגדרות",
       "set": "הגדרתי, המשך"
@@ -593,13 +593,13 @@
       "possibleExposure": "There may have been an exposure to a Corona patient:",
       "atPlace": "At ",
       "share": {
-        "message": "Sharing Hamagn",
-        "title": "Sharing Hamagn",
-        "androidTitle": "Sharing Hamagn"
+        "message": "Sharing Hamagen",
+        "title": "Sharing Hamagen",
+        "androidTitle": "Sharing Hamagen"
       },
       "noExposures": {
         "bannerText": "No \n overlap points found",
-        "workAllTheTime": "The protective app works all the time",
+        "workAllTheTime": "Hamagen app works all the time",
         "infoModal": {
           "textBodyPt1": "The comparison is made from the moment you receive your locations on",
           "textBodyPt2": "In the face of the location data of all verified patients in the country for the last 14 days, and is constantly updated"
@@ -614,7 +614,7 @@
       "wasMe": "Might be"
     },
     "exposuresHistory": {
-      "title": "Overlap history",
+      "title": "Exposure history",
       "noExposures": "No overlap points found",
       "keepInstructions": "It is important to keep following the guidelines"
     },
@@ -1202,7 +1202,7 @@
       "wasMe": "Cela peut être"
     },
     "exposuresHistory": {
-      "title": "Historique des intersections\n",
+      "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
       "keepInstructions": "Il est important de continuer à suivre les directives"
     },
