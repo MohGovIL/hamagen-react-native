@@ -168,5 +168,6 @@ export interface Cluster {
   startTime: number,
   endTime: number,
   geoHash: string,
+  radius: number,
   size: number
 }

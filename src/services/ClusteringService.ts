@@ -1,9 +1,10 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
+import _ from 'lodash';
 import { Cluster, DBLocation } from '../types';
 import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../database/Database';
 import config from '../config/config';
-import { CLUSTER_JITTER_LOCATION } from '../constants/Constants';
+import { CLUSTER_JITTER_LOCATION, CURRENT_CLUSTER_LOCATIONS_DATA } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -86,14 +87,34 @@ const areLocationsCreatingCluster = (clusterOrLocation: Cluster|DBLocation, loca
   return haversine(start, end, { threshold: config().clusterRadius, unit: config().bufferUnits });
 };
 
-const updateCluster: (cluster: Cluster, location: DBLocation) => Cluster = (cluster: Cluster, location: DBLocation) => ({
-  lat: ((cluster.lat * cluster.size) + location.lat) / cluster.size + 1,
-  long: ((cluster.long * cluster.long) + location.long) / cluster.size + 1,
-  startTime: cluster.startTime,
-  endTime: location.endTime,
-  geoHash: cluster.geoHash,
-  size: cluster.size + 1
-});
+const updateCluster = async (cluster: Cluster, location: DBLocation) => {
+  const updatedLat = ((cluster.lat * cluster.size) + location.lat) / (cluster.size + 1);
+  const updatedLong = ((cluster.long * cluster.long) + location.long) / (cluster.size + 1);
+
+  const clusterLocationsData: Array<{ lat: number, long: number }> = JSON.parse(await AsyncStorage.getItem(CURRENT_CLUSTER_LOCATIONS_DATA) || '[]');
+  const clusterLocationsDataWithNewLocation = [...clusterLocationsData, { lat: location.lat, long: location.long }];
+
+  const start = {
+    latitude: updatedLat,
+    longitude: updatedLong
+  };
+
+  const clusterRadii: number[] = clusterLocationsDataWithNewLocation.map(({ lat, long }) => haversine(start, { latitude: lat, longitude: long }, { unit: config().bufferUnits }));
+
+  const updatedRadius = _.max(clusterRadii);
+
+  await AsyncStorage.setItem(CURRENT_CLUSTER_LOCATIONS_DATA, JSON.stringify(clusterLocationsDataWithNewLocation));
+
+  return {
+    lat: updatedLat,
+    long: updatedLong,
+    startTime: cluster.startTime,
+    endTime: location.endTime,
+    geoHash: cluster.geoHash,
+    radius: updatedRadius,
+    size: cluster.size + 1
+  };
+};
 
 const createCluster = async (clustersDB: any, location: DBLocation) => {
   const { lat, long, startTime, endTime, geoHash }: DBLocation = location;

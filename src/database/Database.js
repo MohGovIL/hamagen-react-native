@@ -243,7 +243,7 @@ export class UserClusteredLocationsDatabase {
 
         db = DB;
 
-        await db.executeSql('CREATE TABLE IF NOT EXISTS Clusters (lat,long,startTime,endTime,geoHash,size);');
+        await db.executeSql('CREATE TABLE IF NOT EXISTS Clusters (lat,long,startTime,endTime,geoHash,radius,size);');
 
         resolve(db);
       } catch (error) {
@@ -307,11 +307,11 @@ export class UserClusteredLocationsDatabase {
 
         await db.transaction(async (tx) => {
           try {
-            const numberOfBulks = Math.ceil(data.length / 600);
-            const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 600, (index + 1) * 600));
+            const numberOfBulks = Math.ceil(data.length / 700);
+            const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 700, (index + 1) * 700));
 
             await Promise.all(bulks.map((bulkData) => {
-              const clusters = Array.from({ length: bulkData.length / 6 }, () => '(?,?,?,?,?,?)').toString();
+              const clusters = Array.from({ length: bulkData.length / 7 }, () => '(?,?,?,?,?,?,?)').toString();
               return tx.executeSql(`INSERT INTO Clusters VALUES ${clusters}`, bulkData);
             }));
 
