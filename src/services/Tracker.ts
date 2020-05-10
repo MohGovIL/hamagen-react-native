@@ -110,8 +110,8 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
   sickRecordsJson.features.forEach((sickRecord: Exposure) => {
     const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
     // get 8 neighbours of geolocation
-    const nighboursArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
-    nighboursArr.forEach(geo => {
+    const neighboursArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
+    neighboursArr.forEach(geo => {
       // for each raw in user data
       if (mappedLocations[geo]) {
         mappedLocations[geo].forEach((userRecord: Location) => {
