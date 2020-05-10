@@ -35,16 +35,15 @@ export const checkSickPeople = async () => {
     const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
     // prevent excessive calls to checkSickPeople
-    // if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
-    //   return;
-    // }
+    if (lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+      return;
+    }
 
-    // const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB();
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
-    const geoHashsickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
+    const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
 
     if (sickPeopleIntersected.length > 0) {
       await onSickPeopleNotify(sickPeopleIntersected);
@@ -109,9 +108,9 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
   // for each feature in json data
   sickRecordsJson.features.forEach((sickRecord: Exposure) => {
     const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
-    // get 8 neighbours of geolocation
-    const neighboursArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
-    neighboursArr.forEach(geo => {
+    // get 8 neighbors of geolocation
+    const neighborsArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
+    neighborsArr.forEach(geo => {
       // for each raw in user data
       if (mappedLocations[geo]) {
         mappedLocations[geo].forEach((userRecord: Location) => {
