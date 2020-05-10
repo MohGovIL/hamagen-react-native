@@ -143,7 +143,7 @@ export class UserLocationsDatabase {
 
         db.transaction(async (tx) => {
           try {
-            await tx.executeSql('DELETE FROM Samples WHERE endTime < ?', [timestamp]);
+            await tx.executeSql('DELETE FROM Samples WHERE endTime < ? OR endTime IS NULL', [timestamp]);
             resolve(true);
           } catch (error) {
             onError({ error });
@@ -262,15 +262,15 @@ export class UserClusteredLocationsDatabase {
           try {
             const [_, results] = await tx.executeSql('SELECT * FROM Clusters', []);
 
-            const samples = [];
+            const clusters = [];
             const len = results.rows.length;
 
             for (let i = 0; i < len; i++) {
               const row = results.rows.item(i);
-              samples.push(row);
+              clusters.push(row);
             }
 
-            resolve(samples);
+            resolve(clusters);
           } catch (error) {
             onError({ error });
           }
@@ -288,7 +288,7 @@ export class UserClusteredLocationsDatabase {
 
         db.transaction(async (tx) => {
           try {
-            const [_, results] = await tx.executeSql('INSERT INTO Clusters VALUES (?,?,?,?,?,?)', [cluster.lat, cluster.long, cluster.startTime, cluster.endTime, cluster.geoHash, cluster.size]);
+            const [_, results] = await tx.executeSql('INSERT INTO Clusters VALUES (?,?,?,?,?,?,?)', [cluster.lat, cluster.long, cluster.startTime, cluster.endTime, cluster.geoHash, cluster.radius, cluster.size]);
             resolve(results);
           } catch (error) {
             onError({ error });
@@ -307,8 +307,9 @@ export class UserClusteredLocationsDatabase {
 
         await db.transaction(async (tx) => {
           try {
-            const numberOfBulks = Math.ceil(data.length / 700);
-            const bulks = Array.from({ length: numberOfBulks }, (_, index) => data.slice(index * 700, (index + 1) * 700));
+            const parsedData = data.flatMap(cluster => Object.values(cluster));
+            const numberOfBulks = Math.ceil(parsedData.length / 700);
+            const bulks = Array.from({ length: numberOfBulks }, (_, index) => parsedData.slice(index * 700, (index + 1) * 700));
 
             await Promise.all(bulks.map((bulkData) => {
               const clusters = Array.from({ length: bulkData.length / 7 }, () => '(?,?,?,?,?,?,?)').toString();
@@ -358,12 +359,13 @@ export class UserClusteredLocationsDatabase {
 
         db.transaction(async (tx) => {
           try {
-            const [_, results] = await tx.executeSql('UPDATE Clusters set lat=?, long=?, startTime=?, endTime=?, geoHash=?, size=? WHERE rowid=(SELECT MAX(rowid) from Clusters)', [
+            const [_, results] = await tx.executeSql('UPDATE Clusters SET lat=?, long=?, startTime=?, endTime=?, geoHash=?, radius=?, size=? WHERE rowid=(SELECT MAX(rowid) from Clusters)', [
               cluster.lat,
               cluster.long,
               cluster.startTime,
               cluster.endTime,
               cluster.geoHash,
+              cluster.radius,
               cluster.size
             ]);
 
@@ -390,7 +392,7 @@ export class UserClusteredLocationsDatabase {
 
         db.transaction(async (tx) => {
           try {
-            await tx.executeSql('DELETE FROM Clusters WHERE endTime < ?', [timestamp]);
+            await tx.executeSql('DELETE FROM Clusters WHERE endTime < ? OR endTime IS NULL', [timestamp]);
             resolve(true);
           } catch (error) {
             onError({ error });

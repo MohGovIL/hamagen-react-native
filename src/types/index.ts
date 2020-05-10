@@ -16,6 +16,8 @@ export interface Config {
   jitterValue: number,
   jitterUnits: moment.unitOfTime.Diff,
   intersectMilliseconds: number,
+  intersectMillisecondsWithCluster: number,
+  intersectWithClusters: boolean,
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
@@ -109,6 +111,7 @@ export interface Location {
   accuracy: number,
   lat: number,
   startTime: number,
+  radius: number,
   long: number
 }
 

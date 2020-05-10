@@ -3,13 +3,13 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { setExposures } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
-import { UserLocationsDatabase, IntersectionSickDatabase } from '../database/Database';
+import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
-import { Exposure, Location, SickJSON } from '../types';
+import { Cluster, Exposure, Location, SickJSON } from '../types';
 import { LAST_FETCH_TS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
@@ -25,7 +25,9 @@ export const startForegroundTimer = async () => {
 
 export const queryDB = async () => {
   const db = new UserLocationsDatabase();
-  const rows = await db.listSamples();
+  const cdb = new UserClusteredLocationsDatabase();
+
+  const rows = config().intersectWithClusters ? await cdb.listClusters() : await db.listSamples();
   return rows;
 };
 
@@ -124,7 +126,7 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
 };
 
 const checkMillisecondsDiff = (to: number, from: number) => {
-  return to - from > config().intersectMilliseconds;
+  return to - from > (config().intersectWithClusters ? config().intersectMillisecondsWithCluster : config().intersectMilliseconds);
 };
 
 export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) => {
@@ -134,10 +136,10 @@ export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) =>
   );
 };
 
-export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
+export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
   const start = {
-    latitude: lat,
-    longitude: long,
+    latitude: clusterOrLocation.lat,
+    longitude: clusterOrLocation.long,
   };
 
   const end = {
@@ -145,7 +147,7 @@ export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radi
     longitude: coordinates[config().sickGeometryLongIndex],
   };
 
-  return haversine(start, end, { threshold: radius || config().meterRadius, unit: config().bufferUnits });
+  return haversine(start, end, { threshold: (radius || config().meterRadius) + (config().intersectWithClusters ? clusterOrLocation.radius : 0), unit: config().bufferUnits });
 };
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {

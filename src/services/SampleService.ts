@@ -4,8 +4,9 @@ import AsyncLock from 'async-lock';
 import moment from 'moment';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import { startLocationTracking } from './LocationService';
-import { UserLocationsDatabase } from '../database/Database';
+import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
+import { clusterSample } from './ClusteringService';
 import { onError } from './ErrorService';
 import store from '../store';
 import config, { initConfig } from '../config/config';
@@ -81,7 +82,7 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
 
     if (!isLastPointFromTimeline) {
       await db.updateLastSampleEndTime(sample.timestamp);
-      // TODO call to clusterSample
+      await clusterSample();
     } else {
       await AsyncStorage.removeItem(IS_LAST_POINT_FROM_TIMELINE);
     }
@@ -137,22 +138,25 @@ const saveToStorage = (key: string, value: number) => new Promise(async (resolve
 });
 
 export const purgeSamplesDB = () => new Promise(async (resolve, reject) => {
-  const NUM_OF_WEEKS_TO_PURGE = 2;
+  await lock.acquire('purgeDB', async (done) => {
+    try {
+      const NUM_OF_WEEKS_TO_PURGE = 2;
 
-  try {
-    await lock.acquire('purgeDB', async (done) => {
       const db = new UserLocationsDatabase();
+      const cdb = new UserClusteredLocationsDatabase();
 
       await db.purgeSamplesTable(moment().subtract(NUM_OF_WEEKS_TO_PURGE, 'week').unix() * 1000);
+      await cdb.purgeClustersTable(moment().subtract(NUM_OF_WEEKS_TO_PURGE, 'week').unix() * 1000);
 
       resolve();
       done();
       return true;
-    });
-  } catch (error) {
-    reject(error);
-    onError({ error });
-  }
+    } catch (error) {
+      reject(error);
+      done();
+      onError({ error });
+    }
+  });
 });
 
 export const updateDBAccordingToSampleVelocity = async (location: Sample) => {

@@ -1,7 +1,7 @@
 {
   "com.hamagen.dev": {
-    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
-    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
+    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
+    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "dataShareUrl": "https://hamagenapitest.health.gov.il/api/data/UploadMobileData",
@@ -13,6 +13,8 @@
     "jitterValue": 2,
     "jitterUnits": "minutes",
     "intersectMilliseconds": 1,
+    "intersectMillisecondsWithCluster": 900000,
+    "intersectWithClusters": true,
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
@@ -104,8 +106,8 @@
     }
   },
   "com.hamagen.qa": {
-    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
-    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/Points.json",
+    "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
+    "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "dataShareUrl": "https://hamagenapitest.health.gov.il/api/data/UploadMobileData",
@@ -117,6 +119,8 @@
     "jitterValue": 2,
     "jitterUnits": "minutes",
     "intersectMilliseconds": 1,
+    "intersectMillisecondsWithCluster": 900000,
+    "intersectWithClusters": true,
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
@@ -221,6 +225,8 @@
     "jitterValue": 2,
     "jitterUnits": "minutes",
     "intersectMilliseconds": 1,
+    "intersectMillisecondsWithCluster": 900000,
+    "intersectWithClusters": true,
     "bufferUnits": "meter",
     "sickGeometryLongIndex": 0,
     "sickGeometryLatIndex": 1,
