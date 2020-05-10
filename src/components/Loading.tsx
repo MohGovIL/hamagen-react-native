@@ -155,7 +155,7 @@ const Loading = (
 
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
-      await startForegroundTimer();
+      // await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 

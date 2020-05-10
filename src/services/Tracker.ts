@@ -16,13 +16,13 @@ import { SERVICE_TRACKER, LAST_FETCH_TS } from '../constants/Constants';
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  await checkSickPeople();
+  // await checkSickPeople();
 
   BackgroundTimer.runBackgroundTimer(async () => {
     const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
     await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
 
-    await checkSickPeople();
+    // await checkSickPeople();
   }, config().fetchMilliseconds);
 };
 
@@ -34,9 +34,9 @@ export const queryDB = async (isClusters: boolean) => {
   return rows;
 };
 
-export const checkSickPeopleFromFile = async () => {
+export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   try {
-    const myData = await queryDB();
+    const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
 
     const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points);
@@ -48,7 +48,7 @@ export const checkSickPeopleFromFile = async () => {
   }
 };
 
-export const checkSickPeople = async (forceCheck: boolean = false) => {
+export const checkSickPeople = async (forceCheck: boolean = false, isClusters: boolean) => {
   try {
     const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
@@ -58,7 +58,7 @@ export const checkSickPeople = async (forceCheck: boolean = false) => {
     }
 
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
-    const myData = await queryDB(config().intersectWithClusters);
+    const myData = await queryDB(isClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);

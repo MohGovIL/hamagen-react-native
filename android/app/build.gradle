@@ -180,7 +180,7 @@ android {
             versionNameSuffix ".qa"
             applicationIdSuffix ".qa"
             buildConfigField "String", "PROVIDER_AUTHORITY", '"com.hamagen.qa.provider"'
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
         qa {
             initWith release

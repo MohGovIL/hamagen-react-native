@@ -7,7 +7,12 @@ import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../databa
 import { onError } from './ErrorService';
 import config from '../config/config';
 import { Cluster, DBLocation } from '../types';
-import { CLUSTER_JITTER_LOCATION, CURRENT_CLUSTER_LOCATIONS_DATA, DID_CLUSTER_LOCATIONS } from '../constants/Constants';
+import {
+  CLUSTER_JITTER_LOCATION,
+  CLUSTERING_RESULT_LOG_FOR_QA,
+  CURRENT_CLUSTER_LOCATIONS_DATA,
+  DID_CLUSTER_LOCATIONS
+} from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -39,6 +44,7 @@ export const clusterSample = async () => {
         const updatedCluster = await updateCluster(currentCluster, firstLocationInBuffer);
         await clustersDB.updateLastCluster(updatedCluster);
         await AsyncStorage.removeItem(CLUSTER_JITTER_LOCATION);
+        await addToClustringResultLog(firstLocationInBuffer, `added to cluster${jitterLocation ? ' - prev point jitter' : ''}`);
         return;
       }
     }
@@ -51,11 +57,13 @@ export const clusterSample = async () => {
       && firstLocationInBuffer.endTime === secondLocationInBuffer.startTime
     ) {
       await AsyncStorage.setItem(CLUSTER_JITTER_LOCATION, 'true');
+      await addToClustringResultLog(firstLocationInBuffer, 'location is jitter');
       return;
     }
   }
 
   await createCluster(clustersDB, firstLocationInBuffer);
+  await addToClustringResultLog(firstLocationInBuffer, 'new cluster created');
 };
 
 const areLocationsCreatingCluster = (clusterOrLocation: Cluster|DBLocation, location: DBLocation) => {
@@ -105,7 +113,7 @@ const updateCluster = async (cluster: Cluster, location: DBLocation) => {
 const createCluster = async (clustersDB: any, location: DBLocation) => {
   const { lat, long, startTime, endTime }: DBLocation = location;
 
-  await clustersDB.addCluster({ lat, long, startTime, endTime, geoHash: Geohash.encode(lat, long, 6), radius: 0, size: 1 });
+  await clustersDB.addCluster({ lat, long, startTime, endTime, geoHash: Geohash.encode(lat, long, 12), radius: 0, size: 1 });
 
   // override previous cluster locations data with new location.
   await AsyncStorage.setItem(CURRENT_CLUSTER_LOCATIONS_DATA, JSON.stringify([{ lat, long }]));
@@ -187,7 +195,7 @@ const clusterLocationHistorySynchronously = (currentLocations: DBLocation[]) => 
     }
 
     const { lat, long, startTime, endTime }: DBLocation = firstLocationInBuffer;
-    clusters.push({ lat, long, startTime, endTime, geoHash: Geohash.encode(lat, long, 6), radius: 0, size: 1 });
+    clusters.push({ lat, long, startTime, endTime, geoHash: Geohash.encode(lat, long, 12), radius: 0, size: 1 });
 
     currentClusterLocationsData = [{ lat, long }];
   });
@@ -221,4 +229,16 @@ const updateClusterSynchronously = (cluster: Cluster, location: DBLocation, clus
       size: cluster.size + 1
     }
   };
+};
+
+const addToClustringResultLog = async (location: DBLocation, reason: string) => {
+  try {
+    const res = JSON.parse(await AsyncStorage.getItem(CLUSTERING_RESULT_LOG_FOR_QA) || '[]');
+
+    res.push({ ...location, reason });
+
+    await AsyncStorage.setItem(CLUSTERING_RESULT_LOG_FOR_QA, JSON.stringify(res));
+  } catch (error) {
+    onError({ error });
+  }
 };

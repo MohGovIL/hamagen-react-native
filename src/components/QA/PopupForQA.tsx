@@ -6,7 +6,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Text, TouchableOpacity } from '../common';
 import { queryDB } from '../../services/Tracker';
-import { DBLocation } from '../../types';
+import { Cluster, DBLocation } from '../../types';
 import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 }
 
 const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
-  const [listOfSamples, setListOfSamples] = useState<DBLocation[]>([]);
+  const [listOfSamples, setListOfSamples] = useState<DBLocation[]|Cluster[]>([]);
 
   useEffect(() => {
     isVisible && updateList();
@@ -27,7 +27,12 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
 
     switch (type) {
       case 'locations': {
-        list = await queryDB();
+        list = await queryDB(false);
+        break;
+      }
+
+      case 'clusters': {
+        list = await queryDB(true);
         break;
       }
 
@@ -63,11 +68,11 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
   };
 
   const copyClicked = (arr: any) => {
-    let csv = 'lat, long, accuracy, startTime, endTime, reason\n';
+    let csv = type !== 'clusters' ? 'lat, long, accuracy, startTime, endTime, reason\n' : 'lat, long, startTime, endTime, radius, size\n';
 
     arr.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
+      const { lat, long, accuracy, startTime, endTime, reason, eventTime, radius, size } = point;
+      csv += type !== 'clusters' ? `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n` : `${lat},${long},${startTime},${endTime},${radius},${size}\n`;
     });
 
     Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
@@ -97,6 +102,10 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
                 <Text>{`lat: ${item.lat}, long: ${item.long} `}</Text>
                 <Text>{`start time: ${moment(item.startTime).format('MM/DD/YYYY - HH:mm:ss')}`}</Text>
                 <Text>{`end time: ${moment(item.endTime).format('MM/DD/YYYY - HH:mm:ss')}`}</Text>
+                <Text>
+                  {item.radius !== undefined && <Text>{`radius: ${item.radius.toFixed(2)} `}</Text>}
+                  {item.size !== undefined && <Text>{`size: ${item.size}`}</Text>}
+                </Text>
               </View>
             )}
             keyExtractor={(_, index) => index.toString()}
