@@ -18,6 +18,7 @@ export interface Config {
   intersectMilliseconds: number,
   intersectMillisecondsWithCluster: number,
   intersectWithClusters: boolean,
+  dataShareClusters: boolean,
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,

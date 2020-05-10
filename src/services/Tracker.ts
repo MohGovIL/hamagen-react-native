@@ -23,11 +23,11 @@ export const startForegroundTimer = async () => {
   }, config().fetchMilliseconds);
 };
 
-export const queryDB = async () => {
+export const queryDB = async (isClusters: boolean) => {
   const db = new UserLocationsDatabase();
   const cdb = new UserClusteredLocationsDatabase();
 
-  const rows = config().intersectWithClusters ? await cdb.listClusters() : await db.listSamples();
+  const rows = isClusters ? await cdb.listClusters() : await db.listSamples();
   return rows;
 };
 
@@ -41,7 +41,7 @@ export const checkSickPeople = async () => {
     }
 
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
-    const myData = await queryDB();
+    const myData = await queryDB(config().intersectWithClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
