@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
 import { TouchableOpacity, Icon } from '.';
 import { LocaleReducer, Store } from '../../types';
-import { IS_SMALL_SCREEN, PADDING_TOP } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_TOP, HIT_SLOP } from '../../constants/Constants';
 
 interface Props {
   type: 'close'|'back',
@@ -15,6 +15,7 @@ const HeaderButton = ({ type, onPress }: Props) => {
 
   return (
     <TouchableOpacity
+      hitSlop={HIT_SLOP}
       style={[styles.close, {
         top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
         [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 20,

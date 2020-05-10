@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     marginRight: 6
   },
   bannerText: {
-    fontSize: IS_SMALL_SCREEN ? 22:  26
+    fontSize: IS_SMALL_SCREEN ? 22 : 26
   },
   workAllTimeTxt: {
     fontSize: 17,
