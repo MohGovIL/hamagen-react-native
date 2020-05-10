@@ -3,38 +3,40 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import { setExposures } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
-import { UserLocationsDatabase, IntersectionSickDatabase } from '../database/Database';
+import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
-import { Exposure, Location, SickJSON } from '../types';
+import { Cluster, Exposure, Location, SickJSON } from '../types';
 import { SERVICE_TRACKER, LAST_FETCH_TS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  await checkSickPeople();
+  // await checkSickPeople();
 
   BackgroundTimer.runBackgroundTimer(async () => {
     const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
     await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
 
-    await checkSickPeople();
+    // await checkSickPeople();
   }, config().fetchMilliseconds);
 };
 
-export const queryDB = async () => {
+export const queryDB = async (isClusters: boolean) => {
   const db = new UserLocationsDatabase();
-  const rows = await db.listSamples();
+  const cdb = new UserClusteredLocationsDatabase();
+
+  const rows = isClusters ? await cdb.listClusters() : await db.listSamples();
   return rows;
 };
 
-export const checkSickPeopleFromFile = async () => {
+export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   try {
-    const myData = await queryDB();
+    const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
 
     const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points);
@@ -46,7 +48,7 @@ export const checkSickPeopleFromFile = async () => {
   }
 };
 
-export const checkSickPeople = async (forceCheck: boolean = false) => {
+export const checkSickPeople = async (forceCheck: boolean = false, isClusters: boolean) => {
   try {
     const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
@@ -56,7 +58,7 @@ export const checkSickPeople = async (forceCheck: boolean = false) => {
     }
 
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
-    const myData = await queryDB();
+    const myData = await queryDB(isClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
@@ -141,7 +143,7 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
 };
 
 const checkMillisecondsDiff = (to: number, from: number) => {
-  return to - from > config().intersectMilliseconds;
+  return to - from > (config().intersectWithClusters ? config().intersectMillisecondsWithCluster : config().intersectMilliseconds);
 };
 
 export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) => {
@@ -151,10 +153,10 @@ export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) =>
   );
 };
 
-export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
+export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
   const start = {
-    latitude: lat,
-    longitude: long,
+    latitude: clusterOrLocation.lat,
+    longitude: clusterOrLocation.long,
   };
 
   const end = {
@@ -162,7 +164,7 @@ export const isSpaceOverlapping = ({ lat, long }: Location, { properties: { radi
     longitude: coordinates[config().sickGeometryLongIndex],
   };
 
-  return haversine(start, end, { threshold: radius || config().meterRadius, unit: config().bufferUnits });
+  return haversine(start, end, { threshold: (radius || config().meterRadius) + (config().intersectWithClusters ? clusterOrLocation.radius : 0), unit: config().bufferUnits });
 };
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {

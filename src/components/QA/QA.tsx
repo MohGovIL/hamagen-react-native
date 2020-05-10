@@ -16,12 +16,13 @@ import { updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
-import { UserLocationsDatabase } from '../../database/Database';
+import { clusterSample } from '../../services/ClusteringService';
+import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../../database/Database';
 import { onError } from '../../services/ErrorService';
 import config from '../../config/config';
 import { Exposure } from '../../types';
 import {
-  ALL_POINTS_QA,
+  ALL_POINTS_QA, CLUSTERING_RESULT_LOG_FOR_QA,
   HIGH_VELOCITY_POINTS_QA, IS_IOS,
   PADDING_BOTTOM,
   PADDING_TOP,
@@ -36,19 +37,20 @@ interface Props {
 const SICK_FILE_TYPE = 1;
 const LOCATIONS_FILE_TYPE = 2;
 const KML_FILE_TYPE = 3;
+const CLUSTERS_FILE_TYPE = 4;
 
 const QA = ({ navigation, updatePointsFromFile }: Props) => {
   const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
-  const fetchPointsFromFile = async (fileType: number) => {
+  const fetchPointsFromFile = async (fileType: number, isClusters?: boolean) => {
     try {
       const isStoragePermissionGranted = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
       if (isStoragePermissionGranted === RESULTS.GRANTED) {
-        await chooseFile(fileType);
+        await chooseFile(fileType, isClusters);
       } else {
         const requestPermissionRes = await request(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
         if (requestPermissionRes === RESULTS.GRANTED) {
-          await chooseFile(fileType);
+          await chooseFile(fileType, isClusters);
         }
       }
     } catch (err) {
@@ -56,7 +58,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
-  const chooseFile = async (fileType: number) => {
+  const chooseFile = async (fileType: number, isClusters?: boolean) => {
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.allFiles]
@@ -68,13 +70,39 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       if (fileType === SICK_FILE_TYPE) {
         const pointsJSON = JSON.parse(rawText.trim());
         updatePointsFromFile(pointsJSON);
-        await checkSickPeopleFromFile();
+        await checkSickPeopleFromFile(isClusters);
       } else if (fileType === KML_FILE_TYPE) {
         try {
           const pointsEntered = await insertToSampleDB(kmlToGeoJson(rawText));
           return Alert.alert(`KML loaded - ${pointsEntered} points`);
         } catch (e) {
           return Alert.alert('KML loading failed');
+        }
+      } else if (fileType === CLUSTERS_FILE_TYPE) {
+        const cdb = new UserClusteredLocationsDatabase();
+
+        // clusters file
+        const clustersArr: string[] = rawText.split('\n');
+        let isFirst = true;
+
+        for (const item of clustersArr) {
+          if (!isFirst) { // to ignore the first row which holds the titles...
+            const clusterArr = item.split(',');
+
+            if (clusterArr.length >= 5) {
+              await cdb.addCluster({
+                lat: parseFloat(clusterArr[0]),
+                long: parseFloat(clusterArr[1]),
+                startTime: parseFloat(clusterArr[2]),
+                endTime: parseFloat(clusterArr[3]),
+                geoHash: Geohash.encode(parseFloat(clusterArr[0]), parseFloat(clusterArr[1]), 12),
+                radius: parseFloat(clusterArr[4]),
+                size: parseFloat(clusterArr[5])
+              });
+            }
+          }
+
+          isFirst = false;
         }
       } else {
         const db = new UserLocationsDatabase();
@@ -97,6 +125,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
                 geoHash: Geohash.encode(parseFloat(sampleArr[0]), parseFloat(sampleArr[1]), 12),
                 wifiHash: ''
               });
+              await clusterSample();
             }
           }
 
@@ -130,9 +159,9 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
-  const initCheckSickPeople = async () => {
+  const initCheckSickPeople = async (isClusters: boolean) => {
     try {
-      await checkSickPeople(true);
+      await checkSickPeople(true, isClusters);
       Alert.alert('Checking...', '', [{ text: 'OK' }]);
     } catch (e) {
       Alert.alert('Error', '', [{ text: 'OK' }]);
@@ -163,6 +192,12 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Alert.alert('Cleared', '', [{ text: 'OK' }]);
   };
 
+  const clearClustersDB = () => {
+    const cdb = new UserClusteredLocationsDatabase();
+    cdb.purgeClustersTable(moment().valueOf());
+    Alert.alert('Cleared', '', [{ text: 'OK' }]);
+  };
+
   const copyServicesTrackingData = async () => {
     const res: Array<{ source: string, timestamp: number }> = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
 
@@ -183,9 +218,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
   const copyAllData = async () => {
     const allPoints = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
-    const DBPoints = await queryDB();
+    const DBPoints = await queryDB(false);
+    const CDBPoints = await queryDB(true);
     const HVPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
     const services = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+    const clustersLog = JSON.parse(await AsyncStorage.getItem(CLUSTERING_RESULT_LOG_FOR_QA) || '[]');
 
     let csv = 'All Points\n';
 
@@ -199,6 +236,13 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     DBPoints.forEach((point: any) => {
       const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
       csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
+    });
+
+    csv += 'Cluster DB Points\n';
+
+    CDBPoints.forEach((point: any) => {
+      const { lat, long, startTime, endTime, radius, size } = point;
+      csv += `${lat},${long},${startTime},${endTime},${radius},${size}\n`;
     });
 
     csv += 'HV Points\n';
@@ -215,6 +259,13 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       csv += `${source},${timestamp}\n`;
     });
 
+    csv += 'Clusters log\n';
+
+    clustersLog.forEach((point: any) => {
+      const { lat, long, accuracy, startTime, endTime, reason } = point;
+      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
+    });
+
     Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
     Clipboard.setString(csv);
   };
@@ -229,7 +280,19 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
       <ScrollView>
         <View style={styles.buttonWrapper}>
-          <Button title="הצלבה מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE)} />
+          <Button title="הצלבת דקירות מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE, false)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבת דקירות מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(false)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE, true)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבת clusters מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(true)} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -237,7 +300,15 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
+          <Button title="טעינת clusters מקובץ" onPress={() => fetchPointsFromFile(CLUSTERS_FILE_TYPE)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
           <Button title="טעינת KML מקובץ" onPress={() => fetchPointsFromFile(KML_FILE_TYPE)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצג clusters" onPress={() => setShowPopup({ showPopup: true, type: 'clusters' })} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -245,19 +316,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="העתק קובץ קונפיגורציה פעיל" onPress={copyConfig} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבה מול JSON מאומתים משרת" onPress={initCheckSickPeople} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
           <Button title="הצג 'דקירות' במהירות גבוהה" onPress={() => setShowPopup({ showPopup: true, type: 'velocity' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -269,7 +328,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="נקה את כל ה'דקירות'" onPress={clearAllPoints} />
+          <Button title="העתק קובץ קונפיגורציה פעיל" onPress={copyConfig} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -281,15 +340,27 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
           <Button title="העתק את כל הנתונים" onPress={copyAllData} />
         </View>
 
         <View style={styles.buttonWrapper}>
+          <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה את כל ה'דקירות'" onPress={clearAllPoints} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
           <Button title="!!!!!נקה את כל ה'דקירות' מה-DB!!!!!" onPress={clearLocationsDB} color="red" />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="!!!!!נקה את כל ה clusters מה-DB!!!!!" onPress={clearClustersDB} color="red" />
         </View>
       </ScrollView>
 

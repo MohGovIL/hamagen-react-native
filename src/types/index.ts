@@ -1,4 +1,5 @@
 import { Region } from 'react-native-maps';
+import moment from 'moment';
 import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
 
 export interface Config {
@@ -11,7 +12,13 @@ export interface Config {
   dataShareUrl: string,
   fetchMilliseconds: number,
   meterRadius: number,
+  clusterRadius: number,
+  jitterValue: number,
+  jitterUnits: moment.unitOfTime.Diff,
   intersectMilliseconds: number,
+  intersectMillisecondsWithCluster: number,
+  intersectWithClusters: boolean,
+  dataShareClusters: boolean,
   bufferUnits: string,
   sickGeometryLongIndex: number,
   sickGeometryLatIndex: number,
@@ -105,6 +112,7 @@ export interface Location {
   accuracy: number,
   lat: number,
   startTime: number,
+  radius: number,
   long: number
 }
 
@@ -156,4 +164,14 @@ export interface LocaleReducer {
   isRTL: boolean,
   locale: string,
   localeData: LocaleData
+}
+
+export interface Cluster {
+  lat: number,
+  long: number,
+  startTime: number,
+  endTime: number,
+  geoHash: string,
+  radius: number,
+  size: number
 }

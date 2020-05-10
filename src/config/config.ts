@@ -7,7 +7,7 @@ import { Config } from '../types';
 
 // @ts-ignore
 const env: 'com.hamagen.qa'|'com.hamagen' = DeviceInfo.getBundleId();
-
+// @ts-ignore
 let config: Config = DefaultConfig[env] || DefaultConfig['com.hamagen.qa'];
 
 export const initConfig = async () => new Promise(async (resolve) => {

@@ -25,6 +25,7 @@ import { onError } from '../services/ErrorService';
 import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
+import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -131,8 +132,6 @@ const Loading = (
         }
       });
 
-      await purgeSamplesDB();
-
       const state: State = await BackgroundGeolocation.getState();
 
       if (!state.enabled) {
@@ -154,7 +153,9 @@ const Loading = (
         }
       }
 
-      await startForegroundTimer();
+      await purgeSamplesDB();
+      await clusterLocationsOnAppUpdate();
+      // await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 
