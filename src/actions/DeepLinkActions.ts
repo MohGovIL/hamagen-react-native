@@ -8,7 +8,6 @@ export const shareUserLocations = (token: string) => async (dispatch: any) => ne
   try {
     dispatch(toggleLoader(true));
 
-    // TODO check if should resolve res.data and not res.
     const { data } = await axios.post(config().dataShareUrl, await getUserLocationsReadyForServer(token));
     dispatch(toggleLoader(false));
 

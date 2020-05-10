@@ -6873,6 +6873,11 @@ query-string@^6.10.1:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
+random-location@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/random-location/-/random-location-1.1.2.tgz#123b3b995c23f0fe90713b5ef881dfd7358daeda"
+  integrity sha512-AaYmdgB6lgTLG02XZ7sHrpIQnjRuYy5aL7WFS+CBYDLGJG8oPWAasJMoyGsBkFu5CmFasxdJ478+GlJfYTsL0A==
+
 range-parser@~1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
