@@ -224,7 +224,7 @@ android {
 
 dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    
+
     implementation "com.google.android.gms:play-services-base:+"
     implementation 'com.google.android.gms:play-services-maps:+'
     implementation 'com.google.firebase:firebase-core:17.3.0'
