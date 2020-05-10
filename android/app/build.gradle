@@ -137,8 +137,8 @@ android {
         applicationId "com.hamagen"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 47
-        versionName '1.3.9'
+        versionCode 48
+        versionName '1.3.10'
     }
 
     dexOptions {
@@ -224,7 +224,7 @@ android {
 
 dependencies {
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    
     implementation "com.google.android.gms:play-services-base:+"
     implementation 'com.google.android.gms:play-services-maps:+'
     implementation 'com.google.firebase:firebase-core:17.3.0'
