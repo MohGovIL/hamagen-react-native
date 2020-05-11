@@ -1,0 +1,15 @@
+/*
+  InfoPlist.strings
+  codeAgainstCorona
+
+  Created by Leeron Rabinov on 08/05/2020.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Location data required to cross-reference your routes with those of confirmed COVID-19 patients";
+
+NSLocationAlwaysUsageDescription = "Location required to cross-reference your routes with those of confirmed COVID-19 patients";
+
+NSLocationWhenInUseUsageDescription = "Location required to cross-reference your routes with those of confirmed COVID-19 patients";
+
+NSMotionUsageDescription = "Motion data required to cross-reference your routes with those of confirmed COVID-19 patients";
+

@@ -1,0 +1,15 @@
+/*
+  InfoPlist.strings
+  codeAgainstCorona
+
+  Created by Leeron Rabinov on 08/05/2020.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים";
+
+NSLocationAlwaysUsageDescription = "יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים";
+
+NSLocationWhenInUseUsageDescription = "יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים";
+
+NSMotionUsageDescription = "יש לאפשר גישה לחיישני תנועה על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים";
+

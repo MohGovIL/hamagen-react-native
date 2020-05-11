@@ -32,6 +32,8 @@
 		D52A57DC2420405900521B22 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D52A57DB2420405800521B22 /* GoogleService-Info.plist */; };
 		D5CC7DD824236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */; };
 		D5CC7DD924236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */; };
+		E993C31824694A9500FBA585 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E993C31B24694A9500FBA585 /* InfoPlist.strings */; };
+		E993C31924694A9500FBA585 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E993C31B24694A9500FBA585 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,14 @@
 		D5CC7DC924235864007E3977 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = Pods/TSBackgroundFetch/ios/TSBackgroundFetch/TSBackgroundFetch.framework; sourceTree = "<group>"; };
 		D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E993C31A24694A9500FBA585 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C31C24694AAC00FBA585 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C32124694AD200FBA585 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C32224694B2500FBA585 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C32324694B2B00FBA585 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C32424694B6600FBA585 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		E993C32524694B7B00FBA585 /* am-ET */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "am-ET"; path = "am-ET.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		E993C32624694B8B00FBA585 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		EAB71A48ABBFB468FB6DA26E /* Pods-codeAgainstCoronaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCoronaTests.debug.xcconfig"; path = "Target Support Files/Pods-codeAgainstCoronaTests/Pods-codeAgainstCoronaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -126,6 +136,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				D52A57B9241E4EF500521B22 /* Fix.swift */,
 				D52A57B8241E4EF500521B22 /* codeAgainstCorona-Bridging-Header.h */,
+				E993C31B24694A9500FBA585 /* InfoPlist.strings */,
 			);
 			name = codeAgainstCorona;
 			sourceTree = "<group>";
@@ -315,6 +326,13 @@
 				English,
 				en,
 				Base,
+				fr,
+				de,
+				es,
+				ru,
+				he,
+				"am-ET",
+				ar,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
@@ -349,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D52A57B4241E29B800521B22 /* SimplerPro_V3-Regular.otf in Resources */,
+				E993C31824694A9500FBA585 /* InfoPlist.strings in Resources */,
 				D52A57B6241E29B800521B22 /* SimplerPro_V3-Black.otf in Resources */,
 				D52A57BB241FE12000521B22 /* Images.xcassets in Resources */,
 				D52A57B7241E29B800521B22 /* SimplerPro_V3-Bold.otf in Resources */,
@@ -369,6 +388,7 @@
 				D52A57CE24203FBB00521B22 /* LaunchScreen.xib in Resources */,
 				D52A57D024203FBB00521B22 /* SimplerPro_V3-Light.otf in Resources */,
 				D52A57DA2420404900521B22 /* GoogleService-Info.plist in Resources */,
+				E993C31924694A9500FBA585 /* InfoPlist.strings in Resources */,
 				D52A57D82420403100521B22 /* Info-qa.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -557,6 +577,21 @@
 			);
 			name = LaunchScreen.xib;
 			path = codeAgainstCorona;
+			sourceTree = "<group>";
+		};
+		E993C31B24694A9500FBA585 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E993C31A24694A9500FBA585 /* en */,
+				E993C31C24694AAC00FBA585 /* fr */,
+				E993C32124694AD200FBA585 /* de */,
+				E993C32224694B2500FBA585 /* es */,
+				E993C32324694B2B00FBA585 /* ru */,
+				E993C32424694B6600FBA585 /* he */,
+				E993C32524694B7B00FBA585 /* am-ET */,
+				E993C32624694B8B00FBA585 /* ar */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
