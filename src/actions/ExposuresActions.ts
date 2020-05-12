@@ -55,3 +55,11 @@ export const dismissExposure = (exposureId: number) => async (dispatch: any) => 
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([exposureId]));
   }
 };
+
+export const setExposureSelected = (index: number, wasThere: boolean) => (dispatch: any,getState) => {
+
+  const exposures = [...getState().exposures.exposures]
+  exposures[index].wasThere = wasThere
+
+  dispatch({ type: UPDATE_EXPOSURES, payload: { exposures } });
+}

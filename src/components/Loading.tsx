@@ -7,13 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import BackgroundFetch from 'react-native-background-fetch';
 import BackgroundGeolocation, { State } from 'react-native-background-geolocation';
-import Welcome from './Onboarding/Welcome';
-import Location from './Onboarding/Location';
-import LocationIOS from './Onboarding/LocationIOS';
-import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
-import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
-import Notifications from './Onboarding/Notifications';
-import AllSet from './Onboarding/AllSet';
+import OnboardingRoutes from './Onboarding/OnboardingRoutes';
 import Home from './Drawer/Home';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
 import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
@@ -45,6 +39,7 @@ import {
   USAGE_ON_BOARDING,
   VALID_EXPOSURE
 } from '../constants/Constants';
+
 
 interface Props {
   isInitLocale: boolean,
@@ -169,9 +164,44 @@ const Loading = (
       }
 
       const dbSick = new IntersectionSickDatabase();
-
+   
       const exposures = await dbSick.listAllRecords();
-
+      // dbSick.addSickRecord({
+      //   "type": "Feature",
+      //   "id": 535254,
+      //   "geometry": {
+      //     "type": "Point",
+      //     "coordinates": [
+      //       35.215422888,
+      //       31.7511387440001
+      //     ]
+      //   },
+      //   "properties": {
+      //     "OBJECTID": 17324,
+      //     "ID": null,
+      //     "Name": "",
+      //     "Place": "רמי לוי - ירושלים",
+      //     "Date": 1587662721000,
+      //     "types": "G_Poi",
+      //     "Comments": null,
+      //     "POINT_X": 31.7511387440001,
+      //     "POINT_Y": 35.215422888,
+      //     "fromTime": 1587567600000,
+      //     "toTime": 1587574800000,
+      //     "sourceOID": 1,
+      //     "flight": null,
+      //     "flightFrom": null,
+      //     "flightArrival": null,
+      //     "stayTimes": "16:00 - 18:00",
+      //     "fromTime_utc": 1587560400000,
+      //     "toTime_utc": 1587567600000,
+      //     "Key_Field": 17324,
+      //     "radius": null,
+      //     "valid": 1,
+      //     "address": "ירושלים"
+      //   }
+      // })
+      
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
@@ -202,13 +232,7 @@ const Loading = (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationIOS" component={LocationIOS} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="FilterDrivingOnBoarding" component={FilterDrivingOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+          <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
 
@@ -237,12 +261,8 @@ const mapStateToProps = (state: any) => {
   return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    initLocale,
-    toggleWebview,
-    checkForceUpdate
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, {
+  initLocale,
+  toggleWebview,
+  checkForceUpdate
+})(Loading);

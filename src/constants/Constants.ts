@@ -21,6 +21,7 @@ export const IS_SMALL_SCREEN: boolean = SCREEN_HEIGHT < 618;
 // Colors
 export const MAIN_COLOR = '#0077c8';
 export const TEXT_COLOR = '#191919';
+export const WHITE = '#fff'
 export const BACK_DROP_COLOR: string = 'rgba(0,0,0,0.7)';
 
 // Styles

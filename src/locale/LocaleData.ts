@@ -150,7 +150,10 @@ export interface Strings {
     },
     noExposures: {
       bannerText: string,
+      bannerTextPristine: string,
       workAllTheTime: string,
+      instructionLinkUpper: string,
+      instructionLinkLower: string,
       infoModal: {
         textBodyPt1: string,
         textBodyPt2: string

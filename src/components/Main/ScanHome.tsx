@@ -1,19 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
-import { bindActionCreators } from 'redux';
 import SplashScreen from 'react-native-splash-screen';
 import { useFocusEffect } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoData from './NoData';
-import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
-import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
@@ -30,6 +27,7 @@ interface Props {
   languages: Languages,
   externalUrls: ExternalUrls,
   exposures: Exposure[],
+  pastExposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,
   hideLocationHistory: boolean,
@@ -50,6 +48,7 @@ const ScanHome = (
     languages,
     externalUrls,
     exposures,
+    pastExposures,
     validExposure,
     setValidExposure,
     removeValidExposure,
@@ -136,8 +135,77 @@ const ScanHome = (
   const handleGPSProviderEvent = (e: any) => {
     setIsConnected({ hasLocation, hasNetwork, hasGPS: e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED });
   };
+  const exposureState = useMemo(() => {
+    // user never got any exposure detected
+    if (exposures.length + pastExposures.length === 0)
+      return 'pristine'
+    // check if user past exposures are relevant
+    // ie: is less then 14 days old and 
+    if (exposures.some(() => false) && pastExposures.some(() => false))
+      return 'relevant'
+    return 'notRelevant'
+  }, [exposures, pastExposures])
 
-  const renderRelevantState = () => {
+
+  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS) ? (<NoData strings={strings} />) :
+    (
+      <NoExposures
+        isRTL={isRTL}
+        strings={strings}
+        firstPoint={firstPoint}
+        exposureState={exposureState}
+        hideLocationHistory={hideLocationHistory}
+        locale={locale}
+        languages={languages}
+        externalUrls={externalUrls}
+        goToLocationHistory={() => navigation.navigate('LocationHistory')}
+      />)
+
+  return (
+    <View style={styles.container}>
+      <ScanHomeHeader
+        languages={languages}
+        isRTL={isRTL}
+        locale={locale}
+        externalUrls={externalUrls}
+        strings={strings}
+        openDrawer={navigation.openDrawer}
+      />
+      {RelevantState}
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  }
+});
+
+const mapStateToProps = (state: any) => {
+  const {
+    locale: { isRTL, strings, locale, languages, externalUrls },
+    general: { hideLocationHistory },
+    exposures: { exposures, pastExposures, validExposure, firstPoint }
+  } = state;
+
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory };
+};
+
+
+export default connect(mapStateToProps, {
+  setValidExposure,
+  removeValidExposure,
+  dismissExposure,
+  checkForceUpdate,
+  checkIfHideLocationHistory,
+  showMapModal
+})(ScanHome);
+
+
+/*
+const renderRelevantState = () => {
     if (validExposure) {
       return (
         <ExposureInstructions
@@ -168,62 +236,6 @@ const ScanHome = (
     }
 
     return (
-      <NoExposures
-        isRTL={isRTL}
-        strings={strings}
-        
-        firstPoint={firstPoint}
-        hideLocationHistory={hideLocationHistory}
-        goToLocationHistory={() => navigation.navigate('LocationHistory')}
-      />
+
     );
-  };
-
-  return (
-    <View style={styles.container}>
-      <ScanHomeHeader
-        languages={languages}
-        isRTL={isRTL}
-        locale={locale}
-        externalUrls={externalUrls}
-        strings={strings}
-        openDrawer={navigation.openDrawer}
-      />
-
-      {
-        renderRelevantState()
-      }
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  }
-});
-
-const mapStateToProps = (state: any) => {
-  const {
-    locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory },
-    exposures: { exposures, validExposure, firstPoint }
-  } = state;
-
-  return { isRTL, strings, locale, languages, externalUrls, exposures, validExposure, firstPoint, hideLocationHistory };
-};
-
-
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    setValidExposure,
-    removeValidExposure,
-    dismissExposure,
-    checkForceUpdate,
-    checkIfHideLocationHistory,
-    showMapModal
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ScanHome);
+  }; */
