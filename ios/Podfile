@@ -1,4 +1,4 @@
-platform :ios, '9.0'
+platform :ios, '10.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
 def project_pods
@@ -55,6 +55,6 @@ target 'hamagen' do
 end
 
 target 'hamagen-qa' do
-  project_pods
-  use_native_modules!
+    project_pods
+    use_native_modules!
 end

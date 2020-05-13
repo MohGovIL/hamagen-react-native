@@ -26,6 +26,7 @@ import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
+import { initBLETracing } from '../services/BLEService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -153,6 +154,7 @@ const Loading = (
         }
       }
 
+      await initBLETracing();
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       await startForegroundTimer();

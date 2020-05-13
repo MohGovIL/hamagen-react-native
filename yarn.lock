@@ -7022,7 +7022,7 @@ react-native-sqlite-storage@4.1.0:
   resolved "https://registry.yarnpkg.com/react-native-sqlite-storage/-/react-native-sqlite-storage-4.1.0.tgz#641780eef06bc90b853d3dcd628c0fe54b656d7b"
   integrity sha512-H8++CILlZQ2f2n+OvVmGyqMaV+UFKTRSTx9/3eIAxBg4d0rjeZogs6hgHlfADvEGNmrEyUBDpnX9+uHnDtwAHQ==
 
-react-native-uuid-generator@6.1.1:
+react-native-uuid-generator@^6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/react-native-uuid-generator/-/react-native-uuid-generator-6.1.1.tgz#59ca80f1eacd282311593af49fde34331d712b6e"
   integrity sha512-jWF0wiGTUTkCBTpspUZatC7wlhjN3GRbW9YblaxxpuMuhk0DEOQXOp1qgsDd2vLTL8GsM3i7Hnatvfj1kwf88w==
@@ -7432,6 +7432,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-contact-tracing@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/rn-contact-tracing/-/rn-contact-tracing-0.0.4.tgz#d7b3dbe8fb3b1e3fe2392c9a53255558851257c5"
+  integrity sha512-z1/hNnw3Egg+0L3JfR51g+FF+2g9nE7v8y4CTPIggEvtmP8Q/hlRkjfoLfKOLzLSk4BRSjhVomUn7q2S2E6OCw==
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"
