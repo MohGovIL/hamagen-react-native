@@ -7,7 +7,8 @@ import {
   SET_VALID_EXPOSURE,
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
-  UPDATE_FIRST_POINT
+  UPDATE_FIRST_POINT,
+  REPLACE_EXPOSURES
 } from '../constants/ActionTypes';
 
 const INITIAL_STATE = {
@@ -21,6 +22,7 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
   switch (action.type) {
     case UPDATE_EXPOSURES: {
       const { exposures } = action.payload;
+      
       return { ...state, exposures: _.sortBy([...state.exposures, ...exposures], exposure => exposure.properties.fromTime).reverse() };
     }
 
@@ -49,6 +51,11 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
 
     case UPDATE_FIRST_POINT: {
       return { ...state, firstPoint: action.payload };
+    }
+
+    case REPLACE_EXPOSURES: {
+      const { exposures } = action.payload;
+      return {...state, exposures }
     }
 
     default:

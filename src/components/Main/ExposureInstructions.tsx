@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, StyleSheet, Linking, ScrollView } from 'react-native';
 import moment from 'moment';
-import { Exposure } from '../../types';
+import { Exposure, Store, LocaleReducer } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import {
@@ -9,37 +9,50 @@ import {
   IS_SMALL_SCREEN,
   MAIN_COLOR,
   PADDING_BOTTOM,
-  SCREEN_WIDTH
+  SCREEN_WIDTH,
+  PADDING_TOP,
+  HIT_SLOP
 } from '../../constants/Constants';
+import { useSelector } from 'react-redux';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
 
 interface Props {
-  isRTL: boolean,
-  strings: Strings,
-  locale: string,
-  languages: Languages,
-  externalUrls: ExternalUrls,
-  exposure: Exposure,
-  removeValidExposure(): void
+  navigation: StackNavigationProp<any>,
+  route: RouteProp<any>
 }
 
-const ExposureInstructions = (
-  {
+// exposure: { properties: { Place, fromTime } },
+const ExposureInstructions = ({ navigation, route }: Props) => {
+  const {
     isRTL,
     locale,
     languages,
     externalUrls,
     strings: {
-      scanHome: { inDate, fromHour },
-      exposureInstructions: { title, weUnderstand, wrong, keepSafe, goIntoIsolation, reportIsolation, allInstructions, reportSite }
+      scanHome: { atPlace },
+      exposureInstructions: { title, subTitle, themInstructions, editBtn, finishBtn, goIntoIsolation, reportIsolation, allInstructions, reportSite }
     },
-    exposure: { properties: { Place, fromTime } },
-    removeValidExposure
-  }: Props
-) => {
-  const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
+  } = useSelector<Store, LocaleReducer>(state => state.locale)
 
-  const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
-  const reportForm = externalUrls.reportForm[relevantLocale];
+  const exposures = useSelector<Store, Exposure[]>(state => state.exposures.exposures.filter((exposure: Exposure) => exposure.properties.wasThere))
+
+  const [furtherInstructions, reportForm] = useMemo(() => {
+    const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he'
+
+    return [
+      externalUrls.furtherInstructions[relevantLocale],
+      externalUrls.reportForm[relevantLocale]
+    ]
+  }, [languages.short, locale])
+
+  const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => (
+    <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, marginVertical: IS_SMALL_SCREEN ? 5 : 10 }} key={exposure.properties.OBJECTID}>
+      <Text bold>• </Text>
+      <Text>{`${atPlace}${exposure.properties.Place}`}</Text>
+    </Text>
+  )
+  ), [exposures, locale])
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
@@ -54,47 +67,79 @@ const ExposureInstructions = (
   );
 
   return (
-    <FadeInView style={{ flex: 1 }}>
-      <ScrollView
-        bounces={false}
-        contentContainerStyle={styles.subContainer}
-        showsVerticalScrollIndicator={false}
+
+    <ScrollView
+      bounces={false}
+      contentContainerStyle={styles.subContainer}
+      showsVerticalScrollIndicator={false}
+    >
+      {route.params?.showEdit && <TouchableOpacity
+        hitSlop={HIT_SLOP}
+        style={{
+          flexDirection: isRTL ? 'row' : 'row-reverse',
+          alignContent: 'center',
+          alignItems: 'center',
+          position: 'absolute',
+          top: PADDING_TOP(28),
+          [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
+        }}
+        onPress={navigation.goBack}
       >
-        <View style={{ flex: 1, alignItems: 'center' }}>
-          <Text style={styles.title} bold>{title}</Text>
+        <Icon
+          width={IS_SMALL_SCREEN ? 20 : 24}
+          source={require('../../assets/main/back.png')}
+          customStyles={{
+            transform: [{ rotate: !isRTL ? '0deg' : '180deg' }]
+          }}
+        />
+        <Text
+          bold
+          style={{
+            fontSize: IS_SMALL_SCREEN ? 13 : 15,
+            color: MAIN_COLOR,
+            marginHorizontal: IS_SMALL_SCREEN ? 5 : 8
+          }}
+        >{editBtn}</Text>
+      </TouchableOpacity>}
 
-          <Text style={{ lineHeight: 22, marginBottom: 15, paddingHorizontal: 10 }}>
-            {`${weUnderstand}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}?`}
-          </Text>
 
-          <TouchableOpacity style={{ marginBottom: IS_SMALL_SCREEN ? 30 : 50 }} onPress={removeValidExposure}>
-            <Text style={{ fontSize: 14 }}>{wrong}</Text>
-            <View style={styles.bottomBorder} />
-          </TouchableOpacity>
+      <View style={{ justifyContent: 'flex-start', flex: 1 }}  >
+
+        <Text style={styles.title} bold>{title}</Text>
+        <Text style={{ marginBottom: 3 }}>{subTitle}</Text>
+        {ExposureList}
+
+      </View>
+      <View style={{ justifyContent: 'space-evenly', flex: 1 }} >
+        <Text style={{ marginBottom: IS_SMALL_SCREEN ? 12 : 25 }} bold>{themInstructions}</Text>
+        <View style={!IS_SMALL_SCREEN && { width: SCREEN_WIDTH - (23 * 2), flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap', justifyContent: 'space-between', }}>
+          {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
+          {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
         </View>
+        <Text
+          bold
+          onPress={navigation.popToTop}
+          style={{
+            color: MAIN_COLOR,
+            marginTop: IS_SMALL_SCREEN ? 22 : 32,
+            fontSize: IS_SMALL_SCREEN ? 14 : 16
+          }}
+        >{finishBtn}</Text>
+      </View>
+    </ScrollView>
 
-        <Text style={{ marginBottom: 25 }} bold>{keepSafe}</Text>
-    <View style={!IS_SMALL_SCREEN  && {width: SCREEN_WIDTH - 23*2, flexDirection :'row', flexWrap: 'wrap', justifyContent: 'space-between',}}>
-
-        {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
-        {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
-    </View>
-      </ScrollView>
-    </FadeInView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
   subContainer: {
+    flex: 1,
     paddingHorizontal: 30,
     alignItems: 'center',
-    paddingTop: IS_SMALL_SCREEN ? 25 : 40,
-    paddingBottom: PADDING_BOTTOM(10),
+    justifyContent: 'space-between',
+    paddingTop: IS_SMALL_SCREEN ? 25 : PADDING_TOP(76),
+    paddingBottom: PADDING_BOTTOM(41)
+    // paddingVertical: PADDING_BOTTOM(76),
   },
   title: {
     fontSize: 22,
@@ -117,20 +162,19 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   button: {
-    width: 82,
-    // height: 32,
-    padding: 2,
+    // width: 82,
+    padding: 4,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 6,
     backgroundColor: MAIN_COLOR,
-    
+
   },
   actionText: {
-    flex: 1,
+
     lineHeight: 16,
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    paddingHorizontal: 10,
+    // paddingHorizontal: 10,
     marginBottom: IS_SMALL_SCREEN ? 0 : 23,
     marginTop: IS_SMALL_SCREEN ? 0 : 13
   },

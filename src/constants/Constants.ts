@@ -15,7 +15,7 @@ export const IS_IPHONE_X: boolean = Platform.OS === 'ios' && (isIPhoneXSize || i
 export const SCREEN_HEIGHT: number = Platform.OS === 'ios' ? Dimensions.get('window').height : ExtraDimensions.get('REAL_WINDOW_HEIGHT') - ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT') - ExtraDimensions.get('STATUS_BAR_HEIGHT');
 export const SCREEN_WIDTH: number = Dimensions.get('window').width;
 export const PADDING_TOP = (padBy: number = 0): number => padBy + (IS_IOS ? (IS_IPHONE_X ? 32 : 20) : 0);
-export const PADDING_BOTTOM = (padBy: number): number => padBy + (IS_IPHONE_X ? 15 : 0);
+export const PADDING_BOTTOM = (padBy: number = 0): number => padBy + (IS_IPHONE_X ? 15 : 0);
 export const IS_SMALL_SCREEN: boolean = SCREEN_HEIGHT < 618;
 
 // Colors

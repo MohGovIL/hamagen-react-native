@@ -170,7 +170,12 @@ export interface Strings {
   exposuresHistory: {
     title: string,
     noExposures: string,
-    keepInstructions: string
+    keepInstructions: string,
+    subTitle: string,
+    wasNotTheres: string,
+    wasThere: string,
+    wasThereNoExposure: string,
+    wasNotThereNoExposure: string
   },
   exposureInstructions: {
     title: string,
@@ -181,7 +186,11 @@ export interface Strings {
     reportIsolation: string,
     allInstructions: string,
     reportSite: string,
-    keepSafeNew: string
+    keepSafeNew: string,
+    subTitle: string,
+    themInstructions: string,
+    editBtn: string,
+    finishBtn: string
   },
   locationHistory: {
     beforeCheckTitle: string,
@@ -238,6 +247,12 @@ export interface Strings {
       shareFailMissingToken: string,
       shareFailTokenError: string
     }
+  },
+  exposureRelief: {
+    editBtn: string,
+    title: string,
+    keepSafe: string,
+    backBtn: string
   }
 }
 

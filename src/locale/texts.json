@@ -226,7 +226,12 @@
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
       "noExposures": "לשמחתנו, אין אירועים ב-14 הימים האחרונים״  ",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -237,7 +242,11 @@
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
       "reportSite": "לדיווח באתר",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:"
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -294,6 +303,12 @@
         "shareFailMissingToken": "הבנתי, תודה",
         "shareFailTokenError": "נסה שנית"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית"
     }
   },
   "ar": {
@@ -426,7 +441,12 @@
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق",
-      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات"
+      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -625,7 +645,12 @@
     "exposuresHistory": {
       "title": "Exposure history",
       "noExposures": "No overlap points found",
-      "keepInstructions": "It is important to keep following the guidelines"
+      "keepInstructions": "It is important to keep following the guidelines",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -824,7 +849,12 @@
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения",
-      "keepInstructions": "Важно продолжать следовать рекомендациям"
+      "keepInstructions": "Важно продолжать следовать рекомендациям",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -1023,7 +1053,12 @@
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
-      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው"
+      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1217,12 +1252,17 @@
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
-      "wasMe": "Cela peut être"
+      "wasMe": "Cela peut être",
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
-      "keepInstructions": "Il est important de continuer à suivre les directives"
+      "keepInstructions": "Il est important de continuer à suivre les directives",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",

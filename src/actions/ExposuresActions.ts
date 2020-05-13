@@ -7,7 +7,8 @@ import {
   REMOVE_VALID_EXPOSURE,
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
-  DISMISS_EXPOSURE
+  DISMISS_EXPOSURE,
+  REPLACE_EXPOSURES
 } from '../constants/ActionTypes';
 import { DISMISSED_EXPOSURES, VALID_EXPOSURE } from '../constants/Constants';
 
@@ -56,10 +57,10 @@ export const dismissExposure = (exposureId: number) => async (dispatch: any) => 
   }
 };
 
-export const setExposureSelected = (index: number, wasThere: boolean) => (dispatch: any,getState) => {
+export const setExposureSelected = ({index, wasThere}) => (dispatch: any,getState) => {
 
   const exposures = [...getState().exposures.exposures]
-  exposures[index].wasThere = wasThere
+  exposures[index].properties.wasThere = wasThere
 
-  dispatch({ type: UPDATE_EXPOSURES, payload: { exposures } });
+  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures } })
 }

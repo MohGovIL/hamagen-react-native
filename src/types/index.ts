@@ -56,7 +56,8 @@ export interface ExposureProperties {
   radius?: number,
   geohashFilter: string,
   lat?: number,
-  long?: number
+  long?: number,
+  wasThere?: boolean
 }
 
 export interface ExposureGeometry {

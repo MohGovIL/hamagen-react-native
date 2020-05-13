@@ -25,7 +25,7 @@ const ExposureHistoryListItem = ({ isRTL, strings: { scanHome: { fromHour, showO
           <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
         </Text>
 
-        <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left', marginVertical: 10 }]} bold>{Place}</Text>
+        <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{Place}</Text>
 
         <TouchableOpacity onPress={showExposureOnMap}>
           <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
@@ -41,7 +41,6 @@ const ExposureHistoryListItem = ({ isRTL, strings: { scanHome: { fromHour, showO
 const styles = StyleSheet.create({
   listItemContainer: {
     ...BASIC_SHADOW_STYLES,
-    width: SCREEN_WIDTH - 24,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 13,
@@ -54,7 +53,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 13,
-    lineHeight: 20
+    lineHeight: 20,
+    marginVertical: 10
   },
   separator: {
     width: SCREEN_WIDTH * 0.875,
