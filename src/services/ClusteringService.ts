@@ -21,17 +21,17 @@ export const clusterSample = async () => {
   // fetch last 2 points from locations DB (AKA "buffer").
   const buffer: DBLocation[] = await locationsDB.getBufferSamplesForClustering(2);
 
-  if (buffer.length < 2) {
-    return;
-  }
-
   // fetch current cluster from clusters DB.
   const currentCluster: Cluster = await clustersDB.getLastClusterEntered();
 
   const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
 
-  // if first point in buffer belongs to the current cluster.
+  if (buffer.length < 2 || currentCluster.endTime > firstLocationInBuffer.startTime) {
+    return;
+  }
+
   if (currentCluster) {
+    // if first point in buffer belongs to the current cluster.
     if (areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)) {
       const jitterLocation = JSON.parse(await AsyncStorage.getItem(CLUSTER_JITTER_LOCATION) || 'false');
 
@@ -141,7 +141,7 @@ export const clusterLocationsOnAppUpdate = () => new Promise(async (resolve) => 
   });
 });
 
-const clusterLocationHistorySynchronously = (currentLocations: DBLocation[]) => {
+export const clusterLocationHistorySynchronously = (currentLocations: DBLocation[], isGoogleTimelineLocations?: boolean) => {
   let isJitter = false;
   let currentClusterLocationsData: Array<{ lat: number, long: number }> = [];
   const clusters: Cluster[] = [];
@@ -150,17 +150,31 @@ const clusterLocationHistorySynchronously = (currentLocations: DBLocation[]) => 
     // fetch last 2 points from locations DB (AKA "buffer").
     const buffer: DBLocation[] = currentLocations.slice(index, index + 2);
 
+    const currentCluster: Cluster = clusters[clusters.length - 1];
+    const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
+
+    // if from google timeline and is the last point  if belong and start a new one if not
+    if (isGoogleTimelineLocations && (index === (currentLocations.length - 1))) {
+      // if belongs to current cluster add to it
+      if (areLocationsCreatingCluster(currentCluster, firstLocationInBuffer) && currentCluster.endTime === firstLocationInBuffer.startTime) {
+        const { updatedCluster } = updateClusterSynchronously(currentCluster, firstLocationInBuffer, currentClusterLocationsData);
+        clusters[clusters.length - 1] = updatedCluster;
+        return;
+      }
+
+      // else create new cluster and done
+      const { lat, long, startTime, endTime }: DBLocation = firstLocationInBuffer;
+      clusters.push({ lat, long, startTime, endTime, geoHash: Geohash.encode(lat, long, 6), radius: 0, size: 1 });
+      return;
+    }
+
+
     if (buffer.length < 2) {
       return;
     }
 
-    // fetch current cluster from clusters DB.
-    const currentCluster: Cluster = clusters[clusters.length - 1];
-
-    const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
-
-    // if first point in buffer belongs to the current cluster.
     if (currentCluster) {
+      // if first point in buffer belongs to the current cluster.
       if (areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)) {
         const jitterLocation = isJitter;
 
