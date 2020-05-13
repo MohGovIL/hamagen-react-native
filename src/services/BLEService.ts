@@ -15,6 +15,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
       scanInterval: 10000,
       advertiseInterval: 10000,
       advertiseDuration: 10000,
+      advertiseMode: 0,
       token: UUID
     };
 
@@ -24,7 +25,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
         advertiseTXPowerLevel: 3,
         scanMatchMode: 1,
         notificationTitle: '',
-        notificationContent: 'סוריקת BLE פועלת'
+        notificationContent: 'סריקת BLE פועלת'
       };
     }
 
