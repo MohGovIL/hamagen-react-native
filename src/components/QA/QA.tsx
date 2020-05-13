@@ -216,6 +216,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Alert.alert('Cleared', '', [{ text: 'OK' }]);
   };
 
+  const clearClustersLogs = async () => {
+    await AsyncStorage.removeItem(CLUSTERING_RESULT_LOG_FOR_QA);
+    Alert.alert('Cleared', '', [{ text: 'OK' }]);
+  };
+
   const copyAllData = async () => {
     const allPoints = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
     const DBPoints = await queryDB(false);
@@ -353,6 +358,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה את ה Clusters log" onPress={clearClustersLogs} />
         </View>
 
         <View style={styles.buttonWrapper}>

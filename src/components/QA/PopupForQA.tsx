@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, Modal, FlatList, Clipboard, Alert } from 'react-native';
 import { connect } from 'react-redux';
+import RNFS from 'react-native-fs';
+import { request, PERMISSIONS, RESULTS, } from 'react-native-permissions';
 import moment from 'moment';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Text, TouchableOpacity } from '../common';
 import { queryDB } from '../../services/Tracker';
+import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { Cluster, DBLocation } from '../../types';
-import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { ALL_POINTS_QA, HIGH_VELOCITY_POINTS_QA, IS_IOS, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
 
 interface Props {
   isVisible: boolean,
@@ -67,7 +70,7 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
     setListOfSamples(list);
   };
 
-  const copyClicked = (arr: any) => {
+  const copyClicked = async (arr: any) => {
     let csv = type !== 'clusters' ? 'lat, long, accuracy, startTime, endTime, reason\n' : 'lat, long, startTime, endTime, radius, size\n';
 
     arr.forEach((point: any) => {
@@ -77,6 +80,18 @@ const PopupForQA = ({ isVisible, type, closeModal }: Props) => {
 
     Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
     Clipboard.setString(csv);
+
+    if (!IS_IOS && type === 'locations') {
+      const permissionResult = await request(PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE);
+
+      if (permissionResult === RESULTS.GRANTED) {
+        const filename = 'points.csv';
+        const baseDir = RNFS.DownloadDirectoryPath;
+        const filepath = `${baseDir}/${filename}`;
+
+        await RNFS.writeFile(filepath, csv, 'utf8');
+      }
+    }
   };
 
   return (
