@@ -39,7 +39,7 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
     const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
 
-    const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points);
+    const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points, isClusters);
     if (sickPeopleIntersected.length > 0) {
       onSickPeopleNotify(sickPeopleIntersected);
     }
@@ -61,7 +61,7 @@ export const checkSickPeople = async (forceCheck: boolean = false, isClusters: b
     const myData = await queryDB(isClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
-    const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
+    const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson, isClusters) : getIntersectingSickRecords(myData, responseJson, isClusters);
 
     if (sickPeopleIntersected.length > 0) {
       await onSickPeopleNotify(sickPeopleIntersected);
@@ -76,7 +76,7 @@ export const checkSickPeople = async (forceCheck: boolean = false, isClusters: b
   }
 };
 
-export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: SickJSON) => {
+export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
   const sickPeopleIntersected: any = [];
 
   if (myData.length === 0) {
@@ -87,8 +87,8 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
       // for each raw in user data
       myData.reverse().forEach((userRecord: Location) => {
         if (
-          isTimeOverlapping(userRecord, sickRecord)
-          && isSpaceOverlapping(userRecord, sickRecord)
+          isTimeOverlapping(userRecord, sickRecord, isClusters)
+          && isSpaceOverlapping(userRecord, sickRecord, isClusters)
         ) {
           // add sick people you intersects
           sickRecord.properties.fromTime_utc = Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc);
@@ -102,7 +102,7 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
   return sickPeopleIntersected;
 };
 
-export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON) => {
+export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
   const sickPeopleIntersected: any = [];
 
   if (myData.length === 0) {
@@ -128,7 +128,7 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
       // for each raw in user data
       if (mappedLocations[sickRecordGeohashPrefix]) {
         mappedLocations[sickRecordGeohashPrefix].reverse().forEach((userRecord: Location) => {
-          if (isTimeOverlapping(userRecord, sickRecord) && isSpaceOverlapping(userRecord, sickRecord)) {
+          if (isTimeOverlapping(userRecord, sickRecord, isClusters) && isSpaceOverlapping(userRecord, sickRecord, isClusters)) {
             // add sick people you intersects
             sickRecord.properties.fromTime_utc = Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc);
             sickRecord.properties.toTime_utc = userRecord.endTime;
@@ -142,18 +142,19 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
   return sickPeopleIntersected;
 };
 
-const checkMillisecondsDiff = (to: number, from: number) => {
-  return to - from > (config().intersectWithClusters ? config().intersectMillisecondsWithCluster : config().intersectMilliseconds);
+const checkMillisecondsDiff = (to: number, from: number, isClusters: boolean) => {
+  return to - from > (isClusters ? config().intersectMillisecondsWithCluster : config().intersectMilliseconds);
 };
 
-export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) => {
+export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure, isClusters: boolean) => {
   return checkMillisecondsDiff(
     Math.min(userRecord.endTime, sickRecord.properties.toTime_utc),
-    Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc)
+    Math.max(userRecord.startTime, sickRecord.properties.fromTime_utc),
+    isClusters
   );
 };
 
-export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
+export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure, isClusters: boolean) => {
   const start = {
     latitude: clusterOrLocation.lat,
     longitude: clusterOrLocation.long,
@@ -164,7 +165,7 @@ export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { proper
     longitude: coordinates[config().sickGeometryLongIndex],
   };
 
-  return haversine(start, end, { threshold: (radius || config().meterRadius) + (config().intersectWithClusters ? clusterOrLocation.radius : 0), unit: config().bufferUnits });
+  return haversine(start, end, { threshold: (radius || config().meterRadius) + (isClusters ? clusterOrLocation.radius : 0), unit: config().bufferUnits });
 };
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
