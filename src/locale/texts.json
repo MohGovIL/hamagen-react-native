@@ -436,27 +436,26 @@
           "title": "اعتبارًا من:",
           "atHour": "في"
         },
-        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
-        "instructionLinkUpper": "לשימוש במידת הצורך:",
-        "instructionLinkLower": "הנחיות לשוהים בבידוד"
+        "bannerTextPristine": "لم يتم العثور على\nنقاط تداخل",
+        "instructionLinkUpper": "للاستخدام إذا لزم الأمر:",
+        "instructionLinkLower": "إرشادات للبقاء في عزلة"
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
       "wasMe": "قد يكون",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "انتهيت من التحديث"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق",
       "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات",
-      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
-      "wasThere": "ייתכן שהיית שם",
-      "wasNotThere": "לא היית שם",
-      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
-      "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
-
+      "subTitle": "إليك جميع نقاط التداخل التي وجدناها في آخر 14\nيوم عند وضع علامة عليها",
+      "wasThere": "ربما كنت هناك",
+      "wasNotThere": "لم تكن هناك",
+      "wasThereNoExposure": "من دواعي سرورنا أنه لا توجد أحداث في آخر 14 يومًا وضعت عليها علامة \"ربما كنت هناك\"",
+      "wasNotThereNoExposure": "لا توجد أحداث في الـ 14 يومًا الأخيرة التي وضعت عليها \"لم أكن هناك\"",
+      "historyEditFinishBtn": "حفظ التغييرات",
+      "historyEditCancelBtn": "تراجع عن التحرير"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -467,11 +466,11 @@
       "reportIsolation": "يتوجب عليكم إبلاغ وزارة الصحة",
       "allInstructions": "لكل التوصيات",
       "reportSite": "للإبلاغ",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
-      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
-      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
-      "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "keepSafeNew": "هذه هي إرشادات وزارة الصحة:",
+      "subTitle": "قد يكون هناك تداخل مع مريض كورونا",
+      "themInstructions": "هذه هي إرشادات وزارة الصحة:",
+      "editBtn": "تقييم",
+      "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -530,12 +529,12 @@
       }
     },
     "exposureRelief": {
-      "editBtn": "עריכה",
-      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
-      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית",
-      "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "editBtn": "تقييم",
+      "title": "يبدو أنك لم تتداخل مع القرنية",
+      "keepSafe": "من المهم الاستمرار في اتباع الإرشادات!",
+      "backBtn": "الرجوع إلى الصفحة الرئيسية",
+      "reliefTitle": "شكرا للتحديث",
+      "historyBacBtn": "العودة إلى تاريخ التداخل"
     }
   },
   "en": {
@@ -664,19 +663,19 @@
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
       "wasMe": "Might be",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "I'm done updating"
     },
     "exposuresHistory": {
       "title": "Exposure history",
       "noExposures": "No overlap points found",
       "keepInstructions": "It is important to keep following the guidelines",
-      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
-      "wasThere": "ייתכן שהיית שם",
-      "wasNotThere": "לא היית שם",
-      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
-      "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
+      "subTitle": "Here are all the overlaps we found in the last 14\ndays as you marked them",
+      "wasThere": "You may have been there",
+      "wasNotThere": "You weren't there",
+      "wasThereNoExposure": "To our delight, there are no events in the last 14 days for which you marked \"I may have been there\"",
+      "wasNotThereNoExposure": "There are no events in the last 14 days for which you marked \"I was not there\"",
+      "historyEditFinishBtn": "Saving changes",
+      "historyEditCancelBtn": "Undo editing"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -687,11 +686,11 @@
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
       "reportSite": "To report at the Site",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
-      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
-      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
-      "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "keepSafeNew": "These are the guidelines of the Ministry of Health:",
+      "subTitle": "There may have been overlap with Corona patient",
+      "themInstructions": "These are the guidelines of the Ministry of Health:",
+      "editBtn": "editing",
+      "finishBtn": "I'm done, back to the homepage"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -750,12 +749,12 @@
       }
     },
     "exposureRelief": {
-      "editBtn": "עריכה",
-      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
-      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית",
-      "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "editBtn": "editing",
+      "title": "You don't seem to have overlapped with a cornea",
+      "keepSafe": "It's important to keep following the guidelines!",
+      "backBtn": "Back to the homepage",
+      "reliefTitle": "Thanks for the update",
+      "historyBacBtn": "Back to overlap history"
     }
   },
   "ru": {
@@ -877,26 +876,26 @@
           "title": "По состоянию на:",
           "atHour": "в"
         },
-        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
-        "instructionLinkUpper": "לשימוש במידת הצורך:",
-        "instructionLinkLower": "הנחיות לשוהים בבידוד"
+        "bannerTextPristine": "Не найдено точек перекрытия \n",
+        "instructionLinkUpper": "Использовать при необходимости:",
+        "instructionLinkLower": "Правила пребывания в изоляции"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
       "wasMe": "Может быть",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "Я сделал обновление"
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения",
       "keepInstructions": "Важно продолжать следовать рекомендациям",
-      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
-      "wasThere": "ייתכן שהיית שם",
-      "wasNotThere": "לא היית שם",
-      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
-      "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
+      "subTitle": "Вот все точки наложения, которые мы нашли за последние 14 дней, когда вы их отмечали",
+      "wasThere": "Вы могли быть там",
+      "wasNotThere": "Тебя там не было",
+      "wasThereNoExposure": "К нашему восхищению, за последние 14 дней не было событий, для которых вы отметили \"Я, возможно, был там\"",
+      "wasNotThereNoExposure": "Нет событий за последние 14 дней, для которых вы отметили \"меня там не было\"",
+      "historyEditFinishBtn": "Сохранение изменений",
+      "historyEditCancelBtn": "Отменить редактирование"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -907,11 +906,11 @@
       "reportIsolation": "Сообщите о вашем карантине на сайте Минздрава",
       "allInstructions": "Инструкции",
       "reportSite": "Сообщить",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
-      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
-      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
-      "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "keepSafeNew": "Вот рекомендации Министерства здравоохранения:",
+      "subTitle": "Там может быть совпадение с пациентом короны",
+      "themInstructions": "Вот рекомендации Министерства здравоохранения:",
+      "editBtn": "редактирование",
+      "finishBtn": "Я сделал, вернуться на главную страницу"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -970,12 +969,12 @@
       }
     },
     "exposureRelief": {
-      "editBtn": "עריכה",
-      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
-      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית",
-      "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "editBtn": "редактирование",
+      "title": "Вы, кажется, не перекрывались с роговицей",
+      "keepSafe": "Важно продолжать следовать рекомендациям!",
+      "backBtn": "Вернуться на главную страницу",
+      "reliefTitle": "Спасибо за обновления",
+      "historyBacBtn": "Вернуться к истории перекрытия"
     }
   },
   "am": {
@@ -1097,26 +1096,26 @@
           "title": "እንደ:",
           "atHour": "በ"
         },
-        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
-        "instructionLinkUpper": "לשימוש במידת הצורך:",
-        "instructionLinkLower": "הנחיות לשוהים בבידוד"
+        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
+        "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
+        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
       "wasMe": "ሊሆን ይችላል",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "ማዘመን አጠናቅቄያለሁ"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
       "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው",
-      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
-      "wasThere": "ייתכן שהיית שם",
-      "wasNotThere": "לא היית שם",
-      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
-      "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
+      "subTitle": "እርስዎ ምልክት ሲያደርጉባቸው በአለፉት 14 \n ቀናት ውስጥ ያጋጠሙኝ ሁሉም መደራረቦች እነሆ",
+      "wasThere": "እዚያ ሊሆኑ ይችላሉ",
+      "wasNotThere": "እዚያ አልነበሩም",
+      "wasThereNoExposure": "ደስ የሚለው ነገር ፣ ካለፉት 14 ቀናት ውስጥ “እዛ እዛ እሆን ነበር” ብለው ያሰቧቸው ምንም ክስተቶች የሉም ፡፡",
+      "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
+      "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
+      "historyEditCancelBtn": "ማርትዕ ቀልብስ"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1127,11 +1126,11 @@
       "reportIsolation": "መገለያ ቦታ መግባትዎን በጤና ጥበቃ መ/ቤት ድረ-ገፅ ያስታውቁ።,",
       "allInstructions": "ለሁሉም መመሪያዎች ።,",
       "reportSite": "በድረ-ገፅ ያስታውቁ ።",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
-      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
-      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
-      "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "keepSafeNew": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "subTitle": "ከኮሮና ህመምተኛ ጋር መደራረብ ሊኖር ይችላል",
+      "themInstructions": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "editBtn": "ማርትዕ",
+      "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1190,12 +1189,12 @@
       }
     },
     "exposureRelief": {
-      "editBtn": "עריכה",
-      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
-      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית",
-      "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "editBtn": "ማርትዕ",
+      "title": "በቆርቆሮ የተስተካከሉ አይመስሉም",
+      "keepSafe": "መመሪያዎችን መከተል አስፈላጊ ነው!",
+      "backBtn": "ወደ መነሻ ገጽ ይመለሱ",
+      "reliefTitle": "ለዝማኔው እናመሰግናለን",
+      "historyBacBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
     }
   },
   "fr": {
@@ -1317,9 +1316,9 @@
           "title": "Au:",
           "atHour": "À"
         },
-        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
-        "instructionLinkUpper": "לשימוש במידת הצורך:",
-        "instructionLinkLower": "הנחיות לשוהים בבידוד"
+        "bannerTextPristine": "Aucun\npoint de chevauchement trouvé",
+        "instructionLinkUpper": "A utiliser si nécessaire:",
+        "instructionLinkLower": "Lignes directrices pour rester en isolement"
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
@@ -1330,13 +1329,13 @@
       "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
       "keepInstructions": "Il est important de continuer à suivre les directives",
-      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
-      "wasThere": "ייתכן שהיית שם",
-      "wasNotThere": "לא היית שם",
-      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
-      "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
+      "subTitle": "Voici tous les points de chevauchement que nous avons trouvés au cours des 14 \ n derniers jours lorsque vous les avez marqués",
+      "wasThere": "Vous avez peut-être été là",
+      "wasNotThere": "Tu n'étais pas là",
+      "wasThereNoExposure": "Pour notre plus grand plaisir, il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"J'ai peut-être été là\"",
+      "wasNotThereNoExposure": "Il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"Je n'étais pas là\"",
+      "historyEditFinishBtn": "Enregistrer les modifications",
+      "historyEditCancelBtn": "Annuler l'édition"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1347,11 +1346,11 @@
       "reportIsolation": "Signaler l’isolement",
       "allInstructions": "Pour toutes les instructions",
       "reportSite": "Pour signaler sur le sit",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
-      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
-      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
-      "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "keepSafeNew": "Ce sont les directives du Ministère de la Santé:",
+      "subTitle": "Il peut y avoir un chevauchement avec le patient Corona",
+      "themInstructions": "Ce sont les lignes directrices du ministère de la Santé:",
+      "editBtn": "édition",
+      "finishBtn": "J'ai fini, retour à la page d'accueil"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
@@ -1410,12 +1409,12 @@
       }
     },
     "exposureRelief": {
-      "editBtn": "עריכה",
-      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
-      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית",
-      "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "editBtn": "édition",
+      "title": "Vous ne semblez pas avoir chevauché avec une cornée",
+      "keepSafe": "Il est important de continuer à suivre les directives!",
+      "backBtn": "Retour à la page d'accueil",
+      "reliefTitle": "Merci pour la mise à jour",
+      "historyBacBtn": "Retour à l'historique des chevauchements"
     }
   }
 }
