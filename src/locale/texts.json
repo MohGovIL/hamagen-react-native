@@ -222,7 +222,7 @@
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
       "wasMe": "ייתכן שכן",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -443,7 +443,7 @@
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
       "wasMe": "قد يكون",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -664,7 +664,7 @@
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
       "wasMe": "Might be",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -884,7 +884,7 @@
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
       "wasMe": "Может быть",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -1104,7 +1104,7 @@
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
       "wasMe": "ሊሆን ይችላል",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1324,7 +1324,7 @@
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
       "wasMe": "Cela peut être",
-      "dontBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "Historique des intersections",

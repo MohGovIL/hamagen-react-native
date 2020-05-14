@@ -32,7 +32,7 @@ interface RenderExposureProps {
 const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const dispatch = useDispatch()
-  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe,dontBtn,  suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale)
+  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe,doneBtn,  suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale)
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
   // TODO: decide if button should be shown or not
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
@@ -176,7 +176,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             width={IS_SMALL_SCREEN ? 12 : 14}
             height={IS_SMALL_SCREEN ? 10 : 12}
           />
-          <Text style={{ fontSize: IS_SMALL_SCREEN ? 15 : 18, color: 'white', marginHorizontal: 6 }} bold></Text>
+          <Text style={{ fontSize: IS_SMALL_SCREEN ? 15 : 18, color: 'white', marginHorizontal: 6 }} bold>{doneBtn}</Text>
         </TouchableOpacity>
       </Animated.View>
     </>

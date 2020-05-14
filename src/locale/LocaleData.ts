@@ -165,7 +165,8 @@ export interface Strings {
     },
     showOnMap: string,
     wasNotMe: string,
-    wasMe: string
+    wasMe: string,
+    doneBtn: string
   },
   exposuresHistory: {
     title: string,
