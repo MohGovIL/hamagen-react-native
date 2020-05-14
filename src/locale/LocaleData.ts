@@ -176,7 +176,10 @@ export interface Strings {
     wasNotTheres: string,
     wasThere: string,
     wasThereNoExposure: string,
-    wasNotThereNoExposure: string
+    wasNotThereNoExposure: string,
+    historyEditFinishBtn:string,
+    historyEditCancelBtn:string,
+    edit: string
   },
   exposureInstructions: {
     title: string,
