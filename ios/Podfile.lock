@@ -341,8 +341,6 @@ PODS:
     - React-cxxreact (= 0.61.5)
     - React-jsi (= 0.61.5)
     - ReactCommon/jscallinvoker (= 0.61.5)
-  - rn-contact-tracing (0.0.4):
-    - React
   - rn-fetch-blob (0.12.0):
     - React-Core
   - RNBackgroundFetch (2.7.1):
@@ -427,7 +425,6 @@ DEPENDENCIES:
   - React-RCTVibration (from `../node_modules/react-native/Libraries/Vibration`)
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
-  - rn-contact-tracing (from `../node_modules/rn-contact-tracing`)
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
@@ -543,8 +540,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/Libraries/Vibration"
   ReactCommon:
     :path: "../node_modules/react-native/ReactCommon"
-  rn-contact-tracing:
-    :path: "../node_modules/rn-contact-tracing"
   rn-fetch-blob:
     :path: "../node_modules/rn-fetch-blob"
   RNBackgroundFetch:
@@ -631,7 +626,6 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  rn-contact-tracing: 6eeac896cf8d086db963735dbfbe08a41bb2ecde
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBackgroundFetch: 8d8d66b47eafcb9e772b2eb95057939038b3ef95
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566
