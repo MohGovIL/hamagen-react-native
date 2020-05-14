@@ -60,12 +60,12 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
           OBJECTID,
           wasThere: false
         })
-      })
+      }))
 
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, convertExposureToString)
     }
   }
-};
+}
 
 export const setValidExposure = (exposure: Exposure) => async (dispatch: any) => {
   try {
