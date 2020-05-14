@@ -8,6 +8,7 @@ import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, 
 import { showMapModal } from '../../../actions/GeneralActions';
 import { REPLACE_PAST_EXPOSURES } from '../../../constants/ActionTypes';
 import _ from 'lodash';
+import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
 
 
 const ExposureItem = () => {
@@ -37,7 +38,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
     // check if change at all
     const oldExposureState = _.cloneDeep(pastExposures)
     // commit changes and check diff from pastExposures
-    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: [...newExposureArr] })
+    dispatch(replacePastExposureSelected([...newExposureArr]))
 
     // user had at least one exposure detected
     const wasChanged = oldExposureState.reduce((dif, exposure, index) => {

@@ -88,37 +88,6 @@ const Loading = (
 
   useEffect(() => {
     appLoadingActions();
-    // const dbSick = new IntersectionSickDatabase();
-    //   dbSick.addSickRecord( {
-    //     "type": "Feature",
-    //     "id": 850,
-    //     "geometry": {
-    //       "type": "Point",
-    //       "coordinates": [
-    //         34.9922700333333,
-    //         32.1268861666666
-    //       ]
-    //     },
-    //     "properties": {
-    //       "OBJECTID": 1235,
-    //       "OID": 850,
-    //       "Name": "חולה_850",
-    //       "Place": "חפיפה מול קלסטר בשרת",
-    //       "Comments": "הערה",
-    //       "POINT_X": 34.9922700333333,
-    //       "POINT_Y": 32.1268861666666,
-    //       "fromTime": 1589233054320,
-    //       "toTime": 1589259921374,
-    //       "fromTime_utc": 1589233054320,
-    //       "toTime_utc": 1589259921374,
-    //       "sourceOID": 1,
-    //       "stayTimes": "08:00-23:50",
-    //       "Key_Field": 1000,
-    //       "radius": null,
-    //       "valid": 1,
-    //       "address": "האשל 1 אורנית"
-    //     }
-    //   })
   }, []);
 
   useEffect(() => {
@@ -197,7 +166,7 @@ const Loading = (
       const dbSick = new IntersectionSickDatabase();
    
       const exposures = await dbSick.listAllRecords();
-
+      
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 

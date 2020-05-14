@@ -35,7 +35,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     },
   } = useSelector<Store, LocaleReducer>(state => state.locale)
 
-  const exposures = useSelector<Store, Exposure[]>(state => state.exposures.exposures.filter((exposure: Exposure) => exposure.properties.wasThere))
+  const exposures = useSelector<Store, Exposure[]>(state => state.exposures.pastExposures.filter((exposure: Exposure) => exposure.properties.wasThere))
 
   const [furtherInstructions, reportForm] = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he'

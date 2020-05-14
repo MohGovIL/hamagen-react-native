@@ -15,7 +15,7 @@ import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
 import ShareLocations from '../ShareLocations/ShareLocations';
-import { LocaleReducer, Store } from '../../types';
+import { LocaleReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 
 
@@ -44,10 +44,13 @@ const Drawer = createDrawerNavigator();
 
 const Home = () => {
   const { isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
   const navigation = useNavigation()
   useEffect(() => {
-    navigation.navigate('ExposureDetected')
-  }, [])
+    if(exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined)){
+      navigation.navigate('ExposureDetected')
+    }
+  }, [exposures])
   return (
     <>
       <Drawer.Navigator
