@@ -19,7 +19,7 @@ interface Props {
 }
 
 const LINE_MARGIN = 7
-const HORIZONTAL_PADDING = IS_SMALL_SCREEN ? 38 : 68
+const HORIZONTAL_PADDING = IS_SMALL_SCREEN ? 18 : 38
 const ANIMATION_DURATION = 300
 
 
@@ -85,7 +85,7 @@ const ExposuresHistory = (
       )}
 
       <View style={styles.headerContainer}>
-        <View>
+        <View style={{marginHorizontal: 30}}>
           <Text bold>{title}</Text>
           <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }} >{subTitle}</Text>
         </View>

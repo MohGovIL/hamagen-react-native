@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, FunctionComponent } from 'react';
 import { View, StyleSheet, ImageBackground, Share } from 'react-native';
 import { TouchableOpacity, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
@@ -14,7 +14,7 @@ interface ScanHomeHeaderProps {
   openDrawer(): void
 }
 
-const ScanHomeHeader = ({ isRTL,languages,locale,externalUrls,strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }: ScanHomeHeaderProps) => {
+const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL,languages,locale,externalUrls,strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }) => {
   const messageAndUrl = useMemo(()=> {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
     return `${message}\n${externalUrls?.shareMessage?.[relevantLocale] ?? ''}`

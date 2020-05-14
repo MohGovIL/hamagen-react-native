@@ -1,5 +1,5 @@
-import React, { Children, ReactNode } from 'react';
-import { View, StyleSheet, StyleProp } from 'react-native';
+import React, { FunctionComponent } from 'react';
+import { View, StyleSheet, StyleProp,ViewStyle } from 'react-native';
 import moment from 'moment';
 import { Icon, Text, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
@@ -10,12 +10,11 @@ interface Props {
   strings: Strings,
   Place: string,
   fromTime: number,
-  children: ReactNode | undefined,
-  style: StyleProp,
+  style: StyleProp<ViewStyle>,
   showExposureOnMap(): void
 }
 
-const ExposureHistoryListItem = ({children,style, isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap }: Props) => {
+const ExposureHistoryListItem: FunctionComponent<Props> = ({children,style, isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap } ) => {
   return (
     <View style={[styles.listItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' },style]}>
       <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginHorizontal: 7.5 }} />

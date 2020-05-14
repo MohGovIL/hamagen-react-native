@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -61,7 +61,7 @@ interface Props {
   checkForceUpdate(): void
 }
 
-const Loading = (
+const Loading : FunctionComponent<Props> = (
   {
     isInitLocale,
     isRTL,
@@ -80,7 +80,7 @@ const Loading = (
     showForceTerms,
     checkForceUpdate,
     termsVersion
-  }: Props
+  } 
 ) => {
   const shouldShowForceTerms = useRef(false);
 

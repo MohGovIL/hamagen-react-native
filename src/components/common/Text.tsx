@@ -1,11 +1,11 @@
 import React, { MutableRefObject, ReactNode } from 'react';
-import { StyleSheet, Text as RNText, TextProps, TextStyle } from 'react-native';
+import { StyleSheet, Text as RNText, TextProps, TextStyle, StyleProp } from 'react-native';
 import { useSelector } from 'react-redux';
 import { Fonts, LocaleReducer, Store } from '../../types';
 import { IS_SMALL_SCREEN, TEXT_COLOR } from '../../constants/Constants';
 
 interface Props extends TextProps {
-  style?: TextStyle,
+  style?: StyleProp<TextStyle>,
   reference?: MutableRefObject<any>,
   children?: ReactNode,
   bold?: boolean,

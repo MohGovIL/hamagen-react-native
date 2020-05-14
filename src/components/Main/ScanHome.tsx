@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -21,7 +21,7 @@ import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
 
-interface Props {
+interface ScanHomeProps {
   navigation: DrawerNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
@@ -41,9 +41,9 @@ interface Props {
   showMapModal(exposure: Exposure): void
 }
 
-const isAfter14Days = (exposure: Exposure) => (moment().diff(moment(exposure.properties.fromTime_utc), 'days') > 14)
+const isAfter14Days = (exposure: Exposure): boolean => (moment().diff(moment(exposure.properties.fromTime_utc), 'days') > 14)
 
-const ScanHome = (
+const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
     navigation,
     isRTL,
@@ -53,16 +53,16 @@ const ScanHome = (
     externalUrls,
     exposures,
     pastExposures,
+    firstPoint,
     validExposure,
+    hideLocationHistory,
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    firstPoint,
-    hideLocationHistory,
     checkForceUpdate,
     checkIfHideLocationHistory,
     showMapModal
-  }: Props
+  }
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
