@@ -32,7 +32,7 @@ const ExposuresHistory = (
     showMapModal
   }: Props
 ) => {
-  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions } } = strings;
+  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions,edit } } = strings;
 
   const [tabIndex, setTabIndex] = useState(1)
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures])
@@ -79,7 +79,7 @@ const ExposuresHistory = (
         }}
         onPress={() => navigation.navigate("ExposuresHistoryEdit")}
         >
-          <Text style={{ fontSize: 13, color: MAIN_COLOR }}>עריכה</Text>
+          <Text style={{ fontSize: 13, color: MAIN_COLOR }}>{edit}</Text>
           <Icon source={require('../../../assets/main/editHistory.png')} width={9} height={9} customStyles={{ marginHorizontal: 7.5 }} />
         </TouchableOpacity>
       )}

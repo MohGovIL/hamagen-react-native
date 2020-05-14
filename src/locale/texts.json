@@ -234,7 +234,8 @@
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
       "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
       "historyEditFinishBtn": "שמירת שינויים",
-      "historyEditCancelBtn": "ביטול עריכה"
+      "historyEditCancelBtn": "ביטול עריכה",
+      "edit": "עריכה"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -455,7 +456,8 @@
       "wasThereNoExposure": "من دواعي سرورنا أنه لا توجد أحداث في آخر 14 يومًا وضعت عليها علامة \"ربما كنت هناك\"",
       "wasNotThereNoExposure": "لا توجد أحداث في الـ 14 يومًا الأخيرة التي وضعت عليها \"لم أكن هناك\"",
       "historyEditFinishBtn": "حفظ التغييرات",
-      "historyEditCancelBtn": "تراجع عن التحرير"
+      "historyEditCancelBtn": "تراجع عن التحرير",
+      "edit": "تقييم"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -675,7 +677,8 @@
       "wasThereNoExposure": "To our delight, there are no events in the last 14 days for which you marked \"I may have been there\"",
       "wasNotThereNoExposure": "There are no events in the last 14 days for which you marked \"I was not there\"",
       "historyEditFinishBtn": "Saving changes",
-      "historyEditCancelBtn": "Undo editing"
+      "historyEditCancelBtn": "Undo editing",
+      "edit": "editing"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -895,7 +898,8 @@
       "wasThereNoExposure": "К нашему восхищению, за последние 14 дней не было событий, для которых вы отметили \"Я, возможно, был там\"",
       "wasNotThereNoExposure": "Нет событий за последние 14 дней, для которых вы отметили \"меня там не было\"",
       "historyEditFinishBtn": "Сохранение изменений",
-      "historyEditCancelBtn": "Отменить редактирование"
+      "historyEditCancelBtn": "Отменить редактирование",
+      "edit": "редактирование"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -1115,7 +1119,8 @@
       "wasThereNoExposure": "ደስ የሚለው ነገር ፣ ካለፉት 14 ቀናት ውስጥ “እዛ እዛ እሆን ነበር” ብለው ያሰቧቸው ምንም ክስተቶች የሉም ፡፡",
       "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
       "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
-      "historyEditCancelBtn": "ማርትዕ ቀልብስ"
+      "historyEditCancelBtn": "ማርትዕ ቀልብስ",
+      "edit": "ማርትዕ"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1335,7 +1340,8 @@
       "wasThereNoExposure": "Pour notre plus grand plaisir, il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"J'ai peut-être été là\"",
       "wasNotThereNoExposure": "Il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"Je n'étais pas là\"",
       "historyEditFinishBtn": "Enregistrer les modifications",
-      "historyEditCancelBtn": "Annuler l'édition"
+      "historyEditCancelBtn": "Annuler l'édition",
+      "edit": "édition"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
