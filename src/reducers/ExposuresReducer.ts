@@ -8,7 +8,8 @@ import {
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
   UPDATE_FIRST_POINT,
-  REPLACE_EXPOSURES
+  REPLACE_EXPOSURES,
+  REPLACE_PAST_EXPOSURES
 } from '../constants/ActionTypes';
 
 const INITIAL_STATE = {
@@ -52,12 +53,13 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
     case UPDATE_FIRST_POINT: {
       return { ...state, firstPoint: action.payload };
     }
-
     case REPLACE_EXPOSURES: {
       const { exposures } = action.payload;
       return {...state, exposures }
     }
-
+    case REPLACE_PAST_EXPOSURES: {
+      return { ...state, pastExposures: [...action.payload] };
+    }
     default:
       return state;
   }

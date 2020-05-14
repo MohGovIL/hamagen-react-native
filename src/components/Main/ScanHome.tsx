@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import SplashScreen from 'react-native-splash-screen';
@@ -18,6 +19,7 @@ import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+
 
 interface Props {
   navigation: DrawerNavigationProp<any>,
@@ -38,6 +40,8 @@ interface Props {
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void
 }
+
+const isAfter14Days = (exposure: Exposure) => (moment().diff(moment(exposure.properties.fromTime_utc), 'days') > 14)
 
 const ScanHome = (
   {
@@ -135,20 +139,22 @@ const ScanHome = (
   const handleGPSProviderEvent = (e: any) => {
     setIsConnected({ hasLocation, hasNetwork, hasGPS: e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED });
   };
+
   const exposureState = useMemo(() => {
     // user never got any exposure detected
     if (exposures.length + pastExposures.length === 0)
       return 'pristine'
     // check if user past exposures are relevant
-    // ie: is less then 14 days old and 
-    if (exposures.some(() => false) && pastExposures.some(() => false))
+    // ie: is less then 14 days old 
+    if (exposures.some(isAfter14Days) && pastExposures.some(isAfter14Days))
       return 'relevant'
     return 'notRelevant'
-  }, [exposures, pastExposures])
+  }, [exposures.length, pastExposures.length])
 
 
   const RelevantState = (!hasLocation || !hasNetwork || !hasGPS) ? (<NoData strings={strings} />) :
     (
+
       <NoExposures
         isRTL={isRTL}
         strings={strings}
@@ -203,39 +209,3 @@ export default connect(mapStateToProps, {
   showMapModal
 })(ScanHome);
 
-
-/*
-const renderRelevantState = () => {
-    if (validExposure) {
-      return (
-        <ExposureInstructions
-          isRTL={isRTL}
-          strings={strings}
-          locale={locale}
-          languages={languages}
-          externalUrls={externalUrls}
-          exposure={validExposure}
-          removeValidExposure={removeValidExposure}
-        />
-      );
-    } if (!hasLocation || !hasNetwork || !hasGPS) {
-      return (
-        <NoData strings={strings} />
-      );
-    } if (exposures.length > 0) {
-      return (
-        <ExposuresDetected
-          isRTL={isRTL}
-          strings={strings}
-          exposures={exposures}
-          onValidExposure={exposure => setValidExposure(exposure)}
-          dismissExposure={exposureId => dismissExposure(exposureId)}
-          showMapModal={showMapModal}
-        />
-      );
-    }
-
-    return (
-
-    );
-  }; */

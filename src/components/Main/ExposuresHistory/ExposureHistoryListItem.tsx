@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { Children, ReactNode } from 'react';
+import { View, StyleSheet, StyleProp } from 'react-native';
 import moment from 'moment';
 import { Icon, Text, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
@@ -10,12 +10,14 @@ interface Props {
   strings: Strings,
   Place: string,
   fromTime: number,
+  children: ReactNode | undefined,
+  style: StyleProp,
   showExposureOnMap(): void
 }
 
-const ExposureHistoryListItem = ({ isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap }: Props) => {
+const ExposureHistoryListItem = ({children,style, isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap }: Props) => {
   return (
-    <View style={[styles.listItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.listItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' },style]}>
       <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginHorizontal: 7.5 }} />
 
       <View style={[styles.textContainer, { alignItems: isRTL ? 'flex-end' : 'flex-start' }]}>
@@ -33,6 +35,7 @@ const ExposureHistoryListItem = ({ isRTL, strings: { scanHome: { fromHour, showO
             <Text style={styles.showOnMap} bold>{showOnMap}</Text>
           </View>
         </TouchableOpacity>
+      {children}
       </View>
     </View>
   );

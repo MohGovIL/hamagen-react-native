@@ -32,7 +32,8 @@ const ExposuresHistory = (
     showMapModal
   }: Props
 ) => {
-  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere,wasThereNoExposure,wasNotThereNoExposure, keepInstructions } } = strings;
+  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions } } = strings;
+
   const [tabIndex, setTabIndex] = useState(1)
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures])
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures])
@@ -67,8 +68,22 @@ const ExposuresHistory = (
   return (
     <View style={styles.container}>
       <HeaderButton type="back" onPress={navigation.goBack} />
-      {showEditBtn && <TouchableOpacity >
-        </TouchableOpacity>}
+      {showEditBtn && (
+        <TouchableOpacity 
+        style={{
+          position: 'absolute',
+          zIndex: 1000,
+          top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
+          [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
+          flexDirection: isRTL ? 'row-reverse' : 'row'
+        }}
+        onPress={() => navigation.navigate("ExposuresHistoryEdit")}
+        >
+          <Text style={{ fontSize: 13, color: MAIN_COLOR }}>עריכה</Text>
+          <Icon source={require('../../../assets/main/editHistory.png')} width={9} height={9} customStyles={{ marginHorizontal: 7.5 }} />
+        </TouchableOpacity>
+      )}
+
       <View style={styles.headerContainer}>
         <View>
           <Text bold>{title}</Text>

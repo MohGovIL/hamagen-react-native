@@ -63,4 +63,5 @@ export const setExposureSelected = ({index, wasThere}) => (dispatch: any,getStat
   exposures[index].properties.wasThere = wasThere
 
   dispatch({ type: REPLACE_EXPOSURES, payload: { exposures } })
+
 }

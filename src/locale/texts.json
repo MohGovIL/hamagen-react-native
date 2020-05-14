@@ -221,7 +221,8 @@
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "wasMe": "ייתכן שכן",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -231,7 +232,9 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -308,8 +311,11 @@
       "editBtn": "עריכה",
       "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
       "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
-      "backBtn": "חזרה לעמוד הבית"
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
+
   },
   "ar": {
     "general": {
@@ -436,7 +442,8 @@
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
-      "wasMe": "قد يكون"
+      "wasMe": "قد يكون",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -446,7 +453,10 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
+
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -456,7 +466,12 @@
       "goIntoIsolation": "يرجى الدخول فورا الى الحجر الصحي لمدة ١٤ يوم من وقت التعرض",
       "reportIsolation": "يتوجب عليكم إبلاغ وزارة الصحة",
       "allInstructions": "لكل التوصيات",
-      "reportSite": "للإبلاغ"
+      "reportSite": "للإبلاغ",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -513,6 +528,14 @@
         "shareFailMissingToken": "أفهم ، شكرا لك",
         "shareFailTokenError": "يرجى المحاولة مرة أخرى"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
   },
   "en": {
@@ -640,7 +663,8 @@
       },
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
-      "wasMe": "Might be"
+      "wasMe": "Might be",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -650,7 +674,9 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -660,7 +686,12 @@
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
-      "reportSite": "To report at the Site"
+      "reportSite": "To report at the Site",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -717,6 +748,14 @@
         "shareFailMissingToken": "I understood, thank you",
         "shareFailTokenError": "try again"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
   },
   "ru": {
@@ -844,7 +883,8 @@
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
-      "wasMe": "Может быть"
+      "wasMe": "Может быть",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -854,7 +894,9 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -864,7 +906,12 @@
       "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
       "reportIsolation": "Сообщите о вашем карантине на сайте Минздрава",
       "allInstructions": "Инструкции",
-      "reportSite": "Сообщить"
+      "reportSite": "Сообщить",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -921,6 +968,14 @@
         "shareFailMissingToken": "Я понимаю спасибо",
         "shareFailTokenError": "Пожалуйста, попробуйте еще раз"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
   },
   "am": {
@@ -1048,7 +1103,8 @@
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
-      "wasMe": "ሊሆን ይችላል"
+      "wasMe": "ሊሆን ይችላል",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1058,7 +1114,9 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1068,7 +1126,12 @@
       "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
       "reportIsolation": "መገለያ ቦታ መግባትዎን በጤና ጥበቃ መ/ቤት ድረ-ገፅ ያስታውቁ።,",
       "allInstructions": "ለሁሉም መመሪያዎች ።,",
-      "reportSite": "በድረ-ገፅ ያስታውቁ ።"
+      "reportSite": "በድረ-ገፅ ያስታውቁ ።",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1125,6 +1188,14 @@
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
         "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
   },
   "fr": {
@@ -1253,6 +1324,7 @@
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
       "wasMe": "Cela peut être",
+      "dontBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
@@ -1262,7 +1334,9 @@
       "wasThere": "ייתכן שהיית שם",
       "wasNotThere": "לא היית שם",
       "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
-      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״"
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1272,7 +1346,12 @@
       "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",
       "reportIsolation": "Signaler l’isolement",
       "allInstructions": "Pour toutes les instructions",
-      "reportSite": "Pour signaler sur le sit"
+      "reportSite": "Pour signaler sur le sit",
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
@@ -1329,6 +1408,14 @@
         "shareFailMissingToken": "Je comprends merci",
         "shareFailTokenError": "Veuillez réessayer"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBacBtn": "חזרה להיסטוריית חפיפה"
     }
   }
 }

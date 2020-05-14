@@ -88,6 +88,37 @@ const Loading = (
 
   useEffect(() => {
     appLoadingActions();
+    // const dbSick = new IntersectionSickDatabase();
+    //   dbSick.addSickRecord( {
+    //     "type": "Feature",
+    //     "id": 850,
+    //     "geometry": {
+    //       "type": "Point",
+    //       "coordinates": [
+    //         34.9922700333333,
+    //         32.1268861666666
+    //       ]
+    //     },
+    //     "properties": {
+    //       "OBJECTID": 1235,
+    //       "OID": 850,
+    //       "Name": "חולה_850",
+    //       "Place": "חפיפה מול קלסטר בשרת",
+    //       "Comments": "הערה",
+    //       "POINT_X": 34.9922700333333,
+    //       "POINT_Y": 32.1268861666666,
+    //       "fromTime": 1589233054320,
+    //       "toTime": 1589259921374,
+    //       "fromTime_utc": 1589233054320,
+    //       "toTime_utc": 1589259921374,
+    //       "sourceOID": 1,
+    //       "stayTimes": "08:00-23:50",
+    //       "Key_Field": 1000,
+    //       "radius": null,
+    //       "valid": 1,
+    //       "address": "האשל 1 אורנית"
+    //     }
+    //   })
   }, []);
 
   useEffect(() => {
@@ -166,41 +197,7 @@ const Loading = (
       const dbSick = new IntersectionSickDatabase();
    
       const exposures = await dbSick.listAllRecords();
-      // dbSick.addSickRecord({
-      //   "type": "Feature",
-      //   "id": 535254,
-      //   "geometry": {
-      //     "type": "Point",
-      //     "coordinates": [
-      //       35.215422888,
-      //       31.7511387440001
-      //     ]
-      //   },
-      //   "properties": {
-      //     "OBJECTID": 17324,
-      //     "ID": null,
-      //     "Name": "",
-      //     "Place": "רמי לוי - ירושלים",
-      //     "Date": 1587662721000,
-      //     "types": "G_Poi",
-      //     "Comments": null,
-      //     "POINT_X": 31.7511387440001,
-      //     "POINT_Y": 35.215422888,
-      //     "fromTime": 1587567600000,
-      //     "toTime": 1587574800000,
-      //     "sourceOID": 1,
-      //     "flight": null,
-      //     "flightFrom": null,
-      //     "flightArrival": null,
-      //     "stayTimes": "16:00 - 18:00",
-      //     "fromTime_utc": 1587560400000,
-      //     "toTime_utc": 1587567600000,
-      //     "Key_Field": 17324,
-      //     "radius": null,
-      //     "valid": 1,
-      //     "address": "ירושלים"
-      //   }
-      // })
+
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 

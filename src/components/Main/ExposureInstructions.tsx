@@ -66,6 +66,24 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     </View>
   );
 
+  const RenderHeader = useMemo(() => 
+    route.params?.update ?
+      (
+        <>
+          <Icon source={require('../../assets/main/exposureRefresh.png')} width={86} customStyles={{marginBottom: 15}} />
+          <Text style={styles.title} bold>תודה שעדכנת</Text>
+          <Text style={{ marginBottom: 3 }}>ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך</Text>
+        </>
+      ) :
+      (<>
+        <Text style={styles.title} bold>{title}</Text>
+        <Text style={{ marginBottom: 3 }}>{subTitle}</Text>
+        {ExposureList}
+      </>
+      )
+
+  , [route.params?.update])
+
   return (
 
     <ScrollView
@@ -103,11 +121,9 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       </TouchableOpacity>}
 
 
-      <View style={{ justifyContent: 'flex-start', flex: 1 }}  >
+      <View style={{ justifyContent: 'flex-start',alignItems: 'center', flex: 1 }}  >
 
-        <Text style={styles.title} bold>{title}</Text>
-        <Text style={{ marginBottom: 3 }}>{subTitle}</Text>
-        {ExposureList}
+        {RenderHeader}
 
       </View>
       <View style={{ justifyContent: 'space-evenly', flex: 1 }} >
