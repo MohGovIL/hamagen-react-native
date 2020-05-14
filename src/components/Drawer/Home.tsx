@@ -15,7 +15,7 @@ import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
 import ShareLocations from '../ShareLocations/ShareLocations';
-import { LocaleReducer, Store, Exposure } from '../../types';
+import { LocaleReducer,ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 
 
