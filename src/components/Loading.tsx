@@ -164,8 +164,9 @@ const Loading : FunctionComponent<Props> = (
       }
 
       const dbSick = new IntersectionSickDatabase();
-   
+      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000)
       const exposures = await dbSick.listAllRecords();
+      console.log(exposures);
       
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
