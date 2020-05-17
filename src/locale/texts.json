@@ -250,7 +250,9 @@
       "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
       "themInstructions": "אלו ההנחיות של משרד הבריאות:",
       "editBtn": "עריכה",
-      "finishBtn": "סיימתי, חזרה לעמוד הבית"
+      "finishBtn": "סיימתי, חזרה לעמוד הבית",
+      "updateTitle": "תודה שעדכנת",
+      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -427,7 +429,7 @@
         "androidTitle": "مشاركة تطبيق الحماية"
       },
       "noExposures": {
-        "bannerText": "لم يتم العثور على \n نقاط تداخل",
+        "bannerText": "لم يتم العثور على\nنقاط تداخل",
         "workAllTheTime": "يعمل التطبيق الوقائي طوال الوقت",
         "infoModal": {
           "textBodyPt1": "تتم المقارنة من اللحظة التي تتلقى فيها مواقعك في",
@@ -472,7 +474,9 @@
       "subTitle": "قد يكون هناك تداخل مع مريض كورونا",
       "themInstructions": "هذه هي إرشادات وزارة الصحة:",
       "editBtn": "تقييم",
-      "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية"
+      "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية",
+      "updateTitle": "شكرا للتحديث",
+      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -508,7 +512,7 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا. \n\n لن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة. \n ستظل معلوماتك الشخصية سرية.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\nستظل معلوماتك الشخصية سرية.",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
@@ -693,7 +697,9 @@
       "subTitle": "There may have been overlap with Corona patient",
       "themInstructions": "These are the guidelines of the Ministry of Health:",
       "editBtn": "editing",
-      "finishBtn": "I'm done, back to the homepage"
+      "finishBtn": "I'm done, back to the homepage",
+      "updateTitle": "Thanks for updating",
+      "updateSubTitle": "The changes you have made may affect the behavior below"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -879,7 +885,7 @@
           "title": "По состоянию на:",
           "atHour": "в"
         },
-        "bannerTextPristine": "Не найдено точек перекрытия \n",
+        "bannerTextPristine": "Не найдено точек перекрытия\n",
         "instructionLinkUpper": "Использовать при необходимости:",
         "instructionLinkLower": "Правила пребывания в изоляции"
       },
@@ -914,7 +920,9 @@
       "subTitle": "Там может быть совпадение с пациентом короны",
       "themInstructions": "Вот рекомендации Министерства здравоохранения:",
       "editBtn": "редактирование",
-      "finishBtn": "Я сделал, вернуться на главную страницу"
+      "finishBtn": "Я сделал, вернуться на главную страницу",
+      "updateTitle": "Спасибо за обновление",
+      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -1113,7 +1121,7 @@
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
       "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው",
-      "subTitle": "እርስዎ ምልክት ሲያደርጉባቸው በአለፉት 14 \n ቀናት ውስጥ ያጋጠሙኝ ሁሉም መደራረቦች እነሆ",
+      "subTitle": "እርስዎ ምልክት ሲያደርጉባቸው በአለፉት 14\nቀናት ውስጥ ያጋጠሙኝ ሁሉም መደራረቦች እነሆ",
       "wasThere": "እዚያ ሊሆኑ ይችላሉ",
       "wasNotThere": "እዚያ አልነበሩም",
       "wasThereNoExposure": "ደስ የሚለው ነገር ፣ ካለፉት 14 ቀናት ውስጥ “እዛ እዛ እሆን ነበር” ብለው ያሰቧቸው ምንም ክስተቶች የሉም ፡፡",
@@ -1135,7 +1143,9 @@
       "subTitle": "ከኮሮና ህመምተኛ ጋር መደራረብ ሊኖር ይችላል",
       "themInstructions": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
       "editBtn": "ማርትዕ",
-      "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ"
+      "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
+      "updateTitle": "ስላዘመኑ እናመሰግናለን",
+      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1311,7 +1321,7 @@
         "androidTitle": "Partager l'application de protection"
       },
       "noExposures": {
-        "bannerText": "Aucun \n point de chevauchement trouvé",
+        "bannerText": "Aucun\npoint de chevauchement trouvé",
         "workAllTheTime": "L'application de protection fonctionne tout le temps",
         "infoModal": {
           "textBodyPt1": "La comparaison est faite à partir du moment où vous recevez vos emplacements sur",
@@ -1334,7 +1344,7 @@
       "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
       "keepInstructions": "Il est important de continuer à suivre les directives",
-      "subTitle": "Voici tous les points de chevauchement que nous avons trouvés au cours des 14 \ n derniers jours lorsque vous les avez marqués",
+      "subTitle": "Voici tous les points de chevauchement que nous avons trouvés au cours des 14\nderniers jours lorsque vous les avez marqués",
       "wasThere": "Vous avez peut-être été là",
       "wasNotThere": "Tu n'étais pas là",
       "wasThereNoExposure": "Pour notre plus grand plaisir, il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"J'ai peut-être été là\"",
@@ -1356,7 +1366,9 @@
       "subTitle": "Il peut y avoir un chevauchement avec le patient Corona",
       "themInstructions": "Ce sont les lignes directrices du ministère de la Santé:",
       "editBtn": "édition",
-      "finishBtn": "J'ai fini, retour à la page d'accueil"
+      "finishBtn": "J'ai fini, retour à la page d'accueil",
+      "updateTitle": "Merci d'avoir mis à jour",
+      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",

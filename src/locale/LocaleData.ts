@@ -194,7 +194,9 @@ export interface Strings {
     subTitle: string,
     themInstructions: string,
     editBtn: string,
-    finishBtn: string
+    finishBtn: string,
+    updateTitle: string,
+    updateSubTitle: string
   },
   locationHistory: {
     beforeCheckTitle: string,

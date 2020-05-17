@@ -19,6 +19,8 @@ import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+import AsyncStorage from '@react-native-community/async-storage';
+import { INIT_ROUTE_NAME } from '../../constants/Constants';
 
 
 interface ScanHomeProps {
@@ -41,7 +43,8 @@ interface ScanHomeProps {
   showMapModal(exposure: Exposure): void
 }
 
-const isAfter14Days = (exposure: Exposure): boolean => (moment().diff(moment(exposure.properties.fromTime_utc), 'days') > 14)
+// user has Relevant event by time and location
+const isAfter14Days = ({properties}: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.fromTime_utc), 'days') > 14) ?? false)
 
 const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
@@ -90,13 +93,16 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     NetInfo.addEventListener((state: NetInfoState) => {
       setIsConnected({ hasLocation, hasNetwork: state.isConnected, hasGPS });
     });
-
+    
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
+    AsyncStorage.removeItem(INIT_ROUTE_NAME)
 
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
     };
+
+    
   }, []);
 
   useFocusEffect(
@@ -146,10 +152,10 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
       return 'pristine'
     // check if user past exposures are relevant
     // ie: is less then 14 days old 
-    if (exposures.some(isAfter14Days) && pastExposures.some(isAfter14Days))
+    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days))
       return 'relevant'
     return 'notRelevant'
-  }, [exposures.length, pastExposures.length])
+  }, [exposures, pastExposures])
 
 
   const RelevantState = (!hasLocation || !hasNetwork || !hasGPS) ? (<NoData strings={strings} />) :

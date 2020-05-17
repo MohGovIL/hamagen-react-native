@@ -38,9 +38,10 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
         }
       })) {
         if (typeof parsedDismissedExposures === 'number') {
-          expo.properties.wasThere = parsedDismissedExposures ?? false
+          expo.properties.wasThere = parsedDismissedExposures ? true :  false
         } else {
-          expo.properties.wasThere = parsedDismissedExposures.wasThere ?? false
+          const {wasThere} = parsedDismissedExposures.find(({OBJECTID}) => expo.properties.OBJECTID === OBJECTID )
+          expo.properties.wasThere = wasThere ?? false
         }
       }
       return expo

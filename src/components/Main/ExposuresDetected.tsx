@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
 import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
@@ -12,12 +12,15 @@ import {
   PADDING_BOTTOM,
   SCREEN_WIDTH,
   SCREEN_HEIGHT,
-  WHITE
+  WHITE,
+  INIT_ROUTE_NAME
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, setExposureSelected } from '../../actions/ExposuresActions';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from '@react-native-community/async-storage';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -32,21 +35,30 @@ interface RenderExposureProps {
 const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const dispatch = useDispatch()
-  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe,doneBtn,  suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale)
+  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale)
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
-  // TODO: decide if button should be shown or not
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
   const flatListRef = useRef(null)
 
+  useEffect(() => {
+    SplashScreen.hide();
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected')
+  }, [])
+
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit 
-  useFocusEffect(() =>
-    Animated.timing(anim, {
-      toValue: 0,
-      duration: 0,
-      useNativeDriver: true,
-      delay: 300
-    }).start)
+  useFocusEffect(
+    useCallback(() => {
+      if (exposures.every(exposure => exposure.properties.wasThere !== undefined)) {
+        Animated.timing(anim, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+          delay: 300
+        }).start()
+      }
+    }, [])
+  )
 
   const setSelected = (index: number, wasThere: boolean) => {
     dispatch(setExposureSelected({ index, wasThere }))
@@ -89,12 +101,11 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
     if (isExposed) {
       // move to ExposureInstructions
-      navigation.navigate('ExposureInstructions')
+      navigation.navigate('ExposureInstructions', { showEdit: true })
     } else {
       // move to ExposureRelief
       navigation.navigate('ExposureRelief')
-
-
+      AsyncStorage.removeItem(INIT_ROUTE_NAME)
     }
   }
 
@@ -108,7 +119,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       <Animated.View key={OBJECTID} style={[styles.detailsContainer]}>
         <View style={{ alignItems: 'center' }}
         >
-          <Text style={styles.exposureLength}>{`1/${exposures.length}`}</Text>
+          <Text style={styles.exposureLength}>{`${index + 1}/${exposures.length}`}</Text>
           <Text style={styles.exposureCardTitle}>{possibleExposure}</Text>
           <Text style={styles.exposureCardPlace} bold>
             {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}
@@ -162,6 +173,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       </ScrollView>
       <Animated.View style={{ transform: [{ translateY: anim }] }}>
         <TouchableOpacity
+          onPress={editDone}
           style={{
             width: SCREEN_WIDTH,
             height: SCREEN_HEIGHT * 0.08,
@@ -170,7 +182,8 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             flexDirection: isRTL ? 'row-reverse' : 'row',
             alignItems: 'center',
             paddingBottom: PADDING_BOTTOM()
-          }} onPress={editDone}>
+          }}
+        >
           <Icon
             source={require('../../assets/main/imDoneUpdate.png')}
             width={IS_SMALL_SCREEN ? 12 : 14}
@@ -193,11 +206,11 @@ const styles = StyleSheet.create({
 
   },
   title: {
-    fontSize: IS_SMALL_SCREEN ? 18 : 22
+    fontSize: IS_SMALL_SCREEN ? 18 : 22,
+    marginBottom: 4
   },
   detailsContainer: {
     ...BASIC_SHADOW_STYLES,
-
     height: SCREEN_HEIGHT * 0.55,
     width: SCREEN_WIDTH * 0.88,
 

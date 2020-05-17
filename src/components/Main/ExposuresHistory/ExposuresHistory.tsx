@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Icon, Text, HeaderButton, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP } from '../../../constants/Constants';
+import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { showMapModal } from '../../../actions/GeneralActions';
 import { stat } from 'fs';
@@ -19,7 +19,6 @@ interface Props {
 }
 
 const LINE_MARGIN = 7
-const HORIZONTAL_PADDING = IS_SMALL_SCREEN ? 18 : 38
 const ANIMATION_DURATION = 300
 
 
@@ -32,23 +31,24 @@ const ExposuresHistory = (
     showMapModal
   }: Props
 ) => {
-  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions,edit } } = strings;
+  const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
 
-  const [tabIndex, setTabIndex] = useState(1)
+  const [tabIndex, setTabIndex] = useState(isRTL ? 1 : 0)
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures])
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures])
   const showEditBtn = useMemo(() => wasThereList.length + wasNotThereList.length > 0, [wasThereList.length, wasNotThereList.length])
   const [tabsLayout, setTabsLayout] = useState({})
   const [lineAnimLeft] = useState(new Animated.Value(0))
   const [lineAnimWidth] = useState(new Animated.Value(0))
-  const [listTranslateAnim] = useState(new Animated.Value(0))
+  const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0))
 
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {
+      // TODO: make it a pretty function
       Animated.parallel([
         Animated.timing(lineAnimLeft, {
-          toValue: tabsLayout[tabIndex].x - LINE_MARGIN,
+          toValue: tabsLayout[tabIndex].x - LINE_MARGIN + (isRTL ? tabIndex * SCREEN_WIDTH / 2 : SCREEN_WIDTH / 2 * (tabIndex ? 0 : 1)),
           duration: ANIMATION_DURATION,
         }),
         Animated.timing(listTranslateAnim, {
@@ -63,21 +63,22 @@ const ExposuresHistory = (
       ]).start()
     }
 
-  }, [tabIndex, tabsLayout])
+  }, [tabIndex, tabsLayout, isRTL])
 
   return (
     <View style={styles.container}>
       <HeaderButton type="back" onPress={navigation.goBack} />
       {showEditBtn && (
-        <TouchableOpacity 
-        style={{
-          position: 'absolute',
-          zIndex: 1000,
-          top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 20),
-          [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
-          flexDirection: isRTL ? 'row-reverse' : 'row'
-        }}
-        onPress={() => navigation.navigate("ExposuresHistoryEdit")}
+        <TouchableOpacity
+          hitSlop={HIT_SLOP}
+          style={{
+            position: 'absolute',
+            zIndex: 1000,
+            top: PADDING_TOP(IS_SMALL_SCREEN ? 18 : 35),
+            [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
+            flexDirection: isRTL ? 'row-reverse' : 'row'
+          }}
+          onPress={() => navigation.navigate("ExposuresHistoryEdit")}
         >
           <Text style={{ fontSize: 13, color: MAIN_COLOR }}>{edit}</Text>
           <Icon source={require('../../../assets/main/editHistory.png')} width={9} height={9} customStyles={{ marginHorizontal: 7.5 }} />
@@ -85,36 +86,47 @@ const ExposuresHistory = (
       )}
 
       <View style={styles.headerContainer}>
-        <View style={{marginHorizontal: 30}}>
+        <View style={{ marginHorizontal: 30 }}>
           <Text bold>{title}</Text>
           <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }} >{subTitle}</Text>
         </View>
-        <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse', justifyContent: 'space-between', paddingHorizontal: HORIZONTAL_PADDING }}>
-          <Text
-            bold={Boolean(!tabIndex)}
-            style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }}
-            onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 0: layout }))}
-            onPress={() => setTabIndex(0)}>{wasNotThere}</Text>
-          <Text
-            bold={Boolean(tabIndex)}
-            style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }}
-            onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 1: layout }))}
-            onPress={() => setTabIndex(1)}>{wasThere}</Text>
+        <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse' }}>
+          <TouchableOpacity
+            hitSlop={{ top: 10 }}
+            style={styles.tabTextContainer} onPress={() => setTabIndex(0)}>
+            <Text
+              bold={Boolean(!tabIndex)}
+              style={styles.tabText}
+              onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 0: layout }))}
+            >{wasNotThere}</Text>
+
+          </TouchableOpacity>
+          <TouchableOpacity
+            hitSlop={{ top: 10 }}
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onPress={() => setTabIndex(0)}>
+            <Text
+              bold={Boolean(tabIndex)}
+              style={styles.tabText}
+              onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 1: layout }))}
+              onPress={() => setTabIndex(1)}>{wasThere}</Text>
+
+          </TouchableOpacity>
         </View>
-        <Animated.View style={{
-          position: 'absolute',
-          height: 2,
-          backgroundColor: MAIN_COLOR,
-          left: lineAnimLeft,
-          width: lineAnimWidth,
-          bottom: 0
-        }} />
+        <Animated.View
+          style={{
+            position: 'absolute',
+            height: 2,
+            backgroundColor: MAIN_COLOR,
+            left: lineAnimLeft,
+            width: lineAnimWidth,
+            bottom: 0
+          }} />
       </View>
       <Animated.View
         style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           backgroundColor: '#f7f8fa',
-          height: SCREEN_HEIGHT * .75,
+          flex: IS_SMALL_SCREEN ? 4 : 6,
           transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]
         }}
       >
@@ -169,27 +181,33 @@ const ExposuresHistory = (
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff'
+    backgroundColor: '#f7f8fa',
+    flex: 1,
   },
   headerContainer: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * .25,
-    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 20 : 62),
+    flex: 1,
+    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 35 : 62),
     justifyContent: 'space-between',
     paddingBottom: IS_SMALL_SCREEN ? 8 : 10,
+    backgroundColor: WHITE
   },
   listContainer: {
     width: SCREEN_WIDTH,
-    flex: 1,
     paddingVertical: 10,
-    backgroundColor: '#f7f8fa',
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
   },
   emptyStateContainer: {
-    flex: 1,
     paddingTop: IS_SMALL_SCREEN ? 60 : 97,
     alignItems: 'center',
     paddingHorizontal: IS_SMALL_SCREEN ? 20 : 35
+  },
+  tabTextContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  tabText: {
+    fontSize: IS_SMALL_SCREEN ? 14 : 16
   }
 });
 

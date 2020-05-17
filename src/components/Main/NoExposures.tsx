@@ -92,7 +92,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
           />
 
           <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-          <Text bold style={styles.bannerText}>{exposureState ? bannerTextPristine : bannerText}</Text>
+          <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
         </View>
         <View style={styles.bottomCard}>
 

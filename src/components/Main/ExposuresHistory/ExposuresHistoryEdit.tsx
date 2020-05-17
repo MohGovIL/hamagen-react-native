@@ -99,7 +99,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
         strings={strings}
         Place={Place}
         fromTime={fromTime}
-        style={{ marginHorizontal: 15 }}
+        style={{ marginHorizontal: 15, marginBottom: 10 }}
         showExposureOnMap={() => dispatch(showMapModal(item))} >
         <View style={{
           flexDirection: 'row',
@@ -125,25 +125,25 @@ const ExposuresHistoryEdit = ({ navigation }) => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <FlatList
         bounces={false}
+        data={newExposureArr}
+        style={{flex: 1}}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
-        data={newExposureArr}
-        renderItem={({ index, item }) => <RenderExposure item={item} index={index} />}
-        keyExtractor={(_, index) => index.toString()}
-        ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+        keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
+        renderItem={({ index, item }) => (<RenderExposure item={item} index={index} />)}
         ListHeaderComponent={() => (
           <View style={styles.headerContainer}>
             <View>
               <Text bold>{title}</Text>
-              <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }} >{subTitle}</Text>
+              <Text style={styles.headerSubtitle} >{subTitle}</Text>
             </View>
           </View>
         )}
       />
-      <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse', width: SCREEN_WIDTH, height: PADDING_BOTTOM(49) }}>
+      <View style={[styles.buttonsContainer, { flexDirection: isRTL ? 'row' : 'row-reverse', }]}>
         <TouchableOpacity
           style={{ flex: 1, backgroundColor: MAIN_COLOR, justifyContent: 'center' }}
           onPress={finishEdit}
@@ -162,19 +162,26 @@ const ExposuresHistoryEdit = ({ navigation }) => {
 }
 
 const styles = StyleSheet.create({
-  listContainer: {
+  container: {
     flex: 1,
-    backgroundColor: '#f7f8fa'
+    backgroundColor: '#f7f8fa',
+  },
+  listContainer: {
+    paddingBottom: PADDING_BOTTOM(49),
+
   },
   headerContainer: {
     width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT * .2,
     paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 20 : 62),
     justifyContent: 'space-between',
-    paddingBottom: IS_SMALL_SCREEN ? 8 : 10,
+    paddingBottom: IS_SMALL_SCREEN ? SCREEN_HEIGHT * 0.05 : SCREEN_HEIGHT * 0.05,
     backgroundColor: WHITE,
     marginBottom: 15,
-
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#6a6a6a',
+    marginTop: 8
   },
   actionBtnTouch: {
     borderColor: MAIN_COLOR,
@@ -184,7 +191,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   actionBtnText: {
-    fontSize: IS_SMALL_SCREEN ? 12 : 12
+    fontSize: IS_SMALL_SCREEN ? 10 : 12
   },
   actionBtnSelected: {
     backgroundColor: MAIN_COLOR,
@@ -194,8 +201,8 @@ const styles = StyleSheet.create({
   },
   footerBtnText: {
     fontSize: 14,
-
-  }
+  },
+  buttonsContainer: { width: SCREEN_WIDTH, height: PADDING_BOTTOM(49) }
 })
 
 export default ExposuresHistoryEdit

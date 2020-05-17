@@ -10,7 +10,7 @@ interface Props {
   strings: Strings,
   Place: string,
   fromTime: number,
-  style: StyleProp<ViewStyle>,
+  style?: StyleProp<ViewStyle>,
   showExposureOnMap(): void
 }
 
