@@ -1,3 +1,4 @@
+import { NativeEventEmitter } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
@@ -30,7 +31,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
     }
 
     await SpecialBle.setConfig(config);
-    await SpecialBle.startBLEService();
+    IS_IOS ? await SpecialBle.startBLEService(UUID) : await SpecialBle.startBLEService();
 
     resolve();
   } catch (error) {
@@ -55,3 +56,16 @@ export const getUUID = () => new Promise(async (resolve, reject) => {
     reject(e);
   }
 });
+
+export const registerBLEListeners = () => {
+  const eventEmitter = new NativeEventEmitter(SpecialBle);
+  eventEmitter.addListener('scanningStatus', (status) => {
+    debugger;
+    // TODO handle ble event
+  });
+
+  eventEmitter.addListener('advertisingStatus', (status) => {
+    debugger;
+    // TODO handle ble event
+  });
+};
