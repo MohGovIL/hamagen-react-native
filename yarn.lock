@@ -7460,10 +7460,9 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-rn-contact-tracing@^0.0.4:
-  version "0.0.4"
-  resolved "https://registry.yarnpkg.com/rn-contact-tracing/-/rn-contact-tracing-0.0.4.tgz#d7b3dbe8fb3b1e3fe2392c9a53255558851257c5"
-  integrity sha512-z1/hNnw3Egg+0L3JfR51g+FF+2g9nE7v8y4CTPIggEvtmP8Q/hlRkjfoLfKOLzLSk4BRSjhVomUn7q2S2E6OCw==
+"rn-contact-tracing@https://github.com/wix-incubator/rn-contact-tracing.git#master":
+  version "0.0.3"
+  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#32060f3c14593630fc2e3b7d45c563b1fd84f357"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"
