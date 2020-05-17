@@ -1,4 +1,4 @@
-import { NativeEventEmitter } from 'react-native';
+import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
@@ -54,13 +54,29 @@ export const registerBLEListeners = () => {
 export const fetchInfectionDataByConsent = () => {
   SpecialBle.fetchInfectionDataByConsent((res: any) => {
     const parsedRes = JSON.parse(res || '[]');
+
+    if (parsedRes?.infected?.length > 0) {
+      const flatData = parsedRes.infected.flatMap((d: any) => d);
+      Clipboard.setString(JSON.stringify(flatData));
+      Alert.alert('DB copied');
+      return;
+    }
+
+    Alert.alert('No results found');
   });
 };
 
-export const match = (data: string) => {
-  const json = require('./exampleJsons/outputserverReponse.json');
-  SpecialBle.match(JSON.stringify(json), (res: any) => {
-    const parsedRes = JSON.parse(res || '[]');
+export const match = () => {
+  SpecialBle.match(null, (res: any) => {
+    const parsedRes: any[] = JSON.parse(res || '[]');
+
+    if (parsedRes.length > 0) {
+      Clipboard.setString(JSON.stringify(parsedRes[parsedRes.length - 1]));
+      Alert.alert('Last result copied');
+      return;
+    }
+
+    Alert.alert('No results found');
   });
 };
 

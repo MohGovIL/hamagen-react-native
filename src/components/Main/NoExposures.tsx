@@ -93,7 +93,7 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
         {/* TODO remove once functionality implemented */}
         <View style={{ width: SCREEN_WIDTH, justifyContent: 'space-around', flexDirection: 'row' }}>
           <Button title="Fetch infection" onPress={() => fetchInfectionDataByConsent()} />
-          <Button title="Match" onPress={() => match('')} />
+          <Button title="Match" onPress={() => match()} />
         </View>
       </FadeInView>
 
