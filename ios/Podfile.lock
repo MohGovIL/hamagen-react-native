@@ -304,7 +304,7 @@ PODS:
     - React
   - react-native-uuid-generator (6.1.1):
     - React
-  - react-native-webview (9.0.1):
+  - react-native-webview (9.4.0):
     - React
   - React-RCTActionSheet (0.61.5):
     - React-Core/RCTActionSheetHeaders (= 0.61.5)
@@ -620,7 +620,7 @@ SPEC CHECKSUMS:
   react-native-splash-screen: f15e2d96fd6afc5c882b1dd0b443d07295e2c7c5
   react-native-sqlite-storage: f06bfba10f67f989c00b6a699b9c2b80a816edbe
   react-native-uuid-generator: 82ffa2a1cac94242ebed52c4dedc5044d3412717
-  react-native-webview: 3f2f9934ba8633a170d209cb84045b6cbc5e5f48
+  react-native-webview: cf5527893252b3b036eea024a1da6996f7344c74
   React-RCTActionSheet: 600b4d10e3aea0913b5a92256d2719c0cdd26d76
   React-RCTAnimation: 791a87558389c80908ed06cc5dfc5e7920dfa360
   React-RCTBlob: d89293cc0236d9cb0933d85e430b0bbe81ad1d72
