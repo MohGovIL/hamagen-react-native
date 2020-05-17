@@ -2,13 +2,12 @@ import { NativeEventEmitter } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import UUIDGenerator from 'react-native-uuid-generator';
-import { DID_ADDED_BLE_DATA_TO_DB, IS_IOS, UUID_KEY } from '../constants/Constants';
+import { DID_ADDED_BLE_DATA_TO_DB, IS_IOS } from '../constants/Constants';
 import { onError } from './ErrorService';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   try {
-    const UUID = await getUUID();
+    const UUID = '00000000-0000-1000-8000-00805F9B34FB';
 
     // TODO move to config
     let config: any = {
@@ -17,7 +16,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
       scanInterval: 240000,
       advertiseInterval: 45000,
       advertiseDuration: 10000,
-      token: UUID
+      token: 'default_token'
     };
 
     if (!IS_IOS) {
@@ -38,23 +37,6 @@ export const initBLETracing = () => new Promise(async (resolve) => {
   } catch (error) {
     resolve();
     onError({ error });
-  }
-});
-
-export const getUUID = () => new Promise(async (resolve, reject) => {
-  try {
-    let uuid;
-
-    uuid = await AsyncStorage.getItem(UUID_KEY);
-
-    if (!uuid) {
-      uuid = await UUIDGenerator.getRandomUUID();
-      await AsyncStorage.setItem(UUID_KEY, uuid);
-    }
-
-    resolve(uuid);
-  } catch (e) {
-    reject(e);
   }
 });
 
