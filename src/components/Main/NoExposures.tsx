@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, Button } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
@@ -7,6 +7,7 @@ import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -87,6 +88,12 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
               <Text bold style={styles.toTimeDate}>{nowHour}</Text>
             </Text>
           </View>
+        </View>
+
+        {/* TODO remove once functionality implemented */}
+        <View style={{ width: SCREEN_WIDTH, justifyContent: 'space-around', flexDirection: 'row' }}>
+          <Button title="Fetch infection" onPress={() => fetchInfectionDataByConsent()} />
+          <Button title="Match" onPress={() => match('')} />
         </View>
       </FadeInView>
 

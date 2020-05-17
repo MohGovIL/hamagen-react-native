@@ -3,26 +3,27 @@ import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
 import UUIDGenerator from 'react-native-uuid-generator';
-import { IS_IOS, UUID_KEY } from '../constants/Constants';
+import { DID_ADDED_BLE_DATA_TO_DB, IS_IOS, UUID_KEY } from '../constants/Constants';
 import { onError } from './ErrorService';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   try {
     const UUID = await getUUID();
 
+    // TODO move to config
     let config: any = {
       serviceUUID: UUID,
-      scanDuration: 10000,
-      scanInterval: 10000,
-      advertiseInterval: 10000,
+      scanDuration: 60000,
+      scanInterval: 240000,
+      advertiseInterval: 45000,
       advertiseDuration: 10000,
-      advertiseMode: 0,
       token: UUID
     };
 
     if (!IS_IOS) {
       config = {
         ...config,
+        advertiseMode: 0,
         advertiseTXPowerLevel: 3,
         scanMatchMode: 1,
         notificationTitle: '',
@@ -60,12 +61,36 @@ export const getUUID = () => new Promise(async (resolve, reject) => {
 export const registerBLEListeners = () => {
   const eventEmitter = new NativeEventEmitter(SpecialBle);
   eventEmitter.addListener('scanningStatus', (status) => {
-    debugger;
     // TODO handle ble event
   });
 
   eventEmitter.addListener('advertisingStatus', (status) => {
-    debugger;
     // TODO handle ble event
   });
+};
+
+export const fetchInfectionDataByConsent = () => {
+  SpecialBle.fetchInfectionDataByConsent((res: any) => {
+    const parsedRes = JSON.parse(res || '[]');
+  });
+};
+
+export const match = (data: string) => {
+  const json = require('./exampleJsons/outputserverReponse.json');
+  SpecialBle.match(JSON.stringify(json), (res: any) => {
+    const parsedRes = JSON.parse(res || '[]');
+  });
+};
+
+export const addDataToBLEDB = async () => {
+  try {
+    const res = JSON.parse(await AsyncStorage.getItem(DID_ADDED_BLE_DATA_TO_DB) || 'false');
+
+    if (!res) {
+      SpecialBle.writeContactsToDB(null);
+      await AsyncStorage.setItem(DID_ADDED_BLE_DATA_TO_DB, 'true');
+    }
+  } catch (error) {
+    onError({ error });
+  }
 };

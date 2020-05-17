@@ -26,7 +26,7 @@ import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
-import { initBLETracing, registerBLEListeners } from '../services/BLEService';
+import { addDataToBLEDB, initBLETracing, registerBLEListeners } from '../services/BLEService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -94,6 +94,9 @@ const Loading = (
   const [initialRoute, setInitialRoute] = useState('');
 
   useEffect(() => {
+    // TODO remove once functionality implemented
+    addDataToBLEDB();
+
     registerBLEListeners();
     appLoadingActions();
   }, []);
