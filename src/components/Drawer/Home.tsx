@@ -34,7 +34,7 @@ const DrawerStack = ({navigation}) => {
   },[])
 
   useEffect(() => {
-    if(exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined && (initialRouteName !== 'ExposureDetected' && initialRouteName !== ''))){
+    if(exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined && initialRouteName !== '')){
       navigation.navigate('ExposureDetected')
     }
   }, [exposures, initialRouteName])

@@ -258,7 +258,9 @@ export interface Strings {
     editBtn: string,
     title: string,
     keepSafe: string,
-    backBtn: string
+    backBtn: string,
+    reliefTitle: string,
+    historyBackBtn: string
   }
 }
 

@@ -6,7 +6,7 @@ import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import SplashScreen from 'react-native-splash-screen';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigationState } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
@@ -19,8 +19,6 @@ import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
-import AsyncStorage from '@react-native-community/async-storage';
-import { INIT_ROUTE_NAME } from '../../constants/Constants';
 
 
 interface ScanHomeProps {
@@ -44,7 +42,7 @@ interface ScanHomeProps {
 }
 
 // user has Relevant event by time and location
-const isAfter14Days = ({properties}: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.fromTime_utc), 'days') > 14) ?? false)
+const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime), 'days') < 14) ?? false)
 
 const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
@@ -69,7 +67,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
-
+  
   useEffect(() => {
     setTimeout(async () => {
       SplashScreen.hide();
@@ -93,16 +91,16 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     NetInfo.addEventListener((state: NetInfoState) => {
       setIsConnected({ hasLocation, hasNetwork: state.isConnected, hasGPS });
     });
-    
+
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
-    AsyncStorage.removeItem(INIT_ROUTE_NAME)
+    
 
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
     };
 
-    
+
   }, []);
 
   useFocusEffect(
@@ -146,7 +144,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     setIsConnected({ hasLocation, hasNetwork, hasGPS: e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED });
   };
 
-  const exposureState = useMemo(() => {
+  const exposureState = () => {
     // user never got any exposure detected
     if (exposures.length + pastExposures.length === 0)
       return 'pristine'
@@ -155,23 +153,27 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days))
       return 'relevant'
     return 'notRelevant'
-  }, [exposures, pastExposures])
+  }
 
 
-  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS) ? (<NoData strings={strings} />) :
-    (
-
+  const RelevantState = useMemo(() => {
+    if (!hasLocation || !hasNetwork || !hasGPS) {
+      return (<NoData strings={strings} />)
+    }
+    return (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
         firstPoint={firstPoint}
-        exposureState={exposureState}
+        exposureState={exposureState()}
         hideLocationHistory={hideLocationHistory}
         locale={locale}
         languages={languages}
         externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
-      />)
+      />
+    )
+  }, [hasLocation, hasNetwork, hasGPS, locale])
 
   return (
     <View style={styles.container}>

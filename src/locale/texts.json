@@ -316,7 +316,7 @@
       "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
       "backBtn": "חזרה לעמוד הבית",
       "reliefTitle": "תודה על העדכון",
-      "historyBacBtn": "חזרה להיסטוריית חפיפה"
+      "historyBackBtn": "חזרה להיסטוריית חפיפה"
     }
 
   },
@@ -540,7 +540,7 @@
       "keepSafe": "من المهم الاستمرار في اتباع الإرشادات!",
       "backBtn": "الرجوع إلى الصفحة الرئيسية",
       "reliefTitle": "شكرا للتحديث",
-      "historyBacBtn": "العودة إلى تاريخ التداخل"
+      "historyBackBtn": "العودة إلى تاريخ التداخل"
     }
   },
   "en": {
@@ -763,7 +763,7 @@
       "keepSafe": "It's important to keep following the guidelines!",
       "backBtn": "Back to the homepage",
       "reliefTitle": "Thanks for the update",
-      "historyBacBtn": "Back to overlap history"
+      "historyBackBtn": "Back to overlap history"
     }
   },
   "ru": {
@@ -986,7 +986,7 @@
       "keepSafe": "Важно продолжать следовать рекомендациям!",
       "backBtn": "Вернуться на главную страницу",
       "reliefTitle": "Спасибо за обновления",
-      "historyBacBtn": "Вернуться к истории перекрытия"
+      "historyBackBtn": "Вернуться к истории перекрытия"
     }
   },
   "am": {
@@ -1209,7 +1209,7 @@
       "keepSafe": "መመሪያዎችን መከተል አስፈላጊ ነው!",
       "backBtn": "ወደ መነሻ ገጽ ይመለሱ",
       "reliefTitle": "ለዝማኔው እናመሰግናለን",
-      "historyBacBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
+      "historyBackBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
     }
   },
   "fr": {
@@ -1432,7 +1432,7 @@
       "keepSafe": "Il est important de continuer à suivre les directives!",
       "backBtn": "Retour à la page d'accueil",
       "reliefTitle": "Merci pour la mise à jour",
-      "historyBacBtn": "Retour à l'historique des chevauchements"
+      "historyBackBtn": "Retour à l'historique des chevauchements"
     }
   }
 }

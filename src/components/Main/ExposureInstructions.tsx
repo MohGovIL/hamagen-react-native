@@ -144,10 +144,12 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
         <Text
           bold
           onPress={() => {
-            navigation.reset({
-              index: 0,
-              routes: [{ name: "ScanHome" }]
-            })
+            AsyncStorage.removeItem(INIT_ROUTE_NAME)
+            navigation.navigate('ScanHome')
+            // navigation.reset({
+            //   index: 0,
+            //   routes: [{ name: "ScanHome" }]
+            // })
           }}
           style={{
             color: MAIN_COLOR,
@@ -163,7 +165,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
 const styles = StyleSheet.create({
   subContainer: {
-    flex: 1,
+    flexGrow: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: 25,

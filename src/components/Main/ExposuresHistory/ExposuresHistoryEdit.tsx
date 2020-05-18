@@ -9,13 +9,15 @@ import { showMapModal } from '../../../actions/GeneralActions';
 import { REPLACE_PAST_EXPOSURES } from '../../../constants/ActionTypes';
 import _ from 'lodash';
 import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
+import { StackActions } from '@react-navigation/native';
 
 
 const ExposureItem = () => {
   return <Text>item</Text>
 }
 
-const ExposuresHistoryEdit = ({ navigation }) => {
+const ExposuresHistoryEdit = ({ navigation,route }) => {
+  
   const dispatch = useDispatch()
   const { isRTL, strings } = useSelector<Store, LocaleReducer>(state => state.locale)
   const {
@@ -60,6 +62,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
     } else if (newExposureArr.every(exposure => !exposure.properties.wasThere)) {
       // user changed all to was not there
       navigation.replace("ExposureHistoryRelief")
+      
     } else if (oldExposureState.some(exposure => exposure.properties.wasThere)) {
       // check if user changes wasThere from false to true when he already had at least on exposure true
       if (wasChanged.some(({ from, to }) => from === false && to === true)) {
@@ -102,7 +105,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
         style={{ marginHorizontal: 15, marginBottom: 10 }}
         showExposureOnMap={() => dispatch(showMapModal(item))} >
         <View style={{
-          flexDirection: 'row',
+          flexDirection: isRTL ? 'row' : 'row-reverse',
           marginTop: 20,
 
         }}>
