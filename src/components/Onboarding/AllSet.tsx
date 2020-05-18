@@ -11,7 +11,7 @@ import { startForegroundTimer } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
 import { NotificationData, Strings } from '../../locale/LocaleData';
-import { SCREEN_WIDTH, IS_FIRST_TIME } from '../../constants/Constants';
+import { SCREEN_WIDTH, IS_FIRST_TIME, DID_CLUSTER_LOCATIONS } from '../../constants/Constants';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -44,6 +44,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
   const onboardingDoneActions = async () => {
     try {
       await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
+      await AsyncStorage.setItem(DID_CLUSTER_LOCATIONS, 'true');
 
       startForegroundTimer();
       await startSampling(locale, notificationData);
