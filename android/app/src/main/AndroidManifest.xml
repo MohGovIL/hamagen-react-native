@@ -77,7 +77,7 @@
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".QAProvider"
             android:authorities="${applicationId}.provider"
             android:grantUriPermissions="true"
             android:exported="false">

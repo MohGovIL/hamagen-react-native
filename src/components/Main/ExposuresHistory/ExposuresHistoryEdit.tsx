@@ -1,46 +1,45 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
+import _ from 'lodash';
+import { StackActions } from '@react-navigation/native';
 import { Icon, Text, TouchableOpacity } from '../../common';
 import { Store, ExposuresReducer, LocaleReducer, Exposure } from '../../../types';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE, PADDING_BOTTOM } from '../../../constants/Constants';
 import { showMapModal } from '../../../actions/GeneralActions';
 import { REPLACE_PAST_EXPOSURES } from '../../../constants/ActionTypes';
-import _ from 'lodash';
 import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
-import { StackActions } from '@react-navigation/native';
 
 
 const ExposureItem = () => {
-  return <Text>item</Text>
-}
+  return <Text>item</Text>;
+};
 
-const ExposuresHistoryEdit = ({ navigation,route }) => {
-  
-  const dispatch = useDispatch()
-  const { isRTL, strings } = useSelector<Store, LocaleReducer>(state => state.locale)
+const ExposuresHistoryEdit = ({ navigation, route }) => {
+  const dispatch = useDispatch();
+  const { isRTL, strings } = useSelector<Store, LocaleReducer>(state => state.locale);
   const {
     exposuresHistory: { title, subTitle, historyEditFinishBtn, historyEditCancelBtn },
     scanHome: { wasNotMe, wasMe, }
   } = strings;
-  const { pastExposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
-  const [newExposureArr, setNewExposureArray] = useState(_.cloneDeep(pastExposures))
+  const { pastExposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
+  const [newExposureArr, setNewExposureArray] = useState(_.cloneDeep(pastExposures));
 
   const setSelected = (index, wasThere) => {
-    setNewExposureArray(exposureArrState => {
+    setNewExposureArray((exposureArrState) => {
       // must be immutable
-      const newArr = [...exposureArrState]
-      newArr[index].properties.wasThere = wasThere
-      return newArr
-    })
-  }
+      const newArr = [...exposureArrState];
+      newArr[index].properties.wasThere = wasThere;
+      return newArr;
+    });
+  };
 
   const finishEdit = () => {
     // check if change at all
-    const oldExposureState = _.cloneDeep(pastExposures)
+    const oldExposureState = _.cloneDeep(pastExposures);
     // commit changes and check diff from pastExposures
-    dispatch(replacePastExposureSelected([...newExposureArr]))
+    dispatch(replacePastExposureSelected([...newExposureArr]));
 
     // user had at least one exposure detected
     const wasChanged = oldExposureState.reduce((dif, exposure, index) => {
@@ -49,52 +48,47 @@ const ExposuresHistoryEdit = ({ navigation,route }) => {
           index,
           from: exposure.properties.wasThere,
           to: newExposureArr[index].properties.wasThere
-        })
+        });
       }
-      return dif
-    }, [])
+      return dif;
+    }, []);
 
 
     if (wasChanged.length === 0) {
       // no change
-      navigation.goBack()
-
+      navigation.goBack();
     } else if (newExposureArr.every(exposure => !exposure.properties.wasThere)) {
       // user changed all to was not there
-      navigation.replace("ExposureHistoryRelief")
-      
+      navigation.replace('ExposureHistoryRelief');
     } else if (oldExposureState.some(exposure => exposure.properties.wasThere)) {
       // check if user changes wasThere from false to true when he already had at least on exposure true
       if (wasChanged.some(({ from, to }) => from === false && to === true)) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "ScanHome" }, { name: "ExposureInstructions", params: { showEdit: false, update: true } }]
-        })
+          routes: [{ name: 'ScanHome' }, { name: 'ExposureInstructions', params: { showEdit: false, update: true } }]
+        });
       } else {
-        navigation.goBack()
+        navigation.goBack();
       }
-
     } else {
       // user had no exposure was there
       if (newExposureArr.some(exposure => exposure.properties.wasThere)) {
         navigation.reset({
           index: 0,
-          routes: [{ name: "ScanHome" }, { name: "ExposureInstructions", params: { showEdit: false, update: false } }]
-        })
+          routes: [{ name: 'ScanHome' }, { name: 'ExposureInstructions', params: { showEdit: false, update: false } }]
+        });
       } else {
-        navigation.goBack()
+        navigation.goBack();
       }
     }
-
-
-  }
+  };
 
   const RenderExposure = ({ index, item }) => {
-    const { wasThere, Place, fromTime } = item.properties
+    const { wasThere, Place, fromTime } = item.properties;
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === undefined) return [false, false]
-      return [wasThere, !wasThere]
-    }, [wasThere])
+      if (wasThere === undefined) return [false, false];
+      return [wasThere, !wasThere];
+    }, [wasThere]);
 
     return (
       <ExposureHistoryListItem
@@ -103,12 +97,14 @@ const ExposuresHistoryEdit = ({ navigation,route }) => {
         Place={Place}
         fromTime={fromTime}
         style={{ marginHorizontal: 15, marginBottom: 10 }}
-        showExposureOnMap={() => dispatch(showMapModal(item))} >
+        showExposureOnMap={() => dispatch(showMapModal(item))}
+      >
         <View style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           marginTop: 20,
 
-        }}>
+        }}
+        >
           <TouchableOpacity
             style={[styles.actionBtnTouch, wasNotThereSelected && styles.actionBtnSelected, { marginHorizontal: 12 }]}
             onPress={() => setSelected(index, false)}
@@ -124,15 +120,15 @@ const ExposuresHistoryEdit = ({ navigation,route }) => {
 
         </View>
       </ExposureHistoryListItem>
-    )
-  }
+    );
+  };
 
   return (
     <View style={styles.container}>
       <FlatList
         bounces={false}
         data={newExposureArr}
-        style={{flex: 1}}
+        style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
         keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
@@ -141,7 +137,7 @@ const ExposuresHistoryEdit = ({ navigation,route }) => {
           <View style={styles.headerContainer}>
             <View>
               <Text bold>{title}</Text>
-              <Text style={styles.headerSubtitle} >{subTitle}</Text>
+              <Text style={styles.headerSubtitle}>{subTitle}</Text>
             </View>
           </View>
         )}
@@ -157,12 +153,12 @@ const ExposuresHistoryEdit = ({ navigation,route }) => {
           style={{ flex: 1, backgroundColor: '#efefef', justifyContent: 'center' }}
           onPress={navigation.goBack}
         >
-          <Text style={[styles.footerBtnText]} >{historyEditCancelBtn}</Text>
+          <Text style={[styles.footerBtnText]}>{historyEditCancelBtn}</Text>
         </TouchableOpacity>
       </View>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -206,6 +202,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   buttonsContainer: { width: SCREEN_WIDTH, height: PADDING_BOTTOM(49) }
-})
+});
 
-export default ExposuresHistoryEdit
+export default ExposuresHistoryEdit;

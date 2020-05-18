@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, Linking } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, Linking, Button } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
@@ -7,6 +7,7 @@ import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -25,7 +26,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
   const [showModal, setModalVisibility] = useState(false);
 
   const [now, setNow] = useState(moment().valueOf());
-  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint])
+  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint]);
 
   const { nowDate, nowHour } = useMemo(() => ({
     nowDate: moment(now).format('D.M.YY'),
@@ -44,7 +45,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
   }, []);
 
   const RelevantCard = useMemo(() => {
-    if (exposureState !== 'relevant') return null
+    if (exposureState !== 'relevant') return null;
 
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
@@ -63,8 +64,8 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
           customStyles={isRTL ? { marginLeft: 10 } : { marginRight: 10 }}
         />
       </TouchableOpacity>
-    )
-  }, [exposureState, strings])
+    );
+  }, [exposureState, strings]);
 
   const onStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appState.current !== 'active') {

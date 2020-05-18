@@ -5,11 +5,15 @@ import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
+import prompt from 'react-native-prompt-android';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import Geohash from 'latlon-geohash';
+// @ts-ignore
+import SpecialBle from 'rn-contact-tracing';
+import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
@@ -22,7 +26,8 @@ import { onError } from '../../services/ErrorService';
 import config from '../../config/config';
 import { Exposure } from '../../types';
 import {
-  ALL_POINTS_QA, CLUSTERING_RESULT_LOG_FOR_QA,
+  ALL_POINTS_QA,
+  CLUSTERING_RESULT_LOG_FOR_QA,
   HIGH_VELOCITY_POINTS_QA, IS_IOS,
   PADDING_BOTTOM,
   PADDING_TOP,
@@ -38,11 +43,13 @@ const SICK_FILE_TYPE = 1;
 const LOCATIONS_FILE_TYPE = 2;
 const KML_FILE_TYPE = 3;
 const CLUSTERS_FILE_TYPE = 4;
+const BLE_MATCH_FILE_TYPE = 5;
+const BLE_DB_FILE_TYPE = 6;
 
 const QA = ({ navigation, updatePointsFromFile }: Props) => {
   const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
-  const fetchPointsFromFile = async (fileType: number, isClusters?: boolean) => {
+  const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
     try {
       const isStoragePermissionGranted = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
       if (isStoragePermissionGranted === RESULTS.GRANTED) {
@@ -67,70 +74,100 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       const fileUri = res.uri;
       const rawText = await RNFS.readFile(fileUri);
 
-      if (fileType === SICK_FILE_TYPE) {
-        const pointsJSON = JSON.parse(rawText.trim());
-        updatePointsFromFile(pointsJSON);
-        await checkSickPeopleFromFile(isClusters);
-      } else if (fileType === KML_FILE_TYPE) {
-        try {
-          const pointsEntered = await insertToSampleDB(kmlToGeoJson(rawText));
-          return Alert.alert(`KML loaded - ${pointsEntered} points`);
-        } catch (e) {
-          return Alert.alert('KML loading failed');
+      switch (fileType) {
+        case SICK_FILE_TYPE: {
+          const pointsJSON = JSON.parse(rawText.trim());
+          updatePointsFromFile(pointsJSON);
+          await checkSickPeopleFromFile(isClusters);
+          return;
         }
-      } else if (fileType === CLUSTERS_FILE_TYPE) {
-        const cdb = new UserClusteredLocationsDatabase();
 
-        // clusters file
-        const clustersArr: string[] = rawText.split('\n');
-        let isFirst = true;
+        case KML_FILE_TYPE: {
+          try {
+            const pointsEntered = await insertToSampleDB(kmlToGeoJson(rawText));
+            return Alert.alert(`KML loaded - ${pointsEntered} points`);
+          } catch (e) {
+            return Alert.alert('KML loading failed');
+          }
+        }
 
-        for (const item of clustersArr) {
-          if (!isFirst) { // to ignore the first row which holds the titles...
-            const clusterArr = item.split(',');
+        case CLUSTERS_FILE_TYPE: {
+          const cdb = new UserClusteredLocationsDatabase();
 
-            if (clusterArr.length >= 5) {
-              await cdb.addCluster({
-                lat: parseFloat(clusterArr[0]),
-                long: parseFloat(clusterArr[1]),
-                startTime: parseFloat(clusterArr[2]),
-                endTime: parseFloat(clusterArr[3]),
-                geoHash: Geohash.encode(parseFloat(clusterArr[0]), parseFloat(clusterArr[1]), 12),
-                radius: parseFloat(clusterArr[4]),
-                size: parseFloat(clusterArr[5])
-              });
+          // clusters file
+          const clustersArr: string[] = rawText.split('\n');
+          let isFirst = true;
+
+          for (const item of clustersArr) {
+            if (!isFirst) { // to ignore the first row which holds the titles...
+              const clusterArr = item.split(',');
+
+              if (clusterArr.length >= 5) {
+                await cdb.addCluster({
+                  lat: parseFloat(clusterArr[0]),
+                  long: parseFloat(clusterArr[1]),
+                  startTime: parseFloat(clusterArr[2]),
+                  endTime: parseFloat(clusterArr[3]),
+                  geoHash: Geohash.encode(parseFloat(clusterArr[0]), parseFloat(clusterArr[1]), 12),
+                  radius: parseFloat(clusterArr[4]),
+                  size: parseFloat(clusterArr[5])
+                });
+              }
             }
+
+            isFirst = false;
           }
 
-          isFirst = false;
+          return;
         }
-      } else {
-        const db = new UserLocationsDatabase();
 
-        // location file
-        const pointsArr: string[] = rawText.split('\n');
-        let isFirst = true;
+        case LOCATIONS_FILE_TYPE: {
+          const db = new UserLocationsDatabase();
 
-        for (const item of pointsArr) {
-          if (!isFirst) { // to ignore the first row which holds the titles...
-            const sampleArr = item.split(',');
+          // location file
+          const pointsArr: string[] = rawText.split('\n');
+          let isFirst = true;
 
-            if (sampleArr.length >= 4) {
-              await db.addSample({
-                lat: parseFloat(sampleArr[0]),
-                long: parseFloat(sampleArr[1]),
-                accuracy: parseFloat(sampleArr[2]),
-                startTime: parseFloat(sampleArr[3]),
-                endTime: parseFloat(sampleArr[4]),
-                geoHash: Geohash.encode(parseFloat(sampleArr[0]), parseFloat(sampleArr[1]), 12),
-                wifiHash: ''
-              });
-              await clusterSample();
+          for (const item of pointsArr) {
+            if (!isFirst) { // to ignore the first row which holds the titles...
+              const sampleArr = item.split(',');
+
+              if (sampleArr.length >= 4) {
+                await db.addSample({
+                  lat: parseFloat(sampleArr[0]),
+                  long: parseFloat(sampleArr[1]),
+                  accuracy: parseFloat(sampleArr[2]),
+                  startTime: parseFloat(sampleArr[3]),
+                  endTime: parseFloat(sampleArr[4]),
+                  geoHash: Geohash.encode(parseFloat(sampleArr[0]), parseFloat(sampleArr[1]), 12),
+                  wifiHash: ''
+                });
+                await clusterSample();
+              }
             }
+
+            isFirst = false;
           }
 
-          isFirst = false;
+          return;
         }
+
+        case BLE_MATCH_FILE_TYPE: {
+          SpecialBle.match(rawText, async (res: any) => {
+            const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
+            await RNFS.writeFile(filepath, res || '{}', 'utf8');
+            await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
+          });
+
+          break;
+        }
+
+        case BLE_DB_FILE_TYPE: {
+          SpecialBle.writeContactsToDB(rawText);
+          return;
+        }
+
+        default: return;
       }
     } catch (error) {
       if (DocumentPicker.isCancel(error)) {
@@ -154,6 +191,18 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
       await RNFS.writeFile(filepath, JSON.stringify(await getUserLocationsReadyForServer('XXXX')), 'utf8');
       await Share.open({ title: 'שיתוף מיקומי חולה מאומת', url: IS_IOS ? filepath : `file://${filepath}` });
+    } catch (error) {
+      onError({ error });
+    }
+  };
+
+  const shareBLEData = () => {
+    try {
+      SpecialBle.fetchInfectionDataByConsent(async (res: any) => {
+        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEData_${moment().valueOf()}.json`}`;
+        await RNFS.writeFile(filepath, res || '{}', 'utf8');
+        await Share.open({ title: 'שיתוף BLE data', url: IS_IOS ? filepath : `file://${filepath}` });
+      });
     } catch (error) {
       onError({ error });
     }
@@ -275,6 +324,20 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     Clipboard.setString(csv);
   };
 
+  const writeToBLEDBFromUrl = async () => {
+    const onUrlEntered = async (url: string) => {
+      try {
+        const res = await RNFetchBlob.fetch('GET', url);
+        SpecialBle.writeContactsToDB(res.data);
+        Alert.alert('Data added to BLE DB');
+      } catch (error) {
+        onError({ error, showError: true, messageToShow: 'Failed to add data' });
+      }
+    };
+
+    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => {}, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }]);
+  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
@@ -285,7 +348,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
       <ScrollView>
         <View style={styles.buttonWrapper}>
-          <Button title="הצלבת דקירות מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE, false)} />
+          <Button title="הצלבת דקירות מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, false)} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -293,7 +356,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchPointsFromFile(SICK_FILE_TYPE, true)} />
+          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, true)} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -301,15 +364,15 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchPointsFromFile(LOCATIONS_FILE_TYPE)} />
+          <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchFromFileWithAction(LOCATIONS_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="טעינת clusters מקובץ" onPress={() => fetchPointsFromFile(CLUSTERS_FILE_TYPE)} />
+          <Button title="טעינת clusters מקובץ" onPress={() => fetchFromFileWithAction(CLUSTERS_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="טעינת KML מקובץ" onPress={() => fetchPointsFromFile(KML_FILE_TYPE)} />
+          <Button title="טעינת KML מקובץ" onPress={() => fetchFromFileWithAction(KML_FILE_TYPE)} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -338,6 +401,22 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="שתף מידע לשיתוף מיקומים" onPress={shareShareLocationsInfo} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף מידע BLE" onPress={shareBLEData} />
         </View>
 
         <View style={styles.buttonWrapper}>

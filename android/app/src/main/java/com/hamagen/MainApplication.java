@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 import android.content.IntentFilter;
 import io.rumors.reactnativesettings.receivers.GpsLocationReceiver;
 import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
+import com.wix.specialble.SpecialBlePackage;
 
 import cl.json.ShareApplication;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
@@ -45,6 +46,7 @@ public class MainApplication extends Application implements ShareApplication, Re
                     // packages.add(new MyReactNativePackage());
                     packages.add(new RNFirebaseMessagingPackage());
                     packages.add(new RNFirebaseNotificationsPackage());
+                    packages.add(new SpecialBlePackage());
                     return packages;
                 }
 

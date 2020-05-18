@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, StyleProp,ViewStyle } from 'react-native';
+import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 import moment from 'moment';
 import { Icon, Text, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
@@ -14,9 +14,9 @@ interface Props {
   showExposureOnMap(): void
 }
 
-const ExposureHistoryListItem: FunctionComponent<Props> = ({children,style, isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap } ) => {
+const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, isRTL, strings: { scanHome: { fromHour, showOnMap } }, Place, fromTime, showExposureOnMap }) => {
   return (
-    <View style={[styles.listItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' },style]}>
+    <View style={[styles.listItemContainer, { flexDirection: isRTL ? 'row-reverse' : 'row' }, style]}>
       <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginHorizontal: 7.5 }} />
 
       <View style={[styles.textContainer, { alignItems: isRTL ? 'flex-end' : 'flex-start' }]}>
@@ -34,7 +34,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({children,style, isRT
             <Text style={styles.showOnMap} bold>{showOnMap}</Text>
           </View>
         </TouchableOpacity>
-      {children}
+        {children}
       </View>
     </View>
   );

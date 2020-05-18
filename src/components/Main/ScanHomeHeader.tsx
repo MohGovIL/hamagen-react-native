@@ -14,8 +14,8 @@ interface ScanHomeHeaderProps {
   openDrawer(): void
 }
 
-const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL,languages,locale,externalUrls,strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }) => {
-  const messageAndUrl = useMemo(()=> {
+const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }) => {
+  const messageAndUrl = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
     return `${message}\n${externalUrls?.shareMessage?.[relevantLocale] ?? ''}`;
   }, [locale]);
