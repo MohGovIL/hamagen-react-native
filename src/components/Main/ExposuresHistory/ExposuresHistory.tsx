@@ -2,13 +2,13 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, FlatList, Animated } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
+import { stat } from 'fs';
 import { Icon, Text, HeaderButton, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { showMapModal } from '../../../actions/GeneralActions';
-import { stat } from 'fs';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -18,8 +18,8 @@ interface Props {
   showMapModal(exposures: Exposure): void
 }
 
-const LINE_MARGIN = 7
-const ANIMATION_DURATION = 300
+const LINE_MARGIN = 7;
+const ANIMATION_DURATION = 300;
 
 
 const ExposuresHistory = (
@@ -33,14 +33,14 @@ const ExposuresHistory = (
 ) => {
   const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
 
-  const [tabIndex, setTabIndex] = useState(isRTL ? 1 : 0)
-  const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures])
-  const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures])
-  const showEditBtn = useMemo(() => wasThereList.length + wasNotThereList.length > 0, [wasThereList.length, wasNotThereList.length])
-  const [tabsLayout, setTabsLayout] = useState({})
-  const [lineAnimLeft] = useState(new Animated.Value(0))
-  const [lineAnimWidth] = useState(new Animated.Value(0))
-  const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0))
+  const [tabIndex, setTabIndex] = useState(isRTL ? 1 : 0);
+  const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
+  const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
+  const showEditBtn = useMemo(() => wasThereList.length + wasNotThereList.length > 0, [wasThereList.length, wasNotThereList.length]);
+  const [tabsLayout, setTabsLayout] = useState({});
+  const [lineAnimLeft] = useState(new Animated.Value(0));
+  const [lineAnimWidth] = useState(new Animated.Value(0));
+  const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
 
   useEffect(() => {
     // didn't layout yet
@@ -60,10 +60,9 @@ const ExposuresHistory = (
           toValue: tabsLayout[tabIndex].width + (LINE_MARGIN * 2),
           duration: ANIMATION_DURATION,
         })
-      ]).start()
+      ]).start();
     }
-
-  }, [tabIndex, tabsLayout, isRTL])
+  }, [tabIndex, tabsLayout, isRTL]);
 
   return (
     <View style={styles.container}>
@@ -78,7 +77,7 @@ const ExposuresHistory = (
             [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
             flexDirection: isRTL ? 'row-reverse' : 'row'
           }}
-          onPress={() => navigation.navigate("ExposuresHistoryEdit")}
+          onPress={() => navigation.navigate('ExposuresHistoryEdit')}
         >
           <Text style={{ fontSize: 13, color: MAIN_COLOR }}>{edit}</Text>
           <Icon source={require('../../../assets/main/editHistory.png')} width={9} height={9} customStyles={{ marginHorizontal: 7.5 }} />
@@ -88,27 +87,36 @@ const ExposuresHistory = (
       <View style={styles.headerContainer}>
         <View style={{ marginHorizontal: 30 }}>
           <Text bold>{title}</Text>
-          <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }} >{subTitle}</Text>
+          <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }}>{subTitle}</Text>
         </View>
         <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse' }}>
           <TouchableOpacity
             hitSlop={{ top: 10 }}
-            style={styles.tabTextContainer} onPress={() => setTabIndex(0)}>
+            style={styles.tabTextContainer}
+            onPress={() => setTabIndex(0)}
+          >
             <Text
               bold={Boolean(!tabIndex)}
               style={styles.tabText}
               onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 0: layout }))}
-            >{wasNotThere}</Text>
+            >
+              {wasNotThere}
+            </Text>
 
           </TouchableOpacity>
           <TouchableOpacity
             hitSlop={{ top: 10 }}
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} onPress={() => setTabIndex(0)}>
+            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            onPress={() => setTabIndex(0)}
+          >
             <Text
               bold={Boolean(tabIndex)}
               style={styles.tabText}
               onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 1: layout }))}
-              onPress={() => setTabIndex(1)}>{wasThere}</Text>
+              onPress={() => setTabIndex(1)}
+            >
+              {wasThere}
+            </Text>
 
           </TouchableOpacity>
         </View>
@@ -120,7 +128,8 @@ const ExposuresHistory = (
             left: lineAnimLeft,
             width: lineAnimWidth,
             bottom: 0
-          }} />
+          }}
+        />
       </View>
       <Animated.View
         style={{
@@ -141,11 +150,13 @@ const ExposuresHistory = (
             keyExtractor={(_, index) => index.toString()}
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             showsVerticalScrollIndicator={false}
-            ListEmptyComponent={() => <View style={styles.emptyStateContainer}>
-              <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginBottom: 10 }} />
-              <Text style={{ marginBottom: 30 }}>{wasNotThereNoExposure}</Text>
-              <Text bold>{keepInstructions}</Text>
-            </View>}
+            ListEmptyComponent={() => (
+              <View style={styles.emptyStateContainer}>
+                <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginBottom: 10 }} />
+                <Text style={{ marginBottom: 30 }}>{wasNotThereNoExposure}</Text>
+                <Text bold>{keepInstructions}</Text>
+              </View>
+            )}
           />
         </View>
         <View>
@@ -161,7 +172,8 @@ const ExposuresHistory = (
                 Place={item.properties.Place}
                 fromTime={item.properties.fromTime}
                 showExposureOnMap={() => showMapModal(item)}
-              />)}
+              />
+            )}
             keyExtractor={(_, index) => index.toString()}
             ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
             showsVerticalScrollIndicator={false}
@@ -170,7 +182,8 @@ const ExposuresHistory = (
                 <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginBottom: 10 }} />
                 <Text style={{ marginBottom: 30 }}>{wasThereNoExposure}</Text>
                 <Text bold>{keepInstructions}</Text>
-              </View>)
+              </View>
+            )
             }
           />
         </View>

@@ -8,38 +8,38 @@ import DrawerContent from './DrawerContent';
 import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
 import ExposuresHistoryEdit from '../Main/ExposuresHistory/ExposuresHistoryEdit';
 import ExposureHistoryRelief from '../Main/ExposuresHistory/ExposureHistoryRelief';
-import ExposureDetected from '../Main/ExposuresDetected'
-import ExposureInstructions from '../Main/ExposureInstructions'
-import ExposureRelief from '../Main/ExposureRelief'
+import ExposureDetected from '../Main/ExposuresDetected';
+import ExposureInstructions from '../Main/ExposureInstructions';
+import ExposureRelief from '../Main/ExposureRelief';
 import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
 import ShareLocations from '../ShareLocations/ShareLocations';
-import { LocaleReducer,ExposuresReducer, Store, Exposure } from '../../types';
+import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 
 
 const Stack = createStackNavigator();
 
-const DEFAULT_SCREEN = "ScanHome"
+const DEFAULT_SCREEN = 'ScanHome';
 
-const DrawerStack = ({navigation}) => {
-  const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
-  const [initialRouteName, setInitialRouteName] = useState('')
+const DrawerStack = ({ navigation }) => {
+  const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
+  const [initialRouteName, setInitialRouteName] = useState('');
 
   useEffect(() => {
     AsyncStorage.getItem('INIT_ROUTE_NAME')
       .then(initRouteString => setInitialRouteName(initRouteString ?? DEFAULT_SCREEN))
-      .catch(() => setInitialRouteName(DEFAULT_SCREEN))
-  },[])
+      .catch(() => setInitialRouteName(DEFAULT_SCREEN));
+  }, []);
 
   useEffect(() => {
-    if(exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined && initialRouteName !== '')){
-      navigation.navigate('ExposureDetected')
+    if (exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined && initialRouteName !== '')) {
+      navigation.navigate('ExposureDetected');
     }
-  }, [exposures, initialRouteName])
-  
-  if(!initialRouteName) return null
+  }, [exposures, initialRouteName]);
+
+  if (!initialRouteName) return null;
 
   return (
     <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
@@ -62,7 +62,7 @@ const Drawer = createDrawerNavigator();
 
 const Home = () => {
   const { isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
-  
+
   return (
     <>
       <Drawer.Navigator

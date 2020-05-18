@@ -26,7 +26,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
   const [showModal, setModalVisibility] = useState(false);
 
   const [now, setNow] = useState(moment().valueOf());
-  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint])
+  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint]);
 
   const { nowDate, nowHour } = useMemo(() => ({
     nowDate: moment(now).format('D.M.YY'),
@@ -45,7 +45,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
   }, []);
 
   const RelevantCard = useMemo(() => {
-    if (exposureState !== 'relevant') return null
+    if (exposureState !== 'relevant') return null;
 
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
@@ -64,8 +64,8 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
           customStyles={isRTL ? { marginLeft: 10 } : { marginRight: 10 }}
         />
       </TouchableOpacity>
-    )
-  }, [exposureState, strings])
+    );
+  }, [exposureState, strings]);
 
   const onStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appState.current !== 'active') {
@@ -118,12 +118,6 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
 
         </View>
         {RelevantCard}
-
-        {/* TODO remove once functionality implemented */}
-        <View style={{ width: SCREEN_WIDTH, justifyContent: 'space-around', flexDirection: 'row' }}>
-          <Button title="Fetch infection" onPress={() => fetchInfectionDataByConsent()} />
-          <Button title="Match" onPress={() => match()} />
-        </View>
       </FadeInView>
 
       <InfoModal

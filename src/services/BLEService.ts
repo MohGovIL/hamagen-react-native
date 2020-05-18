@@ -2,7 +2,7 @@ import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import { DID_ADDED_BLE_DATA_TO_DB, IS_IOS } from '../constants/Constants';
+import { IS_IOS } from '../constants/Constants';
 import { onError } from './ErrorService';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
@@ -78,17 +78,4 @@ export const match = () => {
 
     Alert.alert('No results found');
   });
-};
-
-export const addDataToBLEDB = async () => {
-  try {
-    const res = JSON.parse(await AsyncStorage.getItem(DID_ADDED_BLE_DATA_TO_DB) || 'false');
-
-    if (!res) {
-      SpecialBle.writeContactsToDB(null);
-      await AsyncStorage.setItem(DID_ADDED_BLE_DATA_TO_DB, 'true');
-    }
-  } catch (error) {
-    onError({ error });
-  }
 };

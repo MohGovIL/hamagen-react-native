@@ -91,11 +91,11 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
 
   if (myData.length === 0) {
     console.log('Could not find data');
-    return sickPeopleIntersected
+    return sickPeopleIntersected;
   }
 
   const mappedLocations: { [key: string]: Location[] } = {};
-  
+
   myData.forEach((location) => {
     // fix for geoHashes entered with a "'" from google timeline.
     const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
@@ -111,8 +111,8 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
   sickRecordsJson.features.forEach((sickRecord: Exposure) => {
     const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
     // get 8 neighbors of geolocation
-    const neighborsArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
-    neighborsArr.forEach(geo => {
+    const neighborsArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))];
+    neighborsArr.forEach((geo) => {
       // for each raw in user data
       if (mappedLocations[geo]) {
         mappedLocations[geo].forEach((userRecord: Location) => {
@@ -124,12 +124,12 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
           }
         });
       }
-    })
+    });
   });
 
   // sort array from the most early to last
-  return sickPeopleIntersected.sort((intersectA,intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse()
-}
+  return sickPeopleIntersected.sort((intersectA, intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse();
+};
 
 
 const checkMillisecondsDiff = (to: number, from: number) => {

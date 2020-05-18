@@ -21,7 +21,6 @@ const INITIAL_STATE = {
 
 
 export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) => {
-
   switch (action.type) {
     case UPDATE_EXPOSURES: {
       const { exposures } = action.payload;
@@ -41,7 +40,8 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
     case UPDATE_PAST_EXPOSURES: {
       const { pastExposures } = action.payload;
       return {
-        ...state, pastExposures:
+        ...state,
+        pastExposures:
           _.sortBy([...state.pastExposures, ...pastExposures], exposure => exposure.properties.fromTime).reverse()
       };
     }
@@ -61,12 +61,13 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
 
     case REPLACE_EXPOSURES: {
       const { exposures } = action.payload;
-      return { ...state, exposures }
+      return { ...state, exposures };
     }
 
     case REPLACE_PAST_EXPOSURES: {
       return {
-        ...state, pastExposures:
+        ...state,
+        pastExposures:
           _.sortBy([...action.payload], exposure => exposure.properties.fromTime).reverse()
       };
     }

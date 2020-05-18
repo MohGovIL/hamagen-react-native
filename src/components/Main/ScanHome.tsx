@@ -42,7 +42,7 @@ interface ScanHomeProps {
 }
 
 // user has Relevant event by time and location
-const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime), 'days') < 14) ?? false)
+const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime), 'days') < 14) ?? false);
 
 const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
@@ -67,7 +67,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
-  
+
   useEffect(() => {
     setTimeout(async () => {
       SplashScreen.hide();
@@ -93,14 +93,12 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     });
 
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
-    
+
 
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
     };
-
-
   }, []);
 
   useFocusEffect(
@@ -146,19 +144,17 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
   const exposureState = () => {
     // user never got any exposure detected
-    if (exposures.length + pastExposures.length === 0)
-      return 'pristine'
+    if (exposures.length + pastExposures.length === 0) return 'pristine';
     // check if user past exposures are relevant
-    // ie: is less then 14 days old 
-    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days))
-      return 'relevant'
-    return 'notRelevant'
-  }
+    // ie: is less then 14 days old
+    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days)) return 'relevant';
+    return 'notRelevant';
+  };
 
 
   const RelevantState = useMemo(() => {
     if (!hasLocation || !hasNetwork || !hasGPS) {
-      return (<NoData strings={strings} />)
+      return (<NoData strings={strings} />);
     }
     return (
       <NoExposures
@@ -172,8 +168,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
       />
-    )
-  }, [hasLocation, hasNetwork, hasGPS, locale])
+    );
+  }, [hasLocation, hasNetwork, hasGPS, locale]);
 
   return (
     <View style={styles.container}>
@@ -216,4 +212,3 @@ export default connect(mapStateToProps, {
   checkIfHideLocationHistory,
   showMapModal
 })(ScanHome);
-

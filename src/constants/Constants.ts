@@ -21,7 +21,7 @@ export const IS_SMALL_SCREEN: boolean = SCREEN_HEIGHT < 618;
 // Colors
 export const MAIN_COLOR = '#0077c8';
 export const TEXT_COLOR = '#191919';
-export const WHITE = '#fff'
+export const WHITE = '#fff';
 export const BACK_DROP_COLOR: string = 'rgba(0,0,0,0.7)';
 
 // Styles
@@ -56,9 +56,6 @@ export const INIT_ROUTE_NAME = 'INIT_ROUTE_NAME';
 export const CLUSTER_JITTER_LOCATION = 'CLUSTER_JITTER_LOCATION';
 export const CURRENT_CLUSTER_LOCATIONS_DATA = 'CURRENT_CLUSTER_LOCATIONS_DATA';
 export const DID_CLUSTER_LOCATIONS = 'DID_CLUSTER_LOCATIONS';
-
-// TODO remove once functionality implemented
-export const DID_ADDED_BLE_DATA_TO_DB = 'DID_ADDED_BLE_DATA_TO_DB';
 
 // GeneralWebview
 export const USAGE_ON_BOARDING = 'USAGE_ON_BOARDING';

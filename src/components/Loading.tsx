@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
@@ -20,7 +19,7 @@ import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
-import { addDataToBLEDB, initBLETracing, registerBLEListeners } from '../services/BLEService';
+import { initBLETracing, registerBLEListeners } from '../services/BLEService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -82,19 +81,15 @@ const Loading : FunctionComponent<Props> = (
     showForceTerms,
     checkForceUpdate,
     termsVersion
-  } 
+  }
 ) => {
   const shouldShowForceTerms = useRef(false);
 
   const [initialRoute, setInitialRoute] = useState('');
 
   useEffect(() => {
-    // TODO remove once functionality implemented
-    addDataToBLEDB();
-
     registerBLEListeners();
     appLoadingActions();
-
   }, []);
 
   useEffect(() => {
@@ -172,9 +167,9 @@ const Loading : FunctionComponent<Props> = (
       }
 
       const dbSick = new IntersectionSickDatabase();
-      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000)
+      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       const exposures = await dbSick.listAllRecords();
-      
+
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');

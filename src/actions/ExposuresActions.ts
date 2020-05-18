@@ -19,44 +19,40 @@ interface dismissedExposures {
 }
 
 
-
 export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => {
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
 
   let filteredExposures;
-  let pastExposures: Exposure[] = exposures
+  let pastExposures: Exposure[] = exposures;
 
   if (dismissedExposures) {
     const parsedDismissedExposures: number[] | dismissedExposures[] = JSON.parse(dismissedExposures);
     filteredExposures = exposures.filter((exposure: Exposure) => parsedDismissedExposures.some((item: number | dismissedExposures) => {
-        if (typeof item === 'number') {
-          return item !== exposure.properties.OBJECTID
-        } else {
-          return item.OBJECTID !== exposure.properties.OBJECTID
-        }
-      })
-    )
+      if (typeof item === 'number') {
+        return item !== exposure.properties.OBJECTID;
+      }
+      return item.OBJECTID !== exposure.properties.OBJECTID;
+    }));
     pastExposures = exposures.map((expo) => {
       if (parsedDismissedExposures.some((item: number | dismissedExposures) => {
         if (typeof item === 'number') {
-          return item === expo.properties.OBJECTID
-        } else {
-          return item.OBJECTID === expo.properties.OBJECTID
+          return item === expo.properties.OBJECTID;
         }
+        return item.OBJECTID === expo.properties.OBJECTID;
       })) {
         if (typeof parsedDismissedExposures === 'number') {
-          expo.properties.wasThere = parsedDismissedExposures ? true :  false
+          expo.properties.wasThere = !!parsedDismissedExposures;
         } else {
-          const {wasThere} = parsedDismissedExposures.find(({OBJECTID}) => expo.properties.OBJECTID === OBJECTID )
-          expo.properties.wasThere = wasThere ?? false
+          const { wasThere } = parsedDismissedExposures.find(({ OBJECTID }) => expo.properties.OBJECTID === OBJECTID);
+          expo.properties.wasThere = wasThere ?? false;
         }
       }
-      return expo
-    })
+      return expo;
+    });
   }
 
-  console.log("length", filteredExposures?.length, pastExposures.length);
-  
+  console.log('length', filteredExposures?.length, pastExposures.length);
+
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures || exposures } });
   dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures } });
 
@@ -65,17 +61,17 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     // check if first item in array is number
     if (typeof parsedDismissedExposures[0] === 'number') {
       const convertExposureToString: string = JSON.stringify(parsedDismissedExposures.map((OBJECTID: number) => {
-        if (typeof OBJECTID !== 'number') return OBJECTID
+        if (typeof OBJECTID !== 'number') return OBJECTID;
         return ({
           OBJECTID,
           wasThere: false
-        })
-      }))
+        });
+      }));
 
-      await AsyncStorage.setItem(DISMISSED_EXPOSURES, convertExposureToString)
+      await AsyncStorage.setItem(DISMISSED_EXPOSURES, convertExposureToString);
     }
   }
-}
+};
 
 export const setValidExposure = (exposure: Exposure) => async (dispatch: any) => {
   try {
@@ -109,44 +105,40 @@ export const dismissExposure = (exposureId: number) => async (dispatch: any) => 
 };
 
 export const setExposureSelected = ({ index, wasThere }) => async (dispatch: any, getState: any) => {
+  const exposures = [...getState().exposures.exposures];
+  exposures[index].properties.wasThere = wasThere;
 
-  const exposures = [...getState().exposures.exposures]
-  exposures[index].properties.wasThere = wasThere
-
-  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures } })
+  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures } });
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
   if (dismissedExposures) {
     const parsedDismissedExposures: number[] | dismissedExposures[] = JSON.parse(dismissedExposures);
     // avoid duplicates
     const idx: number = parsedDismissedExposures.findIndex((item: number | dismissedExposures) => {
-        if(typeof item ==='number'){
-          return exposures[index].properties.OBJECTID === item
-        } else {
-          return exposures[index].properties.OBJECTID === item.OBJECTID
-        }
-    })
-    if(idx > -1) {
-      if(typeof parsedDismissedExposures[idx] === 'number') {
-        parsedDismissedExposures[idx] = { OBJECTID: exposures[index].properties.OBJECTID, wasThere }
+      if (typeof item === 'number') {
+        return exposures[index].properties.OBJECTID === item;
+      }
+      return exposures[index].properties.OBJECTID === item.OBJECTID;
+    });
+    if (idx > -1) {
+      if (typeof parsedDismissedExposures[idx] === 'number') {
+        parsedDismissedExposures[idx] = { OBJECTID: exposures[index].properties.OBJECTID, wasThere };
       } else {
-
-        parsedDismissedExposures[idx].wasThere = wasThere
+        parsedDismissedExposures[idx].wasThere = wasThere;
       }
     } else {
-      parsedDismissedExposures.push({ OBJECTID: exposures[index].properties.OBJECTID, wasThere })
+      parsedDismissedExposures.push({ OBJECTID: exposures[index].properties.OBJECTID, wasThere });
     }
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures));
   } else {
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([{ OBJECTID: exposures[index].properties.OBJECTID, wasThere }]));
   }
-}
+};
 
 export const replacePastExposureSelected = (payload: Exposure[]) => async (dispatch: any) => {
-
-  dispatch({ type: REPLACE_PAST_EXPOSURES, payload })
+  dispatch({ type: REPLACE_PAST_EXPOSURES, payload });
 
   await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(payload.map((exposure: Exposure) => ({
     OBJECTID: exposure.properties.OBJECTID,
     wasThere: exposure.properties.wasThere
   }))));
-}
+};

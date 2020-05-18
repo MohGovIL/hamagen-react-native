@@ -2,6 +2,10 @@ import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react'
 import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { useFocusEffect } from '@react-navigation/native';
+import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from '@react-native-community/async-storage';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { Exposure, Store, LocaleReducer, ExposuresReducer } from '../../types';
@@ -17,10 +21,6 @@ import {
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, setExposureSelected } from '../../actions/ExposuresActions';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useFocusEffect } from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
-import AsyncStorage from '@react-native-community/async-storage';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -33,20 +33,19 @@ interface RenderExposureProps {
 
 
 const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
-
-  const dispatch = useDispatch()
-  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale)
-  const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures)
+  const dispatch = useDispatch();
+  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
-  const flatListRef = useRef(null)
+  const flatListRef = useRef(null);
 
   useEffect(() => {
     SplashScreen.hide();
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected')
-  }, [])
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
+  }, []);
 
   // show button when moving to another page
-  //  use case for single exposure. the user moves on click but if he returns for edit 
+  //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     useCallback(() => {
       if (exposures.every(exposure => exposure.properties.wasThere !== undefined)) {
@@ -55,70 +54,67 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
           duration: 0,
           useNativeDriver: true,
           delay: 300
-        }).start()
+        }).start();
       }
     }, [])
-  )
+  );
 
   const setSelected = (index: number, wasThere: boolean) => {
-    dispatch(setExposureSelected({ index, wasThere }))
+    dispatch(setExposureSelected({ index, wasThere }));
     if (exposures.length === 1) {
-      editDone()
+      editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
-      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === undefined)
+      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === undefined);
 
       if (emptyIndex === -1) {
-        Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start()
+        Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start();
       } else if (index + 1 < exposures.length) {
         setTimeout(() => {
-          if (flatListRef?.current)
-            flatListRef?.current?.scrollToIndex({
-              index: index + 1,
-              viewOffset: 10
-            })
-        }, 300)
+          if (flatListRef?.current) {
+ flatListRef?.current?.scrollToIndex({
+   index: index + 1,
+   viewOffset: 10
+ });
+          }
+        }, 300);
       } else {
-
-
         // all selected show finish button and findIndex get me last index
         if (emptyIndex === -1 || exposures.length - 1 === emptyIndex) {
-
-          Animated.timing(anim, { toValue: 0, duration: 300, delay: 300, useNativeDriver: true }).start()
+          Animated.timing(anim, { toValue: 0, duration: 300, delay: 300, useNativeDriver: true }).start();
         } else {
           flatListRef?.current?.scrollToIndex({
             index: emptyIndex,
             viewOffset: 10
-          })
+          });
         }
       }
     }
-  }
+  };
 
   const editDone = () => {
     // check if at least one exposure was checked a been there
-    const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere)
+    const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
 
     if (isExposed) {
       // move to ExposureInstructions
-      navigation.navigate('ExposureInstructions', { showEdit: true })
+      navigation.navigate('ExposureInstructions', { showEdit: true });
     } else {
       // move to ExposureRelief
-      navigation.navigate('ExposureRelief')
-      AsyncStorage.removeItem(INIT_ROUTE_NAME)
+      navigation.navigate('ExposureRelief');
+      AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
-  }
+  };
 
   const RenderExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === undefined) return [false, false]
-      return [wasThere, !wasThere]
-    }, [wasThere])
+      if (wasThere === undefined) return [false, false];
+      return [wasThere, !wasThere];
+    }, [wasThere]);
 
     return (
       <Animated.View key={OBJECTID} style={[styles.detailsContainer]}>
-        <View style={{ alignItems: 'center' }}
-        >
+        <View style={{ alignItems: 'center' }}>
           <Text style={styles.exposureLength}>{`${index + 1}/${exposures.length}`}</Text>
           <Text style={styles.exposureCardTitle}>{possibleExposure}</Text>
           <Text style={styles.exposureCardPlace} bold>
@@ -141,13 +137,13 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
               style={[styles.actionBtnTouch, wasNotThereSelected && styles.actionBtnSelected]}
               onPress={() => setSelected(index, false)}
             >
-              <Text style={[styles.actionBtnText, wasNotThereSelected && styles.actionBtnSelectedText]} bold={wasNotThereSelected} >{wasNotMe}</Text>
+              <Text style={[styles.actionBtnText, wasNotThereSelected && styles.actionBtnSelectedText]} bold={wasNotThereSelected}>{wasNotMe}</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Animated.View>
-    )
-  }
+    );
+  };
 
   return (
     <>
@@ -195,7 +191,6 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     </>
   );
 };
-
 
 
 const styles = StyleSheet.create({
@@ -252,8 +247,8 @@ const styles = StyleSheet.create({
     borderColor: MAIN_COLOR,
     borderWidth: 1,
     borderRadius: 5.6,
-    height: SCREEN_HEIGHT * .05,
-    width: SCREEN_WIDTH * .3,
+    height: SCREEN_HEIGHT * 0.05,
+    width: SCREEN_WIDTH * 0.3,
     justifyContent: 'center'
   },
   actionBtnText: {
