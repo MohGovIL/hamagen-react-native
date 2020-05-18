@@ -74,7 +74,7 @@
 		D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Bold.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Bold.otf"; sourceTree = "<group>"; };
 		D52A57B8241E4EF500521B22 /* codeAgainstCorona-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "codeAgainstCorona-Bridging-Header.h"; sourceTree = "<group>"; };
 		D52A57B9241E4EF500521B22 /* Fix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fix.swift; sourceTree = "<group>"; };
-		D52A57D524203FBB00521B22 /* המגן QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D52A57D524203FBB00521B22 /* המגן QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = "המגן QA.app"; path = "Hamagen QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52A57D72420403100521B22 /* Info-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-qa.plist"; path = "codeAgainstCorona/Info-qa.plist"; sourceTree = "<group>"; };
 		D52A57D92420404900521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/qa/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D52A57DB2420405800521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/release/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };

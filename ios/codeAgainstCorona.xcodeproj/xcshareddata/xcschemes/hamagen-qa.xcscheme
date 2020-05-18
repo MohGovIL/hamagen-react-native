@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "D52A57BF24203FBB00521B22"
-               BuildableName = "&#x5d4;&#x5de;&#x5d2;&#x5df; QA.app"
+               BuildableName = "Hamagen QA.app"
                BlueprintName = "hamagen-qa"
                ReferencedContainer = "container:codeAgainstCorona.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D52A57BF24203FBB00521B22"
-            BuildableName = "&#x5d4;&#x5de;&#x5d2;&#x5df; QA.app"
+            BuildableName = "Hamagen QA.app"
             BlueprintName = "hamagen-qa"
             ReferencedContainer = "container:codeAgainstCorona.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "D52A57BF24203FBB00521B22"
-            BuildableName = "&#x5d4;&#x5de;&#x5d2;&#x5df; QA.app"
+            BuildableName = "Hamagen QA.app"
             BlueprintName = "hamagen-qa"
             ReferencedContainer = "container:codeAgainstCorona.xcodeproj">
          </BuildableReference>
