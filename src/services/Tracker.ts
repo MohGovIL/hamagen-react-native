@@ -1,6 +1,7 @@
 import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
+import geoHash from 'latlon-geohash';
 import { setExposures } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
@@ -107,24 +108,28 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
 
   if (myData.length === 0) {
     console.log('Could not find data');
-  } else {
-    const mappedLocations: {[key: string]: Location[]} = {};
+    return sickPeopleIntersected
+  }
 
-    myData.forEach((location) => {
-      // fix for geoHashes entered with a "'" from google timeline.
-      const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
+  const mappedLocations: { [key: string]: Location[] } = {};
+  
+  myData.forEach((location) => {
+    // fix for geoHashes entered with a "'" from google timeline.
+    const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
 
-      if (mappedLocations[locationGeohashPrefix]) {
-        mappedLocations[locationGeohashPrefix].push(location);
-      } else {
-        mappedLocations[locationGeohashPrefix] = [location];
-      }
-    });
+    if (mappedLocations[locationGeohashPrefix]) {
+      mappedLocations[locationGeohashPrefix].push(location);
+    } else {
+      mappedLocations[locationGeohashPrefix] = [location];
+    }
+  });
 
-    // for each feature in json data
-    sickRecordsJson.features.map((sickRecord: Exposure) => {
-      const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
-
+  // for each feature in json data
+  sickRecordsJson.features.forEach((sickRecord: Exposure) => {
+    const sickRecordGeohashPrefix = sickRecord.properties.geohashFilter;
+    // get 8 neighbors of geolocation
+    const neighborsArr = [sickRecordGeohashPrefix, ...Object.values(geoHash.neighbours(sickRecordGeohashPrefix))]
+    neighborsArr.forEach(geo => {
       // for each raw in user data
       if (mappedLocations[sickRecordGeohashPrefix]) {
         mappedLocations[sickRecordGeohashPrefix].reverse().forEach((userRecord: Location) => {
@@ -136,11 +141,13 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
           }
         });
       }
-    });
-  }
+    })
+  });
 
-  return sickPeopleIntersected;
-};
+  // sort array from the most early to last
+  return sickPeopleIntersected.sort((intersectA,intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse()
+}
+
 
 const checkMillisecondsDiff = (to: number, from: number, isClusters: boolean) => {
   return to - from > (isClusters ? config().intersectMillisecondsWithCluster : config().intersectMilliseconds);

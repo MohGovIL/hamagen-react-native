@@ -25,7 +25,7 @@ const App = () => {
     <View style={styles.container}>
       <Provider store={storeFactory()}>
         <NavigationContainer ref={navigationRef}>
-          <Loading />
+          <Loading navigation={navigationRef.current} />
         </NavigationContainer>
       </Provider>
     </View>

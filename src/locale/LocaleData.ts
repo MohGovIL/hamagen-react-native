@@ -150,7 +150,10 @@ export interface Strings {
     },
     noExposures: {
       bannerText: string,
+      bannerTextPristine: string,
       workAllTheTime: string,
+      instructionLinkUpper: string,
+      instructionLinkLower: string,
       infoModal: {
         textBodyPt1: string,
         textBodyPt2: string
@@ -162,12 +165,21 @@ export interface Strings {
     },
     showOnMap: string,
     wasNotMe: string,
-    wasMe: string
+    wasMe: string,
+    doneBtn: string
   },
   exposuresHistory: {
     title: string,
     noExposures: string,
-    keepInstructions: string
+    keepInstructions: string,
+    subTitle: string,
+    wasNotTheres: string,
+    wasThere: string,
+    wasThereNoExposure: string,
+    wasNotThereNoExposure: string,
+    historyEditFinishBtn:string,
+    historyEditCancelBtn:string,
+    edit: string
   },
   exposureInstructions: {
     title: string,
@@ -178,7 +190,13 @@ export interface Strings {
     reportIsolation: string,
     allInstructions: string,
     reportSite: string,
-    keepSafeNew: string
+    keepSafeNew: string,
+    subTitle: string,
+    themInstructions: string,
+    editBtn: string,
+    finishBtn: string,
+    updateTitle: string,
+    updateSubTitle: string
   },
   locationHistory: {
     beforeCheckTitle: string,
@@ -235,6 +253,14 @@ export interface Strings {
       shareFailMissingToken: string,
       shareFailTokenError: string
     }
+  },
+  exposureRelief: {
+    editBtn: string,
+    title: string,
+    keepSafe: string,
+    backBtn: string,
+    reliefTitle: string,
+    historyBackBtn: string
   }
 }
 
