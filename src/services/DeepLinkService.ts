@@ -1,5 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import { queryDB } from './Tracker';
+import config from '../config/config';
 import { DBLocation } from '../types';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
@@ -45,18 +46,23 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
 
 export const getUserLocationsReadyForServer = (token: string) => new Promise(async (resolve, reject) => {
   try {
-    const locations: DBLocation[] = await queryDB();
+    const isClusters = config().dataShareClusters;
+
+    const locations: DBLocation[] = await queryDB(isClusters);
+
     const dataRows = locations.map((location) => {
       location._long = parseFloat(location.long.toFixed(6));
       location.lat = parseFloat(location.lat.toFixed(6));
-      location.accuracy = Math.min(location.accuracy, 999);
-
       // fix for geoHashes entered with a "'" from google timeline.
       location.geoHash = location.geoHash.replace(/[']/g, '');
 
       delete location.long;
-      delete location.hash;
-      delete location.wifiHash;
+
+      if (!isClusters) {
+        location.accuracy = Math.min(location.accuracy, 999);
+        delete location.hash;
+        delete location.wifiHash;
+      }
 
       return location;
     });
