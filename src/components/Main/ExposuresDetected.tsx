@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
-import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, Animated, ScrollView, FlatList, BackHandler } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
@@ -43,6 +43,10 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useEffect(() => {
     SplashScreen.hide();
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected')
+    BackHandler.addEventListener('hardwareBackPress', () => true);
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', () => true);
   }, [])
 
   // show button when moving to another page

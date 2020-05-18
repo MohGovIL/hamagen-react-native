@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect } from 'react';
-import { View, StyleSheet, Linking, ScrollView } from 'react-native';
+import { View, StyleSheet, Linking, ScrollView, BackHandler } from 'react-native';
 import moment from 'moment';
 import { Exposure, Store, LocaleReducer } from '../../types';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
@@ -44,6 +44,9 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     SplashScreen.hide();
     // if edit button need to be shown then Exposure Instructions don't need to persists
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureInstructions')
+    BackHandler.addEventListener('hardwareBackPress', () => true);
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', () => true);
   }, [])
 
   const [furtherInstructions, reportForm] = useMemo(() => {
