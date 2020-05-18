@@ -1,7 +1,9 @@
 export const encode = jest.fn();
+export const neighbours = jest.fn();
 
 const geohash = {
-  encode
+  encode,
+  neighbours
 };
 
 export default geohash;

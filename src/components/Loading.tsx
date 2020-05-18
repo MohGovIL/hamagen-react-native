@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -7,13 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import BackgroundFetch from 'react-native-background-fetch';
 import BackgroundGeolocation, { State } from 'react-native-background-geolocation';
-import Welcome from './Onboarding/Welcome';
-import Location from './Onboarding/Location';
-import LocationIOS from './Onboarding/LocationIOS';
-import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
-import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
-import Notifications from './Onboarding/Notifications';
-import AllSet from './Onboarding/AllSet';
+import OnboardingRoutes from './Onboarding/OnboardingRoutes';
 import Home from './Drawer/Home';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
 import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
@@ -48,6 +42,7 @@ import {
   VALID_EXPOSURE
 } from '../constants/Constants';
 
+
 interface Props {
   isInitLocale: boolean,
   isRTL: boolean,
@@ -68,7 +63,7 @@ interface Props {
   checkForceUpdate(): void
 }
 
-const Loading = (
+const Loading : FunctionComponent<Props> = (
   {
     isInitLocale,
     isRTL,
@@ -87,7 +82,7 @@ const Loading = (
     showForceTerms,
     checkForceUpdate,
     termsVersion
-  }: Props
+  } 
 ) => {
   const shouldShowForceTerms = useRef(false);
 
@@ -99,6 +94,7 @@ const Loading = (
 
     registerBLEListeners();
     appLoadingActions();
+
   }, []);
 
   useEffect(() => {
@@ -176,9 +172,9 @@ const Loading = (
       }
 
       const dbSick = new IntersectionSickDatabase();
-
+      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000)
       const exposures = await dbSick.listAllRecords();
-
+      
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
@@ -209,13 +205,7 @@ const Loading = (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationIOS" component={LocationIOS} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="FilterDrivingOnBoarding" component={FilterDrivingOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+          <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
 
@@ -244,12 +234,8 @@ const mapStateToProps = (state: any) => {
   return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    initLocale,
-    toggleWebview,
-    checkForceUpdate
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, {
+  initLocale,
+  toggleWebview,
+  checkForceUpdate
+})(Loading);

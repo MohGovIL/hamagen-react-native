@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, Button } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, Linking, Button } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
 import LocationHistoryInfo from './LocationHistoryInfo';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
-import { Strings } from '../../locale/LocaleData';
+import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
 import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
 
@@ -14,22 +14,26 @@ interface NoExposuresProps {
   firstPoint?: number,
   strings: Strings,
   hideLocationHistory: boolean,
+  locale: string,
+  languages: Languages,
+  externalUrls: ExternalUrls,
+  exposureState: 'pristine' | 'notRelevant' | 'relevant',
   goToLocationHistory(): void
 }
 
-const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
+const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
   const [now, setNow] = useState(moment().valueOf());
+  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint])
 
-  const { FPDate, nowDate, nowHour } = useMemo(() => ({
-    FPDate: moment(firstPoint).format('D.M.YY'),
+  const { nowDate, nowHour } = useMemo(() => ({
     nowDate: moment(now).format('D.M.YY'),
     nowHour: moment(now).format('HH:mm')
-  }), [firstPoint, now]);
+  }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, workAllTheTime, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
@@ -39,6 +43,29 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
       AppState.removeEventListener('change', onStateChange);
     };
   }, []);
+
+  const RelevantCard = useMemo(() => {
+    if (exposureState !== 'relevant') return null
+
+    const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
+
+    const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
+
+    return (
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+        <View style={{ alignContent: 'flex-end' }}>
+          <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
+          <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
+        </View>
+        <Icon
+          width={15}
+          height={IS_SMALL_SCREEN ? 25 : 30}
+          source={require('../../assets/main/isolation.png')}
+          customStyles={isRTL ? { marginLeft: 10 } : { marginRight: 10 }}
+        />
+      </TouchableOpacity>
+    )
+  }, [exposureState, strings])
 
   const onStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appState.current !== 'active') {
@@ -66,7 +93,7 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
           />
 
           <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-          <Text bold style={styles.bannerText}>{bannerText}</Text>
+          <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
         </View>
         <View style={styles.bottomCard}>
 
@@ -88,7 +115,9 @@ const NoExposures = ({ isRTL, firstPoint, strings, hideLocationHistory, goToLoca
               <Text bold style={styles.toTimeDate}>{nowHour}</Text>
             </Text>
           </View>
+
         </View>
+        {RelevantCard}
 
         {/* TODO remove once functionality implemented */}
         <View style={{ width: SCREEN_WIDTH, justifyContent: 'space-around', flexDirection: 'row' }}>

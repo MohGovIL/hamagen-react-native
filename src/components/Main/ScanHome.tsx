@@ -1,19 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
-import { bindActionCreators } from 'redux';
 import SplashScreen from 'react-native-splash-screen';
-import { useFocusEffect } from '@react-navigation/native';
+import { useFocusEffect, useNavigationState } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoData from './NoData';
-import ExposuresDetected from './ExposuresDetected';
 import NoExposures from './NoExposures';
-import ExposureInstructions from './ExposureInstructions';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
 import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
@@ -22,7 +20,8 @@ import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 
-interface Props {
+
+interface ScanHomeProps {
   navigation: DrawerNavigationProp<any>,
   isRTL: boolean,
   strings: Strings,
@@ -30,6 +29,7 @@ interface Props {
   languages: Languages,
   externalUrls: ExternalUrls,
   exposures: Exposure[],
+  pastExposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,
   hideLocationHistory: boolean,
@@ -41,7 +41,10 @@ interface Props {
   showMapModal(exposure: Exposure): void
 }
 
-const ScanHome = (
+// user has Relevant event by time and location
+const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime), 'days') < 14) ?? false)
+
+const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
     navigation,
     isRTL,
@@ -50,20 +53,21 @@ const ScanHome = (
     languages,
     externalUrls,
     exposures,
+    pastExposures,
+    firstPoint,
     validExposure,
+    hideLocationHistory,
     setValidExposure,
     removeValidExposure,
     dismissExposure,
-    firstPoint,
-    hideLocationHistory,
     checkForceUpdate,
     checkIfHideLocationHistory,
     showMapModal
-  }: Props
+  }
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
-
+  
   useEffect(() => {
     setTimeout(async () => {
       SplashScreen.hide();
@@ -89,11 +93,14 @@ const ScanHome = (
     });
 
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
+    
 
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
     };
+
+
   }, []);
 
   useFocusEffect(
@@ -137,47 +144,36 @@ const ScanHome = (
     setIsConnected({ hasLocation, hasNetwork, hasGPS: e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED });
   };
 
-  const renderRelevantState = () => {
-    if (validExposure) {
-      return (
-        <ExposureInstructions
-          isRTL={isRTL}
-          strings={strings}
-          locale={locale}
-          languages={languages}
-          externalUrls={externalUrls}
-          exposure={validExposure}
-          removeValidExposure={removeValidExposure}
-        />
-      );
-    } if (!hasLocation || !hasNetwork || !hasGPS) {
-      return (
-        <NoData strings={strings} />
-      );
-    } if (exposures.length > 0) {
-      return (
-        <ExposuresDetected
-          isRTL={isRTL}
-          strings={strings}
-          exposures={exposures}
-          onValidExposure={exposure => setValidExposure(exposure)}
-          dismissExposure={exposureId => dismissExposure(exposureId)}
-          showMapModal={showMapModal}
-        />
-      );
-    }
+  const exposureState = () => {
+    // user never got any exposure detected
+    if (exposures.length + pastExposures.length === 0)
+      return 'pristine'
+    // check if user past exposures are relevant
+    // ie: is less then 14 days old 
+    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days))
+      return 'relevant'
+    return 'notRelevant'
+  }
 
+
+  const RelevantState = useMemo(() => {
+    if (!hasLocation || !hasNetwork || !hasGPS) {
+      return (<NoData strings={strings} />)
+    }
     return (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
-        
         firstPoint={firstPoint}
+        exposureState={exposureState()}
         hideLocationHistory={hideLocationHistory}
+        locale={locale}
+        languages={languages}
+        externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
       />
-    );
-  };
+    )
+  }, [hasLocation, hasNetwork, hasGPS, locale])
 
   return (
     <View style={styles.container}>
@@ -189,10 +185,7 @@ const ScanHome = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-
-      {
-        renderRelevantState()
-      }
+      {RelevantState}
     </View>
   );
 };
@@ -208,22 +201,19 @@ const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
     general: { hideLocationHistory },
-    exposures: { exposures, validExposure, firstPoint }
+    exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, externalUrls, exposures, validExposure, firstPoint, hideLocationHistory };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory };
 };
 
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    setValidExposure,
-    removeValidExposure,
-    dismissExposure,
-    checkForceUpdate,
-    checkIfHideLocationHistory,
-    showMapModal
-  }, dispatch);
-};
+export default connect(mapStateToProps, {
+  setValidExposure,
+  removeValidExposure,
+  dismissExposure,
+  checkForceUpdate,
+  checkIfHideLocationHistory,
+  showMapModal
+})(ScanHome);
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScanHome);

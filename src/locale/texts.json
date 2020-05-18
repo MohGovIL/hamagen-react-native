@@ -205,7 +205,7 @@
         "androidTitle": "שיתוף אפליקציית המגן"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
+        "bannerText": "לא נמצאו נקודות חפיפה חדשות",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -214,16 +214,28 @@
         "card": {
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
-        }
+        },
+        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
+        "instructionLinkUpper": "לשימוש במידת הצורך:",
+        "instructionLinkLower": "הנחיות לשוהים בבידוד"
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "wasMe": "ייתכן שכן",
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
       "noExposures": "לשמחתנו, אין אירועים ב-14 הימים האחרונים״  ",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה",
+      "edit": "עריכה"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -234,7 +246,13 @@
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
       "reportSite": "לדיווח באתר",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:"
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית",
+      "updateTitle": "תודה שעדכנת",
+      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -291,7 +309,16 @@
         "shareFailMissingToken": "הבנתי, תודה",
         "shareFailTokenError": "נסה שנית"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBackBtn": "חזרה להיסטוריית חפיפה"
     }
+
   },
   "ar": {
     "general": {
@@ -402,7 +429,7 @@
         "androidTitle": "مشاركة تطبيق الحماية"
       },
       "noExposures": {
-        "bannerText": "لم يتم العثور على \n نقاط تداخل",
+        "bannerText": "لم يتم العثور على\nنقاط تداخل",
         "workAllTheTime": "يعمل التطبيق الوقائي طوال الوقت",
         "infoModal": {
           "textBodyPt1": "تتم المقارنة من اللحظة التي تتلقى فيها مواقعك في",
@@ -411,16 +438,28 @@
         "card": {
           "title": "اعتبارًا من:",
           "atHour": "في"
-        }
+        },
+        "bannerTextPristine": "لم يتم العثور على\nنقاط تداخل",
+        "instructionLinkUpper": "للاستخدام إذا لزم الأمر:",
+        "instructionLinkLower": "إرشادات للبقاء في عزلة"
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
-      "wasMe": "قد يكون"
+      "wasMe": "قد يكون",
+      "doneBtn": "انتهيت من التحديث"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق",
-      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات"
+      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات",
+      "subTitle": "إليك جميع نقاط التداخل التي وجدناها في آخر 14\nيوم عند وضع علامة عليها",
+      "wasThere": "ربما كنت هناك",
+      "wasNotThere": "لم تكن هناك",
+      "wasThereNoExposure": "من دواعي سرورنا أنه لا توجد أحداث في آخر 14 يومًا وضعت عليها علامة \"ربما كنت هناك\"",
+      "wasNotThereNoExposure": "لا توجد أحداث في الـ 14 يومًا الأخيرة التي وضعت عليها \"لم أكن هناك\"",
+      "historyEditFinishBtn": "حفظ التغييرات",
+      "historyEditCancelBtn": "تراجع عن التحرير",
+      "edit": "تقييم"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -430,7 +469,14 @@
       "goIntoIsolation": "يرجى الدخول فورا الى الحجر الصحي لمدة ١٤ يوم من وقت التعرض",
       "reportIsolation": "يتوجب عليكم إبلاغ وزارة الصحة",
       "allInstructions": "لكل التوصيات",
-      "reportSite": "للإبلاغ"
+      "reportSite": "للإبلاغ",
+      "keepSafeNew": "هذه هي إرشادات وزارة الصحة:",
+      "subTitle": "قد يكون هناك تداخل مع مريض كورونا",
+      "themInstructions": "هذه هي إرشادات وزارة الصحة:",
+      "editBtn": "تقييم",
+      "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية",
+      "updateTitle": "شكرا للتحديث",
+      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -466,7 +512,7 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا. \n\n لن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة. \n ستظل معلوماتك الشخصية سرية.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\nستظل معلوماتك الشخصية سرية.",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
@@ -487,6 +533,14 @@
         "shareFailMissingToken": "أفهم ، شكرا لك",
         "shareFailTokenError": "يرجى المحاولة مرة أخرى"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "تقييم",
+      "title": "يبدو أنك لم تتداخل مع القرنية",
+      "keepSafe": "من المهم الاستمرار في اتباع الإرشادات!",
+      "backBtn": "الرجوع إلى الصفحة الرئيسية",
+      "reliefTitle": "شكرا للتحديث",
+      "historyBackBtn": "العودة إلى تاريخ التداخل"
     }
   },
   "en": {
@@ -598,7 +652,7 @@
         "androidTitle": "Sharing Hamagen"
       },
       "noExposures": {
-        "bannerText": "No \n overlap points found",
+        "bannerText": "No new overlap\npoints found",
         "workAllTheTime": "Hamagen app works all the time",
         "infoModal": {
           "textBodyPt1": "The comparison is made from the moment you receive your locations on",
@@ -607,16 +661,28 @@
         "card": {
           "title": "As of:",
           "atHour": "at"
-        }
+        },
+        "bannerTextPristine": "No overlap\npoints found",
+        "instructionLinkUpper": "To use if necessary:",
+        "instructionLinkLower": "Guidelines for staying in isolation"
       },
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
-      "wasMe": "Might be"
+      "wasMe": "Might be",
+      "doneBtn": "I'm done updating"
     },
     "exposuresHistory": {
       "title": "Exposure history",
       "noExposures": "No overlap points found",
-      "keepInstructions": "It is important to keep following the guidelines"
+      "keepInstructions": "It is important to keep following the guidelines",
+      "subTitle": "Here are all the overlaps we found in the last 14\ndays as you marked them",
+      "wasThere": "You may have been there",
+      "wasNotThere": "You weren't there",
+      "wasThereNoExposure": "To our delight, there are no events in the last 14 days for which you marked \"I may have been there\"",
+      "wasNotThereNoExposure": "There are no events in the last 14 days for which you marked \"I was not there\"",
+      "historyEditFinishBtn": "Saving changes",
+      "historyEditCancelBtn": "Undo editing",
+      "edit": "editing"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -626,7 +692,14 @@
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
-      "reportSite": "To report at the Site"
+      "reportSite": "To report at the Site",
+      "keepSafeNew": "These are the guidelines of the Ministry of Health:",
+      "subTitle": "There may have been overlap with Corona patient",
+      "themInstructions": "These are the guidelines of the Ministry of Health:",
+      "editBtn": "editing",
+      "finishBtn": "I'm done, back to the homepage",
+      "updateTitle": "Thanks for updating",
+      "updateSubTitle": "The changes you have made may affect the behavior below"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -683,6 +756,14 @@
         "shareFailMissingToken": "I understood, thank you",
         "shareFailTokenError": "try again"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "editing",
+      "title": "You don't seem to have overlapped with a cornea",
+      "keepSafe": "It's important to keep following the guidelines!",
+      "backBtn": "Back to the homepage",
+      "reliefTitle": "Thanks for the update",
+      "historyBackBtn": "Back to overlap history"
     }
   },
   "ru": {
@@ -803,16 +884,28 @@
         "card": {
           "title": "По состоянию на:",
           "atHour": "в"
-        }
+        },
+        "bannerTextPristine": "Не найдено точек перекрытия\n",
+        "instructionLinkUpper": "Использовать при необходимости:",
+        "instructionLinkLower": "Правила пребывания в изоляции"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
-      "wasMe": "Может быть"
+      "wasMe": "Может быть",
+      "doneBtn": "Я сделал обновление"
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения",
-      "keepInstructions": "Важно продолжать следовать рекомендациям"
+      "keepInstructions": "Важно продолжать следовать рекомендациям",
+      "subTitle": "Вот все точки наложения, которые мы нашли за последние 14 дней, когда вы их отмечали",
+      "wasThere": "Вы могли быть там",
+      "wasNotThere": "Тебя там не было",
+      "wasThereNoExposure": "К нашему восхищению, за последние 14 дней не было событий, для которых вы отметили \"Я, возможно, был там\"",
+      "wasNotThereNoExposure": "Нет событий за последние 14 дней, для которых вы отметили \"меня там не было\"",
+      "historyEditFinishBtn": "Сохранение изменений",
+      "historyEditCancelBtn": "Отменить редактирование",
+      "edit": "редактирование"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -822,7 +915,14 @@
       "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
       "reportIsolation": "Сообщите о вашем карантине на сайте Минздрава",
       "allInstructions": "Инструкции",
-      "reportSite": "Сообщить"
+      "reportSite": "Сообщить",
+      "keepSafeNew": "Вот рекомендации Министерства здравоохранения:",
+      "subTitle": "Там может быть совпадение с пациентом короны",
+      "themInstructions": "Вот рекомендации Министерства здравоохранения:",
+      "editBtn": "редактирование",
+      "finishBtn": "Я сделал, вернуться на главную страницу",
+      "updateTitle": "Спасибо за обновление",
+      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -879,6 +979,14 @@
         "shareFailMissingToken": "Я понимаю спасибо",
         "shareFailTokenError": "Пожалуйста, попробуйте еще раз"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "редактирование",
+      "title": "Вы, кажется, не перекрывались с роговицей",
+      "keepSafe": "Важно продолжать следовать рекомендациям!",
+      "backBtn": "Вернуться на главную страницу",
+      "reliefTitle": "Спасибо за обновления",
+      "historyBackBtn": "Вернуться к истории перекрытия"
     }
   },
   "am": {
@@ -999,16 +1107,28 @@
         "card": {
           "title": "እንደ:",
           "atHour": "በ"
-        }
+        },
+        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
+        "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
+        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
-      "wasMe": "ሊሆን ይችላል"
+      "wasMe": "ሊሆን ይችላል",
+      "doneBtn": "ማዘመን አጠናቅቄያለሁ"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
-      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው"
+      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው",
+      "subTitle": "እርስዎ ምልክት ሲያደርጉባቸው በአለፉት 14\nቀናት ውስጥ ያጋጠሙኝ ሁሉም መደራረቦች እነሆ",
+      "wasThere": "እዚያ ሊሆኑ ይችላሉ",
+      "wasNotThere": "እዚያ አልነበሩም",
+      "wasThereNoExposure": "ደስ የሚለው ነገር ፣ ካለፉት 14 ቀናት ውስጥ “እዛ እዛ እሆን ነበር” ብለው ያሰቧቸው ምንም ክስተቶች የሉም ፡፡",
+      "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
+      "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
+      "historyEditCancelBtn": "ማርትዕ ቀልብስ",
+      "edit": "ማርትዕ"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1018,7 +1138,14 @@
       "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
       "reportIsolation": "መገለያ ቦታ መግባትዎን በጤና ጥበቃ መ/ቤት ድረ-ገፅ ያስታውቁ።,",
       "allInstructions": "ለሁሉም መመሪያዎች ።,",
-      "reportSite": "በድረ-ገፅ ያስታውቁ ።"
+      "reportSite": "በድረ-ገፅ ያስታውቁ ።",
+      "keepSafeNew": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "subTitle": "ከኮሮና ህመምተኛ ጋር መደራረብ ሊኖር ይችላል",
+      "themInstructions": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "editBtn": "ማርትዕ",
+      "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
+      "updateTitle": "ስላዘመኑ እናመሰግናለን",
+      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1075,6 +1202,14 @@
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
         "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "ማርትዕ",
+      "title": "በቆርቆሮ የተስተካከሉ አይመስሉም",
+      "keepSafe": "መመሪያዎችን መከተል አስፈላጊ ነው!",
+      "backBtn": "ወደ መነሻ ገጽ ይመለሱ",
+      "reliefTitle": "ለዝማኔው እናመሰግናለን",
+      "historyBackBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
     }
   },
   "fr": {
@@ -1186,7 +1321,7 @@
         "androidTitle": "Partager l'application de protection"
       },
       "noExposures": {
-        "bannerText": "Aucun \n point de chevauchement trouvé",
+        "bannerText": "Aucun\npoint de chevauchement trouvé",
         "workAllTheTime": "L'application de protection fonctionne tout le temps",
         "infoModal": {
           "textBodyPt1": "La comparaison est faite à partir du moment où vous recevez vos emplacements sur",
@@ -1195,16 +1330,28 @@
         "card": {
           "title": "Au:",
           "atHour": "À"
-        }
+        },
+        "bannerTextPristine": "Aucun\npoint de chevauchement trouvé",
+        "instructionLinkUpper": "A utiliser si nécessaire:",
+        "instructionLinkLower": "Lignes directrices pour rester en isolement"
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
-      "wasMe": "Cela peut être"
+      "wasMe": "Cela peut être",
+      "doneBtn": "סיימתי לעדכן"
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
-      "keepInstructions": "Il est important de continuer à suivre les directives"
+      "keepInstructions": "Il est important de continuer à suivre les directives",
+      "subTitle": "Voici tous les points de chevauchement que nous avons trouvés au cours des 14\nderniers jours lorsque vous les avez marqués",
+      "wasThere": "Vous avez peut-être été là",
+      "wasNotThere": "Tu n'étais pas là",
+      "wasThereNoExposure": "Pour notre plus grand plaisir, il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"J'ai peut-être été là\"",
+      "wasNotThereNoExposure": "Il n'y a aucun événement au cours des 14 derniers jours pour lequel vous avez marqué \"Je n'étais pas là\"",
+      "historyEditFinishBtn": "Enregistrer les modifications",
+      "historyEditCancelBtn": "Annuler l'édition",
+      "edit": "édition"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1214,7 +1361,14 @@
       "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",
       "reportIsolation": "Signaler l’isolement",
       "allInstructions": "Pour toutes les instructions",
-      "reportSite": "Pour signaler sur le sit"
+      "reportSite": "Pour signaler sur le sit",
+      "keepSafeNew": "Ce sont les directives du Ministère de la Santé:",
+      "subTitle": "Il peut y avoir un chevauchement avec le patient Corona",
+      "themInstructions": "Ce sont les lignes directrices du ministère de la Santé:",
+      "editBtn": "édition",
+      "finishBtn": "J'ai fini, retour à la page d'accueil",
+      "updateTitle": "Merci d'avoir mis à jour",
+      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
@@ -1271,6 +1425,14 @@
         "shareFailMissingToken": "Je comprends merci",
         "shareFailTokenError": "Veuillez réessayer"
       }
+    },
+    "exposureRelief": {
+      "editBtn": "édition",
+      "title": "Vous ne semblez pas avoir chevauché avec une cornée",
+      "keepSafe": "Il est important de continuer à suivre les directives!",
+      "backBtn": "Retour à la page d'accueil",
+      "reliefTitle": "Merci pour la mise à jour",
+      "historyBackBtn": "Retour à l'historique des chevauchements"
     }
   }
 }

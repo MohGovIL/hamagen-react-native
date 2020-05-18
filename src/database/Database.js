@@ -459,6 +459,25 @@ export class IntersectionSickDatabase {
     });
   }
 
+  purgeIntersectionSickTable(timestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          try {
+            await tx.executeSql('DELETE FROM IntersectingSick WHERE toTime < ?', [timestamp]);
+            resolve(true);
+          } catch (error) {
+            onError({ error });
+          }
+        });
+      } catch (error) {
+        onError({ error });
+      }
+    });
+  }
+
   containsObjectID(OBJECTID) {
     return new Promise(async (resolve) => {
       try {
