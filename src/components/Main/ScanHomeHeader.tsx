@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   bottomEdge: {
     width: SCREEN_WIDTH,
-    height: 45,
+    height: 24,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     backgroundColor: '#fff'

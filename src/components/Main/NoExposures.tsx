@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
+import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-import LocationHistoryInfo from './LocationHistoryInfo';
+import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
@@ -18,10 +18,11 @@ interface NoExposuresProps {
   languages: Languages,
   externalUrls: ExternalUrls,
   exposureState: 'pristine' | 'notRelevant' | 'relevant',
-  goToLocationHistory(): void
+  goToLocationHistory(): void,
+  goToBluetoothPermission(): void
 }
 
-const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory,goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -75,15 +76,23 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
     appState.current = state;
   };
 
+  const LocationHistoryInfo = useCallback(() => {
+    if (hideLocationHistory) return null
+    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />)
+  }, [hideLocationHistory, locale])
+
+  const BLEInfo = useCallback(() => {
+    return (<InfoBubble isRTL={isRTL} info="מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות׳" moreInfo="מידע נוסף" onPress={goToBluetoothPermission} />)
+    // TODO: change if no BT available
+  },[locale])
+
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
-          {
-            !hideLocationHistory && (
-              <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
-            )
-          }
+          <LocationHistoryInfo />
+          <BLEInfo />
+          
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
