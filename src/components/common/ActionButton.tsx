@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   container: {
     ...BASIC_SHADOW_STYLES,
     width: SCREEN_WIDTH * 0.6,
-    height: 60,
+    minHeight: 60,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
