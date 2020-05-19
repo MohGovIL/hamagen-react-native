@@ -74,7 +74,7 @@
 		D52A57B3241E29B800521B22 /* SimplerPro_V3-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SimplerPro_V3-Bold.otf"; path = "../../src/assets/fonts/SimplerPro_V3-Bold.otf"; sourceTree = "<group>"; };
 		D52A57B8241E4EF500521B22 /* codeAgainstCorona-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "codeAgainstCorona-Bridging-Header.h"; sourceTree = "<group>"; };
 		D52A57B9241E4EF500521B22 /* Fix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fix.swift; sourceTree = "<group>"; };
-		D52A57D524203FBB00521B22 /* המגן QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D52A57D524203FBB00521B22 /* Hamagen QA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hamagen QA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D52A57D72420403100521B22 /* Info-qa.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Info-qa.plist"; path = "codeAgainstCorona/Info-qa.plist"; sourceTree = "<group>"; };
 		D52A57D92420404900521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/qa/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		D52A57DB2420405800521B22 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "codeAgainstCorona/firebase/release/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -176,7 +176,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* המגן.app */,
-				D52A57D524203FBB00521B22 /* המגן QA.app */,
+				D52A57D524203FBB00521B22 /* Hamagen QA.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -286,7 +286,7 @@
 			);
 			name = "hamagen-qa";
 			productName = codeAgainstCorona;
-			productReference = D52A57D524203FBB00521B22 /* המגן QA.app */;
+			productReference = D52A57D524203FBB00521B22 /* Hamagen QA.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -574,12 +574,12 @@
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -605,11 +605,11 @@
 				CODE_SIGN_ENTITLEMENTS = "המגןRelease.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -733,7 +733,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -744,7 +744,7 @@
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -770,7 +770,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -780,7 +780,7 @@
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
