@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
-import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, Animated, ScrollView, FlatList, BackHandler } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -41,8 +41,12 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   useEffect(() => {
     SplashScreen.hide();
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
-  }, []);
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected')
+    BackHandler.addEventListener('hardwareBackPress', () => true);
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', () => true);
+  }, [])
 
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
