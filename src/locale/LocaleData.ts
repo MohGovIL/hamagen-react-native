@@ -85,6 +85,12 @@ export interface Strings {
     subTitle1: string,
     subTitle2: string
   },
+  bluetooth: {
+    approveBluetooth: string,
+    title: string,
+    description: string,
+    callToAction: string
+  },
   location: {
     title: string,
     subTitle1: string,
