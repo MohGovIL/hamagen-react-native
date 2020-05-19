@@ -43,11 +43,10 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   useEffect(() => {
     SplashScreen.hide();
     // if edit button need to be shown then Exposure Instructions don't need to persists
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureInstructions')
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureInstructions');
     BackHandler.addEventListener('hardwareBackPress', () => true);
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', () => true);
-  }, [])
+    return () => BackHandler.removeEventListener('hardwareBackPress', () => true);
+  }, []);
 
   const [furtherInstructions, reportForm] = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';

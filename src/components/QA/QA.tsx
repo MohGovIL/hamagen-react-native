@@ -335,7 +335,36 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       }
     };
 
-    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => {}, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }]);
+    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => {}, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
+  };
+
+  const matchBLEFromUrl = async () => {
+    const onUrlEntered = async (url: string) => {
+      try {
+        const res = await RNFetchBlob.fetch('GET', url);
+        SpecialBle.match(res.data, async (res: any) => {
+          const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatchFromURL_${moment().valueOf()}.json`}`;
+          await RNFS.writeFile(filepath, res || '{}', 'utf8');
+          await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
+        });
+      } catch (error) {
+        onError({ error, showError: true, messageToShow: 'Failed download file' });
+      }
+    };
+
+    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => {}, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
+  };
+
+  const getAllBLEScans = () => {
+    try {
+      SpecialBle.getAllScans(async (res: any) => {
+        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
+        await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
+        await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
+      });
+    } catch (error) {
+      onError({ error });
+    }
   };
 
   return (
@@ -408,6 +437,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
+          <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
           <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
         </View>
 
@@ -417,6 +450,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="שתף מידע BLE" onPress={shareBLEData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
         </View>
 
         <View style={styles.buttonWrapper}>

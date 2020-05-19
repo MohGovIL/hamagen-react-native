@@ -41,12 +41,11 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   useEffect(() => {
     SplashScreen.hide();
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected')
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
     BackHandler.addEventListener('hardwareBackPress', () => true);
 
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', () => true);
-  }, [])
+    return () => BackHandler.removeEventListener('hardwareBackPress', () => true);
+  }, []);
 
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
