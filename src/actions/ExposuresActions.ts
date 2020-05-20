@@ -51,8 +51,6 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     });
   }
 
-  console.log('length', filteredExposures?.length, pastExposures.length);
-
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures || exposures } });
   dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures } });
 
