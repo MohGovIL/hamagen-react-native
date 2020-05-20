@@ -31,7 +31,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
     }
 
     await SpecialBle.setConfig(config);
-    IS_IOS ? await SpecialBle.startBLEService(UUID) : await SpecialBle.startBLEService();
+    await SpecialBle.startBLEService();
 
     resolve();
   } catch (error) {
