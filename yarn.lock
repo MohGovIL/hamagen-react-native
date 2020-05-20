@@ -7220,9 +7220,9 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-"rn-contact-tracing@git+https://github.com/wix-incubator/rn-contact-tracing.git#iOS-Crypto":
+"rn-contact-tracing@git+https://github.com/wix-incubator/rn-contact-tracing.git#master":
   version "0.0.3"
-  resolved "git+https://github.com/wix-incubator/rn-contact-tracing.git#b0f403905d13c77e6378bdbdf0210821025c852e"
+  resolved "git+https://github.com/wix-incubator/rn-contact-tracing.git#90b1060ca0c8b321283b499f49fae09b4608a42e"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"

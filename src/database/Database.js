@@ -527,7 +527,8 @@ export class IntersectionSickDatabase {
                 record.properties.fromTime_utc,
                 record.properties.toTime_utc,
                 record.geometry.coordinates[config().sickGeometryLongIndex],
-                record.geometry.coordinates[config().sickGeometryLatIndex]
+                record.geometry.coordinates[config().sickGeometryLatIndex],
+                null
               ]);
 
             resolve(results);

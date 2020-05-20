@@ -12,6 +12,7 @@ import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
 import { LAST_FETCH_TS } from '../constants/Constants';
+import { matchMock } from './BLEService';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -31,6 +32,27 @@ export const queryDB = async (isClusters: boolean) => {
   const rows = isClusters ? await cdb.listClusters() : await db.listSamples();
   return rows;
 };
+
+export const checkBLEMatch = async () => {
+  try {
+    const fetched = await fetchMock()
+    if (fetched) {
+      const bleTS = await matchMock(fetched)
+      if(bleTS) {
+      
+        const sickDB = new IntersectionSickDatabase();
+
+        // check if ble time stamp exists in db
+        if(false) {
+          
+        }
+      }
+
+    }
+  } catch (error) {
+    onError(error);
+  }
+}
 
 export const checkSickPeople = async () => {
   try {
@@ -143,7 +165,7 @@ export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure) =>
   );
 };
 
-export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
+export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure) => {
   const start = {
     latitude: clusterOrLocation.lat,
     longitude: clusterOrLocation.long,
