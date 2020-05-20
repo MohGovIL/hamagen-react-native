@@ -499,6 +499,7 @@ export class IntersectionSickDatabase {
   }
 
   async deleteAll() {
+    if (!__DEV__) return;
     try {
       const db = await this.initDB();
 
@@ -547,6 +548,30 @@ export class IntersectionSickDatabase {
       return db.transaction(async (tx) => {
         const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp) VALUES (?)', [BLETimestamp]);
         return results;
+      });
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
+  }
+
+  async MergeBLEIntoSickRecord(OBJECTID, BLETimestamp) {
+    // (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat,wasThere,BLETimestamp)
+    try {
+      const db = await this.initDB();
+
+      return db.transaction(async (tx) => {
+        const [_, results] = await tx.executeSql('UPDATE IntersectingSick set wasThere = ?, BLETimestamp = ? WHERE OBJECTID = ?',
+          [
+            true,
+            BLETimestamp,
+            OBJECTID
+          ]);
+
+        if (results.rows.length > 0) {
+          return results.rows.item(0);
+        }
+        return null;
       });
     } catch (error) {
       onError({ error });
