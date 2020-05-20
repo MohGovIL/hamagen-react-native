@@ -62,7 +62,7 @@
     "react-redux": "7.1.3",
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
-    "rn-contact-tracing": "git+https://github.com/wix-incubator/rn-contact-tracing.git#iOS-Crypto",
+    "rn-contact-tracing": "git+https://github.com/wix-incubator/rn-contact-tracing.git#master",
     "rn-fetch-blob": "0.12.0",
     "seedrandom": "^3.0.5",
     "sha256": "00.2.0",
