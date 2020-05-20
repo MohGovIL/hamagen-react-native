@@ -20,7 +20,7 @@ import {
   INIT_ROUTE_NAME
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
-import {  dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
+import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -73,10 +73,10 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       } else if (index + 1 < exposures.length) {
         setTimeout(() => {
           if (flatListRef?.current) {
- flatListRef?.current?.scrollToIndex({
-   index: index + 1,
-   viewOffset: 10
- });
+            flatListRef?.current?.scrollToIndex({
+              index: index + 1,
+              viewOffset: 10
+            });
           }
         }, 300);
       } else {
@@ -144,6 +144,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             </TouchableOpacity>
           </View>
         </View>
+    
       </Animated.View>
     );
   };
@@ -164,6 +165,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
           horizontal
           ref={flatListRef}
           data={exposures}
+          nestedScrollEnabled
           keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
           renderItem={({ item, index }) => <RenderExposure exposure={item} index={index} />}
           showsHorizontalScrollIndicator={false}
@@ -213,10 +215,12 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * 0.88,
 
     marginRight: 13,
-    borderRadius: 8,
+    borderRadius: 13,
     padding: 25,
 
     justifyContent: 'space-between',
+
+    overflow: 'hidden'
   },
   exposureLength: {
     fontSize: 13,
