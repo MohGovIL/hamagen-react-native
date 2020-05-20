@@ -421,7 +421,7 @@ export class IntersectionSickDatabase {
 
         db = DB;
 
-        await db.executeSql('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat);');
+        await db.executeSql('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat,wasThere,BLETimestamp);');
 
         resolve(db);
       } catch (error) {
@@ -498,6 +498,18 @@ export class IntersectionSickDatabase {
     });
   }
 
+  async deleteAll() {
+    try {
+      const db = await this.initDB();
+
+      db.transaction(async (tx) => {
+        await tx.executeSql('DELETE FROM IntersectingSick');
+      });
+    } catch (e) {
+      onError({ e });
+    }
+  }
+
   addSickRecord(record) {
     return new Promise(async (resolve) => {
       try {
@@ -505,7 +517,7 @@ export class IntersectionSickDatabase {
 
         db.transaction(async (tx) => {
           try {
-            const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?)',
+            const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?,?)',
               [
                 record.properties.Key_Field,
                 record.properties.Name,
@@ -526,5 +538,61 @@ export class IntersectionSickDatabase {
         onError({ error });
       }
     });
+  }
+
+  async addBLESickRecord(BLETimestamp) {
+    try {
+      const db = await this.initDB();
+
+      return db.transaction(async (tx) => {
+        const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp) VALUES (?)', [BLETimestamp]);
+        return results;
+      });
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
+  }
+
+  async updateSickRecord(record) {
+    try {
+      const db = await this.initDB();
+
+      return db.transaction(async (tx) => {
+        const [_, results] = await tx.executeSql('UPDATE IntersectingSick set wasThere = ? WHERE OBJECTID = ?',
+          [
+            record.properties.wasThere,
+            record.properties.OBJECTID
+          ]);
+
+        if (results.rows.length > 0) {
+          return results.rows.item(0);
+        }
+        return null;
+      });
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
+  }
+
+  // first load after app update add wasThere property to dismissed exposures 
+  async upgradeSickRecord(IDs) {
+    try {
+      IDs.forEach(async (id) => {
+        await this.updateSickRecord(
+          {
+            properties: {
+              OBJECTID: id,
+              wasThere: false
+            }
+          }
+        );
+      });
+      return null;
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
   }
 }

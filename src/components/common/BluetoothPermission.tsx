@@ -19,7 +19,8 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     const { strings: {
         general: { additionalInfo },
         bluetooth: { title, description, approveBluetooth, callToAction }
-    } } = useSelector<Store, LocaleReducer>(state => state.locale)
+    } 
+} = useSelector<Store, LocaleReducer>(state => state.locale)
     const {params} = useRoute();
 
     const userApprove = async () => {

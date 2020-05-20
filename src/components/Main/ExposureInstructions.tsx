@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect } from 'react';
-import { View, StyleSheet, Linking, ScrollView } from 'react-native';
+import React, { useMemo, useEffect, useState } from 'react';
+import { View, StyleSheet, Linking, ScrollView, UIManager, Platform, LayoutAnimation } from 'react-native';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,6 +20,13 @@ import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Exposure, Store, LocaleReducer } from '../../types';
 
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
+
 interface Props {
   navigation: StackNavigationProp<any>,
   route: RouteProp<any>
@@ -34,12 +41,26 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     externalUrls,
     strings: {
       scanHome: { atPlace },
-      exposureInstructions: { title, subTitle, updateTitle, updateSubTitle, themInstructions, editBtn, finishBtn, goIntoIsolation, reportIsolation, allInstructions, reportSite }
+      exposureInstructions: {
+        title,
+        editBtn,
+        subTitle,
+        showLess,
+        showMore,
+        finishBtn,
+        reportSite,
+        updateTitle,
+        updateSubTitle,
+        goIntoIsolation,
+        reportIsolation,
+        allInstructions,
+        themInstructions,
+      }
     },
   } = useSelector<Store, LocaleReducer>(state => state.locale);
 
   const exposures = useSelector<Store, Exposure[]>(state => state.exposures.pastExposures.filter((exposure: Exposure) => exposure.properties.wasThere));
-
+  const [shouldShowMore, setShowMore] = useState(false)
   useEffect(() => {
     SplashScreen.hide();
     // if edit button need to be shown then Exposure Instructions don't need to persists
@@ -86,11 +107,29 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       <>
         <Text style={styles.title} bold>{title}</Text>
         <Text style={{ marginBottom: 3 }}>{subTitle}</Text>
-        {ExposureList}
+        {shouldShowMore ? ExposureList : ExposureList.slice(0, 4)}
+        {exposures.length > 4 && (
+          <TouchableOpacity
+            style={{
+              flexDirection: isRTL ? 'row' : 'row-reverse',
+              alignItems: 'center'
+            }}
+            onPress={() => {
+              LayoutAnimation.create(
+                300,
+                LayoutAnimation.Types.spring,
+                LayoutAnimation.Properties.scaleXY
+              )
+              setShowMore(!shouldShowMore)
+            }}>
+            <Icon source={require('../../assets/main/showMore.png')} width={9} height={5} customStyles={{marginHorizontal: 7, transform: [{rotateZ: shouldShowMore ? '180deg' : '0deg' }]}}/>
+            <Text style={{ color: MAIN_COLOR, fontSize: 13 }} bold>{shouldShowMore ? showLess : showMore}</Text>
+          </TouchableOpacity>
+        )}
       </>
     ),
 
-  [route.params?.update]);
+    [route.params?.update, shouldShowMore]);
 
   return (
 
@@ -100,37 +139,37 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       showsVerticalScrollIndicator={false}
     >
       {route.params?.showEdit && (
-      <TouchableOpacity
-        hitSlop={HIT_SLOP}
-        style={{
-          alignContent: 'center',
-          alignItems: 'center',
-          position: 'absolute',
-          top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 28),
-          flexDirection: isRTL ? 'row' : 'row-reverse',
-          [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
-        }}
-        onPress={navigation.goBack}
-      >
-        <Icon
-          width={IS_SMALL_SCREEN ? 20 : 24}
-          source={require('../../assets/main/back.png')}
-          customStyles={{
-            transform: [{ rotate: !isRTL ? '0deg' : '180deg' }]
-          }}
-        />
-        <Text
-          bold
+        <TouchableOpacity
+          hitSlop={HIT_SLOP}
           style={{
-            fontSize: IS_SMALL_SCREEN ? 13 : 15,
-            color: MAIN_COLOR,
-            marginHorizontal: IS_SMALL_SCREEN ? 5 : 8
+            alignContent: 'center',
+            alignItems: 'center',
+            position: 'absolute',
+            top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 28),
+            flexDirection: isRTL ? 'row' : 'row-reverse',
+            [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
           }}
+          onPress={navigation.goBack}
         >
-          {editBtn}
-        </Text>
-      </TouchableOpacity>
-)}
+          <Icon
+            width={IS_SMALL_SCREEN ? 20 : 24}
+            source={require('../../assets/main/back.png')}
+            customStyles={{
+              transform: [{ rotate: !isRTL ? '0deg' : '180deg' }]
+            }}
+          />
+          <Text
+            bold
+            style={{
+              fontSize: IS_SMALL_SCREEN ? 13 : 15,
+              color: MAIN_COLOR,
+              marginHorizontal: IS_SMALL_SCREEN ? 5 : 8
+            }}
+          >
+            {editBtn}
+          </Text>
+        </TouchableOpacity>
+      )}
 
 
       <View style={{ justifyContent: 'flex-start', alignItems: 'center' }}>
@@ -217,11 +256,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     marginHorizontal: 10
   } : {
-    lineHeight: 16,
-    fontSize: 16,
-    marginBottom: 23,
-    marginTop: 13
-  },
+      lineHeight: 16,
+      fontSize: 16,
+      marginBottom: 23,
+      marginTop: 13
+    },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
     color: '#fff'

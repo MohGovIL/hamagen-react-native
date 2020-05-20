@@ -258,7 +258,9 @@
       "editBtn": "עריכה",
       "finishBtn": "סיימתי, חזרה לעמוד הבית",
       "updateTitle": "תודה שעדכנת",
-      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך"
+      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -488,7 +490,9 @@
       "editBtn": "تقييم",
       "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية",
       "updateTitle": "شكرا للتحديث",
-      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه"
+      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -717,7 +721,9 @@
       "editBtn": "editing",
       "finishBtn": "I'm done, back to the homepage",
       "updateTitle": "Thanks for updating",
-      "updateSubTitle": "The changes you have made may affect the behavior below"
+      "updateSubTitle": "The changes you have made may affect the behavior below",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -946,7 +952,9 @@
       "editBtn": "редактирование",
       "finishBtn": "Я сделал, вернуться на главную страницу",
       "updateTitle": "Спасибо за обновление",
-      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже"
+      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -1175,7 +1183,9 @@
       "editBtn": "ማርትዕ",
       "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
       "updateTitle": "ስላዘመኑ እናመሰግናለን",
-      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ"
+      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1404,7 +1414,9 @@
       "editBtn": "édition",
       "finishBtn": "J'ai fini, retour à la page d'accueil",
       "updateTitle": "Merci d'avoir mis à jour",
-      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous"
+      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",

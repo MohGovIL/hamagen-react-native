@@ -86,7 +86,7 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
   const RenderExposure = ({ index, item }) => {
     const { wasThere, Place, fromTime } = item.properties;
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === undefined) return [false, false];
+      if (wasThere === null) return [false, false];
       return [wasThere, !wasThere];
     }, [wasThere]);
 

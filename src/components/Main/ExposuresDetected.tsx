@@ -20,7 +20,7 @@ import {
   INIT_ROUTE_NAME
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
-import { dismissExposure, setExposureSelected } from '../../actions/ExposuresActions';
+import {  dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -42,13 +42,14 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useEffect(() => {
     SplashScreen.hide();
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
+    //  TODO: fix back handler
   }, []);
 
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     useCallback(() => {
-      if (exposures.every(exposure => exposure.properties.wasThere !== undefined)) {
+      if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
         Animated.timing(anim, {
           toValue: 0,
           duration: 0,
@@ -65,7 +66,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
-      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === undefined);
+      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null);
 
       if (emptyIndex === -1) {
         Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start();
@@ -104,11 +105,13 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       navigation.navigate('ExposureRelief');
       AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
-  };
+
+    dispatch(dismissExposures())
+  }
 
   const RenderExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === undefined) return [false, false];
+      if (wasThere === null) return [false, false];
       return [wasThere, !wasThere];
     }, [wasThere]);
 

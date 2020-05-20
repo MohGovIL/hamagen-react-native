@@ -183,8 +183,8 @@ export interface Strings {
     wasThere: string,
     wasThereNoExposure: string,
     wasNotThereNoExposure: string,
-    historyEditFinishBtn:string,
-    historyEditCancelBtn:string,
+    historyEditFinishBtn: string,
+    historyEditCancelBtn: string,
     edit: string
   },
   exposureInstructions: {
@@ -202,7 +202,9 @@ export interface Strings {
     editBtn: string,
     finishBtn: string,
     updateTitle: string,
-    updateSubTitle: string
+    updateSubTitle: string,
+    showMore: string,
+    showLess: string
   },
   locationHistory: {
     beforeCheckTitle: string,
