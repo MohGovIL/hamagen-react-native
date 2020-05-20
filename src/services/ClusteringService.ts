@@ -26,7 +26,7 @@ export const clusterSample = async () => {
 
   const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
 
-  if (buffer.length < 2 || currentCluster.endTime > firstLocationInBuffer.startTime) {
+  if (buffer.length < 2 || (currentCluster && (currentCluster.endTime > firstLocationInBuffer.startTime))) {
     return;
   }
 
