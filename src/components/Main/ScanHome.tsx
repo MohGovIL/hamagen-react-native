@@ -47,6 +47,7 @@ const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasTh
 const ScanHome: FunctionComponent<ScanHomeProps> = (
   {
     navigation,
+    route,
     isRTL,
     strings,
     locale,
@@ -167,6 +168,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         languages={languages}
         externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
+        goToBluetoothPermission={() => navigation.navigate('Bluetooth')}
+        showBleInfo={route.params?.showBleInfo}
       />
     );
   }, [hasLocation, hasNetwork, hasGPS, locale]);

@@ -20,7 +20,7 @@ import {
   INIT_ROUTE_NAME
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
-import { dismissExposure, setExposureSelected } from '../../actions/ExposuresActions';
+import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -51,7 +51,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     useCallback(() => {
-      if (exposures.every(exposure => exposure.properties.wasThere !== undefined)) {
+      if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
         Animated.timing(anim, {
           toValue: 0,
           duration: 0,
@@ -68,17 +68,17 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
-      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === undefined);
+      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null);
 
       if (emptyIndex === -1) {
         Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start();
       } else if (index + 1 < exposures.length) {
         setTimeout(() => {
           if (flatListRef?.current) {
- flatListRef?.current?.scrollToIndex({
-   index: index + 1,
-   viewOffset: 10
- });
+            flatListRef?.current?.scrollToIndex({
+              index: index + 1,
+              viewOffset: 10
+            });
           }
         }, 300);
       } else {
@@ -107,11 +107,13 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       navigation.navigate('ExposureRelief');
       AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
-  };
+
+    dispatch(dismissExposures())
+  }
 
   const RenderExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === undefined) return [false, false];
+      if (wasThere === null) return [false, false];
       return [wasThere, !wasThere];
     }, [wasThere]);
 
@@ -144,6 +146,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             </TouchableOpacity>
           </View>
         </View>
+    
       </Animated.View>
     );
   };
@@ -164,6 +167,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
           horizontal
           ref={flatListRef}
           data={exposures}
+          nestedScrollEnabled
           keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
           renderItem={({ item, index }) => <RenderExposure exposure={item} index={index} />}
           showsHorizontalScrollIndicator={false}
@@ -213,10 +217,12 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH * 0.88,
 
     marginRight: 13,
-    borderRadius: 8,
+    borderRadius: 13,
     padding: 25,
 
     justifyContent: 'space-between',
+
+    overflow: 'hidden'
   },
   exposureLength: {
     fontSize: 13,

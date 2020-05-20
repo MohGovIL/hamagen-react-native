@@ -3,6 +3,7 @@ import { createDrawerNavigator, } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import { INIT_ROUTE_NAME, USER_AGREE_BLE } from '../../constants/Constants';
 import ScanHome from '../Main/ScanHome';
 import DrawerContent from './DrawerContent';
 import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
@@ -14,6 +15,7 @@ import ExposureRelief from '../Main/ExposureRelief';
 import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
+import BluetoothModal from '../Main/BluetoothModal';
 import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
@@ -27,16 +29,26 @@ const DEFAULT_SCREEN = 'ScanHome';
 const DrawerStack = ({ navigation }) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
+  const [showBLEPermission, setBLEPermission] = useState(undefined)
 
   useEffect(() => {
-    AsyncStorage.getItem('INIT_ROUTE_NAME')
+    AsyncStorage.getItem(INIT_ROUTE_NAME)
       .then(initRouteString => setInitialRouteName(initRouteString ?? DEFAULT_SCREEN))
       .catch(() => setInitialRouteName(DEFAULT_SCREEN));
   }, []);
 
   useEffect(() => {
-    if (exposures.some((exposure: Exposure) => exposure.properties.wasThere === undefined && initialRouteName !== '')) {
+    if (exposures.some((exposure: Exposure) => exposure.properties.wasThere === null && initialRouteName !== '')) {
       navigation.navigate('ExposureDetected');
+    }
+    if (initialRouteName !== '' && showBLEPermission === undefined) {
+      AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
+        setBLEPermission(res)
+        if (res !== 'true' && res !== 'shown') {
+          navigation.navigate('Bluetooth')
+          AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
+        }
+      })
     }
   }, [exposures, initialRouteName]);
 
@@ -44,7 +56,7 @@ const DrawerStack = ({ navigation }) => {
 
   return (
     <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
-      <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+      <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ showBleInfo: showBLEPermission !== 'true' }} />
       <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
       <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
@@ -56,6 +68,7 @@ const DrawerStack = ({ navigation }) => {
       <Stack.Screen name="ExposureRelief" component={ExposureRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="Bluetooth" component={BluetoothModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
     </Stack.Navigator>
   );
 };

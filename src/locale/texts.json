@@ -141,6 +141,12 @@
       "subTitle1": "אלפי ישראלים עלולים לסבול מנזק בריאותי כתוצאה מנגיף הקורונה.",
       "subTitle2": "אבחון ובידוד בזמן יכולים להציל את חייהם. תודה שאתם עוזרים לנו, לעזור להם."
     },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+    },
     "location": {
       "title": "המיקום הוא קריטי",
       "subTitle1": "האפליקציה תאסוף את נתוני המיקום שלכם ותשווה אותם למיקומים המאומתים של מאובחני קורונה. אם תמצא חפיפה, תקבלו הודעה על כך.",
@@ -252,7 +258,9 @@
       "editBtn": "עריכה",
       "finishBtn": "סיימתי, חזרה לעמוד הבית",
       "updateTitle": "תודה שעדכנת",
-      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך"
+      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -365,6 +373,12 @@
       "subTitle1": "من الممكن أن يسبب فيروس الكورونا الضرر الصحي لالاف الإسرائيليين",
       "subTitle2": "بإستطاعة التشخيص المبكر والعزل  إنقاذ حياة الكثيرين. شكرا لمساعدتكم "
     },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+    },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
       "subTitle1": "إن هذا التطبيق يقوم بجمع معطيات بخصوص أماكن تواجدكم ويقوم بمقارنتها بالمعطيات العامة للأشخاص المصابين بالفيروس",
@@ -476,7 +490,9 @@
       "editBtn": "تقييم",
       "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية",
       "updateTitle": "شكرا للتحديث",
-      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه"
+      "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -587,6 +603,12 @@
       "title": "We’re glad you’ve joined the effort!",
       "subTitle1": "Thousands of Israelis could suffer the ill effects of the coronavirus.",
       "subTitle2": "Timely diagnosis and isolation can save their lives."
+    },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
     },
     "location": {
       "title": "Location is critical",
@@ -699,7 +721,9 @@
       "editBtn": "editing",
       "finishBtn": "I'm done, back to the homepage",
       "updateTitle": "Thanks for updating",
-      "updateSubTitle": "The changes you have made may affect the behavior below"
+      "updateSubTitle": "The changes you have made may affect the behavior below",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -810,6 +834,12 @@
       "title": "Мы рады что вы присоединились к нашим усилиям!",
       "subTitle1": "Тысячи израильтян могут пострадать от коронавируса.",
       "subTitle2": "Диагностирование и карантин могут спасти их жизнь. Спасибо что помогаете нам помогать им!"
+    },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
     },
     "location": {
       "title": "Местонахождение критично",
@@ -922,7 +952,9 @@
       "editBtn": "редактирование",
       "finishBtn": "Я сделал, вернуться на главную страницу",
       "updateTitle": "Спасибо за обновление",
-      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже"
+      "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -1033,6 +1065,12 @@
       "title": "በጥረቱ ስለረዱን ተደሠተናል",
       "subTitle1": "በሺዎች የሚቆጠሩ እስራኤላውያን በኮሮና ቫይረስ የጤና ጉዳት ሊደርስባቸው ይችላል.",
       "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
+    },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1145,7 +1183,9 @@
       "editBtn": "ማርትዕ",
       "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
       "updateTitle": "ስላዘመኑ እናመሰግናለን",
-      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ"
+      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1256,6 +1296,12 @@
       "title": "Nous sommes ravis que vous vous soyez joints à l'effort!",
       "subTitle1": "Des milliers d'Israéliens pourraient subir les effets néfastes du coronavirus.",
       "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
+    },
+    "bluetooth":{
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
     },
     "location": {
       "title": "La localisation est critique",
@@ -1368,7 +1414,9 @@
       "editBtn": "édition",
       "finishBtn": "J'ai fini, retour à la page d'accueil",
       "updateTitle": "Merci d'avoir mis à jour",
-      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous"
+      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
