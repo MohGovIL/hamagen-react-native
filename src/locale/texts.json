@@ -223,12 +223,16 @@
         },
         "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
         "instructionLinkUpper": "לשימוש במידת הצורך:",
-        "instructionLinkLower": "הנחיות לשוהים בבידוד"
+        "instructionLinkLower": "הנחיות לשוהים בבידוד",
+        "bluetoothServiceOff": "שירותי הבלוטות׳ על המכשיר כבויים",
+        "turnBluetoothOn": "הפעלת בלוטות׳",
+        "canIdentifyWithBluetooth": "מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות'",
+        "moreInformation": "מידע נוסף"
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
       "wasMe": "ייתכן שכן",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן"      
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -455,7 +459,11 @@
         },
         "bannerTextPristine": "لم يتم العثور على\nنقاط تداخل",
         "instructionLinkUpper": "للاستخدام إذا لزم الأمر:",
-        "instructionLinkLower": "إرشادات للبقاء في عزلة"
+        "instructionLinkLower": "إرشادات للبقاء في عزلة",
+        "bluetoothServiceOff": "خدمات تقنية البلوتوث على الجهاز متوقفة",
+        "turnBluetoothOn": "التنشيط الغدي",
+        "canIdentifyWithBluetooth": "من الآن فصاعدًا ، يمكن تحديد المزيد من التداخل بمساعدة الغدد.'",
+        "moreInformation": "معلومات اكثر"
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
@@ -686,7 +694,11 @@
         },
         "bannerTextPristine": "No overlap\npoints found",
         "instructionLinkUpper": "To use if necessary:",
-        "instructionLinkLower": "Guidelines for staying in isolation"
+        "instructionLinkLower": "Guidelines for staying in isolation",
+        "bluetoothServiceOff": "Bluetooth service is off on this device",
+        "turnBluetoothOn": "Turn bluetooth on",
+        "canIdentifyWithBluetooth": "start from today we can identify overlaps with bluetooth",
+        "moreInformation": "more info"
       },
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
@@ -917,7 +929,11 @@
         },
         "bannerTextPristine": "Не найдено точек перекрытия\n",
         "instructionLinkUpper": "Использовать при необходимости:",
-        "instructionLinkLower": "Правила пребывания в изоляции"
+        "instructionLinkLower": "Правила пребывания в изоляции",
+        "bluetoothServiceOff": "Службы Bluetooth на устройстве отключены",
+        "turnBluetoothOn": "Железистая Активация",
+        "canIdentifyWithBluetooth": "больше информации",
+        "moreInformation": "more info"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
@@ -1148,7 +1164,11 @@
         },
         "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
         "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
-        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች"
+        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች",
+        "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
+        "turnBluetoothOn": "ብሉቱዝ አብራ",
+        "canIdentifyWithBluetooth": "ከአሁን ጀምሮ ተጨማሪ መደራረብ በ ዕጢዎች ዕጢዎች ሊታወቅ ይችላል ፡፡",
+        "moreInformation": "ተጨማሪ መረጃ"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
@@ -1379,7 +1399,11 @@
         },
         "bannerTextPristine": "Aucun\npoint de chevauchement trouvé",
         "instructionLinkUpper": "A utiliser si nécessaire:",
-        "instructionLinkLower": "Lignes directrices pour rester en isolement"
+        "instructionLinkLower": "Lignes directrices pour rester en isolement",
+        "bluetoothServiceOff": "services Bluetooth désactivés",
+        "turnBluetoothOn": "activer Bluetooth",
+        "canIdentifyWithBluetooth": "Désormais, plus de chevauchements peuvent être identifiés à l'aide de glandes.",
+        "moreInformation": "Plus d'information"
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",

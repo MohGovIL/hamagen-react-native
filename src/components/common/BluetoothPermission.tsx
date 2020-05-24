@@ -9,6 +9,7 @@ import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
+import BluetoothStateManager from 'react-native-bluetooth-state-manager';
 
 interface Props {
     onEnd(): void
@@ -43,7 +44,13 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
             </View>
 
             <View style={{ alignItems: 'center' }}>
-                <ActionButton text={approveBluetooth} onPress={onEnd} containerStyle={{ marginBottom: 20 }} />
+                <ActionButton 
+                text={approveBluetooth} 
+                onPress={() => {
+                   onEnd()
+                   BluetoothStateManager.openSettings(); 
+                }} 
+                containerStyle={{ marginBottom: 20 }} />
                {params?.showUsageLink && <TouchableOpacity onPress={() => dispatch(toggleWebview(true, USAGE_PRIVACY))}>
                     <Text style={{ fontSize: 14, letterSpacing: 0.26 }}>{additionalInfo}</Text>
                     <View style={styles.bottomBorder} />
