@@ -11,6 +11,8 @@ export interface Config {
   versionsUrl: string,
   dataShareUrl: string,
   fetchMilliseconds: number,
+  minimumBLEFetchIntervalMin: number,
+  minimumGeoFetchIntervalMin: number,
   meterRadius: number,
   clusterRadius: number,
   jitterValue: number,
@@ -75,7 +77,7 @@ export interface ExposureGeometry {
 }
 
 export interface Exposure {
-  properties:ExposureProperties,
+  properties: ExposureProperties,
   geometry: ExposureGeometry
 }
 

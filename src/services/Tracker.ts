@@ -20,13 +20,11 @@ const haversine = require('haversine');
 export const startForegroundTimer = async () => {
   const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  await checkBLESickPeople(lastFetch);
-  // await checkGeoSickPeople(lastFetch);
   // prevent excessive calls to checkSickPeople
-  //  if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
-  //    await checkBLESickPeople(lastFetch);
-  //    await checkGeoSickPeople(lastFetch);
-  //   }
+   if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
+     await checkBLESickPeople(lastFetch);
+     await checkGeoSickPeople(lastFetch);
+    }
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
@@ -61,14 +59,12 @@ export const checkBLESickPeople = async (lastFetch: number) => {
   // TODO: check if ios permission is enabled
   try {
 
-
-
     // check if interval is above the minimum delay
-    // if (moment(lastFetch).add(900000, 'ms').isAfter(moment())) {
-    //   return
-    // }
+    if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+      return
+    }
 
-    const bleMatches = await match()
+    const bleMatches: any[] = await match()
 
     if (bleMatches.length > 0) {
 
@@ -118,7 +114,7 @@ export const checkGeoSickPeople = async (lastFetch: number) => {
   try {
 
     // check if interval is above the minimum delay
-    if (moment(lastFetch).add(3600000, 'ms').isAfter(moment())) {
+    if (moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return
     }
 

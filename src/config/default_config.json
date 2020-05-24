@@ -8,6 +8,8 @@
     "sampleDistance": 50,
     "sampleInterval": 60000,
     "fetchMilliseconds": 900000,
+    "minimumBLEFetchIntervalMin": 15,
+    "minimumGeoFetchIntervalMin": 60,
     "meterRadius": 50,
     "clusterRadius": 20,
     "jitterValue": 2,

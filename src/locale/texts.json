@@ -386,10 +386,10 @@
       "subTitle2": "بإستطاعة التشخيص المبكر والعزل  إنقاذ حياة الكثيرين. شكرا لمساعدتكم "
     },
     "bluetooth":{
-      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
-      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "title": "تحديد نقاط التداخل\nالدم",
+      "description": "تتيح تقنية Bluetooth تحديد حالات القرابة بينك وبين مالكي الهواتف الآخرين في منطقتك مع تثبيت التطبيق ، للكشف عن الاشتباه في الإصابة بالعدوى في كورونا.",
+      "approveBluetooth": "تمكين خدمات Bluetooth",
+      "callToAction": "للقيام بذلك ، تحتاج إلى\nتمكين Bluetooth على جهازك"
     },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
@@ -448,7 +448,7 @@
       "suspectedExposure": "إشتباه بالتعرض لمريض كورونا:",
       "events": " أحداث ",
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
-      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
+      "possibleExposureBLE": "استناداً إلى بيانات هاتفك ، اكتشفنا\nأنك كنت بالقرب من مريض كورونا:",
       "atPlace": " في",
       "share": {
         "message": "مشاركة تطبيق الحماية",
@@ -478,11 +478,11 @@
       "wasNotMe": "لم أكن هناك",
       "wasMe": "قد يكون",
       "doneBtn": "انتهيت من التحديث",
-      "betweenHours": "בין השעות",
-      "deviceCloseTag":"קרבה בין מכשירים",
-      "locationCloseTag": "קרבה במיקום",
-      "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "betweenHours": "بين الساعات",
+      "deviceCloseTag":"القرب بين الأجهزة",
+      "locationCloseTag": "القرب من الموقع",
+      "wasMeBle": "اكمل",
+      "wasMeOnly": "متابعة التعليمات"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -513,8 +513,8 @@
       "finishBtn": "انتهيت ، عد إلى الصفحة الرئيسية",
       "updateTitle": "شكرا للتحديث",
       "updateSubTitle": "قد تؤثر التغييرات التي أجريتها على السلوك أدناه",
-      "showMore": "עוד",
-      "showLess": "פחות"
+      "showMore": "اخرى",
+      "showLess": "اقل"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
@@ -627,10 +627,10 @@
       "subTitle2": "Timely diagnosis and isolation can save their lives."
     },
     "bluetooth":{
-      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
-      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "title": "Identify overlap points\nwith the help of glands",
+      "description": "Bluetooth technology enables identification of kinship situations between you and other phone owners in your area with the application installed, to detect suspicion of infection in Corona.",
+      "approveBluetooth": "Enable Bluetooth services",
+      "callToAction": "To do this, you need to\nenable Bluetooth on your device"
     },
     "location": {
       "title": "Location is critical",
@@ -689,7 +689,7 @@
       "suspectedExposure": "Suspected Exposure:",
       "events": "Events",
       "possibleExposure": "There may have been an exposure to a Corona patient:",
-      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
+      "possibleExposureBLE": "According to your phone data,\nwe detected that you were near a Corona patient:",
       "atPlace": "At ",
       "share": {
         "message": "Sharing Hamagen",
@@ -719,11 +719,11 @@
       "wasNotMe": "Was not there",
       "wasMe": "Might be",
       "doneBtn": "I'm done updating",
-      "betweenHours": "בין השעות",
-      "deviceCloseTag":"קרבה בין מכשירים",
-      "locationCloseTag": "קרבה במיקום",
-      "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "betweenHours": "Between the hours",
+      "deviceCloseTag":"Proximity between devices",
+      "locationCloseTag": "Proximity to location",
+      "wasMeBle": "Continued",
+      "wasMeOnly": "Continue for instructions"
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -754,8 +754,8 @@
       "finishBtn": "I'm done, back to the homepage",
       "updateTitle": "Thanks for updating",
       "updateSubTitle": "The changes you have made may affect the behavior below",
-      "showMore": "עוד",
-      "showLess": "פחות"
+      "showMore": "More",
+      "showLess": "less"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
@@ -868,10 +868,10 @@
       "subTitle2": "Диагностирование и карантин могут спасти их жизнь. Спасибо что помогаете нам помогать им!"
     },
     "bluetooth":{
-      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
-      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "title": "Определить точки перекрытия\nс помощью желез",
+      "description": "Технология Bluetooth позволяет идентифицировать ситуации родства между вами и другими владельцами телефонов в вашем регионе с установленным приложением, чтобы обнаружить подозрительную инфекцию в Короне.",
+      "approveBluetooth": "Включить службы Bluetooth",
+      "callToAction": "Для этого вам нужно\nвключить Bluetooth на вашем устройстве."
     },
     "location": {
       "title": "Местонахождение критично",
@@ -960,11 +960,11 @@
       "wasNotMe": "Меня там не было",
       "wasMe": "Может быть",
       "doneBtn": "Я сделал обновление",
-      "betweenHours": "בין השעות",
-      "deviceCloseTag":"קרבה בין מכשירים",
-      "locationCloseTag": "קרבה במיקום",
-      "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "betweenHours": "Между часами",
+      "deviceCloseTag": "Близость между устройствами",
+      "locationCloseTag": "Близость к месту",
+      "wasMeBle": "продолжение",
+      "wasMeOnly": "Продолжайте для инструкций"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -995,8 +995,8 @@
       "finishBtn": "Я сделал, вернуться на главную страницу",
       "updateTitle": "Спасибо за обновление",
       "updateSubTitle": "Внесенные вами изменения могут повлиять на поведение ниже",
-      "showMore": "עוד",
-      "showLess": "פחות"
+      "showMore": "Больше",
+      "showLess": "Меньше"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
@@ -1109,10 +1109,10 @@
       "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
     },
     "bluetooth":{
-      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
-      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "title": "የተደራራቢ ነጥቦችን ይለዩ\nጎርፍ",
+      "description": "በኮሮና ውስጥ የኢንፌክሽን ጥርጣሬ ለመፈጠር የብሉቱዝ ቴክኖሎጂ በርስዎ እና በአከባቢዎ ባሉ ሌሎች የስልክ ባለቤቶች መካከል በአከባቢዎ ያለውን የዝውውር ሁኔታ ለመለየት ያስችላል ፡፡",
+      "approveBluetooth": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1171,7 +1171,7 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
-      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
+      "possibleExposureBLE": "በስልክዎ መረጃ መሠረት\nበኮሮና ህመምተኛ አቅራቢያ መኖራቸውን አስተውለናል-",
       "atPlace": "በ ",
       "share": {
         "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
@@ -1201,11 +1201,11 @@
       "wasNotMe": "እዚያ አልነበርኩም",
       "wasMe": "ሊሆን ይችላል",
       "doneBtn": "ማዘመን አጠናቅቄያለሁ",
-      "betweenHours": "בין השעות",
-      "deviceCloseTag":"קרבה בין מכשירים",
-      "locationCloseTag": "קרבה במיקום",
-      "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "betweenHours": "በሰዓቶች መካከል",
+      "deviceCloseTag": "በመሳሪያዎች መካከል ቅርበት",
+      "locationCloseTag": "ወደ ቅርበት ቅርበት",
+      "wasMeBle": "ቀጠለ",
+      "wasMeOnly": "መመሪያዎችን ይቀጥሉ"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1236,8 +1236,8 @@
       "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
       "updateTitle": "ስላዘመኑ እናመሰግናለን",
       "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ",
-      "showMore": "עוד",
-      "showLess": "פחות"
+      "showMore": "ተጨማሪ",
+      "showLess": "ያነሰ"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
@@ -1350,10 +1350,10 @@
       "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
     },
     "bluetooth":{
-      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
-      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "title": "Identifier les points de chevauchement\nà l'aide de glandes",
+      "description": "La technologie Bluetooth permet d'identifier les situations de parenté entre vous et les autres propriétaires de téléphone de votre région avec l'application installée, pour détecter les soupçons d'infection à Corona.",
+      "approveBluetooth": "Activer les services Bluetooth",
+      "callToAction": "Pour ce faire, vous devez\nactiver Bluetooth sur votre appareil"
     },
     "location": {
       "title": "La localisation est critique",
@@ -1441,12 +1441,12 @@
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
       "wasMe": "Cela peut être",
-      "doneBtn": "סיימתי לעדכן",
-      "betweenHours": "בין השעות",
-      "deviceCloseTag":"קרבה בין מכשירים",
-      "locationCloseTag": "קרבה במיקום",
-      "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "doneBtn": "J'ai terminé la mise à jour",
+      "betweenHours": "Entre les heures",
+      "deviceCloseTag": "Proximité entre les appareils",
+      "locationCloseTag": "Proximité de l'emplacement",
+      "wasMeBle": "A continué",
+      "wasMeOnly": "Continuez pour les instructions"
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
@@ -1477,8 +1477,8 @@
       "finishBtn": "J'ai fini, retour à la page d'accueil",
       "updateTitle": "Merci d'avoir mis à jour",
       "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous",
-      "showMore": "עוד",
-      "showLess": "פחות"
+      "showMore": "Plus",
+      "showLess": "Moins"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
