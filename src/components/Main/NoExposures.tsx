@@ -54,7 +54,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center'}} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: PADDING_BOTTOM(58)
+    paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
     alignItems: 'center',

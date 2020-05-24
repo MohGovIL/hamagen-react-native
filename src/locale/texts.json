@@ -445,6 +445,7 @@
       "suspectedExposure": "إشتباه بالتعرض لمريض كورونا:",
       "events": " أحداث ",
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": " في",
       "share": {
         "message": "مشاركة تطبيق الحماية",
@@ -469,7 +470,12 @@
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أكن هناك",
       "wasMe": "قد يكون",
-      "doneBtn": "انتهيت من التحديث"
+      "doneBtn": "انتهيت من التحديث",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -676,6 +682,7 @@
       "suspectedExposure": "Suspected Exposure:",
       "events": "Events",
       "possibleExposure": "There may have been an exposure to a Corona patient:",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "At ",
       "share": {
         "message": "Sharing Hamagen",
@@ -700,7 +707,12 @@
       "showOnMap": "Show me on the map",
       "wasNotMe": "Was not there",
       "wasMe": "Might be",
-      "doneBtn": "I'm done updating"
+      "doneBtn": "I'm done updating",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -907,6 +919,7 @@
       "suspectedExposure": "Подозрение на контакт:",
       "events": "случая",
       "possibleExposure": "Возможно контакт с больным был :",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "в ",
       "share": {
         "message": "Совместное использование защитного приложения",
@@ -931,7 +944,12 @@
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
       "wasMe": "Может быть",
-      "doneBtn": "Я сделал обновление"
+      "doneBtn": "Я сделал обновление",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -1138,6 +1156,7 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "በ ",
       "share": {
         "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
@@ -1162,7 +1181,12 @@
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
       "wasMe": "ሊሆን ይችላል",
-      "doneBtn": "ማዘመን አጠናቅቄያለሁ"
+      "doneBtn": "ማዘመን አጠናቅቄያለሁ",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1369,6 +1393,7 @@
       "suspectedExposure": "Suspicion d'exposition:",
       "events": "les événements",
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "À ",
       "share": {
         "message": "Partager l'application de protection",
@@ -1393,7 +1418,12 @@
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas là",
       "wasMe": "Cela peut être",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "Historique des intersections",

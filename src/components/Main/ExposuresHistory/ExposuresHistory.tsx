@@ -33,7 +33,7 @@ const ExposuresHistory = (
 ) => {
   const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
 
-  const [tabIndex, setTabIndex] = useState(isRTL ? 1 : 0);
+  const [tabIndex, setTabIndex] = useState(1);
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
   const showEditBtn = useMemo(() => {
