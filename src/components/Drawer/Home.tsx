@@ -41,15 +41,16 @@ const DrawerStack = ({ navigation }) => {
     if (initialRouteName !== '' && exposures?.length > 0) {
       navigation.navigate('ExposureDetected');
     }
-    if (initialRouteName !== '' && showBLEPermission === undefined) {
-      AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
-        setBLEPermission(res);
-        if (res !== 'true' && res !== 'shown') {
-          navigation.navigate('Bluetooth');
-          AsyncStorage.setItem(USER_AGREE_BLE, 'shown');
-        }
-      });
-    }
+
+    // if (initialRouteName !== '' && showBLEPermission === undefined) {
+    //   AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
+    //     setBLEPermission(res)
+    //     if (res !== 'true' && res !== 'shown') {
+    //       navigation.navigate('Bluetooth')
+    //       AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
+    //     }
+    //   })
+    // }
   }, [exposures, initialRouteName]);
 
   if (!initialRouteName) return null;
