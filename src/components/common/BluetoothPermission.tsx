@@ -9,8 +9,6 @@ import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_BLE } from '../../constants/Constants';
 import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
-import { useRoute } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
 import BluetoothStateManager from 'react-native-bluetooth-state-manager';
 
 
