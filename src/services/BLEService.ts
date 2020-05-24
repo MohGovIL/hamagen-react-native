@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SpecialBle from 'rn-contact-tracing';
 import { IS_IOS } from '../constants/Constants';
 import { onError } from './ErrorService';
+import { downloadAndVerifySigning } from './SigningService';
+
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   try {
@@ -51,42 +53,54 @@ export const registerBLEListeners = () => {
   });
 };
 
-export const fetchInfectionDataByConsent = () => {
-  SpecialBle.fetchInfectionDataByConsent((res: any) => {
-    const parsedRes = JSON.parse(res || '[]');
+export const fetchInfectionDataByConsent = async () => {
+  try {
+    SpecialBle.fetchInfectionDataByConsent((res: any) => {
+      debugger
+      const parsedRes = JSON.parse(res || '[]');
 
-    if (parsedRes?.infected?.length > 0) {
-      const flatData = parsedRes.infected.flatMap((d: any) => d);
-      Clipboard.setString(JSON.stringify(flatData));
-      Alert.alert('DB copied');
-      return;
-    }
+      if (parsedRes?.infected?.length > 0) {
+        const flatData = parsedRes.infected.flatMap((d: any) => d);
+        Clipboard.setString(JSON.stringify(flatData));
+        Alert.alert('DB copied');
+        return;
+      }
 
-    Alert.alert('No results found');
-  });
+      Alert.alert('No results found');
+    });
+  } catch (error) {
+    onError({error})
+  }
+
 };
 
-export const match = () => {
-  SpecialBle.match(null, (res: any) => {
-    const parsedRes: any[] = JSON.parse(res || '[]');
+export const match = async () => new Promise(async (resolve) => {
+  try {
+    const responseJson = await downloadAndVerifySigning('https://matrixdemos.blob.core.windows.net/mabar/BleUtc.json');
 
-    if (parsedRes.length > 0) {
-      Clipboard.setString(JSON.stringify(parsedRes[parsedRes.length - 1]));
-      Alert.alert('Last result copied');
-      return;
-    }
+    SpecialBle.match(JSON.stringify(responseJson), (res) => {
+      const parsedRes: any[] = JSON.parse(res || '[]');
+      resolve(parsedRes)
+    })
+  } catch (error) {
+    resolve([])
+    onError({error})
+  }
+})
 
-    Alert.alert('No results found');
-  });
-};
 
-// return mock BLE timeStamp
-export const matchMock = async (fetchedArr) => {
-  return new Date().getTime()
-}
+// export const match = async () => {
 
-// return mock fetch array of things 
-export const fetchMock = () => {
-  //  SpecialBle.fetch()
-  return ['asd', 'asdfsad', 'asdsdf']
-}
+
+//   SpecialBle.match(null, (res: any) => {
+//     const parsedRes: any[] = JSON.parse(res || '[]');
+
+//     if (parsedRes.length > 0) {
+//       Clipboard.setString(JSON.stringify(parsedRes[parsedRes.length - 1]));
+//       Alert.alert('Last result copied');
+//       return;
+//     }
+
+//     Alert.alert('No results found');
+//   });
+// };

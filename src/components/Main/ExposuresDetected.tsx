@@ -1,12 +1,12 @@
 import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
-import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
+import { View, StyleSheet, Animated, ScrollView, FlatList, BackHandler } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect } from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
+import { Icon, Text, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { Exposure, Store, LocaleReducer, ExposuresReducer } from '../../types';
 import {
@@ -21,6 +21,7 @@ import {
 } from '../../constants/Constants';
 import { showMapModal } from '../../actions/GeneralActions';
 import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
+import CardIdentifyTag from '../common/CardIdentifyTag';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -34,20 +35,26 @@ interface RenderExposureProps {
 
 const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const dispatch = useDispatch();
-  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap } } } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap, betweenHours, possibleExposureBLE, locationCloseTag, deviceCloseTag, wasMeBle, wasMeOnly } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
+
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
   const flatListRef = useRef(null);
 
   useEffect(() => {
     SplashScreen.hide();
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
-    //  TODO: fix back handler
+    BackHandler.addEventListener('hardwareBackPress', () => true);
+
+    return () => {
+      BackHandler.removeEventListener('hardwareBackPress', () => true);
+    };
   }, []);
 
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
+    // TODO: fix this for BLE logic
     useCallback(() => {
       if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
         Animated.timing(anim, {
@@ -66,7 +73,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
-      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null);
+      const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null || exposure.properties.wasThere === undefined);
 
       if (emptyIndex === -1) {
         Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start();
@@ -91,40 +98,99 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
         }
       }
     }
+
   };
 
   const editDone = () => {
+    dispatch(dismissExposures());
     // check if at least one exposure was checked a been there
     const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
 
     if (isExposed) {
       // move to ExposureInstructions
-      navigation.navigate('ExposureInstructions', { showEdit: true });
+      const showEdit = exposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp)
+      navigation.navigate('ExposureInstructions', { showEdit });
     } else {
       // move to ExposureRelief
       navigation.navigate('ExposureRelief');
       AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
 
-    dispatch(dismissExposures())
-  }
+    
+  };
 
-  const RenderExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
+  const RenderBleExposure = ({ index, exposure: { properties: { BLETimestamp, OBJECTID, Place } } }) => {
+
+    const [exposureDate, exposureStartHour, exposureEndHour] = useMemo(() => {
+      const time = moment(BLETimestamp).startOf('hour');
+
+      return [
+        time.format('DD.MM.YY'),
+        time.format('HH:mm'),
+        time.add(1, 'hour').format('HH:mm')
+      ];
+    }, [BLETimestamp]);
+
+
+    let LocationText = null;
+
+    if (OBJECTID) {
+      LocationText = (
+        <>
+          <Text style={styles.exposureCardPlace} bold>
+            {`${atPlace}${Place}`}
+          </Text>
+          <View style={styles.exposureCardMapContainer}>
+            <Text style={styles.exposureCardMapText} onPress={() => dispatch(showMapModal(exposures[index]))}>{showOnMap}</Text>
+          </View>
+        </>
+      );
+    }
+
+    return (
+      <Animated.View style={[styles.detailsContainer]}>
+        <View style={{ flex: 1, alignItems: 'center' }}>
+          <Text style={styles.exposureLength}>{`${index + 1}/${exposures.length}`}</Text>
+          <Text style={styles.exposureCardTitle}>{possibleExposureBLE}</Text>
+          <Text style={{ fontSize: 17 }} bold>{`${inDate} ${exposureDate}${OBJECTID ? ' ' : '\n'}${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>
+          {LocationText}
+        </View>
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
+          <TouchableOpacity
+            style={[styles.bleActionBtn]}
+            onPress={() => setSelected(index, true)}
+          >
+            <Text style={[styles.actionBtnText, styles.actionBtnSelectedText]} bold>{exposures.length === 1 ? wasMeOnly : wasMeBle}</Text>
+          </TouchableOpacity>
+        </View>
+        <CardIdentifyTag isRTL={isRTL} text={deviceCloseTag} color='rgba(44,191,220,0.5)' />
+      </Animated.View>
+    );
+  };
+
+
+  const RenderGeoExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
       if (wasThere === null) return [false, false];
       return [wasThere, !wasThere];
     }, [wasThere]);
 
+    const [exposureDate, exposureHour] = useMemo(() => {
+      const time = moment(fromTime);
+      return [time.format('DD.MM.YY'), time.format('HH:mm')];
+    }, [fromTime]);
+
     return (
-      <Animated.View key={OBJECTID} style={[styles.detailsContainer]}>
+      <Animated.View style={[styles.detailsContainer]}>
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.exposureLength}>{`${index + 1}/${exposures.length}`}</Text>
           <Text style={styles.exposureCardTitle}>{possibleExposure}</Text>
           <Text style={styles.exposureCardPlace} bold>
-            {`${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}
+            {`${atPlace}${Place} ${inDate} ${exposureDate} ${fromHour} ${exposureHour}`}
           </Text>
           <View style={styles.exposureCardMapContainer}>
-            <Text style={styles.exposureCardMapText} onPress={() => dispatch(showMapModal(exposures[0]))}>{showOnMap}</Text>
+            <Text style={styles.exposureCardMapText} onPress={() => dispatch(showMapModal(exposures[index]))}>{showOnMap}</Text>
           </View>
         </View>
         <View>
@@ -144,7 +210,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             </TouchableOpacity>
           </View>
         </View>
-    
+        <CardIdentifyTag isRTL={isRTL} text={locationCloseTag} color='rgba(217,228,140,0.6)' />
       </Animated.View>
     );
   };
@@ -163,11 +229,15 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
         <FlatList
           horizontal
+          bounces={false}
           ref={flatListRef}
           data={exposures}
           nestedScrollEnabled
-          keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
-          renderItem={({ item, index }) => <RenderExposure exposure={item} index={index} />}
+          keyExtractor={(item: Exposure) => {
+            if (item?.properties?.BLETimestamp) return item.properties.BLETimestamp.toString();
+            return item.properties.OBJECTID.toString();
+          }}
+          renderItem={({ item, index }) => (item.properties?.BLETimestamp ? <RenderBleExposure exposure={item} index={index} /> : <RenderGeoExposure exposure={item} index={index} />)}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingLeft: 14, paddingRight: 5 }}
         />
@@ -227,7 +297,7 @@ const styles = StyleSheet.create({
     marginBottom: 8
   },
   exposureCardTitle: {
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 18
   },
   exposureCardPlace: {
@@ -257,6 +327,21 @@ const styles = StyleSheet.create({
     height: SCREEN_HEIGHT * 0.05,
     width: SCREEN_WIDTH * 0.3,
     justifyContent: 'center'
+  },
+  bleActionBtn: {
+    borderColor: MAIN_COLOR,
+    backgroundColor: MAIN_COLOR,
+    borderWidth: 1,
+    borderRadius: 5.6,
+    paddingHorizontal: 24,
+    paddingVertical: 10,
+    justifyContent: 'center',
+    shadowColor: 'rgb(185,185,185)',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.5,
+    shadowRadius: 14,
+    elevation: 5,
+
   },
   actionBtnText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 16

@@ -24,8 +24,8 @@ interface NoExposuresProps {
   goToBluetoothPermission(): void
 }
 
-const NoExposures: FunctionComponent<NoExposuresProps> = (
-  { exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
+
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -56,7 +56,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = (
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center'}} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -79,9 +79,9 @@ const NoExposures: FunctionComponent<NoExposuresProps> = (
   };
 
   const LocationHistoryInfo = useCallback(() => {
-    if (hideLocationHistory) return null
-    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />)
-  }, [hideLocationHistory, locale])
+    if (hideLocationHistory) return null;
+    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
+  }, [hideLocationHistory, locale]);
 
   return (
     <>
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: PADDING_BOTTOM(58)
+    paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
     alignItems: 'center',
