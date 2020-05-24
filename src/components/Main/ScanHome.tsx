@@ -42,7 +42,7 @@ interface ScanHomeProps {
 }
 
 // user has Relevant event by time and location
-const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime), 'days') < 14) ?? false);
+const isAfter14Days = ({ properties }: Exposure): boolean => ((properties?.wasThere && moment().diff(moment(properties.toTime ?? properties.BLETimestamp), 'days') < 14) ?? false);
 
 const ScanHome: FunctionComponent<ScanHomeProps> = (
   {

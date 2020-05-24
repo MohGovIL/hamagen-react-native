@@ -153,6 +153,7 @@ const Loading: FunctionComponent<Props> = (
       }
 
       await initBLETracing();
+      
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       // await startForegroundTimer();
@@ -171,22 +172,20 @@ const Loading: FunctionComponent<Props> = (
 
       const dbSick = new IntersectionSickDatabase();
       // update all dismissed exposures to have wasThere property
-      const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED)
+      const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
 
 
       if (dbSickWasUpdated !== 'true') {
         const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
         if (dismissedExposures) {
-          await dbSick.upgradeSickRecord(JSON.parse(dismissedExposures))
-
+          await dbSick.upgradeSickRecord(JSON.parse(dismissedExposures));
         }
-        await AsyncStorage.setItem(SICK_DB_UPDATED, 'true')
+        await AsyncStorage.setItem(SICK_DB_UPDATED, 'true');
       }
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
-
+      // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
-      console.log(exposures);
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 

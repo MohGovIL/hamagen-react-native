@@ -112,11 +112,13 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - Permission-BluetoothPeripheral (2.0.10):
+    - RNPermissions
   - Permission-LocationAlways (2.0.10):
     - RNPermissions
   - Permission-Motion (2.0.10):
     - RNPermissions
-  - Protobuf (3.11.4)
+  - Protobuf (3.12.0)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -352,6 +354,8 @@ PODS:
   - RNBackgroundGeolocation (3.4.2):
     - CocoaLumberjack (~> 3.5.1)
     - React
+  - RNBluetoothStateManager (1.1.0):
+    - React
   - RNCAsyncStorage (1.7.1):
     - React
   - RNCMaskedView (0.1.10):
@@ -397,6 +401,7 @@ DEPENDENCIES:
   - GoogleMaps
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - Permission-BluetoothPeripheral (from `../node_modules/react-native-permissions/ios//BluetoothPeripheral.podspec`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
   - Permission-Motion (from `../node_modules/react-native-permissions/ios/Motion.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -438,6 +443,7 @@ DEPENDENCIES:
   - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
+  - RNBluetoothStateManager (from `../node_modules/react-native-bluetooth-state-manager`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNDeviceInfo (from `../node_modules/react-native-device-info`)
@@ -486,6 +492,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
+  Permission-BluetoothPeripheral:
+    :path: "../node_modules/react-native-permissions/ios//BluetoothPeripheral.podspec"
   Permission-LocationAlways:
     :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
   Permission-Motion:
@@ -562,6 +570,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
     :path: "../node_modules/react-native-background-geolocation"
+  RNBluetoothStateManager:
+    :path: "../node_modules/react-native-bluetooth-state-manager"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
   RNCMaskedView:

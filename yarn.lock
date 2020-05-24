@@ -6716,6 +6716,11 @@ react-native-background-timer@02.2.0:
   resolved "https://registry.yarnpkg.com/react-native-background-timer/-/react-native-background-timer-2.2.0.tgz#ff82d30899209b924983cc00e6ce174b8de5054a"
   integrity sha512-Y7N6diSFko/FCJPMmB0PoBlmY1kEcma7qDVwn8t7zi12GLqpe/Vwls97onkSD8/QL+BR33BygUHOrLTPwgeKfg==
 
+react-native-bluetooth-state-manager@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/react-native-bluetooth-state-manager/-/react-native-bluetooth-state-manager-1.1.1.tgz#e489ec36ec5435d48b0cb3cdeac103f77d6392b9"
+  integrity sha512-OvauhpV+4Buj+FpU+ocNPsxNaP32y1aKqxYWFzOfyefEn1r4HexoGII5/laq+9OcQTOS5qMBqsBfHYCAPEVS2g==
+
 react-native-device-info@5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.0.tgz#c837afdfc7947eef0a09c1bf2f3beb127d31458b"
@@ -7259,7 +7264,7 @@ rimraf@~2.2.6:
 
 "rn-contact-tracing@https://github.com/wix-incubator/rn-contact-tracing.git#master":
   version "0.0.3"
-  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#90b1060ca0c8b321283b499f49fae09b4608a42e"
+  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#5c28bf45a010445eae9077afc44c664f144fe194"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"

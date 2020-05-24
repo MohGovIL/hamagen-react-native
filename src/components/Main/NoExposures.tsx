@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, Linking, Button } from 'react-native';
+import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
+import BluetoothStateManager, { BluetoothState } from 'react-native-bluetooth-state-manager';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
 import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
 
 interface NoExposuresProps {
@@ -23,7 +24,8 @@ interface NoExposuresProps {
   goToBluetoothPermission(): void
 }
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo,goToLocationHistory,goToBluetoothPermission }) => {
+
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -35,12 +37,12 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-
+    
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
@@ -73,29 +75,41 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     if (state === 'active' && appState.current !== 'active') {
       setNow(moment().valueOf());
     }
-
     appState.current = state;
   };
 
   const LocationHistoryInfo = useCallback(() => {
-    if (hideLocationHistory) return null
-    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />)
-  }, [hideLocationHistory, locale])
-
-  const BLEInfo = useCallback(() => {
-    if(showBleInfo)
-    return (<InfoBubble isRTL={isRTL} info="מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות׳" moreInfo="מידע נוסף" onPress={goToBluetoothPermission} />)
-    
-    // TODO: change if no BT available
-  },[locale])
+    if (hideLocationHistory) return null;
+    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
+  }, [hideLocationHistory, locale]);
 
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
-          <LocationHistoryInfo />
-          <BLEInfo />
-          
+          <LocationHistoryInfo />           
+          <BluetoothState>
+            <BluetoothState.Unauthorized>
+              <InfoBubble 
+                isRTL={isRTL} 
+                info={canIdentifyWithBluetooth}
+                moreInfo={moreInformation} 
+                onPress={goToBluetoothPermission}
+              />
+            </BluetoothState.Unauthorized>
+            <BluetoothState.PoweredOff>
+              {({ enable, openSettings }) => {             
+                return (
+                  <InfoBubble 
+                    isRTL={isRTL} 
+                    info={bluetoothServiceOff}
+                    moreInfo={turnBluetoothOn} 
+                    onPress={() => { Platform.OS === 'android' ? enable() : openSettings(); }}
+                  />
+                ); 
+              }}
+            </BluetoothState.PoweredOff>
+          </BluetoothState>         
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
@@ -147,7 +161,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: PADDING_BOTTOM(58)
+    paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
     alignItems: 'center',

@@ -1,5 +1,6 @@
-import React, { useMemo, useEffect } from 'react';
-import { View, StyleSheet, Linking, ScrollView, BackHandler } from 'react-native';
+import React, { useMemo, useEffect, useState } from 'react';
+import { View, StyleSheet, Linking, ScrollView, UIManager, Platform, LayoutAnimation, BackHandler } from 'react-native';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
@@ -20,8 +21,8 @@ import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { Exposure, Store, LocaleReducer } from '../../types';
 
 if (
-  Platform.OS === 'android' &&
-  UIManager.setLayoutAnimationEnabledExperimental
+  Platform.OS === 'android'
+  && UIManager.setLayoutAnimationEnabledExperimental
 ) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
@@ -39,7 +40,14 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     languages,
     externalUrls,
     strings: {
-      scanHome: { atPlace },
+      scanHome: {
+        atPlace,
+        betweenHours,
+        inDate,
+        fromHour,
+        deviceCloseTag,
+        locationCloseTag
+      },
       exposureInstructions: {
         title,
         editBtn,
@@ -59,7 +67,8 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   } = useSelector<Store, LocaleReducer>(state => state.locale);
 
   const exposures = useSelector<Store, Exposure[]>(state => state.exposures.pastExposures.filter((exposure: Exposure) => exposure.properties.wasThere));
-  const [shouldShowMore, setShowMore] = useState(false)
+  const [shouldShowMore, setShowMore] = useState(false);
+
   useEffect(() => {
     SplashScreen.hide();
     // if edit button need to be shown then Exposure Instructions don't need to persists
@@ -77,12 +86,32 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
     ];
   }, [languages.short, locale]);
 
-  const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => (
-    <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, marginVertical: IS_SMALL_SCREEN ? 5 : 10 }} key={exposure.properties.OBJECTID}>
-      <Text bold>• </Text>
-      <Text>{`${atPlace}${exposure.properties.Place}`}</Text>
-    </Text>
-  )), [exposures, locale]);
+  const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => {
+    let ListText;
+
+    if (exposure.properties.BLETimestamp) {
+      const time = moment(exposure.properties.BLETimestamp).startOf('hour');
+      
+      const exposureDate = time.format('DD.MM.YY');
+      const exposureStartHour = time.format('HH:mm');
+      const exposureEndHour = time.add(1, 'hour').format('HH:mm');
+
+      ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>);
+    } else {
+      const { Place, fromTime } = exposure.properties;
+      const time = moment();
+      ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>);
+    }
+
+
+    return (
+      <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: isRTL ? 'right' : 'left' }} key={exposure.properties.OBJECTID}>
+        <Text bold>• </Text>
+        {ListText}
+        
+      </Text>
+    );
+  }), [exposures, locale]);
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN ? styles.actionButtonContainerSmall : styles.actionButtonContainerBig, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
@@ -120,17 +149,18 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
                 300,
                 LayoutAnimation.Types.spring,
                 LayoutAnimation.Properties.scaleXY
-              )
-              setShowMore(!shouldShowMore)
-            }}>
-            <Icon source={require('../../assets/main/showMore.png')} width={9} height={5} customStyles={{marginHorizontal: 7, transform: [{rotateZ: shouldShowMore ? '180deg' : '0deg' }]}}/>
+              );
+              setShowMore(!shouldShowMore);
+            }}
+          >
+            <Icon source={require('../../assets/main/showMore.png')} width={9} height={5} customStyles={{ marginHorizontal: 7, transform: [{ rotateZ: shouldShowMore ? '180deg' : '0deg' }] }} />
             <Text style={{ color: MAIN_COLOR, fontSize: 13 }} bold>{shouldShowMore ? showLess : showMore}</Text>
           </TouchableOpacity>
         )}
       </>
     ),
 
-    [route.params?.update, shouldShowMore]);
+  [route.params?.update, shouldShowMore]);
 
   return (
 
@@ -150,7 +180,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
             flexDirection: isRTL ? 'row' : 'row-reverse',
             [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
           }}
-          onPress={navigation.goBack}
+          onPress={() => navigation.navigate('ExposureDetected')}
         >
           <Icon
             width={IS_SMALL_SCREEN ? 20 : 24}
@@ -187,12 +217,8 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
         <Text
           bold
           onPress={() => {
-            AsyncStorage.removeItem(INIT_ROUTE_NAME);
             navigation.navigate('ScanHome');
-            // navigation.reset({
-            //   index: 0,
-            //   routes: [{ name: "ScanHome" }]
-            // })
+            AsyncStorage.removeItem(INIT_ROUTE_NAME);
           }}
           style={{
             color: MAIN_COLOR,
@@ -257,11 +283,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     marginHorizontal: 10
   } : {
-      lineHeight: 16,
-      fontSize: 16,
-      marginBottom: 23,
-      marginTop: 13
-    },
+    lineHeight: 16,
+    fontSize: 16,
+    marginBottom: 23,
+    marginTop: 13
+  },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
     color: '#fff'

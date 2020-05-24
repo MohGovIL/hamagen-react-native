@@ -7,24 +7,46 @@ import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
+import { match } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { SERVICE_TRACKER, LAST_FETCH_TS } from '../constants/Constants';
+import { SERVICE_TRACKER, LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  // await checkSickPeople();
+  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  BackgroundTimer.runBackgroundTimer(async () => {
-    const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-    await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
+  // prevent excessive calls to checkSickPeople
+  if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
+    await checkBLESickPeople(lastFetch);
+    await checkGeoSickPeople(lastFetch);
+  }
 
-    // await checkSickPeople();
-  }, config().fetchMilliseconds);
+  BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
+
+  await AsyncStorage.setItem(
+    LAST_FETCH_TS,
+    JSON.stringify(moment().valueOf()),
+  );
+};
+
+const backgroundTimerFn = async () => {
+  const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
+  await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
+
+  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+
+  await checkBLESickPeople(lastFetch);
+  await checkGeoSickPeople(lastFetch);
+
+  await AsyncStorage.setItem(
+    LAST_FETCH_TS,
+    JSON.stringify(moment().valueOf()),
+  );
 };
 
 export const queryDB = async (isClusters: boolean) => {
@@ -49,12 +71,61 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   }
 };
 
-export const checkSickPeople = async (forceCheck: boolean = false, isClusters: boolean) => {
+export const checkBLESickPeople = async (lastFetch: number) => {
+  // TODO: check if ios permission is enabled
   try {
-    const lastFetch = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+    // check if interval is above the minimum delay
+    if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+      return;
+    }
 
-    // prevent excessive calls to checkSickPeople
-    if (!forceCheck && lastFetch && moment().valueOf() - lastFetch < config().fetchMilliseconds) {
+    const bleMatches: any[] = await match();
+
+    if (bleMatches.length > 0) {
+      const sickDB = new IntersectionSickDatabase();
+
+      for (const { startContactTimestamp, endContactTimestamp } of bleMatches) {
+        const hasBLTS = await sickDB.containsBLE(startContactTimestamp);
+
+
+        if (!hasBLTS) {
+          const exposures: Exposure[] = await sickDB.listAllRecords();
+
+          const bleStart = moment.utc(startContactTimestamp).valueOf();
+          const bleEnd = moment.utc(endContactTimestamp).valueOf();
+
+          const overlappingGeoExposure = exposures.find(({ properties }: Exposure) => properties.OBJECTID && (Math.min(properties.toTime_utc, bleEnd) - Math.max(properties.fromTime_utc, bleStart)) > 0);
+          if (overlappingGeoExposure) {
+            const newExposure = await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.properties.OBJECTID, startContactTimestamp);
+            // if user already told us he was not there - alert him by removing exposure from dismissed and resetting it in exposures
+            if (!overlappingGeoExposure.properties.wasThere) {
+              const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
+              const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
+              await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.properties.OBJECTID)));
+              store().dispatch(setExposures([newExposure]));
+            }
+          } else {
+            await sickDB.addBLESickRecord(startContactTimestamp);
+
+            await onSickPeopleNotify([{
+              properties: {
+                wasThere: true,
+                BLETimestamp: startContactTimestamp
+              }
+            }]);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    onError(error);
+  }
+};
+
+export const checkGeoSickPeople = async (lastFetch: number) => {
+  try {
+    // check if interval is above the minimum delay
+    if (moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
 
@@ -65,13 +136,39 @@ export const checkSickPeople = async (forceCheck: boolean = false, isClusters: b
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson, isClusters) : getIntersectingSickRecords(myData, responseJson, isClusters);
 
     if (sickPeopleIntersected.length > 0) {
-      await onSickPeopleNotify(sickPeopleIntersected);
-    }
+      const dbSick = new IntersectionSickDatabase();
+      const exposures: Exposure[] = await dbSick.listAllRecords();
 
-    await AsyncStorage.setItem(
-      LAST_FETCH_TS,
-      JSON.stringify(moment().valueOf()),
-    );
+      const filteredIntersected: Exposure[] = [];
+      for (const currSick of sickPeopleIntersected) {
+        const queryResult = await dbSick.containsObjectID(
+          currSick.properties.Key_Field,
+        );
+        // exposure is not a duplicate
+        if (!queryResult) {
+          const overlappingBLEExposure = exposures.find((exposure) => {
+            if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
+
+            const bleStart = moment.utc(exposure.BLETimestamp).startOf('hour').valueOf();
+            const bleEnd = moment.utc(exposure.BLETimestamp).startOf('hour').add(1, 'hours').valueOf();
+
+            return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
+          });
+          // BLE was found
+          if (overlappingBLEExposure?.BLETimestamp) {
+            // merge geo and ble exposure
+            await dbSick.MergeGeoIntoSickRecord(currSick, overlappingBLEExposure?.BLETimestamp);
+          } else {
+            filteredIntersected.push(currSick);
+            await dbSick.addSickRecord(currSick);
+          }
+        }
+      }
+
+      if (filteredIntersected.length > 0) {
+        await onSickPeopleNotify(filteredIntersected);
+      }
+    }
   } catch (error) {
     onError(error);
   }
@@ -161,7 +258,7 @@ export const isTimeOverlapping = (userRecord: Location, sickRecord: Exposure, is
   );
 };
 
-export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure, isClusters: boolean) => {
+export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { properties: { radius }, geometry: { coordinates } }: Exposure, isClusters: boolean) => {
   const start = {
     latitude: clusterOrLocation.lat,
     longitude: clusterOrLocation.long,
@@ -177,37 +274,18 @@ export const isSpaceOverlapping = (clusterOrLocation: Location|Cluster, { proper
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
-    const dbSick = new IntersectionSickDatabase();
+    if (sickPeopleIntersected.length > 0) {
+      store().dispatch(setExposures(sickPeopleIntersected));
 
-    const exposuresToUpdate = [];
+      const { locale, notificationData } = await store().dispatch(initLocale());
 
-    for (const currSick of sickPeopleIntersected) {
-      const queryResult = await dbSick.containsObjectID(
-        currSick.properties.Key_Field,
+      await registerLocalNotification(
+        notificationData.sickMessage[locale].title,
+        notificationData.sickMessage[locale].body,
+        notificationData.sickMessage.duration,
+        'ms',
       );
-
-      if (!queryResult) {
-        currSick.properties.fromTime = currSick.properties.fromTime_utc;
-        currSick.properties.toTime = currSick.properties.toTime_utc;
-        currSick.properties.OBJECTID = currSick.properties.Key_Field;
-        currSick.properties.lat = currSick.geometry.coordinates[config().sickGeometryLatIndex];
-        currSick.properties.long = currSick.geometry.coordinates[config().sickGeometryLongIndex];
-
-        exposuresToUpdate.push(currSick);
-        await dbSick.addSickRecord(currSick);
-      }
     }
-
-    store().dispatch(setExposures(exposuresToUpdate));
-
-    const { locale, notificationData } = await store().dispatch(initLocale());
-
-    exposuresToUpdate.length > 0 && await registerLocalNotification(
-      notificationData.sickMessage[locale].title,
-      notificationData.sickMessage[locale].body,
-      notificationData.sickMessage.duration,
-      'ms',
-    );
   } catch (error) {
     onError({ error });
   }

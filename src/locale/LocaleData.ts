@@ -167,7 +167,11 @@ export interface Strings {
       card: {
         title: string,
         atHour: string
-      }
+      },
+      bluetoothServiceOff: string,
+      turnBluetoothOn: string,
+      canIdentifyWithBluetooth: string,
+      moreInformation: string
     },
     showOnMap: string,
     wasNotMe: string,

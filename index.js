@@ -6,7 +6,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import moment from 'moment';
 import App from './src/App';
 import { name as appName } from './app.json';
-import { checkSickPeople } from './src/services/Tracker';
+import { checkGeoSickPeople } from './src/services/Tracker';
 import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
@@ -32,7 +32,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - headless', timestamp: moment().valueOf() }]));
 
     await initConfig();
-    await checkSickPeople();
+    await checkGeoSickPeople();
 
     BackgroundFetch.finish(taskId);
   } catch (error) {

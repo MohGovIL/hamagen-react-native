@@ -29,7 +29,7 @@ const DEFAULT_SCREEN = 'ScanHome';
 const DrawerStack = ({ navigation }) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
-  const [showBLEPermission, setBLEPermission] = useState(undefined)
+  const [showBLEPermission, setBLEPermission] = useState(undefined);
 
   useEffect(() => {
     AsyncStorage.getItem(INIT_ROUTE_NAME)
@@ -38,24 +38,25 @@ const DrawerStack = ({ navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (exposures.some((exposure: Exposure) => exposure.properties.wasThere === null && initialRouteName !== '')) {
+    if (initialRouteName !== '' && exposures?.length > 0) {
       navigation.navigate('ExposureDetected');
     }
-    if (initialRouteName !== '' && showBLEPermission === undefined) {
-      AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
-        setBLEPermission(res)
-        if (res !== 'true' && res !== 'shown') {
-          navigation.navigate('Bluetooth')
-          AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
-        }
-      })
-    }
+
+    // if (initialRouteName !== '' && showBLEPermission === undefined) {
+    //   AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
+    //     setBLEPermission(res)
+    //     if (res !== 'true' && res !== 'shown') {
+    //       navigation.navigate('Bluetooth')
+    //       AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
+    //     }
+    //   })
+    // }
   }, [exposures, initialRouteName]);
 
   if (!initialRouteName) return null;
 
   return (
-    <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRouteName}>
+    <Stack.Navigator gestureEnabled={false} mode="modal" headerMode="none" initialRouteName={initialRouteName} screenOptions={() => ({ gestureEnabled: false })}>
       <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ showBleInfo: showBLEPermission !== 'true' }} />
       <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
@@ -63,8 +64,8 @@ const DrawerStack = ({ navigation }) => {
       <Stack.Screen name="ShareLocations" component={ShareLocations} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="QA" component={QA} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-      <Stack.Screen name="ExposureDetected" component={ExposureDetected} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-      <Stack.Screen name="ExposureInstructions" component={ExposureInstructions} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} initialParams={{ showEdit: false }} />
+      <Stack.Screen name="ExposureDetected" component={ExposureDetected} gestureEnabled={false} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="ExposureInstructions" component={ExposureInstructions} gestureEnabled={false} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} initialParams={{ showEdit: false }} />
       <Stack.Screen name="ExposureRelief" component={ExposureRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />

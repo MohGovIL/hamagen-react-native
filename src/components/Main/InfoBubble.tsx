@@ -18,7 +18,7 @@ const InfoBubble: FunctionComponent<Props> = ({ isRTL, info, moreInfo, onPress }
         <View style={[styles.textContainer, { alignItems: isRTL ? 'flex-end' : 'flex-start' }]}>
           <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{info}</Text>
           <View style={{ borderBottomWidth: 1, borderBottomColor: MAIN_COLOR }}>
-            <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold >{moreInfo}</Text>
+            <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{moreInfo}</Text>
           </View>
         </View>
       </View>

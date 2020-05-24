@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import SpecialBle from 'rn-contact-tracing';
 import { IS_IOS } from '../constants/Constants';
 import { onError } from './ErrorService';
+import { downloadAndVerifySigning } from './SigningService';
+import config from '../config/config';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   try {
@@ -50,3 +52,37 @@ export const registerBLEListeners = () => {
     // TODO handle ble event
   });
 };
+
+export const fetchInfectionDataByConsent = async () => {
+  try {
+    SpecialBle.fetchInfectionDataByConsent((res: any) => {
+      debugger;
+      const parsedRes = JSON.parse(res || '[]');
+
+      if (parsedRes?.infected?.length > 0) {
+        const flatData = parsedRes.infected.flatMap((d: any) => d);
+        Clipboard.setString(JSON.stringify(flatData));
+        Alert.alert('DB copied');
+        return;
+      }
+
+      Alert.alert('No results found');
+    });
+  } catch (error) {
+    onError({ error });
+  }
+};
+
+export const match = async () => new Promise(async (resolve) => {
+  try {
+    const responseJson = await downloadAndVerifySigning(config().BLE_UTC);
+
+    SpecialBle.match(JSON.stringify(responseJson), (res: string) => {
+      const parsedRes: any[] = JSON.parse(res || '[]');
+      resolve(parsedRes);
+    });
+  } catch (error) {
+    resolve([]);
+    onError({ error });
+  }
+});
