@@ -82,11 +82,11 @@ export const match = () => {
 
 // return mock BLE timeStamp
 export const matchMock = async (fetchedArr) => {
-  return new Date().getTime()
-}
+  return new Date().getTime();
+};
 
 // return mock fetch array of things 
 export const fetchMock = () => {
   //  SpecialBle.fetch()
-  return ['asd', 'asdfsad', 'asdsdf']
-}
+  return ['asd', 'asdfsad', 'asdsdf'];
+};

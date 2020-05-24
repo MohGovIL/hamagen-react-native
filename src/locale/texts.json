@@ -204,6 +204,7 @@
       "suspectedExposure": "חשד לחשיפה:",
       "events": "אירועים",
       "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "ב",
       "share": {
         "message": "שיתוף אפליקציית המגן",
@@ -228,7 +229,13 @@
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
       "wasMe": "ייתכן שכן",
-      "doneBtn": "סיימתי לעדכן"
+      "doneBtn": "סיימתי לעדכן",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag":"קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
+
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -241,7 +248,9 @@
       "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
       "historyEditFinishBtn": "שמירת שינויים",
       "historyEditCancelBtn": "ביטול עריכה",
-      "edit": "עריכה"
+      "edit": "עריכה",
+      "BLELocationUpdate": "נתוני המיקום עודכנו",
+      "BLEWarning": "לא ניתן לערוך מידע שמתקבל בעזרת בלוטות'"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",

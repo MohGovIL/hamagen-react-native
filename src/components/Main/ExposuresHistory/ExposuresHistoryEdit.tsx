@@ -10,6 +10,7 @@ import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, 
 import { showMapModal } from '../../../actions/GeneralActions';
 import { REPLACE_PAST_EXPOSURES } from '../../../constants/ActionTypes';
 import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
+import InfoBubble from '../InfoBubble';
 
 
 const ExposureItem = () => {
@@ -20,11 +21,13 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
   const dispatch = useDispatch();
   const { isRTL, strings } = useSelector<Store, LocaleReducer>(state => state.locale);
   const {
-    exposuresHistory: { title, subTitle, historyEditFinishBtn, historyEditCancelBtn },
+    exposuresHistory: { title, subTitle, historyEditFinishBtn, historyEditCancelBtn, BLEWarning },
     scanHome: { wasNotMe, wasMe, }
   } = strings;
   const { pastExposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [newExposureArr, setNewExposureArray] = useState(_.cloneDeep(pastExposures));
+
+  const showBLEWarning = useMemo(() => pastExposures.some(({ properties }: Exposure) => properties.BLETimestamp), [pastExposures.length])
 
   const setSelected = (index, wasThere) => {
     setNewExposureArray((exposureArrState) => {
@@ -84,22 +87,22 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
   };
 
   const RenderExposure = ({ index, item }) => {
-    const { wasThere, Place, fromTime } = item.properties;
+    const { wasThere, BLETimestamp, Place } = item.properties;
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
       if (wasThere === null) return [false, false];
       return [wasThere, !wasThere];
     }, [wasThere]);
 
     return (
+
       <ExposureHistoryListItem
         isRTL={isRTL}
         strings={strings}
-        Place={Place}
-        fromTime={fromTime}
-        style={{ marginHorizontal: 15, marginBottom: 10 }}
+        {...item.properties}
+        style={{ marginHorizontal: 15, marginBottom: 10, opacity: BLETimestamp ? 0.7 : 1 }}
         showExposureOnMap={() => dispatch(showMapModal(item))}
       >
-        <View style={{
+        {!BLETimestamp && Place && (<View style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           marginTop: 20,
 
@@ -118,8 +121,9 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
             <Text style={[styles.actionBtnText, wasThereSelected && styles.actionBtnSelectedText]} bold={wasThereSelected}>{wasMe}</Text>
           </TouchableOpacity>
 
-        </View>
+        </View>)}
       </ExposureHistoryListItem>
+
     );
   };
 
@@ -128,16 +132,44 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
       <FlatList
         bounces={false}
         data={newExposureArr}
-        style={{ flex: 1 }}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.listContainer}
-        keyExtractor={(item: Exposure) => item.properties.OBJECTID.toString()}
+        keyExtractor={(item: Exposure) => {
+          if (item?.properties?.BLETimestamp) return item.properties.BLETimestamp.toString();
+          return item.properties.OBJECTID.toString();
+        }}
         renderItem={({ index, item }) => (<RenderExposure item={item} index={index} />)}
         ListHeaderComponent={() => (
           <View style={styles.headerContainer}>
             <View>
               <Text bold>{title}</Text>
               <Text style={styles.headerSubtitle}>{subTitle}</Text>
+              {showBLEWarning && (
+                <View
+                  style={{
+                    marginTop: 10,
+                    borderRadius: 10,
+                    paddingVertical: 10,
+                    alignItems: 'center',
+                    paddingHorizontal: 16,
+                    flexDirection: isRTL ? 'row-reverse' : 'row',
+                    backgroundColor: 'rgb(242,250,253)',
+                  }}
+                >
+                  <Icon
+                    width={16}
+                    source={require('../../../assets/main/moreInfo.png')}
+                    customStyles={{
+                      [isRTL ? 'marginLeft' : 'marginRight']: 8
+                    }} />
+                  <Text 
+                  style={{
+                    fontSize: 13,
+                    color: 'rgb(106,106,106)'
+                  }}
+                  >{BLEWarning}</Text>
+                </View>
+              )}
             </View>
           </View>
         )}
@@ -166,6 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f8fa',
   },
   listContainer: {
+    flexGrow:1,
     paddingBottom: PADDING_BOTTOM(49),
 
   },
@@ -173,7 +206,8 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 20 : 62),
     justifyContent: 'space-between',
-    paddingBottom: IS_SMALL_SCREEN ? SCREEN_HEIGHT * 0.05 : SCREEN_HEIGHT * 0.05,
+    alignItems: 'center',
+    paddingBottom: IS_SMALL_SCREEN ? SCREEN_HEIGHT * 0.05 : SCREEN_HEIGHT * 0.03,
     backgroundColor: WHITE,
     marginBottom: 15,
   },

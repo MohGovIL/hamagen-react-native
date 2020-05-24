@@ -14,24 +14,21 @@ interface Props {
 }
 
 const BluetoothOnboarding: FunctionComponent<Props> = ({ navigation }) => {
-    
-
-    return (
-        <GeneralContainer style={styles.container}>
-            <OnboardingHeader />
-            <BluetoothPermission onEnd={() => navigation.navigate("LocationHistoryOnBoarding")}/>
-        </GeneralContainer>
-    )
-}
+  return (
+    <GeneralContainer style={styles.container}>
+      <OnboardingHeader />
+      <BluetoothPermission onEnd={() => navigation.navigate('LocationHistoryOnBoarding')} />
+    </GeneralContainer>
+  );
+};
 
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
+  container: {
+    flex: 1,
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
 });
 
-export default BluetoothOnboarding
-
+export default BluetoothOnboarding;

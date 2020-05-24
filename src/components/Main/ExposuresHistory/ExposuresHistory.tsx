@@ -36,7 +36,9 @@ const ExposuresHistory = (
   const [tabIndex, setTabIndex] = useState(isRTL ? 1 : 0);
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
-  const showEditBtn = useMemo(() => wasThereList.length + wasNotThereList.length > 0, [wasThereList.length, wasNotThereList.length]);
+  const showEditBtn = useMemo(() => {
+    wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null)
+  }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
@@ -169,8 +171,7 @@ const ExposuresHistory = (
               <ExposureHistoryListItem
                 isRTL={isRTL}
                 strings={strings}
-                Place={item.properties.Place}
-                fromTime={item.properties.fromTime}
+                {...item.properties}
                 showExposureOnMap={() => showMapModal(item)}
               />
             )}

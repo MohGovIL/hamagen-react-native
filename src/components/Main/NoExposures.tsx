@@ -23,7 +23,7 @@ interface NoExposuresProps {
   goToBluetoothPermission(): void
 }
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo,goToLocationHistory,goToBluetoothPermission }) => {
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -78,16 +78,15 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   };
 
   const LocationHistoryInfo = useCallback(() => {
-    if (hideLocationHistory) return null
-    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />)
-  }, [hideLocationHistory, locale])
+    if (hideLocationHistory) return null;
+    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
+  }, [hideLocationHistory, locale]);
 
   const BLEInfo = useCallback(() => {
-    if(showBleInfo)
-    return (<InfoBubble isRTL={isRTL} info="מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות׳" moreInfo="מידע נוסף" onPress={goToBluetoothPermission} />)
+    if (showBleInfo) return (<InfoBubble isRTL={isRTL} info="מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות׳" moreInfo="מידע נוסף" onPress={goToBluetoothPermission} />);
     
     // TODO: change if no BT available
-  },[locale])
+  }, [locale]);
 
   return (
     <>
