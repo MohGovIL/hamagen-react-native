@@ -20,7 +20,7 @@ const haversine = require('haversine');
 export const startForegroundTimer = async () => {
   const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  // prevent excessive calls to checkSickPeople
+   // prevent excessive calls to checkSickPeople
   if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
     await checkBLESickPeople(lastFetch);
     await checkGeoSickPeople(lastFetch);

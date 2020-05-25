@@ -125,6 +125,7 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
+      
       BackgroundFetch.status(async (status) => {
         if (status !== BackgroundFetch.STATUS_AVAILABLE) {
           await scheduleTask();
@@ -156,7 +157,7 @@ const Loading: FunctionComponent<Props> = (
       
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
-      // await startForegroundTimer();
+      await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 

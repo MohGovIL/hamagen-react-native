@@ -47,10 +47,10 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
       await AsyncStorage.setItem(DID_CLUSTER_LOCATIONS, 'true');
 
-      // startForegroundTimer();
       await initBLETracing();
       await startSampling(locale, notificationData);
       await scheduleTask();
+      await startForegroundTimer();
 
 
       // TODO: figure out why replace crash android on first upload
