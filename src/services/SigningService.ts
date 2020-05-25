@@ -4,6 +4,7 @@ import { onError } from './ErrorService';
 
 export const downloadAndVerifySigning = (url: string) => new Promise<any>(async (resolve, reject) => {
   try {
+
     const { data }: { data: string } = await axios.get(`${url}.sign?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     const curve = 'secp256r1';
@@ -17,28 +18,22 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     const jsonB64 = data.slice(signatureLength);
 
     const json = JSON.parse(jsonB64);
-    
-    // TODO: REMOVE THIS!!!!!! VERY IMPORT
-    if (__DEV__) {
-      if (json) {
-        resolve(json);
-      }
-    } else {
-      // @ts-ignore
-      const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
-      
-      sig.init({ xy: pubkey, curve });
-      
-      sig.updateString(jsonB64);
-      
-      const result = sig.verify(signature);
-      
-      if (result) {
-        resolve(json);
-      }
-      
-      reject('invalid ECDSA signature');
+
+    // @ts-ignore
+    const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
+
+    sig.init({ xy: pubkey, curve });
+
+    sig.updateString(jsonB64);
+
+    const result = sig.verify(signature);
+
+    if (result) {
+      resolve(json);
     }
+
+    reject('invalid ECDSA signature');
+
   } catch (error) {
     reject(error);
     onError({ error });
