@@ -313,7 +313,8 @@
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
         "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
         "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
-        "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב"
+        "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
+        "shareFailWithWarnings": "לא נמצאו נתונים על מכשיר הטלפון שלך.\nנמשיך בתהליך בשיחת הטלפון."
       },
       "greeting": {
         "beforeShare": "המידע האישי שלך - יישאר חסוי",
@@ -327,7 +328,8 @@
         "shareNoConnection": "ניסיון נוסף",
         "shareFail": "הבנתי, תודה",
         "shareFailMissingToken": "הבנתי, תודה",
-        "shareFailTokenError": "נסה שנית"
+        "shareFailTokenError": "נסה שנית",
+        "shareFailWithWarnings": "הבנתי"
       }
     },
     "exposureRelief": {
@@ -555,7 +557,8 @@
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
         "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
-        "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى"
+        "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
+        "shareFailWithWarnings": "لم يتم العثور على بيانات على هاتفك.\nWe سوف نواصل المكالمة."
       },
       "greeting": {
         "beforeShare": "معلوماتك الشخصية - ستبقى سرية",
@@ -569,7 +572,8 @@
         "shareNoConnection": "محاولة أخرى",
         "shareFail": "أفهم ، شكرا لك",
         "shareFailMissingToken": "أفهم ، شكرا لك",
-        "shareFailTokenError": "يرجى المحاولة مرة أخرى"
+        "shareFailTokenError": "يرجى المحاولة مرة أخرى",
+        "shareFailWithWarnings": "فهمت"
       }
     },
     "exposureRelief": {
@@ -796,7 +800,8 @@
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
         "shareFailMissingToken": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
-        "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again"
+        "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again",
+        "shareFailWithWarnings": "No data was found on your phone.\nWe'll continue with the call."
       },
       "greeting": {
         "beforeShare": "Your personal information - will remain confidential",
@@ -810,7 +815,8 @@
         "shareNoConnection": "another try",
         "shareFail": "I understood, thank you",
         "shareFailMissingToken": "I understood, thank you",
-        "shareFailTokenError": "try again"
+        "shareFailTokenError": "try again",
+        "shareFailWithWarnings": "I understand"
       }
     },
     "exposureRelief": {
@@ -1037,7 +1043,8 @@
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
         "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
         "shareFailMissingToken": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
-        "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз"
+        "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
+        "shareFailWithWarnings": "На вашем телефоне не найдены данные.\nМы продолжим разговор."
       },
       "greeting": {
         "beforeShare": "Ваша личная информация - останется конфиденциальной",
@@ -1051,7 +1058,8 @@
         "shareNoConnection": "Еще одна попытка",
         "shareFail": "Я понимаю спасибо",
         "shareFailMissingToken": "Я понимаю спасибо",
-        "shareFailTokenError": "Пожалуйста, попробуйте еще раз"
+        "shareFailTokenError": "Пожалуйста, попробуйте еще раз",
+        "shareFailWithWarnings": "я осознал"
       }
     },
     "exposureRelief": {
@@ -1278,7 +1286,8 @@
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
         "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
         "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
-        "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ"
+        "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
+        "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።\nበጥሪው እንቀጥላለን።"
       },
       "greeting": {
         "beforeShare": "የእርስዎ የግል መረጃ - በሚስጥር ይቀጥላል",
@@ -1292,7 +1301,8 @@
         "shareNoConnection": "ሌላ ሙከራ",
         "shareFail": "ገባኝ ፣ አመሰግናለሁ",
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
-        "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ"
+        "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ",
+        "shareFailWithWarnings": "ገባኝ"
       }
     },
     "exposureRelief": {
@@ -1519,7 +1529,8 @@
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
         "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
         "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
-        "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer"
+        "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
+        "shareFailWithWarnings": "Aucune donnée n'a été trouvée sur votre téléphone.\nWon poursuivra l'appel."
       },
       "greeting": {
         "beforeShare": "Vos informations personnelles - resteront confidentielles",
@@ -1533,7 +1544,8 @@
         "shareNoConnection": "Un autre essai",
         "shareFail": "Je comprends merci",
         "shareFailMissingToken": "Je comprends merci",
-        "shareFailTokenError": "Veuillez réessayer"
+        "shareFailTokenError": "Veuillez réessayer",
+        "shareFailWithWarnings": "j'ai réalisé"
       }
     },
     "exposureRelief": {
