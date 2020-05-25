@@ -249,7 +249,8 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     },
     greeting: {
       beforeShare: string,
@@ -263,7 +264,8 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     }
   },
   exposureRelief: {
