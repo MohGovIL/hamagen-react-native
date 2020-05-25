@@ -76,6 +76,15 @@ const DrawerContent = ({ navigation }: Props) => {
             navigation.closeDrawer();
           }}
         />
+
+        <DrawerItem
+          isRTL={isRTL}
+          label="QA BLE"
+          icon={require('../../assets/main/policy.png')}
+          onPress={() => {
+            navigation.navigate('QABLE');
+          }}
+        />
       </View>
 
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>

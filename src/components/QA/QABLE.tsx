@@ -46,7 +46,7 @@ const CLUSTERS_FILE_TYPE = 4;
 const BLE_MATCH_FILE_TYPE = 5;
 const BLE_DB_FILE_TYPE = 6;
 
-const QA = ({ navigation, updatePointsFromFile }: Props) => {
+const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
   const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
   const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
@@ -373,64 +373,9 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         <Icon source={require('../../assets/onboarding/close.png')} width={31} />
       </TouchableOpacity>
 
-      <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
+      <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
       <ScrollView>
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת דקירות מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, false)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת דקירות מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(false)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, true)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת clusters מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(true)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchFromFileWithAction(LOCATIONS_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טעינת clusters מקובץ" onPress={() => fetchFromFileWithAction(CLUSTERS_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טעינת KML מקובץ" onPress={() => fetchFromFileWithAction(KML_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג clusters" onPress={() => setShowPopup({ showPopup: true, type: 'clusters' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג 'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'locations' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג 'דקירות' במהירות גבוהה" onPress={() => setShowPopup({ showPopup: true, type: 'velocity' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג 'דקירות' מה-SDK" onPress={() => setShowPopup({ showPopup: true, type: 'SDK' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג את כל ה'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'all' })} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="העתק קובץ קונפיגורציה פעיל" onPress={copyConfig} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף מידע לשיתוף מיקומים" onPress={shareShareLocationsInfo} />
-        </View>
 
         <View style={styles.buttonWrapper}>
           <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
@@ -458,38 +403,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         <View style={styles.buttonWrapper}>
           <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="העתק מידע מעקב שירותים" onPress={copyServicesTrackingData} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="העתק את כל הנתונים" onPress={copyAllData} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה את כל ה'דקירות'" onPress={clearAllPoints} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה את ה Clusters log" onPress={clearClustersLogs} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="!!!!!נקה את כל ה'דקירות' מה-DB!!!!!" onPress={clearLocationsDB} color="red" />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="!!!!!נקה את כל ה clusters מה-DB!!!!!" onPress={clearClustersDB} color="red" />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -534,10 +447,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    updatePointsFromFile
-  }, dispatch);
-};
+const mapDispatchToProps = {
+    updatePointsFromFile 
+}
 
-export default connect(null, mapDispatchToProps)(QA);
+export default connect(null, mapDispatchToProps)(QABLE);
