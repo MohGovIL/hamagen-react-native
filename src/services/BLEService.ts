@@ -55,25 +55,17 @@ export const registerBLEListeners = () => {
   });
 };
 
-export const fetchInfectionDataByConsent = async () => {
+export const fetchInfectionDataByConsent = async () => new Promise(async (resolve) => {
   try {
     SpecialBle.fetchInfectionDataByConsent((res: any) => {
-      debugger;
       const parsedRes = JSON.parse(res || '[]');
-
-      if (parsedRes?.infected?.length > 0) {
-        const flatData = parsedRes.infected.flatMap((d: any) => d);
-        Clipboard.setString(JSON.stringify(flatData));
-        Alert.alert('DB copied');
-        return;
-      }
-
-      Alert.alert('No results found');
+      resolve(parsedRes)
     });
   } catch (error) {
+    resolve([])
     onError({ error });
   }
-};
+})
 
 export const match = async () => new Promise(async (resolve) => {
   try {

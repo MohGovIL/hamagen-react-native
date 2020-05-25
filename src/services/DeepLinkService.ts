@@ -1,4 +1,5 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import {fetchInfectionDataByConsent} from './BLEService'
 import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
@@ -67,7 +68,10 @@ export const getUserLocationsReadyForServer = (token: string) => new Promise(asy
       return location;
     });
 
-    resolve({ token, dataRows });
+    const dataBleRows = await fetchInfectionDataByConsent()
+
+    resolve({ token, dataRows,dataBleRows });
+
   } catch (e) {
     reject(e);
   }
