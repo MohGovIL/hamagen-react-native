@@ -157,7 +157,7 @@ const Loading: FunctionComponent<Props> = (
       
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
-      await startForegroundTimer();
+      // await startForegroundTimer();
 
       const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 

@@ -50,7 +50,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await initBLETracing();
       await startSampling(locale, notificationData);
       await scheduleTask();
-      await startForegroundTimer();
+      // await startForegroundTimer();
 
 
       // TODO: figure out why replace crash android on first upload
