@@ -37,7 +37,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const dispatch = useDispatch();
   const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap, betweenHours, possibleExposureBLE, locationCloseTag, deviceCloseTag, wasMeBle, wasMeOnly } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
-
+  
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
   const flatListRef = useRef(null);
 
@@ -56,7 +56,8 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
+      const showBtn = exposures.every(exposure => exposure.properties.wasThere !== null)
+      if (showBtn) {
         Animated.timing(anim, {
           toValue: 0,
           duration: 0,
@@ -169,14 +170,14 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const RenderGeoExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
       if (wasThere === null) return [false, false];
-      return [wasThere, !wasThere];
+      return [wasThere, wasThere === false]
+
     }, [wasThere]);
 
     const [exposureDate, exposureHour] = useMemo(() => {
       const time = moment(fromTime);
       return [time.format('DD.MM.YY'), time.format('HH:mm')];
     }, [fromTime]);
-
     return (
       <Animated.View style={[styles.detailsContainer]}>
         <View style={{ alignItems: 'center' }}>

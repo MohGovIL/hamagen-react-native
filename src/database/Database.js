@@ -532,7 +532,7 @@ export class IntersectionSickDatabase {
     return new Promise(async (resolve) => {
       try {
         const db = await this.initDB();
-
+        
         db.transaction(async (tx) => {
           try {
             const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?,?,?)',
@@ -545,6 +545,8 @@ export class IntersectionSickDatabase {
                 record.properties.toTime_utc,
                 record.geometry.coordinates[config().sickGeometryLongIndex],
                 record.geometry.coordinates[config().sickGeometryLatIndex],
+                null,
+                null
               ]);
 
             resolve(results);

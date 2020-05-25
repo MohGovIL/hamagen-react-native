@@ -18,13 +18,12 @@ import { SERVICE_TRACKER, LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constant
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
    // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
-    await checkBLESickPeople(lastFetch);
-    await checkGeoSickPeople(lastFetch);
-  }
+  // if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
+  //   await checkBLESickPeople(lastFetch);
+  //   await checkGeoSickPeople(lastFetch);
+  // }
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
@@ -38,10 +37,10 @@ const backgroundTimerFn = async () => {
   const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
   await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
 
-  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+  // const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  await checkBLESickPeople(lastFetch);
-  await checkGeoSickPeople(lastFetch);
+  // await checkBLESickPeople(lastFetch);
+  // await checkGeoSickPeople(lastFetch);
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,
@@ -61,8 +60,8 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   try {
     const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
-
     const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points, isClusters);
+    
     if (sickPeopleIntersected.length > 0) {
       onSickPeopleNotify(sickPeopleIntersected);
     }
@@ -71,14 +70,15 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   }
 };
 
-export const checkBLESickPeople = async (lastFetch: number) => {
+export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   // TODO: check if ios permission is enabled
   try {
+    const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
-    if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+    if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-
+    
     const bleMatches: any[] = await match();
 
     if (bleMatches.length > 0) {
@@ -122,23 +122,24 @@ export const checkBLESickPeople = async (lastFetch: number) => {
   }
 };
 
-export const checkGeoSickPeople = async (lastFetch: number) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false,isClusters:boolean = false) => {
   try {
+    const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
-    if (moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
+    if (!forceCheck && moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-
+    
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB(isClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson, isClusters) : getIntersectingSickRecords(myData, responseJson, isClusters);
-
+    
     if (sickPeopleIntersected.length > 0) {
       const dbSick = new IntersectionSickDatabase();
       const exposures: Exposure[] = await dbSick.listAllRecords();
-
+      
       const filteredIntersected: Exposure[] = [];
       for (const currSick of sickPeopleIntersected) {
         const queryResult = await dbSick.containsObjectID(
@@ -170,11 +171,13 @@ export const checkGeoSickPeople = async (lastFetch: number) => {
       }
     }
   } catch (error) {
+    
     onError(error);
   }
 };
 
 export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
+  
   const sickPeopleIntersected: any = [];
 
   if (myData.length === 0) {
@@ -196,20 +199,20 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
       });
     });
   }
-
-  return sickPeopleIntersected;
+  // remove duplicates
+  return [...new Set(sickPeopleIntersected)];
 };
 
 export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
   const sickPeopleIntersected: any = [];
-
+  
   if (myData.length === 0) {
     console.log('Could not find data');
     return sickPeopleIntersected;
   }
-
+  
   const mappedLocations: { [key: string]: Location[] } = {};
-
+  
   myData.forEach((location) => {
     // fix for geoHashes entered with a "'" from google timeline.
     const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);

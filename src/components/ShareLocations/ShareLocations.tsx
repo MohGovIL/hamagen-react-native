@@ -25,7 +25,7 @@ const ICON = {
 };
 
 type ShareStates = 'beforeShare'|'shareNoConnection'|'shareSuccess'|'shareFail'
-type ShareFailState = ''|'MissingToken'|'TokenError'
+type ShareFailState = ''|'MissingToken'|'TokenError'| 'WithWarnings'
 
 const ShareLocations = ({ route, navigation }: Props) => {
   const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -61,8 +61,15 @@ const ShareLocations = ({ route, navigation }: Props) => {
         const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token));
 
         switch (statusCode) {
+          case 'CompleteSuccessfully':
           case 'CompletSuccessfully': {
             setState('shareSuccess');
+            setRetryState(false);
+            break;
+          }
+          case 'CompleteWithWarnings': {
+            setState('shareFail');
+            setFailState('WithWarnings');
             setRetryState(false);
             break;
           }

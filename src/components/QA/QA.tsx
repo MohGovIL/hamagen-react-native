@@ -17,7 +17,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
-import { checkGeoSickPeople, checkBLESickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
+import { checkGeoSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { clusterSample } from '../../services/ClusteringService';
@@ -31,7 +31,8 @@ import {
   HIGH_VELOCITY_POINTS_QA, IS_IOS,
   PADDING_BOTTOM,
   PADDING_TOP,
-  SERVICE_TRACKER
+  SERVICE_TRACKER,
+  DISMISSED_EXPOSURES
 } from '../../constants/Constants';
 
 interface Props {
@@ -73,9 +74,10 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
       const fileUri = res.uri;
       const rawText = await RNFS.readFile(fileUri);
-
+      
       switch (fileType) {
         case SICK_FILE_TYPE: {
+          
           const pointsJSON = JSON.parse(rawText.trim());
           updatePointsFromFile(pointsJSON);
           await checkSickPeopleFromFile(isClusters);
@@ -93,12 +95,14 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         case CLUSTERS_FILE_TYPE: {
           const cdb = new UserClusteredLocationsDatabase();
-
+          
           // clusters file
           const clustersArr: string[] = rawText.split('\n');
           let isFirst = true;
 
           for (const item of clustersArr) {
+            
+            
             if (!isFirst) { // to ignore the first row which holds the titles...
               const clusterArr = item.split(',');
 
@@ -123,12 +127,13 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
         case LOCATIONS_FILE_TYPE: {
           const db = new UserLocationsDatabase();
-
+          
           // location file
           const pointsArr: string[] = rawText.split('\n');
           let isFirst = true;
 
           for (const item of pointsArr) {
+            
             if (!isFirst) { // to ignore the first row which holds the titles...
               const sampleArr = item.split(',');
 
@@ -148,11 +153,13 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
 
             isFirst = false;
           }
-
+          Alert.alert('File loading finished');
+          
           return;
         }
 
         case BLE_MATCH_FILE_TYPE: {
+          
           SpecialBle.match(rawText, async (res: any) => {
             const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
             await RNFS.writeFile(filepath, res || '{}', 'utf8');
@@ -163,6 +170,7 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         }
 
         case BLE_DB_FILE_TYPE: {
+          
           SpecialBle.writeContactsToDB(rawText);
           return;
         }
@@ -381,7 +389,9 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="הצלבת דקירות מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(false)} />
+          <Button title="הצלבת דקירות מול JSON מאומתים משרת" onPress={() =>{
+             initCheckSickPeople(false)}
+             } />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -433,34 +443,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
-        </View>
-        
-        <View style={styles.buttonWrapper}>
-          <Button title="Share ephemerals " onPress={() => SpecialBle.exportAllContactsAsCsv()} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף מידע BLE" onPress={shareBLEData} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
           <Button title="העתק מידע מעקב שירותים" onPress={copyServicesTrackingData} />
         </View>
 
@@ -493,10 +475,8 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="!!!!!נקה BLE DB!!!!!" onPress={() => {
-            SpecialBle.cleanScansDB()
-            SpecialBle.cleanDevicesDB()
-            Alert.alert('Cleared', '', [{ text: 'OK' }]);
+          <Button title="!!!נקה חפיפות שמורות!!!" onPress={() => {
+            AsyncStorage.removeItem(DISMISSED_EXPOSURES)
           }} color="red" />
         </View>
       </ScrollView>
