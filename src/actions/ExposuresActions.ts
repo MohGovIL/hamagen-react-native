@@ -18,8 +18,12 @@ import { IntersectionSickDatabase } from '../database/Database';
 export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => {
   // await AsyncStorage.removeItem(DISMISSED_EXPOSURES)
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
+  const exposuresWithWasThere = exposures.map((exposure: Exposure) => {
+    exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
+    return exposure;
+  });
 
-  let filteredExposures = exposures;
+  let filteredExposures = exposuresWithWasThere;
 
   if (dismissedExposures) {
     const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
@@ -31,9 +35,9 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
-  debugger;
+  
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures } });
-  dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures: exposures } });
+  dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures: exposuresWithWasThere } });
 };
 
 export const setValidExposure = (exposure: Exposure) => async (dispatch: any) => {
@@ -61,7 +65,7 @@ export const dismissExposures = () => async (dispatch: any, getState: any) => {
   if (dismissedExposures) {
     const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
     // Set ensures no OBJECTID duplicates
-    const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID).concat(parsedDismissedExposures));
+    const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.Key_Field).concat(parsedDismissedExposures));
 
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
   } else {

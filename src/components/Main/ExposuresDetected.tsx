@@ -71,6 +71,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const setSelected = async (index: number, wasThere: boolean) => {
     await dispatch(setExposureSelected({ index, wasThere }));
+
     if (exposures.length === 1) {
       await editDone();
     } else {
@@ -104,6 +105,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const editDone = async () => {
     await dispatch(dismissExposures());
+
     // check if at least one exposure was checked a been there
     const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
 

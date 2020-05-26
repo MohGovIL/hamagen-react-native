@@ -60,9 +60,19 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
     const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
     const sickPeopleIntersected: any = getIntersectingSickRecords(myData, jsonFromFile.points, isClusters);
-    
+    const filteredArr: Exposure[] = [];
     if (sickPeopleIntersected.length > 0) {
-      onSickPeopleNotify(sickPeopleIntersected);
+      const sickDB = new IntersectionSickDatabase();
+      for (const currSick of sickPeopleIntersected) {
+        const queryResult = await sickDB.containsObjectID(currSick.properties.Key_Field);
+        if (!queryResult) {
+          filteredArr.push(currSick);
+          await sickDB.addSickRecord(currSick);
+        }
+      }
+      if (filteredArr.length > 0) {
+        onSickPeopleNotify(filteredArr);
+      }
     }
   } catch (e) {
     console.log(e);
@@ -77,7 +87,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
     if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-    
+
     const bleMatches: any[] = await match();
 
     if (bleMatches.length > 0) {
@@ -121,24 +131,24 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   }
 };
 
-export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters:boolean = false) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters: boolean = false) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
     if (!forceCheck && moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-    
+
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB(isClusters);
 
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson, isClusters) : getIntersectingSickRecords(myData, responseJson, isClusters);
-    
+
     if (sickPeopleIntersected.length > 0) {
       const dbSick = new IntersectionSickDatabase();
       const exposures: Exposure[] = await dbSick.listAllRecords();
-      
+
       const filteredIntersected: Exposure[] = [];
       for (const currSick of sickPeopleIntersected) {
         const queryResult = await dbSick.containsObjectID(
@@ -202,14 +212,14 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
 
 export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
   const sickPeopleIntersected: any = [];
-  
+
   if (myData.length === 0) {
     console.log('Could not find data');
     return sickPeopleIntersected;
   }
-  
+
   const mappedLocations: { [key: string]: Location[] } = {};
-  
+
   myData.forEach((location) => {
     // fix for geoHashes entered with a "'" from google timeline.
     const locationGeohashPrefix = location.geoHash.replace(/[']/g, '').slice(0, sickRecordsJson.features[0].properties.geohashFilter.length);
@@ -275,10 +285,7 @@ export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { prop
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
     if (sickPeopleIntersected.length > 0) {
-      store().dispatch(setExposures(sickPeopleIntersected.map((exposure: Exposure) => {
-        exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
-        return exposure;
-      })));
+      store().dispatch(setExposures(sickPeopleIntersected));
 
       const { locale, notificationData } = await store().dispatch(initLocale());
 
