@@ -4,7 +4,6 @@ import { onError } from './ErrorService';
 
 export const downloadAndVerifySigning = (url: string) => new Promise<any>(async (resolve, reject) => {
   try {
-
     const { data }: { data: string } = await axios.get(`${url}.sign?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
 
     const curve = 'secp256r1';
@@ -33,7 +32,6 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     }
 
     reject('invalid ECDSA signature');
-
   } catch (error) {
     reject(error);
     onError({ error });

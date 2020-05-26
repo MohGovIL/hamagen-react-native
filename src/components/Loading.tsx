@@ -125,7 +125,6 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      
       BackgroundFetch.status(async (status) => {
         if (status !== BackgroundFetch.STATUS_AVAILABLE) {
           await scheduleTask();

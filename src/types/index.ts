@@ -67,7 +67,7 @@ export interface ExposureProperties {
   geohashFilter: string,
   lat?: number,
   long?: number,
-  wasThere?: boolean,
+  wasThere?: boolean | null,
   BLETimestamp?: number
 }
 

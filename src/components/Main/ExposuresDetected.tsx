@@ -37,7 +37,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const dispatch = useDispatch();
   const { isRTL, strings: { scanHome: { inDate, fromHour, wereYouThere, wasNotMe, wasMe, doneBtn, suspectedExposure, events, possibleExposure, atPlace, showOnMap, betweenHours, possibleExposureBLE, locationCloseTag, deviceCloseTag, wasMeBle, wasMeOnly } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
-  
+
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
   const flatListRef = useRef(null);
 
@@ -56,7 +56,8 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      const showBtn = exposures.every(exposure => exposure.properties.wasThere !== null)
+      const showBtn = exposures.every(exposure => exposure.properties.wasThere !== null);
+
       if (showBtn) {
         Animated.timing(anim, {
           toValue: 0,
@@ -68,10 +69,10 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     }, [])
   );
 
-  const setSelected = (index: number, wasThere: boolean) => {
-    dispatch(setExposureSelected({ index, wasThere }));
+  const setSelected = async (index: number, wasThere: boolean) => {
+    await dispatch(setExposureSelected({ index, wasThere }));
     if (exposures.length === 1) {
-      editDone();
+      await editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
       const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null || exposure.properties.wasThere === undefined);
@@ -101,8 +102,8 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     }
   };
 
-  const editDone = () => {
-    dispatch(dismissExposures());
+  const editDone = async () => {
+    await dispatch(dismissExposures());
     // check if at least one exposure was checked a been there
     const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
 
@@ -170,8 +171,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const RenderGeoExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
       if (wasThere === null) return [false, false];
-      return [wasThere, wasThere === false]
-
+      return [wasThere, wasThere === false];
     }, [wasThere]);
 
     const [exposureDate, exposureHour] = useMemo(() => {

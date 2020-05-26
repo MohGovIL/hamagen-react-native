@@ -406,11 +406,15 @@ const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="!!!!!נקה BLE DB!!!!!" onPress={() => {
-            SpecialBle.cleanScansDB()
-            SpecialBle.cleanDevicesDB()
-            Alert.alert('Cleared', '', [{ text: 'OK' }]);
-          }} color="red" />
+          <Button
+            title="!!!!!נקה BLE DB!!!!!"
+            onPress={() => {
+              SpecialBle.cleanScansDB();
+              SpecialBle.cleanDevicesDB();
+              Alert.alert('Cleared', '', [{ text: 'OK' }]);
+            }}
+            color="red"
+          />
         </View>
       </ScrollView>
 
@@ -448,7 +452,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = {
-    updatePointsFromFile 
-}
+  updatePointsFromFile 
+};
 
 export default connect(null, mapDispatchToProps)(QABLE);

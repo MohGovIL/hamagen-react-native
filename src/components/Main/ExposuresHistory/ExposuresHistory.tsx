@@ -37,7 +37,7 @@ const ExposuresHistory = (
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
   const showEditBtn = useMemo(() => {
-    wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
+    return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(0));
@@ -75,14 +75,16 @@ const ExposuresHistory = (
           style={{
             position: 'absolute',
             zIndex: 1000,
-            top: PADDING_TOP(IS_SMALL_SCREEN ? 18 : 35),
+            top: PADDING_TOP(IS_SMALL_SCREEN ? 17 : 27),
             [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
-            flexDirection: isRTL ? 'row-reverse' : 'row'
+            flexDirection: isRTL ? 'row-reverse' : 'row',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
           onPress={() => navigation.navigate('ExposuresHistoryEdit')}
         >
           <Text style={{ fontSize: 13, color: MAIN_COLOR }}>{edit}</Text>
-          <Icon source={require('../../../assets/main/editHistory.png')} width={9} height={9} customStyles={{ marginHorizontal: 7.5 }} />
+          <Icon source={require('../../../assets/main/editHistory.png')} width={11} height={11} customStyles={{ marginHorizontal: 7.5 }} />
         </TouchableOpacity>
       )}
 

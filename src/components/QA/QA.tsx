@@ -16,7 +16,7 @@ import SpecialBle from 'rn-contact-tracing';
 import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
-import { updatePointsFromFile } from '../../actions/ExposuresActions';
+import { updatePointsFromFile, setExposures } from '../../actions/ExposuresActions';
 import { checkGeoSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
@@ -37,7 +37,8 @@ import {
 
 interface Props {
   navigation: any,
-  updatePointsFromFile(points: Exposure[]): void
+  updatePointsFromFile(points: Exposure[]): void,
+  setExposures(exposures: Exposure[]): void
 }
 
 const SICK_FILE_TYPE = 1;
@@ -47,7 +48,7 @@ const CLUSTERS_FILE_TYPE = 4;
 const BLE_MATCH_FILE_TYPE = 5;
 const BLE_DB_FILE_TYPE = 6;
 
-const QA = ({ navigation, updatePointsFromFile }: Props) => {
+const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
   const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
   const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
@@ -77,7 +78,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
       
       switch (fileType) {
         case SICK_FILE_TYPE: {
-          
           const pointsJSON = JSON.parse(rawText.trim());
           updatePointsFromFile(pointsJSON);
           await checkSickPeopleFromFile(isClusters);
@@ -101,8 +101,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
           let isFirst = true;
 
           for (const item of clustersArr) {
-            
-            
             if (!isFirst) { // to ignore the first row which holds the titles...
               const clusterArr = item.split(',');
 
@@ -133,7 +131,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
           let isFirst = true;
 
           for (const item of pointsArr) {
-            
             if (!isFirst) { // to ignore the first row which holds the titles...
               const sampleArr = item.split(',');
 
@@ -159,7 +156,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         }
 
         case BLE_MATCH_FILE_TYPE: {
-          
           SpecialBle.match(rawText, async (res: any) => {
             const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
             await RNFS.writeFile(filepath, res || '{}', 'utf8');
@@ -170,7 +166,6 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         }
 
         case BLE_DB_FILE_TYPE: {
-          
           SpecialBle.writeContactsToDB(rawText);
           return;
         }
@@ -346,6 +341,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
     prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
   };
 
+  const deleteDismissedExposures = async () => {
+    await AsyncStorage.removeItem(DISMISSED_EXPOSURES);
+    setExposures([]);
+  };
+
   const matchBLEFromUrl = async () => {
     const onUrlEntered = async (url: string) => {
       try {
@@ -389,9 +389,13 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="הצלבת דקירות מול JSON מאומתים משרת" onPress={() =>{
-             initCheckSickPeople(false)}
-             } />
+          <Button
+            title="הצלבת דקירות מול JSON מאומתים משרת"
+            onPress={() => {
+              initCheckSickPeople(false); 
+            }
+             }
+          />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -475,9 +479,11 @@ const QA = ({ navigation, updatePointsFromFile }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="!!!נקה חפיפות שמורות!!!" onPress={() => {
-            AsyncStorage.removeItem(DISMISSED_EXPOSURES)
-          }} color="red" />
+          <Button
+            title="!!!נקה חפיפות שמורות!!!"
+            onPress={deleteDismissedExposures}
+            color="red"
+          />
         </View>
       </ScrollView>
 
@@ -516,7 +522,8 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
-    updatePointsFromFile
+    updatePointsFromFile,
+    setExposures
   }, dispatch);
 };
 

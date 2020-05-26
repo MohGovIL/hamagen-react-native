@@ -18,8 +18,7 @@ import { SERVICE_TRACKER, LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constant
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-
-   // prevent excessive calls to checkSickPeople
+  // prevent excessive calls to checkSickPeople
   // if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
   //   await checkBLESickPeople(lastFetch);
   //   await checkGeoSickPeople(lastFetch);
@@ -122,7 +121,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   }
 };
 
-export const checkGeoSickPeople = async (forceCheck: boolean = false,isClusters:boolean = false) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters:boolean = false) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
@@ -171,13 +170,11 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false,isClusters:
       }
     }
   } catch (error) {
-    
     onError(error);
   }
 };
 
 export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: SickJSON, isClusters: boolean) => {
-  
   const sickPeopleIntersected: any = [];
 
   if (myData.length === 0) {
@@ -243,9 +240,9 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
       }
     });
   });
-
+  const sickPeopleIntersectedSet = new Set(sickPeopleIntersected);
   // sort array from the most early to last
-  return sickPeopleIntersected.sort((intersectA, intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse();
+  return [...sickPeopleIntersectedSet].sort((intersectA, intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse();
 };
 
 
@@ -278,7 +275,10 @@ export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { prop
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
     if (sickPeopleIntersected.length > 0) {
-      store().dispatch(setExposures(sickPeopleIntersected));
+      store().dispatch(setExposures(sickPeopleIntersected.map((exposure: Exposure) => {
+        exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
+        return exposure;
+      })));
 
       const { locale, notificationData } = await store().dispatch(initLocale());
 

@@ -13,7 +13,7 @@ import ScanHomeHeader from './ScanHomeHeader';
 import NoData from './NoData';
 import NoExposures from './NoExposures';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
-import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
+import { removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -35,7 +35,6 @@ interface ScanHomeProps {
   hideLocationHistory: boolean,
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
-  dismissExposure(exposureId: number): void,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void
@@ -60,7 +59,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     hideLocationHistory,
     setValidExposure,
     removeValidExposure,
-    dismissExposure,
+
     checkForceUpdate,
     checkIfHideLocationHistory,
     showMapModal
@@ -210,7 +209,7 @@ const mapStateToProps = (state: any) => {
 export default connect(mapStateToProps, {
   setValidExposure,
   removeValidExposure,
-  dismissExposure,
+
   checkForceUpdate,
   checkIfHideLocationHistory,
   showMapModal

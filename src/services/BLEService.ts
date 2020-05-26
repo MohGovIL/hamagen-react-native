@@ -59,13 +59,13 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
   try {
     SpecialBle.fetchInfectionDataByConsent((res: any) => {
       const parsedRes = JSON.parse(res || '[]');
-      resolve(parsedRes)
+      resolve(parsedRes);
     });
   } catch (error) {
-    resolve([])
+    resolve([]);
     onError({ error });
   }
-})
+});
 
 export const match = async () => new Promise(async (resolve) => {
   try {
