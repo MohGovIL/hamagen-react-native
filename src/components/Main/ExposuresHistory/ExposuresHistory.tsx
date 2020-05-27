@@ -139,12 +139,10 @@ const ExposuresHistory = (
         style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           backgroundColor: '#f7f8fa',
-          flex: IS_SMALL_SCREEN ? 4 : 5,
+          flex: IS_SMALL_SCREEN ? 4 : 6,
         }}
       >
-        <Animated.View style={{
-          transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]
-        }}>
+        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
 
           <FlatList
             bounces={false}
@@ -164,9 +162,7 @@ const ExposuresHistory = (
             )}
           />
         </Animated.View>
-        <Animated.View 
-        style={{transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]}}
-        >
+        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
 
           <FlatList
             bounces={false}

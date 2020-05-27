@@ -42,7 +42,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-    
+
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
@@ -77,39 +77,37 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     }
     appState.current = state;
   };
-
-  const LocationHistoryInfo = useCallback(() => {
+  
+  const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
-  }, [hideLocationHistory, locale]);
+  }
 
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
-          <LocationHistoryInfo />           
+          <LocationHistoryInfo />
           <BluetoothState>
             <BluetoothState.Unauthorized>
-              <InfoBubble 
-                isRTL={isRTL} 
+              <InfoBubble
+                isRTL={isRTL}
                 info={canIdentifyWithBluetooth}
-                moreInfo={moreInformation} 
-                onPress={goToBluetoothPermission}
-              />
+                moreInfo={moreInformation}
+                onPress={goToBluetoothPermission} />
             </BluetoothState.Unauthorized>
             <BluetoothState.PoweredOff>
-              {({ enable, openSettings }) => {             
+              {({ enable, openSettings }) => {
                 return (
-                  <InfoBubble 
-                    isRTL={isRTL} 
+                  <InfoBubble
+                    isRTL={isRTL}
                     info={bluetoothServiceOff}
-                    moreInfo={turnBluetoothOn} 
-                    onPress={() => { Platform.OS === 'android' ? enable() : openSettings(); }}
-                  />
-                ); 
+                    moreInfo={turnBluetoothOn}
+                    onPress={() => { !IS_IOS ? enable() : openSettings() }} />
+                )
               }}
             </BluetoothState.PoweredOff>
-          </BluetoothState>         
+          </BluetoothState>
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
