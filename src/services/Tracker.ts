@@ -20,11 +20,9 @@ const haversine = require('haversine');
 export const startForegroundTimer = async () => {
   const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  // prevent excessive calls to checkSickPeople
-  if (lastFetch && moment().valueOf() - lastFetch > 0) {
-    await checkBLESickPeople(0);
-    await checkGeoSickPeople(0);
-  }
+  await checkBLESickPeople(lastFetch);
+  await checkGeoSickPeople(lastFetch);
+
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
@@ -60,21 +58,21 @@ export const checkBLESickPeople = async (lastFetch: number) => {
   try {
 
     // check if interval is above the minimum delay
-    if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
-      return
-    }
-
+    // if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+    //   return
+    // }
+    
     const bleMatches: any[] = await match()
-
+    
     if (bleMatches.length > 0) {
       const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0]
       // convert ble match to have normal time(it lacks the ms's)
       const bleMatch = {
         ...bleMatchNotUTC,
-        startContactTimestamp: bleMatchNotUTC * 1000,
-        endContactTimestamp: bleMatchNotUTC * 1000
+        startContactTimestamp: bleMatchNotUTC.startContactTimestamp * 1000,
+        endContactTimestamp: bleMatchNotUTC.endContactTimestamp * 1000
       }
-
+      
       const sickDB = new IntersectionSickDatabase();
 
       // check if BLe match is not a duplicate
@@ -96,7 +94,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   const exposures: Exposure[] = await sickDB.listAllRecords()
 
   const overlappingGeoExposure = exposures.find(({ properties }: Exposure) => properties.OBJECTID && (Math.min(properties.toTime_utc, endContactTimestamp) - Math.max(properties.fromTime_utc, startContactTimestamp)) > 0)
-  
+
   if (overlappingGeoExposure) {
     const newExposure = await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.properties.OBJECTID, startContactTimestamp);
     // if user already told us he was not there - alert him by removing exposure from dismissed and resetting it in exposures
@@ -136,7 +134,7 @@ export const checkGeoSickPeople = async (lastFetch: number) => {
     if (sickPeopleIntersected.length > 0) {
 
       const dbSick = new IntersectionSickDatabase();
-      
+
 
       let filteredIntersected: Exposure[] = []
       for (const currSick of sickPeopleIntersected) {
@@ -147,7 +145,7 @@ export const checkGeoSickPeople = async (lastFetch: number) => {
         // exposure is not a duplicate
         if (!queryResult) {
 
-          const overlappingBLEExposure = await checkGeoAndBleIntersection(currSick,dbSick)
+          const overlappingBLEExposure = await checkGeoAndBleIntersection(currSick, dbSick)
           // BLE was found
           if (overlappingBLEExposure?.BLETimestamp) {
             // merge geo and ble exposure
