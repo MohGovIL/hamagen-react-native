@@ -42,7 +42,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-    
+
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
@@ -56,7 +56,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center'}} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -77,36 +77,37 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     }
     appState.current = state;
   };
-
-  const LocationHistoryInfo = useCallback(() => {
+  
+  const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
-  }, [hideLocationHistory, locale]);
+  }
 
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
-          <LocationHistoryInfo />           
-            <BluetoothState>
-              <BluetoothState.Unauthorized>
-                <InfoBubble 
-                  isRTL={isRTL} 
-                  info={canIdentifyWithBluetooth}
-                  moreInfo={moreInformation} 
-                  onPress={goToBluetoothPermission}/>
-              </BluetoothState.Unauthorized>
-              <BluetoothState.PoweredOff>
-                {({ enable, openSettings }) => {             
-                  return(
-                    <InfoBubble 
-                    isRTL={isRTL} 
+          <LocationHistoryInfo />
+          <BluetoothState>
+            <BluetoothState.Unauthorized>
+              <InfoBubble
+                isRTL={isRTL}
+                info={canIdentifyWithBluetooth}
+                moreInfo={moreInformation}
+                onPress={goToBluetoothPermission} />
+            </BluetoothState.Unauthorized>
+            <BluetoothState.PoweredOff>
+              {({ enable, openSettings }) => {
+                return (
+                  <InfoBubble
+                    isRTL={isRTL}
                     info={bluetoothServiceOff}
-                    moreInfo={turnBluetoothOn} 
-                    onPress={() => { Platform.OS === 'android'? enable(): openSettings() }} />
-                    )}}
-              </BluetoothState.PoweredOff>
-             </BluetoothState>         
+                    moreInfo={turnBluetoothOn}
+                    onPress={() => { !IS_IOS ? enable() : openSettings() }} />
+                )
+              }}
+            </BluetoothState.PoweredOff>
+          </BluetoothState>
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
