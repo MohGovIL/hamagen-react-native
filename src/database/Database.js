@@ -504,8 +504,8 @@ export class IntersectionSickDatabase {
         const db = await this.initDB();
 
         db.transaction(async (tx) => {
-          const [_, results] = await tx.executeSql('SELECT * FROM IntersectingSick WHERE BLETimestamp = ? ', [BLETimestamp]);
-
+          const [_, results] = await tx.executeSql(`SELECT * FROM IntersectingSick WHERE BLETimestamp =${BLETimestamp}`);
+          
           resolve(results?.rows?.length > 0);
         });
       } catch (error) {
@@ -516,7 +516,6 @@ export class IntersectionSickDatabase {
   }
 
   async deleteAll() {
-    if (!__DEV__) return;
     try {
       const db = await this.initDB();
 

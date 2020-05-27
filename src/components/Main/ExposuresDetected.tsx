@@ -69,11 +69,11 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     }, [])
   );
 
-  const setSelected = async (index: number, wasThere: boolean) => {
-    await dispatch(setExposureSelected({ index, wasThere }));
+  const setSelected =  (index: number, wasThere: boolean) => {
+    dispatch(setExposureSelected({ index, wasThere }));
 
     if (exposures.length === 1) {
-      await editDone();
+      editDone();
     } else {
       // find index of first card user didn't checked(was or not) and go to there˝
       const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null || exposure.properties.wasThere === undefined);
@@ -103,8 +103,8 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     }
   };
 
-  const editDone = async () => {
-    await dispatch(dismissExposures());
+  const editDone =  () => {
+    dispatch(dismissExposures());
 
     // check if at least one exposure was checked a been there
     const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);

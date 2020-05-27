@@ -32,7 +32,7 @@ const ExposuresHistory = (
   }: Props
 ) => {
   const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
-
+  
   const [tabIndex, setTabIndex] = useState(1);
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
@@ -95,7 +95,7 @@ const ExposuresHistory = (
         </View>
         <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse' }}>
           <TouchableOpacity
-            hitSlop={{ top: 10 }}
+            hitSlop={HIT_SLOP}
             style={styles.tabTextContainer}
             onPress={() => setTabIndex(0)}
           >
@@ -109,7 +109,7 @@ const ExposuresHistory = (
 
           </TouchableOpacity>
           <TouchableOpacity
-            hitSlop={{ top: 10 }}
+            hitSlop={HIT_SLOP}
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
             onPress={() => setTabIndex(0)}
           >
@@ -135,15 +135,16 @@ const ExposuresHistory = (
           }}
         />
       </View>
-      <Animated.View
+      <View
         style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           backgroundColor: '#f7f8fa',
-          flex: IS_SMALL_SCREEN ? 4 : 6,
-          transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]
+          flex: IS_SMALL_SCREEN ? 4 : 5,
         }}
       >
-        <View>
+        <Animated.View style={{
+          transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]
+        }}>
 
           <FlatList
             bounces={false}
@@ -162,8 +163,10 @@ const ExposuresHistory = (
               </View>
             )}
           />
-        </View>
-        <View>
+        </Animated.View>
+        <Animated.View 
+        style={{transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }]}}
+        >
 
           <FlatList
             bounces={false}
@@ -189,8 +192,8 @@ const ExposuresHistory = (
             )
             }
           />
-        </View>
-      </Animated.View>
+        </Animated.View>
+      </View>
     </View>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Clipboard } from 'react-native';
+import { View, StyleSheet, Button, Alert, ScrollView, Clipboard, BackHandler } from 'react-native';
 import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
@@ -17,11 +17,11 @@ import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile, setExposures } from '../../actions/ExposuresActions';
-import { checkGeoSickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
+import { checkGeoSickPeople, checkGeoSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { clusterSample } from '../../services/ClusteringService';
-import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../../database/Database';
+import { UserClusteredLocationsDatabase, UserLocationsDatabase, IntersectionSickDatabase } from '../../database/Database';
 import { onError } from '../../services/ErrorService';
 import config from '../../config/config';
 import { Exposure } from '../../types';
@@ -75,12 +75,13 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
       const fileUri = res.uri;
       const rawText = await RNFS.readFile(fileUri);
-      
+
       switch (fileType) {
         case SICK_FILE_TYPE: {
           const pointsJSON = JSON.parse(rawText.trim());
+          
           updatePointsFromFile(pointsJSON);
-          await checkSickPeopleFromFile(isClusters);
+          await checkGeoSickPeopleFromFile(isClusters);
           return;
         }
 
@@ -95,7 +96,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
         case CLUSTERS_FILE_TYPE: {
           const cdb = new UserClusteredLocationsDatabase();
-          
+
           // clusters file
           const clustersArr: string[] = rawText.split('\n');
           let isFirst = true;
@@ -125,7 +126,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
         case LOCATIONS_FILE_TYPE: {
           const db = new UserLocationsDatabase();
-          
+
           // location file
           const pointsArr: string[] = rawText.split('\n');
           let isFirst = true;
@@ -150,8 +151,10 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
             isFirst = false;
           }
-          Alert.alert('File loading finished');
           
+          
+          Alert.alert('File loading finished');
+
           return;
         }
 
@@ -343,37 +346,11 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
   const deleteDismissedExposures = async () => {
     await AsyncStorage.removeItem(DISMISSED_EXPOSURES);
-    setExposures([]);
+    const dbSick = new IntersectionSickDatabase();
+    await dbSick.deleteAll()
+    BackHandler.exitApp()
   };
 
-  const matchBLEFromUrl = async () => {
-    const onUrlEntered = async (url: string) => {
-      try {
-        const res = await RNFetchBlob.fetch('GET', url);
-        SpecialBle.match(res.data, async (res: any) => {
-          const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatchFromURL_${moment().valueOf()}.json`}`;
-          await RNFS.writeFile(filepath, res || '{}', 'utf8');
-          await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
-        });
-      } catch (error) {
-        onError({ error, showError: true, messageToShow: 'Failed download file' });
-      }
-    };
-
-    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
-  };
-
-  const getAllBLEScans = () => {
-    try {
-      SpecialBle.getAllScans(async (res: any) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
-        await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
-        await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
-      });
-    } catch (error) {
-      onError({ error });
-    }
-  };
 
   return (
     <View style={styles.container}>
@@ -391,10 +368,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         <View style={styles.buttonWrapper}>
           <Button
             title="הצלבת דקירות מול JSON מאומתים משרת"
-            onPress={() => {
-              initCheckSickPeople(false); 
-            }
-             }
+            onPress={() => {initCheckSickPeople(false);}}
           />
         </View>
 

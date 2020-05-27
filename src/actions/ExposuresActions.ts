@@ -7,7 +7,6 @@ import {
   REMOVE_VALID_EXPOSURE,
   UPDATE_EXPOSURES,
   UPDATE_PAST_EXPOSURES,
-  DISMISS_EXPOSURE,
   UPDATE_POINTS_FROM_FILE,
   REPLACE_EXPOSURES,
   REPLACE_PAST_EXPOSURES
@@ -22,7 +21,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
     return exposure;
   });
-
+  
   let filteredExposures = exposuresWithWasThere;
 
   if (dismissedExposures) {
@@ -35,7 +34,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
-  
+
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures } });
   dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures: exposuresWithWasThere } });
 };
@@ -64,13 +63,15 @@ export const dismissExposures = () => async (dispatch: any, getState: any) => {
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
   if (dismissedExposures) {
     const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-    // Set ensures no OBJECTID duplicates
+    // Set ensures no OBJECTID or BLETimestamp duplicates
     const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.Key_Field).concat(parsedDismissedExposures));
 
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
   } else {
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID)));
   }
+
+
 };
 
 export const setExposureSelected = ({ index, wasThere }) => (dispatch: any, getState: any) => {
@@ -92,6 +93,12 @@ export const replacePastExposureSelected = (payload: Exposure[]) => async (dispa
   }
 };
 
-export const updatePointsFromFile = (points: Exposure[]) => (dispatch: any) => {
-  dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points } });
+export const updatePointsFromFile = (points) => (dispatch: any) => {
+  const newPoint = {
+    features: points.features.map((exposure) => {
+      exposure.properties.OBJECTID = exposure.properties.Key_Field
+      return exposure
+    })
+  }
+  dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points: newPoint } });
 };

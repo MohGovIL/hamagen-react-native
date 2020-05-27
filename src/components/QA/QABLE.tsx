@@ -17,7 +17,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
-import { checkGeoSickPeople, checkBLESickPeople, checkSickPeopleFromFile, queryDB } from '../../services/Tracker';
+import { checkGeoSickPeople, checkBLESickPeople, checkGeoSickPeopleFromFile, queryDB, checkBLESickPeopleFromFile } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { clusterSample } from '../../services/ClusteringService';
@@ -33,6 +33,8 @@ import {
   PADDING_TOP,
   SERVICE_TRACKER
 } from '../../constants/Constants';
+import PopupForBLE from './PopupForBLE';
+import { match } from 'src/services/BLEService';
 
 interface Props {
   navigation: any,
@@ -46,8 +48,8 @@ const CLUSTERS_FILE_TYPE = 4;
 const BLE_MATCH_FILE_TYPE = 5;
 const BLE_DB_FILE_TYPE = 6;
 
-const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
-  const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
+const QABle = ({ navigation, updatePointsFromFile }: Props) => {
+  const [showPopup, setShowPopup] = useState<boolean>(false);
 
   const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
     try {
@@ -78,7 +80,7 @@ const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
         case SICK_FILE_TYPE: {
           const pointsJSON = JSON.parse(rawText.trim());
           updatePointsFromFile(pointsJSON);
-          await checkSickPeopleFromFile(isClusters);
+          await checkGeoSickPeopleFromFile(isClusters);
           return;
         }
 
@@ -153,13 +155,8 @@ const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
         }
 
         case BLE_MATCH_FILE_TYPE: {
-          SpecialBle.match(rawText, async (res: any) => {
-            const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
-            await RNFS.writeFile(filepath, res || '{}', 'utf8');
-            await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
-          });
-
-          break;
+          SpecialBle.match(rawText, matchBLEFromFile)
+          return
         }
 
         case BLE_DB_FILE_TYPE: {
@@ -170,29 +167,12 @@ const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
         default: return;
       }
     } catch (error) {
+
       if (DocumentPicker.isCancel(error)) {
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
         throw error;
       }
-    }
-  };
-
-  const copyConfig = () => {
-    Alert.alert('Config was copied', '', [{ text: 'OK' }]);
-    Clipboard.setString(JSON.stringify(config()));
-  };
-
-  const shareShareLocationsInfo = async () => {
-    try {
-      const filename = 'locationsData.json';
-      const baseDir = RNFS.CachesDirectoryPath;
-      const filepath = `${baseDir}/${filename}`;
-
-      await RNFS.writeFile(filepath, JSON.stringify(await getUserLocationsReadyForServer('XXXX')), 'utf8');
-      await Share.open({ title: 'שיתוף מיקומי חולה מאומת', url: IS_IOS ? filepath : `file://${filepath}` });
-    } catch (error) {
-      onError({ error });
     }
   };
 
@@ -208,222 +188,135 @@ const QABLE = ({ navigation, updatePointsFromFile }: Props) => {
     }
   };
 
-  const initCheckSickPeople = async (isClusters: boolean) => {
+  const matchBLEFromFile = async (matches: string) => {
+    const parsedRes = JSON.parse(matches ?? "[]")
+    if (parsedRes.length > 0) {
+      // TODO: get Hagai make the manupulation
+      const sortedBleMatches = parsedRes.map(match => ({...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimeStamp: parseInt(match.endContactTimeStamp) * 1000  })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp)
+    // take the first one 
+    await checkBLESickPeopleFromFile(sortedBleMatches[0])
+
+    // console.log('BLEMatch',BLEMatch);
+
+  } else {
+    Alert.alert('לא נמצאו חפיפות BLE');
+}
+      // const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
+      // await RNFS.writeFile(filepath, res || '{}', 'utf8');
+      // await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
+    
+  }
+
+const writeToBLEDBFromUrl = async () => {
+  const onUrlEntered = async (url: string) => {
     try {
-      await checkGeoSickPeople(true, isClusters);
-      Alert.alert('Checking...', '', [{ text: 'OK' }]);
-    } catch (e) {
-      Alert.alert('Error', '', [{ text: 'OK' }]);
-    }
-  };
-
-  const clearHVP = async () => {
-    try {
-      await AsyncStorage.removeItem(HIGH_VELOCITY_POINTS_QA);
-      Alert.alert('Cleared', '', [{ text: 'OK' }]);
-    } catch (e) {
-      Alert.alert('Error', '', [{ text: 'OK' }]);
-    }
-  };
-
-  const clearAllPoints = async () => {
-    try {
-      await AsyncStorage.removeItem(ALL_POINTS_QA);
-      Alert.alert('Cleared', '', [{ text: 'OK' }]);
-    } catch (e) {
-      Alert.alert('Error', '', [{ text: 'OK' }]);
-    }
-  };
-
-  const clearLocationsDB = () => {
-    const db = new UserLocationsDatabase();
-    db.purgeSamplesTable(moment().valueOf());
-    Alert.alert('Cleared', '', [{ text: 'OK' }]);
-  };
-
-  const clearClustersDB = () => {
-    const cdb = new UserClusteredLocationsDatabase();
-    cdb.purgeClustersTable(moment().valueOf());
-    Alert.alert('Cleared', '', [{ text: 'OK' }]);
-  };
-
-  const copyServicesTrackingData = async () => {
-    const res: Array<{ source: string, timestamp: number }> = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-
-    let csv = 'source, timestamp\n';
-
-    res.forEach(({ source, timestamp }: any) => {
-      csv += `${source},${timestamp}\n`;
-    });
-
-    Clipboard.setString(csv);
-    Alert.alert('Services data copied', '', [{ text: 'OK' }]);
-  };
-
-  const clearServicesTrackingData = async () => {
-    await AsyncStorage.removeItem(SERVICE_TRACKER);
-    Alert.alert('Cleared', '', [{ text: 'OK' }]);
-  };
-
-  const clearClustersLogs = async () => {
-    await AsyncStorage.removeItem(CLUSTERING_RESULT_LOG_FOR_QA);
-    Alert.alert('Cleared', '', [{ text: 'OK' }]);
-  };
-
-  const copyAllData = async () => {
-    const allPoints = JSON.parse(await AsyncStorage.getItem(ALL_POINTS_QA) || '[]');
-    const DBPoints = await queryDB(false);
-    const CDBPoints = await queryDB(true);
-    const HVPoints = JSON.parse(await AsyncStorage.getItem(HIGH_VELOCITY_POINTS_QA) || '[]');
-    const services = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-    const clustersLog = JSON.parse(await AsyncStorage.getItem(CLUSTERING_RESULT_LOG_FOR_QA) || '[]');
-
-    let csv = 'All Points\n';
-
-    allPoints.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
-    });
-
-    csv += 'DB Points\n';
-
-    DBPoints.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
-    });
-
-    csv += 'Cluster DB Points\n';
-
-    CDBPoints.forEach((point: any) => {
-      const { lat, long, startTime, endTime, radius, size } = point;
-      csv += `${lat},${long},${startTime},${endTime},${radius},${size}\n`;
-    });
-
-    csv += 'HV Points\n';
-
-    HVPoints.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason, eventTime } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''},${eventTime || ''}\n`;
-    });
-
-    csv += 'Services\n';
-
-    services.forEach((point: any) => {
-      const { source, timestamp } = point;
-      csv += `${source},${timestamp}\n`;
-    });
-
-    csv += 'Clusters log\n';
-
-    clustersLog.forEach((point: any) => {
-      const { lat, long, accuracy, startTime, endTime, reason } = point;
-      csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
-    });
-
-    Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
-    Clipboard.setString(csv);
-  };
-
-  const writeToBLEDBFromUrl = async () => {
-    const onUrlEntered = async (url: string) => {
-      try {
-        const res = await RNFetchBlob.fetch('GET', url);
-        SpecialBle.writeContactsToDB(res.data);
-        Alert.alert('Data added to BLE DB');
-      } catch (error) {
-        onError({ error, showError: true, messageToShow: 'Failed to add data' });
-      }
-    };
-
-    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
-  };
-
-  const matchBLEFromUrl = async () => {
-    const onUrlEntered = async (url: string) => {
-      try {
-        const res = await RNFetchBlob.fetch('GET', url);
-        SpecialBle.match(res.data, async (res: any) => {
-          const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatchFromURL_${moment().valueOf()}.json`}`;
-          await RNFS.writeFile(filepath, res || '{}', 'utf8');
-          await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
-        });
-      } catch (error) {
-        onError({ error, showError: true, messageToShow: 'Failed download file' });
-      }
-    };
-
-    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
-  };
-
-  const getAllBLEScans = () => {
-    try {
-      SpecialBle.getAllScans(async (res: any) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
-        await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
-        await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
-      });
+      const res = await RNFetchBlob.fetch('GET', url);
+      SpecialBle.writeContactsToDB(res.data);
+      Alert.alert('Data added to BLE DB');
     } catch (error) {
-      onError({ error });
+      onError({ error, showError: true, messageToShow: 'Failed to add data' });
     }
   };
 
-  return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
-        <Icon source={require('../../assets/onboarding/close.png')} width={31} />
-      </TouchableOpacity>
+  prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
+};
 
-      <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-      <ScrollView>
+const showBleInfo = async () => {
+  setShowPopup(true)
+}
 
-        <View style={styles.buttonWrapper}>
-          <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
-        </View>
+const matchBLEFromUrl = async () => {
+  try {
+    Alert.alert('Checking...', '', [{ text: 'OK' }]);
+    await checkBLESickPeople(true);
+  } catch (e) {
+    Alert.alert('Error', '', [{ text: 'OK' }]);
+  }
+};
 
-        <View style={styles.buttonWrapper}>
-          <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
-        </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
-        </View>
+const getAllBLEScans = () => {
+  try {
+    SpecialBle.getAllScans(async (res: any) => {
+      const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
+      await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
+      await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
+    });
+  } catch (error) {
+    onError({ error });
+  }
+};
 
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
-        </View>
-        
-        <View style={styles.buttonWrapper}>
-          <Button title="Share ephemerals " onPress={() => SpecialBle.exportAllContactsAsCsv()} />
-        </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף מידע BLE" onPress={shareBLEData} />
-        </View>
+const deleteBleDB = () => {
+  SpecialBle.deleteDatabase()
+  SpecialBle.cleanScansDB()
+  SpecialBle.cleanDevicesDB()
+  Alert.alert('Cleared');
+}
 
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
-        </View>
+return (
+  <View style={styles.container}>
+    <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
+      <Icon source={require('../../assets/onboarding/close.png')} width={31} />
+    </TouchableOpacity>
 
-        <View style={styles.buttonWrapper}>
-          <Button
-            title="!!!!!נקה BLE DB!!!!!"
-            onPress={() => {
-              SpecialBle.cleanScansDB();
-              SpecialBle.cleanDevicesDB();
-              Alert.alert('Cleared', '', [{ text: 'OK' }]);
-            }}
-            color="red"
-          />
-        </View>
-      </ScrollView>
+    <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-      <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
-        <Text>{DeviceInfo.getVersion()}</Text>
+    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
       </View>
-      <PopupForQA isVisible={showPopup} type={type} closeModal={() => setShowPopup({ showPopup: false, type: '' })} />
+
+      <View style={styles.buttonWrapper}>
+        <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="הצג מידע מה DB" onPress={showBleInfo} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="Share ephemerals " onPress={() => SpecialBle.exportAllContactsAsCsv()} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="שתף מידע BLE" onPress={shareBLEData} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button title="שתף שידורי BLE" onPress={() => SpecialBle.exportAdvertiseAsCSV()} />
+      </View>
+
+      <View style={styles.buttonWrapper}>
+        <Button
+          title="!!!!!נקה BLE DB!!!!!"
+          onPress={deleteBleDB}
+          color="red"
+        />
+      </View>
+    </ScrollView>
+
+    <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
+      <Text>{DeviceInfo.getVersion()}</Text>
     </View>
-  );
+    <PopupForBLE isVisible={showPopup} closeModal={() => { setShowPopup(false) }} />
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
@@ -452,7 +345,7 @@ const styles = StyleSheet.create({
 });
 
 const mapDispatchToProps = {
-  updatePointsFromFile 
+  updatePointsFromFile
 };
 
-export default connect(null, mapDispatchToProps)(QABLE);
+export default connect(null, mapDispatchToProps)(QABle);

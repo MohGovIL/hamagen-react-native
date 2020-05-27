@@ -20,7 +20,7 @@ import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 import QA from '../QA/QA';
-import QABLE from '../QA/QABLE';
+import QABle from '../QA/QABLE';
 
 
 const Stack = createStackNavigator();
@@ -65,7 +65,7 @@ const DrawerStack = ({ navigation }) => {
       <Stack.Screen name="ShareLocations" component={ShareLocations} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="QA" component={QA} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-      <Stack.Screen name="QABLE" component={QABLE} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="QABLE" component={QABle} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureDetected" component={ExposureDetected} gestureEnabled={false} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureInstructions" component={ExposureInstructions} gestureEnabled={false} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} initialParams={{ showEdit: false }} />
       <Stack.Screen name="ExposureRelief" component={ExposureRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />

@@ -184,8 +184,8 @@ const Loading: FunctionComponent<Props> = (
       }
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
-      // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
+      
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 

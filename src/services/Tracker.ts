@@ -13,6 +13,7 @@ import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
 import { SERVICE_TRACKER, LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { Alert } from 'react-native';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -55,7 +56,7 @@ export const queryDB = async (isClusters: boolean) => {
   return rows;
 };
 
-export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
+export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) => {
   try {
     const myData = await queryDB(isClusters);
     const jsonFromFile = store().getState().exposures.points;
@@ -79,6 +80,26 @@ export const checkSickPeopleFromFile = async (isClusters: boolean = false) => {
   }
 };
 
+export const checkBLESickPeopleFromFile = async (bleMatch) => {
+  
+  const sickDB = new IntersectionSickDatabase();
+  const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
+  
+
+  if (!hasBLTS) {
+    await sickDB.addBLESickRecord(bleMatch.startContactTimestamp);
+
+    await onSickPeopleNotify([{
+      properties: {
+        wasThere: true,
+        BLETimestamp: bleMatch.startContactTimestamp
+      }
+    }]);
+  } else {
+    Alert.alert('exposure already exists')
+  }
+}
+
 export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   // TODO: check if ios permission is enabled
   try {
@@ -87,9 +108,10 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
     if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-
+    
     const bleMatches: any[] = await match();
-
+    
+    
     if (bleMatches.length > 0) {
       const sickDB = new IntersectionSickDatabase();
 
