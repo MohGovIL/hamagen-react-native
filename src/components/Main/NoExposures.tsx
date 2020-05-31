@@ -77,7 +77,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     }
     appState.current = state;
   };
-  
+
   const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
@@ -89,14 +89,14 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
         <View style={styles.container}>
           <LocationHistoryInfo />
           <BluetoothState>
-            <BluetoothState.Unauthorized>
+            {!IS_IOS && <BluetoothState.Unauthorized>
               <InfoBubble
                 isRTL={isRTL}
                 info={canIdentifyWithBluetooth}
                 moreInfo={moreInformation}
                 onPress={goToBluetoothPermission} />
-            </BluetoothState.Unauthorized>
-            <BluetoothState.PoweredOff>
+            </BluetoothState.Unauthorized>}
+            {!IS_IOS && <BluetoothState.PoweredOff>
               {({ enable, openSettings }) => {
                 return (
                   <InfoBubble
@@ -106,7 +106,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
                     onPress={() => { !IS_IOS ? enable() : openSettings() }} />
                 )
               }}
-            </BluetoothState.PoweredOff>
+            </BluetoothState.PoweredOff>}
           </BluetoothState>
           <LottieView
             style={styles.lottie}
