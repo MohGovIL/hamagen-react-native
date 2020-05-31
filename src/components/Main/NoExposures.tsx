@@ -2,13 +2,12 @@ import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionCompo
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-import BluetoothStateManager, { BluetoothState } from 'react-native-bluetooth-state-manager';
+import { BluetoothState } from 'react-native-bluetooth-state-manager';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
-import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -77,7 +76,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     }
     appState.current = state;
   };
-  
+
   const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
@@ -89,15 +88,14 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
         <View style={styles.container}>
           <LocationHistoryInfo />
           <BluetoothState>
-            <BluetoothState.Unauthorized>
+            {!IS_IOS && <BluetoothState.Unauthorized>
               <InfoBubble
                 isRTL={isRTL}
                 info={canIdentifyWithBluetooth}
                 moreInfo={moreInformation}
-                onPress={goToBluetoothPermission}
-              />
-            </BluetoothState.Unauthorized>
-            <BluetoothState.PoweredOff>
+                onPress={goToBluetoothPermission} />
+            </BluetoothState.Unauthorized>}
+            {!IS_IOS && <BluetoothState.PoweredOff>
               {({ enable, openSettings }) => {
                 return (
                   <InfoBubble
@@ -108,7 +106,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
                   />
                 );
               }}
-            </BluetoothState.PoweredOff>
+            </BluetoothState.PoweredOff>}
           </BluetoothState>
           <LottieView
             style={styles.lottie}

@@ -13,7 +13,7 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { SERVICE_TRACKER, LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -72,7 +72,7 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
         }
       }
       if (filteredArr.length > 0) {
-        onSickPeopleNotify(filteredArr);
+        await onSickPeopleNotify(filteredArr);
       }
     }
   } catch (e) {
@@ -100,7 +100,9 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
 };
 
 export const checkBLESickPeople = async (forceCheck: boolean = false) => {
-  // TODO: check if ios permission is enabled
+  // IOS currently disables BLE
+  if (IS_IOS) return
+
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
@@ -166,7 +168,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   }
 };
 
-export const checkGeoSickPeople = async (lastFetch: number) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false, lastFetch: number) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
