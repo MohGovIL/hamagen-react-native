@@ -12,7 +12,7 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS,  } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -54,13 +54,14 @@ export const queryDB = async (isClusters: boolean) => {
 };
 
 export const checkBLESickPeople = async (lastFetch: number) => {
-  // TODO: check if ios permission is enabled
+  // IOS currently disables BLE
+  if(IS_IOS) return
+  
   try {
-
     // check if interval is above the minimum delay
-    // if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
-    //   return
-    // }
+    if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+      return
+    }
     
     const bleMatches: any[] = await match()
     
@@ -119,7 +120,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
 
 export const checkGeoSickPeople = async (lastFetch: number) => {
   try {
-
+    
     // check if interval is above the minimum delay
     if (moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return

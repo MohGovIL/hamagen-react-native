@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionCompo
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
+import { BluetoothState } from 'react-native-bluetooth-state-manager';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
-import { fetchInfectionDataByConsent, match } from '../../services/BLEService';
-import BluetoothStateManager, { BluetoothState } from 'react-native-bluetooth-state-manager';
+
 
 interface NoExposuresProps {
   isRTL: boolean,

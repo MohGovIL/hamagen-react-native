@@ -112,13 +112,11 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Permission-BluetoothPeripheral (2.0.10):
-    - RNPermissions
   - Permission-LocationAlways (2.0.10):
     - RNPermissions
   - Permission-Motion (2.0.10):
     - RNPermissions
-  - Protobuf (3.12.0)
+  - Protobuf (3.11.4)
   - RCTRequired (0.61.5)
   - RCTTypeSafety (0.61.5):
     - FBLazyVector (= 0.61.5)
@@ -395,7 +393,6 @@ DEPENDENCIES:
   - GoogleMaps
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
-  - Permission-BluetoothPeripheral (from `../node_modules/react-native-permissions/ios//BluetoothPeripheral.podspec`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
   - Permission-Motion (from `../node_modules/react-native-permissions/ios/Motion.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -483,8 +480,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
-  Permission-BluetoothPeripheral:
-    :path: "../node_modules/react-native-permissions/ios//BluetoothPeripheral.podspec"
   Permission-LocationAlways:
     :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
   Permission-Motion:
@@ -607,10 +602,9 @@ SPEC CHECKSUMS:
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   lottie-react-native: 2a1a82bb326ae51331a5520de0cf706733c6db69
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Permission-BluetoothPeripheral: 038b10744011459b7a34291b150016a880bac3a7
   Permission-LocationAlways: 738e3b24333d52c87361804bb0a1641de014c405
   Permission-Motion: 6d251146daf1102ebe143a2618adc18946353ad2
-  Protobuf: 2793fcd0622a00b546c60e7cbbcc493e043e9bb9
+  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
   React: b6a59ef847b2b40bb6e0180a97d0ca716969ac78
@@ -659,6 +653,6 @@ SPEC CHECKSUMS:
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: be3ae32ebb71f6c2c92c13676db51a142f23cb89
+PODFILE CHECKSUM: c85d4a94c29bc88bc3f697f6b2b5831cdd10d31a
 
 COCOAPODS: 1.9.1
