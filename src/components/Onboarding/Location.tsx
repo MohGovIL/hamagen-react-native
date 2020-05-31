@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
-import DeviceInfo from 'react-native-device-info';
+
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } from '../common';
@@ -37,8 +37,8 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
       } else {
-        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
-        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
+        
+        navigation.navigate('Bluetooth');
       }
     } catch (e) {
       // handled in service

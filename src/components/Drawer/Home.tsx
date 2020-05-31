@@ -43,18 +43,8 @@ const DrawerStack = ({ navigation, route }) => {
   useEffect(() => {
     if (initialRouteName !== '' && exposures?.length > 0) {
       // check if ExposureDetected is not in the navigation stack
-      if (!route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
+      if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
     }
-
-    // if (initialRouteName !== '' && showBLEPermission === undefined) {
-    //   AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
-    //     setBLEPermission(res)
-    //     if (res !== 'true' && res !== 'shown') {
-    //       navigation.navigate('Bluetooth')
-    //       AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
-    //     }
-    //   })
-    // }
   }, [exposures, initialRouteName]);
 
   if (!initialRouteName) return null;

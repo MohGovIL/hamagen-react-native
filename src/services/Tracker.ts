@@ -84,7 +84,6 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
   const sickDB = new IntersectionSickDatabase();
   const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
 
-
   if (!hasBLTS) {
     await sickDB.addBLESickRecord(bleMatch.startContactTimestamp);
 
@@ -101,7 +100,7 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
 
 export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   // IOS currently disables BLE
-  if (IS_IOS) return
+  if (IS_IOS) return;
 
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
@@ -119,7 +118,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       const bleMatch = {
         ...bleMatchNotUTC,
         startContactTimestamp: parseInt(bleMatchNotUTC.startContactTimestamp.toString()) * 1000,
-        endContactTimeStamp: parseInt(bleMatchNotUTC.endContactTimeStamp.toString()) * 1000
+        endContactTimestamp: parseInt(bleMatchNotUTC.endContactTimestamp.toString()) * 1000
       };
 
       const sickDB = new IntersectionSickDatabase();
@@ -137,11 +136,11 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
 };
 
 
-const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimeStamp }, sickDB) => {
+const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
   const exposures: Exposure[] = await sickDB.listAllRecords();
 
   const overlappingGeoExposure = exposures.find((properties) => {
-    properties?.OBJECTID && (Math.min(properties.toTime_utc, endContactTimeStamp) - Math.max(properties.fromTime_utc, startContactTimestamp)
+    properties?.OBJECTID && (Math.min(properties.toTime_utc, endContactTimestamp) - Math.max(properties.fromTime_utc, startContactTimestamp)
     ) > 0;
   });
 

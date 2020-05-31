@@ -17,21 +17,19 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     const jsonB64 = data.slice(signatureLength);
 
     const json = JSON.parse(jsonB64);
-    if (json) {
+
+    // @ts-ignore
+    const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
+
+    sig.init({ xy: pubkey, curve });
+
+    sig.updateString(jsonB64);
+
+    const result = sig.verify(signature);
+
+    if (result) {
       resolve(json);
     }
-    // @ts-ignore
-    // const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
-
-    // sig.init({ xy: pubkey, curve });
-
-    // sig.updateString(jsonB64);
-
-    // const result = sig.verify(signature);
-
-    // if (result) {
-    //   resolve(json);
-    // }
 
     reject('invalid ECDSA signature');
   } catch (error) {

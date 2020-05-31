@@ -161,6 +161,7 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
 
         case BLE_DB_FILE_TYPE: {
           SpecialBle.writeContactsToDB(rawText);
+          Alert.alert('Finish writing');
           return;
         }
 
@@ -189,6 +190,7 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
 
   const matchBLEFromFile = async (matches: string) => {
     const parsedRes = JSON.parse(matches ?? '[]');
+    
     if (parsedRes.length > 0) {
       // TODO: get Hagai make the manupulation
       const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimeStamp: parseInt(match.endContactTimeStamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);

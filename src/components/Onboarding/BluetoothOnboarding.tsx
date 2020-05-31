@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
+import DeviceInfo from 'react-native-device-info';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, Icon, TouchableOpacity } from '../common';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY } from '../../constants/Constants';
@@ -10,14 +11,18 @@ import { toggleWebview } from '../../actions/GeneralActions';
 import BluetoothPermission from '../common/BluetoothPermission';
 
 interface Props {
-    navigation: StackNavigationProp<any>,
+  navigation: StackNavigationProp<any>,
 }
 
 const BluetoothOnboarding: FunctionComponent<Props> = ({ navigation }) => {
   return (
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
-      <BluetoothPermission onEnd={() => navigation.navigate('LocationHistoryOnBoarding')} />
+      <BluetoothPermission onEnd={() => {
+        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
+        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding')
+      }
+      } />
     </GeneralContainer>
   );
 };

@@ -326,14 +326,15 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
     });
 
-    // Clipboard.setString(csv);
-    console.log(RNFS.CachesDirectoryPath);
+    Clipboard.setString(csv);
+
+    console.log(RNFS.DocumentDirectoryPath);
     
-    const filepath = `${RNFS.CachesDirectoryPath}/${'testAll.csv'}`;
+    const filepath = `${RNFS.DocumentDirectoryPath}/${`allData_${moment().format('YY.MM.DD')}.csv`}`;
     try {
       await RNFS.writeFile(filepath, csv || '{}', 'utf8');
     } catch (e) {
-      console.log('file write', e);
+      console.log('file write error', e);
     }
     Alert.alert('נרשם', '', [{ text: 'ok', onPress: () => console.log('OK Pressed') }]);
   };

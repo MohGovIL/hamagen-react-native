@@ -12,7 +12,7 @@ import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoData from './NoData';
 import NoExposures from './NoExposures';
-import { checkForceUpdate, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled } from '../../actions/GeneralActions';
 import { removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
@@ -32,6 +32,7 @@ interface ScanHomeProps {
   pastExposures: Exposure[],
   validExposure: Exposure,
   firstPoint?: number,
+  enableBle: boolean | undefined,
   hideLocationHistory: boolean,
   setValidExposure(exposure: Exposure): void,
   removeValidExposure(): void,
@@ -55,11 +56,10 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     exposures,
     pastExposures,
     firstPoint,
-    validExposure,
+    enableBle,
     hideLocationHistory,
     setValidExposure,
     removeValidExposure,
-
     checkForceUpdate,
     checkIfHideLocationHistory,
     showMapModal
@@ -85,6 +85,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     }, 3000);
 
     checkIfHideLocationHistory();
+    checkIfBleEnabled()
     checkConnectionStatusOnLoad();
 
     AppState.addEventListener('change', onAppStateChange);
@@ -164,6 +165,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         firstPoint={firstPoint}
         exposureState={exposureState}
         hideLocationHistory={hideLocationHistory}
+        enableBle={enableBle}
         locale={locale}
         languages={languages}
         externalUrls={externalUrls}
@@ -199,11 +201,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory },
+    general: { hideLocationHistory,enableBle },
     exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle };
 };
 
 

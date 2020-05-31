@@ -70,14 +70,13 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
 export const match = async () => new Promise(async (resolve) => {
   try {
     const responseJson = await downloadAndVerifySigning(config().BLE_UTC);
-
+    
     SpecialBle.match(JSON.stringify(responseJson), (res: string) => {
       const parsedRes: any[] = JSON.parse(res || '[]');
-
+    
       resolve(parsedRes);
     });
   } catch (error) {
-
     resolve([]);
     onError({ error });
   }

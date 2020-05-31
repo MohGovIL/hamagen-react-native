@@ -14,13 +14,12 @@ interface Props {
 }
 
 const QABle = ({ navigation, updatePointsFromFile }: Props) => {
-
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
         <Icon source={require('../../assets/onboarding/close.png')} width={31} />
       </TouchableOpacity>
-      <Text style={{ fontSize: 35 }} >NO BLE 4 U</Text>
+      <Text style={{ fontSize: 35 }}>NO BLE 4 U</Text>
     </View>
   );
 };
