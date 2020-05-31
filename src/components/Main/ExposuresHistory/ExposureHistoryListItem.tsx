@@ -21,7 +21,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
   let TimeText;
 
   if (isBLE) {
-    const time = moment(BLETimestamp).startOf('hour');
+    const time = moment.utc(BLETimestamp).startOf('hour');
 
     const exposureDate = time.format('DD.MM.YY');
     const exposureStartHour = time.format('HH:mm');
@@ -37,9 +37,9 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
   } else {
     TimeText = (
       <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
-        <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
+        <Text style={styles.text} bold>{`${moment.utc(fromTime).format('DD.MM.YY')} `}</Text>
         <Text style={styles.text}>{`${fromHour} `}</Text>
-        <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
+        <Text style={styles.text} bold>{`${moment.utc(fromTime).format('HH:mm')}`}</Text>
       </Text>
     );
   }

@@ -137,8 +137,8 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       <>
         <Text style={styles.title} bold>{title}</Text>
         <Text style={{ marginBottom: 3 }}>{subTitle}</Text>
-        {shouldShowMore ? ExposureList : ExposureList.slice(0, 4)}
-        {exposures.length > 4 && (
+        {shouldShowMore ? ExposureList : ExposureList.slice(0, 3)}
+        {exposures.length > 3 && (
           <TouchableOpacity
             style={{
               flexDirection: isRTL ? 'row' : 'row-reverse',

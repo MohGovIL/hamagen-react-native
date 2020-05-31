@@ -141,18 +141,19 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   const handleGPSProviderEvent = (e: any) => {
     setIsConnected({ hasLocation, hasNetwork, hasGPS: e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED });
   };
+  
 
-  const exposureState = () => {
+  const exposureState = useMemo(() => {
     // user never got any exposure detected
     if (exposures.length + pastExposures.length === 0) return 'pristine';
     // check if user past exposures are relevant
     // ie: is less then 14 days old
     if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days)) return 'relevant';
     return 'notRelevant';
-  };
+  }, [exposures, pastExposures]);
 
 
-  const RelevantState = useMemo(() => {
+  const RelevantState = () => {
     if (!hasLocation || !hasNetwork || !hasGPS) {
       return (<NoData strings={strings} />);
     }
@@ -161,7 +162,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         isRTL={isRTL}
         strings={strings}
         firstPoint={firstPoint}
-        exposureState={exposureState()}
+        exposureState={exposureState}
         hideLocationHistory={hideLocationHistory}
         locale={locale}
         languages={languages}
@@ -171,7 +172,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         showBleInfo={route.params?.showBleInfo}
       />
     );
-  }, [hasLocation, hasNetwork, hasGPS, locale]);
+  };
 
   return (
     <View style={styles.container}>
@@ -183,7 +184,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-      {RelevantState}
+      <RelevantState />
     </View>
   );
 };

@@ -70,8 +70,6 @@ export const dismissExposures = () => async (dispatch: any, getState: any) => {
   } else {
     await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID)));
   }
-
-
 };
 
 export const setExposureSelected = ({ index, wasThere }) => (dispatch: any, getState: any) => {
@@ -93,12 +91,12 @@ export const replacePastExposureSelected = (payload: Exposure[]) => async (dispa
   }
 };
 
-export const updatePointsFromFile = (points) => (dispatch: any) => {
+export const updatePointsFromFile = points => (dispatch: any) => {
   const newPoint = {
     features: points.features.map((exposure) => {
-      exposure.properties.OBJECTID = exposure.properties.Key_Field
-      return exposure
+      exposure.properties.OBJECTID = exposure.properties.Key_Field;
+      return exposure;
     })
-  }
+  };
   dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points: newPoint } });
 };

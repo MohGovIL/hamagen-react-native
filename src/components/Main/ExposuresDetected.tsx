@@ -40,7 +40,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
   const flatListRef = useRef(null);
-
+  
   useEffect(() => {
     SplashScreen.hide();
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
@@ -56,9 +56,9 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      const showBtn = exposures.every(exposure => exposure.properties.wasThere !== null);
-
-      if (showBtn) {
+      // if(something) return 
+        
+      if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
         Animated.timing(anim, {
           toValue: 0,
           duration: 0,
@@ -68,10 +68,26 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       }
     }, [])
   );
+ 
 
-  const setSelected =  (index: number, wasThere: boolean) => {
+  const editDone = () => {
+    dispatch(dismissExposures());
+    // check if at least one exposure was checked a been there
+    const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
+    
+    if (isExposed) {
+      // move to ExposureInstructions
+      const showEdit = exposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp);
+      navigation.navigate('ExposureInstructions', { showEdit });
+    } else {
+      // move to ExposureRelief
+      navigation.navigate('ExposureRelief');
+      AsyncStorage.removeItem(INIT_ROUTE_NAME);
+    }    
+  };
+
+  const setSelected = (index: number, wasThere: boolean) => {
     dispatch(setExposureSelected({ index, wasThere }));
-
     if (exposures.length === 1) {
       editDone();
     } else {
@@ -100,23 +116,6 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
           });
         }
       }
-    }
-  };
-
-  const editDone =  () => {
-    dispatch(dismissExposures());
-
-    // check if at least one exposure was checked a been there
-    const isExposed = exposures.some((exposure: Exposure) => exposure.properties.wasThere);
-
-    if (isExposed) {
-      // move to ExposureInstructions
-      const showEdit = exposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp);
-      navigation.navigate('ExposureInstructions', { showEdit });
-    } else {
-      // move to ExposureRelief
-      navigation.navigate('ExposureRelief');
-      AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
   };
 
@@ -173,13 +172,14 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const RenderGeoExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
       if (wasThere === null) return [false, false];
-      return [wasThere, wasThere === false];
+      return [wasThere, !wasThere];
     }, [wasThere]);
 
     const [exposureDate, exposureHour] = useMemo(() => {
       const time = moment(fromTime);
       return [time.format('DD.MM.YY'), time.format('HH:mm')];
     }, [fromTime]);
+
     return (
       <Animated.View style={[styles.detailsContainer]}>
         <View style={{ alignItems: 'center' }}>

@@ -81,7 +81,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
-  }
+  };
 
   return (
     <>
@@ -94,7 +94,8 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
                 isRTL={isRTL}
                 info={canIdentifyWithBluetooth}
                 moreInfo={moreInformation}
-                onPress={goToBluetoothPermission} />
+                onPress={goToBluetoothPermission}
+              />
             </BluetoothState.Unauthorized>
             <BluetoothState.PoweredOff>
               {({ enable, openSettings }) => {
@@ -103,8 +104,9 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
                     isRTL={isRTL}
                     info={bluetoothServiceOff}
                     moreInfo={turnBluetoothOn}
-                    onPress={() => { !IS_IOS ? enable() : openSettings() }} />
-                )
+                    onPress={() => { !IS_IOS ? enable() : openSettings(); }}
+                  />
+                );
               }}
             </BluetoothState.PoweredOff>
           </BluetoothState>

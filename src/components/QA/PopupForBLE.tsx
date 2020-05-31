@@ -19,31 +19,27 @@ interface Props {
 }
 
 const PopupForQA = ({ isVisible, closeModal }: Props) => {
-
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
 
   useEffect(() => {
-
     if (isVisible) {
-      fetchInfectionDataByConsent().then(res => {
-        
+      fetchInfectionDataByConsent().then((res) => {
         if (res?.days && res?.days.length > 0) {
-          
-          const sectionData = res?.days.map((section,index) => {
-            const data = section.filter(ephemeral => {
-              return ephemeral.length > 0
-            })
+          const sectionData = res?.days.map((section, index) => {
+            const data = section.filter((ephemeral) => {
+              return ephemeral.length > 0;
+            });
             
             return ({
-              title: 'day' + (index + 1),
+              title: `day${index + 1}`,
               data
-            })
-          })
-          setList(sectionData)
+            });
+          });
+          setList(sectionData);
         }
-      })
+      });
     }
-  }, [isVisible])
+  }, [isVisible]);
 
 
   return (
@@ -58,7 +54,9 @@ const PopupForQA = ({ isVisible, closeModal }: Props) => {
 
           <TouchableOpacity
             hitSlop={HIT_SLOP}
-            onPress={closeModal} style={{ alignSelf: 'flex-start', marginHorizontal: 10 }}>
+            onPress={closeModal}
+            style={{ alignSelf: 'flex-start', marginHorizontal: 10 }}
+          >
             <View style={styles.exit}>
               <Text>X</Text>
             </View>
@@ -71,9 +69,9 @@ const PopupForQA = ({ isVisible, closeModal }: Props) => {
               <Text style={{ backgroundColor: MAIN_COLOR }}>{title}</Text>
             )}
             renderItem={({ item }) => (
-              <View ><Text>{item ? item : 'empty'}</Text></View>
+              <View><Text>{item || 'empty'}</Text></View>
             )}
-            keyExtractor={(item, index) => item ? item : index.toString()}
+            keyExtractor={(item, index) => item || index.toString()}
             showsHorizontalScrollIndicator={false}
             ItemSeparatorComponent={() => <View style={styles.separatorStyle} />}
             ListEmptyComponent={() => {
@@ -81,7 +79,7 @@ const PopupForQA = ({ isVisible, closeModal }: Props) => {
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                   <Text style={{ fontSize: 30 }} bold>Empty</Text>
                 </View>
-              )
+              );
             }}
           />
 

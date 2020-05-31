@@ -67,3 +67,6 @@ export const CLUSTERING_RESULT_LOG_FOR_QA = 'CLUSTERING_RESULT_LOG_FOR_QA';
 // GeneralWebview
 export const USAGE_ON_BOARDING = 'USAGE_ON_BOARDING';
 export const USAGE_PRIVACY = 'USAGE_PRIVACY';
+
+// BLE
+export const ENABLE_BLE = !IS_IOS

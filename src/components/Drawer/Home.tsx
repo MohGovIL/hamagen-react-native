@@ -3,6 +3,7 @@ import { createDrawerNavigator, } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import { useNavigationState } from '@react-navigation/native';
 import { INIT_ROUTE_NAME, USER_AGREE_BLE } from '../../constants/Constants';
 import ScanHome from '../Main/ScanHome';
 import DrawerContent from './DrawerContent';
@@ -27,10 +28,11 @@ const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
 
-const DrawerStack = ({ navigation }) => {
+const DrawerStack = ({ navigation, route }) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
   const [showBLEPermission, setBLEPermission] = useState(undefined);
+
 
   useEffect(() => {
     AsyncStorage.getItem(INIT_ROUTE_NAME)
@@ -40,7 +42,8 @@ const DrawerStack = ({ navigation }) => {
 
   useEffect(() => {
     if (initialRouteName !== '' && exposures?.length > 0) {
-      navigation.navigate('ExposureDetected');
+      // check if ExposureDetected is not in the navigation stack
+      if (!route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
     }
 
     // if (initialRouteName !== '' && showBLEPermission === undefined) {

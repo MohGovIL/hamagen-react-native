@@ -27,7 +27,7 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
     case UPDATE_EXPOSURES: {
       const { exposures } = action.payload;
 
-      return { ...state, exposures: _.sortBy([...state.exposures, ...exposures], exposure => exposure.properties.fromTime).reverse() };
+      return { ...state, exposures: _.sortBy([...state.exposures, ...exposures], exposure => exposure.properties.BLETimestamp || exposure.properties.fromTime).reverse() };
     }
 
     case SET_VALID_EXPOSURE: {
@@ -74,7 +74,7 @@ export default (state: ExposuresReducer = INITIAL_STATE, action: ReducerAction) 
       return {
         ...state,
         pastExposures:
-          _.sortBy([...action.payload], exposure => exposure.properties.fromTime).reverse()
+          _.sortBy([...action.payload], exposure => exposure.properties.BLETimestamp || exposure.properties.fromTime).reverse()
       };
     }
 

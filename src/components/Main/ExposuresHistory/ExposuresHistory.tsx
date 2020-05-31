@@ -37,13 +37,13 @@ const ExposuresHistory = (
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
   const showEditBtn = useMemo(() => {
-    return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
+    return (wasThereList.length + wasNotThereList.length) > 0 && pastExposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
-
+  
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {

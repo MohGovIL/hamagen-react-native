@@ -14,6 +14,7 @@ import Geohash from 'latlon-geohash';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
 import RNFetchBlob from 'rn-fetch-blob';
+import { match } from 'src/services/BLEService';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
@@ -34,7 +35,6 @@ import {
   SERVICE_TRACKER
 } from '../../constants/Constants';
 import PopupForBLE from './PopupForBLE';
-import { match } from 'src/services/BLEService';
 
 interface Props {
   navigation: any,
@@ -155,8 +155,8 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
         }
 
         case BLE_MATCH_FILE_TYPE: {
-          SpecialBle.match(rawText, matchBLEFromFile)
-          return
+          SpecialBle.match(rawText, matchBLEFromFile);
+          return;
         }
 
         case BLE_DB_FILE_TYPE: {
@@ -167,7 +167,6 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
         default: return;
       }
     } catch (error) {
-
       if (DocumentPicker.isCancel(error)) {
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
@@ -189,134 +188,132 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
   };
 
   const matchBLEFromFile = async (matches: string) => {
-    const parsedRes = JSON.parse(matches ?? "[]")
+    const parsedRes = JSON.parse(matches ?? '[]');
     if (parsedRes.length > 0) {
       // TODO: get Hagai make the manupulation
-      const sortedBleMatches = parsedRes.map(match => ({...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimeStamp: parseInt(match.endContactTimeStamp) * 1000  })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp)
-    // take the first one 
-    await checkBLESickPeopleFromFile(sortedBleMatches[0])
+      const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimeStamp: parseInt(match.endContactTimeStamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);
+      // take the first one 
+      await checkBLESickPeopleFromFile(sortedBleMatches[0]);
 
-    // console.log('BLEMatch',BLEMatch);
+      // console.log('BLEMatch',BLEMatch);
+    } else {
+      Alert.alert('לא נמצאו חפיפות BLE');
+    }
+    // const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
+    // await RNFS.writeFile(filepath, res || '{}', 'utf8');
+    // await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
+  };
 
-  } else {
-    Alert.alert('לא נמצאו חפיפות BLE');
-}
-      // const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
-      // await RNFS.writeFile(filepath, res || '{}', 'utf8');
-      // await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
-    
-  }
+  const writeToBLEDBFromUrl = async () => {
+    const onUrlEntered = async (url: string) => {
+      try {
+        const res = await RNFetchBlob.fetch('GET', url);
+        SpecialBle.writeContactsToDB(res.data);
+        Alert.alert('Data added to BLE DB');
+      } catch (error) {
+        onError({ error, showError: true, messageToShow: 'Failed to add data' });
+      }
+    };
 
-const writeToBLEDBFromUrl = async () => {
-  const onUrlEntered = async (url: string) => {
+    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
+  };
+
+
+  const showBleInfo = async () => {
+    setShowPopup(true);
+  };
+
+  const matchBLEFromUrl = async () => {
     try {
-      const res = await RNFetchBlob.fetch('GET', url);
-      SpecialBle.writeContactsToDB(res.data);
-      Alert.alert('Data added to BLE DB');
-    } catch (error) {
-      onError({ error, showError: true, messageToShow: 'Failed to add data' });
+      Alert.alert('Checking...', '', [{ text: 'OK' }]);
+      await checkBLESickPeople(true);
+    } catch (e) {
+      Alert.alert('Error', '', [{ text: 'OK' }]);
     }
   };
 
-  prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
-};
+
+  const getAllBLEScans = () => {
+    try {
+      SpecialBle.getAllScans(async (res: any) => {
+        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
+        await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
+        await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
+      });
+    } catch (error) {
+      onError({ error });
+    }
+  };
 
 
-const showBleInfo = async () => {
-  setShowPopup(true)
-}
+  const deleteBleDB = () => {
+    SpecialBle.deleteDatabase();
+    SpecialBle.cleanScansDB();
+    SpecialBle.cleanDevicesDB();
+    Alert.alert('Cleared');
+  };
 
-const matchBLEFromUrl = async () => {
-  try {
-    Alert.alert('Checking...', '', [{ text: 'OK' }]);
-    await checkBLESickPeople(true);
-  } catch (e) {
-    Alert.alert('Error', '', [{ text: 'OK' }]);
-  }
-};
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
+        <Icon source={require('../../assets/onboarding/close.png')} width={31} />
+      </TouchableOpacity>
 
+      <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-const getAllBLEScans = () => {
-  try {
-    SpecialBle.getAllScans(async (res: any) => {
-      const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
-      await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
-      await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
-    });
-  } catch (error) {
-    onError({ error });
-  }
-};
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
+        <View style={styles.buttonWrapper}>
+          <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
+        </View>
 
-const deleteBleDB = () => {
-  SpecialBle.deleteDatabase()
-  SpecialBle.cleanScansDB()
-  SpecialBle.cleanDevicesDB()
-  Alert.alert('Cleared');
-}
+        <View style={styles.buttonWrapper}>
+          <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
+        </View>
 
-return (
-  <View style={styles.container}>
-    <TouchableOpacity style={styles.close} onPress={navigation.goBack}>
-      <Icon source={require('../../assets/onboarding/close.png')} width={31} />
-    </TouchableOpacity>
+        <View style={styles.buttonWrapper}>
+          <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
+        </View>
 
-    <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
+        <View style={styles.buttonWrapper}>
+          <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
+        </View>
 
-    <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <View style={styles.buttonWrapper}>
+          <Button title="הצג מידע מה DB" onPress={showBleInfo} />
+        </View>
 
-      <View style={styles.buttonWrapper}>
-        <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
+        <View style={styles.buttonWrapper}>
+          <Button title="Share ephemerals " onPress={() => SpecialBle.exportAllContactsAsCsv()} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף מידע BLE" onPress={shareBLEData} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף שידורי BLE" onPress={() => SpecialBle.exportAdvertiseAsCSV()} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button
+            title="!!!!!נקה BLE DB!!!!!"
+            onPress={deleteBleDB}
+            color="red"
+          />
+        </View>
+      </ScrollView>
+
+      <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
+        <Text>{DeviceInfo.getVersion()}</Text>
       </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="טען BLE DB מ URL" onPress={writeToBLEDBFromUrl} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="הצג מידע מה DB" onPress={showBleInfo} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="Share ephemerals " onPress={() => SpecialBle.exportAllContactsAsCsv()} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="שתף מידע BLE" onPress={shareBLEData} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button title="שתף שידורי BLE" onPress={() => SpecialBle.exportAdvertiseAsCSV()} />
-      </View>
-
-      <View style={styles.buttonWrapper}>
-        <Button
-          title="!!!!!נקה BLE DB!!!!!"
-          onPress={deleteBleDB}
-          color="red"
-        />
-      </View>
-    </ScrollView>
-
-    <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
-      <Text>{DeviceInfo.getVersion()}</Text>
+      <PopupForBLE isVisible={showPopup} closeModal={() => { setShowPopup(false); }} />
     </View>
-    <PopupForBLE isVisible={showPopup} closeModal={() => { setShowPopup(false) }} />
-  </View>
-);
+  );
 };
 
 const styles = StyleSheet.create({

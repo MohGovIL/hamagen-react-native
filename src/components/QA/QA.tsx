@@ -79,7 +79,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       switch (fileType) {
         case SICK_FILE_TYPE: {
           const pointsJSON = JSON.parse(rawText.trim());
-          
+
           updatePointsFromFile(pointsJSON);
           await checkGeoSickPeopleFromFile(isClusters);
           return;
@@ -151,8 +151,8 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
             isFirst = false;
           }
-          
-          
+
+
           Alert.alert('File loading finished');
 
           return;
@@ -326,29 +326,23 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       csv += `${lat},${long},${accuracy},${startTime},${endTime},${reason || ''}\n`;
     });
 
-    Alert.alert('הועתק', '', [{ text: 'OK', onPress: () => console.log('OK Pressed') }]);
-    Clipboard.setString(csv);
-  };
-
-  const writeToBLEDBFromUrl = async () => {
-    const onUrlEntered = async (url: string) => {
-      try {
-        const res = await RNFetchBlob.fetch('GET', url);
-        SpecialBle.writeContactsToDB(res.data);
-        Alert.alert('Data added to BLE DB');
-      } catch (error) {
-        onError({ error, showError: true, messageToShow: 'Failed to add data' });
-      }
-    };
-
-    prompt('הכנס URL להורדה', undefined, [{ text: 'Cancel', onPress: () => { }, style: 'cancel' }, { text: 'OK', onPress: onUrlEntered, style: 'default' }], { type: 'plain-text' });
+    // Clipboard.setString(csv);
+    console.log(RNFS.CachesDirectoryPath);
+    
+    const filepath = `${RNFS.CachesDirectoryPath}/${'testAll.csv'}`;
+    try {
+      await RNFS.writeFile(filepath, csv || '{}', 'utf8');
+    } catch (e) {
+      console.log('file write', e);
+    }
+    Alert.alert('נרשם', '', [{ text: 'ok', onPress: () => console.log('OK Pressed') }]);
   };
 
   const deleteDismissedExposures = async () => {
     await AsyncStorage.removeItem(DISMISSED_EXPOSURES);
     const dbSick = new IntersectionSickDatabase();
-    await dbSick.deleteAll()
-    BackHandler.exitApp()
+    await dbSick.deleteAll();
+    BackHandler.exitApp();
   };
 
 
@@ -368,7 +362,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         <View style={styles.buttonWrapper}>
           <Button
             title="הצלבת דקירות מול JSON מאומתים משרת"
-            onPress={() => {initCheckSickPeople(false);}}
+            onPress={() => { initCheckSickPeople(false); }}
           />
         </View>
 
