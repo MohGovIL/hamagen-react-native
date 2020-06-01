@@ -17,6 +17,7 @@ interface NoExposuresProps {
   hideLocationHistory: boolean,
   locale: string,
   languages: Languages,
+  enableBle: boolean | undefined,
   externalUrls: ExternalUrls,
   exposureState: 'pristine' | 'notRelevant' | 'relevant',
   showBleInfo: boolean,
@@ -25,7 +26,7 @@ interface NoExposuresProps {
 }
 
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -83,21 +84,28 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
   }
 
+  const EnableBluetooth = () => {
+
+    if (enableBle !== null) return null
+    return (<InfoBubble
+      isRTL={isRTL}
+      info={canIdentifyWithBluetooth}
+      moreInfo={moreInformation}
+      onPress={goToBluetoothPermission}
+    />
+    )
+  }
+
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
           <LocationHistoryInfo />
+          <EnableBluetooth />
           <BluetoothState>
-            {!IS_IOS && <BluetoothState.Unauthorized>
-              <InfoBubble
-                isRTL={isRTL}
-                info={canIdentifyWithBluetooth}
-                moreInfo={moreInformation}
-                onPress={goToBluetoothPermission} />
-            </BluetoothState.Unauthorized>}
             {!IS_IOS && <BluetoothState.PoweredOff>
               {({ enable, openSettings }) => {
+                if (!enableBle) return null
                 return (
                   <InfoBubble
                     isRTL={isRTL}

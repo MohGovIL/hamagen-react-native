@@ -25,7 +25,7 @@ const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
 
-const DrawerStack = ({ navigation }) => {
+const DrawerStack = ({ navigation, route }) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
   const [showBLEPermission, setBLEPermission] = useState(undefined);
@@ -39,18 +39,8 @@ const DrawerStack = ({ navigation }) => {
   useEffect(() => {
     
     if (initialRouteName !== '' && exposures?.length > 0) {
-      navigation.navigate('ExposureDetected');
+      if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
     }
-
-    // if (initialRouteName !== '' && showBLEPermission === undefined) {
-    //   AsyncStorage.getItem(USER_AGREE_BLE).then((res) => {
-    //     setBLEPermission(res)
-    //     if (res !== 'true' && res !== 'shown') {
-    //       navigation.navigate('Bluetooth')
-    //       AsyncStorage.setItem(USER_AGREE_BLE, 'shown')
-    //     }
-    //   })
-    // }
   }, [exposures, initialRouteName]);
 
   if (!initialRouteName) return null;

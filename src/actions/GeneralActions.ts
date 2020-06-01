@@ -10,7 +10,8 @@ import {
   SHOW_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
   HIDE_LOCATION_HISTORY,
-  SHOW_MAP_MODAL
+  SHOW_MAP_MODAL,
+  ENABLE_BLE
 } from '../constants/ActionTypes';
 
 import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
@@ -70,6 +71,24 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
     onError({ error });
   }
 };
+
+export const checkIfBleEnabled = () => async (dispatch: any) => {
+  if (IS_IOS) {
+    dispatch({ type: ENABLE_BLE, payload: false })
+  } else {
+
+    try {
+      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE)
+      if (payload) {
+        payload = JSON.parse(payload)
+      }
+      dispatch({ type: ENABLE_BLE, payload })
+    } catch (error) {
+      onError({ error })
+      dispatch({ type: ENABLE_BLE, payload: null })
+    }
+  }
+}
 
 export const showMapModal = ({ properties }: Exposure) => {
   let latitude = 0;

@@ -144,8 +144,9 @@
     "bluetooth":{
       "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
       "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
-      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך"
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך",
+      "approveBluetoothIOS": "הפעל שירותי בלוטות׳",
+      "approveBluetoothAndroid": "הבנתי"
     },
     "location": {
       "title": "המיקום הוא קריטי",
@@ -391,8 +392,9 @@
     "bluetooth":{
       "title": "تحديد نقاط التداخل\nالدم",
       "description": "تتيح تقنية Bluetooth تحديد حالات القرابة بينك وبين مالكي الهواتف الآخرين في منطقتك مع تثبيت التطبيق ، للكشف عن الاشتباه في الإصابة بالعدوى في كورونا.",
-      "approveBluetooth": "تمكين خدمات Bluetooth",
-      "callToAction": "للقيام بذلك ، تحتاج إلى\nتمكين Bluetooth على جهازك"
+      "approveBluetoothIOS": "تمكين خدمات Bluetooth",
+      "callToAction": "للقيام بذلك ، تحتاج إلى\nتمكين Bluetooth على جهازك",
+      "approveBluetoothAndroid": "فهمت"
     },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
@@ -635,8 +637,9 @@
     "bluetooth":{
       "title": "Identify overlap points\nwith the help of glands",
       "description": "Bluetooth technology enables identification of kinship situations between you and other phone owners in your area with the application installed, to detect suspicion of infection in Corona.",
-      "approveBluetooth": "Enable Bluetooth services",
-      "callToAction": "To do this, you need to\nenable Bluetooth on your device"
+      "approveBluetoothIOS": "Enable Bluetooth services",
+      "callToAction": "To do this, you need to\nenable Bluetooth on your device",
+      "approveBluetoothAndroid": "I realised"
     },
     "location": {
       "title": "Location is critical",
@@ -879,8 +882,9 @@
     "bluetooth":{
       "title": "Определить точки перекрытия\nс помощью желез",
       "description": "Технология Bluetooth позволяет идентифицировать ситуации родства между вами и другими владельцами телефонов в вашем регионе с установленным приложением, чтобы обнаружить подозрительную инфекцию в Короне.",
-      "approveBluetooth": "Включить службы Bluetooth",
-      "callToAction": "Для этого вам нужно\nвключить Bluetooth на вашем устройстве."
+      "approveBluetoothIOS": "Включить службы Bluetooth",
+      "callToAction": "Для этого вам нужно\nвключить Bluetooth на вашем устройстве.",
+      "approveBluetoothAndroid": "я осознал"
     },
     "location": {
       "title": "Местонахождение критично",
@@ -1123,8 +1127,9 @@
     "bluetooth":{
       "title": "የተደራራቢ ነጥቦችን ይለዩ\nጎርፍ",
       "description": "በኮሮና ውስጥ የኢንፌክሽን ጥርጣሬ ለመፈጠር የብሉቱዝ ቴክኖሎጂ በርስዎ እና በአከባቢዎ ባሉ ሌሎች የስልክ ባለቤቶች መካከል በአከባቢዎ ያለውን የዝውውር ሁኔታ ለመለየት ያስችላል ፡፡",
-      "approveBluetooth": "የብሉቱዝ አገልግሎቶችን ያንቁ",
-      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት"
+      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት",
+      "approveBluetoothAndroid": "ገባኝ"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1367,8 +1372,9 @@
     "bluetooth":{
       "title": "Identifier les points de chevauchement\nà l'aide de glandes",
       "description": "La technologie Bluetooth permet d'identifier les situations de parenté entre vous et les autres propriétaires de téléphone de votre région avec l'application installée, pour détecter les soupçons d'infection à Corona.",
-      "approveBluetooth": "Activer les services Bluetooth",
-      "callToAction": "Pour ce faire, vous devez\nactiver Bluetooth sur votre appareil"
+      "approveBluetoothIOS": "Activer les services Bluetooth",
+      "callToAction": "Pour ce faire, vous devez\nactiver Bluetooth sur votre appareil",
+      "approveBluetoothAndroid": "j'ai réalisé"
     },
     "location": {
       "title": "La localisation est critique",

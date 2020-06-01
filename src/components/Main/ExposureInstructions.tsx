@@ -1,7 +1,7 @@
 import React, { useMemo, useEffect, useState } from 'react';
 import { View, StyleSheet, Linking, ScrollView, UIManager, Platform, LayoutAnimation, BackHandler } from 'react-native';
 import moment from 'moment';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RouteProp } from '@react-navigation/native';
 import SplashScreen from 'react-native-splash-screen';
@@ -34,6 +34,7 @@ interface Props {
 
 // exposure: { properties: { Place, fromTime } },
 const ExposureInstructions = ({ navigation, route }: Props) => {
+  const dispatch = useDispatch()
   const {
     isRTL,
     locale,
@@ -77,6 +78,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', () => true);
+      // dispatch(moveAllToPastExposures())
     };
   }, []);
 
@@ -92,18 +94,18 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => {
     let ListText
 
-    if(exposure.properties.BLETimestamp){
+    if (exposure.properties.BLETimestamp) {
 
       const time = moment(exposure.properties.BLETimestamp).startOf('hour')
-      
+
       const exposureDate = time.format('DD.MM.YY')
       const exposureStartHour = time.format('HH:mm')
       const exposureEndHour = time.add(1, 'hour').format('HH:mm')
 
       ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>)
-      
+
     } else {
-      const {Place, fromTime} = exposure.properties
+      const { Place, fromTime } = exposure.properties
       const time = moment()
       ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>)
     }
@@ -115,7 +117,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: isRTL ? 'right' : 'left' }} key={exposure.properties.OBJECTID}>
         <Text bold>• </Text>
         {ListText}
-        
+
       </Text>
     )
   }), [exposures, locale])

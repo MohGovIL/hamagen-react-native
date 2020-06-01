@@ -63,3 +63,6 @@ export const DID_CLUSTER_LOCATIONS = 'DID_CLUSTER_LOCATIONS';
 // GeneralWebview
 export const USAGE_ON_BOARDING = 'USAGE_ON_BOARDING';
 export const USAGE_PRIVACY = 'USAGE_PRIVACY';
+
+// BLE
+export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE'

@@ -28,7 +28,7 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     sig.updateString(jsonB64);
 
     const result = sig.verify(signature);
-
+    console.log(url, 'result', result);
     
     if (result) {
       resolve(json);
