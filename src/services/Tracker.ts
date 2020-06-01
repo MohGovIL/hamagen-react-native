@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
 import { Alert } from 'react-native';
-import { setExposures } from '../actions/ExposuresActions';
+import { setExposures, updatePastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
@@ -83,16 +83,8 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
 export const checkBLESickPeopleFromFile = async (bleMatch) => {
   const sickDB = new IntersectionSickDatabase();
   const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
-
   if (!hasBLTS) {
-    await sickDB.addBLESickRecord(bleMatch.startContactTimestamp);
-
-    await onSickPeopleNotify([{
-      properties: {
-        wasThere: true,
-        BLETimestamp: bleMatch.startContactTimestamp
-      }
-    }]);
+    await checkBleAndGeoIntersection(bleMatch, sickDB);
   } else {
     Alert.alert('exposure already exists');
   }
@@ -120,12 +112,12 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
         startContactTimestamp: parseInt(bleMatchNotUTC.startContactTimestamp.toString()) * 1000,
         endContactTimestamp: parseInt(bleMatchNotUTC.endContactTimestamp.toString()) * 1000
       };
-
+      
       const sickDB = new IntersectionSickDatabase();
 
       // check if BLe match is not a duplicate
       const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
-
+      
       if (!hasBLTS) {
         await checkBleAndGeoIntersection(bleMatch, sickDB);
       }
@@ -138,33 +130,45 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
 
 const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
   const exposures: Exposure[] = await sickDB.listAllRecords();
-
-
-  const overlappingGeoExposure = exposures.find(({ properties }) => {
-    properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)
-    ) > 0;
+  console.log('ble diff', endContactTimestamp - startContactTimestamp );
+  
+  // TODO: sort it and remove ADDed day
+  const overlappingGeoExposure = exposures.find(( properties) => {
+    return properties?.OBJECTID && (Math.min(properties.toTime , endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)) > 0;
   });
-
+  
   if (overlappingGeoExposure) {
-    const newExposure = await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, startContactTimestamp);
+    await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, startContactTimestamp);
 
     // if user already told us he was not there - alert him by removing exposure from dismissed and resetting it in exposures
     if (!overlappingGeoExposure.wasThere) {
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
+      
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
-      store().dispatch(setExposures([newExposure]));
+      
       await onSickPeopleNotify([{
         properties: {
+          ...overlappingGeoExposure,
           wasThere: true,
           BLETimestamp: startContactTimestamp
         }
       }]);
+    } else {
+      // update in past exposures
+      store().dispatch(updatePastExposure({
+        properties: {
+          ...overlappingGeoExposure,
+          wasThere: true,
+          BLETimestamp: startContactTimestamp
+        }
+      }));
+
     }
   } else {
     // new exposure that doesn't overlap
     await sickDB.addBLESickRecord(startContactTimestamp);
-
+    
     await onSickPeopleNotify([{
       properties: {
         wasThere: true,

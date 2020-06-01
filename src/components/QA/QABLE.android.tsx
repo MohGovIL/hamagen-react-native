@@ -193,7 +193,7 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
     
     if (parsedRes.length > 0) {
       // TODO: get Hagai make the manupulation
-      const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimeStamp: parseInt(match.endContactTimeStamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);
+      const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimestamp: parseInt(match.endContactTimestamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);
       // take the first one 
       await checkBLESickPeopleFromFile(sortedBleMatches[0]);
 

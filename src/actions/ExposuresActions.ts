@@ -96,6 +96,19 @@ export const replacePastExposureSelected = (payload: Exposure[]) => async (dispa
   }
 };
 
+export const moveAllToPastExposures = () => async (dispatch: any, getState: any) => {
+  dispatch({type: REPLACE_EXPOSURES, payload: {exposures: []}})
+}
+
+export const updatePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
+  const { pastExposures }: ExposuresReducer = getState().exposures;
+  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.OBJECTID === exposure.properties.OBJECTID)
+  if(index !== -1) {
+    pastExposures[index] = exposureToReplace
+    dispatch({type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
+  }
+}
+
 export const updatePointsFromFile = points => (dispatch: any) => {
   const newPoint = {
     features: points.features.map((exposure) => {
@@ -105,6 +118,5 @@ export const updatePointsFromFile = points => (dispatch: any) => {
   };
   dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points: newPoint } });
 };
-export const moveAllToPastExposures = () => async (dispatch: any, getState: any) => {
-  dispatch({type: REPLACE_EXPOSURES, payload: {exposures: []}})
-}
+
+
