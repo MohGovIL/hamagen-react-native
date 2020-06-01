@@ -605,7 +605,7 @@ export class IntersectionSickDatabase {
     return new Promise(async (resolve) => {
       try {
         const db = await this.initDB();
-      
+        
         return db.transaction(async (tx) => {
           const [_, results] = await tx.executeSql('UPDATE IntersectingSick SET OBJECTID = ?,Name = ?,Place = ?,Comments = ?,fromTime = ?,toTime = ?,long = ?,lat = ?,wasThere =?  WHERE BLETimestamp = ?',
             [
@@ -618,11 +618,10 @@ export class IntersectionSickDatabase {
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex],
               true,
-              BLETimestamp,
               BLETimestamp
             ]);
           results;
-          
+        
           if (results.rowsAffected > 0) {
             resolve(results.rows.item(0));
           }

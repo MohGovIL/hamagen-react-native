@@ -19,14 +19,14 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
   const exposuresWithWasThere = exposures.map((exposure: Exposure) => {
     // adjust fromTime to fromTime_utc
-    if(exposure.properties.fromTime_utc && exposure.properties.fromTime !== exposure.properties.fromTime_utc) {
+    if (exposure.properties.fromTime_utc && exposure.properties.fromTime !== exposure.properties.fromTime_utc) {
       exposure.properties.fromTime === exposure.properties.fromTime_utc
       exposure.properties.toTime === exposure.properties.toTime_utc
     }
     exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
     return exposure;
   });
-  
+
   let filteredExposures = exposuresWithWasThere;
 
   if (dismissedExposures) {
@@ -97,15 +97,27 @@ export const replacePastExposureSelected = (payload: Exposure[]) => async (dispa
 };
 
 export const moveAllToPastExposures = () => async (dispatch: any, getState: any) => {
-  dispatch({type: REPLACE_EXPOSURES, payload: {exposures: []}})
+  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures: [] } })
 }
 
-export const updatePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
+export const updateGeoPastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
   const { pastExposures }: ExposuresReducer = getState().exposures;
   const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.OBJECTID === exposure.properties.OBJECTID)
-  if(index !== -1) {
+
+  if (index !== -1) {
     pastExposures[index] = exposureToReplace
-    dispatch({type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
+  }
+}
+
+
+export const updateBlePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
+  const { pastExposures }: ExposuresReducer = getState().exposures;
+  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.BLETimestamp === exposure.properties.BLETimestamp)
+
+  if (index !== -1) {
+    pastExposures[index] = exposureToReplace
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
   }
 }
 
