@@ -13,7 +13,7 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS, } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -108,11 +108,11 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
     if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-    
-    const bleMatches: any[] = await match();
-    
+
+    const bleMatches: any[] = await match()
+
     if (bleMatches.length > 0) {
-      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0];
+      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0]
 
       // convert ble match to have normal time(it lacks the ms's)
       const bleMatch = {
@@ -139,7 +139,8 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
 const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
   const exposures: Exposure[] = await sickDB.listAllRecords();
 
-  const overlappingGeoExposure = exposures.find(({properties}) => {
+
+  const overlappingGeoExposure = exposures.find(({ properties }) => {
     properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)
     ) > 0;
   });
@@ -153,6 +154,12 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
       store().dispatch(setExposures([newExposure]));
+      await onSickPeopleNotify([{
+        properties: {
+          wasThere: true,
+          BLETimestamp: startContactTimestamp
+        }
+      }]);
     }
   } else {
     // new exposure that doesn't overlap
@@ -184,7 +191,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false,isClusters:
     if (sickPeopleIntersected.length > 0) {
       const dbSick = new IntersectionSickDatabase();
 
-      const filteredIntersected: Exposure[] = [];
+      let filteredIntersected: Exposure[] = []
       for (const currSick of sickPeopleIntersected) {
         const queryResult = await dbSick.containsObjectID(
           currSick.properties.Key_Field,

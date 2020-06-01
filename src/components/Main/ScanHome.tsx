@@ -30,7 +30,7 @@ interface ScanHomeProps {
   externalUrls: ExternalUrls,
   exposures: Exposure[],
   pastExposures: Exposure[],
-  validExposure: Exposure,
+  enableBle: boolean | undefined,
   firstPoint?: number,
   enableBle: boolean | undefined,
   hideLocationHistory: boolean,
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory,enableBle },
+    general: { hideLocationHistory, enableBle },
     exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 

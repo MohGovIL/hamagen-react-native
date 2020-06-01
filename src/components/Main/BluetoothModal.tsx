@@ -15,7 +15,6 @@ const BluetoothModal = ({ navigation }) => {
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false')
     navigation.goBack()
   }
-  
   return (
     <View style={styles.container}> 
       <HeaderButton type="close" onPress={handleExit} />

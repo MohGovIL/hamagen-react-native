@@ -25,8 +25,7 @@ interface NoExposuresProps {
 }
 
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, goToLocationHistory, goToBluetoothPermission }) => {
-  
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -86,6 +85,18 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
 
   const EnableBluetooth = () => {
     
+    if (enableBle !== null) return null
+    return (<InfoBubble
+      isRTL={isRTL}
+      info={canIdentifyWithBluetooth}
+      moreInfo={moreInformation}
+      onPress={goToBluetoothPermission}
+    />
+    )
+  }
+
+  const EnableBluetooth = () => {
+
     if (enableBle !== null) return null
     return (<InfoBubble
       isRTL={isRTL}

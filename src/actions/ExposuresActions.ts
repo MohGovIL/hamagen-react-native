@@ -105,3 +105,6 @@ export const updatePointsFromFile = points => (dispatch: any) => {
   };
   dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points: newPoint } });
 };
+export const moveAllToPastExposures = () => async (dispatch: any, getState: any) => {
+  dispatch({type: REPLACE_EXPOSURES, payload: {exposures: []}})
+}

@@ -42,7 +42,6 @@ const DrawerStack = ({ navigation, route }) => {
 
   useEffect(() => {
     if (initialRouteName !== '' && exposures?.length > 0) {
-      // check if ExposureDetected is not in the navigation stack
       if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
     }
   }, [exposures, initialRouteName]);
