@@ -108,9 +108,9 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
     if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-
+    
     const bleMatches: any[] = await match();
-
+    
     if (bleMatches.length > 0) {
       const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0];
 
@@ -139,8 +139,8 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
 const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
   const exposures: Exposure[] = await sickDB.listAllRecords();
 
-  const overlappingGeoExposure = exposures.find((properties) => {
-    properties?.OBJECTID && (Math.min(properties.toTime_utc, endContactTimestamp) - Math.max(properties.fromTime_utc, startContactTimestamp)
+  const overlappingGeoExposure = exposures.find(({properties}) => {
+    properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)
     ) > 0;
   });
 
@@ -167,17 +167,17 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   }
 };
 
-export const checkGeoSickPeople = async (forceCheck: boolean = false, lastFetch: number) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false,isClusters: boolean) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
     if (!forceCheck && moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
       return;
     }
-
+    
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
     const myData = await queryDB(isClusters);
-
+    
     const shouldFilterByGeohash = !!responseJson.features[0]?.properties?.geohashFilter;
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson, isClusters) : getIntersectingSickRecords(myData, responseJson, isClusters);
 

@@ -18,6 +18,11 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
   // await AsyncStorage.removeItem(DISMISSED_EXPOSURES)
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
   const exposuresWithWasThere = exposures.map((exposure: Exposure) => {
+    // adjust fromTime to fromTime_utc
+    if(exposure.properties.fromTime_utc && exposure.properties.fromTime !== exposure.properties.fromTime_utc) {
+      exposure.properties.fromTime === exposure.properties.fromTime_utc
+      exposure.properties.toTime === exposure.properties.toTime_utc
+    }
     exposure.properties.wasThere = exposure.properties?.wasThere ?? null;
     return exposure;
   });
