@@ -43,7 +43,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   useEffect(() => {
     SplashScreen.hide();
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposuresDetected');
+    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureDetected');
     BackHandler.addEventListener('hardwareBackPress', () => true);
 
     return () => {

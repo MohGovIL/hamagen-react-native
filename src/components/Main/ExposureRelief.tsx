@@ -65,7 +65,7 @@ const ExposureRelief = ({ navigation }: Props) => {
         </Text>
 
       </View>
-      <ActionButton onPress={navigation.popToTop} text={backBtn} />
+      <ActionButton onPress={() => navigation.navigate('ScanHome')} text={backBtn} />
     </View>
   );
 };
