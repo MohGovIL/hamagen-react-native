@@ -18,10 +18,9 @@ import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS, } from '../cons
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
 
-  await checkBLESickPeople(lastFetch);
-  await checkGeoSickPeople(lastFetch);
+  await checkBLESickPeople();
+  await checkGeoSickPeople();
 
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
