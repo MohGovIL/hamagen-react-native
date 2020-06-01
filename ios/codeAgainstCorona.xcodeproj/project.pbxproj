@@ -749,7 +749,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 60;
 				DEVELOPMENT_TEAM = N3P977USJJ;
@@ -769,7 +769,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen.qa;
-				PRODUCT_NAME = "Hamagen QA";
+				PRODUCT_NAME = "המגן QA";
 				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA AdHoc";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
