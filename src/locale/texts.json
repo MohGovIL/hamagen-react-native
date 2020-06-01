@@ -330,7 +330,8 @@
         "shareFailMissingToken": "הבנתי, תודה",
         "shareFailTokenError": "נסה שנית",
         "shareFailWithWarnings": "הבנתי"
-      }
+      },
+      "addBleDataText": "מקובל עלי שתשתמשו גם במידע שנאסף דרך בלוטות׳,'לזיהוי מצבי קרבה למכשירי טלפון של חולי קורונה"
     },
     "exposureRelief": {
       "editBtn": "עריכה",
@@ -574,7 +575,8 @@
         "shareFailMissingToken": "أفهم ، شكرا لك",
         "shareFailTokenError": "يرجى المحاولة مرة أخرى",
         "shareFailWithWarnings": "فهمت"
-      }
+      },
+      "addBleDataText": "من المقبول بالنسبة لي أيضًا استخدام المعلومات التي تم جمعها عبر الغدة لتحديد القرب من هواتف مرضى الاكليل"
     },
     "exposureRelief": {
       "editBtn": "تقييم",
@@ -817,7 +819,8 @@
         "shareFailMissingToken": "I understood, thank you",
         "shareFailTokenError": "try again",
         "shareFailWithWarnings": "I understand"
-      }
+      },
+      "addBleDataText": "It is acceptable for me to also use information collected through the gland to identify proximity to corona patients' phones"
     },
     "exposureRelief": {
       "editBtn": "editing",
@@ -1060,7 +1063,8 @@
         "shareFailMissingToken": "Я понимаю спасибо",
         "shareFailTokenError": "Пожалуйста, попробуйте еще раз",
         "shareFailWithWarnings": "я осознал"
-      }
+      },
+      "addBleDataText": "Для меня приемлемо также использовать информацию, собранную через железу, чтобы определить близость к телефонам пациентов с короной."
     },
     "exposureRelief": {
       "editBtn": "редактирование",
@@ -1303,7 +1307,8 @@
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
         "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ",
         "shareFailWithWarnings": "ገባኝ"
-      }
+      },
+      "addBleDataText": "የኮሮና ህመምተኞች ስልኮችን ቅርብነት ለመለየት በአይን እጢ በኩል የተሰበሰበውን መረጃ መጠቀሙ ለእኔ ተቀባይነት ነው"
     },
     "exposureRelief": {
       "editBtn": "ማርትዕ",
@@ -1546,7 +1551,8 @@
         "shareFailMissingToken": "Je comprends merci",
         "shareFailTokenError": "Veuillez réessayer",
         "shareFailWithWarnings": "j'ai réalisé"
-      }
+      },
+      "addBleDataText": "Il est acceptable pour moi d'utiliser également les informations collectées via la glande pour identifier la proximité des téléphones des patients corona"
     },
     "exposureRelief": {
       "editBtn": "édition",

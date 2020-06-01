@@ -16,7 +16,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
       serviceUUID: UUID,
       scanDuration: 60000,
       scanInterval: 240000,
-      advertiseInterval: 45000,
+      advertiseInterval: 50000,
       advertiseDuration: 10000,
       token: 'default_token'
     };
@@ -67,10 +67,9 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
   }
 });
 
-
 export const match = async () => new Promise(async (resolve) => {
   try {
-    const responseJson = await downloadAndVerifySigning(config().BLE_UTC);
+    const responseJson = await downloadAndVerifySigning(config().BleDataUrl_utc);
 
     SpecialBle.match(JSON.stringify(responseJson), (res: string) => {
       const parsedRes: any[] = JSON.parse(res || '[]');
