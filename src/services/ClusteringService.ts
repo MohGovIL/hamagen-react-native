@@ -6,7 +6,7 @@ import Geohash from 'latlon-geohash';
 import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../database/Database';
 import { onError } from './ErrorService';
 import config from '../config/config';
-import { Cluster, DBLocation } from '../types';
+import { Cluster, DBLocation, Sample } from '../types';
 import {
   CLUSTER_JITTER_LOCATION,
   CLUSTERING_RESULT_LOG_FOR_QA,
@@ -19,51 +19,64 @@ const haversine = require('haversine');
 
 const lock = new AsyncLock();
 
-export const clusterSample = async () => {
-  const locationsDB = new UserLocationsDatabase();
-  const clustersDB = new UserClusteredLocationsDatabase();
+export const clusterSample = async (sample?: Sample) => {
+  try {
+    const locationsDB = new UserLocationsDatabase();
+    const clustersDB = new UserClusteredLocationsDatabase();
 
-  // fetch last 2 points from locations DB (AKA "buffer").
-  const buffer: DBLocation[] = await locationsDB.getBufferSamplesForClustering(2);
+    // fetch last 2 points from locations DB (AKA "buffer").
+    const buffer: DBLocation[] = await locationsDB.getBufferSamplesForClustering(2);
 
-  // fetch current cluster from clusters DB.
-  const currentCluster: Cluster = await clustersDB.getLastClusterEntered();
+    // fetch current cluster from clusters DB.
+    const currentCluster: Cluster = await clustersDB.getLastClusterEntered();
 
-  const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
+    const [firstLocationInBuffer, secondLocationInBuffer] = buffer;
 
-  if (buffer.length < 2 || (currentCluster && (currentCluster.endTime > firstLocationInBuffer.startTime))) {
-    return;
-  }
+    if (buffer.length < 2 || (currentCluster && (currentCluster.endTime > firstLocationInBuffer.startTime))) {
+      return;
+    }
 
-  if (currentCluster) {
-    // if first point in buffer belongs to the current cluster.
-    if (areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)) {
-      const jitterLocation = JSON.parse(await AsyncStorage.getItem(CLUSTER_JITTER_LOCATION) || 'false');
+    if (currentCluster) {
+      // if first point in buffer belongs to the current cluster.
+      if (areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)) {
+        const jitterLocation = JSON.parse(await AsyncStorage.getItem(CLUSTER_JITTER_LOCATION) || 'false');
 
-      if (currentCluster.endTime === firstLocationInBuffer.startTime || jitterLocation) {
-        const updatedCluster = await updateCluster(currentCluster, firstLocationInBuffer);
-        await clustersDB.updateLastCluster(updatedCluster);
-        await AsyncStorage.removeItem(CLUSTER_JITTER_LOCATION);
-        await addToClustringResultLog(firstLocationInBuffer, `added to cluster${jitterLocation ? ' - prev point jitter' : ''}`);
+        if (currentCluster.endTime === firstLocationInBuffer.startTime || jitterLocation) {
+          const updatedCluster = await updateCluster(currentCluster, firstLocationInBuffer);
+          await clustersDB.updateLastCluster(updatedCluster);
+          await AsyncStorage.removeItem(CLUSTER_JITTER_LOCATION);
+          await addToClustringResultLog(firstLocationInBuffer, `added to cluster${jitterLocation ? ' - prev point jitter' : ''}`);
+          return;
+        }
+      }
+
+      if (
+        moment(firstLocationInBuffer.endTime).diff(moment(firstLocationInBuffer.startTime), config().jitterUnits, true) < config().jitterValue
+        && !areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)
+        && areLocationsCreatingCluster(currentCluster, secondLocationInBuffer)
+        && currentCluster.endTime === firstLocationInBuffer.startTime
+        && firstLocationInBuffer.endTime === secondLocationInBuffer.startTime
+      ) {
+        await AsyncStorage.setItem(CLUSTER_JITTER_LOCATION, 'true');
+        await addToClustringResultLog(firstLocationInBuffer, 'location is jitter');
         return;
       }
     }
 
-    if (
-      moment(firstLocationInBuffer.endTime).diff(moment(firstLocationInBuffer.startTime), config().jitterUnits, true) < config().jitterValue
-      && !areLocationsCreatingCluster(currentCluster, firstLocationInBuffer)
-      && areLocationsCreatingCluster(currentCluster, secondLocationInBuffer)
-      && currentCluster.endTime === firstLocationInBuffer.startTime
-      && firstLocationInBuffer.endTime === secondLocationInBuffer.startTime
-    ) {
-      await AsyncStorage.setItem(CLUSTER_JITTER_LOCATION, 'true');
-      await addToClustringResultLog(firstLocationInBuffer, 'location is jitter');
-      return;
-    }
+    await createCluster(clustersDB, firstLocationInBuffer);
+    await addToClustringResultLog(firstLocationInBuffer, 'new cluster created');
+  } catch (e) {
+    await addToClustringResultLog({
+      startTime: sample?.timestamp || 0,
+      endTime: sample?.timestamp || 0,
+      long: sample?.coords.longitude || 0,
+      lat: sample?.coords.latitude || 0,
+      accuracy: sample?.coords.accuracy || 0,
+      geoHash: '',
+      wifiHash: '',
+      hash: ''
+    }, JSON.stringify(e));
   }
-
-  await createCluster(clustersDB, firstLocationInBuffer);
-  await addToClustringResultLog(firstLocationInBuffer, 'new cluster created');
 };
 
 const areLocationsCreatingCluster = (clusterOrLocation: Cluster|DBLocation, location: DBLocation) => {

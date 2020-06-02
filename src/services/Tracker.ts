@@ -13,7 +13,7 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, SERVICE_TRACKER } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -82,7 +82,7 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
             }));
           } else {
             const sick = await sickDB.addSickRecord(currentSick);
-            
+
             filteredIntersected.push(sick);
 
           }
@@ -140,7 +140,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       }
     }
   } catch (error) {
-    
+
     onError({ error });
   }
 };
@@ -181,7 +181,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   } else {
     // new exposure that doesn't overlap
     const sick = await sickDB.addBLESickRecord(startContactTimestamp);
-    
+
     await onSickPeopleNotify([sick]);
   }
 };
@@ -236,7 +236,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
     }
   } catch (error) {
     onError({ error });
-    
+
   }
 };
 
@@ -354,7 +354,7 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: ExposureProperties[]) => {
   try {
-    
+
     if (sickPeopleIntersected.length > 0) {
       await store().dispatch(setExposures(sickPeopleIntersected.map((exposure: any) => ({ properties: { ...exposure } }))));
 
@@ -368,7 +368,7 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: ExposureProperti
       );
     }
   } catch (error) {
-    
+
 
     onError({ error });
   }
