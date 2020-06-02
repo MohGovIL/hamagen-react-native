@@ -11,7 +11,7 @@ import { match } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
-import { Cluster, Exposure, Location, SickJSON } from '../types';
+import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
 import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS, } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
@@ -103,11 +103,9 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
       store().dispatch(setExposures([newExposure]));
       await onSickPeopleNotify([{
-        properties: {
-          ...overlappingGeoExposure,
-          wasThere: true,
-          BLETimestamp: startContactTimestamp
-        }
+        ...overlappingGeoExposure,
+        wasThere: true,
+        BLETimestamp: startContactTimestamp
       }]);
     } else {
       // update in past exposures
@@ -121,14 +119,9 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
     }
   } else {
     // new exposure that doesn't overlap
-    await sickDB.addBLESickRecord(startContactTimestamp);
-
-    await onSickPeopleNotify([{
-      properties: {
-        wasThere: true,
-        BLETimestamp: startContactTimestamp
-      }
-    }]);
+    const sick = await sickDB.addBLESickRecord(startContactTimestamp);
+    
+    await onSickPeopleNotify([sick]);
   }
 };
 
@@ -165,14 +158,14 @@ export const checkGeoSickPeople = async () => {
             // update merged exposure in store
             store().dispatch(updateBlePastExposure({
               properties: {
-                ...currentSick.properties,
+                ...currSick.properties,
                 BLETimestamp: overlappingBLEExposure.BLETimestamp,
                 wasThere: true
               }
             }));
           } else {
-            filteredIntersected.push(currSick);
-            await dbSick.addSickRecord(currSick);
+            const sick = await dbSick.addSickRecord(currSick);
+            filteredIntersected.push(sick);
           }
         }
       }
@@ -209,7 +202,7 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
     });
   }
 
-  return sickPeopleIntersected;
+  return [...new Set(sickPeopleIntersected)];
 };
 
 export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickRecordsJson: SickJSON) => {
@@ -253,8 +246,9 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
     });
   });
 
+  const sickPeopleIntersectedSet = new Set(sickPeopleIntersected);
   // sort array from the most early to last
-  return sickPeopleIntersected.sort((intersectA, intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse();
+  return [...sickPeopleIntersectedSet].sort((intersectA, intersectB) => intersectB.fromTime_utc - intersectA.fromTime_utc);
 };
 
 
@@ -296,10 +290,10 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
   });
 };
 
-export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
+export const onSickPeopleNotify = async (sickPeopleIntersected: ExposureProperties[]) => {
   try {
     if (sickPeopleIntersected.length > 0) {
-      store().dispatch(setExposures(sickPeopleIntersected));
+      await store().dispatch(setExposures(sickPeopleIntersected.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const { locale, notificationData } = await store().dispatch(initLocale());
 

@@ -40,9 +40,10 @@ const ExposuresHistory = (
     wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
-  const [lineAnimLeft] = useState(new Animated.Value(0));
+  const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
+  const [firstLoad, setFirstLoad] = useState(true)
 
   useEffect(() => {
     // didn't layout yet
@@ -51,18 +52,18 @@ const ExposuresHistory = (
       Animated.parallel([
         Animated.timing(lineAnimLeft, {
           toValue: tabsLayout[tabIndex].x - LINE_MARGIN + (isRTL ? tabIndex * SCREEN_WIDTH / 2 : SCREEN_WIDTH / 2 * (tabIndex ? 0 : 1)),
-          duration: ANIMATION_DURATION,
+          duration: firstLoad ? 0 :ANIMATION_DURATION,
         }),
         Animated.timing(listTranslateAnim, {
           toValue: tabIndex ? SCREEN_WIDTH : 0,
-          duration: ANIMATION_DURATION,
+          duration: firstLoad ? 0 : ANIMATION_DURATION,
           useNativeDriver: true
         }),
         Animated.timing(lineAnimWidth, {
           toValue: tabsLayout[tabIndex].width + (LINE_MARGIN * 2),
-          duration: ANIMATION_DURATION,
+          duration: firstLoad ? 0 :ANIMATION_DURATION,
         })
-      ]).start();
+      ]).start(() => setFirstLoad(false));
     }
   }, [tabIndex, tabsLayout, isRTL]);
 
