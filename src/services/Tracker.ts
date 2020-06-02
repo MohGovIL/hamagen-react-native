@@ -225,7 +225,6 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
             }));
           } else {
             const sick = await dbSick.addSickRecord(currSick);
-            
             filteredIntersected.push(sick);
           }
         }
@@ -263,7 +262,6 @@ export const getIntersectingSickRecords = (myData: Location[], sickRecordsJson: 
       });
     });
   }
-  // remove duplicates
   return [...new Set(sickPeopleIntersected)];
 };
 
@@ -354,7 +352,7 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
   });
 };
 
-export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
+export const onSickPeopleNotify = async (sickPeopleIntersected: ExposureProperties[]) => {
   try {
     
     if (sickPeopleIntersected.length > 0) {

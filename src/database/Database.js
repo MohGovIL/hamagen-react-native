@@ -466,9 +466,9 @@ export class IntersectionSickDatabase {
     db.transaction(async (tx) => {
       try {
         const [_, results] = await tx.executeSql(`SELECT * FROM IntersectingSick WHERE OBJECTID =${OBJECTID}`);
-        
+
         const item = results.rows.item(0);
-        
+
         resolve(item);
       } catch (error) {
         onError({ error });
@@ -480,9 +480,9 @@ export class IntersectionSickDatabase {
     db.transaction(async (tx) => {
       try {
         const [_, results] = await tx.executeSql(`SELECT * FROM IntersectingSick WHERE BLETimestamp =${BLETimestamp}`);
-        
+
         const item = results.rows.item(0);
-        
+
         resolve(item);
       } catch (error) {
         onError({ error });
@@ -578,15 +578,17 @@ export class IntersectionSickDatabase {
                 null,
                 null
               ]);
-            
+
             const item = await this.getGeoRecord(record.properties.Key_Field, db);
-            
+
             resolve(item);
           } catch (error) {
+            resolve(record.properties);
             onError({ error });
           }
         });
       } catch (error) {
+        resolve(record.properties);
         onError({ error });
       }
     });
@@ -600,11 +602,12 @@ export class IntersectionSickDatabase {
         return db.transaction(async (tx) => {
           await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp,wasThere) VALUES (?,?)', [BLETimestamp, true]);
           const item = await this.getBleRecord(BLETimestamp, db);
+          
           resolve(item);
         });
       } catch (error) {
         onError({ error });
-        resolve(null);
+        resolve({ BLETimestamp, wasThere: true });
       }
     });
   }

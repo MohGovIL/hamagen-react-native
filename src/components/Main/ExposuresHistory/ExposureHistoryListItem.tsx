@@ -69,8 +69,8 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
       <View
         style={{
-          paddingBottom: 20,
           paddingTop: 25,
+          paddingBottom: 20,
           paddingHorizontal: 15,
           flexDirection: isRTL ? 'row-reverse' : 'row',
           justifyContent: 'center',
