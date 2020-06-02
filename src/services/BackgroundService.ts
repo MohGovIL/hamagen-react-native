@@ -19,9 +19,10 @@ export const scheduleTask = async () => {
         try {
           console.log('Background fetch event fired');
           await initConfig();
-          const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
-          await checkBLESickPeople(lastFetch);
-          await checkGeoSickPeople(lastFetch);
+          
+          await checkBLESickPeople();
+          await checkGeoSickPeople();
+          
           await AsyncStorage.setItem(
             LAST_FETCH_TS,
             JSON.stringify(new Date().getTime()),

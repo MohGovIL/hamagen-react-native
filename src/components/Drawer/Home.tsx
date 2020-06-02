@@ -38,12 +38,15 @@ const DrawerStack = ({ navigation, route }) => {
 
   useEffect(() => {
     if (initialRouteName !== '' && exposures?.length > 0) {
-      if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
+      if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) {
+        
+        navigation.navigate('ExposureDetected');
+      }
     }
-  }, [exposures, initialRouteName]);
-
+  }, [exposures, initialRouteName, route]);
   if (!initialRouteName) return null;
-
+  
+  
   return (
     <Stack.Navigator gestureEnabled={false} mode="modal" headerMode="none" initialRouteName={initialRouteName} screenOptions={() => ({ gestureEnabled: false })}>
       <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ showBleInfo: showBLEPermission !== 'true' }} />
