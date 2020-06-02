@@ -13,17 +13,15 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS, } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-  // prevent excessive calls to checkSickPeople
-  // if (lastFetch && moment().valueOf() - lastFetch > config().fetchMilliseconds) {
+
   //   await checkBLESickPeople(lastFetch);
   //   await checkGeoSickPeople(lastFetch);
-  // }
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
@@ -238,7 +236,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
       }
     }
   } catch (error) {
-    onError({error});
+    onError({ error });
     debugger
   }
 };
