@@ -38,7 +38,8 @@ interface ScanHomeProps {
   removeValidExposure(): void,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
-  showMapModal(exposure: Exposure): void
+  showMapModal(exposure: Exposure): void,
+  checkIfBleEnabled(): void
 }
 
 // user has Relevant event by time and location
@@ -99,7 +100,6 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     if(exposures.length > 0) {
       navigation.navigate('ExposureDetected')
     }
-    
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);

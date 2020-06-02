@@ -27,6 +27,7 @@ export const scheduleTask = async () => {
           
           await checkBLESickPeople();
           await checkGeoSickPeople();
+          
           await AsyncStorage.setItem(
             LAST_FETCH_TS,
             JSON.stringify(new Date().getTime()),
