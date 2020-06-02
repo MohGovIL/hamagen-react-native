@@ -77,7 +77,6 @@ export const match = async () => new Promise(async (resolve) => {
       resolve(parsedRes);
     });
   } catch (error) {
-
     resolve([]);
     onError({ error });
   }

@@ -35,7 +35,7 @@ interface Props {
 
 // exposure: { properties: { Place, fromTime } },
 const ExposureInstructions = ({ navigation, route }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     isRTL,
     locale,
@@ -92,25 +92,21 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   }, [languages.short, locale]);
 
   const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => {
-    let ListText
+    let ListText;
 
     if (exposure.properties.BLETimestamp) {
+      const time = moment(exposure.properties.BLETimestamp).startOf('hour');
 
-      const time = moment(exposure.properties.BLETimestamp).startOf('hour')
+      const exposureDate = time.format('DD.MM.YY');
+      const exposureStartHour = time.format('HH:mm');
+      const exposureEndHour = time.add(1, 'hour').format('HH:mm');
 
-      const exposureDate = time.format('DD.MM.YY')
-      const exposureStartHour = time.format('HH:mm')
-      const exposureEndHour = time.add(1, 'hour').format('HH:mm')
-
-      ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>)
-
+      ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>);
     } else {
-      const { Place, fromTime } = exposure.properties
-      const time = moment()
-      ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>)
+      const { Place, fromTime } = exposure.properties;
+      const time = moment();
+      ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>);
     }
-
-
 
 
     return (
@@ -119,8 +115,8 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
         {ListText}
 
       </Text>
-    )
-  }), [exposures, locale])
+    );
+  }), [exposures, locale]);
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
     <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN ? styles.actionButtonContainerSmall : styles.actionButtonContainerBig, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
@@ -169,7 +165,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       </>
     ),
 
-    [route.params?.update, shouldShowMore]);
+  [route.params?.update, shouldShowMore]);
 
   return (
 
@@ -227,7 +223,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
           bold
           onPress={() => {
             navigation.navigate('ScanHome');
-            dispatch(moveAllToPastExposures())
+            dispatch(moveAllToPastExposures());
             AsyncStorage.removeItem(INIT_ROUTE_NAME);
           }}
           style={{
@@ -293,11 +289,11 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     marginHorizontal: 10
   } : {
-      lineHeight: 16,
-      fontSize: 16,
-      marginBottom: 23,
-      marginTop: 13
-    },
+    lineHeight: 16,
+    fontSize: 16,
+    marginBottom: 23,
+    marginTop: 13
+  },
   buttonText: {
     fontSize: IS_SMALL_SCREEN ? 12 : 14,
     color: '#fff'

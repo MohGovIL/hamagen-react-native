@@ -13,7 +13,7 @@ interface Props {
 
 
 const ExposureRelief = ({ navigation }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { isRTL,
     strings: { exposureRelief: { editBtn, title, keepSafe, backBtn } }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -69,10 +69,11 @@ const ExposureRelief = ({ navigation }: Props) => {
       </View>
       <ActionButton
         onPress={() => {
-          dispatch(moveAllToPastExposures())
-          navigation.navigate('ScanHome')
+          dispatch(moveAllToPastExposures());
+          navigation.navigate('ScanHome');
         }}
-        text={backBtn} />
+        text={backBtn}
+      />
     </View>
   );
 };

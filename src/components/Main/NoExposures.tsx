@@ -82,19 +82,19 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   const LocationHistoryInfo = () => {
     if (hideLocationHistory) return null;
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
-  }
+  };
 
   const EnableBluetooth = () => {
-
-    if (enableBle !== null) return null
-    return (<InfoBubble
-      isRTL={isRTL}
-      info={canIdentifyWithBluetooth}
-      moreInfo={moreInformation}
-      onPress={goToBluetoothPermission}
-    />
-    )
-  }
+    if (enableBle !== null) return null;
+    return (
+      <InfoBubble
+        isRTL={isRTL}
+        info={canIdentifyWithBluetooth}
+        moreInfo={moreInformation}
+        onPress={goToBluetoothPermission}
+      />
+    );
+  };
 
   return (
     <>
@@ -103,18 +103,21 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
           <LocationHistoryInfo />
           <EnableBluetooth />
           <BluetoothState>
-            {!IS_IOS && <BluetoothState.PoweredOff>
+            {!IS_IOS && (
+            <BluetoothState.PoweredOff>
               {({ enable, openSettings }) => {
-                if (!enableBle) return null
+                if (!enableBle) return null;
                 return (
                   <InfoBubble
                     isRTL={isRTL}
                     info={bluetoothServiceOff}
                     moreInfo={turnBluetoothOn}
-                    onPress={() => { !IS_IOS ? enable() : openSettings() }} />
-                )
+                    onPress={() => { !IS_IOS ? enable() : openSettings(); }}
+                  />
+                );
               }}
-            </BluetoothState.PoweredOff>}
+            </BluetoothState.PoweredOff>
+            )}
           </BluetoothState>
           <LottieView
             style={styles.lottie}

@@ -20,9 +20,10 @@ const BluetoothOnboarding: FunctionComponent<Props> = ({ navigation }) => {
       <OnboardingHeader />
       <BluetoothPermission onEnd={() => {
         const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
-        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding')
+        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
       }
-      } />
+      }
+      />
     </GeneralContainer>
   );
 };

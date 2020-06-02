@@ -36,9 +36,8 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const handlePressAndroid = async () => {
     onEnd();
     // ENABLE_BLE
-    dispatch({ type: ENABLE_BLE, payload: true })
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true')
-
+    dispatch({ type: ENABLE_BLE, payload: true });
+    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
   };
 
   return (

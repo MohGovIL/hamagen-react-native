@@ -86,7 +86,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     }, 3000);
 
     checkIfHideLocationHistory();
-    checkIfBleEnabled()
+    checkIfBleEnabled();
     checkConnectionStatusOnLoad();
 
     AppState.addEventListener('change', onAppStateChange);

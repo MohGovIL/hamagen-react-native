@@ -7,9 +7,9 @@ import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
 import config from '../config/config';
 
-export const initBLETracing = Promise.resolve
+export const initBLETracing = Promise.resolve;
 
-export const registerBLEListeners = () => {}
+export const registerBLEListeners = () => {};
 
 export const fetchInfectionDataByConsent = async () => new Promise(async (resolve) => {
   try {
@@ -34,7 +34,6 @@ export const match = async () => new Promise(async (resolve) => {
       resolve(parsedRes);
     });
   } catch (error) {
-
     resolve([]);
     onError({ error });
   }

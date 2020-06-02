@@ -34,7 +34,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const [state, setState] = useState<ShareStates>('beforeShare');
   const [failState, setFailState] = useState<ShareFailState>('');
   const [canRetry, setRetryState] = useState(true);
-  const [agreeToBle, onValueSelected] = useState(false)
+  const [agreeToBle, onValueSelected] = useState(false);
   const { token } = route.params;
 
   useEffect(() => {
@@ -117,19 +117,21 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const combinedState: ShareStates & ShareFailState = state + failState;
 
   const AgreeToBleCheckbox = () => {
-    if (!IS_IOS && state === 'beforeShare') return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
-        <View style={styles.box}>
-          {agreeToBle && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
-        </View>
+    if (!IS_IOS && state === 'beforeShare') {
+      return (
+        <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
+          <View style={styles.box}>
+            {agreeToBle && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
+          </View>
 
-        <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{addBleDataText}</Text>
+          <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{addBleDataText}</Text>
 
-      </TouchableOpacity>
-    )
+        </TouchableOpacity>
+      ); 
+    }
 
-    return null
-  }
+    return null;
+  };
 
   return (
     <View style={styles.container}>

@@ -27,7 +27,7 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
   const { pastExposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [newExposureArr, setNewExposureArray] = useState(_.cloneDeep(pastExposures));
 
-  const showBLEWarning = useMemo(() => pastExposures.some(({ properties }: Exposure) => properties.BLETimestamp), [pastExposures.length])
+  const showBLEWarning = useMemo(() => pastExposures.some(({ properties }: Exposure) => properties.BLETimestamp), [pastExposures.length]);
 
   const setSelected = (index, wasThere) => {
     setNewExposureArray((exposureArrState) => {
@@ -102,7 +102,8 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
         style={{ marginHorizontal: 15, marginBottom: 10, opacity: BLETimestamp ? 0.7 : 1 }}
         showExposureOnMap={() => dispatch(showMapModal(item))}
       >
-        {!BLETimestamp && Place && (<View style={{
+        {!BLETimestamp && Place && (
+        <View style={{
           flexDirection: isRTL ? 'row' : 'row-reverse',
           marginTop: 20,
 
@@ -121,7 +122,8 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
             <Text style={[styles.actionBtnText, wasThereSelected && styles.actionBtnSelectedText]} bold={wasThereSelected}>{wasMe}</Text>
           </TouchableOpacity>
 
-        </View>)}
+        </View>
+        )}
       </ExposureHistoryListItem>
 
     );
@@ -161,13 +163,16 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
                     source={require('../../../assets/main/moreInfo.png')}
                     customStyles={{
                       [isRTL ? 'marginLeft' : 'marginRight']: 8
-                    }} />
+                    }}
+                  />
                   <Text 
-                  style={{
-                    fontSize: 13,
-                    color: 'rgb(106,106,106)'
-                  }}
-                  >{BLEWarning}</Text>
+                    style={{
+                      fontSize: 13,
+                      color: 'rgb(106,106,106)'
+                    }}
+                  >
+                    {BLEWarning}
+                  </Text>
                 </View>
               )}
             </View>
@@ -198,7 +203,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f7f8fa',
   },
   listContainer: {
-    flexGrow:1,
+    flexGrow: 1,
     paddingBottom: PADDING_BOTTOM(49),
 
   },

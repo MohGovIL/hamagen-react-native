@@ -218,7 +218,7 @@ const Loading: FunctionComponent<Props> = (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
           <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen  name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
+          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />

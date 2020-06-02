@@ -37,7 +37,7 @@ const ExposuresHistory = (
   const wasThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => properties?.wasThere), [pastExposures]);
   const wasNotThereList = useMemo(() => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere), [pastExposures]);
   const showEditBtn = useMemo(() => {
-    wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null)
+    wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(0));

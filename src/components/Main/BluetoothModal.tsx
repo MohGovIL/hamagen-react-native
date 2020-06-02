@@ -8,13 +8,12 @@ import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREE_TO_BLE } from 
 import { ENABLE_BLE } from '../../constants/ActionTypes';
 
 const BluetoothModal = ({ navigation }) => {
-  
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleExit = async () => {
-    dispatch({type: ENABLE_BLE, payload: false })
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false')
-    navigation.goBack()
-  }
+    dispatch({ type: ENABLE_BLE, payload: false });
+    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+    navigation.goBack();
+  };
 
   return (
     <View style={styles.container}> 

@@ -7,7 +7,7 @@ import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
-import { match } from './BLEService'
+import { match } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
@@ -18,7 +18,6 @@ import { LAST_FETCH_TS, DISMISSED_EXPOSURES, ENABLE_BLE, IS_IOS, } from '../cons
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
-
   await checkBLESickPeople();
   await checkGeoSickPeople();
 
@@ -32,8 +31,6 @@ export const startForegroundTimer = async () => {
 };
 
 const backgroundTimerFn = async () => {
-  
-
   await checkBLESickPeople();
   await checkGeoSickPeople();
 
@@ -41,8 +38,7 @@ const backgroundTimerFn = async () => {
     LAST_FETCH_TS,
     JSON.stringify(moment().valueOf()),
   );
-
-}
+};
 
 export const queryDB = async (isClusters: boolean) => {
   const db = new UserLocationsDatabase();
@@ -54,19 +50,19 @@ export const queryDB = async (isClusters: boolean) => {
 
 export const checkBLESickPeople = async () => {
   // IOS currently disables BLE
-  if (IS_IOS) return
+  if (IS_IOS) return;
 
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
     if (moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
-      return
+      return;
     }
 
-    const bleMatches: any[] = await match()
+    const bleMatches: any[] = await match();
 
     if (bleMatches.length > 0) {
-      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0]
+      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0];
 
       // convert ble match to have normal time(it lacks the ms's)
       const bleMatch = {
@@ -81,7 +77,7 @@ export const checkBLESickPeople = async () => {
       const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
 
       if (!hasBLTS) {
-        await checkBleAndGeoIntersection(bleMatch, sickDB)
+        await checkBleAndGeoIntersection(bleMatch, sickDB);
       }
     }
   } catch (error) {
@@ -91,8 +87,7 @@ export const checkBLESickPeople = async () => {
 
 
 const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
-
-  const exposures: Exposure[] = await sickDB.listAllRecords()
+  const exposures: Exposure[] = await sickDB.listAllRecords();
 
   const overlappingGeoExposure = exposures.find((properties) => {
     return properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)) > 0;
@@ -115,8 +110,8 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
         }
       }]);
     } else {
-       // update in past exposures
-       store().dispatch(updateGeoPastExposure({
+      // update in past exposures
+      store().dispatch(updateGeoPastExposure({
         properties: {
           ...overlappingGeoExposure,
           wasThere: true,
@@ -135,7 +130,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       }
     }]);
   }
-}
+};
 
 
 export const checkGeoSickPeople = async () => {
@@ -143,7 +138,7 @@ export const checkGeoSickPeople = async () => {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
     if (moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
-      return
+      return;
     }
 
     const responseJson: SickJSON = await downloadAndVerifySigning(config().dataUrl_utc);
@@ -153,12 +148,10 @@ export const checkGeoSickPeople = async () => {
     const sickPeopleIntersected: any = shouldFilterByGeohash ? getIntersectingSickRecordsByGeoHash(myData, responseJson) : getIntersectingSickRecords(myData, responseJson);
 
     if (sickPeopleIntersected.length > 0) {
-
       const dbSick = new IntersectionSickDatabase();
 
-      let filteredIntersected: Exposure[] = []
+      const filteredIntersected: Exposure[] = [];
       for (const currSick of sickPeopleIntersected) {
-
         const queryResult = await dbSick.containsObjectID(
           currSick.properties.Key_Field,
         );
@@ -291,22 +284,21 @@ export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { prop
 };
 
 const checkGeoAndBleIntersection = async (currSick, dbSick) => {
-  const exposures: Exposure[] = await dbSick.listAllRecords()
+  const exposures: Exposure[] = await dbSick.listAllRecords();
   return exposures.find((exposure) => {
     // if its a geo exposure or exposure doesn't have ble time stamp
-    if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false
+    if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
 
-    const bleStart = moment.utc(exposure.BLETimestamp).startOf('hour').valueOf()
-    const bleEnd = moment.utc(exposure.BLETimestamp).startOf('hour').add(1, 'hours').valueOf()
+    const bleStart = moment.utc(exposure.BLETimestamp).startOf('hour').valueOf();
+    const bleEnd = moment.utc(exposure.BLETimestamp).startOf('hour').add(1, 'hours').valueOf();
 
-    return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0
-  })
-}
+    return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
+  });
+};
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
     if (sickPeopleIntersected.length > 0) {
-
       store().dispatch(setExposures(sickPeopleIntersected));
 
       const { locale, notificationData } = await store().dispatch(initLocale());

@@ -13,4 +13,4 @@ export * from './ForceTerms';
 export * from './GoogleTimeLine';
 export * from './WebviewHeader';
 export * from './HeaderButton';
-export * from './CardIdentifyTag'
+export * from './CardIdentifyTag';

@@ -16,16 +16,16 @@ interface Props {
 }
 
 const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, isRTL, strings: { scanHome: { fromHour, showOnMap, inDate, betweenHours, locationCloseTag, deviceCloseTag }, exposuresHistory: { BLELocationUpdate } }, Place, fromTime, BLETimestamp, showExposureOnMap }) => {
-  const isBLE: boolean = useMemo(() => Boolean(BLETimestamp), [BLETimestamp])
+  const isBLE: boolean = useMemo(() => Boolean(BLETimestamp), [BLETimestamp]);
 
-  let TimeText
+  let TimeText;
 
   if (isBLE) {
-    const time = moment(BLETimestamp).startOf('hour')
+    const time = moment(BLETimestamp).startOf('hour');
 
-    const exposureDate = time.format('DD.MM.YY')
-    const exposureStartHour = time.format('HH:mm')
-    const exposureEndHour = time.add(1, 'hour').format('HH:mm')
+    const exposureDate = time.format('DD.MM.YY');
+    const exposureStartHour = time.format('HH:mm');
+    const exposureEndHour = time.add(1, 'hour').format('HH:mm');
 
     TimeText = (
       <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
@@ -33,7 +33,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
         <Text style={styles.text}>{`${betweenHours} `}</Text>
         <Text style={styles.text} bold>{`${exposureStartHour}-${exposureEndHour}`}</Text>
       </Text>
-    )
+    );
   } else {
     TimeText = (
       <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
@@ -41,10 +41,10 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
         <Text style={styles.text}>{`${fromHour} `}</Text>
         <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
       </Text>
-    )
+    );
   }
 
-  let LocationUpdateTag = null
+  let LocationUpdateTag = null;
   if (isBLE && Place) {
     LocationUpdateTag = (
       <View
@@ -55,12 +55,13 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
           flexDirection: isRTL ? 'row-reverse' : 'row',
           alignItems: 'center'
-        }}>
+        }}
+      >
         <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgb(44,191,220)', marginHorizontal: 6 }} />
         <Text style={{ fontSize: 12, letterSpacing: -0.09 }}>{BLELocationUpdate}</Text>
 
       </View>
-    )
+    );
   }
 
   return (
@@ -73,7 +74,8 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
           flexDirection: isRTL ? 'row-reverse' : 'row',
           justifyContent: 'center',
           alignItems: 'center',
-        }}>
+        }}
+      >
 
         <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginHorizontal: 7.5 }} />
 

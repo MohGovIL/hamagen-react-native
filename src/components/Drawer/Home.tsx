@@ -37,7 +37,6 @@ const DrawerStack = ({ navigation, route }) => {
   }, []);
 
   useEffect(() => {
-    
     if (initialRouteName !== '' && exposures?.length > 0) {
       if (route.state?.routes && !route.state.routes.some(({ name }) => name === 'ExposureDetected')) navigation.navigate('ExposureDetected');
     }
@@ -46,7 +45,7 @@ const DrawerStack = ({ navigation, route }) => {
   if (!initialRouteName) return null;
 
   return (
-    <Stack.Navigator gestureEnabled={false} mode="modal" headerMode="none" initialRouteName={initialRouteName} screenOptions={() => ({gestureEnabled: false})}>
+    <Stack.Navigator gestureEnabled={false} mode="modal" headerMode="none" initialRouteName={initialRouteName} screenOptions={() => ({ gestureEnabled: false })}>
       <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ showBleInfo: showBLEPermission !== 'true' }} />
       <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />

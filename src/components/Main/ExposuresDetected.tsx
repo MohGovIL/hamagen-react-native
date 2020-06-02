@@ -39,7 +39,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
 
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
-  const isOneBle = useMemo(() => exposures.length === 1 && exposures[0].properties.BLETimestamp !== null)
+  const isOneBle = useMemo(() => exposures.length === 1 && exposures[0].properties.BLETimestamp !== null);
   const flatListRef = useRef(null);
 
   useEffect(() => {
@@ -59,17 +59,17 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       duration,
       useNativeDriver: true,
       delay: 300
-    }).start()
-  }
+    }).start();
+  };
 
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      if (!isOneBle && 
-        exposures.every(exposure => exposure.properties.wasThere !== null)) {
-          showButton(0);
+      if (!isOneBle 
+        && exposures.every(exposure => exposure.properties.wasThere !== null)) {
+        showButton(0);
       }
     }, [])
   );
@@ -83,7 +83,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null || exposure.properties.wasThere === undefined);
 
       if (emptyIndex === -1) {
-        showButton()
+        showButton();
       } else if (index + 1 < exposures.length) {
         setTimeout(() => {
           if (flatListRef?.current) {
@@ -96,7 +96,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       } else {
         // all selected show finish button and findIndex get me last index
         if (emptyIndex === -1 || exposures.length - 1 === emptyIndex) {
-          showButton()
+          showButton();
         } else {
           flatListRef?.current?.scrollToIndex({
             index: emptyIndex,
@@ -105,7 +105,6 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
         }
       }
     }
-
   };
 
   const editDone = () => {
@@ -115,19 +114,16 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
     if (isExposed) {
       // move to ExposureInstructions
-      const showEdit = exposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp)
+      const showEdit = exposures.some((exposure: Exposure) => !exposure.properties.BLETimestamp);
       navigation.navigate('ExposureInstructions', { showEdit });
     } else {
       // move to ExposureRelief
       navigation.navigate('ExposureRelief');
       AsyncStorage.removeItem(INIT_ROUTE_NAME);
     }
-
-    
   };
 
   const RenderBleExposure = ({ index, exposure: { properties: { BLETimestamp, OBJECTID, Place } } }) => {
-
     const [exposureDate, exposureStartHour, exposureEndHour] = useMemo(() => {
       const time = moment(BLETimestamp).startOf('hour');
 
@@ -171,7 +167,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             <Text style={[styles.actionBtnText, styles.actionBtnSelectedText]} bold>{exposures.length === 1 ? wasMeOnly : wasMeBle}</Text>
           </TouchableOpacity>
         </View>
-        <CardIdentifyTag isRTL={isRTL} text={deviceCloseTag} color='rgba(44,191,220,0.5)' />
+        <CardIdentifyTag isRTL={isRTL} text={deviceCloseTag} color="rgba(44,191,220,0.5)" />
       </Animated.View>
     );
   };
@@ -217,7 +213,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             </TouchableOpacity>
           </View>
         </View>
-        <CardIdentifyTag isRTL={isRTL} text={locationCloseTag} color='rgba(217,228,140,0.6)' />
+        <CardIdentifyTag isRTL={isRTL} text={locationCloseTag} color="rgba(217,228,140,0.6)" />
       </Animated.View>
     );
   };

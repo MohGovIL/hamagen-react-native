@@ -18,8 +18,6 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
 
     const json = JSON.parse(jsonB64);
 
-
-
     // @ts-ignore
     const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
 
@@ -35,7 +33,6 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     }
     
     reject('invalid ECDSA signature');
-
   } catch (error) {
     reject(error);
     onError({ error });
