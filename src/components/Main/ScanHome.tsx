@@ -63,7 +63,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     dismissExposure,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    showMapModal
+    showMapModal,
+    checkIfBleEnabled
   }
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
@@ -154,11 +155,9 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   };
 
 
-  const RelevantState = useMemo(() => {
-    if (!hasLocation || !hasNetwork || !hasGPS) {
-      return (<NoData strings={strings} />);
-    }
-    return (
+  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS)
+    ? (<NoData strings={strings} />)
+    : (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
@@ -174,7 +173,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         showBleInfo={route.params?.showBleInfo}
       />
     );
-  }, [hasLocation, hasNetwork, hasGPS, locale]);
+
 
   return (
     <View style={styles.container}>
@@ -215,5 +214,6 @@ export default connect(mapStateToProps, {
   dismissExposure,
   checkForceUpdate,
   checkIfHideLocationHistory,
-  showMapModal
+  showMapModal,
+  checkIfBleEnabled
 })(ScanHome);
