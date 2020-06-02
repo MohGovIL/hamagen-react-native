@@ -24,9 +24,9 @@ export const scheduleTask = async () => {
           await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - background', timestamp: moment().valueOf() }]));
 
           await initConfig();
-          const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
-          await checkBLESickPeople(lastFetch);
-          await checkGeoSickPeople(lastFetch);
+          
+          await checkBLESickPeople();
+          await checkGeoSickPeople();
           await AsyncStorage.setItem(
             LAST_FETCH_TS,
             JSON.stringify(new Date().getTime()),

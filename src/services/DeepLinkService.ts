@@ -48,7 +48,7 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
 
 export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: boolean = false) => new Promise(async (resolve, reject) => {
   try {
-    const objectToShare = { token}
+    const objectToShare = { token };
     const isClusters = config().dataShareClusters;
 
     const locations: DBLocation[] = await queryDB(isClusters);
@@ -70,14 +70,14 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       return location;
     });
 
-    if(dataRows) {
-      objectToShare.dataRows = dataRows
+    if (dataRows) {
+      objectToShare.dataRows = dataRows;
     }
 
-    if(!IS_IOS && userAgreedToBle) {
+    if (!IS_IOS && userAgreedToBle) {
       const dataBleRows = await fetchInfectionDataByConsent();
-      if(dataBleRows) {
-        objectToShare.dataBleRows = dataBleRows
+      if (dataBleRows) {
+        objectToShare.dataBleRows = dataBleRows;
       }
     }
     

@@ -73,22 +73,24 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
+  // await AsyncStorage.removeItem(USER_AGREE_TO_BLE)
+  
   if (IS_IOS) {
-    dispatch({ type: ENABLE_BLE, payload: false })
+    dispatch({ type: ENABLE_BLE, payload: false });
   } else {
-
     try {
-      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE)
+      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+      
       if (payload) {
-        payload = JSON.parse(payload)
+        payload = JSON.parse(payload);
       }
-      dispatch({ type: ENABLE_BLE, payload })
+      dispatch({ type: ENABLE_BLE, payload });
     } catch (error) {
-      onError({ error })
-      dispatch({ type: ENABLE_BLE, payload: null })
+      onError({ error });
+      dispatch({ type: ENABLE_BLE, payload: null });
     }
   }
-}
+};
 
 export const showMapModal = ({ properties }: Exposure) => {
   let latitude = 0;

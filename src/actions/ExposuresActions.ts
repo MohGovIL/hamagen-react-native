@@ -35,7 +35,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     filteredExposures = exposures.filter((exposure) => {
       if (exposure.properties?.BLETimestamp) {
         return !parsedDismissedExposures.includes(exposure.properties?.BLETimestamp);
-      }
+      } 
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
@@ -97,18 +97,18 @@ export const replacePastExposureSelected = (payload: Exposure[]) => async (dispa
 };
 
 export const moveAllToPastExposures = () => async (dispatch: any, getState: any) => {
-  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures: [] } })
-}
+  dispatch({ type: REPLACE_EXPOSURES, payload: { exposures: [] } });
+};
 
 export const updateGeoPastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
   const { pastExposures }: ExposuresReducer = getState().exposures;
-  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.OBJECTID === exposure.properties.OBJECTID)
+  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.OBJECTID === exposure.properties.OBJECTID);
 
   if (index !== -1) {
-    pastExposures[index] = exposureToReplace
-    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
+    pastExposures[index] = exposureToReplace;
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures });
   }
-}
+};
 
 
 export const updateBlePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {

@@ -119,10 +119,10 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       return;
     }
 
-    const bleMatches: any[] = await match()
+    const bleMatches: any[] = await match();
 
     if (bleMatches.length > 0) {
-      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0]
+      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0];
 
       // convert ble match to have normal time(it lacks the ms's)
       const bleMatch = {
@@ -179,7 +179,6 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
           BLETimestamp: startContactTimestamp
         }
       }));
-
     }
   } else {
     // new exposure that doesn't overlap
@@ -194,7 +193,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   }
 };
 
-export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters: boolean) => {
+export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters: boolean = false) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
@@ -211,7 +210,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
     if (sickPeopleIntersected.length > 0) {
       const dbSick = new IntersectionSickDatabase();
 
-      let filteredIntersected: Exposure[] = []
+      const filteredIntersected: Exposure[] = [];
       for (const currSick of sickPeopleIntersected) {
         const queryResult = await dbSick.containsObjectID(
           currSick.properties.Key_Field,

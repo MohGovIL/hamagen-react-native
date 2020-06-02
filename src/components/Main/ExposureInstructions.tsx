@@ -16,9 +16,10 @@ import {
   HIT_SLOP,
   INIT_ROUTE_NAME
 } from '../../constants/Constants';
-import {  Icon, Text, TouchableOpacity } from '../common';
+import { Icon, Text, TouchableOpacity } from '../common';
 import { Exposure, Store, LocaleReducer } from '../../types';
 import { moveAllToPastExposures } from '../../actions/ExposuresActions';
+
 
 if (
   Platform.OS === 'android'
@@ -34,7 +35,7 @@ interface Props {
 
 // exposure: { properties: { Place, fromTime } },
 const ExposureInstructions = ({ navigation, route }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const {
     isRTL,
     locale,
@@ -78,7 +79,6 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', () => true);
-      
     };
   }, []);
 
@@ -92,22 +92,20 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   }, [languages.short, locale]);
 
   const ExposureList = useMemo(() => exposures.map((exposure: Exposure) => {
-    let ListText
+    let ListText;
 
     if (exposure.properties.BLETimestamp) {
+      const time = moment(exposure.properties.BLETimestamp).startOf('hour');
 
-      const time = moment(exposure.properties.BLETimestamp).startOf('hour')
+      const exposureDate = time.format('DD.MM.YY');
+      const exposureStartHour = time.format('HH:mm');
+      const exposureEndHour = time.add(1, 'hour').format('HH:mm');
 
-      const exposureDate = time.format('DD.MM.YY')
-      const exposureStartHour = time.format('HH:mm')
-      const exposureEndHour = time.add(1, 'hour').format('HH:mm')
-
-      ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>)
-
+      ListText = (<Text>{`${deviceCloseTag}: ${inDate} ${exposureDate} ${betweenHours} ${exposureStartHour}-${exposureEndHour}`}</Text>);
     } else {
-      const { Place, fromTime } = exposure.properties
-      const time = moment()
-      ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>)
+      const { Place, fromTime } = exposure.properties;
+      const time = moment();
+      ListText = (<Text>{`${locationCloseTag}: ${atPlace}${Place} ${inDate} ${moment(fromTime).format('DD.MM.YY')} ${fromHour} ${moment(fromTime).format('HH:mm')}`}</Text>);
     }
 
 
@@ -225,7 +223,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
           bold
           onPress={() => {
             navigation.navigate('ScanHome');
-            dispatch(moveAllToPastExposures())
+            dispatch(moveAllToPastExposures());
             AsyncStorage.removeItem(INIT_ROUTE_NAME);
           }}
           style={{

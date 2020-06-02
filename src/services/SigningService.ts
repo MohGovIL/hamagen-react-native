@@ -33,7 +33,6 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     }
     
     reject('invalid ECDSA signature');
-
   } catch (error) {
     reject(error);
     onError({ error });

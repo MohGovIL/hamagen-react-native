@@ -8,12 +8,12 @@ import { Store, LocaleReducer } from '../../types';
 import { moveAllToPastExposures } from '../../actions/ExposuresActions';
 
 interface Props {
-    navigation: StackNavigationProp<any>
+  navigation: StackNavigationProp<any>
 }
 
 
 const ExposureRelief = ({ navigation }: Props) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { isRTL,
     strings: { exposureRelief: { editBtn, title, keepSafe, backBtn } }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -67,10 +67,13 @@ const ExposureRelief = ({ navigation }: Props) => {
         </Text>
 
       </View>
-      <ActionButton onPress={() => {
-        dispatch(moveAllToPastExposures())
-        navigation.navigate('ScanHome')
-        }} text={backBtn} />
+      <ActionButton
+        onPress={() => {
+          dispatch(moveAllToPastExposures());
+          navigation.navigate('ScanHome');
+        }}
+        text={backBtn}
+      />
     </View>
   );
 };

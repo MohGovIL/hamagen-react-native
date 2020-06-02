@@ -78,8 +78,7 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
     }
 
     case ENABLE_BLE: {
-
-      return {...state, enableBle: action.payload}
+      return { ...state, enableBle: action.payload };
     }
 
     default:

@@ -21,7 +21,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
   let TimeText;
 
   if (isBLE) {
-    const time = moment.utc(BLETimestamp).startOf('hour');
+    const time = moment(BLETimestamp).startOf('hour');
 
     const exposureDate = time.format('DD.MM.YY');
     const exposureStartHour = time.format('HH:mm');

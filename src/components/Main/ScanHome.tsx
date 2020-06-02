@@ -62,7 +62,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     removeValidExposure,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    showMapModal
+    showMapModal,
+    checkIfBleEnabled
   }
 ) => {
   const appStateStatus = useRef<AppStateStatus>('active');
@@ -85,7 +86,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     }, 3000);
 
     checkIfHideLocationHistory();
-    checkIfBleEnabled()
+    checkIfBleEnabled();
     checkConnectionStatusOnLoad();
 
     AppState.addEventListener('change', onAppStateChange);
@@ -154,11 +155,9 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   }, [exposures, pastExposures]);
 
 
-  const RelevantState = () => {
-    if (!hasLocation || !hasNetwork || !hasGPS) {
-      return (<NoData strings={strings} />);
-    }
-    return (
+  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS)
+    ? (<NoData strings={strings} />)
+    : (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
@@ -174,7 +173,6 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         showBleInfo={route.params?.showBleInfo}
       />
     );
-  };
 
   return (
     <View style={styles.container}>
@@ -186,7 +184,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-      <RelevantState />
+      {RelevantState}
     </View>
   );
 };
@@ -215,5 +213,6 @@ export default connect(mapStateToProps, {
 
   checkForceUpdate,
   checkIfHideLocationHistory,
-  showMapModal
+  showMapModal,
+  checkIfBleEnabled
 })(ScanHome);
