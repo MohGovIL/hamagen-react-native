@@ -575,8 +575,8 @@ export class IntersectionSickDatabase {
                 record.properties.toTime_utc,
                 record.geometry.coordinates[config().sickGeometryLongIndex],
                 record.geometry.coordinates[config().sickGeometryLatIndex],
-                null,
-                null
+                null, // wasThere
+                null // BLETimeStamp
               ]);
 
             const item = await this.getGeoRecord(record.properties.Key_Field, db);
