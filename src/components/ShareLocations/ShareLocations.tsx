@@ -3,11 +3,11 @@ import { StyleSheet, AppState, AppStateStatus, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { useDispatch, useSelector } from 'react-redux';
-import { ActionButton, HeaderButton, Icon, Text } from '../common';
+import { ActionButton, HeaderButton, Icon, Text, TouchableOpacity } from '../common';
 import { shareUserLocations } from '../../actions/DeepLinkActions';
 import { Strings } from '../../locale/LocaleData';
 import { LocaleReducer, Store } from '../../types';
-import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP, TEXT_COLOR, IS_IOS } from '../../constants/Constants';
 
 interface Props {
   route: any,
@@ -24,16 +24,17 @@ const ICON = {
   shareFail: SHARE_FAIL_ICON,
 };
 
-type ShareStates = 'beforeShare'|'shareNoConnection'|'shareSuccess'|'shareFail'
-type ShareFailState = ''|'MissingToken'|'TokenError'
+type ShareStates = 'beforeShare' | 'shareNoConnection' | 'shareSuccess' | 'shareFail'
+type ShareFailState = '' | 'MissingToken' | 'TokenError' | 'WithWarnings'
 
 const ShareLocations = ({ route, navigation }: Props) => {
-  const { strings: { shareLocation: { title, description, greeting, button } } } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { isRTL, strings: { shareLocation: { title, description, greeting, button, addBleDataText } } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const dispatch = useDispatch();
 
   const [state, setState] = useState<ShareStates>('beforeShare');
   const [failState, setFailState] = useState<ShareFailState>('');
   const [canRetry, setRetryState] = useState(true);
+  const [agreeToBle, onValueSelected] = useState(false);
   const { token } = route.params;
 
   useEffect(() => {
@@ -51,18 +52,24 @@ const ShareLocations = ({ route, navigation }: Props) => {
 
     return () => {
       netInfoUnsubscribe();
-      AppState.removeEventListener('change', () => {});
+      AppState.removeEventListener('change', () => { });
     };
   }, []);
 
   const onButtonPress = async () => {
     try {
       if (canRetry) {
-        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token));
+        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token, agreeToBle));
 
         switch (statusCode) {
           case 'CompletSuccessfully': {
             setState('shareSuccess');
+            setRetryState(false);
+            break;
+          }
+          case 'CompleteWithWarnings': {
+            setState('shareFail');
+            setFailState('WithWarnings');
             setRetryState(false);
             break;
           }
@@ -109,6 +116,23 @@ const ShareLocations = ({ route, navigation }: Props) => {
   // @ts-ignore
   const combinedState: ShareStates & ShareFailState = state + failState;
 
+  const AgreeToBleCheckbox = () => {
+    if (!IS_IOS && state === 'beforeShare') {
+      return (
+        <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
+          <View style={styles.box}>
+            {agreeToBle && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
+          </View>
+
+          <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{addBleDataText}</Text>
+
+        </TouchableOpacity>
+      ); 
+    }
+
+    return null;
+  };
+
   return (
     <View style={styles.container}>
       {Header}
@@ -120,8 +144,10 @@ const ShareLocations = ({ route, navigation }: Props) => {
         <Text style={{ ...styles.description, fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{description[combinedState]}</Text>
         <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state]}</Text>
       </View>
-
-      <ActionButton text={button[combinedState]} onPress={onButtonPress} />
+      <View style={{ alignItems: 'center' }}>
+        <AgreeToBleCheckbox />
+        <ActionButton text={button[combinedState]} onPress={onButtonPress} />
+      </View>
     </View>
   );
 };
@@ -143,6 +169,20 @@ const styles = StyleSheet.create({
   description: {
     marginBottom: 17,
     lineHeight: 19
+  },
+  box: {
+    width: 20,
+    height: 20,
+    borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: TEXT_COLOR
+  },
+  text: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#6a6a6a',
+    paddingHorizontal: 10,
   }
 });
 

@@ -421,7 +421,7 @@ export class IntersectionSickDatabase {
 
         db = DB;
 
-        await db.executeSql('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat);');
+        await db.executeSql('CREATE TABLE IF NOT EXISTS IntersectingSick (OBJECTID,Name,Place,Comments,fromTime,toTime,long,lat,wasThere,BLETimestamp);');
 
         resolve(db);
       } catch (error) {
@@ -498,6 +498,36 @@ export class IntersectionSickDatabase {
     });
   }
 
+  containsBLE(BLETimestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          const [_, results] = await tx.executeSql('SELECT * FROM IntersectingSick WHERE BLETimestamp = ? ', [BLETimestamp]);
+
+          resolve(results?.rows?.length > 0);
+        });
+      } catch (error) {
+        onError({ error });
+        resolve(null);
+      }
+    });
+  }
+
+  async deleteAll() {
+    if (!__DEV__) return;
+    try {
+      const db = await this.initDB();
+
+      db.transaction(async (tx) => {
+        await tx.executeSql('DELETE FROM IntersectingSick');
+      });
+    } catch (e) {
+      onError({ e });
+    }
+  }
+
   addSickRecord(record) {
     return new Promise(async (resolve) => {
       try {
@@ -505,7 +535,7 @@ export class IntersectionSickDatabase {
 
         db.transaction(async (tx) => {
           try {
-            const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?)',
+            const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick VALUES (?,?,?,?,?,?,?,?,?,?)',
               [
                 record.properties.Key_Field,
                 record.properties.Name,
@@ -514,7 +544,7 @@ export class IntersectionSickDatabase {
                 record.properties.fromTime_utc,
                 record.properties.toTime_utc,
                 record.geometry.coordinates[config().sickGeometryLongIndex],
-                record.geometry.coordinates[config().sickGeometryLatIndex]
+                record.geometry.coordinates[config().sickGeometryLatIndex],
               ]);
 
             resolve(results);
@@ -526,5 +556,124 @@ export class IntersectionSickDatabase {
         onError({ error });
       }
     });
+  }
+
+  addBLESickRecord(BLETimestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        return db.transaction(async (tx) => {
+          const [_, results] = await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp,wasThere) VALUES (?,?)', [BLETimestamp, true]);
+
+          resolve(results);
+        });
+      } catch (error) {
+        onError({ error });
+        resolve(null);
+      }
+    });
+  }
+
+  async MergeBLEIntoSickRecord(OBJECTID, BLETimestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+        db.transaction(async (tx) => {
+          const [_, results] = await tx.executeSql('UPDATE IntersectingSick SET wasThere = ?, BLETimestamp = ? WHERE OBJECTID = ?',
+            [
+              true,
+              BLETimestamp,
+              OBJECTID
+            ]);
+
+          if (results.rows.length > 0) {
+            resolve(results.rows.item(0));
+          }
+          resolve(null);
+        });
+      } catch (error) {
+        onError({ error });
+        resolve(null);
+      }
+    });
+  }
+
+  // 
+  async MergeGeoIntoSickRecord(record, BLETimestamp) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+      
+        return db.transaction(async (tx) => {
+          const [_, results] = await tx.executeSql('UPDATE IntersectingSick SET OBJECTID = ?,Name = ?,Place = ?,Comments = ?,fromTime = ?,toTime = ?,long = ?,lat = ?,wasThere =?  WHERE BLETimestamp = ?',
+            [
+              record.properties.Key_Field,
+              record.properties.Name,
+              record.properties.Place,
+              record.properties.Comments,
+              record.properties.fromTime_utc,
+              record.properties.toTime_utc,
+              record.geometry.coordinates[config().sickGeometryLongIndex],
+              record.geometry.coordinates[config().sickGeometryLatIndex],
+              true,
+              BLETimestamp
+            ]);
+          results;
+          
+          if (results.rowsAffected > 0) {
+            resolve(results.rows.item(0));
+          }
+          
+          resolve(null);
+        });
+      } catch (error) {
+        onError({ error });
+        resolve(null);
+      }
+    });
+  }
+
+
+  async updateSickRecord(record) {
+    try {
+      const db = await this.initDB();
+
+      return db.transaction(async (tx) => {
+        const [_, results] = await tx.executeSql('UPDATE IntersectingSick set wasThere = ? WHERE OBJECTID = ?',
+          [
+            record.properties.wasThere,
+            record.properties.OBJECTID
+          ]);
+
+        if (results.rows.length > 0) {
+          return results.rows.item(0);
+        }
+        return null;
+      });
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
+  }
+
+  // first load after app update add wasThere property to dismissed exposures 
+  async upgradeSickRecord(IDs) {
+    try {
+      IDs.forEach(async (id) => {
+        await this.updateSickRecord(
+          {
+            properties: {
+              OBJECTID: id,
+              wasThere: false
+            }
+          }
+        );
+      });
+      return null;
+    } catch (error) {
+      onError({ error });
+      return null;
+    }
   }
 }

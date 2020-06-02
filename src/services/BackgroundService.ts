@@ -1,7 +1,9 @@
 import BackgroundFetch from 'react-native-background-fetch';
+import AsyncStorage from '@react-native-community/async-storage';
 import config, { initConfig } from '../config/config';
-import { checkSickPeople } from './Tracker';
+import { checkGeoSickPeople, checkBLESickPeople } from './Tracker';
 import { onError } from './ErrorService';
+import { LAST_FETCH_TS } from '../constants/Constants';
 
 export const scheduleTask = async () => {
   try {
@@ -17,7 +19,13 @@ export const scheduleTask = async () => {
         try {
           console.log('Background fetch event fired');
           await initConfig();
-          await checkSickPeople();
+          const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+          await checkBLESickPeople(lastFetch);
+          await checkGeoSickPeople(lastFetch);
+          await AsyncStorage.setItem(
+            LAST_FETCH_TS,
+            JSON.stringify(new Date().getTime()),
+          );
           BackgroundFetch.finish(BackgroundFetch.FETCH_RESULT_NEW_DATA);
         } catch (error) {
           onError({ error });

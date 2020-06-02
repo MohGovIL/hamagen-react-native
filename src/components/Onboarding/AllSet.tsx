@@ -10,6 +10,7 @@ import { scheduleTask } from '../../services/BackgroundService';
 import { startForegroundTimer } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
+import { initBLETracing } from '../../services/BLEService';
 import { NotificationData, Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, IS_FIRST_TIME, DID_CLUSTER_LOCATIONS } from '../../constants/Constants';
 
@@ -47,6 +48,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await AsyncStorage.setItem(DID_CLUSTER_LOCATIONS, 'true');
 
       startForegroundTimer();
+      await initBLETracing();
       await startSampling(locale, notificationData);
       await scheduleTask();
 

@@ -1,7 +1,9 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { fetchInfectionDataByConsent } from './BLEService';
 import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
+import { IS_IOS } from '../constants/Constants';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -44,8 +46,9 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
   return obj;
 };
 
-export const getUserLocationsReadyForServer = (token: string) => new Promise(async (resolve, reject) => {
+export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: boolean = false) => new Promise(async (resolve, reject) => {
   try {
+    const objectToShare = { token };
     const isClusters = config().dataShareClusters;
 
     const locations: DBLocation[] = await queryDB(isClusters);
@@ -67,7 +70,18 @@ export const getUserLocationsReadyForServer = (token: string) => new Promise(asy
       return location;
     });
 
-    resolve({ token, dataRows });
+    if (dataRows) {
+      objectToShare.dataRows = dataRows;
+    }
+
+    if (!IS_IOS && userAgreedToBle) {
+      const dataBleRows = await fetchInfectionDataByConsent();
+      if (dataBleRows) {
+        objectToShare.dataBleRows = dataBleRows;
+      }
+    }
+    
+    resolve(objectToShare);
   } catch (e) {
     reject(e);
   }

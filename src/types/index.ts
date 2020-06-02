@@ -11,6 +11,8 @@ export interface Config {
   versionsUrl: string,
   dataShareUrl: string,
   fetchMilliseconds: number,
+  minimumBLEFetchIntervalMin: number,
+  minimumGeoFetchIntervalMin: number,
   meterRadius: number,
   clusterRadius: number,
   jitterValue: number,
@@ -64,7 +66,8 @@ export interface ExposureProperties {
   geohashFilter: string,
   lat?: number,
   long?: number,
-  wasThere?: boolean
+  wasThere?: boolean,
+  BLETimestamp?: number
 }
 
 export interface ExposureGeometry {
@@ -74,7 +77,7 @@ export interface ExposureGeometry {
 }
 
 export interface Exposure {
-  properties:ExposureProperties,
+  properties: ExposureProperties,
   geometry: ExposureGeometry
 }
 

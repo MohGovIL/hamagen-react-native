@@ -21,7 +21,7 @@ export const IS_SMALL_SCREEN: boolean = SCREEN_HEIGHT < 618;
 // Colors
 export const MAIN_COLOR = '#0077c8';
 export const TEXT_COLOR = '#191919';
-export const WHITE = '#fff'
+export const WHITE = '#fff';
 export const BACK_DROP_COLOR: string = 'rgba(0,0,0,0.7)';
 
 // Styles
@@ -51,6 +51,9 @@ export const IS_LAST_POINT_FROM_TIMELINE = 'IS_LAST_POINT_FROM_TIMELINE';
 export const HIGH_VELOCITY_POINTS = 'HIGH_VELOCITY_POINTS';
 export const MOTION_PERMISSION_CALL_TO_ACTION = 'MOTION_PERMISSION_CALL_TO_ACTION';
 export const INIT_ROUTE_NAME = 'INIT_ROUTE_NAME';
+export const USER_AGREE_BLE = 'USER_AGREE_BLE';
+export const SICK_DB_UPDATED = 'SICK_DB_UPDATED';
+
 
 // Cluster
 export const CLUSTER_JITTER_LOCATION = 'CLUSTER_JITTER_LOCATION';
@@ -60,3 +63,6 @@ export const DID_CLUSTER_LOCATIONS = 'DID_CLUSTER_LOCATIONS';
 // GeneralWebview
 export const USAGE_ON_BOARDING = 'USAGE_ON_BOARDING';
 export const USAGE_PRIVACY = 'USAGE_PRIVACY';
+
+// BLE
+export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE';

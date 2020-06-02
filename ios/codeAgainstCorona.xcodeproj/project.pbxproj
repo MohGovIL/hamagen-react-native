@@ -11,6 +11,10 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		208E7CE72472E35B001C2D93 /* outputserverReponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 208E7CE52472E35B001C2D93 /* outputserverReponse.json */; };
+		208E7CE82472E35B001C2D93 /* outputserverReponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 208E7CE52472E35B001C2D93 /* outputserverReponse.json */; };
+		208E7CE92472E35B001C2D93 /* outputcontacts.json in Resources */ = {isa = PBXBuildFile; fileRef = 208E7CE62472E35B001C2D93 /* outputcontacts.json */; };
+		208E7CEA2472E35B001C2D93 /* outputcontacts.json in Resources */ = {isa = PBXBuildFile; fileRef = 208E7CE62472E35B001C2D93 /* outputcontacts.json */; };
 		ACE92AE39AB97EC6E1FCB1F0 /* libPods-hamagen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 255E6F5C10E31B05B2AF7E1D /* libPods-hamagen.a */; };
 		D52A57B4241E29B800521B22 /* SimplerPro_V3-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B0241E29B800521B22 /* SimplerPro_V3-Regular.otf */; };
 		D52A57B5241E29B800521B22 /* SimplerPro_V3-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = D52A57B1241E29B800521B22 /* SimplerPro_V3-Light.otf */; };
@@ -34,16 +38,6 @@
 		D5CC7DD924236B25007E3977 /* RNBackgroundFetch+AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83FF5F851AFD0D2B0016A13E;
-			remoteInfo = RNBackgroundGeolocation;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		06C33C418EB6D49AE30A90FC /* Pods-hamagen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.debug.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.debug.xcconfig"; sourceTree = "<group>"; };
@@ -56,6 +50,8 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = codeAgainstCorona/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = codeAgainstCorona/main.m; sourceTree = "<group>"; };
 		17128358241FCBDE007B9600 /* Code against corona.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "Code against corona.entitlements"; path = "codeAgainstCorona/Code against corona.entitlements"; sourceTree = "<group>"; };
+		208E7CE52472E35B001C2D93 /* outputserverReponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = outputserverReponse.json; sourceTree = "<group>"; };
+		208E7CE62472E35B001C2D93 /* outputcontacts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = outputcontacts.json; sourceTree = "<group>"; };
 		21858F4152B91CBBAEADF062 /* Pods-hamagen-qa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen-qa.release.xcconfig"; path = "Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa.release.xcconfig"; sourceTree = "<group>"; };
 		255E6F5C10E31B05B2AF7E1D /* libPods-hamagen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		306EADB8C444D747A3FC1024 /* libPods-codeAgainstCorona-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-codeAgainstCorona-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,7 +78,6 @@
 		D52A57F12422D39600521B22 /* libRNBackgroundFetch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libRNBackgroundFetch.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5AE4CD7FF26A69806CF4680 /* Pods-hamagen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.release.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.release.xcconfig"; sourceTree = "<group>"; };
 		D5BCF08D24641F8800FC4B8C /* המגןRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "המגןRelease.entitlements"; sourceTree = "<group>"; };
-		D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNBackgroundGeolocation.xcodeproj; path = "../node_modules/react-native-background-geolocation/ios/RNBackgroundGeolocation.xcodeproj"; sourceTree = "<group>"; };
 		D5CC7DC924235864007E3977 /* TSBackgroundFetch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TSBackgroundFetch.framework; path = Pods/TSBackgroundFetch/ios/TSBackgroundFetch/TSBackgroundFetch.framework; sourceTree = "<group>"; };
 		D5CC7DD724236B25007E3977 /* RNBackgroundFetch+AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "RNBackgroundFetch+AppDelegate.m"; path = "../node_modules/react-native-background-fetch/ios/RNBackgroundFetch/RNBackgroundFetch+AppDelegate.m"; sourceTree = "<group>"; };
 		D63C3A392EF9FA65DE3BC9DD /* libPods-hamagen-qa.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-hamagen-qa.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +145,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -158,6 +152,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				208E7CE62472E35B001C2D93 /* outputcontacts.json */,
+				208E7CE52472E35B001C2D93 /* outputserverReponse.json */,
 				D5BCF08D24641F8800FC4B8C /* המגןRelease.entitlements */,
 				D52A57DD24204EB200521B22 /* המגן QA.entitlements */,
 				13B07FAE1A68108700A75B9A /* codeAgainstCorona */,
@@ -236,14 +232,6 @@
 			path = qa;
 			sourceTree = "<group>";
 		};
-		D5CC7DC4242357EA007E3977 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -301,7 +289,7 @@
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = N3P977USJJ;
 						LastSwiftMigration = 1120;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					D52A57BF24203FBB00521B22 = {
 						DevelopmentTeam = N3P977USJJ;
@@ -321,12 +309,6 @@
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = D5CC7DC4242357EA007E3977 /* Products */;
-					ProjectRef = D5CC7DC3242357EA007E3977 /* RNBackgroundGeolocation.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* hamagen */,
@@ -334,16 +316,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		D5CC7DC8242357EA007E3977 /* libRNBackgroundGeolocation.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNBackgroundGeolocation.a;
-			remoteRef = D5CC7DC7242357EA007E3977 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
@@ -354,7 +326,9 @@
 				D52A57B6241E29B800521B22 /* SimplerPro_V3-Black.otf in Resources */,
 				D52A57BB241FE12000521B22 /* Images.xcassets in Resources */,
 				D52A57B7241E29B800521B22 /* SimplerPro_V3-Bold.otf in Resources */,
+				208E7CE72472E35B001C2D93 /* outputserverReponse.json in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				208E7CE92472E35B001C2D93 /* outputcontacts.json in Resources */,
 				D52A57B5241E29B800521B22 /* SimplerPro_V3-Light.otf in Resources */,
 				D52A57DC2420405900521B22 /* GoogleService-Info.plist in Resources */,
 			);
@@ -369,9 +343,11 @@
 				D52A57CC24203FBB00521B22 /* Images.xcassets in Resources */,
 				D52A57CD24203FBB00521B22 /* SimplerPro_V3-Bold.otf in Resources */,
 				D52A57CE24203FBB00521B22 /* LaunchScreen.xib in Resources */,
+				208E7CEA2472E35B001C2D93 /* outputcontacts.json in Resources */,
 				D52A57D024203FBB00521B22 /* SimplerPro_V3-Light.otf in Resources */,
 				D52A57DA2420404900521B22 /* GoogleService-Info.plist in Resources */,
 				D52A57D82420403100521B22 /* Info-qa.plist in Resources */,
+				208E7CE82472E35B001C2D93 /* outputserverReponse.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -400,10 +376,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-hamagen-qa/Pods-hamagen-qa-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/rn-contact-tracing/FrameworkModel.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FrameworkModel.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -514,10 +492,12 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-hamagen/Pods-hamagen-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/rn-contact-tracing/FrameworkModel.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FrameworkModel.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -572,11 +552,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 53;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 49;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = N3P977USJJ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 2.0.5;
@@ -587,7 +567,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
 				PRODUCT_NAME = "המגן";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -670,7 +650,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -716,7 +696,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -733,7 +713,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 62;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -743,8 +723,9 @@
 					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios",
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -770,7 +751,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 53;
+				CURRENT_PROJECT_VERSION = 62;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -779,8 +760,9 @@
 					"$(PROJECT_DIR)/../node_modules/react-native-background-geolocation/ios",
 				);
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.0.5;
+				MARKETING_VERSION = 2.0.14;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

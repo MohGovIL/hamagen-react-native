@@ -37,8 +37,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
       } else {
-        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
-        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
+        navigation.navigate('Bluetooth');
       }
     } catch (e) {
       // handled in service

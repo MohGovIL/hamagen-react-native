@@ -137,8 +137,8 @@ android {
         applicationId "com.hamagen"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 53
-        versionName '2.0.5'
+        versionCode 62
+        versionName '2.0.14'
     }
 
     dexOptions {
@@ -223,13 +223,13 @@ android {
 }
 
 dependencies {
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    
+    implementation project(':rn-contact-tracing')
     implementation "com.google.android.gms:play-services-base:+"
     implementation 'com.google.android.gms:play-services-maps:+'
     implementation 'com.google.firebase:firebase-core:17.3.0'
     implementation "com.google.firebase:firebase-messaging:20.1.5"
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "com.facebook.react:react-native:+"  // From node_modules
 
     if (enableHermes) {
         def hermesPath = "../../node_modules/hermes-engine/android/";

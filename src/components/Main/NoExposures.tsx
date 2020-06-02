@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, Linking } from 'react-native';
+import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
+import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-import LocationHistoryInfo from './LocationHistoryInfo';
+import { BluetoothState } from 'react-native-bluetooth-state-manager';
+import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
+
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -15,24 +17,28 @@ interface NoExposuresProps {
   hideLocationHistory: boolean,
   locale: string,
   languages: Languages,
+  enableBle: boolean | undefined,
   externalUrls: ExternalUrls,
   exposureState: 'pristine' | 'notRelevant' | 'relevant',
-  goToLocationHistory(): void
+  showBleInfo: boolean,
+  goToLocationHistory(): void,
+  goToBluetoothPermission(): void
 }
 
-const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, goToLocationHistory }: NoExposuresProps) => {
+
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
   const [now, setNow] = useState(moment().valueOf());
-  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint])
+  const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint]);
 
   const { nowDate, nowHour } = useMemo(() => ({
     nowDate: moment(now).format('D.M.YY'),
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
@@ -44,7 +50,7 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
   }, []);
 
   const RelevantCard = useMemo(() => {
-    if (exposureState !== 'relevant') return null
+    if (exposureState !== 'relevant') return null;
 
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
@@ -63,26 +69,56 @@ const NoExposures = ({ exposureState, languages, locale, externalUrls, isRTL, fi
           customStyles={isRTL ? { marginLeft: 10 } : { marginRight: 10 }}
         />
       </TouchableOpacity>
-    )
-  }, [exposureState, strings])
+    );
+  }, [exposureState, strings]);
 
   const onStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appState.current !== 'active') {
       setNow(moment().valueOf());
     }
-
     appState.current = state;
+  };
+
+  const LocationHistoryInfo = () => {
+    if (hideLocationHistory) return null;
+    return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
+  };
+
+  const EnableBluetooth = () => {
+    if (enableBle !== null) return null;
+    return (
+      <InfoBubble
+        isRTL={isRTL}
+        info={canIdentifyWithBluetooth}
+        moreInfo={moreInformation}
+        onPress={goToBluetoothPermission}
+      />
+    );
   };
 
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
         <View style={styles.container}>
-          {
-            !hideLocationHistory && (
-              <LocationHistoryInfo isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />
-            )
-          }
+          <LocationHistoryInfo />
+          <EnableBluetooth />
+          <BluetoothState>
+            {!IS_IOS && (
+            <BluetoothState.PoweredOff>
+              {({ enable, openSettings }) => {
+                if (!enableBle) return null;
+                return (
+                  <InfoBubble
+                    isRTL={isRTL}
+                    info={bluetoothServiceOff}
+                    moreInfo={turnBluetoothOn}
+                    onPress={() => { !IS_IOS ? enable() : openSettings(); }}
+                  />
+                );
+              }}
+            </BluetoothState.PoweredOff>
+            )}
+          </BluetoothState>
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
@@ -134,7 +170,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: PADDING_BOTTOM(58)
+    paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
     alignItems: 'center',

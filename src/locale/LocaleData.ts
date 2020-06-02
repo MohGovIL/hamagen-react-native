@@ -85,6 +85,13 @@ export interface Strings {
     subTitle1: string,
     subTitle2: string
   },
+  bluetooth: {
+    title: string,
+    description: string,
+    callToAction: string,
+    approveBluetoothIOS: string,
+    approveBluetoothAndroid: string
+  },
   location: {
     title: string,
     subTitle1: string,
@@ -161,7 +168,11 @@ export interface Strings {
       card: {
         title: string,
         atHour: string
-      }
+      },
+      bluetoothServiceOff: string,
+      turnBluetoothOn: string,
+      canIdentifyWithBluetooth: string,
+      moreInformation: string
     },
     showOnMap: string,
     wasNotMe: string,
@@ -177,8 +188,8 @@ export interface Strings {
     wasThere: string,
     wasThereNoExposure: string,
     wasNotThereNoExposure: string,
-    historyEditFinishBtn:string,
-    historyEditCancelBtn:string,
+    historyEditFinishBtn: string,
+    historyEditCancelBtn: string,
     edit: string
   },
   exposureInstructions: {
@@ -196,7 +207,9 @@ export interface Strings {
     editBtn: string,
     finishBtn: string,
     updateTitle: string,
-    updateSubTitle: string
+    updateSubTitle: string,
+    showMore: string,
+    showLess: string
   },
   locationHistory: {
     beforeCheckTitle: string,
@@ -237,7 +250,8 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     },
     greeting: {
       beforeShare: string,
@@ -251,7 +265,8 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     }
   },
   exposureRelief: {

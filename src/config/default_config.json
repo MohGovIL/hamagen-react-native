@@ -2,12 +2,15 @@
   "com.hamagen.dev": {
     "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
     "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
+    "BleDataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/BleUtc.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "dataShareUrl": "https://hamagenapitest.health.gov.il/api/data/UploadMobileData",
     "sampleDistance": 50,
     "sampleInterval": 60000,
     "fetchMilliseconds": 900000,
+    "minimumBLEFetchIntervalMin": 15,
+    "minimumGeoFetchIntervalMin": 60,
     "meterRadius": 50,
     "clusterRadius": 20,
     "jitterValue": 2,
@@ -109,6 +112,7 @@
   "com.hamagen.qa": {
     "dataUrl": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
     "dataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/PointsFiltered.json",
+    "BleDataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/BleUtc.json",
     "stringsUrl": "https://matrixdemos.blob.core.windows.net/mabar/texts.json",
     "versionsUrl": "https://matrixdemos.blob.core.windows.net/mabar/versions.json",
     "dataShareUrl": "https://hamagenapitest.health.gov.il/api/data/UploadMobileData",
@@ -216,6 +220,7 @@
   "com.hamagen": {
     "dataUrl": "https://gisweb.azureedge.net/PointsUtc.json",
     "dataUrl_utc": "https://gisweb.azureedge.net/PointsUtc.json",
+    "BleDataUrl_utc": "https://matrixdemos.blob.core.windows.net/mabar/BleUtc.json",
     "stringsUrl": "https://gisweb.azureedge.net/texts.json",
     "versionsUrl": "https://gisweb.azureedge.net/versions.json",
     "dataShareUrl": "https://hamagenapitest.health.gov.il/api/data/UploadMobileData",

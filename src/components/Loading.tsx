@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
@@ -20,6 +19,7 @@ import { purgeSamplesDB, startSampling } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
+import { initBLETracing, registerBLEListeners } from '../services/BLEService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -38,7 +38,10 @@ import {
   IS_FIRST_TIME,
   IS_IOS,
   USAGE_ON_BOARDING,
-  VALID_EXPOSURE
+  VALID_EXPOSURE,
+  DISMISSED_EXPOSURES,
+  SICK_DB_UPDATED,
+  VERSION_NAME
 } from '../constants/Constants';
 
 
@@ -62,7 +65,7 @@ interface Props {
   checkForceUpdate(): void
 }
 
-const Loading : FunctionComponent<Props> = (
+const Loading: FunctionComponent<Props> = (
   {
     isInitLocale,
     isRTL,
@@ -81,15 +84,15 @@ const Loading : FunctionComponent<Props> = (
     showForceTerms,
     checkForceUpdate,
     termsVersion
-  } 
+  }
 ) => {
   const shouldShowForceTerms = useRef(false);
 
   const [initialRoute, setInitialRoute] = useState('');
 
   useEffect(() => {
+    registerBLEListeners();
     appLoadingActions();
-
   }, []);
 
   useEffect(() => {
@@ -149,6 +152,8 @@ const Loading : FunctionComponent<Props> = (
         }
       }
 
+      await initBLETracing();
+      
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       await startForegroundTimer();
@@ -166,7 +171,20 @@ const Loading : FunctionComponent<Props> = (
       }
 
       const dbSick = new IntersectionSickDatabase();
-      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000)
+      // update all dismissed exposures to have wasThere property
+      const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
+
+
+      if (dbSickWasUpdated !== 'true') {
+        const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
+        if (dismissedExposures) {
+          await dbSick.upgradeSickRecord(JSON.parse(dismissedExposures));
+        }
+        await AsyncStorage.setItem(SICK_DB_UPDATED, 'true');
+      }
+      // remove intersections older then 2 weeks
+      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
+      // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
       
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
