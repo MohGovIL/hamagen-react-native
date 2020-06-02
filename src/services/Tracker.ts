@@ -82,7 +82,7 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
             }));
           } else {
             const sick = await sickDB.addSickRecord(currentSick);
-            debugger
+            
             filteredIntersected.push(sick);
 
           }
@@ -140,7 +140,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       }
     }
   } catch (error) {
-    debugger
+    
     onError({ error });
   }
 };
@@ -181,7 +181,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   } else {
     // new exposure that doesn't overlap
     const sick = await sickDB.addBLESickRecord(startContactTimestamp);
-    debugger
+    
     await onSickPeopleNotify([sick]);
   }
 };
@@ -225,7 +225,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
             }));
           } else {
             const sick = await dbSick.addSickRecord(currSick);
-            debugger
+            
             filteredIntersected.push(sick);
           }
         }
@@ -237,7 +237,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
     }
   } catch (error) {
     onError({ error });
-    debugger
+    
   }
 };
 
@@ -356,7 +356,7 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
-    debugger
+    
     if (sickPeopleIntersected.length > 0) {
       await store().dispatch(setExposures(sickPeopleIntersected.map((exposure: any) => ({ properties: { ...exposure } }))));
 
@@ -370,7 +370,7 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
       );
     }
   } catch (error) {
-    debugger
+    
 
     onError({ error });
   }

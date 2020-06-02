@@ -600,7 +600,6 @@ export class IntersectionSickDatabase {
         return db.transaction(async (tx) => {
           await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp,wasThere) VALUES (?,?)', [BLETimestamp, true]);
           const item = await this.getBleRecord(BLETimestamp, db);
-          debugger;
           resolve(item);
         });
       } catch (error) {
