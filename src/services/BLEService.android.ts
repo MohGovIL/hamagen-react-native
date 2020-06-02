@@ -69,7 +69,7 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
 
 export const match = async () => new Promise(async (resolve) => {
   try {
-    const responseJson = await downloadAndVerifySigning('https://matrixdemos.blob.core.windows.net/mabar/BleUtc.json');
+    const responseJson = await downloadAndVerifySigning(config().BleDataUrl_utc);
 
     SpecialBle.match(JSON.stringify(responseJson), (res: string) => {
       const parsedRes: any[] = JSON.parse(res || '[]');
