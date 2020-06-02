@@ -114,7 +114,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
-    if (!forceCheck && moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())) {
+    if (!forceCheck /*&& moment(lastFetch).add(config().minimumBLEFetchIntervalMin, 'm').isAfter(moment())*/ ) {
       return;
     }
 
@@ -190,7 +190,7 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
     // check if interval is above the minimum delay
-    if (!forceCheck && moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())) {
+    if (!forceCheck /*&& moment(lastFetch).add(config().minimumGeoFetchIntervalMin, 'm').isAfter(moment())*/) {
       return;
     }
 
