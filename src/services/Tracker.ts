@@ -2,7 +2,7 @@ import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
-import { setExposures } from '../actions/ExposuresActions';
+import { setExposures, updateGeoPastExposure, updateBlePastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
@@ -32,10 +32,10 @@ export const startForegroundTimer = async () => {
 };
 
 const backgroundTimerFn = async () => {
-  const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+  
 
-  await checkBLESickPeople(lastFetch);
-  await checkGeoSickPeople(lastFetch);
+  await checkBLESickPeople();
+  await checkGeoSickPeople();
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,
@@ -94,13 +94,12 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
 
   const exposures: Exposure[] = await sickDB.listAllRecords()
 
-  const overlappingGeoExposure = exposures.find(({ properties }) => {
-    properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)
-    ) > 0;
+  const overlappingGeoExposure = exposures.find((properties) => {
+    return properties?.OBJECTID && (Math.min(properties.toTime, endContactTimestamp) - Math.max(properties.fromTime, startContactTimestamp)) > 0;
   });
 
   if (overlappingGeoExposure) {
-    const newExposure = await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, startContactTimestamp);
+    await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, startContactTimestamp);
 
     // if user already told us he was not there - alert him by removing exposure from dismissed and resetting it in exposures
     if (!overlappingGeoExposure.wasThere) {
@@ -110,10 +109,20 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       store().dispatch(setExposures([newExposure]));
       await onSickPeopleNotify([{
         properties: {
+          ...overlappingGeoExposure,
           wasThere: true,
           BLETimestamp: startContactTimestamp
         }
       }]);
+    } else {
+       // update in past exposures
+       store().dispatch(updateGeoPastExposure({
+        properties: {
+          ...overlappingGeoExposure,
+          wasThere: true,
+          BLETimestamp: startContactTimestamp
+        }
+      }));
     }
   } else {
     // new exposure that doesn't overlap
@@ -160,6 +169,14 @@ export const checkGeoSickPeople = async () => {
           if (overlappingBLEExposure?.BLETimestamp) {
             // merge geo and ble exposure
             await dbSick.MergeGeoIntoSickRecord(currSick, overlappingBLEExposure.BLETimestamp);
+            // update merged exposure in store
+            store().dispatch(updateBlePastExposure({
+              properties: {
+                ...currentSick.properties,
+                BLETimestamp: overlappingBLEExposure.BLETimestamp,
+                wasThere: true
+              }
+            }));
           } else {
             filteredIntersected.push(currSick);
             await dbSick.addSickRecord(currSick);

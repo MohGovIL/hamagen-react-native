@@ -39,6 +39,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
 
   const [anim] = useState(new Animated.Value(SCREEN_HEIGHT * 0.08));
+  const isOneBle = useMemo(() => exposures.length === 1 && exposures[0].properties.BLETimestamp !== null)
   const flatListRef = useRef(null);
 
   useEffect(() => {
@@ -51,18 +52,24 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
     };
   }, []);
 
+
+  const showButton = (duration: number = 300) => {
+    Animated.timing(anim, {
+      toValue: 0,
+      duration,
+      useNativeDriver: true,
+      delay: 300
+    }).start()
+  }
+
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      if (exposures.every(exposure => exposure.properties.wasThere !== null)) {
-        Animated.timing(anim, {
-          toValue: 0,
-          duration: 0,
-          useNativeDriver: true,
-          delay: 300
-        }).start();
+      if (!isOneBle && 
+        exposures.every(exposure => exposure.properties.wasThere !== null)) {
+          showButton(0);
       }
     }, [])
   );
@@ -76,7 +83,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       const emptyIndex = exposures.findIndex(exposure => exposure.properties.wasThere === null || exposure.properties.wasThere === undefined);
 
       if (emptyIndex === -1) {
-        Animated.timing(anim, { toValue: 0, duration: 300, useNativeDriver: true, delay: 300 }).start();
+        showButton()
       } else if (index + 1 < exposures.length) {
         setTimeout(() => {
           if (flatListRef?.current) {
@@ -89,7 +96,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
       } else {
         // all selected show finish button and findIndex get me last index
         if (emptyIndex === -1 || exposures.length - 1 === emptyIndex) {
-          Animated.timing(anim, { toValue: 0, duration: 300, delay: 300, useNativeDriver: true }).start();
+          showButton()
         } else {
           flatListRef?.current?.scrollToIndex({
             index: emptyIndex,

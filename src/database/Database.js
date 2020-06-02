@@ -617,7 +617,6 @@ export class IntersectionSickDatabase {
               record.geometry.coordinates[config().sickGeometryLongIndex],
               record.geometry.coordinates[config().sickGeometryLatIndex],
               true,
-              BLETimestamp,
               BLETimestamp
             ]);
           results;

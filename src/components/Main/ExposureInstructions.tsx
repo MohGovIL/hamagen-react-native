@@ -16,9 +16,10 @@ import {
   HIT_SLOP,
   INIT_ROUTE_NAME
 } from '../../constants/Constants';
-import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
-import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
+import { Icon, Text, TouchableOpacity } from '../common';
 import { Exposure, Store, LocaleReducer } from '../../types';
+import { moveAllToPastExposures } from '../../actions/ExposuresActions';
+
 
 if (
   Platform.OS === 'android'
@@ -78,7 +79,6 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', () => true);
-      // dispatch(moveAllToPastExposures())
     };
   }, []);
 
@@ -227,6 +227,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
           bold
           onPress={() => {
             navigation.navigate('ScanHome');
+            dispatch(moveAllToPastExposures())
             AsyncStorage.removeItem(INIT_ROUTE_NAME);
           }}
           style={{

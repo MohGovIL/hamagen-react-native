@@ -1,17 +1,19 @@
 import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, StyleSheet, Animated, ScrollView, FlatList } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Text, Icon, ActionButton, TouchableOpacity } from '../common';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_TOP, MAIN_COLOR } from '../../constants/Constants';
 import { Store, LocaleReducer } from '../../types';
+import { moveAllToPastExposures } from '../../actions/ExposuresActions';
 
 interface Props {
-    navigation: StackNavigationProp<any>
+  navigation: StackNavigationProp<any>
 }
 
 
 const ExposureRelief = ({ navigation }: Props) => {
+  const dispatch = useDispatch()
   const { isRTL,
     strings: { exposureRelief: { editBtn, title, keepSafe, backBtn } }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -65,7 +67,12 @@ const ExposureRelief = ({ navigation }: Props) => {
         </Text>
 
       </View>
-      <ActionButton onPress={() => navigation.navigate('ScanHome')} text={backBtn} />
+      <ActionButton
+        onPress={() => {
+          dispatch(moveAllToPastExposures())
+          navigation.navigate('ScanHome')
+        }}
+        text={backBtn} />
     </View>
   );
 };
