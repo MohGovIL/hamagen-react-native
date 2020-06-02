@@ -37,9 +37,9 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
   } else {
     TimeText = (
       <Text style={{ textAlign: isRTL ? 'right' : 'left' }}>
-        <Text style={styles.text} bold>{`${moment.utc(fromTime).format('DD.MM.YY')} `}</Text>
+        <Text style={styles.text} bold>{`${moment(fromTime).format('DD.MM.YY')} `}</Text>
         <Text style={styles.text}>{`${fromHour} `}</Text>
-        <Text style={styles.text} bold>{`${moment.utc(fromTime).format('HH:mm')}`}</Text>
+        <Text style={styles.text} bold>{`${moment(fromTime).format('HH:mm')}`}</Text>
       </Text>
     );
   }
@@ -69,7 +69,8 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
       <View
         style={{
-          paddingVertical: 20,
+          paddingBottom: 20,
+          paddingTop: 25,
           paddingHorizontal: 15,
           flexDirection: isRTL ? 'row-reverse' : 'row',
           justifyContent: 'center',

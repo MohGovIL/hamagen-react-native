@@ -69,12 +69,12 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
         if (!queryResult) {
 
           const overlappingBLEExposure = await checkGeoAndBleIntersection(currentSick, sickDB);
-          
+
           // BLE was found
           if (overlappingBLEExposure?.BLETimestamp) {
             // merge geo and ble exposure
             await sickDB.MergeGeoIntoSickRecord(currentSick, overlappingBLEExposure.BLETimestamp);
-            
+
             store().dispatch(updateBlePastExposure({
               properties: {
                 ...currentSick.properties,
@@ -83,8 +83,9 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
               }
             }));
           } else {
-            filteredIntersected.push(currentSick);
-            await sickDB.addSickRecord(currentSick);
+            const sick = await sickDB.addSickRecord(currentSick);
+            debugger
+            filteredIntersected.push(sick);
 
           }
         }
@@ -141,6 +142,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       }
     }
   } catch (error) {
+    debugger
     onError({ error });
   }
 };
@@ -164,11 +166,9 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
 
       await onSickPeopleNotify([{
-        properties: {
-          ...overlappingGeoExposure,
-          wasThere: true,
-          BLETimestamp: startContactTimestamp
-        }
+        ...overlappingGeoExposure,
+        wasThere: true,
+        BLETimestamp: startContactTimestamp
       }]);
     } else {
       // update in past exposures
@@ -182,14 +182,9 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
     }
   } else {
     // new exposure that doesn't overlap
-    await sickDB.addBLESickRecord(startContactTimestamp);
-
-    await onSickPeopleNotify([{
-      properties: {
-        wasThere: true,
-        BLETimestamp: startContactTimestamp
-      }
-    }]);
+    const sick = await sickDB.addBLESickRecord(startContactTimestamp);
+    debugger
+    await onSickPeopleNotify([sick]);
   }
 };
 
@@ -225,14 +220,15 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
             // update merged exposure in store
             store().dispatch(updateBlePastExposure({
               properties: {
-                ...currentSick.properties,
+                ...currSick.properties,
                 BLETimestamp: overlappingBLEExposure.BLETimestamp,
                 wasThere: true
               }
             }));
           } else {
-            filteredIntersected.push(currSick);
-            await dbSick.addSickRecord(currSick);
+            const sick = await dbSick.addSickRecord(currSick);
+            debugger
+            filteredIntersected.push(sick);
           }
         }
       }
@@ -242,7 +238,8 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
       }
     }
   } catch (error) {
-    onError(error);
+    onError({error});
+    debugger
   }
 };
 
@@ -314,7 +311,7 @@ export const getIntersectingSickRecordsByGeoHash = (myData: Location[], sickReco
   });
   const sickPeopleIntersectedSet = new Set(sickPeopleIntersected);
   // sort array from the most early to last
-  return [...sickPeopleIntersectedSet].sort((intersectA, intersectB) => intersectA.fromTime_utc - intersectB.fromTime_utc).reverse();
+  return [...sickPeopleIntersectedSet].sort((intersectA, intersectB) => intersectB.fromTime_utc - intersectA.fromTime_utc);
 };
 
 
@@ -345,10 +342,10 @@ export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { prop
 };
 
 const checkGeoAndBleIntersection = async (currSick, dbSick) => {
-  
+
   const exposures: Exposure[] = await dbSick.listAllRecords();
   return exposures.find((exposure) => {
-    
+
     // if its a geo exposure or exposure doesn't have ble time stamp
     if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
 
@@ -361,8 +358,9 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
 
 export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
   try {
+    debugger
     if (sickPeopleIntersected.length > 0) {
-      store().dispatch(setExposures(sickPeopleIntersected));
+      await store().dispatch(setExposures(sickPeopleIntersected.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const { locale, notificationData } = await store().dispatch(initLocale());
 
@@ -374,6 +372,8 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: Exposure[]) => {
       );
     }
   } catch (error) {
+    debugger
+
     onError({ error });
   }
 };
