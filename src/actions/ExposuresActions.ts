@@ -56,16 +56,17 @@ export const removeValidExposure = () => async (dispatch: any) => {
 export const dismissExposures = () => async (dispatch: any, getState: any) => {
   const { exposures }: ExposuresReducer = getState().exposures;
 
-  const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
-  if (dismissedExposures) {
-    const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-    // Set ensures no OBJECTID or BLETimestamp duplicates
-    const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.Key_Field).concat(parsedDismissedExposures));
+  let dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
 
-    await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
-  } else {
-    await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID)));
+  if (!dismissedExposures) {
+    dismissedExposures = '[]';
   }
+  const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
+  // Set ensures no OBJECTID or BLETimestamp duplicates
+  const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID).concat(parsedDismissedExposures));
+
+  await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
+
 };
 
 export const setExposureSelected = ({ index, wasThere }) => (dispatch: any, getState: any) => {
