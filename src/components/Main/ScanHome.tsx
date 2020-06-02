@@ -96,7 +96,10 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
 
-
+    if(exposures.length > 0) {
+      navigation.navigate('ExposureDetected')
+    }
+    
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
