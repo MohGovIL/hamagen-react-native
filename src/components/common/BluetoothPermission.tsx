@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 // import BluetoothStateManager from 'react-native-bluetooth-state-manager';
 import { ActionButton, Text, Icon, TouchableOpacity } from '.';
 import { Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, SCREEN_WIDTH } from '../../constants/Constants';
 import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { ENABLE_BLE } from '../../constants/ActionTypes';
@@ -64,10 +64,12 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
           containerStyle={{ marginBottom: 20 }}
         />
         {params?.showUsageLink && (
-          <TouchableOpacity onPress={() => dispatch(toggleWebview(true, USAGE_PRIVACY))}>
-            <Text style={{ fontSize: 14, letterSpacing: 0.26 }}>{additionalInfo}</Text>
-            <View style={styles.bottomBorder} />
-          </TouchableOpacity>
+          <View style={styles.termsWrapper}>
+            <TouchableOpacity onPress={() => dispatch(toggleWebview(true, USAGE_PRIVACY))}>
+              <Text style={{ fontSize: 14, letterSpacing: 0.26 }}>{additionalInfo}</Text>
+              <View style={styles.bottomBorder} />
+            </TouchableOpacity>
+          </View>
         )}
       </View>
     </>
@@ -101,6 +103,10 @@ const styles = StyleSheet.create({
     height: 2,
     borderRadius: 1,
     backgroundColor: MAIN_COLOR
+  },
+  termsWrapper: {
+    width: SCREEN_WIDTH * 0.7,
+    alignItems: 'center'
   }
 });
 
