@@ -34,7 +34,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const [state, setState] = useState<ShareStates>('beforeShare');
   const [failState, setFailState] = useState<ShareFailState>('');
   const [canRetry, setRetryState] = useState(true);
-  const [agreeToBle, onValueSelected] = useState(false);
+  const [agreeToBle, onValueSelected] = useState(true);
   const { token } = route.params;
 
   useEffect(() => {
