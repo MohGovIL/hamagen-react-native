@@ -11,6 +11,7 @@ import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
 import { SERVICE_TRACKER } from './src/constants/Constants';
+import log from './src/services/LogService';
 
 BackgroundGeolocation.onLocation(
   async () => {
@@ -28,8 +29,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     const { taskId } = event;
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
-    const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-    await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - headless', timestamp: moment().valueOf() }]));
+    await log('BackgroundFetch Headless');
 
     await initConfig();
     await checkGeoSickPeople();
@@ -43,8 +43,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
 const BackgroundGeolocationHeadlessTask = async (event) => {
   console.log('[BackgroundGeolocation HeadlessTask] -', event.name);
 
-  const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-  await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'BGLocation - headless', timestamp: moment().valueOf() }]));
+  await log('BGLocation Headless');
 
   await syncLocationsDBOnLocationEvent();
 };

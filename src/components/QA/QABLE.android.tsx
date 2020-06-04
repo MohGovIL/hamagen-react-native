@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Clipboard } from 'react-native';
+import { View, StyleSheet, Button, Alert, ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
@@ -7,33 +7,20 @@ import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
 import prompt from 'react-native-prompt-android';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
-import { bindActionCreators } from 'redux';
-import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import Geohash from 'latlon-geohash';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
 import RNFetchBlob from 'rn-fetch-blob';
-import { match } from 'src/services/BLEService';
-import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile } from '../../actions/ExposuresActions';
-import { checkGeoSickPeople, checkBLESickPeople, checkGeoSickPeopleFromFile, queryDB, checkBLESickPeopleFromFile } from '../../services/Tracker';
+import { checkBLESickPeople, checkGeoSickPeopleFromFile, queryDB, checkBLESickPeopleFromFile } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
-import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
 import { clusterSample } from '../../services/ClusteringService';
 import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../../database/Database';
 import { onError } from '../../services/ErrorService';
-import config from '../../config/config';
 import { Exposure } from '../../types';
-import {
-  ALL_POINTS_QA,
-  CLUSTERING_RESULT_LOG_FOR_QA,
-  HIGH_VELOCITY_POINTS_QA, IS_IOS,
-  PADDING_BOTTOM,
-  PADDING_TOP,
-  SERVICE_TRACKER
-} from '../../constants/Constants';
+import { IS_IOS, PADDING_BOTTOM, PADDING_TOP, } from '../../constants/Constants';
 import PopupForBLE from './PopupForBLE';
 
 interface Props {
@@ -190,7 +177,7 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
 
   const matchBLEFromFile = async (matches: string) => {
     const parsedRes = JSON.parse(matches ?? '[]');
-    
+
     if (parsedRes.length > 0) {
       // TODO: get Hagai make the manupulation
       const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimestamp: parseInt(match.endContactTimestamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);

@@ -13,15 +13,16 @@ import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS, SERVICE_TRACKER } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
+import log from './LogService';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
 
 export const startForegroundTimer = async () => {
 
-  //   await checkBLESickPeople(lastFetch);
-  //   await checkGeoSickPeople(lastFetch);
+  //   await checkBLESickPeople();
+  //   await checkGeoSickPeople();
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
@@ -32,13 +33,11 @@ export const startForegroundTimer = async () => {
 };
 
 const backgroundTimerFn = async () => {
-  const res = JSON.parse(await AsyncStorage.getItem(SERVICE_TRACKER) || '[]');
-  await AsyncStorage.setItem(SERVICE_TRACKER, JSON.stringify([...res, { source: 'checkSickPeople - foreground', timestamp: moment().valueOf() }]));
 
-  // const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
+  await log('Foreground Service')
 
-  // await checkBLESickPeople(lastFetch);
-  // await checkGeoSickPeople(lastFetch);
+  // await checkBLESickPeople();
+  // await checkGeoSickPeople();
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,

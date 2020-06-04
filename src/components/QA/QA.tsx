@@ -160,7 +160,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
         case BLE_MATCH_FILE_TYPE: {
           SpecialBle.match(rawText, async (res: any) => {
-            const filepath = `${RNFS.CachesDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
+            const filepath = `${RNFS.ExternalDirectoryPath}/${`BLEMatch_${moment().valueOf()}.json`}`;
             await RNFS.writeFile(filepath, res || '{}', 'utf8');
             await Share.open({ title: 'שיתוף BLE match', url: IS_IOS ? filepath : `file://${filepath}` });
           });
@@ -192,7 +192,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
   const shareShareLocationsInfo = async () => {
     try {
       const filename = 'locationsData.json';
-      const baseDir = RNFS.CachesDirectoryPath;
+      const baseDir = RNFS.ExternalDirectoryPath;
       const filepath = `${baseDir}/${filename}`;
 
       await RNFS.writeFile(filepath, JSON.stringify(await getUserLocationsReadyForServer('XXXX')), 'utf8');
@@ -327,10 +327,8 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
     });
 
     Clipboard.setString(csv);
-
-    console.log(RNFS.DocumentDirectoryPath);
     
-    const filepath = `${RNFS.DocumentDirectoryPath}/${`allData_${moment().format('YY.MM.DD')}.csv`}`;
+    const filepath = `${RNFS.ExternalDirectoryPath}/${`allData_${moment().format('YY.MM.DD')}.csv`}`;
     try {
       await RNFS.writeFile(filepath, csv || '{}', 'utf8');
     } catch (e) {
