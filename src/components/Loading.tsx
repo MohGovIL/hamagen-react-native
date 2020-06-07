@@ -20,6 +20,7 @@ import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { initBLETracing, registerBLEListeners } from '../services/BLEService';
+import { startPushListeners } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -93,6 +94,7 @@ const Loading: FunctionComponent<Props> = (
   useEffect(() => {
     registerBLEListeners();
     appLoadingActions();
+    startPushListeners();
   }, []);
 
   useEffect(() => {
@@ -153,7 +155,7 @@ const Loading: FunctionComponent<Props> = (
       }
 
       await initBLETracing();
-      
+
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       await startForegroundTimer();
@@ -186,7 +188,7 @@ const Loading: FunctionComponent<Props> = (
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
-      
+
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');

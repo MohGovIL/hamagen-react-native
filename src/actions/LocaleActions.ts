@@ -81,3 +81,14 @@ const getActiveLocale = async () => {
 
   return activeLocale;
 };
+
+
+export const initLocalHeadless = async () => {
+  const activeLocale = await getActiveLocale();
+  const { notificationData }: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
+  
+  return {
+    locale: activeLocale,
+    notificationData 
+  };
+};
