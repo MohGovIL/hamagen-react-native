@@ -36,8 +36,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
 
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
-        
-      } else if(ENABLE_BLE){
+      } else if (ENABLE_BLE) {
         // got to this only if ble enabled
         navigation.navigate('Bluetooth');
       } else {

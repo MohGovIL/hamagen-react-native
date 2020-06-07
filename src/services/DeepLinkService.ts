@@ -4,7 +4,7 @@ import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
 import { IS_IOS } from '../constants/Constants';
-import defaultBleResponse from '../constants/defaultBleResponse.json'
+import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -52,7 +52,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       token,
       dataRows: [],
       dataBleRows: defaultBleResponse
-    }
+    };
 
     const isClusters = config().dataShareClusters;
 

@@ -2,22 +2,15 @@ import React, { useState, useCallback, useRef, useMemo } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import _ from 'lodash';
-import { StackActions } from '@react-navigation/native';
 import { Icon, Text, TouchableOpacity } from '../../common';
 import { Store, ExposuresReducer, LocaleReducer, Exposure } from '../../../types';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE, PADDING_BOTTOM } from '../../../constants/Constants';
+import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, WHITE, PADDING_BOTTOM } from '../../../constants/Constants';
 import { showMapModal } from '../../../actions/GeneralActions';
-import { REPLACE_PAST_EXPOSURES } from '../../../constants/ActionTypes';
 import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
-import InfoBubble from '../InfoBubble';
 
 
-const ExposureItem = () => {
-  return <Text>item</Text>;
-};
-
-const ExposuresHistoryEdit = ({ navigation, route }) => {
+const ExposuresHistoryEdit = ({ navigation }) => {
   const dispatch = useDispatch();
   const { isRTL, strings } = useSelector<Store, LocaleReducer>(state => state.locale);
   const {
@@ -25,9 +18,10 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
     scanHome: { wasNotMe, wasMe, }
   } = strings;
   const { pastExposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
+  // clone for imutablity purpose
   const [newExposureArr, setNewExposureArray] = useState(_.cloneDeep(pastExposures));
 
-  const showBLEWarning = useMemo(() => pastExposures.some(({ properties }: Exposure) => properties.BLETimestamp), [pastExposures.length]);
+  const showBLEWarning = useMemo(() => pastExposures.some(({ properties }: Exposure) => properties.BLETimestamp), [pastExposures]);
 
   const setSelected = (index, wasThere) => {
     setNewExposureArray((exposureArrState) => {
@@ -42,7 +36,7 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
     // check if change at all
     const oldExposureState = _.cloneDeep(pastExposures);
     // commit changes and check diff from pastExposures
-    dispatch(replacePastExposureSelected([...newExposureArr]));
+    dispatch(replacePastExposureSelected(newExposureArr));
 
     // user had at least one exposure detected
     const wasChanged = oldExposureState.reduce((dif, exposure, index) => {
@@ -86,48 +80,6 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
     }
   };
 
-  const RenderExposure = ({ index, item }) => {
-    const { wasThere, BLETimestamp, Place } = item.properties;
-    const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === null) return [false, false];
-      return [wasThere, !wasThere];
-    }, [wasThere]);
-
-    return (
-
-      <ExposureHistoryListItem
-        isRTL={isRTL}
-        strings={strings}
-        {...item.properties}
-        style={{ marginHorizontal: 15, marginBottom: 10, opacity: BLETimestamp ? 0.7 : 1 }}
-        showExposureOnMap={() => dispatch(showMapModal(item))}
-      >
-        {!BLETimestamp && Place && (
-        <View style={{
-          flexDirection: isRTL ? 'row' : 'row-reverse',
-          marginTop: 20,
-
-        }}
-        >
-          <TouchableOpacity
-            style={[styles.actionBtnTouch, wasNotThereSelected && styles.actionBtnSelected, { marginHorizontal: 12 }]}
-            onPress={() => setSelected(index, false)}
-          >
-            <Text style={[styles.actionBtnText, wasNotThereSelected && styles.actionBtnSelectedText]} bold={wasNotThereSelected}>{wasNotMe}</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.actionBtnTouch, wasThereSelected && styles.actionBtnSelected]}
-            onPress={() => setSelected(index, true)}
-          >
-            <Text style={[styles.actionBtnText, wasThereSelected && styles.actionBtnSelectedText]} bold={wasThereSelected}>{wasMe}</Text>
-          </TouchableOpacity>
-
-        </View>
-        )}
-      </ExposureHistoryListItem>
-
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -140,7 +92,18 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
           if (item?.properties?.BLETimestamp) return item.properties.BLETimestamp.toString();
           return item.properties.OBJECTID.toString();
         }}
-        renderItem={({ index, item }) => (<RenderExposure item={item} index={index} />)}
+        renderItem={({ index, item }) => (
+          <RenderExposure
+            item={item}
+            index={index}
+            isRTL={isRTL}
+            strings={strings}
+            showExposureOnMap={() => dispatch(showMapModal(item))}
+            setSelected={setSelected}
+            wasNotMe={wasNotMe}
+            wasMe={wasMe}
+          />
+        )}
         ListHeaderComponent={() => (
           <View style={styles.headerContainer}>
             <View>
@@ -165,7 +128,7 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
                       [isRTL ? 'marginLeft' : 'marginRight']: 8
                     }}
                   />
-                  <Text 
+                  <Text
                     style={{
                       fontSize: 13,
                       color: 'rgb(106,106,106)'
@@ -196,6 +159,52 @@ const ExposuresHistoryEdit = ({ navigation, route }) => {
     </View>
   );
 };
+
+
+const RenderExposure = ({ index, item, isRTL, strings, showExposureOnMap, setSelected, wasMe, wasNotMe }) => {
+  const { wasThere, BLETimestamp, Place } = item.properties;
+
+  const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
+    if (wasThere === null) return [false, false];
+    return [wasThere, !wasThere];
+  }, [wasThere]);
+
+  return (
+
+    <ExposureHistoryListItem
+      isRTL={isRTL}
+      strings={strings}
+      {...item.properties}
+      style={{ marginHorizontal: 15, marginBottom: 10, opacity: BLETimestamp ? 0.7 : 1 }}
+      showExposureOnMap={showExposureOnMap}
+    >
+      {!BLETimestamp && Place && (
+        <View style={{
+          flexDirection: isRTL ? 'row' : 'row-reverse',
+          marginTop: 20,
+
+        }}
+        >
+          <TouchableOpacity
+            style={[styles.actionBtnTouch, wasNotThereSelected && styles.actionBtnSelected, { marginHorizontal: 12 }]}
+            onPress={() => setSelected(index, false)}
+          >
+            <Text style={[styles.actionBtnText, wasNotThereSelected && styles.actionBtnSelectedText]} bold={wasNotThereSelected}>{wasNotMe}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.actionBtnTouch, wasThereSelected && styles.actionBtnSelected]}
+            onPress={() => setSelected(index, true)}
+          >
+            <Text style={[styles.actionBtnText, wasThereSelected && styles.actionBtnSelectedText]} bold={wasThereSelected}>{wasMe}</Text>
+          </TouchableOpacity>
+
+        </View>
+      )}
+    </ExposureHistoryListItem>
+
+  );
+};
+
 
 const styles = StyleSheet.create({
   container: {
@@ -240,7 +249,10 @@ const styles = StyleSheet.create({
   footerBtnText: {
     fontSize: 14,
   },
-  buttonsContainer: { width: SCREEN_WIDTH, height: PADDING_BOTTOM(49) }
+  buttonsContainer: {
+    width: SCREEN_WIDTH,
+    height: PADDING_BOTTOM(49)
+  }
 });
 
 export default ExposuresHistoryEdit;

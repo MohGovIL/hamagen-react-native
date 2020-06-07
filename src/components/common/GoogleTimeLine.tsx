@@ -141,8 +141,6 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
   });
 
 
-
-
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
     if (!data) {
       return;
@@ -221,11 +219,11 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
       {
         state === 'before' && (
-          <View style={{width: SCREEN_WIDTH * 0.7, alignItems: 'center'}}>
-          <TouchableOpacity  onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
-            <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
-            <View style={styles.bottomBorder} />
-          </TouchableOpacity>
+          <View style={{ width: SCREEN_WIDTH * 0.7, alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
+              <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
+              <View style={styles.bottomBorder} />
+            </TouchableOpacity>
           </View>
         )
       }

@@ -1,4 +1,4 @@
-import defaultBleResponse from '../constants/defaultBleResponse.json'
+import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const initBLETracing = Promise.resolve;
 
@@ -7,7 +7,7 @@ export const registerBLEListeners = () => {};
 export const fetchInfectionDataByConsent = async () => defaultBleResponse;
 
 
-export const match = async () => []
+export const match = async () => [];
 
 // import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 // import AsyncStorage from '@react-native-community/async-storage';

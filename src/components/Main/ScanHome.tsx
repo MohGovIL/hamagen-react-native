@@ -98,8 +98,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
     DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
 
-    if(exposures.length > 0) {
-      navigation.navigate('ExposureDetected')
+    if (exposures.length > 0) {
+      navigation.navigate('ExposureDetected');
     }
 
     return () => {
