@@ -52,8 +52,8 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       token,
       dataRows: [],
       dataBleRows: []
-    }
-    
+    };
+
     const isClusters = config().dataShareClusters;
 
     const locations: DBLocation[] = await queryDB(isClusters);

@@ -14,4 +14,4 @@ export const registerBLEListeners = () => {};
 export const fetchInfectionDataByConsent = async () => [];
 
 
-export const match = async () => []
+export const match = async () => [];

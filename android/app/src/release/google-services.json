@@ -1,80 +1,66 @@
 {
   "project_info": {
-    "project_number": "776051238571",
-    "firebase_url": "https://hamagen-aa88d.firebaseio.com",
-    "project_id": "hamagen-aa88d",
-    "storage_bucket": "hamagen-aa88d.appspot.com"
+    "project_number": "52365283353",
+    "firebase_url": "https://codeagainstcorona-3896f.firebaseio.com",
+    "project_id": "codeagainstcorona-3896f",
+    "storage_bucket": "codeagainstcorona-3896f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:776051238571:android:6a28fec1527d21684af9ee",
+        "mobilesdk_app_id": "1:52365283353:android:8aec94697dbac7c9279a88",
         "android_client_info": {
           "package_name": "com.hamagen"
         }
       },
       "oauth_client": [
         {
-          "client_id": "776051238571-l562rviorn5u7gqejo6l8scnsr07knpj.apps.googleusercontent.com",
+          "client_id": "52365283353-eidtjtn5hhj9ah2kbo8fhuchk881nue3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hamagen",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "83d01f3a66722354b83d9b5853076fbf6b7e7f30"
           }
         },
         {
-          "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBTUXVwo9ouIiPFNXBdz9o4D1KJq7Es1qg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:776051238571:android:27428629073a56ce4af9ee",
-        "android_client_info": {
-          "package_name": "com.hamagen.dev"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "776051238571-b87qk083ctbon3oib5lam95qg26inr4g.apps.googleusercontent.com",
+          "client_id": "52365283353-jl2uq5agfi3uavmfk3q09mepr0na70ok.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.hamagen.dev",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "package_name": "com.hamagen",
+            "certificate_hash": "da03d8b455b09ab26e9daf6e9e3a6a6151cd94cc"
           }
         },
         {
-          "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
+          "client_id": "52365283353-nlt85qc4fccj4gvssqaqs6splqbrmdrk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hamagen",
+            "certificate_hash": "338496e3a378fb30fab21bb9dd0eeaf65eb571ba"
+          }
+        },
+        {
+          "client_id": "52365283353-3nptbkqkmkohnvntoc10fjv1u5t7kksc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTUXVwo9ouIiPFNXBdz9o4D1KJq7Es1qg"
+          "current_key": "AIzaSyDAZunGyKrQfFo87KN5_7ucdxXuHtTDUtw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
+              "client_id": "52365283353-3nptbkqkmkohnvntoc10fjv1u5t7kksc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "52365283353-1884kvsos7eqvli7omufrl1i0145m8m6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hamagen.qa"
+              }
             }
           ]
         }
@@ -82,36 +68,51 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:776051238571:android:0ce459535c98709f4af9ee",
+        "mobilesdk_app_id": "1:52365283353:android:6613d33a05d0fd1f279a88",
         "android_client_info": {
           "package_name": "com.hamagen.qa"
         }
       },
       "oauth_client": [
         {
-          "client_id": "776051238571-igc55i4ajk7b7kchmqjg3dfg7ogqeguo.apps.googleusercontent.com",
+          "client_id": "52365283353-d692bhj3vdqcbntk9smuqp8j9ksvlsds.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hamagen.qa",
-            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+            "certificate_hash": "da03d8b455b09ab26e9daf6e9e3a6a6151cd94cc"
           }
         },
         {
-          "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
+          "client_id": "52365283353-14b9v2gfg0bnumjif94t7se35akh33ti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hamagen.qa",
+            "certificate_hash": "83d01f3a66722354b83d9b5853076fbf6b7e7f30"
+          }
+        },
+        {
+          "client_id": "52365283353-3nptbkqkmkohnvntoc10fjv1u5t7kksc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBTUXVwo9ouIiPFNXBdz9o4D1KJq7Es1qg"
+          "current_key": "AIzaSyDAZunGyKrQfFo87KN5_7ucdxXuHtTDUtw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "776051238571-h98i1874433nq1tbm5p7acfjoptj74eo.apps.googleusercontent.com",
+              "client_id": "52365283353-3nptbkqkmkohnvntoc10fjv1u5t7kksc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "52365283353-1884kvsos7eqvli7omufrl1i0145m8m6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.hamagen.qa"
+              }
             }
           ]
         }

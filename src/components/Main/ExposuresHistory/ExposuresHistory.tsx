@@ -34,16 +34,16 @@ const ExposuresHistory = (
   const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
 
   const [tabIndex, setTabIndex] = useState(1);
-  const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere)
-  const wasNotThereList = () => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere)
+  const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere);
+  const wasNotThereList = () => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere);
   const showEditBtn = useMemo(() => {
-   return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
+    return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [firstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
     // didn't layout yet
@@ -52,7 +52,7 @@ const ExposuresHistory = (
       Animated.parallel([
         Animated.timing(lineAnimLeft, {
           toValue: tabsLayout[tabIndex].x - LINE_MARGIN + (isRTL ? tabIndex * SCREEN_WIDTH / 2 : SCREEN_WIDTH / 2 * (tabIndex ? 0 : 1)),
-          duration: firstLoad ? 0 :ANIMATION_DURATION,
+          duration: firstLoad ? 0 : ANIMATION_DURATION,
         }),
         Animated.timing(listTranslateAnim, {
           toValue: tabIndex ? SCREEN_WIDTH : 0,
@@ -61,7 +61,7 @@ const ExposuresHistory = (
         }),
         Animated.timing(lineAnimWidth, {
           toValue: tabsLayout[tabIndex].width + (LINE_MARGIN * 2),
-          duration: firstLoad ? 0 :ANIMATION_DURATION,
+          duration: firstLoad ? 0 : ANIMATION_DURATION,
         })
       ]).start(() => setFirstLoad(false));
     }

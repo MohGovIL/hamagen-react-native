@@ -26,7 +26,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     filteredExposures = exposures.filter((exposure) => {
       if (exposure.properties?.BLETimestamp) {
         return !parsedDismissedExposures.includes(exposure.properties?.BLETimestamp);
-      } 
+      }
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
@@ -66,7 +66,6 @@ export const dismissExposures = () => async (dispatch: any, getState: any) => {
   const dismissedExposureSet = new Set(exposures.map(({ properties }: Exposure) => properties.BLETimestamp || properties.OBJECTID).concat(parsedDismissedExposures));
 
   await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
-
 };
 
 export const setExposureSelected = ({ index, wasThere }) => (dispatch: any, getState: any) => {
