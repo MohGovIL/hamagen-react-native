@@ -10,7 +10,7 @@ import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } fr
 import { toggleWebview } from '../../actions/GeneralActions';
 import { requestLocationPermissions } from '../../services/LocationService';
 import { Strings } from '../../locale/LocaleData';
-import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
+import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, USAGE_ON_BOARDING, ENABLE_BLE } from '../../constants/Constants';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -36,8 +36,13 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
 
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
-      } else {
+        
+      } else if(ENABLE_BLE){
+        // got to this only if ble enabled
         navigation.navigate('Bluetooth');
+      } else {
+        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
+        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
       }
     } catch (e) {
       // handled in service

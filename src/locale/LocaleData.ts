@@ -184,7 +184,7 @@ export interface Strings {
     noExposures: string,
     keepInstructions: string,
     subTitle: string,
-    wasNotTheres: string,
+    wasNotThere: string,
     wasThere: string,
     wasThereNoExposure: string,
     wasNotThereNoExposure: string,

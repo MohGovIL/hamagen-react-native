@@ -4,6 +4,7 @@ import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
 import { IS_IOS } from '../constants/Constants';
+import defaultBleResponse from '../constants/defaultBleResponse.json'
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -37,7 +38,6 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
       if (!Array.isArray(obj[key])) {
         obj[key] = [obj[key]];
       }
-
       // Push the new value to the key's array
       obj[key].push(value);
     }
@@ -51,9 +51,9 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
     const objectToShare = {
       token,
       dataRows: [],
-      dataBleRows: []
+      dataBleRows: defaultBleResponse
     }
-    
+
     const isClusters = config().dataShareClusters;
 
     const locations: DBLocation[] = await queryDB(isClusters);
