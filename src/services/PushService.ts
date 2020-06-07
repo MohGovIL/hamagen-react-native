@@ -1,6 +1,7 @@
 import firebase from 'react-native-firebase';
 import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import { onError } from './ErrorService';
+import { Alert } from 'react-native';
 
 let onNotificationListener: any = null;
 let onNotificationOpenedListener: any = null;
@@ -80,5 +81,5 @@ export const removePushListeners = () => {
 };
 
 const pushNotificationHandler = ({ notification }: any, isTapped: boolean, isSilent: boolean) => {
-
-};
+  Alert.alert('Move app to back ground')
+}; 
