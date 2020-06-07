@@ -119,6 +119,7 @@ export const startLocationTracking = async (locale: string, notificationData: No
     const disableMotionActivityUpdates = (motionPermissions !== RESULTS.GRANTED && motionPermissions !== RESULTS.UNAVAILABLE);
 
     await BackgroundGeolocation.ready({
+      reset: true,
       // Geolocation Config
       desiredAccuracy: BackgroundGeolocation.DESIRED_ACCURACY_HIGH,
       distanceFilter: config().sampleDistance,

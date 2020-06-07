@@ -4,7 +4,7 @@ import BackgroundFetch from 'react-native-background-fetch';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import App from './src/App';
 import { name as appName } from './app.json';
-import BGMessaging from './src/BGMessaging';
+import ResetMessaging from './src/ResetMessaging';
 import { checkGeoSickPeople } from './src/services/Tracker';
 import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
@@ -38,6 +38,6 @@ const BackgroundGeolocationHeadlessTask = async (event) => {
 };
 
 AppRegistry.registerComponent(appName, () => App);
-AppRegistry.registerHeadlessTask('RNFirebaseBackgroundMessage', () => BGMessaging);
+AppRegistry.registerHeadlessTask('RNFirebaseBackgroundMessage', () => ResetMessaging);
 BackgroundFetch.registerHeadlessTask(BackgroundFetchHeadlessTask);
 BackgroundGeolocation.registerHeadlessTask(BackgroundGeolocationHeadlessTask);
