@@ -2,11 +2,10 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, FlatList, Animated } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { connect } from 'react-redux';
-import { stat } from 'fs';
 import { Icon, Text, HeaderButton, TouchableOpacity } from '../../common';
 import { Strings } from '../../../locale/LocaleData';
 import { Exposure } from '../../../types';
-import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE } from '../../../constants/Constants';
+import { PADDING_TOP, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { showMapModal } from '../../../actions/GeneralActions';
 
@@ -34,16 +33,16 @@ const ExposuresHistory = (
   const { exposuresHistory: { title, subTitle, wasNotThere, wasThere, wasThereNoExposure, wasNotThereNoExposure, keepInstructions, edit } } = strings;
 
   const [tabIndex, setTabIndex] = useState(1);
-  const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere)
-  const wasNotThereList = () => pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere)
+  const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere);
+  const wasNotThereList = pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere);
   const showEditBtn = useMemo(() => {
-   return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
+    return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
   }, [wasThereList.length, wasNotThereList.length]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
-  const [firstLoad, setFirstLoad] = useState(true)
+  const [firstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
     // didn't layout yet

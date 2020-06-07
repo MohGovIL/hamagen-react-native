@@ -7,7 +7,7 @@ import { ActionButton, HeaderButton, Icon, Text, TouchableOpacity } from '../com
 import { shareUserLocations } from '../../actions/DeepLinkActions';
 import { Strings } from '../../locale/LocaleData';
 import { LocaleReducer, Store } from '../../types';
-import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP, TEXT_COLOR, IS_IOS } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP, TEXT_COLOR, IS_IOS, ENABLE_BLE } from '../../constants/Constants';
 
 interface Props {
   route: any,
@@ -34,7 +34,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const [state, setState] = useState<ShareStates>('beforeShare');
   const [failState, setFailState] = useState<ShareFailState>('');
   const [canRetry, setRetryState] = useState(true);
-  const [agreeToBle, onValueSelected] = useState(false);
+  const [agreeToBle, onValueSelected] = useState(true);
   const { token } = route.params;
 
   useEffect(() => {
@@ -118,7 +118,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const combinedState: ShareStates & ShareFailState = state + failState;
 
   const AgreeToBleCheckbox = () => {
-    if (!IS_IOS && state === 'beforeShare') {
+    if (!IS_IOS && ENABLE_BLE && state === 'beforeShare') {
       return (
         <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
           <View style={styles.box}>

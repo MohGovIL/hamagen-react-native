@@ -14,7 +14,7 @@ import {
   ENABLE_BLE
 } from '../constants/ActionTypes';
 
-import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY, USER_AGREE_TO_BLE } from '../constants/Constants';
+import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY, USER_AGREE_TO_BLE, ENABLE_BLE as ENABLE_BLE_IN_APP } from '../constants/Constants';
 import { Exposure } from '../types';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
@@ -74,8 +74,9 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
   // await AsyncStorage.removeItem(USER_AGREE_TO_BLE)
+
   
-  if (IS_IOS) {
+  if (IS_IOS || !ENABLE_BLE_IN_APP) {
     dispatch({ type: ENABLE_BLE, payload: false });
   } else {
     try {

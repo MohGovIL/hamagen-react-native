@@ -69,4 +69,5 @@ export const USAGE_ON_BOARDING = 'USAGE_ON_BOARDING';
 export const USAGE_PRIVACY = 'USAGE_PRIVACY';
 
 // BLE
-export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE'
+export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE';
+export const ENABLE_BLE = false;
