@@ -26,7 +26,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
     filteredExposures = exposures.filter((exposure) => {
       if (exposure.properties?.BLETimestamp) {
         return !parsedDismissedExposures.includes(exposure.properties?.BLETimestamp);
-      } 
+      }
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
