@@ -2,7 +2,7 @@ import BackgroundFetch from 'react-native-background-fetch';
 import { startLocationTracking } from './services/LocationService';
 import { initLocalHeadless } from './actions/LocaleActions';
 
-const bgMessaging = async () => {
+const ResetMessaging = async () => {
   console.log('data message received');
   try {
     await BackgroundFetch.stop();
@@ -15,4 +15,4 @@ const bgMessaging = async () => {
   }
 };
 
-export default bgMessaging;
+export default ResetMessaging;
