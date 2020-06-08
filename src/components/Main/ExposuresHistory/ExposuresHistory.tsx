@@ -35,15 +35,16 @@ const ExposuresHistory = (
   const [tabIndex, setTabIndex] = useState(1);
   const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere);
   const wasNotThereList = pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere);
-  const showEditBtn = useMemo(() => {
-    return wasThereList.length + wasNotThereList.length > 0 && pastExposures.some((exposure: Exposure) => exposure.properties.BLETimestamp === null);
-  }, [wasThereList.length, wasNotThereList.length]);
+  // show button if list is not empty or all exposures are of type BLE and can't be edited 
+  const showEditBtn = useMemo(() => (wasThereList.length + wasNotThereList.length > 0) 
+  && pastExposures.every((exposure: Exposure) => exposure.properties.BLETimestamp)
+  , [wasThereList, wasNotThereList]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [firstLoad, setFirstLoad] = useState(true);
-
+  debugger
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {
@@ -72,13 +73,10 @@ const ExposuresHistory = (
       {showEditBtn && (
         <TouchableOpacity
           hitSlop={HIT_SLOP}
-          style={{
-            position: 'absolute',
-            zIndex: 1000,
-            top: PADDING_TOP(IS_SMALL_SCREEN ? 18 : 35),
+          style={[styles.editButtonContainer, {
             [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
             flexDirection: isRTL ? 'row-reverse' : 'row'
-          }}
+          }]}
           onPress={() => navigation.navigate('ExposuresHistoryEdit')}
         >
           <Text style={{ fontSize: 13, color: MAIN_COLOR }}>{edit}</Text>
@@ -222,6 +220,12 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: IS_SMALL_SCREEN ? 14 : 16
+  },
+  editButtonContainer: {
+    position: 'absolute',
+    zIndex: 1000,
+    top: PADDING_TOP(IS_SMALL_SCREEN ? 18 : 30),
+    alignItems: 'center',
   }
 });
 

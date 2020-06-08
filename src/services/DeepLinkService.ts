@@ -3,7 +3,7 @@ import { fetchInfectionDataByConsent } from './BLEService';
 import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
-import { IS_IOS } from '../constants/Constants';
+import { IS_IOS, ENABLE_BLE } from '../constants/Constants';
 import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
@@ -51,7 +51,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
     const objectToShare = {
       token,
       dataRows: [],
-      dataBleRows: defaultBleResponse
+      // dataBleRows: defaultBleResponse
     };
 
     const isClusters = config().dataShareClusters;
@@ -79,7 +79,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       objectToShare.dataRows = dataRows;
     }
 
-    if (!IS_IOS && userAgreedToBle) {
+    if (!IS_IOS && ENABLE_BLE && userAgreedToBle) {
       const dataBleRows = await fetchInfectionDataByConsent();
       if (dataBleRows) {
         objectToShare.dataBleRows = dataBleRows;
