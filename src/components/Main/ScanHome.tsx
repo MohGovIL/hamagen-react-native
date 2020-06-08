@@ -148,7 +148,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   };
   
 
-  const exposureState = useMemo(() => {
+  const exposureState = () => {
     // user never got any exposure detected
     if (exposures.length + pastExposures.length === 0) {
       return 'pristine';
@@ -161,7 +161,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     }
 
     return 'notRelevant';
-  }, [exposures, pastExposures]);
+  };
 
 
   const RelevantState = (!hasLocation || !hasNetwork || !hasGPS)
@@ -171,7 +171,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         isRTL={isRTL}
         strings={strings}
         firstPoint={firstPoint}
-        exposureState={exposureState}
+        exposureState={exposureState()}
         hideLocationHistory={hideLocationHistory}
         enableBle={enableBle}
         locale={locale}
