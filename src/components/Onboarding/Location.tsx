@@ -3,9 +3,9 @@ import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { StackNavigationProp } from '@react-navigation/stack';
-
 import LottieView from 'lottie-react-native';
 import * as Animatable from 'react-native-animatable';
+import DeviceInfo from 'react-native-device-info';
 import { ActionButton, GeneralContainer, OnboardingHeader, Text, TermsOfUse } from '../common';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { requestLocationPermissions } from '../../services/LocationService';
