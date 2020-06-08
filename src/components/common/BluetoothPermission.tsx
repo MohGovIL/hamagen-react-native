@@ -42,7 +42,7 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
 
   return (
     <>
-      <View style={[{ alignItems: 'center', paddingHorizontal: 40 }, IS_SMALL_SCREEN && { paddingTop: 5 }]}>
+      <View style={[{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 40 }, IS_SMALL_SCREEN && { paddingTop: 5 }]}>
         {!IS_SMALL_SCREEN && (
           <Icon
             width={80}

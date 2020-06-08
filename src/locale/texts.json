@@ -310,13 +310,13 @@
         "shareFail": "משהו השתבש"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\nהמידע האישי שלך - ישאר חסוי",
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\n",
         "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
         "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
         "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
         "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
-        "shareFailWithWarnings": "לא נמצאו נתונים על מכשיר הטלפון שלך.\nנמשיך בתהליך בשיחת הטלפון."
+        "shareFailWithWarnings": "לא נמצאו נתוני מיקום על המכשיר שלך.\nנמשיך בתהליך בשיחת הטלפון."
       },
       "greeting": {
         "beforeShare": "המידע האישי שלך - יישאר חסוי",
@@ -558,7 +558,7 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\nستظل معلوماتك الشخصية سرية.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\n",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
@@ -806,7 +806,7 @@
         "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nnPublic health information will only be published on public places.\nYour personal information will remain confidential.",
+        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nnPublic health information will only be published on public places.\n",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
@@ -829,7 +829,7 @@
         "shareFailTokenError": "try again",
         "shareFailWithWarnings": "I understand"
       },
-      "addBleDataText": "It is acceptable for me to also use information collected through the gland to identify proximity to corona patients' phones"
+      "addBleDataText": "It is acceptable for me to also use information collected via Bluetooth to identify proximity to corona patients' phones"
     },
     "exposureRelief": {
       "editBtn": "Edit",
@@ -1054,7 +1054,7 @@
         "shareFail": "Что-то пошло не так"
       },
       "description": {
-        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\nYour Ваша личная информация будет оставаться конфиденциальной.",
+        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\n",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
         "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
@@ -1300,7 +1300,7 @@
         "shareFail": "የሆነ ችግር ተፈጥሯል"
       },
       "description": {
-        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\nየግል መረጃዎ ሚስጥራዊ እንደሆነ ይቆያል ፡፡",
+        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\n",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
         "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
@@ -1548,7 +1548,7 @@
         "shareFail": "Quelque chose a mal tourné"
       },
       "description": {
-        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\nVos informations personnelles resteront confidentielles.",
+        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\n",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
         "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
@@ -1571,7 +1571,7 @@
         "shareFailTokenError": "Veuillez réessayer",
         "shareFailWithWarnings": "J’ai compris"
       },
-      "addBleDataText": "Il est acceptable pour moi d'utiliser également les informations collectées via la glande pour identifier la proximité des téléphones des patients corona"
+      "addBleDataText": "Il est acceptable pour moi d'utiliser également les informations collectées via Bluetooth pour identifier la proximité des téléphones des patients corona"
     },
     "exposureRelief": {
       "editBtn": "Éditer ",

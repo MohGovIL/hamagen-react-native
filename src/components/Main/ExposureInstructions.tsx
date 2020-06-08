@@ -110,7 +110,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
 
     return (
-      <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: isRTL ? 'right' : 'left' }} key={exposure.properties.OBJECTID}>
+      <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, lineHeight: 17, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: isRTL ? 'right' : 'left' }} key={exposure.properties.OBJECTID}>
         <Text bold>• </Text>
         {ListText}
 

@@ -86,10 +86,11 @@ export const insertDB = async (sample: Sample) => new Promise(async (resolve) =>
 
     if (!isLastPointFromTimeline) {
       await db.updateLastSampleEndTime(sample.timestamp);
-      await clusterSample(sample);
     } else {
       await AsyncStorage.removeItem(IS_LAST_POINT_FROM_TIMELINE);
     }
+
+    await clusterSample();
 
     const sampleObj = {
       lat: sample.coords.latitude,
