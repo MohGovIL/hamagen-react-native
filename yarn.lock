@@ -6789,7 +6789,7 @@ react-native-sha1@1.2.3:
 
 "react-native-splash-screen@https://github.com/greenyossi/react-native-splash-screen.git":
   version "3.4.0"
-  resolved "https://github.com/greenyossi/react-native-splash-screen.git#cf4cabb8e5269a18a764d8bfc7e66c737a0732ae"
+  resolved "https://github.com/greenyossi/react-native-splash-screen.git#e9c32d6c1fac8953ef80730ed69042b7c8068dd2"
 
 react-native-sqlite-storage@4.1.0:
   version "4.1.0"

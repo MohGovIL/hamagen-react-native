@@ -258,6 +258,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingTop: 10,
     backgroundColor: '#fff'
   },
   textsContainer: {

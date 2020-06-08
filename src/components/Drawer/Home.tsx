@@ -20,7 +20,6 @@ import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 import { INIT_ROUTE_NAME, USER_AGREE_BLE } from '../../constants/Constants';
 
-
 const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
@@ -44,14 +43,14 @@ const DrawerStack = ({ navigation, route }) => {
     }
   }, [exposures, initialRouteName, route]);
   if (!initialRouteName) return null;
-  
-  
+
+
   return (
     <Stack.Navigator gestureEnabled={false} mode="modal" headerMode="none" initialRouteName={initialRouteName} screenOptions={() => ({ gestureEnabled: false })}>
       <Stack.Screen name="ScanHome" component={ScanHome} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ showBleInfo: showBLEPermission !== 'true' }} />
       <Stack.Screen name="ExposuresHistory" component={ExposuresHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
-      <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-      <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+      <Stack.Screen name="LocationHistory" component={LocationHistory} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="FilterDriving" component={FilterDriving} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ShareLocations" component={ShareLocations} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ChangeLanguageScreen" component={ChangeLanguageScreen} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureDetected" component={ExposureDetected} gestureEnabled={false} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />

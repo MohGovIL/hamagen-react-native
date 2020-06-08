@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useMemo, FunctionComponent } from 'react';
+import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
@@ -6,7 +6,7 @@ import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import SplashScreen from 'react-native-splash-screen';
-import { useFocusEffect, useNavigationState } from '@react-navigation/native';
+import { useFocusEffect } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
@@ -91,22 +91,21 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     checkIfBleEnabled();
     checkConnectionStatusOnLoad();
 
-    AppState.addEventListener('change', onAppStateChange);
-    NetInfo.addEventListener((state: NetInfoState) => {
-      setIsConnected({ hasLocation, hasNetwork: state.isConnected, hasGPS });
-    });
-
-    DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
-
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
     }
+  }, []);
+
+  useEffect(() => {
+    AppState.addEventListener('change', onAppStateChange);
+    NetInfo.addEventListener((state: NetInfoState) => setIsConnected({ hasLocation, hasNetwork: state.isConnected, hasGPS }));
+    DeviceEventEmitter.addListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
 
     return () => {
       AppState.removeEventListener('change', onAppStateChange);
       DeviceEventEmitter.removeListener(RNSettings.GPS_PROVIDER_EVENT, handleGPSProviderEvent);
     };
-  }, []);
+  }, [hasLocation, hasNetwork, hasGPS]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -151,10 +150,16 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
   const exposureState = () => {
     // user never got any exposure detected
-    if (exposures.length + pastExposures.length === 0) return 'pristine';
+    if (exposures.length + pastExposures.length === 0) {
+      return 'pristine';
+    }
+
     // check if user past exposures are relevant
     // ie: is less then 14 days old
-    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days)) return 'relevant';
+    if (exposures.some(isAfter14Days) || pastExposures.some(isAfter14Days)) {
+      return 'relevant';
+    }
+
     return 'notRelevant';
   };
 
