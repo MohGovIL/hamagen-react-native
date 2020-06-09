@@ -56,7 +56,7 @@ export const removeValidExposure = () => async (dispatch: any) => {
 export const dismissExposures = () => async (dispatch: any, getState: any) => {
   const { exposures }: ExposuresReducer = getState().exposures;
 
-  let dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
+  const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
 
   const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
   // Set ensures no OBJECTID or BLETimestamp duplicates

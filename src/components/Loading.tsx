@@ -162,7 +162,7 @@ const Loading: FunctionComponent<Props> = (
 
       const dbSick = new IntersectionSickDatabase();
 
-      await migrateIntersectionSickDatabase(dbSick)
+      await migrateIntersectionSickDatabase(dbSick);
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
@@ -223,32 +223,29 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
     if (dbSickWasUpdated !== 'true') {
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
 
-      await dbSick.migrateTable()
+      await dbSick.migrateTable();
       await AsyncStorage.setItem(SICK_DB_UPDATED, 'true');
-      const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE)
+      const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
 
       if (validExposure) {
-
-        const parsedValidExposure = JSON.parse(validExposure)
+        const parsedValidExposure = JSON.parse(validExposure);
         
         if (parsedValidExposure) {
+          const { exposure } = parsedValidExposure;
           
-          const { exposure } = parsedValidExposure
+          exposure.properties.wasThere = true;
+          exposure.properties.OBJECTID = exposure.properties.Key_Field;
           
-          exposure.properties.wasThere = true
-          exposure.properties.OBJECTID = exposure.properties.Key_Field
-          
-          await dbSick.upgradeSickRecord(true,[exposure.properties.OBJECTID])
+          await dbSick.upgradeSickRecord(true, [exposure.properties.OBJECTID]);
           
           const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
           
           // Set ensures no OBJECTID or BLETimestamp duplicates
           const dismissedExposureSet = new Set(parsedDismissedExposures);
           
-          dismissedExposureSet.add(exposure.properties.OBJECTID)
+          dismissedExposureSet.add(exposure.properties.OBJECTID);
           
           await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
-
         }
       }
 
@@ -256,13 +253,13 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
         const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
         console.log('parsedDismissedExposures', parsedDismissedExposures);
 
-        await dbSick.upgradeSickRecord(false,parsedDismissedExposures);
+        await dbSick.upgradeSickRecord(false, parsedDismissedExposures);
       }
     }
   } catch (error) {
-    onError({ error })
+    onError({ error });
   }
-}
+};
 
 const styles = StyleSheet.create({
   container: {
