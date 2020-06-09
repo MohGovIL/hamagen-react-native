@@ -765,7 +765,7 @@
       "keepSafeNew": "These are the Ministry of Health's guidelines: ",
       "subTitle": "Possible overlap with a confirmed COVID-19 patient ",
       "themInstructions": "These are the Ministry of Health's guidelines:",
-      "editBtn": "Edit",
+      "editBtn": "edit",
       "finishBtn": "Done, go back to homepage",
       "updateTitle": "Thank you for updating",
       "updateSubTitle": "It is possible that the changes you've made will affect what you do next",
@@ -832,7 +832,7 @@
       "addBleDataText": "It is acceptable for me to also use information collected via Bluetooth to identify proximity to corona patients' phones"
     },
     "exposureRelief": {
-      "editBtn": "Edit",
+      "editBtn": "edit",
       "title": "It seems that you've had no overlap with any confirmed COVID-19 patients",
       "keepSafe": "It is important to continue following the guidelines!",
       "backBtn": "Go back to the homepage",
