@@ -59,9 +59,6 @@ export const registerLocalNotification = async (title: string, message: string, 
 
 export const startPushListeners = async () => {
   firebase.messaging().subscribeToTopic('wakeup');
-  firebase.messaging().onMessage((message) => {
-    pushNotificationHandler({ notification: message }, false, true);
-  });
 
   // if app was closed and opened from push
   const notification = await firebase.notifications().getInitialNotification();
