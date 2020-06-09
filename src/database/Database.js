@@ -598,7 +598,7 @@ export class IntersectionSickDatabase {
         return db.transaction(async (tx) => {
           await tx.executeSql('INSERT INTO IntersectingSick (BLETimestamp,wasThere) VALUES (?,?)', [BLETimestamp, true]);
           const item = await this.getBleRecord(BLETimestamp, db);
-          
+
           resolve(item);
         });
       } catch (error) {
@@ -667,46 +667,71 @@ export class IntersectionSickDatabase {
     });
   }
 
+  async migrateTable() {
+    return new Promise(async (resolve) => {
+      try {
+        await SQLite.echoTest();
 
-  async updateSickRecord(record) {
-    try {
-      const db = await this.initDB();
+        const DB = await SQLite.openDatabase(
+          database_name,
+          database_version,
+          database_displayname,
+          database_size
+        );
 
-      return db.transaction(async (tx) => {
-        const [_, results] = await tx.executeSql('UPDATE IntersectingSick set wasThere = ? WHERE OBJECTID = ?',
-          [
-            record.properties.wasThere,
-            record.properties.OBJECTID
-          ]);
 
-        if (results.rows.length > 0) {
-          return results.rows.item(0);
-        }
-        return null;
-      });
-    } catch (error) {
-      onError({ error });
-      return null;
-    }
+        await DB.executeSql('ALTER TABLE IntersectingSick ADD wasThere NULL;');
+        await DB.executeSql('ALTER TABLE IntersectingSick ADD BLETimestamp NULL');
+
+
+        resolve(null);
+      } catch (error) {
+        console.log('migrateTable error:', error);
+
+        onError({ error });
+        resolve(null);
+      }
+    });
   }
 
-  // first load after app update add wasThere property to dismissed exposures 
-  async upgradeSickRecord(IDs) {
-    try {
-      IDs.forEach(async (id) => {
-        await this.updateSickRecord(
-          {
-            properties: {
-              OBJECTID: id,
-              wasThere: false
-            }
+  async updateSickRecord(record) {
+    return new Promise(async (resolve) => {
+      try {
+        const db = await this.initDB();
+
+        db.transaction(async (tx) => {
+          const [_, results] = tx.executeSql('UPDATE IntersectingSick SET wasThere = ? WHERE OBJECTID = ?', [record.properties.wasThere, record.properties.OBJECTID]);
+
+          if (results.rows.length > 0) {
+            resolve(results.rows.item(0));
           }
-        );
-      });
-      return null;
-    } catch (error) {
-      onError({ error });
-      return null;
-    }
+
+          resolve(null);
+        });
+      } catch (error) {
+        onError({ error });
+
+        resolve(null);
+      }
+    });
+  }
+
+  // first load after app update add wasThere property to dismissed exposures
+  async upgradeSickRecord(wasThere, IDs) {
+    return new Promise(async (resolve) => {
+      try {
+        if (IDs.length > 0) {
+          const db = await this.initDB();
+
+          return db.transaction(async (tx) => {
+            tx.executeSql(`UPDATE IntersectingSick SET wasThere = ? WHERE OBJECTID IN (${IDs.map(() => '?').join(',')})`, [wasThere ? 1 : 0, ...IDs]);
+          });
+        }
+      } catch (error) {
+        onError({ error });
+      } finally {
+        resolve(null);
+      }
+    });
   }
 }

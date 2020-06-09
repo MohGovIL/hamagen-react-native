@@ -36,15 +36,13 @@ const ExposuresHistory = (
   const wasThereList = pastExposures.filter(({ properties }: Exposure) => properties?.wasThere);
   const wasNotThereList = pastExposures.filter(({ properties }: Exposure) => !properties?.wasThere);
   // show button if list is not empty or all exposures are of type BLE and can't be edited 
-  const showEditBtn = useMemo(() => (wasThereList.length + wasNotThereList.length > 0) 
-  && pastExposures.every((exposure: Exposure) => exposure.properties.BLETimestamp)
-  , [wasThereList, wasNotThereList]);
+  const showEditBtn = useMemo(() => (wasThereList.length + wasNotThereList.length > 0) && !pastExposures.every((exposure: Exposure) => exposure.properties.BLETimestamp), [wasThereList, wasNotThereList]);
   const [tabsLayout, setTabsLayout] = useState({});
   const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [firstLoad, setFirstLoad] = useState(true);
-  debugger
+  
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {
