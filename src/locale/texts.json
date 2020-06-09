@@ -642,7 +642,7 @@
       "description": "Bluetooth technology can identify situations where you and other app users are close to alert potential COVID-19 contact points.",
       "approveBluetooth": "Activate Bluetooth services",
       "callToAction": "That's why you must activate Bluetooth on your device",
-      "approveBluetoothAndroid": "I realised",
+      "approveBluetoothAndroid": "I understand",
       "approveBluetoothIOS": "Enable Bluetooth services"
     },
     "location": {
