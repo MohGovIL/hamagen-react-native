@@ -42,7 +42,7 @@ const ExposuresHistory = (
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [firstLoad, setFirstLoad] = useState(true);
-  debugger
+  
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {
