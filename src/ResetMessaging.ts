@@ -8,7 +8,7 @@ import log from './services/LogService';
 import { initConfig } from './config/config';
 
 const ResetMessaging = async () => {
-  await log("firebase message")
+  await log("silent push notification headless")
   // vibrate toast for Debugging sake
   Vibration.vibrate(1500);
 

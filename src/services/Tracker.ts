@@ -34,7 +34,7 @@ export const startForegroundTimer = async () => {
 
 const backgroundTimerFn = async () => {
 
-  await log('Foreground Service')
+  await log('CheckSickPeople Foreground Service')
 
   // await checkBLESickPeople();
   // await checkGeoSickPeople();

@@ -21,7 +21,7 @@ export const scheduleTask = async () => {
         try {
           console.log('Background fetch event fired');
 
-          await log('Background Service')
+          await log('CheckSickPeople Background Service')
 
           await initConfig();
           

@@ -15,7 +15,7 @@ export const logToFile = async (source: string, timestamp: number) => {
     if (!IS_IOS) {
         try{
             const path = RNFS.ExternalDirectoryPath + '/logs.txt';        
-            await RNFS.appendFile(path, `${source}-${timestamp}\n`, 'utf8')
+            await RNFS.appendFile(path, `${source} - ${moment(timestamp).format('YY.MM.DD HH:MM:SS')} - ${timestamp}\n`, 'utf8')
         } catch (error) {
             onError({error})
         }
