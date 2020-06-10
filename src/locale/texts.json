@@ -806,7 +806,7 @@
         "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nnPublic health information will only be published on public places.\n",
+        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nPublic health information will only be published on public places.\n",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
