@@ -78,5 +78,4 @@ export const removePushListeners = () => {
 };
 
 const pushNotificationHandler = ({ notification }: any, isTapped: boolean, isSilent: boolean) => {
-  Alert.alert('Move app to back ground')
 }; 

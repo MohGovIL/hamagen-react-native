@@ -97,8 +97,13 @@ export const checkGeoSickPeopleFromFile = async (isClusters: boolean = false) =>
 };
 
 export const checkBLESickPeopleFromFile = async (bleMatch) => {
+  
   const sickDB = new IntersectionSickDatabase();
+
+  
   const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
+  
+  
   if (!hasBLTS) {
     await checkBleAndGeoIntersection(bleMatch, sickDB);
   } else {
@@ -128,7 +133,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
       };
 
       bleMatch.BLETimestamp = moment(Math.floor((bleMatch.startContactTimestamp + bleMatch.endContactTimestamp) / 2)).startOf('hour').valueOf();
-
+      
       const sickDB = new IntersectionSickDatabase();
 
       // check if BLe match is not a duplicate
@@ -168,6 +173,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
         BLETimestamp
       }]);
     }
+    
 
     // update in past exposures
     store().dispatch(updateGeoPastExposure({
@@ -178,9 +184,12 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       }
     }));
   } else {
+    
     const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
+    
     // check if latest ble exposure is before the new exposure
     if (!lastExposure?.BLETimestamp || moment(BLETimestamp).isAfter(lastExposure.BLETimestamp)) {
+      
       // new exposure that doesn't overlap
       const sick = await sickDB.addBLESickRecord(BLETimestamp);
 
