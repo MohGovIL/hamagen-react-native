@@ -12,8 +12,8 @@ import { match } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
-import { Cluster, Exposure, Location, SickJSON } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
+import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
 import log from './LogService';
 
 // tslint:disable-next-line:no-var-requires
@@ -107,8 +107,6 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
 };
 
 export const checkBLESickPeople = async (forceCheck: boolean = false) => {
-  // IOS currently disables BLE
-  if (IS_IOS) return;
 
   try {
     const lastFetch: number = JSON.parse((await AsyncStorage.getItem(LAST_FETCH_TS)) || '0');
@@ -120,7 +118,7 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
     const bleMatches: any[] = await match();
 
     if (bleMatches.length > 0) {
-      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB - matchA)[0];
+      const bleMatchNotUTC = bleMatches.sort((matchA, matchB) => matchB.startContactTimestamp - matchA.startContactTimestamp)[0];
 
       // convert ble match to have normal time(it lacks the ms's)
       const bleMatch = {
@@ -129,23 +127,24 @@ export const checkBLESickPeople = async (forceCheck: boolean = false) => {
         endContactTimestamp: parseInt(bleMatchNotUTC.endContactTimestamp.toString()) * 1000
       };
 
+      bleMatch.BLETimestamp = moment(Math.floor((bleMatch.startContactTimestamp + bleMatch.endContactTimestamp) / 2)).startOf('hour').valueOf();
+
       const sickDB = new IntersectionSickDatabase();
 
       // check if BLe match is not a duplicate
-      const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
+      const hasBLTS = await sickDB.containsBLE(bleMatch.BLETimestamp);
 
       if (!hasBLTS) {
         await checkBleAndGeoIntersection(bleMatch, sickDB);
       }
     }
   } catch (error) {
-
     onError({ error });
   }
 };
 
 
-const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp }, sickDB) => {
+const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTimestamp, BLETimestamp }, sickDB) => {
   const exposures: Exposure[] = await sickDB.listAllRecords();
 
   const overlappingGeoExposure = exposures.find((properties) => {
@@ -153,10 +152,11 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
   });
 
   if (overlappingGeoExposure) {
-    await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, startContactTimestamp);
+    const newExposure = await sickDB.MergeBLEIntoSickRecord(overlappingGeoExposure.OBJECTID, BLETimestamp);
 
     // if user already told us he was not there - alert him by removing exposure from dismissed and resetting it in exposures
     if (!overlappingGeoExposure.wasThere) {
+      // remove exposure from dismissed exposures list
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
 
@@ -165,23 +165,27 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
         wasThere: true,
-        BLETimestamp: startContactTimestamp
+        BLETimestamp
       }]);
-    } else {
-      // update in past exposures
-      store().dispatch(updateGeoPastExposure({
-        properties: {
-          ...overlappingGeoExposure,
-          wasThere: true,
-          BLETimestamp: startContactTimestamp
-        }
-      }));
     }
-  } else {
-    // new exposure that doesn't overlap
-    const sick = await sickDB.addBLESickRecord(startContactTimestamp);
 
-    await onSickPeopleNotify([sick]);
+    // update in past exposures
+    store().dispatch(updateGeoPastExposure({
+      properties: {
+        ...overlappingGeoExposure,
+        wasThere: true,
+        BLETimestamp
+      }
+    }));
+  } else {
+    const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
+    // check if latest ble exposure is before the new exposure
+    if (!lastExposure?.BLETimestamp || moment(BLETimestamp).isAfter(lastExposure.BLETimestamp)) {
+      // new exposure that doesn't overlap
+      const sick = await sickDB.addBLESickRecord(BLETimestamp);
+
+      await onSickPeopleNotify([sick]);
+    }
   }
 };
 
@@ -207,9 +211,11 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
         const queryResult = await dbSick.containsObjectID(
           currSick.properties.Key_Field,
         );
+
         // exposure is not a duplicate
         if (!queryResult) {
           const overlappingBLEExposure = await checkGeoAndBleIntersection(currSick, dbSick);
+
           // BLE was found
           if (overlappingBLEExposure?.BLETimestamp) {
             // merge geo and ble exposure
@@ -233,9 +239,11 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
         await onSickPeopleNotify(filteredIntersected);
       }
     }
+    const db = new IntersectionSickDatabase();
+    const exposures = await db.listAllRecords();
+    console.log('exposures', exposures.length);
   } catch (error) {
     onError({ error });
-
   }
 };
 
@@ -337,17 +345,16 @@ export const isSpaceOverlapping = (clusterOrLocation: Location | Cluster, { prop
 };
 
 const checkGeoAndBleIntersection = async (currSick, dbSick) => {
-
-  const exposures: Exposure[] = await dbSick.listAllRecords();
+  const exposures: ExposureProperties[] = await dbSick.listAllRecords();
   return exposures.find((exposure) => {
 
     // if its a geo exposure or exposure doesn't have ble time stamp
     if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
 
-    const bleStart = moment.utc(exposure.BLETimestamp).startOf('hour').valueOf();
-    const bleEnd = moment.utc(exposure.BLETimestamp).startOf('hour').add(1, 'hours').valueOf();
+    const bleStart = moment.utc(exposure.BLETimestamp);
+    const bleEnd = bleStart.startOf('hour').add(1, 'hours');
 
-    return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
+    return (Math.min(currSick.properties.toTime_utc, bleEnd.valueOf()) - Math.max(currSick.properties.fromTime_utc, bleStart.valueOf())) > 0;
   });
 };
 

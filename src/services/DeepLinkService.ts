@@ -51,7 +51,6 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
     const objectToShare = {
       token,
       dataRows: [],
-      // dataBleRows: defaultBleResponse
     };
 
     const isClusters = config().dataShareClusters;
@@ -67,6 +66,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       delete location.long;
 
       if (!isClusters) {
+        // server can handle 4 digits
         location.accuracy = Math.min(location.accuracy, 999);
         delete location.hash;
         delete location.wifiHash;
@@ -79,7 +79,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       objectToShare.dataRows = dataRows;
     }
 
-    if (!IS_IOS && ENABLE_BLE && userAgreedToBle) {
+    if (ENABLE_BLE && userAgreedToBle) {
       const dataBleRows = await fetchInfectionDataByConsent();
       if (dataBleRows) {
         objectToShare.dataBleRows = dataBleRows;
