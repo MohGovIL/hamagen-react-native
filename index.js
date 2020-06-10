@@ -5,7 +5,7 @@ import BackgroundGeolocation from 'react-native-background-geolocation';
 import App from './src/App';
 import { name as appName } from './app.json';
 import ResetMessaging from './src/ResetMessaging';
-import { checkGeoSickPeople } from './src/services/Tracker';
+import { checkGeoSickPeople, checkBLESickPeople } from './src/services/Tracker';
 import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
@@ -24,6 +24,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
     await initConfig();
+    await checkBLESickPeople();
     await checkGeoSickPeople();
 
     BackgroundFetch.finish(taskId);

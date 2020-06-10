@@ -532,7 +532,7 @@ export class IntersectionSickDatabase {
         const db = await this.initDB();
 
         db.transaction(async (tx) => {
-          const [_, results] = await tx.executeSql('SELECT * FROM IntersectingSick WHERE BLETimestamp = ? ', [BLETimestamp]);
+          const [_, results] = await tx.executeSql(`SELECT * FROM IntersectingSick WHERE BLETimestamp =${BLETimestamp}`);
 
           resolve(results?.rows?.length > 0);
         });
@@ -573,10 +573,11 @@ export class IntersectionSickDatabase {
                 record.properties.toTime_utc,
                 record.geometry.coordinates[config().sickGeometryLongIndex],
                 record.geometry.coordinates[config().sickGeometryLatIndex],
+                null,
+                null
               ]);
 
-            const item = await this.getGeoRecord(record.properties.Key_Field, db);
-
+            const item = await this.getGeoRecord(record.properties.Key_Field, db);   
             resolve(item);
           } catch (error) {
             resolve(record.properties);

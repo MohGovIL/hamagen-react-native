@@ -167,7 +167,7 @@ const Loading: FunctionComponent<Props> = (
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
-
+      
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
@@ -218,8 +218,7 @@ const Loading: FunctionComponent<Props> = (
 const migrateIntersectionSickDatabase = async (dbSick: any) => {
   try {
     const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
-    console.log('dbSickWasUpdated', dbSickWasUpdated);
-
+    
     if (dbSickWasUpdated !== 'true') {
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
 

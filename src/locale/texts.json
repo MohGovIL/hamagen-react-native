@@ -749,7 +749,7 @@
       "wasNotThereNoExposure": "There are no events in the last 14 days for which you marked \"I was not there\"",
       "historyEditFinishBtn": "Save changes",
       "historyEditCancelBtn": "Cancel edit",
-      "edit": "edit",
+      "edit": "Edit",
       "BLELocationUpdate": "Location history updated",
       "BLEWarning": "It is not possible to edit Bluetooth data"
     },
@@ -765,7 +765,7 @@
       "keepSafeNew": "These are the Ministry of Health's guidelines: ",
       "subTitle": "Possible overlap with a confirmed COVID-19 patient ",
       "themInstructions": "These are the Ministry of Health's guidelines:",
-      "editBtn": "edit",
+      "editBtn": "Edit",
       "finishBtn": "Done, go back to homepage",
       "updateTitle": "Thank you for updating",
       "updateSubTitle": "It is possible that the changes you've made will affect what you do next",
@@ -832,7 +832,7 @@
       "addBleDataText": "It is acceptable for me to also use information collected via Bluetooth to identify proximity to corona patients' phones"
     },
     "exposureRelief": {
-      "editBtn": "edit",
+      "editBtn": "Edit",
       "title": "It seems that you've had no overlap with any confirmed COVID-19 patients",
       "keepSafe": "It is important to continue following the guidelines!",
       "backBtn": "Go back to the homepage",
@@ -1385,7 +1385,7 @@
       "approveBluetooth": "Activer les services Bluetooth",
       "callToAction": "Afin de confirmer l'utilisation de ces services \nActivez le Bluetooth sur votre appareil",
       "approveBluetoothIOS": "Activer les services Bluetooth",
-      "approveBluetoothAndroid": "j'ai réalisé"
+      "approveBluetoothAndroid": "J’ai compris"
     },
     "location": {
       "title": "La localisation est critique",

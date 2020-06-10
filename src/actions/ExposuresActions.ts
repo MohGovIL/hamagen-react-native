@@ -30,7 +30,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
-
+  
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures } });
   dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures: exposures } });
 };
