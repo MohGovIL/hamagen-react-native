@@ -6,10 +6,10 @@ import { initLocalHeadless } from './actions/LocaleActions';
 import { initConfig } from './config/config';
 import { initBLETracing } from './services/BLEService';
 
-const ResetMessaging = async (fromLaod: boolean = true) => {
+const ResetMessaging = async (fromLoad: boolean = true) => {
   console.log('data message received');
   try {
-    if(fromLaod){
+    if(fromLoad){
       await initConfig();
     }
 
