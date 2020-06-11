@@ -45,6 +45,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
       onError({ error });
     }
   } else {
+    SpecialBle.stopBLEService()
     resolve();
   }
 });
