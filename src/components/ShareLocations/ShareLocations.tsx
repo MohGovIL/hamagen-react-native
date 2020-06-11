@@ -62,6 +62,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
         const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token, agreeToBle));
 
         switch (statusCode) {
+          case 'CompleteSuccessfully': 
           case 'CompletSuccessfully': {
             setState('shareSuccess');
             setRetryState(false);
@@ -75,7 +76,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
           }
           case 'RunTimeError': {
             setState('shareFail');
-            setFailState('MissingToken');
+            setFailState('TokenError');
             break;
           }
           case 'InvalidOperation': {
@@ -96,6 +97,8 @@ const ShareLocations = ({ route, navigation }: Props) => {
               }
               default: {
                 setState('shareFail');
+                setFailState('MissingToken');
+                break;
               }
             }
             break;

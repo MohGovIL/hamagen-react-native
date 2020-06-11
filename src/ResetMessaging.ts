@@ -6,14 +6,15 @@ import { initLocalHeadless } from './actions/LocaleActions';
 import { initConfig } from './config/config';
 import { initBLETracing } from './services/BLEService';
 
-const ResetMessaging = async (callConfig: boolean = true) => {
+const ResetMessaging = async (fromLaod: boolean = true) => {
   console.log('data message received');
   try {
-    await BackgroundFetch.stop();
-
-    if(callConfig){
+    if(fromLaod){
       await initConfig();
     }
+
+    await BackgroundFetch.stop();
+    
     await scheduleTask();
 
     const { locale, notificationData } = await initLocalHeadless();
