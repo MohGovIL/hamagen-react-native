@@ -80,12 +80,15 @@ const ShareLocations = ({ route, navigation }: Props) => {
           }
           case 'InvalidOperation': {
             switch (statusDesc) {
+              case "1":
+              case "2":
               case 1:
               case 2: {
                 setState('shareFail');
                 setFailState('TokenError');
                 break;
               }
+              case "3":
               case 3: {
                 setState('shareSuccess');
                 setRetryState(false);
@@ -125,7 +128,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
           <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{addBleDataText}</Text>
 
         </TouchableOpacity>
-      ); 
+      );
     }
 
     return null;
