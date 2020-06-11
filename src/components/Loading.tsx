@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
-import BackgroundFetch from 'react-native-background-fetch';
-import BackgroundGeolocation, { State } from 'react-native-background-geolocation';
 import OnboardingRoutes from './Onboarding/OnboardingRoutes';
 import Home from './Drawer/Home';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
@@ -13,21 +11,19 @@ import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
-import { scheduleTask } from '../services/BackgroundService';
 import { onError } from '../services/ErrorService';
-import { purgeSamplesDB, startSampling } from '../services/SampleService';
+import { purgeSamplesDB } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
+import ResetMessaging from '../ResetMessaging';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { initBLETracing, registerBLEListeners } from '../services/BLEService';
 import { startPushListeners } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
-import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
-import { ValidExposure } from '../types';
+import { ExternalUrls, Strings } from '../locale/LocaleData';
 import {
-  SET_VALID_EXPOSURE,
   RESET_EXPOSURES,
   UPDATE_FIRST_POINT,
   HIDE_FORCE_TERMS,
@@ -41,10 +37,8 @@ import {
   USAGE_ON_BOARDING,
   VALID_EXPOSURE,
   DISMISSED_EXPOSURES,
-  SICK_DB_UPDATED,
-  VERSION_NAME
+  SICK_DB_UPDATED
 } from '../constants/Constants';
-
 
 interface Props {
   isInitLocale: boolean,
@@ -52,7 +46,6 @@ interface Props {
   strings: Strings,
   locale: string,
   externalUrls: ExternalUrls,
-  notificationData: NotificationData,
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
@@ -75,7 +68,6 @@ const Loading: FunctionComponent<Props> = (
     strings,
     locale,
     externalUrls,
-    notificationData,
     initLocale,
     showWebview,
     usageType,
@@ -127,33 +119,7 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      BackgroundFetch.status(async (status) => {
-        if (status !== BackgroundFetch.STATUS_AVAILABLE) {
-          await scheduleTask();
-        }
-      });
-
-      const state: State = await BackgroundGeolocation.getState();
-
-      if (!state.enabled) {
-        await startSampling(locale, notificationData);
-      } else {
-        if (!IS_IOS && !state.enableHeadless) {
-          await BackgroundGeolocation.setConfig({
-            enableHeadless: true,
-            foregroundService: true
-          });
-        }
-
-        if (state.maxDaysToPersist === 1) {
-          await BackgroundGeolocation.setConfig({
-            persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
-            maxRecordsToPersist: -1,
-            maxDaysToPersist: 10000000
-          });
-        }
-      }
-
+      await ResetMessaging();
       await initBLETracing();
 
       await purgeSamplesDB();
@@ -167,7 +133,7 @@ const Loading: FunctionComponent<Props> = (
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
-      
+
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
@@ -214,11 +180,11 @@ const Loading: FunctionComponent<Props> = (
 
 // migrate table to have wasThere and bleTimestamp
 // update valid exposure to have was there true
-// update all dismissed exposures to have wasThere property 
+// update all dismissed exposures to have wasThere property
 const migrateIntersectionSickDatabase = async (dbSick: any) => {
   try {
     const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
-    
+
     if (dbSickWasUpdated !== 'true') {
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
 
@@ -228,22 +194,22 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
 
       if (validExposure) {
         const parsedValidExposure = JSON.parse(validExposure);
-        
+
         if (parsedValidExposure) {
           const { exposure } = parsedValidExposure;
-          
+
           exposure.properties.wasThere = true;
           exposure.properties.OBJECTID = exposure.properties.Key_Field;
-          
+
           await dbSick.upgradeSickRecord(true, [exposure.properties.OBJECTID]);
-          
+
           const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-          
+
           // Set ensures no OBJECTID or BLETimestamp duplicates
           const dismissedExposureSet = new Set(parsedDismissedExposures);
-          
+
           dismissedExposureSet.add(exposure.properties.OBJECTID);
-          
+
           await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
         }
       }
@@ -269,10 +235,10 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
-    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
+    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls }
   } = state;
 
-  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
+  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls };
 };
 
 export default connect(mapStateToProps, {

@@ -24,6 +24,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
     await initConfig();
+    await syncLocationsDBOnLocationEvent();
     await checkBLESickPeople();
     await checkGeoSickPeople();
 
