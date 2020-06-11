@@ -68,6 +68,7 @@ const ExposuresHistory = (
   return (
     <View style={styles.container}>
       <HeaderButton type="back" onPress={navigation.goBack} />
+      
       {showEditBtn && (
         <TouchableOpacity
           hitSlop={HIT_SLOP}
@@ -85,7 +86,7 @@ const ExposuresHistory = (
       <View style={styles.headerContainer}>
         <View style={{ marginHorizontal: 30 }}>
           <Text bold>{title}</Text>
-          <Text style={{ fontSize: 14, color: '#6a6a6a', marginTop: 8 }}>{subTitle}</Text>
+          <Text style={{ fontSize: 14, color: '#6a6a6a', marginVertical: 8 }}>{subTitle}</Text>
         </View>
         <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse' }}>
           <TouchableOpacity
@@ -129,15 +130,8 @@ const ExposuresHistory = (
           }}
         />
       </View>
-      <View
-        style={{
-          flexDirection: isRTL ? 'row' : 'row-reverse',
-          backgroundColor: '#f7f8fa',
-          flex: IS_SMALL_SCREEN ? 4 : 6,
-        }}
-      >
+      <View style={{ flex: 1, flexDirection: isRTL ? 'row' : 'row-reverse', backgroundColor: '#f7f8fa' }}>
         <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
-
           <FlatList
             bounces={false}
             contentContainerStyle={styles.listContainer}
@@ -156,8 +150,8 @@ const ExposuresHistory = (
             )}
           />
         </Animated.View>
-        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
 
+        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
           <FlatList
             bounces={false}
             data={wasThereList}
@@ -194,8 +188,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerContainer: {
-    flex: 1,
-    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 35 : 62),
+    paddingTop: PADDING_TOP(IS_SMALL_SCREEN ? 30 : 60),
     justifyContent: 'space-between',
     paddingBottom: IS_SMALL_SCREEN ? 8 : 10,
     backgroundColor: WHITE
@@ -217,7 +210,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   tabText: {
-    fontSize: IS_SMALL_SCREEN ? 14 : 16
+    fontSize: IS_SMALL_SCREEN ? 14 : 16,
+    width: SCREEN_WIDTH / 2,
+    paddingHorizontal: 10
   },
   editButtonContainer: {
     position: 'absolute',
