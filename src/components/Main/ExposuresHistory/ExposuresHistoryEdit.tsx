@@ -224,11 +224,12 @@ const styles = StyleSheet.create({
     paddingBottom: IS_SMALL_SCREEN ? SCREEN_HEIGHT * 0.05 : SCREEN_HEIGHT * 0.03,
     backgroundColor: WHITE,
     marginBottom: 15,
+    paddingHorizontal: 20
   },
   headerSubtitle: {
     fontSize: 14,
     color: '#6a6a6a',
-    marginTop: 8
+    marginTop: 8,
   },
   actionBtnTouch: {
     borderColor: MAIN_COLOR,

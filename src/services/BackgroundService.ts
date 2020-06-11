@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import config, { initConfig } from '../config/config';
 import { checkGeoSickPeople, checkBLESickPeople } from './Tracker';
+import { syncLocationsDBOnLocationEvent } from './SampleService';
 import { onError } from './ErrorService';
 import { LAST_FETCH_TS } from '../constants/Constants';
 import log from './LogService';
@@ -24,10 +25,10 @@ export const scheduleTask = async () => {
           await log('CheckSickPeople Background Service')
 
           await initConfig();
-          
+          await syncLocationsDBOnLocationEvent();
           await checkBLESickPeople();
           await checkGeoSickPeople();
-          
+
           await AsyncStorage.setItem(
             LAST_FETCH_TS,
             JSON.stringify(new Date().getTime()),

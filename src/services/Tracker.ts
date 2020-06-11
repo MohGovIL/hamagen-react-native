@@ -248,9 +248,6 @@ export const checkGeoSickPeople = async (forceCheck: boolean = false, isClusters
         await onSickPeopleNotify(filteredIntersected);
       }
     }
-    const db = new IntersectionSickDatabase();
-    const exposures = await db.listAllRecords();
-    console.log('exposures', exposures.length);
   } catch (error) {
     onError({ error });
   }

@@ -34,6 +34,7 @@ const BackgroundFetchHeadlessTask = async (event) => {
     await log('CheckSickPeople Headless');
 
     await initConfig();
+    await syncLocationsDBOnLocationEvent();
     await checkBLESickPeople();
     await checkGeoSickPeople();
 
