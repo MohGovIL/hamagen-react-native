@@ -8,7 +8,7 @@ import log from './services/LogService';
 import { initConfig } from './config/config';
 import { initBLETracing } from './services/BLEService';
 
-const ResetMessaging = async () => {
+const ResetMessaging = async (callConfig: boolean = true) => {
   await log("silent push notification headless")
   // vibrate toast for Debugging sake
   Vibration.vibrate(1500);
@@ -16,7 +16,9 @@ const ResetMessaging = async () => {
   try {
     await BackgroundFetch.stop();
 
-    await initConfig();
+    if(callConfig){
+      await initConfig();
+    }
     await scheduleTask();
 
     const { locale, notificationData } = await initLocalHeadless();
