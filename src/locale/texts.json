@@ -313,7 +313,7 @@
         "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\n",
         "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
-        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
+        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
         "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
         "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
         "shareFailWithWarnings": "לא נמצאו נתוני מיקום על המכשיר שלך.\nנמשיך בתהליך בשיחת הטלפון."
@@ -328,7 +328,7 @@
         "beforeShare": "שיתוף הנתונים שלי",
         "shareSuccess": "חזרה לאפליקציה",
         "shareNoConnection": "ניסיון נוסף",
-        "shareFail": "הבנתי, תודה",
+        "shareFail": "נסה שנית",
         "shareFailMissingToken": "הבנתי, תודה",
         "shareFailTokenError": "נסה שנית",
         "shareFailWithWarnings": "הבנתי"
@@ -561,7 +561,7 @@
         "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\n",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
-        "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
+        "shareFail": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
         "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
         "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
         "shareFailWithWarnings": "لم يتم العثور على معطيات في جهاز الهاتف الخاص بك.\nسنستمر في العملية عبر المكالمة الهاتفية."
@@ -576,7 +576,7 @@
         "beforeShare": "مشاركة بياناتي",
         "shareSuccess": "العودة إلى التطبيق",
         "shareNoConnection": "محاولة أخرى",
-        "shareFail": "أفهم ، شكرا لك",
+        "shareFail": "يرجى المحاولة مرة أخرى",
         "shareFailMissingToken": "أفهم ، شكرا لك",
         "shareFailTokenError": "يرجى المحاولة مرة أخرى",
         "shareFailWithWarnings": "فهمت"
@@ -809,7 +809,7 @@
         "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nPublic health information will only be published on public places.\n",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
-        "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
+        "shareFail": "Unfortunately we were unable to get your data. Please try again",
         "shareFailMissingToken": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
         "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again",
         "shareFailWithWarnings": "No data was found on your phone. We will call you to continue this process."
@@ -824,7 +824,7 @@
         "beforeShare": "Sharing my data",
         "shareSuccess": "Back to the app",
         "shareNoConnection": "another try",
-        "shareFail": "I understood, thank you",
+        "shareFail": "try again",
         "shareFailMissingToken": "I understood, thank you",
         "shareFailTokenError": "try again",
         "shareFailWithWarnings": "I understand"
@@ -1057,7 +1057,7 @@
         "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\n",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
-        "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
+        "shareFail": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
         "shareFailMissingToken": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
         "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
         "shareFailWithWarnings": "Данные о вашем телефоне не найдены. Продолжим с помощью телефонного звонка."
@@ -1072,7 +1072,7 @@
         "beforeShare": "Поделиться моими данными",
         "shareSuccess": "Вернуться в приложение",
         "shareNoConnection": "Еще одна попытка",
-        "shareFail": "Я понимаю спасибо",
+        "shareFail": "Пожалуйста, попробуйте еще раз",
         "shareFailMissingToken": "Я понимаю спасибо",
         "shareFailTokenError": "Пожалуйста, попробуйте еще раз",
         "shareFailWithWarnings": "Я понимаю"
@@ -1303,7 +1303,7 @@
         "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\n",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
-        "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
+        "shareFail": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
         "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
         "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
         "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።\nበጥሪው እንቀጥላለን።"
@@ -1318,7 +1318,7 @@
         "beforeShare": "ውሂቤን በማጋራት ላይ",
         "shareSuccess": "ወደ መተግበሪያው ይመለሱ",
         "shareNoConnection": "ሌላ ሙከራ",
-        "shareFail": "ገባኝ ፣ አመሰግናለሁ",
+        "shareFail": "እባክዎ እንደገና ይሞክሩ",
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
         "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ",
         "shareFailWithWarnings": "ገባኝ"
@@ -1551,7 +1551,7 @@
         "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\n",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
-        "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
+        "shareFail": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
         "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
         "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
         "shareFailWithWarnings": "Aucune donnée trouvée sur votre téléphone.\nNous continuerons le processus par un appel  téléphonique"
@@ -1566,7 +1566,7 @@
         "beforeShare": "Partager mes données",
         "shareSuccess": "Retour à l'appli",
         "shareNoConnection": "Un autre essai",
-        "shareFail": "Je comprends merci",
+        "shareFail": "Veuillez réessayer",
         "shareFailMissingToken": "Je comprends merci",
         "shareFailTokenError": "Veuillez réessayer",
         "shareFailWithWarnings": "J’ai compris"

@@ -93,14 +93,12 @@ const ShareLocations = ({ route, navigation }: Props) => {
               }
               default: {
                 setState('shareFail');
-                setRetryState(false);
               }
             }
             break;
           }
           default: {
             setState('shareFail');
-            setRetryState(false);
           }
         }
       } else {
