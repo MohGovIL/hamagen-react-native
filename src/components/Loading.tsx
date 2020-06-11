@@ -17,7 +17,7 @@ import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import ResetMessaging from '../ResetMessaging';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
-import { initBLETracing, registerBLEListeners } from '../services/BLEService';
+import { registerBLEListeners } from '../services/BLEService';
 import { startPushListeners } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
@@ -121,7 +121,6 @@ const Loading: FunctionComponent<Props> = (
     try {
       // don't init config again
       await ResetMessaging(false);
-      await initBLETracing();
 
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
