@@ -20,7 +20,6 @@ import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { initBLETracing, registerBLEListeners } from '../services/BLEService';
-import { startPushListeners } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -94,7 +93,6 @@ const Loading: FunctionComponent<Props> = (
   useEffect(() => {
     registerBLEListeners();
     appLoadingActions();
-    startPushListeners();
   }, []);
 
   useEffect(() => {
@@ -167,7 +165,7 @@ const Loading: FunctionComponent<Props> = (
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
-      
+
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
 
       const firstPointTS = JSON.parse(await AsyncStorage.getItem(FIRST_POINT_TS) || 'false');
@@ -214,11 +212,11 @@ const Loading: FunctionComponent<Props> = (
 
 // migrate table to have wasThere and bleTimestamp
 // update valid exposure to have was there true
-// update all dismissed exposures to have wasThere property 
+// update all dismissed exposures to have wasThere property
 const migrateIntersectionSickDatabase = async (dbSick: any) => {
   try {
     const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
-    
+
     if (dbSickWasUpdated !== 'true') {
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
 
@@ -228,22 +226,22 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
 
       if (validExposure) {
         const parsedValidExposure = JSON.parse(validExposure);
-        
+
         if (parsedValidExposure) {
           const { exposure } = parsedValidExposure;
-          
+
           exposure.properties.wasThere = true;
           exposure.properties.OBJECTID = exposure.properties.Key_Field;
-          
+
           await dbSick.upgradeSickRecord(true, [exposure.properties.OBJECTID]);
-          
+
           const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-          
+
           // Set ensures no OBJECTID or BLETimestamp duplicates
           const dismissedExposureSet = new Set(parsedDismissedExposures);
-          
+
           dismissedExposureSet.add(exposure.properties.OBJECTID);
-          
+
           await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
         }
       }

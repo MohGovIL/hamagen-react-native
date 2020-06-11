@@ -185,7 +185,7 @@ export const checkGeoSickPeople = async () => {
     console.log('exposures', exposures.length);
   } catch (error) {
     console.log(error);
-    
+
     onError({ error });
   }
 };
@@ -310,9 +310,7 @@ export const onSickPeopleNotify = async (sickPeopleIntersected: ExposureProperti
 
       await registerLocalNotification(
         notificationData.sickMessage[locale].title,
-        notificationData.sickMessage[locale].body,
-        notificationData.sickMessage.duration,
-        'ms',
+        notificationData.sickMessage[locale].body
       );
     }
   } catch (error) {

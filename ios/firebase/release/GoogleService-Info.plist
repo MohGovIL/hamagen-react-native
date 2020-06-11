@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>52365283353-0eejukapu5phhrk9bb62bt70i35uhb77.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.52365283353-0eejukapu5phhrk9bb62bt70i35uhb77</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>52365283353-eidtjtn5hhj9ah2kbo8fhuchk881nue3.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA_sFRV18QlB5TeqTsGRoUaQUMKCYc8oI8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>52365283353</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hamagen</string>
+	<key>PROJECT_ID</key>
+	<string>codeagainstcorona-3896f</string>
+	<key>STORAGE_BUCKET</key>
+	<string>codeagainstcorona-3896f.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:52365283353:ios:34befa770b27193a279a88</string>
+	<key>DATABASE_URL</key>
+	<string>https://codeagainstcorona-3896f.firebaseio.com</string>
+</dict>
+</plist>

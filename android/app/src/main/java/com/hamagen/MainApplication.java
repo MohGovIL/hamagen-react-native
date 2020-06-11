@@ -18,10 +18,7 @@ import android.content.IntentFilter;
 import io.rumors.reactnativesettings.receivers.GpsLocationReceiver;
 import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
 import com.wix.specialble.SpecialBlePackage;
-
 import com.facebook.react.modules.i18nmanager.I18nUtil;
-import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
-import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -38,8 +35,6 @@ public class MainApplication extends Application implements ReactApplication {
                     List<ReactPackage> packages = new PackageList(this).getPackages();
                     // Packages that cannot be autolinked yet can be added manually here, for example:
                     // packages.add(new MyReactNativePackage());
-                    packages.add(new RNFirebaseMessagingPackage());
-                    packages.add(new RNFirebaseNotificationsPackage());
                     packages.add(new SpecialBlePackage());
                     return packages;
                 }
