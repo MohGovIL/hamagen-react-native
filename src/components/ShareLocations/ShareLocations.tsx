@@ -76,7 +76,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
           }
           case 'RunTimeError': {
             setState('shareFail');
-            setFailState('MissingToken');
+            setFailState('TokenError');
             break;
           }
           case 'InvalidOperation': {
@@ -97,6 +97,8 @@ const ShareLocations = ({ route, navigation }: Props) => {
               }
               default: {
                 setState('shareFail');
+                setFailState('MissingToken');
+                break;
               }
             }
             break;
