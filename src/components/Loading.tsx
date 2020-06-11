@@ -119,7 +119,8 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      await ResetMessaging();
+      // don't init config again
+      await ResetMessaging(false);
       await initBLETracing();
 
       await purgeSamplesDB();
