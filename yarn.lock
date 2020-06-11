@@ -7236,7 +7236,7 @@ rimraf@~2.2.6:
 
 "rn-contact-tracing@https://github.com/wix-incubator/rn-contact-tracing.git#master":
   version "0.0.3"
-  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#cf313707d1a3869c6808735f38787f0740a2a069"
+  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#4038ca8f41592a1f7ceb820a9fed4f2ba5356831"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"
