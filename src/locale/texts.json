@@ -816,7 +816,7 @@
       },
       "greeting": {
         "beforeShare": "Your personal information - will remain confidential",
-        "shareSuccess": "Many thanks and complete medicine",
+        "shareSuccess": "Many thanks and be well",
         "shareNoConnection": "",
         "shareFail": ""
       },
