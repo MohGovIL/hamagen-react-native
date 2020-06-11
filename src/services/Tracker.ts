@@ -180,12 +180,7 @@ export const checkGeoSickPeople = async () => {
         await onSickPeopleNotify(filteredIntersected);
       }
     }
-    const db = new IntersectionSickDatabase();
-    const exposures = await db.listAllRecords();
-    console.log('exposures', exposures.length);
   } catch (error) {
-    console.log(error);
-    
     onError({ error });
   }
 };
