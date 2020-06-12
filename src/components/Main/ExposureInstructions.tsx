@@ -123,13 +123,13 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
-{/* style={{flexGrow: 1, justifyContent: 'flex-end' }} */}
-    <View style={!IS_SMALL_SCREEN && styles.buttonWrapper}>
+      {/* style={{flexGrow: 1, justifyContent: 'flex-end' }} */}
+      <View style={!IS_SMALL_SCREEN && styles.buttonWrapper}>
 
-      <TouchableOpacity style={styles.button} onPress={action}>
-        <Text style={styles.buttonText} bold>{buttonText}</Text>
-      </TouchableOpacity>
-    </View>
+        <TouchableOpacity style={styles.button} onPress={action}>
+          <Text style={styles.buttonText} bold>{buttonText}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -276,11 +276,11 @@ const styles = StyleSheet.create({
     width: (SCREEN_WIDTH / 2) - (23 + 5.5),
     paddingVertical: 15,
     paddingHorizontal: 23,
-    
+
   },
   buttonWrapper: {
-    flexGrow: 1, 
-    justifyContent: 'flex-end' 
+    flexGrow: 1,
+    justifyContent: 'flex-end'
   },
   button: {
     padding: 4,

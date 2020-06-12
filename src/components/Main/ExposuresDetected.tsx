@@ -43,8 +43,6 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const flatListRef = useRef(null);
 
   useEffect(() => {
-    
-    
     SplashScreen.hide();
     AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureDetected');
     BackHandler.addEventListener('hardwareBackPress', () => true);
@@ -68,7 +66,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   useFocusEffect(
     // TODO: fix this for BLE logic
     useCallback(() => {
-      if (!isOneBle 
+      if (!isOneBle
         && exposures.every(exposure => exposure.properties.wasThere !== null)) {
         showButton(0);
       }

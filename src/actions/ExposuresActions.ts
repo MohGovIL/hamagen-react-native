@@ -15,7 +15,6 @@ import { DISMISSED_EXPOSURES, VALID_EXPOSURE } from '../constants/Constants';
 import { IntersectionSickDatabase } from '../database/Database';
 
 export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => {
-  
   const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
 
   let filteredExposures = exposures;
@@ -101,13 +100,13 @@ export const updateGeoPastExposure = (exposureToReplace: Exposure) => (dispatch:
 
 export const updateBlePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
   const { pastExposures }: ExposuresReducer = getState().exposures;
-  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.BLETimestamp === exposure.properties.BLETimestamp)
+  const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.BLETimestamp === exposure.properties.BLETimestamp);
 
   if (index !== -1) {
-    pastExposures[index] = exposureToReplace
-    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures })
+    pastExposures[index] = exposureToReplace;
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures });
   }
-}
+};
 
 export const updatePointsFromFile = points => (dispatch: any) => {
   const newPoint = {
@@ -118,5 +117,3 @@ export const updatePointsFromFile = points => (dispatch: any) => {
   };
   dispatch({ type: UPDATE_POINTS_FROM_FILE, payload: { points: newPoint } });
 };
-
-

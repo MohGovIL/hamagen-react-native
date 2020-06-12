@@ -10,24 +10,23 @@ import { initBLETracing } from './services/BLEService';
 
 const ResetMessaging = async (fromLoad: boolean = true) => {
   try {
-    
-    if(fromLoad){
-      await log("silent push notification headless")
-      
+    if (fromLoad) {
+      await log('silent push notification headless');
+
       // vibrate toast for Debugging sake
       Vibration.vibrate(1500);
       await initConfig();
     }
 
     await BackgroundFetch.stop();
-    
+
     await scheduleTask();
 
     const { locale, notificationData } = await initLocalHeadless();
     await BackgroundGeolocation.stop();
     await startLocationTracking(locale, notificationData);
 
-    await initBLETracing()
+    await initBLETracing();
   } catch (error) {
     console.log(error);
   }

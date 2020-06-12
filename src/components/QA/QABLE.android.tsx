@@ -155,7 +155,6 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
         default: return;
       }
     } catch (error) {
-      
       if (DocumentPicker.isCancel(error)) {
         // User cancelled the picker, exit any dialogs or menus and move on
       } else {
@@ -182,10 +181,10 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
     if (parsedRes.length > 0) {
       // TODO: get Hagai make the manupulation
       const sortedBleMatches = parsedRes.map(match => ({ ...match, startContactTimestamp: parseInt(match.startContactTimestamp) * 1000, endContactTimestamp: parseInt(match.endContactTimestamp) * 1000 })).sort((matchA, MatchB) => MatchB.startContactTimestamp - matchA.startContactTimestamp);
-      const bleMatch = sortedBleMatches[0]
+      const bleMatch = sortedBleMatches[0];
       bleMatch.BLETimestamp = moment(Math.floor((bleMatch.startContactTimestamp + bleMatch.endContactTimestamp) / 2)).startOf('hour').valueOf();
-      
-      // take the first one 
+
+      // take the first one
       await checkBLESickPeopleFromFile(bleMatch);
 
       // console.log('BLEMatch',BLEMatch);
