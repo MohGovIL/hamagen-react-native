@@ -1206,7 +1206,7 @@
         "androidTitle": "የመከላከያ መተግበሪያውን በማጋራት ላይ"
       },
       "noExposures": {
-        "bannerText": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
+        "bannerText": "ጥምር ግንኙነት\nአልተገኙም",
         "workAllTheTime": "የሀመጌን መተግበሪ ሁልጊዜ ይሠራል",
         "infoModal": {
           "textBodyPt1": "ንፅፅሩ የተሰራው እርስዎ አካባቢዎን ከተቀበሉበት ጊዜ ጀምሮ ነው",
@@ -1216,7 +1216,7 @@
           "title": "እስከ:",
           "atHour": "በ"
         },
-        "bannerTextPristine": "ጥምር ግንኙነት\nአልተገኙም",
+        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
         "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
         "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች",
         "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
