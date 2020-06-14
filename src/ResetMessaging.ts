@@ -9,7 +9,7 @@ import { initBLETracing } from './services/BLEService';
 const ResetMessaging = async (fromLoad: boolean = true) => {
   console.log('data message received');
   try {
-    if(fromLoad){
+    if (fromLoad) {
       await initConfig();
     }
 
@@ -21,7 +21,7 @@ const ResetMessaging = async (fromLoad: boolean = true) => {
     await BackgroundGeolocation.stop();
     await startLocationTracking(locale, notificationData);
 
-    await initBLETracing()
+    await initBLETracing();
   } catch (error) {
     console.log(error);
   }
