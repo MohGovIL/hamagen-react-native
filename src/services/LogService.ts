@@ -12,15 +12,22 @@ export const logToStorage = async (source: any, timestamp: number) => {
 
 // TODO: check how to do it for IOS
 export const logToFile = async (source: string, timestamp: number) => {
-  if (!IS_IOS) {
-    try {
-      const path = `${RNFS.ExternalDirectoryPath}/logs.txt`;
-      await RNFS.appendFile(path, `${source} - ${moment(timestamp).format('YY.MM.DD HH:mm:ss')} - ${timestamp}\n`, 'utf8');
-    } catch (error) {
-      onError({ error });
-    }
+  try {
+    const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/logs.txt`;
+    await RNFS.appendFile(path, `${source} - ${moment(timestamp).format('YY.MM.DD HH:mm:ss')} - ${timestamp}\n`, 'utf8');
+  } catch (error) {
+    onError({ error });
   }
 };
+
+export const logErrorToFile = async (error: Error | string) => {
+  try {
+    const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/errors.log`;
+    await RNFS.appendFile(path, `${error.toString()}\n`, 'utf8');
+  } catch (e) {
+    console.log('error in error log service');
+  }
+}
 
 const log = async (source: string) => {
   const timestamp = moment().valueOf();
