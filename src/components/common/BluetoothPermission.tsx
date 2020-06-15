@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
 // import { StackNavigationProp } from '@react-navigation/stack';
-// import BluetoothStateManager from 'react-native-bluetooth-state-manager';
 import { ActionButton, Text, Icon, TouchableOpacity } from '.';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, SCREEN_WIDTH } from '../../constants/Constants';

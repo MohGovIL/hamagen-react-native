@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionCompo
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
 import LottieView from 'lottie-react-native';
-import { BluetoothState } from 'react-native-bluetooth-state-manager';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
@@ -102,23 +101,6 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
         <View style={styles.container}>
           <LocationHistoryInfo />
           <EnableBluetooth />
-          <BluetoothState>
-            {!IS_IOS && (
-            <BluetoothState.PoweredOff>
-              {({ enable, openSettings }) => {
-                if (!enableBle) return null;
-                return (
-                  <InfoBubble
-                    isRTL={isRTL}
-                    info={bluetoothServiceOff}
-                    moreInfo={turnBluetoothOn}
-                    onPress={() => { !IS_IOS ? enable() : openSettings(); }}
-                  />
-                );
-              }}
-            </BluetoothState.PoweredOff>
-            )}
-          </BluetoothState>
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
