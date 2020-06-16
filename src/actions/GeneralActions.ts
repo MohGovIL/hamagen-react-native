@@ -10,10 +10,11 @@ import {
   SHOW_FORCE_UPDATE,
   SHOW_FORCE_TERMS,
   HIDE_LOCATION_HISTORY,
-  SHOW_MAP_MODAL
+  SHOW_MAP_MODAL,
+  ENABLE_BLE
 } from '../constants/ActionTypes';
 
-import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
+import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY, USER_AGREE_TO_BLE, ENABLE_BLE as ENABLE_BLE_IN_APP } from '../constants/Constants';
 import { Exposure } from '../types';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
@@ -68,6 +69,27 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
     }
   } catch (error) {
     onError({ error });
+  }
+};
+
+export const checkIfBleEnabled = () => async (dispatch: any) => {
+  // await AsyncStorage.removeItem(USER_AGREE_TO_BLE)
+
+  
+  if (IS_IOS || !ENABLE_BLE_IN_APP) {
+    dispatch({ type: ENABLE_BLE, payload: false });
+  } else {
+    try {
+      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+      
+      if (payload) {
+        payload = JSON.parse(payload);
+      }
+      dispatch({ type: ENABLE_BLE, payload });
+    } catch (error) {
+      onError({ error });
+      dispatch({ type: ENABLE_BLE, payload: null });
+    }
   }
 };
 

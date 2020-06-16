@@ -13,7 +13,9 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
     const signatureLength = data.indexOf('{');
 
     const signature = data.slice(0, signatureLength);
+
     const jsonB64 = data.slice(signatureLength);
+
     const json = JSON.parse(jsonB64);
 
     // @ts-ignore
@@ -27,9 +29,9 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
 
     if (result) {
       resolve(json);
+    } else {
+      reject('invalid ECDSA signature');
     }
-
-    reject('invalid ECDSA signature');
   } catch (error) {
     reject(error);
     onError({ error });

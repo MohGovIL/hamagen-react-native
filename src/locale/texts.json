@@ -141,6 +141,14 @@
       "subTitle1": "אלפי ישראלים עלולים לסבול מנזק בריאותי כתוצאה מנגיף הקורונה.",
       "subTitle2": "אבחון ובידוד בזמן יכולים להציל את חייהם. תודה שאתם עוזרים לנו, לעזור להם."
     },
+    "bluetooth": {
+      "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
+      "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
+      "approveBluetooth": "הפעל שירותי בלוטות׳",
+      "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך",
+      "approveBluetoothIOS": "הפעל שירותי בלוטות׳",
+      "approveBluetoothAndroid": "הבנתי"
+    },
     "location": {
       "title": "המיקום הוא קריטי",
       "subTitle1": "האפליקציה תאסוף את נתוני המיקום שלכם ותשווה אותם למיקומים המאומתים של מאובחני קורונה. אם תמצא חפיפה, תקבלו הודעה על כך.",
@@ -153,14 +161,14 @@
     },
     "locationIOS": {
       "title": "הפעלת שירותי\nמיקום ברקע",
-      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
+      "subTitle1": "על מנת לספק לך מידע מדויק אודות מיקומים הרלוונטיים עבורך באופן שוטף, עליך לאפשר קבלת מיקומים באופן קבוע.",
       "subTitle2": "יש לשנות את הגדרות המיקום כפי שמופיע בתמונות",
       "goToSettings": "לחצו כאן כדי להיכנס להגדרות",
       "set": "הגדרתי, המשך"
     },
     "notifications": {
       "title": "חשוב לעדכן אותך",
-      "subTitle1": "על מנת שנוכל לעדכן אותך באירועים הקשורים לקורונה ורלווטיים עבורך, עליך לאפשר קבלת התראות מאיתנו.",
+      "subTitle1": "על מנת שנוכל לעדכן אותך באירועים הקשורים לקורונה ורלוונטים עבורך, עליך לאפשר קבלת התראות מאיתנו.",
       "subTitle2": "קבלת התראות מאיתנו הן הכרחיות עבורך ועבור הקרובים אליך",
       "approveNotifications": "אשר קבלת התראות"
     },
@@ -198,6 +206,7 @@
       "suspectedExposure": "חשד לחשיפה:",
       "events": "אירועים",
       "possibleExposure": "ייתכן שהייתה חפיפה מול חולה קורונה:",
+      "possibleExposureBLE": "לפי נתוני מכשיר הטלפון שלך\nזיהינו שהיית בקרבת חולה קורונה:",
       "atPlace": "ב",
       "share": {
         "message": "שיתוף אפליקציית המגן",
@@ -205,7 +214,7 @@
         "androidTitle": "שיתוף אפליקציית המגן"
       },
       "noExposures": {
-        "bannerText": "לא נמצאו\nנקודות חפיפה",
+        "bannerText": "לא נמצאו נקודות חפיפה חדשות",
         "workAllTheTime": "אפליקציית המגן פועלת כל הזמן",
         "infoModal": {
           "textBodyPt1": "ההשוואה מבוצעת מרגע קבלת המיקומים שלך בתאריך ",
@@ -214,16 +223,39 @@
         "card": {
           "title": "נכון לתאריך:",
           "atHour": "בשעה"
-        }
+        },
+        "bannerTextPristine": "לא נמצאו\nנקודות חפיפה",
+        "instructionLinkUpper": "לשימוש במידת הצורך:",
+        "instructionLinkLower": "הנחיות לשוהים בבידוד",
+        "bluetoothServiceOff": "שירותי הבלוטות׳ על המכשיר כבויים",
+        "turnBluetoothOn": "הפעלת בלוטות׳",
+        "canIdentifyWithBluetooth": "מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות'",
+        "moreInformation": "מידע נוסף"
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
-      "wasMe": "ייתכן שכן"
+      "wasMe": "ייתכן שכן",
+      "doneBtn": "סיימתי לעדכן",
+      "betweenHours": "בין השעות",
+      "deviceCloseTag": "קרבה בין מכשירים",
+      "locationCloseTag": "קרבה במיקום",
+      "wasMeBle": "המשך",
+      "wasMeOnly": "המשך לקבלת הנחיות"
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
       "noExposures": "לשמחתנו, אין אירועים ב-14 הימים האחרונים״  ",
-      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות"
+      "keepInstructions": "חשוב להמשיך לשמור על ההנחיות",
+      "subTitle": "לפניך כל נקודות החפיפה שמצאנו ב-14\nהימים האחרונים כפי שסימנת אותן",
+      "wasThere": "ייתכן שהיית שם",
+      "wasNotThere": "לא היית שם",
+      "wasThereNoExposure": "לשמחתנו, אין אירועים ב-14 הימים האחרונים עבורם סימנת ״ייתכן שהייתי שם״",
+      "wasNotThereNoExposure": "אין אירועים ב-14 הימים האחרונים עבורם סימנת ״לא הייתי שם״",
+      "historyEditFinishBtn": "שמירת שינויים",
+      "historyEditCancelBtn": "ביטול עריכה",
+      "edit": "עריכה",
+      "BLELocationUpdate": "נתוני המיקום עודכנו",
+      "BLEWarning": "לא ניתן לערוך מידע שמתקבל בעזרת בלוטות'"
     },
     "exposureInstructions": {
       "title": "חשד לחשיפה: מה לעשות?",
@@ -234,7 +266,15 @@
       "reportIsolation": "לדיווח באתר משרד הבריאות על כניסה לבידוד",
       "allInstructions": "לכל ההנחיות",
       "reportSite": "לדיווח באתר",
-      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:"
+      "keepSafeNew": "אלו ההנחיות של משרד הבריאות:",
+      "subTitle": "ייתכן שהייתה חפיפה מול חולה קורונה",
+      "themInstructions": "אלו ההנחיות של משרד הבריאות:",
+      "editBtn": "עריכה",
+      "finishBtn": "סיימתי, חזרה לעמוד הבית",
+      "updateTitle": "תודה שעדכנת",
+      "updateSubTitle": "ייתכן שהשינוייים שעשית משפיעים על ההתנהלות בהמשך",
+      "showMore": "עוד",
+      "showLess": "פחות"
     },
     "locationHistory": {
       "beforeCheckTitle": "הוספת נתונים קודמים",
@@ -270,12 +310,13 @@
         "shareFail": "משהו השתבש"
       },
       "description": {
-        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\nהמידע האישי שלך - ישאר חסוי",
+        "beforeShare": "בתהליך זה (שנקרא \"חקירה אפידמיולוגית\") נאסוף מהאפליקציה את נתוני המיקום שלך. את הנתונים על המקומות הציבוריים שבהם היית ב-14 הימים האחרונים נפרסם.\n\nלצורך הגנה על בריאות הציבור, נפרסם אך ורק מידע לגבי מקומות הדבקה פומביים.\n",
         "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
-        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
+        "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
         "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
-        "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב"
+        "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
+        "shareFailWithWarnings": "לא נמצאו נתוני מיקום על המכשיר שלך.\nנמשיך בתהליך בשיחת הטלפון."
       },
       "greeting": {
         "beforeShare": "המידע האישי שלך - יישאר חסוי",
@@ -287,10 +328,20 @@
         "beforeShare": "שיתוף הנתונים שלי",
         "shareSuccess": "חזרה לאפליקציה",
         "shareNoConnection": "ניסיון נוסף",
-        "shareFail": "הבנתי, תודה",
+        "shareFail": "נסה שנית",
         "shareFailMissingToken": "הבנתי, תודה",
-        "shareFailTokenError": "נסה שנית"
-      }
+        "shareFailTokenError": "נסה שנית",
+        "shareFailWithWarnings": "הבנתי"
+      },
+      "addBleDataText": "מקובל עלי שתשתמשו גם במידע שנאסף דרך בלוטות׳,'לזיהוי מצבי קרבה למכשירי טלפון של חולי קורונה"
+    },
+    "exposureRelief": {
+      "editBtn": "עריכה",
+      "title": "נראה שלא הייתה לך חפיפה עם חולה קורנה",
+      "keepSafe": "חשוב להמשיך לשמור על ההנחיות!",
+      "backBtn": "חזרה לעמוד הבית",
+      "reliefTitle": "תודה על העדכון",
+      "historyBackBtn": "חזרה להיסטוריית חפיפה"
     }
   },
   "ar": {
@@ -338,6 +389,14 @@
       "subTitle1": "من الممكن أن يسبب فيروس الكورونا الضرر الصحي لالاف الإسرائيليين",
       "subTitle2": "بإستطاعة التشخيص المبكر والعزل  إنقاذ حياة الكثيرين. شكرا لمساعدتكم "
     },
+    "bluetooth": {
+      "title": "تم تحديد نقاط تماس\n بمساعدة البلوتوث",
+      "description": "تقنية البلوتوث تتيح تحديد الأوضاع التي تكون فيها بقرب أشخاص آخرين في محيطك الذين يحملون هاتفًا تم تحميل التطبيق عليه, من أجل تحديد فيما لو كان هنالك اشتباه بالإصابة بفيروس الكورونا.",
+      "approveBluetooth": "تشغيل خدمات البلوتوث",
+      "callToAction": "لفعل ذلك, عليك الموافقة\nتشغيل البلوتوث في الجهاز الخاص بك",
+      "approveBluetoothIOS": "تمكين خدمات Bluetooth",
+      "approveBluetoothAndroid": "فهمت"
+    },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
       "subTitle1": "إن هذا التطبيق يقوم بجمع معطيات بخصوص أماكن تواجدكم ويقوم بمقارنتها بالمعطيات العامة للأشخاص المصابين بالفيروس",
@@ -357,7 +416,7 @@
     },
     "notifications": {
       "title": "نود إعلامكم",
-      "subTitle1": "حتى يتم إبلاغكم عن حالات الكورونا ذات الصلة بكم يجب عليكم الموافقة على استلام تنبيهات عن طريق التطبيق ",
+      "subTitle1": " من أجل تزويدك بمعلومات دقيقة حول المواقع ذات الصلة بك, عليك القيام بإتاحة الحصول على الموقع بشكل دائم .",
       "subTitle2": "إستلام تنبيهات ذات أهمية لكم و للمحيطين بكم",
       "approveNotifications": "الموافقة على إستلام التنبيهات"
     },
@@ -395,6 +454,7 @@
       "suspectedExposure": "إشتباه بالتعرض لمريض كورونا:",
       "events": " أحداث ",
       "possibleExposure": "هنالك إحتمالية التعرض لمريض كورونا:",
+      "possibleExposureBLE": "بحسب معطيات جهاز الهاتف الخاص بك\n قمنا بتشخيص تواجدك على مقربة من مصاب بالكورونا :",
       "atPlace": " في",
       "share": {
         "message": "مشاركة تطبيق الحماية",
@@ -402,7 +462,7 @@
         "androidTitle": "مشاركة تطبيق الحماية"
       },
       "noExposures": {
-        "bannerText": "لم يتم العثور على \n نقاط تداخل",
+        "bannerText": "لم يتم العثور على نقاط تماس جديدة",
         "workAllTheTime": "يعمل التطبيق الوقائي طوال الوقت",
         "infoModal": {
           "textBodyPt1": "تتم المقارنة من اللحظة التي تتلقى فيها مواقعك في",
@@ -411,16 +471,39 @@
         "card": {
           "title": "اعتبارًا من:",
           "atHour": "في"
-        }
+        },
+        "bannerTextPristine": " غير موجودة \nنقاط تماس",
+        "instructionLinkUpper": "للاستخدام عند الضرورة:",
+        "instructionLinkLower": "تعليمات للمتواجدين في الحجر الصحي",
+        "bluetoothServiceOff": "تم إطفاء خدمات البلوتوث على الجهاز ",
+        "turnBluetoothOn": "تشغيل البلوتوث׳",
+        "canIdentifyWithBluetooth": "من اليوم، يمكن تحديد نقاط تماس إضافية بمساعدة البلوتوث",
+        "moreInformation": "معلومات إضافية"
       },
       "showOnMap": "تعرفت على الخريطة",
-      "wasNotMe": "لم أكن هناك",
-      "wasMe": "قد يكون"
+      "wasNotMe": "لم أتواجد هناك",
+      "wasMe": "ربما نعم ",
+      "doneBtn": "انتهيت من التحديث ",
+      "betweenHours": "بين الساعات",
+      "deviceCloseTag": "قرب في الموقع",
+      "locationCloseTag": "القرب من الموقع",
+      "wasMeBle": "تابع",
+      "wasMeOnly": "تابع للحصول على التعليمات"
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
       "noExposures": "لا يوجد نقاط تطابق",
-      "keepInstructions": "من المهم الاستمرار في اتباع الإرشادات"
+      "keepInstructions": "من المهم الاستمرار بالمحافظة على التعليمات",
+      "subTitle": " أماك جميع نقاط التماس التي عثرنا عليها خلال ال-14\nلأيام الأخيرة وفقًا لما قمت باختياره",
+      "wasThere": "من الممكن انك تواجدت هناك",
+      "wasNotThere": "لم تتواجد هناك",
+      "wasThereNoExposure": "يُسعدنا, ليس هنالك احداث في ال-14 يوم الأخيرة التي قمت بتحديدها من الممكن بأني تواجدت هناك ",
+      "wasNotThereNoExposure": "ليس هنالك احداث في ال-14 يوم الأخيرة التي بتحديدها لم أتواجد هناك",
+      "historyEditFinishBtn": "حفظ التغييرات",
+      "historyEditCancelBtn": "إلغاء التحرير",
+      "edit": "تحرير",
+      "BLELocationUpdate": "تم تحديث معطيات الموقع",
+      "BLEWarning": "لا يمكن تحرير معلومات تم الحصول عليها بمساعدة البلوتوث '"
     },
     "exposureInstructions": {
       "title": "لديك إشتباه بالتعرض لمريض كورونا؟ ماذا يجب أن تفعل؟",
@@ -430,13 +513,22 @@
       "goIntoIsolation": "يرجى الدخول فورا الى الحجر الصحي لمدة ١٤ يوم من وقت التعرض",
       "reportIsolation": "يتوجب عليكم إبلاغ وزارة الصحة",
       "allInstructions": "لكل التوصيات",
-      "reportSite": "للإبلاغ"
+      "reportSite": "للإبلاغ",
+      "keepSafeNew": "هذه هي تعليمات وزارة الصحة:",
+      "subTitle": "من المحتمل بأن يكون هنالك تماس مع مصاب بالكورونا",
+      "themInstructions": "هذه هي تعليمات وزارة الصحة:",
+      "editBtn": "تحرير",
+      "finishBtn": "انتهيت, العودة إلى الصفحة الرئيسية",
+      "updateTitle": "شكرًا على قيامك بالتحديث",
+      "updateSubTitle": "من الممكن بأن التغييرات التي قمت بإجرائها تؤثر على الإجراءات لاحقًا  ",
+      "showMore": "المزيد",
+      "showLess": "أقل"
     },
     "locationHistory": {
       "beforeCheckTitle": "أغلق الزوايا الأخيرة",
       "beforeCheckDesc": "لتحديد مواقعك بدقة خلال آخر 14 يومًا ، يجب عليك تمكين بيانات الموقع من حسابك على Google. يتم تخزين هذه المعلومات على الهاتف لاستخدامك الشخصي فقط ولا يتم إرسالها إلى أي طرف آخر",
       "beforeCheckDesc2": "للقيام بذلك ، يجب عليك السماح بالوصول إلى موقعك من Google خلال آخر 14 يومًا",
-      "beforeCheckButton": "دقة البيانات",
+      "beforeCheckButton": "إضافة البيانات السابقة",
       "skip": "تخطي",
       "successFoundTitle": "تم تحديث بيانات Google بنجاح",
       "successFoundDesc": "يعتمد تحديد نقاط التداخل خلال آخر 14 يومًا على بيانات الموقع المستلمة من Google",
@@ -466,12 +558,13 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا. \n\n لن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة. \n ستظل معلوماتك الشخصية سرية.",
+        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\n",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
-        "shareFail": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
+        "shareFail": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
         "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
-        "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى"
+        "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
+        "shareFailWithWarnings": "لم يتم العثور على معطيات في جهاز الهاتف الخاص بك.\nسنستمر في العملية عبر المكالمة الهاتفية."
       },
       "greeting": {
         "beforeShare": "معلوماتك الشخصية - ستبقى سرية",
@@ -483,10 +576,20 @@
         "beforeShare": "مشاركة بياناتي",
         "shareSuccess": "العودة إلى التطبيق",
         "shareNoConnection": "محاولة أخرى",
-        "shareFail": "أفهم ، شكرا لك",
+        "shareFail": "يرجى المحاولة مرة أخرى",
         "shareFailMissingToken": "أفهم ، شكرا لك",
-        "shareFailTokenError": "يرجى المحاولة مرة أخرى"
-      }
+        "shareFailTokenError": "يرجى المحاولة مرة أخرى",
+        "shareFailWithWarnings": "فهمت"
+      },
+      "addBleDataText": "من المقبول بالنسبة لي أيضًا استخدام المعلومات التي تم جمعها عبر الغدة لتحديد القرب من هواتف مرضى الاكليل"
+    },
+    "exposureRelief": {
+      "editBtn": "تحرير",
+      "title": "على ما يبدو لم يكن لديك تماس مع مصاب بالكورونا ",
+      "keepSafe": "من المهم الاستمرار بالمحافظة على التعليمات! ",
+      "backBtn": "العودة إلى الصفحة الرئيسية",
+      "reliefTitle": "شكرًا على التحديث",
+      "historyBackBtn": "العودة إلى تاريخ التماس "
     }
   },
   "en": {
@@ -534,6 +637,14 @@
       "subTitle1": "Thousands of Israelis could suffer the ill effects of the coronavirus.",
       "subTitle2": "Timely diagnosis and isolation can save their lives."
     },
+    "bluetooth": {
+      "title": "Using Bluetooth to identify overlap points",
+      "description": "Bluetooth technology can identify situations where you and other app users are close to alert potential COVID-19 contact points.",
+      "approveBluetooth": "Activate Bluetooth services",
+      "callToAction": "That's why you must activate Bluetooth on your device",
+      "approveBluetoothAndroid": "I understand",
+      "approveBluetoothIOS": "Enable Bluetooth services"
+    },
     "location": {
       "title": "Location is critical",
       "subTitle1": "This app will collect your location data and compare it to the locations of people known to be infected with the virus. If any of those locations are found to overlap, you will receive a notification.",
@@ -546,7 +657,7 @@
     },
     "locationIOS": {
       "title": "Activate location\nservices in the background",
-      "subTitle1": "In order to be able to update you about events related to the coronavirus, we will need to send you notifications.",
+      "subTitle1": "In order to provide you with exact location history relevant to you on an ongoing basis, you must keep location services activated.",
       "subTitle2": "Location service settings should be changed as shown in the pictures below",
       "goToSettings": "Press here for settings",
       "set": "Settings updated, let’s continue"
@@ -591,15 +702,16 @@
       "suspectedExposure": "Suspected Exposure:",
       "events": "Events",
       "possibleExposure": "There may have been an exposure to a Corona patient:",
+      "possibleExposureBLE": "Based on data on your phone, we figured out you had been close to a confirmed COVID-19 patient",
       "atPlace": "At ",
       "share": {
-        "message": "Sharing Hamagn",
-        "title": "Sharing Hamagn",
-        "androidTitle": "Sharing Hamagn"
+        "message": "Sharing Hamagen",
+        "title": "Sharing Hamagen",
+        "androidTitle": "Sharing Hamagen"
       },
       "noExposures": {
-        "bannerText": "No \n overlap points found",
-        "workAllTheTime": "The protective app works all the time",
+        "bannerText": "No exposure points found",
+        "workAllTheTime": "Hamagen app works all the time",
         "infoModal": {
           "textBodyPt1": "The comparison is made from the moment you receive your locations on",
           "textBodyPt2": "In the face of the location data of all verified patients in the country for the last 14 days, and is constantly updated"
@@ -607,16 +719,39 @@
         "card": {
           "title": "As of:",
           "atHour": "at"
-        }
+        },
+        "bannerTextPristine": "Exposure points not found",
+        "instructionLinkUpper": "Use as needed:",
+        "instructionLinkLower": "Guidelines for those in isolation",
+        "bluetoothServiceOff": "Bluetooth services are deactivated on this device",
+        "turnBluetoothOn": "Activate Bluetooth",
+        "canIdentifyWithBluetooth": "Starting today, it is possible to identify additional overlap points by Bluetooth",
+        "moreInformation": "Further Information"
       },
       "showOnMap": "Show me on the map",
-      "wasNotMe": "Was not there",
-      "wasMe": "Might be"
+      "wasNotMe": "I was not there",
+      "wasMe": "I was there",
+      "doneBtn": "I'm done updating",
+      "betweenHours": "Between hours",
+      "deviceCloseTag": "Proximity between devices",
+      "locationCloseTag": "Location proximity",
+      "wasMeBle": "Proceed",
+      "wasMeOnly": "Proceed to receive guidelines"
     },
     "exposuresHistory": {
-      "title": "Overlap history",
+      "title": "Exposure history",
       "noExposures": "No overlap points found",
-      "keepInstructions": "It is important to keep following the guidelines"
+      "keepInstructions": "It is important to continue following the guidelines",
+      "subTitle": "Below are all overlap points that we found over the last 14 days marked by you.",
+      "wasThere": "You might have been there",
+      "wasNotThere": "You were not there",
+      "wasThereNoExposure": "Fortunately, there are no contact incidents for the last 14 days that you've marked as I might have been there.",
+      "wasNotThereNoExposure": "There are no events in the last 14 days for which you marked \"I was not there\"",
+      "historyEditFinishBtn": "Save changes",
+      "historyEditCancelBtn": "Cancel edit",
+      "edit": "Edit",
+      "BLELocationUpdate": "Location history updated",
+      "BLEWarning": "It is not possible to edit Bluetooth data"
     },
     "exposureInstructions": {
       "title": "Suspicion of exposure: What to do?",
@@ -626,13 +761,22 @@
       "goIntoIsolation": "Stay at home and avoid contact with other people for 14 days from the moment of contact",
       "reportIsolation": "Report Isolation",
       "allInstructions": "For all the Instructions",
-      "reportSite": "To report at the Site"
+      "reportSite": "To report at the Site",
+      "keepSafeNew": "These are the Ministry of Health's guidelines: ",
+      "subTitle": "Possible overlap with a confirmed COVID-19 patient ",
+      "themInstructions": "These are the Ministry of Health's guidelines:",
+      "editBtn": "Edit",
+      "finishBtn": "Done, go back to homepage",
+      "updateTitle": "Thank you for updating",
+      "updateSubTitle": "It is possible that the changes you've made will affect what you do next",
+      "showMore": "More",
+      "showLess": "Less"
     },
     "locationHistory": {
       "beforeCheckTitle": "Closing the last corners",
       "beforeCheckDesc": "In order to accurately determine your locations for the last 14 days, your location data must be enabled from your Google Account. This information is kept on the phone and for your personal use only and is not sent to any other party",
       "beforeCheckDesc2": "To do this, you must allow access to locations within the last 14 days from Google",
-      "beforeCheckButton": "Data accuracy",
+      "beforeCheckButton": "Importing data from Google",
       "skip": "Skip",
       "successFoundTitle": "Google data was updated successfully",
       "successFoundDesc": "Locating the overlap points for the last 14 days will be based on location data received from Google",
@@ -662,16 +806,17 @@
         "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nnPublic health information will only be published on public places.\nYour personal information will remain confidential.",
+        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nPublic health information will only be published on public places.\n",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
-        "shareFail": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
+        "shareFail": "Unfortunately we were unable to get your data. Please try again",
         "shareFailMissingToken": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
-        "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again"
+        "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again",
+        "shareFailWithWarnings": "No data was found on your phone. We will call you to continue this process."
       },
       "greeting": {
         "beforeShare": "Your personal information - will remain confidential",
-        "shareSuccess": "Many thanks and complete medicine",
+        "shareSuccess": "Many thanks and be well",
         "shareNoConnection": "",
         "shareFail": ""
       },
@@ -679,10 +824,20 @@
         "beforeShare": "Sharing my data",
         "shareSuccess": "Back to the app",
         "shareNoConnection": "another try",
-        "shareFail": "I understood, thank you",
+        "shareFail": "try again",
         "shareFailMissingToken": "I understood, thank you",
-        "shareFailTokenError": "try again"
-      }
+        "shareFailTokenError": "try again",
+        "shareFailWithWarnings": "I understand"
+      },
+      "addBleDataText": "It is acceptable for me to also use information collected via Bluetooth to identify proximity to corona patients' phones"
+    },
+    "exposureRelief": {
+      "editBtn": "Edit",
+      "title": "It seems that you've had no overlap with any confirmed COVID-19 patients",
+      "keepSafe": "It is important to continue following the guidelines!",
+      "backBtn": "Go back to the homepage",
+      "reliefTitle": "Thank you for your update",
+      "historyBackBtn": "Return to overlap history"
     }
   },
   "ru": {
@@ -730,6 +885,14 @@
       "subTitle1": "Тысячи израильтян могут пострадать от коронавируса.",
       "subTitle2": "Диагностирование и карантин могут спасти их жизнь. Спасибо что помогаете нам помогать им!"
     },
+    "bluetooth": {
+      "title": "Определение точек соприкосновения по Bluetooth",
+      "description": "Технология Bluetooth позволяет идентифицировать случаи, при которых вы приближаетесь к другим владельцам телефонов с установленным приложением, что необходимо для определения вероятного инфицирования коронавирусом.",
+      "approveBluetooth": "Включить Bluetooth",
+      "callToAction": "Для этого необходимо активировать Bluetooth на вашем устройстве.",
+      "approveBluetoothIOS": "Включить службы Bluetooth",
+      "approveBluetoothAndroid": "я осознал"
+    },
     "location": {
       "title": "Местонахождение критично",
       "subTitle1": "Приложение будет собирать данные о вашем месте нахождение, и сообщит вам если будет совпадение с данными местонахождения больных.",
@@ -742,7 +905,7 @@
     },
     "locationIOS": {
       "title": "Включение услуг местонахождения\nна постоянной основе",
-      "subTitle1": "Чтобы регулярно получать точную информацию о вашим месте нахождения, включите услуги местонахождения на постоянную основу.",
+      "subTitle1": "Для того, чтобы мы могли регулярно предоставлять вам точную информацию о местоположениях, которые имеют к вам отношение, вы должны разрешить определение геолокации на постоянной основе.",
       "subTitle2": "Измените настройки как указано в фотографиях",
       "goToSettings": "Настройки",
       "set": "Продолжить"
@@ -787,6 +950,7 @@
       "suspectedExposure": "Подозрение на контакт:",
       "events": "случая",
       "possibleExposure": "Возможно контакт с больным был :",
+      "possibleExposureBLE": "На основании данных, полученных с Вашего телефона, мы определили, что Вы находились в близи от больного коронавирусом",
       "atPlace": "в ",
       "share": {
         "message": "Совместное использование защитного приложения",
@@ -794,7 +958,7 @@
         "androidTitle": "Совместное использование защитного приложения"
       },
       "noExposures": {
-        "bannerText": "Не найдено точек перекрытия",
+        "bannerText": "Новых точек соприкосновения не обнаружено",
         "workAllTheTime": "Защитное приложение работает все время",
         "infoModal": {
           "textBodyPt1": "Сравнение производится с момента получения вашего местоположения на",
@@ -803,16 +967,39 @@
         "card": {
           "title": "По состоянию на:",
           "atHour": "в"
-        }
+        },
+        "bannerTextPristine": "Точек соприкосновения не обнаружено ",
+        "instructionLinkUpper": "Для использования при необходимости:",
+        "instructionLinkLower": "Указания для пребывающих в карантине",
+        "bluetoothServiceOff": "Bluetooth на устройстве отключен",
+        "turnBluetoothOn": "Включить Bluetooth",
+        "canIdentifyWithBluetooth": "Теперь можно определить больше точек соприкосновения с помощью Bluetooth",
+        "moreInformation": "Дополнительная информация"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
-      "wasMe": "Может быть"
+      "wasMe": "Возможно, я там был",
+      "doneBtn": "Завершить внесение обновлений",
+      "betweenHours": "Период времени",
+      "deviceCloseTag": "Расстояние между устройствами",
+      "locationCloseTag": "Расстояние до местоположения",
+      "wasMeBle": "Дальше",
+      "wasMeOnly": "Перейти к получению указаний"
     },
     "exposuresHistory": {
       "title": "История контактов",
       "noExposures": "Нет точек соприкосновения",
-      "keepInstructions": "Важно продолжать следовать рекомендациям"
+      "keepInstructions": "Важно продолжать следовать указаниям",
+      "subTitle": "Все точки соприкосновения за последние 14 дней, которые мы определили, на основании отмеченного Вами",
+      "wasThere": "Возможно, Вы были там",
+      "wasNotThere": "Вас там не было",
+      "wasThereNoExposure": "К счастью, за последние 14 дней не было случаев, когда Вы поставили отметку «Возможно, я там был»",
+      "wasNotThereNoExposure": "За последние 14 дней не было случаев, когда Вы поставили отметку «Меня там не было»",
+      "historyEditFinishBtn": "Сохранить изменения",
+      "historyEditCancelBtn": "Отменить изменения",
+      "edit": "Редактировать",
+      "BLELocationUpdate": "Данные о местоположениях обновлены",
+      "BLEWarning": "Невозможно редактировать данные, полученные с помощью Bluetooth"
     },
     "exposureInstructions": {
       "title": "Подозрение на контакт? ",
@@ -822,13 +1009,22 @@
       "goIntoIsolation": "Оставайтесь дома на карантине в течение ближайших 14 дней",
       "reportIsolation": "Сообщите о вашем карантине на сайте Минздрава",
       "allInstructions": "Инструкции",
-      "reportSite": "Сообщить"
+      "reportSite": "Сообщить",
+      "keepSafeNew": "Это указания Министерства здравоохранения:",
+      "subTitle": "Возможно, было пересечение с больным коронавирусом",
+      "themInstructions": "Это указания Министерства здравоохранения:",
+      "editBtn": "Редактировать",
+      "finishBtn": "Завершить и вернуться на главную страницу",
+      "updateTitle": "Спасибо, что обновили информацию",
+      "updateSubTitle": "Внесенные Вами изменения могут повлиять на дальнейшее поведение",
+      "showMore": "Больше",
+      "showLess": "Меньше"
     },
     "locationHistory": {
       "beforeCheckTitle": "Последний этап",
       "beforeCheckDesc": "Для точного определения вашего местоположения за последние 14 дней, нам нужен доступ к вашей учетной записи Google. Эта информация предназначена только для личного использования и не отправляется никаким другим лицам",
       "beforeCheckDesc2": "Для этого пожалуйста разрешите доступ к местоположениям в течение последних 14 дней из Google",
-      "beforeCheckButton": "Точность данных",
+      "beforeCheckButton": "Добавить данные из Google",
       "skip": "Пропуск",
       "successFoundTitle": "Данные Google успешно обновлены",
       "successFoundDesc": "Определение местоположения точек перекрытия за последние 14 дней будет основано на данных о местоположении, полученных от Google.",
@@ -858,12 +1054,13 @@
         "shareFail": "Что-то пошло не так"
       },
       "description": {
-        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\nYour Ваша личная информация будет оставаться конфиденциальной.",
+        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\n",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
-        "shareFail": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
+        "shareFail": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
         "shareFailMissingToken": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
-        "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз"
+        "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
+        "shareFailWithWarnings": "Данные о вашем телефоне не найдены. Продолжим с помощью телефонного звонка."
       },
       "greeting": {
         "beforeShare": "Ваша личная информация - останется конфиденциальной",
@@ -875,10 +1072,20 @@
         "beforeShare": "Поделиться моими данными",
         "shareSuccess": "Вернуться в приложение",
         "shareNoConnection": "Еще одна попытка",
-        "shareFail": "Я понимаю спасибо",
+        "shareFail": "Пожалуйста, попробуйте еще раз",
         "shareFailMissingToken": "Я понимаю спасибо",
-        "shareFailTokenError": "Пожалуйста, попробуйте еще раз"
-      }
+        "shareFailTokenError": "Пожалуйста, попробуйте еще раз",
+        "shareFailWithWarnings": "Я понимаю"
+      },
+      "addBleDataText": "Для меня приемлемо также использовать информацию, собранную через железу, чтобы определить близость к телефонам пациентов с короной."
+    },
+    "exposureRelief": {
+      "editBtn": "Редактировать",
+      "title": "Видимо, Вы не пересекались с больным коронавирусом",
+      "keepSafe": "Важно продолжать следовать указаниям!",
+      "backBtn": "Вернуться на главную страницу",
+      "reliefTitle": "Спасибо за обновление",
+      "historyBackBtn": "Вернуться к истории точек соприкосновения"
     }
   },
   "am": {
@@ -925,6 +1132,14 @@
       "title": "በጥረቱ ስለረዱን ተደሠተናል",
       "subTitle1": "በሺዎች የሚቆጠሩ እስራኤላውያን በኮሮና ቫይረስ የጤና ጉዳት ሊደርስባቸው ይችላል.",
       "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
+    },
+    "bluetooth": {
+      "title": "የተደራራቢ ነጥቦችን ይለዩ\nጎርፍ",
+      "description": "በኮሮና ውስጥ የኢንፌክሽን ጥርጣሬ ለመፈጠር የብሉቱዝ ቴክኖሎጂ በርስዎ እና በአከባቢዎ ባሉ ሌሎች የስልክ ባለቤቶች መካከል በአከባቢዎ ያለውን የዝውውር ሁኔታ ለመለየት ያስችላል ፡፡",
+      "approveBluetooth": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት",
+      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "approveBluetoothAndroid": "ገባኝ"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -983,6 +1198,7 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
+      "possibleExposureBLE": "በስልክዎ መረጃ መሠረት\nበኮሮና ህመምተኛ አቅራቢያ መኖራቸውን አስተውለናል-",
       "atPlace": "በ ",
       "share": {
         "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
@@ -990,25 +1206,46 @@
         "androidTitle": "የመከላከያ መተግበሪያውን በማጋራት ላይ"
       },
       "noExposures": {
-        "bannerText": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
-        "workAllTheTime": "የመከላከያ መተግበሪያው ሁልጊዜ ይሠራል",
+        "bannerText": "ጥምር ግንኙነት\nአልተገኙም",
+        "workAllTheTime": "የሀመጌን መተግበሪ ሁልጊዜ ይሠራል",
         "infoModal": {
           "textBodyPt1": "ንፅፅሩ የተሰራው እርስዎ አካባቢዎን ከተቀበሉበት ጊዜ ጀምሮ ነው",
           "textBodyPt2": "ላለፉት 14 ቀናት በእስራኤል ውስጥ ሁሉም የተረጋገጡ በሽተኞች የቦታ ውሂብ ፊትለፊት እና ሁልጊዜም ይዘምናል"
         },
         "card": {
-          "title": "እንደ:",
+          "title": "እስከ:",
           "atHour": "በ"
-        }
+        },
+        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
+        "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
+        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች",
+        "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
+        "turnBluetoothOn": "ብሉቱዝ አብራ",
+        "canIdentifyWithBluetooth": "ከአሁን ጀምሮ ተጨማሪ መደራረብ በ ዕጢዎች ዕጢዎች ሊታወቅ ይችላል ፡፡",
+        "moreInformation": "ተጨማሪ መረጃ"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
-      "wasMe": "ሊሆን ይችላል"
+      "wasMe": "ሊሆን ይችላል",
+      "doneBtn": "ማዘመን አጠናቅቄያለሁ",
+      "betweenHours": "በሰዓቶች መካከል",
+      "deviceCloseTag": "በመሳሪያዎች መካከል ቅርበት",
+      "locationCloseTag": "ወደ ቅርበት ቅርበት",
+      "wasMeBle": "ቀጠለ",
+      "wasMeOnly": "መመሪያዎችን ይቀጥሉ"
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
       "noExposures": "ድርርብ አልተገኘም።",
-      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው"
+      "keepInstructions": "መመሪያዎችን መከተል አስፈላጊ ነው",
+      "subTitle": "እርስዎ ምልክት ሲያደርጉባቸው በአለፉት 14\nቀናት ውስጥ ያጋጠሙኝ ሁሉም መደራረቦች እነሆ",
+      "wasThere": "እዚያ ሊሆኑ ይችላሉ",
+      "wasNotThere": "እዚያ አልነበሩም",
+      "wasThereNoExposure": "ደስ የሚለው ነገር ፣ ካለፉት 14 ቀናት ውስጥ “እዛ እዛ እሆን ነበር” ብለው ያሰቧቸው ምንም ክስተቶች የሉም ፡፡",
+      "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
+      "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
+      "historyEditCancelBtn": "ማርትዕ ቀልብስ",
+      "edit": "ማርትዕ"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1018,13 +1255,22 @@
       "goIntoIsolation": "-ለቫይረሱ ከተጋለጡበት ጊዜ ጀምሮ በአስቸኳይ ለ14 ቀናተ እራስዎን ያግልሉ፡፡,",
       "reportIsolation": "መገለያ ቦታ መግባትዎን በጤና ጥበቃ መ/ቤት ድረ-ገፅ ያስታውቁ።,",
       "allInstructions": "ለሁሉም መመሪያዎች ።,",
-      "reportSite": "በድረ-ገፅ ያስታውቁ ።"
+      "reportSite": "በድረ-ገፅ ያስታውቁ ።",
+      "keepSafeNew": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "subTitle": "ከኮሮና ህመምተኛ ጋር መደራረብ ሊኖር ይችላል",
+      "themInstructions": "እነዚህ የጤና ጥበቃ ሚኒስቴር መመሪያዎች ናቸው",
+      "editBtn": "ማርትዕ",
+      "finishBtn": "ጨርሻለሁ ፣ ወደ መነሻ ገጽ ተመለስ",
+      "updateTitle": "ስላዘመኑ እናመሰግናለን",
+      "updateSubTitle": "ያደረጓቸው ለውጦች ከዚህ በታች ባለው ባህሪ ላይ ተጽዕኖ ሊያሳድሩ ይችላሉ",
+      "showMore": "ተጨማሪ",
+      "showLess": "ያነሰ"
     },
     "locationHistory": {
       "beforeCheckTitle": "የመጨረሻዎቹን ማዕዘኖች መዝጋት",
       "beforeCheckDesc": "ያለፉት 14 ቀናት አካባቢዎን በትክክል ለማወቅ የአከባቢዎ ውሂብ ከ Google መለያ መንቃት አለበት። ይህ መረጃ በስልክ ላይ እና ለግል ጥቅም ብቻ የሚቀመጥ እና ለሌላ ወገን የማይላክ ነው",
       "beforeCheckDesc2": "ይህንን ለማድረግ ከ Google ጀምሮ በአለፉት 14 ቀናት ውስጥ መዳረሻዎችን መፍቀድ አለብዎት",
-      "beforeCheckButton": "የውሂብ ትክክለኛነት",
+      "beforeCheckButton": "ተጨማሪ መረጃ ከጉግል ለመጨመር,",
       "skip": "ዝለል",
       "successFoundTitle": "የጉግል ውሂብ በተሳካ ሁኔታ ዘምኗል",
       "successFoundDesc": "ላለፉት 14 ቀናት የተደራራቢ ነጥቦችን መፈለግ ከ Google በተቀበለው የአካባቢ ውሂብ ላይ የተመሠረተ ይሆናል",
@@ -1054,12 +1300,13 @@
         "shareFail": "የሆነ ችግር ተፈጥሯል"
       },
       "description": {
-        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\nየግል መረጃዎ ሚስጥራዊ እንደሆነ ይቆያል ፡፡",
+        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\n",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
-        "shareFail": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
+        "shareFail": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
         "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
-        "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ"
+        "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
+        "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።\nበጥሪው እንቀጥላለን።"
       },
       "greeting": {
         "beforeShare": "የእርስዎ የግል መረጃ - በሚስጥር ይቀጥላል",
@@ -1071,10 +1318,20 @@
         "beforeShare": "ውሂቤን በማጋራት ላይ",
         "shareSuccess": "ወደ መተግበሪያው ይመለሱ",
         "shareNoConnection": "ሌላ ሙከራ",
-        "shareFail": "ገባኝ ፣ አመሰግናለሁ",
+        "shareFail": "እባክዎ እንደገና ይሞክሩ",
         "shareFailMissingToken": "ገባኝ ፣ አመሰግናለሁ",
-        "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ"
-      }
+        "shareFailTokenError": "እባክዎ እንደገና ይሞክሩ",
+        "shareFailWithWarnings": "ገባኝ"
+      },
+      "addBleDataText": "በኮሮ ሕመምተኞች ስልኮች አቅራቢያ ያለውን ቅርበት ለመለየት በአይን እጢ በኩል የተሰበሰበውን መረጃ መጠቀሙ ለእኔም ተቀባይነት አለው"
+    },
+    "exposureRelief": {
+      "editBtn": "ማርትዕ",
+      "title": "በቆርቆሮ የተስተካከሉ አይመስሉም",
+      "keepSafe": "መመሪያዎችን መከተል አስፈላጊ ነው!",
+      "backBtn": "ወደ መነሻ ገጽ ይመለሱ",
+      "reliefTitle": "ለዝማኔው እናመሰግናለን",
+      "historyBackBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
     }
   },
   "fr": {
@@ -1122,6 +1379,14 @@
       "subTitle1": "Des milliers d'Israéliens pourraient subir les effets néfastes du coronavirus.",
       "subTitle2": "Un diagnostic et un isolement en temps opportun peuvent leur sauver la vie"
     },
+    "bluetooth": {
+      "title": "Identifier les points de chevauchement \n Avec l'aide du Bluetooth'",
+      "description": "La technologie Bluetooth permet d'identifier les endroits de proximité entre vous et les autres propriétaires de téléphone de votre région ayant  installée l'application, afin de détecter les éventuelles contaminations de Corona.",
+      "approveBluetooth": "Activer les services Bluetooth",
+      "callToAction": "Afin de confirmer l'utilisation de ces services \nActivez le Bluetooth sur votre appareil",
+      "approveBluetoothIOS": "Activer les services Bluetooth",
+      "approveBluetoothAndroid": "J’ai compris"
+    },
     "location": {
       "title": "La localisation est critique",
       "subTitle1": "Cette application va collecter vos localisations et les comparer à celles des personnes infectées par le virus. Si l'un de ces emplacements se chevauche,vous recevrez une notification.",
@@ -1134,7 +1399,7 @@
     },
     "locationIOS": {
       "title": "Activer le service de localisation en arrière-plan",
-      "subTitle1": "Afin de pouvoir vous tenir au courant des événements liés au coronavirus, nous devrons vous envoyer des notifications.",
+      "subTitle1": "Afin de vous fournir régulièrement des informations précises sur les lieux qui vous concernent,, Vous devez autoriser la geolocalisation de vos deplacements",
       "subTitle2": "Les paramètres du service de localisation doivent être modifiés comme indiqué dans les images ci-dessous",
       "goToSettings": "Appuyez ici pour les paramètres",
       "set": "\nParamètres mis à jour, continuons"
@@ -1179,6 +1444,7 @@
       "suspectedExposure": "Suspicion d'exposition:",
       "events": "les événements",
       "possibleExposure": "Il peut y avoir un chevauchement avec le patient Corona:",
+      "possibleExposureBLE": "Selon les données de votre téléphone \n Nous avons détecté que vous étiez proche d’un malade de Corona",
       "atPlace": "À ",
       "share": {
         "message": "Partager l'application de protection",
@@ -1186,7 +1452,7 @@
         "androidTitle": "Partager l'application de protection"
       },
       "noExposures": {
-        "bannerText": "Aucun \n point de chevauchement trouvé",
+        "bannerText": "Aucun nouveau chevauchement trouvé ",
         "workAllTheTime": "L'application de protection fonctionne tout le temps",
         "infoModal": {
           "textBodyPt1": "La comparaison est faite à partir du moment où vous recevez vos emplacements sur",
@@ -1195,16 +1461,39 @@
         "card": {
           "title": "Au:",
           "atHour": "À"
-        }
+        },
+        "bannerTextPristine": "Aucun point \n de chevauchement trouvé ",
+        "instructionLinkUpper": "À utiliser si nécessaire:",
+        "instructionLinkLower": "Consignes  pour  confinement",
+        "bluetoothServiceOff": "Les services Bluetooth sur l'appareil sont désactivés ",
+        "turnBluetoothOn": "Activation du Bluetooth",
+        "canIdentifyWithBluetooth": "Désormais, davantage de points de chevauchements peuvent être identifiés à l'aide du Bluetooth. ",
+        "moreInformation": "Plus d'informations "
       },
       "showOnMap": "J'ai été présenté à la carte",
-      "wasNotMe": "Je n'étais pas là",
-      "wasMe": "Cela peut être"
+      "wasNotMe": "Je n'étais pas a cet endroit",
+      "wasMe": "J’y etais peut-être ",
+      "doneBtn": "J'ai terminé la mise à jour ",
+      "betweenHours": "Entre les heures",
+      "deviceCloseTag": "Proximité entre les appareils ",
+      "locationCloseTag": "Proximité de l'emplacement ",
+      "wasMeBle": "Continuer",
+      "wasMeOnly": "Continuez pour recevoir les instructions"
     },
     "exposuresHistory": {
-      "title": "Historique des intersections\n",
+      "title": "Historique des intersections",
       "noExposures": "Pas d'intersection trouvée",
-      "keepInstructions": "Il est important de continuer à suivre les directives"
+      "keepInstructions": "Il est important de continuer à suivre les directives ",
+      "subTitle": "Voici tous les chevauchements que nous avons trouvés durant les 14\n derniers jours que vous les avez marqués",
+      "wasThere": "Vous avez peut-être été là ",
+      "wasNotThere": "Vous n'étiez pas là ",
+      "wasThereNoExposure": "Aucun événement détecté au cours des 14 derniers jours pour lequel vous ayez marqué J'ai peut-être été là",
+      "wasNotThereNoExposure": "Aucun événement détecté au cours des 14 derniers jours pour lequel vous avez marqué Je n'étais pas là",
+      "historyEditFinishBtn": "Enregistrer les modifications ",
+      "historyEditCancelBtn": "Annuler l'édition",
+      "edit": "Éditer",
+      "BLELocationUpdate": " Données de localisation mises à jour ",
+      "BLEWarning": " Les informations obtenues à l'aide du Bluetooth ne sont pas modifiables '"
     },
     "exposureInstructions": {
       "title": "Suspicion d'exposition: que faire?",
@@ -1214,13 +1503,22 @@
       "goIntoIsolation": "Isolez-vous pendant 14 jours depuis le moment du contact",
       "reportIsolation": "Signaler l’isolement",
       "allInstructions": "Pour toutes les instructions",
-      "reportSite": "Pour signaler sur le sit"
+      "reportSite": "Pour signaler sur le sit",
+      "keepSafeNew": "Directives du Ministère de la Santé:",
+      "subTitle": "Il peut y avoir un chevauchement avec un malade Corona ",
+      "themInstructions": "Ci-dessous  les directives du Ministère de la Santé:",
+      "editBtn": "Éditer ",
+      "finishBtn": "J'ai fini, retour à la page d'accueil ",
+      "updateTitle": "Merci pour votre mise à jour",
+      "updateSubTitle": "Les modifications que vous avez apportées peuvent affecter le comportement ci-dessous",
+      "showMore": "Plus",
+      "showLess": "Moins"
     },
     "locationHistory": {
       "beforeCheckTitle": "Ajout des données précédentes ",
       "beforeCheckDesc": "Afin de déterminer vos emplacements au cours des 14 derniers jours,nous devrons obtenir vos données de localisation à partir de votre compte Google. Ces informations sont conservées sur votre téléphone, pour votre usage personnel et ne sont envoyées à aucune autre partie",
       "beforeCheckDesc2": "Pour ce faire,merci d’autoriser l'accès aux emplacements des 14 derniers jours à partir de Google",
-      "beforeCheckButton": "Précision des données",
+      "beforeCheckButton": "Ajout de données de Google",
       "skip": "Sauter",
       "successFoundTitle": "Mise à jour réussie des données Google",
       "successFoundDesc": "La localisation des points de chevauchement des 14 derniers jours sera basée sur les données de localisation reçues de Google",
@@ -1250,12 +1548,13 @@
         "shareFail": "Quelque chose a mal tourné"
       },
       "description": {
-        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\nVos informations personnelles resteront confidentielles.",
+        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\n",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
-        "shareFail": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
+        "shareFail": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
         "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
-        "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer"
+        "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
+        "shareFailWithWarnings": "Aucune donnée trouvée sur votre téléphone.\nNous continuerons le processus par un appel  téléphonique"
       },
       "greeting": {
         "beforeShare": "Vos informations personnelles - resteront confidentielles",
@@ -1267,10 +1566,20 @@
         "beforeShare": "Partager mes données",
         "shareSuccess": "Retour à l'appli",
         "shareNoConnection": "Un autre essai",
-        "shareFail": "Je comprends merci",
+        "shareFail": "Veuillez réessayer",
         "shareFailMissingToken": "Je comprends merci",
-        "shareFailTokenError": "Veuillez réessayer"
-      }
+        "shareFailTokenError": "Veuillez réessayer",
+        "shareFailWithWarnings": "J’ai compris"
+      },
+      "addBleDataText": "Il est acceptable pour moi d'utiliser également les informations collectées via Bluetooth pour identifier la proximité des téléphones des patients corona"
+    },
+    "exposureRelief": {
+      "editBtn": "Éditer ",
+      "title": "Vous ne semblez pas avoir de chevauchement avec un malade Corona",
+      "keepSafe": "Il est important de continuer à suivre les directives!",
+      "backBtn": "Retour à la page d'accueil ",
+      "reliefTitle": "Merci pour la mise à jour ",
+      "historyBackBtn": "Retour à l'historique des chevauchements "
     }
   }
 }

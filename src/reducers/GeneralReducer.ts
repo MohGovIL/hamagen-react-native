@@ -8,7 +8,8 @@ import {
   HIDE_FORCE_TERMS,
   HIDE_LOCATION_HISTORY,
   SHOW_MAP_MODAL,
-  HIDE_MAP_MODAL
+  HIDE_MAP_MODAL,
+  ENABLE_BLE
 } from '../constants/ActionTypes';
 
 import { USAGE_PRIVACY } from '../constants/Constants';
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   usageType: USAGE_PRIVACY,
   termsVersion: 0,
   hideLocationHistory: false,
+  enableBle: false,
   showMap: {
     visible: false,
     region: {
@@ -73,6 +75,10 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
 
     case HIDE_MAP_MODAL: {
       return { ...state, showMap: { ...INITIAL_STATE.showMap } };
+    }
+
+    case ENABLE_BLE: {
+      return { ...state, enableBle: action.payload };
     }
 
     default:

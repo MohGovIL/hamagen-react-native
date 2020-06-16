@@ -31,12 +31,12 @@ interface FetchHistoryModalProps {
   closeModal(): void
 }
 
-const FetchHistoryModal = ({ isVisible, isLoggedIn, webViewRef, onMessage, closeModal }:FetchHistoryModalProps) => {
+const FetchHistoryModal = ({ isVisible, isLoggedIn, webViewRef, onMessage, closeModal }: FetchHistoryModalProps) => {
   return (
     <Modal
       visible={isVisible}
       animationType="slide"
-      onRequestClose={isLoggedIn ? () => {} : closeModal}
+      onRequestClose={isLoggedIn ? () => { } : closeModal}
     >
       <View style={styles.container}>
         <WebviewHeader hideClose={isLoggedIn} closeModal={closeModal} />
@@ -69,7 +69,7 @@ interface GoogleTimeLineProps {
 interface State {
   openWebview: boolean,
   isLoggedIn: boolean,
-  state: 'before'|'successFound'|'successNotFound'|'failed'
+  state: 'before' | 'successFound' | 'successNotFound' | 'failed'
 }
 
 const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLineProps) => {
@@ -129,7 +129,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
         };
       }
 
-      default: { return { icon: 0, title: '', desc1: '', desc2: '', button: '', action: () => {} }; }
+      default: { return { icon: 0, title: '', desc1: '', desc2: '', button: '', action: () => { } }; }
     }
   };
 
@@ -139,6 +139,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
       resolve(await Promise.all(kmlUrls.map(url => fetch(url).then(r => r.text()))));
     }, IS_IOS ? 5000 : 10);
   });
+
 
   const onMessage = async ({ nativeEvent: { data } }: WebViewMessageEvent) => {
     if (!data) {
@@ -187,7 +188,7 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
     onError({ error });
   };
 
-  const onFlowEnd = async (state: 'before'|'successFound'|'successNotFound'|'failed') => {
+  const onFlowEnd = async (state: 'before' | 'successFound' | 'successNotFound' | 'failed') => {
     if (state !== 'failed') {
       // once 14 days flow completed for the first time
       await AsyncStorage.setItem(SHOULD_HIDE_LOCATION_HISTORY, 'true');
@@ -218,10 +219,12 @@ const GoogleTimeLine = ({ strings, toggleWebview, onCompletion }: GoogleTimeLine
 
       {
         state === 'before' && (
-          <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
-            <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
-            <View style={styles.bottomBorder} />
-          </TouchableOpacity>
+          <View style={{ width: SCREEN_WIDTH * 0.7, alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => toggleWebview(true, USAGE_PRIVACY)}>
+              <Text style={{ fontSize: 14 }}>{additionalInfo}</Text>
+              <View style={styles.bottomBorder} />
+            </TouchableOpacity>
+          </View>
         )
       }
 
@@ -255,6 +258,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingTop: 10,
     backgroundColor: '#fff'
   },
   textsContainer: {

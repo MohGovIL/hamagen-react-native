@@ -2,6 +2,9 @@ import firebase from 'react-native-firebase';
 import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import { onError } from './ErrorService';
 
+let onNotificationListener: any = null;
+let onNotificationOpenedListener: any = null;
+
 export const initPushNotifications = () => new Promise(async (resolve) => {
   try {
     const enabled = await firebase.messaging().hasPermission();
@@ -52,4 +55,27 @@ export const registerLocalNotification = async (title: string, message: string, 
   } catch (error) {
     onError({ error });
   }
+};
+
+export const startPushListeners = async () => {
+  firebase.messaging().subscribeToTopic('wakeup');
+
+  // if app was closed and opened from push
+  const notification = await firebase.notifications().getInitialNotification();
+
+  if (notification) {
+    pushNotificationHandler(notification, true, false);
+  }
+
+  onNotificationListener = firebase.notifications().onNotification(notification => pushNotificationHandler({ notification }, false, false));
+  onNotificationOpenedListener = firebase.notifications().onNotificationOpened(notification => pushNotificationHandler(notification, true, false));
+};
+
+export const removePushListeners = () => {
+  onNotificationListener && onNotificationListener();
+  onNotificationOpenedListener && onNotificationOpenedListener();
+};
+
+const pushNotificationHandler = ({ notification }: any, isTapped: boolean, isSilent: boolean) => {
+
 };

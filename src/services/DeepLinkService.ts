@@ -1,6 +1,10 @@
 import { StackNavigationProp } from '@react-navigation/stack';
+import { fetchInfectionDataByConsent } from './BLEService';
 import { queryDB } from './Tracker';
+import config from '../config/config';
 import { DBLocation } from '../types';
+import { IS_IOS, ENABLE_BLE } from '../constants/Constants';
+import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -34,7 +38,6 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
       if (!Array.isArray(obj[key])) {
         obj[key] = [obj[key]];
       }
-
       // Push the new value to the key's array
       obj[key].push(value);
     }
@@ -43,25 +46,47 @@ const parseQueryParamsFromUrlScheme = (url: string): any => {
   return obj;
 };
 
-export const getUserLocationsReadyForServer = (token: string) => new Promise(async (resolve, reject) => {
+export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: boolean = false) => new Promise(async (resolve, reject) => {
   try {
-    const locations: DBLocation[] = await queryDB();
+    const objectToShare = {
+      token,
+      dataRows: [],
+    };
+
+    const isClusters = config().dataShareClusters;
+
+    const locations: DBLocation[] = await queryDB(isClusters);
+
     const dataRows = locations.map((location) => {
       location._long = parseFloat(location.long.toFixed(6));
       location.lat = parseFloat(location.lat.toFixed(6));
-      location.accuracy = Math.min(location.accuracy, 999);
-
       // fix for geoHashes entered with a "'" from google timeline.
       location.geoHash = location.geoHash.replace(/[']/g, '');
 
       delete location.long;
-      delete location.hash;
-      delete location.wifiHash;
+
+      if (!isClusters) {
+        // server can handle 4 digits
+        location.accuracy = Math.min(location.accuracy, 999);
+        delete location.hash;
+        delete location.wifiHash;
+      }
 
       return location;
     });
 
-    resolve({ token, dataRows });
+    if (dataRows) {
+      objectToShare.dataRows = dataRows;
+    }
+
+    if (ENABLE_BLE && userAgreedToBle) {
+      const dataBleRows = await fetchInfectionDataByConsent();
+      if (dataBleRows) {
+        objectToShare.dataBleRows = dataBleRows;
+      }
+    }
+
+    resolve(objectToShare);
   } catch (e) {
     reject(e);
   }

@@ -1,37 +1,29 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
-import BackgroundFetch from 'react-native-background-fetch';
-import BackgroundGeolocation, { State } from 'react-native-background-geolocation';
-import Welcome from './Onboarding/Welcome';
-import Location from './Onboarding/Location';
-import LocationIOS from './Onboarding/LocationIOS';
-import FilterDrivingOnBoarding from './Onboarding/FilterDrivingOnBoarding';
-import LocationHistoryOnBoarding from './Onboarding/LocationHistoryOnBoarding';
-import Notifications from './Onboarding/Notifications';
-import AllSet from './Onboarding/AllSet';
+import OnboardingRoutes from './Onboarding/OnboardingRoutes';
 import Home from './Drawer/Home';
 import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
 import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
 import { initLocale } from '../actions/LocaleActions';
 import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
 import { setExposures } from '../actions/ExposuresActions';
-import { scheduleTask } from '../services/BackgroundService';
 import { onError } from '../services/ErrorService';
-import { purgeSamplesDB, startSampling } from '../services/SampleService';
+import { purgeSamplesDB } from '../services/SampleService';
 import { updateLocationsTimesToUTC } from '../services/LocationService';
 import { startForegroundTimer } from '../services/Tracker';
+import ResetMessaging from '../ResetMessaging';
+import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
+import { registerBLEListeners } from '../services/BLEService';
+import { startPushListeners } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
-import { ExternalUrls, NotificationData, Strings } from '../locale/LocaleData';
-import { ValidExposure } from '../types';
+import { ExternalUrls, Strings } from '../locale/LocaleData';
 import {
-  SET_VALID_EXPOSURE,
   RESET_EXPOSURES,
   UPDATE_FIRST_POINT,
   HIDE_FORCE_TERMS,
@@ -43,7 +35,9 @@ import {
   IS_FIRST_TIME,
   IS_IOS,
   USAGE_ON_BOARDING,
-  VALID_EXPOSURE
+  VALID_EXPOSURE,
+  DISMISSED_EXPOSURES,
+  SICK_DB_UPDATED
 } from '../constants/Constants';
 
 interface Props {
@@ -52,7 +46,6 @@ interface Props {
   strings: Strings,
   locale: string,
   externalUrls: ExternalUrls,
-  notificationData: NotificationData,
   showLoader: boolean,
   showWebview: boolean,
   showForceUpdate: boolean,
@@ -66,7 +59,7 @@ interface Props {
   checkForceUpdate(): void
 }
 
-const Loading = (
+const Loading: FunctionComponent<Props> = (
   {
     isInitLocale,
     isRTL,
@@ -75,7 +68,6 @@ const Loading = (
     strings,
     locale,
     externalUrls,
-    notificationData,
     initLocale,
     showWebview,
     usageType,
@@ -85,14 +77,16 @@ const Loading = (
     showForceTerms,
     checkForceUpdate,
     termsVersion
-  }: Props
+  }
 ) => {
   const shouldShowForceTerms = useRef(false);
 
   const [initialRoute, setInitialRoute] = useState('');
 
   useEffect(() => {
+    registerBLEListeners();
     appLoadingActions();
+    startPushListeners();
   }, []);
 
   useEffect(() => {
@@ -125,51 +119,19 @@ const Loading = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      BackgroundFetch.status(async (status) => {
-        if (status !== BackgroundFetch.STATUS_AVAILABLE) {
-          await scheduleTask();
-        }
-      });
+      // don't init config again
+      await ResetMessaging(false);
 
       await purgeSamplesDB();
-
-      const state: State = await BackgroundGeolocation.getState();
-
-      if (!state.enabled) {
-        await startSampling(locale, notificationData);
-      } else {
-        if (!IS_IOS && !state.enableHeadless) {
-          await BackgroundGeolocation.setConfig({
-            enableHeadless: true,
-            foregroundService: true
-          });
-        }
-
-        if (state.maxDaysToPersist === 1) {
-          await BackgroundGeolocation.setConfig({
-            persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
-            maxRecordsToPersist: -1,
-            maxDaysToPersist: 10000000
-          });
-        }
-      }
-
+      await clusterLocationsOnAppUpdate();
       await startForegroundTimer();
-
-      const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
-
-      if (validExposure) {
-        const { exposure, timestamp }: ValidExposure = JSON.parse(validExposure);
-
-        if (moment().diff(moment(timestamp), 'days') < 14) {
-          store().dispatch({ type: SET_VALID_EXPOSURE, payload: { validExposure: exposure } });
-        } else {
-          await AsyncStorage.removeItem(VALID_EXPOSURE);
-        }
-      }
 
       const dbSick = new IntersectionSickDatabase();
 
+      await migrateIntersectionSickDatabase(dbSick);
+      // remove intersections older then 2 weeks
+      await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
+      // await dbSick.deleteAll()
       const exposures = await dbSick.listAllRecords();
 
       await store().dispatch(setExposures(exposures.map((exposure: any) => ({ properties: { ...exposure } }))));
@@ -202,13 +164,7 @@ const Loading = (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
-          <Stack.Screen name="Welcome" component={Welcome} />
-          <Stack.Screen name="Location" component={Location} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationIOS" component={LocationIOS} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="FilterDrivingOnBoarding" component={FilterDrivingOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="LocationHistoryOnBoarding" component={LocationHistoryOnBoarding} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="Notifications" component={Notifications} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="AllSet" component={AllSet} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+          <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
 
@@ -222,6 +178,54 @@ const Loading = (
   );
 };
 
+// migrate table to have wasThere and bleTimestamp
+// update valid exposure to have was there true
+// update all dismissed exposures to have wasThere property
+const migrateIntersectionSickDatabase = async (dbSick: any) => {
+  try {
+    const dbSickWasUpdated = await AsyncStorage.getItem(SICK_DB_UPDATED);
+
+    if (dbSickWasUpdated !== 'true') {
+      const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES) || '[]';
+
+      await dbSick.migrateTable();
+      await AsyncStorage.setItem(SICK_DB_UPDATED, 'true');
+      const validExposure = await AsyncStorage.getItem(VALID_EXPOSURE);
+
+      if (validExposure) {
+        const parsedValidExposure = JSON.parse(validExposure);
+
+        if (parsedValidExposure) {
+          const { exposure } = parsedValidExposure;
+
+          exposure.properties.wasThere = true;
+          exposure.properties.OBJECTID = exposure.properties.Key_Field;
+
+          await dbSick.upgradeSickRecord(true, [exposure.properties.OBJECTID]);
+
+          const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
+
+          // Set ensures no OBJECTID or BLETimestamp duplicates
+          const dismissedExposureSet = new Set(parsedDismissedExposures);
+
+          dismissedExposureSet.add(exposure.properties.OBJECTID);
+
+          await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify([...dismissedExposureSet]));
+        }
+      }
+
+      if (dismissedExposures) {
+        const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
+        console.log('parsedDismissedExposures', parsedDismissedExposures);
+
+        await dbSick.upgradeSickRecord(false, parsedDismissedExposures);
+      }
+    }
+  } catch (error) {
+    onError({ error });
+  }
+};
+
 const styles = StyleSheet.create({
   container: {
     flex: 1
@@ -231,18 +235,14 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
-    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls, notificationData }
+    locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls }
   } = state;
 
-  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, notificationData };
+  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
-  return bindActionCreators({
-    initLocale,
-    toggleWebview,
-    checkForceUpdate
-  }, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Loading);
+export default connect(mapStateToProps, {
+  initLocale,
+  toggleWebview,
+  checkForceUpdate
+})(Loading);

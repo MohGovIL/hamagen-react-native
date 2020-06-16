@@ -3,11 +3,13 @@ import _ from 'lodash';
 import geoHash from 'latlon-geohash';
 import { DOMParser } from 'xmldom';
 import AsyncStorage from '@react-native-community/async-storage';
-import { UserLocationsDatabase } from '../database/Database';
 import { sha256 } from './sha256';
 import { checkIfHideLocationHistory } from '../actions/GeneralActions';
+import { clusterLocationHistorySynchronously } from './ClusteringService';
+import { UserClusteredLocationsDatabase, UserLocationsDatabase } from '../database/Database';
 import store from '../store';
 import config from '../config/config';
+import { DBLocation } from '../types';
 import { UPDATE_FIRST_POINT } from '../constants/ActionTypes';
 import { FIRST_POINT_TS, IS_LAST_POINT_FROM_TIMELINE, SHOULD_HIDE_LOCATION_HISTORY } from '../constants/Constants';
 
@@ -73,10 +75,11 @@ export const kmlToGeoJson = (text: any) => {
   return objArray;
 };
 
-export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, reject) => {
+export const insertToSampleDB = (data : DBLocation[]) => new Promise(async (resolve, reject) => {
   try {
     if (data) {
       const db = new UserLocationsDatabase();
+      const cdb = new UserClusteredLocationsDatabase();
       let insertString = '';
 
       /**
@@ -94,6 +97,10 @@ export const insertToSampleDB = (data : any[]) => new Promise(async (resolve, re
 
       // insert bulk samples to db
       await db.insertBulkSamples(insertString);
+
+      // convert samples to clusters and insert bulk clusters to cdb
+      const clusters = clusterLocationHistorySynchronously(data, true);
+      await cdb.insertBulkClusters(clusters);
 
       // insert first Point if needed
       data = _.sortBy(data, (point: any) => point.startTime);

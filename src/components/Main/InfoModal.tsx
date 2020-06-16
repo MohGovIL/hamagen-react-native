@@ -9,10 +9,10 @@ import { Strings } from '../../locale/LocaleData';
 const MODAL_MARGIN = 26;
 
 interface InfoModalProps {
-    strings: Strings,
-    showModal: boolean,
-    firstPointDate: string,
-    closeModal(): void
+  strings: Strings,
+  showModal: boolean,
+  firstPointDate: string,
+  closeModal(): void
 }
 
 const InfoModal = ({ strings, firstPointDate, closeModal, showModal }: InfoModalProps) => {
@@ -40,23 +40,19 @@ const InfoModal = ({ strings, firstPointDate, closeModal, showModal }: InfoModal
           source={require('../../assets/main/infoModalBG.png')}
         >
           <View style={[styles.container]}>
-            <View style={[styles.closeBtnContainer]}>
-              <TouchableOpacity hitSlop={HIT_SLOP} onPress={closeModal}>
-                <Icon source={require('../../assets/onboarding/close.png')} width={19} />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.bodyContainer}>
-              <Icon
-                source={require('../../assets/main/moreInfoBig.png')}
-                width={31}
-                customStyles={styles.infoIcon}
-              />
-              <Text>
-                <Text style={styles.infoText}>{textBodyPt1.trim()}</Text>
-                <Text style={styles.infoText} bold>{` ${firstPointDate} `}</Text>
-                <Text style={styles.infoText}>{textBodyPt2.trim()}</Text>
-              </Text>
-            </View>
+            <TouchableOpacity style={styles.closeBtnContainer} hitSlop={HIT_SLOP} onPress={closeModal}>
+              <Icon source={require('../../assets/onboarding/close.png')} width={19} />
+            </TouchableOpacity>
+            <Icon
+              source={require('../../assets/main/moreInfoBig.png')}
+              width={31}
+              customStyles={styles.infoIcon}
+            />
+            <Text>
+              <Text style={styles.infoText}>{textBodyPt1.trim()}</Text>
+              <Text style={styles.infoText} bold>{` ${firstPointDate} `}</Text>
+              <Text style={styles.infoText}>{textBodyPt2.trim()}</Text>
+            </Text>
           </View>
         </ImageBackground>
       </TouchableWithoutFeedback>
@@ -72,9 +68,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   container: {
-    height: 261,
-    backgroundColor: 'white',
-    justifyContent: 'center',
+    width: SCREEN_WIDTH - (MODAL_MARGIN * 2),
     alignItems: 'center',
     borderRadius: 18,
     shadowColor: '#084473',
@@ -82,21 +76,15 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 23,
     elevation: 5,
-    width: SCREEN_WIDTH - (MODAL_MARGIN * 2)
+    paddingHorizontal: 57,
+    paddingBottom: 40,
+    paddingTop: 20,
+    backgroundColor: 'white',
   },
   closeBtnContainer: {
-    flex: 1,
-    paddingLeft: 14,
-    justifyContent: 'center',
-    alignItems: 'flex-start',
-    width: SCREEN_WIDTH - (MODAL_MARGIN * 2)
-  },
-  bodyContainer: {
-    flex: 3,
-    paddingHorizontal: 57,
-    alignItems: 'center',
-    marginBottom: 40,
-    marginTop: 20
+    position: 'absolute',
+    top: 14,
+    left: 14,
   },
   infoIcon: {
     marginBottom: 18
@@ -104,7 +92,6 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 16
   }
-
 });
 
 

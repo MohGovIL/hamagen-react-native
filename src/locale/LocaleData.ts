@@ -85,6 +85,13 @@ export interface Strings {
     subTitle1: string,
     subTitle2: string
   },
+  bluetooth: {
+    title: string,
+    description: string,
+    callToAction: string,
+    approveBluetoothIOS: string,
+    approveBluetoothAndroid: string
+  },
   location: {
     title: string,
     subTitle1: string,
@@ -150,7 +157,10 @@ export interface Strings {
     },
     noExposures: {
       bannerText: string,
+      bannerTextPristine: string,
       workAllTheTime: string,
+      instructionLinkUpper: string,
+      instructionLinkLower: string,
       infoModal: {
         textBodyPt1: string,
         textBodyPt2: string
@@ -158,16 +168,29 @@ export interface Strings {
       card: {
         title: string,
         atHour: string
-      }
+      },
+      bluetoothServiceOff: string,
+      turnBluetoothOn: string,
+      canIdentifyWithBluetooth: string,
+      moreInformation: string
     },
     showOnMap: string,
     wasNotMe: string,
-    wasMe: string
+    wasMe: string,
+    doneBtn: string
   },
   exposuresHistory: {
     title: string,
     noExposures: string,
-    keepInstructions: string
+    keepInstructions: string,
+    subTitle: string,
+    wasNotThere: string,
+    wasThere: string,
+    wasThereNoExposure: string,
+    wasNotThereNoExposure: string,
+    historyEditFinishBtn: string,
+    historyEditCancelBtn: string,
+    edit: string
   },
   exposureInstructions: {
     title: string,
@@ -178,7 +201,15 @@ export interface Strings {
     reportIsolation: string,
     allInstructions: string,
     reportSite: string,
-    keepSafeNew: string
+    keepSafeNew: string,
+    subTitle: string,
+    themInstructions: string,
+    editBtn: string,
+    finishBtn: string,
+    updateTitle: string,
+    updateSubTitle: string,
+    showMore: string,
+    showLess: string
   },
   locationHistory: {
     beforeCheckTitle: string,
@@ -219,7 +250,8 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     },
     greeting: {
       beforeShare: string,
@@ -233,8 +265,17 @@ export interface Strings {
       shareNoConnection: string,
       shareFail: string,
       shareFailMissingToken: string,
-      shareFailTokenError: string
+      shareFailTokenError: string,
+      shareFailWithWarnings: string
     }
+  },
+  exposureRelief: {
+    editBtn: string,
+    title: string,
+    keepSafe: string,
+    backBtn: string,
+    reliefTitle: string,
+    historyBackBtn: string
   }
 }
 
