@@ -17,7 +17,7 @@ const FilterDrivingOnBoarding = ({ navigation, strings: { filterDriving: { title
   const requestPermissions = async () => {
     try {
       await requestMotionPermissions(false);
-      navigation.navigate('LocationHistoryOnBoarding');
+      navigation.navigate('Bluetooth');
     } catch (error) {
       onError({ error });
     }
@@ -25,7 +25,7 @@ const FilterDrivingOnBoarding = ({ navigation, strings: { filterDriving: { title
 
   const onSkip = async () => {
     await onMotionPermissionSkipped();
-    navigation.navigate('LocationHistoryOnBoarding');
+    navigation.navigate('Bluetooth');
   };
 
   return (

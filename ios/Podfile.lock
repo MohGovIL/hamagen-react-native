@@ -112,9 +112,9 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
-  - Permission-LocationAlways (2.0.10):
+  - Permission-LocationAlways (2.1.5):
     - RNPermissions
-  - Permission-Motion (2.0.10):
+  - Permission-Motion (2.1.5):
     - RNPermissions
   - Protobuf (3.11.4)
   - RCTRequired (0.61.5)
@@ -367,7 +367,7 @@ PODS:
     - React
   - RNGestureHandler (1.5.2):
     - React
-  - RNPermissions (2.0.10):
+  - RNPermissions (2.1.5):
     - React
   - RNReanimated (1.4.0):
     - React
@@ -597,8 +597,8 @@ SPEC CHECKSUMS:
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   lottie-react-native: 2a1a82bb326ae51331a5520de0cf706733c6db69
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  Permission-LocationAlways: 738e3b24333d52c87361804bb0a1641de014c405
-  Permission-Motion: 6d251146daf1102ebe143a2618adc18946353ad2
+  Permission-LocationAlways: 155e6251b757b380f6354737cae8e8d59c472495
+  Permission-Motion: 099bc32191080089d1cb839cbae96d621a589c8f
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
   RCTRequired: b153add4da6e7dbc44aebf93f3cf4fcae392ddf1
   RCTTypeSafety: 9aa1b91d7f9310fc6eadc3cf95126ffe818af320
@@ -640,7 +640,7 @@ SPEC CHECKSUMS:
   RNDeviceInfo: c7b1dc457611b9231bb780a882102e2c93edc7af
   RNFirebase: 37daa9a346d070f9f6ee1f3b4aaf4c8e3b1d5d1c
   RNGestureHandler: 946a7691e41df61e2c4b1884deab41a4cdc3afff
-  RNPermissions: 1008d3511fee0e25739cf81c4af0d1b2248f1053
+  RNPermissions: ad71dd4f767ec254f2cd57592fbee02afee75467
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: 5e4758109c6d35f9a009ce72af873df907548020
   RNSha1: 6de589cd0b0397d0f6248a2e5ee9e5f0d7da38dc
