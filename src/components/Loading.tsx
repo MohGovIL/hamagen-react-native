@@ -163,7 +163,7 @@ const Loading: FunctionComponent<Props> = (
   return (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
-        <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
+        <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute} screenOptions={() => ({ gestureEnabled: false })}>
           <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
