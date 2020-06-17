@@ -126,16 +126,15 @@ const QABle = ({ navigation }: Props) => {
   };
 
   const shareAllBLEContacts = Platform.select({
-    android: SpecialBle.exportAllContactsAsCsv,
+    android: () => SpecialBle.exportAllContactsAsCsv(),
     ios: () => {
       SpecialBle.exportAllContactsAsCsv(async (res: string) => {
-        
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEContacts_${moment().valueOf()}.csv`}`;
+        const filepath = `${RNFS.CachesDirectoryPath}/${'allContacts.csv'}`;
         await RNFS.writeFile(filepath, res || '', 'utf8');
-        await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
-      })
+        await Share.open({ title: 'שתף סריקות BLE', url: IS_IOS ? filepath : `file://${filepath}` });
+      });
     }
-  })
+  });
   
 
   const matchBLEFromUrl = async () => {
@@ -199,7 +198,7 @@ const QABle = ({ navigation }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="Share ephemerals " onPress={shareAllBLEContacts} />
+          <Button title="שתף קליטות BLE" onPress={shareAllBLEContacts} />
         </View>
 
         <View style={styles.buttonWrapper}>
