@@ -36,6 +36,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
   const checkIOSLocation = async () => {
     try {
       const res = await check(PERMISSIONS.IOS.LOCATION_ALWAYS);
+      
       setIsLocationAllowed(res === RESULTS.GRANTED);
     } catch (error) {
       onError({ error });

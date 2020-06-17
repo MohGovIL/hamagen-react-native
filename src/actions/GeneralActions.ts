@@ -73,10 +73,7 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
-  // await AsyncStorage.removeItem(USER_AGREE_TO_BLE)
-
-  
-  if (IS_IOS || !ENABLE_BLE_IN_APP) {
+  if (!ENABLE_BLE_IN_APP) {
     dispatch({ type: ENABLE_BLE, payload: false });
   } else {
     try {

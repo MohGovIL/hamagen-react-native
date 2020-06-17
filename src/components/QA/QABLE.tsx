@@ -186,8 +186,6 @@ const QABle = ({ navigation, updatePointsFromFile }: Props) => {
 
       // take the first one
       await checkBLESickPeopleFromFile(bleMatch);
-
-      // console.log('BLEMatch',BLEMatch);
     } else {
       Alert.alert('לא נמצאו חפיפות BLE');
     }

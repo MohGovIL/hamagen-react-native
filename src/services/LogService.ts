@@ -27,7 +27,7 @@ export const logErrorToFile = async (error: Error | string) => {
   } catch (e) {
     console.log('error in error log service');
   }
-}
+};
 
 const log = async (source: string) => {
   const timestamp = moment().valueOf();
