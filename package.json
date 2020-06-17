@@ -52,7 +52,7 @@
     "react-native-gesture-handler": "1.5.2",
     "react-native-maps": "0.27.1",
     "react-native-network-info": "5.2.1",
-    "react-native-permissions": "2.0.10",
+    "react-native-permissions": "2.1.5",
     "react-native-prompt-android": "https://github.com/transistorsoft/react-native-prompt-android.git",
     "react-native-reanimated": "1.4.0",
     "react-native-safe-area-context": "0.7.3",
