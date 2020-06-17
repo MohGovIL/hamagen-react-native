@@ -112,6 +112,8 @@ PODS:
     - nanopb/encode (= 0.3.9011)
   - nanopb/decode (0.3.9011)
   - nanopb/encode (0.3.9011)
+  - Permission-BluetoothPeripheral (2.1.5):
+    - RNPermissions
   - Permission-LocationAlways (2.1.5):
     - RNPermissions
   - Permission-Motion (2.1.5):
@@ -391,6 +393,7 @@ DEPENDENCIES:
   - GoogleMaps
   - lottie-ios (from `../node_modules/lottie-ios`)
   - lottie-react-native (from `../node_modules/lottie-react-native`)
+  - Permission-BluetoothPeripheral (from `../node_modules/react-native-permissions/ios/BluetoothPeripheral.podspec`)
   - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
   - Permission-Motion (from `../node_modules/react-native-permissions/ios/Motion.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
@@ -477,6 +480,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/lottie-ios"
   lottie-react-native:
     :path: "../node_modules/lottie-react-native"
+  Permission-BluetoothPeripheral:
+    :path: "../node_modules/react-native-permissions/ios/BluetoothPeripheral.podspec"
   Permission-LocationAlways:
     :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
   Permission-Motion:
@@ -597,6 +602,7 @@ SPEC CHECKSUMS:
   lottie-ios: 85ce835dd8c53e02509f20729fc7d6a4e6645a0a
   lottie-react-native: 2a1a82bb326ae51331a5520de0cf706733c6db69
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
+  Permission-BluetoothPeripheral: 4663a8373072abfe3099c44cb06bf10b0c16c110
   Permission-LocationAlways: 155e6251b757b380f6354737cae8e8d59c472495
   Permission-Motion: 099bc32191080089d1cb839cbae96d621a589c8f
   Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
@@ -647,6 +653,6 @@ SPEC CHECKSUMS:
   RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
-PODFILE CHECKSUM: c85d4a94c29bc88bc3f697f6b2b5831cdd10d31a
+PODFILE CHECKSUM: 837d1b8bd2e1fdf1485b9358860cb5287bda5d36
 
 COCOAPODS: 1.9.1

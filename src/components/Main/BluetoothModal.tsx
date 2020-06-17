@@ -6,6 +6,7 @@ import BluetoothPermission from '../common/BluetoothPermission';
 import { HeaderButton } from '../common';
 import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREE_TO_BLE } from '../../constants/Constants';
 import { ENABLE_BLE } from '../../constants/ActionTypes';
+import { initBLETracing } from '../../services/BLEService';
 
 const BluetoothModal = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -16,9 +17,15 @@ const BluetoothModal = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <HeaderButton type="close" onPress={handleExit} />
-      <BluetoothPermission onEnd={navigation.goBack} />
+      <BluetoothPermission
+        onEnd={() => {
+          navigation.goBack();
+          // user agreed so start service
+          initBLETracing();
+        }}
+      />
     </View>
   );
 };

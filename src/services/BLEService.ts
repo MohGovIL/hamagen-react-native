@@ -2,14 +2,15 @@ import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import { IS_IOS, ENABLE_BLE } from '../constants/Constants';
+import { IS_IOS, ENABLE_BLE, USER_AGREE_TO_BLE } from '../constants/Constants';
 import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
 import config from '../config/config';
 import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
-  if (ENABLE_BLE) {
+  const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+  if (ENABLE_BLE && userAgreed === 'true') {
     try {
       const UUID = '00000000-0000-1000-8000-00805F9B34FB';
 

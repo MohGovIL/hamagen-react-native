@@ -30,16 +30,19 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   };
 
   const handlePressIOS = async () => {
-    
     const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-    console.log('BTCheckStatus',BTCheckStatus);
-    
-    if(BTCheckStatus !== RESULTS.UNAVAILABLE && BTCheckStatus !== RESULTS.GRANTED) {
-      const BTRequestStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL)
+
+
+    if (BTCheckStatus !== RESULTS.UNAVAILABLE && BTCheckStatus !== RESULTS.GRANTED) {
+      const BTRequestStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+      if (BTRequestStatus === RESULTS.GRANTED) {
+        dispatch({ type: ENABLE_BLE, payload: true });
+        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+      }
     }
 
-    onEnd()
-   };
+    onEnd();
+  };
 
   const handlePressAndroid = async () => {
     onEnd();
