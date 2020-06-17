@@ -17,13 +17,14 @@ const BluetoothModal = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <HeaderButton type="close" onPress={handleExit} />
-      <BluetoothPermission onEnd={() => {
-        navigation.goBack();
-        // user agreed so start service
-        initBLETracing();
-      }}
+      <BluetoothPermission
+        onEnd={() => {
+          navigation.goBack();
+          // user agreed so start service
+          initBLETracing();
+        }}
       />
     </View>
   );

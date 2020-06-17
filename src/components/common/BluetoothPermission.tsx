@@ -31,7 +31,6 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
 
   const handlePressIOS = async () => {
     const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-
     
     if (BTCheckStatus !== RESULTS.UNAVAILABLE && BTCheckStatus !== RESULTS.GRANTED) {
       const BTRequestStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);

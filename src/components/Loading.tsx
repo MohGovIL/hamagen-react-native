@@ -215,7 +215,6 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
 
       if (dismissedExposures) {
         const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-
         await dbSick.upgradeSickRecord(false, parsedDismissedExposures);
       }
     }
