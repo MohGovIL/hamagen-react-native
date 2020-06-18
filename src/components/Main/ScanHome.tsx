@@ -10,7 +10,6 @@ import { useFocusEffect } from '@react-navigation/native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
-import NoData from './NoData';
 import NoExposures from './NoExposures';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled } from '../../actions/GeneralActions';
 import { removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
@@ -19,6 +18,8 @@ import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+import NoGPS from './NoGPS';
+import NoNetwork from './NoNetwork';
 
 
 interface ScanHomeProps {
@@ -59,11 +60,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     firstPoint,
     enableBle,
     hideLocationHistory,
-    setValidExposure,
-    removeValidExposure,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    showMapModal,
     checkIfBleEnabled
   }
 ) => {
@@ -164,9 +162,11 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   };
 
 
-  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS)
-    ? (<NoData strings={strings} />)
-    : (
+  const RelevantState = () => {
+
+    if (!hasGPS || !hasLocation) return (<NoGPS {...strings.scanHome.noGPS}/>)
+    if (!hasNetwork) return (<NoNetwork {...strings.scanHome.noNetwork} />)
+    return (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
@@ -182,6 +182,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         showBleInfo={route.params?.showBleInfo}
       />
     );
+  }
 
   return (
     <View style={styles.container}>
@@ -193,7 +194,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-      {RelevantState}
+      <RelevantState />
     </View>
   );
 };

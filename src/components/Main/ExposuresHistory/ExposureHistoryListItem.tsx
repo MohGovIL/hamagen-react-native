@@ -64,6 +64,21 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
     );
   }
 
+  let ShowPlaceText = null
+  if (Place) {
+    ShowPlaceText = (
+      <>
+        <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{Place}</Text>
+        <TouchableOpacity onPress={showExposureOnMap}>
+          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
+            <Icon source={require('../../../assets/main/map.png')} width={12} height={10} />
+            <Text style={styles.showOnMap} bold>{showOnMap}</Text>
+          </View>
+        </TouchableOpacity>
+      </>
+    )
+  }
+
   return (
     <View style={[styles.listItemContainer, style]}>
 
@@ -84,18 +99,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
           {TimeText}
 
-          {Place && (
-            <>
-              <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{Place}</Text>
-
-              <TouchableOpacity onPress={showExposureOnMap}>
-                <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                  <Icon source={require('../../../assets/main/map.png')} width={12} height={10} />
-                  <Text style={styles.showOnMap} bold>{showOnMap}</Text>
-                </View>
-              </TouchableOpacity>
-            </>
-          )}
+          {ShowPlaceText}
 
           {children}
         </View>

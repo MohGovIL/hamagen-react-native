@@ -177,7 +177,17 @@ export interface Strings {
     showOnMap: string,
     wasNotMe: string,
     wasMe: string,
-    doneBtn: string
+    doneBtn: string,
+    noGPS: {
+      title: string,
+      description: string,
+      button: string
+    },
+    noNetwork: {
+      title: string,
+      description: string,
+      button: string
+    }
   },
   exposuresHistory: {
     title: string,
