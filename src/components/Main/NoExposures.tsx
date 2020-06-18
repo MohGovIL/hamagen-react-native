@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
+import BTManager from 'react-native-bluetooth-state-manager';
 import LottieView from 'lottie-react-native';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
@@ -24,6 +25,27 @@ interface NoExposuresProps {
   goToBluetoothPermission(): void
 }
 
+type BTState = 'PoweredOff' | 'PoweredOn'
+
+interface BluetoothBubbleProps {
+  isRTL: boolean,
+  info: string,
+  moreInfo: string,
+  onPress(): void
+}
+
+const BluetoothBubble = (props: BluetoothBubbleProps) => {
+  const [show, setShow] = useState(false)
+  useEffect(() => {
+    BTManager.initBLEStateManager()
+    BTManager.onStateChange((btState: BTState) => {
+      setShow(btState === 'PoweredOff')
+    }, true)
+  }, [])
+
+  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? BTManager.openSettings() : BTManager.enable() }} />
+  return null
+}
 
 const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
   const appState = useRef<AppStateStatus>('active');
@@ -101,6 +123,10 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
         <View style={styles.container}>
           <LocationHistoryInfo />
           <EnableBluetooth />
+          {enableBle && <BluetoothBubble isRTL={isRTL}
+            info={bluetoothServiceOff}
+            moreInfo={turnBluetoothOn}
+          />}
           <LottieView
             style={styles.lottie}
             source={require('../../assets/lottie/magen logo.json')}
