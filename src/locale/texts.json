@@ -500,14 +500,14 @@
       "wasMeBle": "تابع",
       "wasMeOnly": "تابع للحصول على التعليمات",
       "noGPS": {
-        "title": "שירותי המיקום שלך כבויים",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "הפעלת שירותי מיקום"
+        "title": "خدمات موقعك متوقفة",
+        "description": "نحن غير قادرين على استقبال البيانات. تحتاج إلى تمكين خدمات الموقع حتى نتمكن من مقارنة المواقع",
+        "button": "فعل خدمات تحديد الموقع"
       },
       "noNetwork": {
-        "title": "אין לך חיבור לאינטרנט",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "התחברות לאינטרנט"
+        "title": "ليس لديك اتصال بالإنترنت",
+        "description": "نحن غير قادرين على استقبال البيانات. يجب عليك الاتصال بالإنترنت حتى نتمكن من مقارنة المواقع",
+        "button": "اتصل بالإنترنت"
       }
     },
     "exposuresHistory": {
@@ -758,14 +758,14 @@
       "wasMeBle": "Proceed",
       "wasMeOnly": "Proceed to receive guidelines",
       "noGPS": {
-        "title": "שירותי המיקום שלך כבויים",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "הפעלת שירותי מיקום"
+        "title": "Your location services are off",
+        "description": "We are unable to receive data. You need to enable Location Services so we can compare locations",
+        "button": "Enable location services"
       },
       "noNetwork": {
-        "title": "אין לך חיבור לאינטרנט",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "התחברות לאינטרנט"
+        "title": "You have no internet connection",
+        "description": "We are unable to receive data. You must connect to the Internet so we can compare locations",
+        "button": "Connect to the Internet"
       }
     },
     "exposuresHistory": {
@@ -1016,14 +1016,14 @@
       "wasMeBle": "Дальше",
       "wasMeOnly": "Перейти к получению указаний",
       "noGPS": {
-        "title": "שירותי המיקום שלך כבויים",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "הפעלת שירותי מיקום"
+        "title": "Ваши услуги определения местоположения отключены",
+        "description": "Мы не можем получить данные. Вам необходимо включить службы определения местоположения, чтобы мы могли сравнивать местоположения",
+        "button": "Активируйте сервисы локации"
       },
       "noNetwork": {
-        "title": "אין לך חיבור לאינטרנט",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "התחברות לאינטרנט"
+        "title": "У вас нет подключения к интернету",
+        "description": "Мы не можем получить данные. Вы должны подключиться к Интернету, чтобы мы могли сравнить местоположения",
+        "button": "Подключиться к Интернету"
       }
     },
     "exposuresHistory": {
@@ -1274,14 +1274,14 @@
       "wasMeBle": "ቀጠለ",
       "wasMeOnly": "መመሪያዎችን ይቀጥሉ",
       "noGPS": {
-        "title": "שירותי המיקום שלך כבויים",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "הפעלת שירותי מיקום"
+        "title": "የአካባቢ አገልግሎቶችዎ ጠፍተዋል",
+        "description": "ውሂብ መቀበል አልቻልንም። አካባቢዎችን ማነፃፀር እንድንችል የአካባቢ አገልግሎቶችን ማንቃት አለብዎት",
+        "button": "የአካባቢ አገልግሎቶችን አንቃ"
       },
       "noNetwork": {
-        "title": "אין לך חיבור לאינטרנט",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "התחברות לאינטרנט"
+        "title": "ምንም የበይነመረብ ግንኙነት የለዎትም",
+        "description": "ውሂብ መቀበል አልቻልንም። አካባቢዎችን ለማነፃፀር ከበይነመረቡ ጋር መገናኘት አለብዎት",
+        "button": "ከበይነመረቡ ጋር ይገናኙ"
       }
     },
     "exposuresHistory": {
@@ -1530,14 +1530,14 @@
       "wasMeBle": "Continuer",
       "wasMeOnly": "Continuez pour recevoir les instructions",
       "noGPS": {
-        "title": "שירותי המיקום שלך כבויים",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "הפעלת שירותי מיקום"
+        "title": "Vos services de localisation sont désactivés",
+        "description": "Nous ne pouvons pas recevoir de données. Vous devez activer les services de localisation afin que nous puissions comparer les emplacements",
+        "button": "Activer les services de localisation"
       },
       "noNetwork": {
-        "title": "אין לך חיבור לאינטרנט",
-        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
-        "button": "התחברות לאינטרנט"
+        "title": "Vous n'avez pas de connexion internet",
+        "description": "Nous ne pouvons pas recevoir de données. Vous devez vous connecter à Internet pour pouvoir comparer les emplacements",
+        "button": "Connecter à Internet"
       }
     },
     "exposuresHistory": {
