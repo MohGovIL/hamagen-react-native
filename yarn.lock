@@ -6713,6 +6713,10 @@ react-native-background-timer@02.2.0:
 "react-native-bluetooth-state-manager@https://github.com/greenyossi/react-native-bluetooth-state-manager.git":
   version "0.0.0-development"
   resolved "https://github.com/greenyossi/react-native-bluetooth-state-manager.git#0b95f7c9de1a1938d1be4a3064da5e53178e4a95"
+react-native-common-intents@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-common-intents/-/react-native-common-intents-0.2.0.tgz#2d377741f3aee45caa7801d2a0dc270ef702a92b"
+  integrity sha512-bolCVPbT1jeq5D9yiwdo89GoF03SjbTBPPFzgX1E2BU5s5BHexoNTDEW0xb4iNF80AN+wBabKB1ikPuX2uF5Ww==
 
 react-native-device-info@5.4.0:
   version "5.4.0"

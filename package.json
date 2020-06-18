@@ -44,6 +44,7 @@
     "react-native-background-geolocation": "3.4.2",
     "react-native-background-timer": "02.2.0",
     "react-native-bluetooth-state-manager": "https://github.com/greenyossi/react-native-bluetooth-state-manager.git",
+    "react-native-common-intents": "^0.2.0",
     "react-native-device-info": "5.4.0",
     "react-native-extra-dimensions-android": "https://github.com/greenyossi/react-native-extra-dimensions-android.git",
     "react-native-firebase": "5.6.0",

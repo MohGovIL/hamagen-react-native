@@ -240,7 +240,17 @@
       "deviceCloseTag": "קרבה בין מכשירים",
       "locationCloseTag": "קרבה במיקום",
       "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "wasMeOnly": "המשך לקבלת הנחיות",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים.\nעליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים.\nעליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -488,7 +498,17 @@
       "deviceCloseTag": "قرب في الموقع",
       "locationCloseTag": "القرب من الموقع",
       "wasMeBle": "تابع",
-      "wasMeOnly": "تابع للحصول على التعليمات"
+      "wasMeOnly": "تابع للحصول على التعليمات",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -736,7 +756,17 @@
       "deviceCloseTag": "Proximity between devices",
       "locationCloseTag": "Location proximity",
       "wasMeBle": "Proceed",
-      "wasMeOnly": "Proceed to receive guidelines"
+      "wasMeOnly": "Proceed to receive guidelines",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -984,7 +1014,17 @@
       "deviceCloseTag": "Расстояние между устройствами",
       "locationCloseTag": "Расстояние до местоположения",
       "wasMeBle": "Дальше",
-      "wasMeOnly": "Перейти к получению указаний"
+      "wasMeOnly": "Перейти к получению указаний",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -1232,7 +1272,17 @@
       "deviceCloseTag": "በመሳሪያዎች መካከል ቅርበት",
       "locationCloseTag": "ወደ ቅርበት ቅርበት",
       "wasMeBle": "ቀጠለ",
-      "wasMeOnly": "መመሪያዎችን ይቀጥሉ"
+      "wasMeOnly": "መመሪያዎችን ይቀጥሉ",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1478,7 +1528,17 @@
       "deviceCloseTag": "Proximité entre les appareils ",
       "locationCloseTag": "Proximité de l'emplacement ",
       "wasMeBle": "Continuer",
-      "wasMeOnly": "Continuez pour recevoir les instructions"
+      "wasMeOnly": "Continuez pour recevoir les instructions",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים. עליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
