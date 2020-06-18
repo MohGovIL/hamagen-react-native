@@ -64,7 +64,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
     );
   }
 
-  let ShowPlaceText = null
+  let ShowPlaceText = null;
   if (Place) {
     ShowPlaceText = (
       <>
@@ -76,7 +76,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
           </View>
         </TouchableOpacity>
       </>
-    )
+    );
   }
 
   return (

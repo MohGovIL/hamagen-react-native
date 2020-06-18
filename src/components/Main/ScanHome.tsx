@@ -162,9 +162,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
 
   const RelevantState = () => {
-
-    if (!hasGPS || !hasLocation) return (<NoGPS {...strings.scanHome.noGPS}/>)
-    if (!hasNetwork) return (<NoNetwork {...strings.scanHome.noNetwork} />)
+    if (!hasGPS || !hasLocation) return (<NoGPS {...strings.scanHome.noGPS} />);
+    if (!hasNetwork) return (<NoNetwork {...strings.scanHome.noNetwork} />);
     return (
       <NoExposures
         isRTL={isRTL}
@@ -181,7 +180,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         showBleInfo={route.params?.showBleInfo}
       />
     );
-  }
+  };
 
 
   return (
