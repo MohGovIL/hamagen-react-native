@@ -152,7 +152,7 @@
       "Motorcycling",
       "Swimming"
     ],
-    "notificationTopic": "QA_hamagen",
+    "notificationTopic": "QA_Hamagen",
     "androidNotification": {
       "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
       "en": "Hamagen runs in the background and protects you",
@@ -263,7 +263,7 @@
       "Motorcycling",
       "Swimming"
     ],
-    "notificationTopic": "/prod/hamagen",
+    "notificationTopic": "Prod_Hamagen",
     "androidNotification": {
       "he": "אפליקציית המגן רצה ברקע ומגנה עליך",
       "en": "Hamagen runs in the background and protects you",
