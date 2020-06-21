@@ -2,12 +2,12 @@ import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import {RouteProp} from '@react-navigation/native'
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import SplashScreen from 'react-native-splash-screen';
-import { useFocusEffect } from '@react-navigation/native';
+
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
@@ -23,8 +23,8 @@ import NoNetwork from './NoNetwork';
 
 
 interface ScanHomeProps {
-  navigation: DrawerNavigationProp<any,'ScanHome'>,
-  route: RouteProp<any,'ScanHome'>,
+  navigation: DrawerNavigationProp<any, 'ScanHome'>,
+  route: RouteProp<any, 'ScanHome'>,
   isRTL: boolean,
   strings: Strings,
   locale: string,

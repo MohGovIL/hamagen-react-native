@@ -9,20 +9,19 @@ import { Config } from '../types';
 const env: 'com.hamagen.qa' | 'com.hamagen' = DeviceInfo.getBundleId();
 // @ts-ignore
 let config: Config = DefaultConfig[env] || DefaultConfig['com.hamagen.qa'];
-let configFromServer = false
+let configFromServer = false;
 export const initConfig = async () => new Promise(async (resolve) => {
   try {
     if (configFromServer) {
-      return config
-    } else {
+      return config;
+    } 
 
-      const configUrls = await axios.get(`https://gisweb.azureedge.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
-      const data = await downloadAndVerifySigning(configUrls.data[env]);
+    const configUrls = await axios.get(`https://gisweb.azureedge.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const data = await downloadAndVerifySigning(configUrls.data[env]);
 
-      config = data[env];
-      resolve();
-      configFromServer = true
-    }
+    config = data[env];
+    resolve();
+    configFromServer = true;
   } catch (error) {
     onError({ error });
     resolve();

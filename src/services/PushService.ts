@@ -1,8 +1,8 @@
 import firebase from 'react-native-firebase';
 import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
+import AsyncStorage from '@react-native-community/async-storage';
 import { onError } from './ErrorService';
 import config from '../config/config';
-import AsyncStorage from '@react-native-community/async-storage';
 
 let onNotificationListener: any = null;
 let onNotificationOpenedListener: any = null;
@@ -66,20 +66,20 @@ export const registerLocalNotification = async (title: string, message: string, 
  * topics allowed format [a-zA-Z0-9-_.~%] only!
  */
 export const subscribeToTopic = async () => {
-  const { notificationTopic } = config()
-  const subscribeTopic = await AsyncStorage.getItem('SUBSCRIBED_TOPIC')
+  const { notificationTopic } = config();
+  const subscribeTopic = await AsyncStorage.getItem('SUBSCRIBED_TOPIC');
   try {
     if (notificationTopic && subscribeTopic !== notificationTopic) {
       if (subscribeTopic) {
         firebase.messaging().unsubscribeFromTopic(subscribeTopic);
       }
       firebase.messaging().subscribeToTopic(notificationTopic);
-      await AsyncStorage.setItem('SUBSCRIBED_TOPIC', notificationTopic)
+      await AsyncStorage.setItem('SUBSCRIBED_TOPIC', notificationTopic);
     }
   } catch (error) {
-    onError({ error })
+    onError({ error });
   }
-}
+};
 
 export const startPushListeners = async () => {
   // if app was closed and opened from push
