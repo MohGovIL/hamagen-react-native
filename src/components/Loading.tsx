@@ -119,7 +119,7 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      // don't init config again
+      // don't init config second time
       await ResetMessaging(false);
 
       await purgeSamplesDB();

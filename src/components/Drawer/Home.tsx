@@ -18,13 +18,19 @@ import BluetoothModal from '../Main/BluetoothModal';
 import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
-import { INIT_ROUTE_NAME, USER_AGREE_BLE } from '../../constants/Constants';
+import { INIT_ROUTE_NAME } from '../../constants/Constants';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
 
-const DrawerStack = ({ navigation, route }) => {
+interface DrawerStackProps {
+  navigation: NavigationProp<any,'DrawerStack'>, 
+  route: RouteProp<any,'DrawerStack'>
+}
+
+const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
   const [showBLEPermission, setBLEPermission] = useState(undefined);
