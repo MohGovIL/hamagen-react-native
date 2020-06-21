@@ -71,3 +71,4 @@ export const USAGE_PRIVACY = 'USAGE_PRIVACY';
 // BLE
 export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE';
 export const ENABLE_BLE = true;
+export const SUBSCRIBED_TOPIC = 'SUBSCRIBED_TOPIC';
