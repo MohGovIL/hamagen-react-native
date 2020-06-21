@@ -20,6 +20,7 @@ import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
 import NoGPS from './NoGPS';
 import NoNetwork from './NoNetwork';
+import { logStartToFile } from '../../services/LogService';
 
 
 interface ScanHomeProps {
@@ -81,6 +82,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
       }
 
       await syncLocationsDBOnLocationEvent();
+      logStartToFile('app load end');
     }, 3000);
 
     checkIfHideLocationHistory();

@@ -9,7 +9,9 @@ import { checkGeoSickPeople, checkBLESickPeople } from './src/services/Tracker';
 import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
-import log from './src/services/LogService';
+import log, { logStartToFile } from './src/services/LogService';
+
+logStartToFile('app load start');
 
 BackgroundGeolocation.onLocation(
   async () => {

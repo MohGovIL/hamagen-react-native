@@ -22,11 +22,16 @@ export const logToFile = async (source: string, timestamp: number) => {
 
 export const logErrorToFile = async (error: Error | string) => {
   try {
-    const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/errors.log`;
+    const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/errors.txt`;
     await RNFS.appendFile(path, `${error.toString()}\n`, 'utf8');
   } catch (e) {
     console.log('error in error log service');
   }
+};
+
+export const logStartToFile = async (title: string) => {
+  const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/start.txt`;
+  await RNFS.appendFile(path, `${title} - ${moment().format('YY.MM.DD HH:mm:ss')}\n`, 'utf8');
 };
 
 const log = async (source: string) => {

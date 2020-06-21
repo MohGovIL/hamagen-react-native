@@ -78,7 +78,6 @@ export const checkIfBleEnabled = () => async (dispatch: any) => {
   } else {
     try {
       let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
-      console.log('payload', payload);
       
       if (payload) {
         payload = JSON.parse(payload);
