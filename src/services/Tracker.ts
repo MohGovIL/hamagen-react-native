@@ -21,7 +21,6 @@ export const startForegroundTimer = async () => {
   await checkBLESickPeople();
   await checkGeoSickPeople();
 
-
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
 
   await AsyncStorage.setItem(

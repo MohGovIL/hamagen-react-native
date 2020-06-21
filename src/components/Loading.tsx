@@ -120,11 +120,11 @@ const Loading: FunctionComponent<Props> = (
   const onBoardingCompletedActions = async () => {
     try {
       // don't init config second time
-      await ResetMessaging(false);
+      ResetMessaging(false);
 
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
-      await startForegroundTimer();
+      startForegroundTimer();
 
       const dbSick = new IntersectionSickDatabase();
 

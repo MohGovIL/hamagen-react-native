@@ -3,6 +3,7 @@ import { createDrawerNavigator, } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import ScanHome from '../Main/ScanHome';
 import DrawerContent from './DrawerContent';
 import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
@@ -19,15 +20,14 @@ import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 import { INIT_ROUTE_NAME } from '../../constants/Constants';
-import { NavigationProp, RouteProp } from '@react-navigation/native';
 
 const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
 
 interface DrawerStackProps {
-  navigation: NavigationProp<any,'DrawerStack'>, 
-  route: RouteProp<any,'DrawerStack'>
+  navigation: NavigationProp<any, 'DrawerStack'>, 
+  route: RouteProp<any, 'DrawerStack'>
 }
 
 const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
