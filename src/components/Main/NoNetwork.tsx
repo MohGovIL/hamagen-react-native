@@ -12,10 +12,9 @@ interface Props {
 }
 
 const NoNetwork = ({ title, description, button }: Props) => {
-
   // open settings
-  const handlePressIOS = () => Linking.openURL('App-Prefs:root=WIFI')
-  const handlePressAndroid = () => RNIntents.openWifiSettings()
+  const handlePressIOS = () => Linking.openURL('App-Prefs:root=WIFI');
+  const handlePressAndroid = () => RNIntents.openWifiSettings();
 
   return (
     <FadeInView style={styles.container}>
@@ -28,9 +27,11 @@ const NoNetwork = ({ title, description, button }: Props) => {
       <TouchableOpacity onPress={Platform.select({
         ios: handlePressIOS,
         android: handlePressAndroid
-      })}>
+      })}
+      >
         <Text>{button}</Text>
-        <View style={{ height: 2, backgroundColor: MAIN_COLOR, marginTop: 2 }} /></TouchableOpacity>
+        <View style={{ height: 2, backgroundColor: MAIN_COLOR, marginTop: 2 }} />
+      </TouchableOpacity>
 
       <View />
     </FadeInView>

@@ -15,11 +15,11 @@ interface Props {
 
 const NoGPS = ({ title, description, button }: Props) => {
   // open settings IOS
-  const handlePressIOS = () => Linking.openURL('App-prefs:root=Privacy&path=LOCATION')
+  const handlePressIOS = () => Linking.openURL('App-prefs:root=Privacy&path=LOCATION');
   // open Location settings Android
   const handlePressAndroid = () => {
-    RNSettings.openSetting(RNSettings.ACTION_LOCATION_SOURCE_SETTINGS)
-  }
+    RNSettings.openSetting(RNSettings.ACTION_LOCATION_SOURCE_SETTINGS);
+  };
   return (
     <FadeInView style={styles.container}>
       <Icon source={require('../../assets/main/noData.png')} width={IS_SMALL_SCREEN ? 80 : 113} height={IS_SMALL_SCREEN ? 100 : 143} />
@@ -31,7 +31,8 @@ const NoGPS = ({ title, description, button }: Props) => {
       <TouchableOpacity onPress={Platform.select({
         ios: handlePressIOS,
         android: handlePressAndroid
-      })}>
+      })}
+      >
         <Text style={{ fontSize: 16, paddingHorizontal: 5 }} bold>{button}</Text>
         <View style={{ height: 2, backgroundColor: MAIN_COLOR, marginTop: 2 }} />
       </TouchableOpacity>

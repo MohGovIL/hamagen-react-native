@@ -28,7 +28,8 @@ export interface Config {
   locationServiceIgnoreList: string[],
   locationServiceIgnoreConfidenceThreshold: number,
   locationServiceIgnoreSampleVelocityThreshold: number,
-  locationHistoryIgnoreList: string[]
+  locationHistoryIgnoreList: string[],
+  notificationTopic: string
 }
 
 export interface ReducerAction {
