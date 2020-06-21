@@ -43,7 +43,7 @@ const BluetoothBubble = (props: BluetoothBubbleProps) => {
     }, true);
   }, []);
 
-  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? BTManager.openSettings() : BTManager.enable(); }} />;
+  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />;
   return null;
 };
 

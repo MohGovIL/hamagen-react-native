@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import {RouteProp} from '@react-navigation/native'
 import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
@@ -12,7 +13,6 @@ import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoExposures from './NoExposures';
 import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled } from '../../actions/GeneralActions';
-import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -23,7 +23,8 @@ import NoNetwork from './NoNetwork';
 
 
 interface ScanHomeProps {
-  navigation: DrawerNavigationProp<any>,
+  navigation: DrawerNavigationProp<any,'ScanHome'>,
+  route: RouteProp<any,'ScanHome'>,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -34,9 +35,6 @@ interface ScanHomeProps {
   enableBle: boolean | undefined,
   firstPoint?: number,
   hideLocationHistory: boolean,
-  setValidExposure(exposure: Exposure): void,
-  removeValidExposure(): void,
-  dismissExposure(exposureId: number): void,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void,
@@ -217,9 +215,6 @@ const mapStateToProps = (state: any) => {
 
 
 export default connect(mapStateToProps, {
-  setValidExposure,
-  removeValidExposure,
-  dismissExposure,
   checkForceUpdate,
   checkIfHideLocationHistory,
   showMapModal,

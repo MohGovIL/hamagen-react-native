@@ -18,7 +18,7 @@ import { startForegroundTimer } from '../services/Tracker';
 import ResetMessaging from '../ResetMessaging';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { registerBLEListeners } from '../services/BLEService';
-import { startPushListeners } from '../services/PushService';
+import { subscribeToTopic } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -86,7 +86,6 @@ const Loading: FunctionComponent<Props> = (
   useEffect(() => {
     registerBLEListeners();
     appLoadingActions();
-    startPushListeners();
   }, []);
 
   useEffect(() => {
@@ -101,6 +100,7 @@ const Loading: FunctionComponent<Props> = (
       await updateLocationsTimesToUTC();
       await initConfig();
       initLocale();
+      subscribeToTopic();
 
       !IS_IOS && await store().dispatch({ type: RESET_EXPOSURES }); // first thing - clear the redux store to fix the android duplications bug
 
