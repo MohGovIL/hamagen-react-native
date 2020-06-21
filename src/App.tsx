@@ -7,6 +7,7 @@ import Loading from './components/Loading';
 import { onOpenedFromDeepLink } from './services/DeepLinkService';
 import storeFactory from './store';
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from './constants/Constants';
+import { logStartToFile } from './services/LogService';
 
 enableScreens();
 
@@ -14,6 +15,7 @@ const App = () => {
   const navigationRef = useRef<any>(null);
 
   useEffect(() => {
+    logStartToFile('app load start');
     StatusBar.setBarStyle('dark-content');
 
     Linking.addEventListener('url', (data) => {
