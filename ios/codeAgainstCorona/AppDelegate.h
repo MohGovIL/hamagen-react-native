@@ -7,9 +7,16 @@
 
 #import <React/RCTBridgeDelegate.h>
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+//#import <CoreMotion/CoreMotion.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
+//@property (strong, nonatomic) CMMotionManager *motionManager;
+@property (nonatomic, strong) CLLocationManager *locationManager;
+//@property (nonatomic, strong) CLLocationManager *locationManager1;
+//@property (nonatomic, strong) CLLocationManager *locationManager2;
+//@property (nonatomic, strong) CLLocationManager *locationManager3;
 
 @end
