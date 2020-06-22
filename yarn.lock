@@ -6713,6 +6713,7 @@ react-native-background-timer@02.2.0:
 "react-native-bluetooth-state-manager@https://github.com/greenyossi/react-native-bluetooth-state-manager.git":
   version "0.0.0-development"
   resolved "https://github.com/greenyossi/react-native-bluetooth-state-manager.git#0b95f7c9de1a1938d1be4a3064da5e53178e4a95"
+
 react-native-common-intents@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/react-native-common-intents/-/react-native-common-intents-0.2.0.tgz#2d377741f3aee45caa7801d2a0dc270ef702a92b"
@@ -7239,7 +7240,7 @@ rimraf@~2.2.6:
 
 "rn-contact-tracing@https://github.com/wix-incubator/rn-contact-tracing.git#master":
   version "0.0.3"
-  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#ea03c215027c0062ab2b531230ff920b8adf7e84"
+  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#744f3bde5283728ae0a310ed3a39f514213b7f06"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"
