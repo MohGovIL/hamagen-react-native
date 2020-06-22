@@ -69,11 +69,11 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   useEffect(() => {
     setTimeout(async () => {
       SplashScreen.hide();
-
       checkForceUpdate();
       await goToFilterDrivingIfNeeded(navigation);
 
       const url = await Linking.getInitialURL();
+      
 
       if (url) {
         return onOpenedFromDeepLink(url, navigation);
@@ -82,9 +82,9 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
       await syncLocationsDBOnLocationEvent();
     }, 3000);
 
+    checkConnectionStatusOnLoad();
     checkIfHideLocationHistory();
     checkIfBleEnabled();
-    checkConnectionStatusOnLoad();
 
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
@@ -191,7 +191,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-      <RelevantState />
+      {RelevantState()}
     </View>
   );
 };

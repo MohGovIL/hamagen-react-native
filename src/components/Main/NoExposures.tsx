@@ -8,6 +8,7 @@ import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 interface NoExposuresProps {
@@ -30,8 +31,7 @@ type BTState = 'PoweredOff' | 'PoweredOn'
 interface BluetoothBubbleProps {
   isRTL: boolean,
   info: string,
-  moreInfo: string,
-  onPress(): void
+  moreInfo: string
 }
 
 const BluetoothBubble = (props: BluetoothBubbleProps) => {
@@ -120,15 +120,16 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
+        <ScrollView bounces={false} contentContainerStyle={{paddingBottom: PADDING_BOTTOM(10), flex:1}} showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
           <LocationHistoryInfo />
           <EnableBluetooth />
           {enableBle && (
-          <BluetoothBubble
-            isRTL={isRTL}
-            info={bluetoothServiceOff}
-            moreInfo={turnBluetoothOn}
-          />
+            <BluetoothBubble
+              isRTL={isRTL}
+              info={bluetoothServiceOff}
+              moreInfo={turnBluetoothOn}
+            />
           )}
           <LottieView
             style={styles.lottie}
@@ -141,29 +142,33 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
           <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
           <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
         </View>
-        <View style={styles.bottomCard}>
+        <View style={{flexGrow:1,alignItems: 'center', justifyContent: 'space-around'}} >
 
-          <Text style={styles.cardHeaderText}>{title}</Text>
-          <View style={styles.cardBody}>
-            <TouchableOpacity
-              onPress={() => setModalVisibility(true)}
-              hitSlop={HIT_SLOP}
-            >
-              <Icon
-                width={15}
-                source={require('../../assets/main/moreInfoBig.png')}
-                customStyles={styles.infoIcon}
-              />
-            </TouchableOpacity>
-            <Text>
-              <Text bold style={styles.toTimeDate}>{nowDate}</Text>
-              <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
-              <Text bold style={styles.toTimeDate}>{nowHour}</Text>
-            </Text>
+          <View style={styles.bottomCard}>
+
+            <Text style={styles.cardHeaderText}>{title}</Text>
+            <View style={styles.cardBody}>
+              <TouchableOpacity
+                onPress={() => setModalVisibility(true)}
+                hitSlop={HIT_SLOP}
+              >
+                <Icon
+                  width={15}
+                  source={require('../../assets/main/moreInfoBig.png')}
+                  customStyles={styles.infoIcon}
+                />
+              </TouchableOpacity>
+              <Text>
+                <Text bold style={styles.toTimeDate}>{nowDate}</Text>
+                <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
+                <Text bold style={styles.toTimeDate}>{nowHour}</Text>
+              </Text>
+            </View>
+
           </View>
-
+          {RelevantCard}
         </View>
-        {RelevantCard}
+        </ScrollView>
       </FadeInView>
 
       <InfoModal
@@ -179,11 +184,12 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
 const styles = StyleSheet.create({
   fadeContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
+    
     alignItems: 'center',
     paddingHorizontal: IS_SMALL_SCREEN ? 15 : 30
   },
@@ -230,4 +236,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NoExposures;
+export default React.memo(NoExposures);
