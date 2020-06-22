@@ -10,6 +10,8 @@ import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
 import { initConfig } from './src/config/config';
 import log from './src/services/LogService';
+import { IS_IOS } from './src/constants/Constants';
+import { initBLETracing } from './src/services/BLEService';
 
 
 BackgroundGeolocation.onLocation(
@@ -17,6 +19,10 @@ BackgroundGeolocation.onLocation(
     await log('BGLocation onLocation');
 
     await syncLocationsDBOnLocationEvent();
+    
+    if (IS_IOS) {
+      await initBLETracing();
+    }
   }, (error) => {
     onError({ error });
   }

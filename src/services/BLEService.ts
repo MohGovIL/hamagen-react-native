@@ -14,7 +14,6 @@ export const initBLETracing = () => new Promise(async (resolve) => {
     try {
       const UUID = '00000000-0000-1000-8000-00805F9B34FB';
 
-      // TODO move to config
       let config: any = {
         serviceUUID: UUID,
         scanDuration: 60000,
