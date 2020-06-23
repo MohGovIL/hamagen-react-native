@@ -161,12 +161,13 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
       // remove Geo exposure before adding it with onSickPeopleNotify
       store().dispatch(removeGeoPastExposure(overlappingGeoExposure.OBJECTID));
-      
+
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
         wasThere: true,
         BLETimestamp
       }]);
+
     } else {
       // update in past exposures
       store().dispatch(updateGeoPastExposure({
@@ -178,7 +179,7 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       }));
     }
 
-    
+
 
   } else {
     const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
