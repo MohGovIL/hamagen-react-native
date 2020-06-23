@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Linking, Platform } from 'react-native';
 import RNIntents from 'react-native-common-intents';
-import { connect } from 'react-redux';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import { IS_SMALL_SCREEN, MAIN_COLOR } from '../../constants/Constants';
 
@@ -51,4 +50,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, null)(NoNetwork);
+export default NoNetwork;
