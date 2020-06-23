@@ -108,3 +108,16 @@ export const updateBlePastExposure = (exposureToReplace: Exposure) => (dispatch:
     dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures });
   }
 };
+
+
+export const removeGeoPastExposure = (OBJECTID: number) => (dispatch: any, getState: any) => {
+  if (OBJECTID) {
+
+    const { pastExposures }: ExposuresReducer = getState().exposures;
+
+    const payload = pastExposures.filter((exposure) => exposure.properties.OBJECTID !== OBJECTID)
+    
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload });
+  }
+
+}

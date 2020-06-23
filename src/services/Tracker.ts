@@ -2,7 +2,7 @@ import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
-import { setExposures, updateGeoPastExposure, updateBlePastExposure } from '../actions/ExposuresActions';
+import { setExposures, updateGeoPastExposure, updateBlePastExposure, removeGeoPastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
@@ -100,6 +100,8 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
+      
+      store().dispatch(removeGeoPastExposure(overlappingGeoExposure.OBJECTID));
 
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
