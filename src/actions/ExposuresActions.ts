@@ -29,7 +29,7 @@ export const setExposures = (exposures: Exposure[]) => async (dispatch: any) => 
       return !parsedDismissedExposures.includes(exposure.properties.OBJECTID);
     });
   }
-  
+
   dispatch({ type: UPDATE_EXPOSURES, payload: { exposures: filteredExposures } });
   dispatch({ type: UPDATE_PAST_EXPOSURES, payload: { pastExposures: exposures } });
 };
@@ -92,11 +92,24 @@ export const updateGeoPastExposure = (exposureToReplace: Exposure) => (dispatch:
   const index = pastExposures.findIndex((exposure: Exposure) => exposureToReplace.properties.OBJECTID === exposure.properties.OBJECTID);
 
   if (index !== -1) {
+
     pastExposures[index] = exposureToReplace;
     dispatch({ type: REPLACE_PAST_EXPOSURES, payload: pastExposures });
   }
+
 };
 
+export const removeGeoPastExposure = (OBJECTID: number) => (dispatch: any, getState: any) => {
+  if (OBJECTID) {
+
+    const { pastExposures }: ExposuresReducer = getState().exposures;
+
+    const payload = pastExposures.filter((exposure) => exposure.properties.OBJECTID !== OBJECTID)
+    
+    dispatch({ type: REPLACE_PAST_EXPOSURES, payload });
+  }
+
+}
 
 export const updateBlePastExposure = (exposureToReplace: Exposure) => (dispatch: any, getState: any) => {
   const { pastExposures }: ExposuresReducer = getState().exposures;

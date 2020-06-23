@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
 import { Alert } from 'react-native';
-import { setExposures, updateGeoPastExposure, updateBlePastExposure } from '../actions/ExposuresActions';
+import { setExposures, updateGeoPastExposure, updateBlePastExposure, removeGeoPastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
@@ -98,7 +98,6 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
 
   const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
 
-
   if (!hasBLTS) {
     await checkBleAndGeoIntersection(bleMatch, sickDB);
   } else {
@@ -160,23 +159,27 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
 
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
-
+      // remove Geo exposure before adding it with onSickPeopleNotify
+      store().dispatch(removeGeoPastExposure(overlappingGeoExposure.OBJECTID));
+      
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
         wasThere: true,
         BLETimestamp
       }]);
+    } else {
+      // update in past exposures
+      store().dispatch(updateGeoPastExposure({
+        properties: {
+          ...overlappingGeoExposure,
+          wasThere: true,
+          BLETimestamp
+        }
+      }));
     }
 
+    
 
-    // update in past exposures
-    store().dispatch(updateGeoPastExposure({
-      properties: {
-        ...overlappingGeoExposure,
-        wasThere: true,
-        BLETimestamp
-      }
-    }));
   } else {
     const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
 
