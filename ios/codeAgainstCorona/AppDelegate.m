@@ -18,6 +18,7 @@
 #import "RNFirebaseMessaging.h"
 #import "RNSplashScreen.h"
 
+#import <rn-contact-tracing/SpecialBleManager.h>
 
 @implementation AppDelegate
 
@@ -85,8 +86,8 @@
   self.locationManager.pausesLocationUpdatesAutomatically = NO;
   self.locationManager.activityType = CLActivityTypeOther;
   [self.locationManager startUpdatingLocation];
-  self.locationManager.headingFilter = kCLHeadingFilterNone;
-  [self.locationManager startUpdatingHeading];
+//  self.locationManager.headingFilter = kCLHeadingFilterNone;
+//  [self.locationManager startUpdatingHeading];
   
 //  if (self.locationManager1 == nil)
 //      self.locationManager1 = [[CLLocationManager alloc] init];
@@ -142,42 +143,46 @@
      didUpdateLocations:(NSArray *)locations
 {
     NSLog(@"didUpdateLocation");
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-      NSString *documentsDirectory = [paths objectAtIndex:0];
-
-      NSString* filepath = [[NSString alloc] init];
-      NSError *err;
-
-      filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateLocations.txt"];
-
-      NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-
-      NSDate* now = [NSDate date];
-
-
-      NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-      BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
+  
+  [[SpecialBleManager sharedManager] keepAliveBLEStart];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//      NSString *documentsDirectory = [paths objectAtIndex:0];
+//
+//      NSString* filepath = [[NSString alloc] init];
+//      NSError *err;
+//
+//      filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateLocations.txt"];
+//
+//      NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
+//
+//      NSDate* now = [NSDate date];
+//
+//
+//      NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
+//      BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
-{
-  NSLog(@"didUpdateHeading");
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
+//- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
+//{
+//  NSLog(@"didUpdateHeading");
+//  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];
+//
+//    NSString* filepath = [[NSString alloc] init];
+//    NSError *err;
+//
+//    filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateHeading.txt"];
+//
+//    NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
+//
+//    NSDate* now = [NSDate date];
+//
+//
+//    NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
+//    BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
+//}
 
-    NSString* filepath = [[NSString alloc] init];
-    NSError *err;
 
-    filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateHeading.txt"];
-
-    NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-
-    NSDate* now = [NSDate date];
-
-
-    NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-    BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
-}
 //-(void)outputAccelertionData:(CMAcceleration)acceleration{
 //
 //    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
