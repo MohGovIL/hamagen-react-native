@@ -12,13 +12,11 @@ const ResetMessaging = async (fromLoad: boolean = true) => {
     if (fromLoad) {
       await initConfig();
     }
-
-    await BackgroundFetch.stop();
     
     await scheduleTask();
 
     const { locale, notificationData } = await initLocalHeadless();
-    await BackgroundGeolocation.stop();
+    
     await startLocationTracking(locale, notificationData);
 
     await initBLETracing();
