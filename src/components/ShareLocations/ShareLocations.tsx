@@ -121,7 +121,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const combinedState: ShareStates & ShareFailState = state + failState;
 
   const AgreeToBleCheckbox = () => {
-    if (ENABLE_BLE && state === 'beforeShare') {
+    if (!IS_IOS && ENABLE_BLE && state === 'beforeShare') {
       return (
         <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
           <View style={styles.box}>
