@@ -2,9 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Linking, Platform } from 'react-native';
 // @ts-ignore
 import RNSettings from 'react-native-settings';
-import { connect } from 'react-redux';
 import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
-import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR } from '../../constants/Constants';
 
 interface Props {
@@ -20,6 +18,7 @@ const NoGPS = ({ title, description, button }: Props) => {
   const handlePressAndroid = () => {
     RNSettings.openSetting(RNSettings.ACTION_LOCATION_SOURCE_SETTINGS);
   };
+  
   return (
     <FadeInView style={styles.container}>
       <Icon source={require('../../assets/main/noData.png')} width={IS_SMALL_SCREEN ? 80 : 113} height={IS_SMALL_SCREEN ? 100 : 143} />
@@ -54,4 +53,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(null, null)(NoGPS);
+export default NoGPS;

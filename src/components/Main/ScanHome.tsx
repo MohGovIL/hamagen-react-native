@@ -63,33 +63,42 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     checkIfBleEnabled
   }
 ) => {
+  const shown = useRef(null);
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
   useEffect(() => {
-    setTimeout(async () => {
+    init();
+  }, []);
+
+  useEffect(() => {
+    if (shown.current) {
       SplashScreen.hide();
-      checkForceUpdate();
-      await goToFilterDrivingIfNeeded(navigation);
+    }
+  }, [shown.current]);
 
-      const url = await Linking.getInitialURL();
-      
-
-      if (url) {
-        return onOpenedFromDeepLink(url, navigation);
-      }
-
-      await syncLocationsDBOnLocationEvent();
-    }, 3000);
-
+  const init = async () => {
     checkConnectionStatusOnLoad();
     checkIfHideLocationHistory();
     checkIfBleEnabled();
 
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
+    } else {
+      checkForceUpdate();
+
+      await goToFilterDrivingIfNeeded(navigation);
+
+      const url = await Linking.getInitialURL();
+
+
+      if (url) {
+        return onOpenedFromDeepLink(url, navigation);
+      }
+
+      await syncLocationsDBOnLocationEvent();
     }
-  }, []);
+  };
 
   useEffect(() => {
     AppState.addEventListener('change', onAppStateChange);
@@ -182,7 +191,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} ref={shown}>
       <ScanHomeHeader
         languages={languages}
         isRTL={isRTL}
