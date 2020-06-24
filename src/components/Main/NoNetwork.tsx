@@ -23,10 +23,12 @@ const NoNetwork = ({ title, description, button }: Props) => {
         <Text style={[styles.text, { fontSize: 22 }]} bold>{title}</Text>
         <Text style={styles.text}>{description}</Text>
       </View>
-      <TouchableOpacity onPress={Platform.select({
-        ios: handlePressIOS,
-        android: handlePressAndroid
-      })}
+
+      <TouchableOpacity
+        onPress={Platform.select({
+          ios: handlePressIOS,
+          android: handlePressAndroid
+        })}
       >
         <Text>{button}</Text>
         <View style={{ height: 2, backgroundColor: MAIN_COLOR, marginTop: 2 }} />
@@ -46,7 +48,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 20,
-    lineHeight: 20
   }
 });
 
