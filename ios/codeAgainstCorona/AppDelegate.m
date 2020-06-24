@@ -19,11 +19,27 @@
 #import "RNSplashScreen.h"
 
 #import <rn-contact-tracing/SpecialBleManager.h>
+#import <BackgroundTasks/BackgroundTasks.h>
 
 @implementation AppDelegate
+{
+  BOOL didStartBle;
+}
+
+static NSString* refreshTaskID = @"com.hamagen.appRefresh";
+static NSString* proccessTaskID = @"com.hamagen.appProccess";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(bleStarted:)
+                                               name:@"BLE_Started"
+                                             object:nil];
+  [[NSNotificationCenter defaultCenter] addObserver:self
+                                           selector:@selector(bleStoped:)
+                                               name:@"BLE_Stoped"
+                                             object:nil];
+
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"codeAgainstCorona"
@@ -75,60 +91,181 @@
 //
 //  }];
 
-  // location
+//  // location
   if (self.locationManager == nil)
       self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self;
-  [self.locationManager requestAlwaysAuthorization];
   self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
   self.locationManager.allowsBackgroundLocationUpdates = YES;
   self.locationManager.distanceFilter = kCLDistanceFilterNone;
   self.locationManager.pausesLocationUpdatesAutomatically = NO;
-  self.locationManager.activityType = CLActivityTypeOther;
-  [self.locationManager startUpdatingLocation];
-//  self.locationManager.headingFilter = kCLHeadingFilterNone;
-//  [self.locationManager startUpdatingHeading];
-  
-//  if (self.locationManager1 == nil)
-//      self.locationManager1 = [[CLLocationManager alloc] init];
-//  self.locationManager1.delegate = self;
-//  [self.locationManager1 requestAlwaysAuthorization];
-//  self.locationManager1.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
-//  self.locationManager1.allowsBackgroundLocationUpdates = YES;
-//  self.locationManager1.distanceFilter = kCLDistanceFilterNone;
-//  self.locationManager1.pausesLocationUpdatesAutomatically = NO;
-//  self.locationManager1.activityType = CLActivityTypeOther;
-//  [self.locationManager1 startUpdatingLocation];
-//  self.locationManager1.headingFilter = kCLHeadingFilterNone;
-//  [self.locationManager1 startUpdatingHeading];
-//
-//  if (self.locationManager2 == nil)
-//      self.locationManager2 = [[CLLocationManager alloc] init];
-//  self.locationManager2.delegate = self;
-//  [self.locationManager2 requestAlwaysAuthorization];
-//  self.locationManager2.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-//  self.locationManager2.allowsBackgroundLocationUpdates = YES;
-//  self.locationManager2.distanceFilter = kCLDistanceFilterNone;
-//  self.locationManager2.pausesLocationUpdatesAutomatically = NO;
-//  self.locationManager2.activityType = CLActivityTypeAutomotiveNavigation;
-//  [self.locationManager2 startUpdatingLocation];
-//  self.locationManager2.headingFilter = kCLHeadingFilterNone;
-//  [self.locationManager2 startUpdatingHeading];
-//
-//  if (self.locationManager3 == nil)
-//      self.locationManager3 = [[CLLocationManager alloc] init];
-//  self.locationManager3.delegate = self;
-//  [self.locationManager3 requestAlwaysAuthorization];
-//  self.locationManager3.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
-//  self.locationManager3.allowsBackgroundLocationUpdates = YES;
-//  self.locationManager3.distanceFilter = kCLDistanceFilterNone;
-//  self.locationManager3.pausesLocationUpdatesAutomatically = NO;
-//  self.locationManager3.activityType = CLActivityTypeOtherNavigation;
-//  [self.locationManager3 startUpdatingLocation];
-//  self.locationManager3.headingFilter = kCLHeadingFilterNone;
-//  [self.locationManager3 startUpdatingHeading];
+//  self.locationManager.activityType = CLActivityTypeOther;
+//  [self.locationManager startUpdatingLocation];
+
+  // Background Fetch
+  [application setMinimumBackgroundFetchInterval: UIApplicationBackgroundFetchIntervalMinimum];
+
+  // BGTask
+  if (@available(iOS 13.0, *)) {
+      NSLog(@"configureProcessingTask");
+      [self configureProcessingTask];
+      [self configureAppRefreshTask];
+  }
   
   return YES;
+}
+
+#pragma mark - BGTask
+
+-(void)configureProcessingTask {
+    if (@available(iOS 13.0, *)) {
+        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:proccessTaskID
+                                                              usingQueue:nil
+                                                           launchHandler:^(BGTask *task) {
+            [self scheduleLocalNotifications];
+            [self handleProcessingTask:task];
+        }];
+    } else {
+        // No fallback
+    }
+}
+
+-(void)configureAppRefreshTask {
+    if (@available(iOS 13.0, *)) {
+        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:refreshTaskID
+                                                              usingQueue:nil
+                                                           launchHandler:^(BGAppRefreshTask *task) {
+            [self scheduleLocalNotifications];
+            [self handleAppRefreshTask:task];
+        }];
+    } else {
+        // No fallback
+    }
+}
+
+-(void)scheduleLocalNotifications {
+    //do things
+  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"LocalNotification"];
+}
+
+-(void)handleProcessingTask:(BGTask *)task API_AVAILABLE(ios(13.0)){
+    //do things with task
+}
+
+-(void)handleAppRefreshTask:(BGAppRefreshTask *)task API_AVAILABLE(ios(13.0)){
+}
+
+-(void)scheduleProcessingTask
+{
+    if (@available(iOS 13.0, *))
+    {
+        NSError *error = NULL;
+        // cancel existing task (if any)
+        [BGTaskScheduler.sharedScheduler cancelTaskRequestWithIdentifier:proccessTaskID];
+        // new task
+        BGProcessingTaskRequest *request = [[BGProcessingTaskRequest alloc] initWithIdentifier:proccessTaskID];
+        request.requiresNetworkConnectivity = NO;
+        request.requiresExternalPower = NO;
+        request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:7];
+        BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
+        if (!success) {
+            NSLog(@"Failed to submit proccess request: %@", error);
+        } else {
+            NSLog(@"Success submit proccess request %@", request);
+        }
+    }
+}
+
+-(void)scheduleAppRefreshTask
+{
+    if (@available(iOS 13.0, *))
+    {
+      NSError *error = NULL;
+      [BGTaskScheduler.sharedScheduler cancelTaskRequestWithIdentifier:refreshTaskID];
+
+      BGAppRefreshTaskRequest* request = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:refreshTaskID];
+      request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:7];
+      BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
+      if (!success) {
+          NSLog(@"Failed to submit refresh request: %@", error);
+      } else {
+          NSLog(@"Success submit refresh request %@", request);
+      }
+    }
+}
+
+#pragma mark - NSNotification
+
+-(void) bleStarted: (NSNotification*) notification
+{
+  [self.locationManager requestAlwaysAuthorization];
+  [self.locationManager startUpdatingLocation];
+
+  didStartBle = YES;
+}
+
+-(void) bleStoped: (NSNotification*) notification
+{
+  [self.locationManager stopUpdatingLocation];
+}
+
+#pragma mark - Backgound fetch
+
+-(void)application:(UIApplication *)application performFetchWithCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSInteger n = application.applicationIconBadgeNumber;
+    application.applicationIconBadgeNumber = n+1;
+
+    // we invoke an sync method, so we should call handler AFTER getting answer...
+
+  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGFetch"];
+
+    // if ok...
+//  completionHandler(UIBackgroundFetchResultNewData);
+
+    // or             completionHandler(UIBackgroundFetchResultNoData);
+    // or             completionHandler(UIBackgroundFetchResultFailed);
+
+  NSString *urlString = [NSString stringWithFormat:
+         @"http://api.openweathermap.org/data/2.5/weather?q=%@",
+         @"Singapore"];
+  
+     NSURLSession *session = [NSURLSession sharedSession];
+     [[session dataTaskWithURL:[NSURL URLWithString:urlString]
+             completionHandler:^(NSData *data,
+                                 NSURLResponse *response,
+                                 NSError *error) {
+                 NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
+                 if (!error && httpResp.statusCode == 200) {
+                     //---print out the result obtained---
+                     NSString *result =
+                     [[NSString alloc] initWithBytes:[data bytes]
+                                              length:[data length]
+                                            encoding:NSUTF8StringEncoding];
+                     NSLog(@"%@", result);
+                     
+//                     //---parse the JSON result---
+//                     [self parseJSONData:data];
+//
+//                     //---update the UIViewController---
+//                     BGAppRefreshViewController *vc =
+//                         (BGAppRefreshViewController *)
+//                         [[[UIApplication sharedApplication] keyWindow]
+//                         rootViewController];
+//                     dispatch_sync(dispatch_get_main_queue(), ^{
+//                         vc.lblStatus.text = self.temperature;
+//                     });
+                     
+                     completionHandler(UIBackgroundFetchResultNewData);
+                     NSLog(@"Background fetch completed...");
+                 } else {
+                     NSLog(@"%@", error.description);
+                     completionHandler(UIBackgroundFetchResultFailed);
+                     NSLog(@"Background fetch Failed...");
+                 }
+             }
+      ] resume
+     ];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -144,62 +281,17 @@
 {
     NSLog(@"didUpdateLocation");
   
-  [[SpecialBleManager sharedManager] keepAliveBLEStart];
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//      NSString *documentsDirectory = [paths objectAtIndex:0];
-//
-//      NSString* filepath = [[NSString alloc] init];
-//      NSError *err;
-//
-//      filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateLocations.txt"];
-//
-//      NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-//
-//      NSDate* now = [NSDate date];
-//
-//
-//      NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-//      BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
+  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"Update Location"];
 }
 
 //- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading
 //{
 //  NSLog(@"didUpdateHeading");
-//  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//
-//    NSString* filepath = [[NSString alloc] init];
-//    NSError *err;
-//
-//    filepath = [documentsDirectory stringByAppendingPathComponent:@"didUpdateHeading.txt"];
-//
-//    NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-//
-//    NSDate* now = [NSDate date];
-//
-//
-//    NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-//    BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
 //}
 
 
 //-(void)outputAccelertionData:(CMAcceleration)acceleration{
 //
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//
-//    NSString* filepath = [[NSString alloc] init];
-//    NSError *err;
-//
-//    filepath = [documentsDirectory stringByAppendingPathComponent:@"Acceleration_logs.txt"];
-//
-//    NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-//
-//    NSDate* now = [NSDate date];
-//    
-//
-//    NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-//    BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
 //}
 
 #pragma mark - Lifecycle methods
@@ -214,14 +306,27 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     
-    UIBackgroundTaskIdentifier bgTask = 0;
+  if (didStartBle)
+  {
+    [self.locationManager stopUpdatingLocation];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGEnterKeepAlive"];
+
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//
+//      UIBackgroundTaskIdentifier bgTask = 0;
+//
+//      bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^
+//                {
+//        [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGTask"];
+//
+//        [[UIApplication sharedApplication] endBackgroundTask:bgTask];
+//      }];
+//    });
+//
+//
     
-    bgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^
-              {
-                  [[UIApplication sharedApplication] endBackgroundTask:bgTask];
-              }];
-    
-    NSTimeInterval ti = [[UIApplication sharedApplication]backgroundTimeRemaining];
+  }
+  NSTimeInterval ti = [[UIApplication sharedApplication]backgroundTimeRemaining];
     NSLog(@"backgroundTimeRemaining: %f", ti); // just for debug
     
 }
@@ -240,6 +345,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     NSLog(@"Application will terminate");
+  if (didStartBle)
+  {
+    [self.locationManager stopUpdatingLocation];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGTask"];
+  }
 }
 
 #pragma mark - notifications

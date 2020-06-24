@@ -39,7 +39,10 @@ const BackgroundFetchHeadlessTask = async (event) => {
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
     await log('CheckSickPeople Headless');
-
+    if (IS_IOS) {
+      await initBLETracing();
+    }
+    
     await initConfig();
     await syncLocationsDBOnLocationEvent();
     await checkBLESickPeople();
