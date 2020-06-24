@@ -1295,7 +1295,9 @@
       "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
       "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
       "historyEditCancelBtn": "ማርትዕ ቀልብስ",
-      "edit": "ማርትዕ"
+      "edit": "ማርትዕ",
+      "BLELocationUpdate": "የአካባቢ ውሂብ ዘምኗል",
+      "BLEWarning": "የ glandular መረጃን ማርትዕ አይቻልም"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
