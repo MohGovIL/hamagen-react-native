@@ -78,7 +78,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center', marginTop: IS_SMALL_SCREEN ? 15 : 20 }} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -120,7 +120,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
-        <ScrollView bounces={false} contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flex: 1 }} showsVerticalScrollIndicator={false}>
+        <ScrollView bounces={false} contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }} showsVerticalScrollIndicator={false}>
           <View style={styles.container}>
             <LocationHistoryInfo />
             <EnableBluetooth />
