@@ -167,7 +167,6 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
         wasThere: true,
         BLETimestamp
       }]);
-
     } else {
       // update in past exposures
       store().dispatch(updateGeoPastExposure({
@@ -178,9 +177,6 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
         }
       }));
     }
-
-
-
   } else {
     const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
 

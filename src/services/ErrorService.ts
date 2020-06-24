@@ -10,5 +10,5 @@ export const onError = ({ error, dispatch, actionType, customAction, showError, 
   customAction && customAction();
   storeFactory().dispatch({ type: TOGGLE_LOADER, payload: { isShow: false } });
   showError && messageToShow && Alert.alert(messageToShow);
-  logErrorToFile(error)
+  logErrorToFile(error);
 };
