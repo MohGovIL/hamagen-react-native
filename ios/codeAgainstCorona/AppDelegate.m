@@ -115,6 +115,21 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   return YES;
 }
 
+#pragma mark - NSNotification
+
+-(void) bleStarted: (NSNotification*) notification
+{
+  [self.locationManager requestAlwaysAuthorization];
+  [self.locationManager startUpdatingLocation];
+
+  didStartBle = YES;
+}
+
+-(void) bleStoped: (NSNotification*) notification
+{
+  [self.locationManager stopUpdatingLocation];
+}
+
 #pragma mark - BGTask
 
 -(void)configureProcessingTask {
@@ -150,9 +165,23 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
 
 -(void)handleProcessingTask:(BGTask *)task API_AVAILABLE(ios(13.0)){
     //do things with task
+  task.expirationHandler = ^{
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
+  };
+  
+  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
+  [self scheduleProcessingTask];
+  [task setTaskCompletedWithSuccess:YES];
 }
 
 -(void)handleAppRefreshTask:(BGAppRefreshTask *)task API_AVAILABLE(ios(13.0)){
+  task.expirationHandler = ^{
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGAppRefreshTask"];
+  };
+
+  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGAppRefreshTask"];
+  [self scheduleAppRefreshTask];
+  [task setTaskCompletedWithSuccess:YES];
 }
 
 -(void)scheduleProcessingTask
@@ -166,7 +195,7 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
         BGProcessingTaskRequest *request = [[BGProcessingTaskRequest alloc] initWithIdentifier:proccessTaskID];
         request.requiresNetworkConnectivity = NO;
         request.requiresExternalPower = NO;
-        request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:7];
+        request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:60];
         BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
         if (!success) {
             NSLog(@"Failed to submit proccess request: %@", error);
@@ -184,7 +213,7 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
       [BGTaskScheduler.sharedScheduler cancelTaskRequestWithIdentifier:refreshTaskID];
 
       BGAppRefreshTaskRequest* request = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:refreshTaskID];
-      request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:7];
+      request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:50];
       BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
       if (!success) {
           NSLog(@"Failed to submit refresh request: %@", error);
@@ -192,21 +221,6 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
           NSLog(@"Success submit refresh request %@", request);
       }
     }
-}
-
-#pragma mark - NSNotification
-
--(void) bleStarted: (NSNotification*) notification
-{
-  [self.locationManager requestAlwaysAuthorization];
-  [self.locationManager startUpdatingLocation];
-
-  didStartBle = YES;
-}
-
--(void) bleStoped: (NSNotification*) notification
-{
-  [self.locationManager stopUpdatingLocation];
 }
 
 #pragma mark - Backgound fetch
@@ -255,7 +269,8 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
 //                     dispatch_sync(dispatch_get_main_queue(), ^{
 //                         vc.lblStatus.text = self.temperature;
 //                     });
-                     
+                   
+                     [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGFetch"];
                      completionHandler(UIBackgroundFetchResultNewData);
                      NSLog(@"Background fetch completed...");
                  } else {
@@ -311,6 +326,12 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
     [self.locationManager stopUpdatingLocation];
     [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGEnterKeepAlive"];
 
+    if (@available(iOS 13.0, *)) {
+        NSLog(@"scheduleProcessingTask");
+        [self scheduleProcessingTask];
+        NSLog(@"scheduleRefreshTask");
+        [self scheduleAppRefreshTask];
+    }
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //
 //      UIBackgroundTaskIdentifier bgTask = 0;
@@ -349,6 +370,13 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   {
     [self.locationManager stopUpdatingLocation];
     [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGTask"];
+    
+    if (@available(iOS 13.0, *)) {
+        NSLog(@"scheduleProcessingTask");
+        [self scheduleProcessingTask];
+        NSLog(@"scheduleRefreshTask");
+        [self scheduleAppRefreshTask];
+    }
   }
 }
 
