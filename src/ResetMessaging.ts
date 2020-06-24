@@ -17,10 +17,11 @@ const ResetMessaging = async (fromLoad: boolean = true) => {
       Vibration.vibrate(1500);
       await initConfig();
     }
-
+    
     await scheduleTask();
 
     const { locale, notificationData } = await initLocalHeadless();
+    
     await startLocationTracking(locale, notificationData);
 
     await initBLETracing();
