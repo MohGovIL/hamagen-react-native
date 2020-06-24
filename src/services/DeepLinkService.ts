@@ -4,7 +4,6 @@ import { queryDB } from './Tracker';
 import config from '../config/config';
 import { DBLocation } from '../types';
 import { IS_IOS, ENABLE_BLE } from '../constants/Constants';
-import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const onOpenedFromDeepLink = (url: string, navigation: StackNavigationProp<any>) => {
   const { token } = parseQueryParamsFromUrlScheme(url);
@@ -79,7 +78,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
       objectToShare.dataRows = dataRows;
     }
 
-    if (ENABLE_BLE && userAgreedToBle) {
+    if (!IS_IOS && ENABLE_BLE && userAgreedToBle) {
       const dataBleRows = await fetchInfectionDataByConsent();
       if (dataBleRows) {
         objectToShare.dataBleRows = dataBleRows;

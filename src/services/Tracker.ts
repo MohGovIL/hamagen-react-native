@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
 import { Alert } from 'react-native';
-import { setExposures, updateGeoPastExposure, updateBlePastExposure } from '../actions/ExposuresActions';
+import { setExposures, updateGeoPastExposure, updateBlePastExposure, removeGeoPastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
@@ -98,7 +98,6 @@ export const checkBLESickPeopleFromFile = async (bleMatch) => {
 
   const hasBLTS = await sickDB.containsBLE(bleMatch.startContactTimestamp);
 
-
   if (!hasBLTS) {
     await checkBleAndGeoIntersection(bleMatch, sickDB);
   } else {
@@ -160,23 +159,24 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
 
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
+      // remove Geo exposure before adding it with onSickPeopleNotify
+      store().dispatch(removeGeoPastExposure(overlappingGeoExposure.OBJECTID));
 
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
         wasThere: true,
         BLETimestamp
       }]);
+    } else {
+      // update in past exposures
+      store().dispatch(updateGeoPastExposure({
+        properties: {
+          ...overlappingGeoExposure,
+          wasThere: true,
+          BLETimestamp
+        }
+      }));
     }
-
-
-    // update in past exposures
-    store().dispatch(updateGeoPastExposure({
-      properties: {
-        ...overlappingGeoExposure,
-        wasThere: true,
-        BLETimestamp
-      }
-    }));
   } else {
     const lastExposure = exposures.filter(properties => properties.BLETimestamp).sort((matchA, matchB) => matchB.BLETimestamp - matchA.BLETimestamp)[0];
 
@@ -348,10 +348,10 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
     // if its a geo exposure or exposure doesn't have ble time stamp
     if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
 
-    const bleStart = moment.utc(exposure.BLETimestamp);
-    const bleEnd = bleStart.startOf('hour').add(1, 'hours');
-
-    return (Math.min(currSick.properties.toTime_utc, bleEnd.valueOf()) - Math.max(currSick.properties.fromTime_utc, bleStart.valueOf())) > 0;
+    const bleStart = moment(exposure.BLETimestamp).valueOf();
+    const bleEnd = moment(exposure.BLETimestamp).add(1, 'hours').valueOf();
+    
+    return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
   });
 };
 

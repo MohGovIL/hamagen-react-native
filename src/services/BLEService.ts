@@ -35,7 +35,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationSmallIconPath: '../assets/main/moreInfo.png'
         };
       }
-      await SpecialBle.stopBLEService();
+      
       await SpecialBle.setConfig(config);
       await SpecialBle.startBLEService();
 

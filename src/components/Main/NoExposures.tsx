@@ -3,12 +3,12 @@ import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform }
 import moment from 'moment';
 import BTManager from 'react-native-bluetooth-state-manager';
 import LottieView from 'lottie-react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
-import { ScrollView } from 'react-native-gesture-handler';
 
 interface NoExposuresProps {
   isRTL: boolean,
@@ -77,7 +77,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center', marginTop: IS_SMALL_SCREEN ? 15 : 20 }} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -119,54 +119,58 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
-        <ScrollView bounces={false} contentContainerStyle={{paddingBottom: PADDING_BOTTOM(10), flex:1}} showsVerticalScrollIndicator={false}>
-        <View style={styles.container}>
-          <LocationHistoryInfo />
-          <EnableBluetooth />
-          {enableBle && (
-            <BluetoothBubble
-              isRTL={isRTL}
-              info={bluetoothServiceOff}
-              moreInfo={turnBluetoothOn}
+        <ScrollView
+          bounces={false}
+          contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false} >
+          <View style={styles.container}>
+            <LocationHistoryInfo />
+            <EnableBluetooth />
+            {enableBle && (
+              <BluetoothBubble
+                isRTL={isRTL}
+                info={bluetoothServiceOff}
+                moreInfo={turnBluetoothOn}
+              />
+            )}
+            <LottieView
+              style={styles.lottie}
+              source={require('../../assets/lottie/magen logo.json')}
+              resizeMode="cover"
+              autoPlay
+              loop
             />
-          )}
-          <LottieView
-            style={styles.lottie}
-            source={require('../../assets/lottie/magen logo.json')}
-            resizeMode="cover"
-            autoPlay
-            loop
-          />
 
-          <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-          <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
-        </View>
-        <View style={{flexGrow:1,alignItems: 'center', justifyContent: 'space-around'}} >
-
-          <View style={styles.bottomCard}>
-
-            <Text style={styles.cardHeaderText}>{title}</Text>
-            <View style={styles.cardBody}>
-              <TouchableOpacity
-                onPress={() => setModalVisibility(true)}
-                hitSlop={HIT_SLOP}
-              >
-                <Icon
-                  width={15}
-                  source={require('../../assets/main/moreInfoBig.png')}
-                  customStyles={styles.infoIcon}
-                />
-              </TouchableOpacity>
-              <Text>
-                <Text bold style={styles.toTimeDate}>{nowDate}</Text>
-                <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
-                <Text bold style={styles.toTimeDate}>{nowHour}</Text>
-              </Text>
-            </View>
-
+            <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
+            <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
           </View>
-          {RelevantCard}
-        </View>
+          <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'space-around' }}>
+
+            <View style={styles.bottomCard}>
+
+              <Text style={styles.cardHeaderText}>{title}</Text>
+              <View style={styles.cardBody}>
+                <TouchableOpacity
+                  onPress={() => setModalVisibility(true)}
+                  hitSlop={HIT_SLOP}
+                >
+                  <Icon
+                    width={15}
+                    source={require('../../assets/main/moreInfoBig.png')}
+                    customStyles={styles.infoIcon}
+                  />
+                </TouchableOpacity>
+                <Text>
+                  <Text bold style={styles.toTimeDate}>{nowDate}</Text>
+                  <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
+                  <Text bold style={styles.toTimeDate}>{nowHour}</Text>
+                </Text>
+              </View>
+
+            </View>
+            {RelevantCard}
+          </View>
         </ScrollView>
       </FadeInView>
 
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
-    
+
     alignItems: 'center',
     paddingHorizontal: IS_SMALL_SCREEN ? 15 : 30
   },
