@@ -120,6 +120,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
             isFirst = false;
           }
+          Alert.alert('File loading finished');
 
           return;
         }

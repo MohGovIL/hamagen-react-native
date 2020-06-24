@@ -551,7 +551,7 @@ export class IntersectionSickDatabase {
       const db = await this.initDB();
 
       db.transaction(async (tx) => {
-        await tx.executeSql('DELETE FROM IntersectingSick');
+        await tx.executeSql('DROP TABLE IntersectingSick');
       });
     } catch (e) {
       onError({ e });

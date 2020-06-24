@@ -2,6 +2,7 @@ import { Alert } from 'react-native';
 import storeFactory from '../store';
 import { ErrorService } from '../types';
 import { TOGGLE_LOADER } from '../constants/ActionTypes';
+import { logErrorToFile } from './LogService';
 
 export const onError = ({ error, dispatch, actionType, customAction, showError, messageToShow }: ErrorService) => {
   console.log(error);
@@ -9,4 +10,5 @@ export const onError = ({ error, dispatch, actionType, customAction, showError, 
   customAction && customAction();
   storeFactory().dispatch({ type: TOGGLE_LOADER, payload: { isShow: false } });
   showError && messageToShow && Alert.alert(messageToShow);
+  logErrorToFile(error);
 };
