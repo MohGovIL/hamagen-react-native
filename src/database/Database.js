@@ -495,6 +495,7 @@ export class IntersectionSickDatabase {
         db.transaction(async (tx) => {
           try {
             await tx.executeSql('DELETE FROM IntersectingSick WHERE toTime < ?', [timestamp]);
+            await tx.executeSql('DELETE FROM IntersectingSick WHERE BLETimestamp < ?', [timestamp]);
             resolve(true);
           } catch (error) {
             onError({ error });
