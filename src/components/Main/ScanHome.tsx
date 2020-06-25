@@ -71,6 +71,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
   useEffect(() => {
     init();
+    console.warn('je;;');
+    
   }, []);
 
   useEffect(() => {

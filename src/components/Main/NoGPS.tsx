@@ -18,7 +18,7 @@ const NoGPS = ({ title, description, button }: Props) => {
   const handlePressAndroid = () => {
     RNSettings.openSetting(RNSettings.ACTION_LOCATION_SOURCE_SETTINGS);
   };
-  
+
   return (
     <FadeInView style={styles.container}>
       <Icon source={require('../../assets/main/noData.png')} width={IS_SMALL_SCREEN ? 80 : 113} height={IS_SMALL_SCREEN ? 100 : 143} />
@@ -27,10 +27,12 @@ const NoGPS = ({ title, description, button }: Props) => {
         <Text style={[styles.text, { fontSize: 22 }]} bold>{title}</Text>
         <Text style={styles.text}>{description}</Text>
       </View>
-      <TouchableOpacity onPress={Platform.select({
-        ios: handlePressIOS,
-        android: handlePressAndroid
-      })}
+      
+      <TouchableOpacity
+        onPress={Platform.select({
+          ios: handlePressIOS,
+          android: handlePressAndroid
+        })}
       >
         <Text style={{ fontSize: 16, paddingHorizontal: 5 }} bold>{button}</Text>
         <View style={{ height: 2, backgroundColor: MAIN_COLOR, marginTop: 2 }} />
@@ -49,7 +51,6 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 20,
-    lineHeight: 20
   }
 });
 

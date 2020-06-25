@@ -16,7 +16,7 @@ import { updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkBLESickPeople, checkBLESickPeopleFromFile } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { Exposure } from '../../types';
-import { IS_IOS, PADDING_BOTTOM, PADDING_TOP, } from '../../constants/Constants';
+import { IS_IOS, PADDING_BOTTOM, PADDING_TOP, SCREEN_WIDTH, MAIN_COLOR, } from '../../constants/Constants';
 import PopupForBLE from './PopupForBLE';
 
 interface Props {
@@ -81,7 +81,7 @@ const QABle = ({ navigation }: Props) => {
   const shareBLEData = () => {
     try {
       SpecialBle.fetchInfectionDataByConsent(async (res: any) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEData_${moment().valueOf()}.json`}`;
+        const filepath = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/${`BLEData_${moment().valueOf()}.json`}`;
         await RNFS.writeFile(filepath, res || '{}', 'utf8');
         await Share.open({ title: 'שיתוף BLE data', url: IS_IOS ? filepath : `file://${filepath}` });
       });
@@ -129,13 +129,13 @@ const QABle = ({ navigation }: Props) => {
     android: () => SpecialBle.exportAllContactsAsCsv(),
     ios: () => {
       SpecialBle.exportAllContactsAsCsv(async (res: string) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${'allContacts.csv'}`;
+        const filepath = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/${'allContacts.csv'}`;
         await RNFS.writeFile(filepath, res || '', 'utf8');
         await Share.open({ title: 'שתף סריקות BLE', url: IS_IOS ? filepath : `file://${filepath}` });
       });
     }
   });
-  
+
 
   const matchBLEFromUrl = async () => {
     try {
@@ -150,7 +150,7 @@ const QABle = ({ navigation }: Props) => {
   const getAllBLEScans = () => {
     try {
       SpecialBle.getAllScans(async (res: any) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
+        const filepath = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/${`BLEScans_${moment().valueOf()}.json`}`;
         await RNFS.writeFile(filepath, JSON.stringify(res) || '[]', 'utf8');
         await Share.open({ title: 'שיתוף BLE scans', url: IS_IOS ? filepath : `file://${filepath}` });
       });
@@ -158,7 +158,6 @@ const QABle = ({ navigation }: Props) => {
       onError({ error });
     }
   };
-
 
   const deleteBleDB = () => {
     SpecialBle.deleteDatabase();
@@ -175,36 +174,57 @@ const QABle = ({ navigation }: Props) => {
 
       <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ width: SCREEN_WIDTH, paddingHorizontal: 15 }}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
+        <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-around', alignItems: 'center' }}>
+          <Text style={{ fontSize: 22 }} bold>מקובץ</Text>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
+          <View>
+            <View style={styles.buttonWrapper}>
+              <Button title="BLE match מקובץ" onPress={() => fetchFromFileWithAction(BLE_MATCH_FILE_TYPE)} />
+            </View>
+
+            <View style={styles.buttonWrapper}>
+              <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
+            </View>
+          </View>
+
+        </View>
+        <View style={[styles.buttonWrapper, { width: SCREEN_WIDTH, height: 2, backgroundColor: MAIN_COLOR, }]} />
+        <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-around', alignItems: 'center' }}>
+          <Text style={{ fontSize: 22 }} bold>מURL</Text>
+          <View>
+
+            <View style={styles.buttonWrapper}>
+              <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
+            </View>
+
+            <View style={styles.buttonWrapper}>
+              <Button title="טען BLE DB מ URL" onPress={writeToBLEDbFromUrl} />
+            </View>
+          </View>
+        </View>
+        <View style={{ width: SCREEN_WIDTH, height: 2, backgroundColor: MAIN_COLOR, marginBottom: 10 }} />
+        <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-around', alignItems: 'center' }}>
+
+          <Text style={[styles.buttonWrapper, { fontSize: 22 }]} bold>הצג</Text>
+
+          <View style={styles.buttonWrapper}>
+            <Button title="הצג מידע מה DB" onPress={showBleInfo} />
+          </View>
         </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="BLE match מ-URL" onPress={matchBLEFromUrl} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מקובץ" onPress={() => fetchFromFileWithAction(BLE_DB_FILE_TYPE)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="טען BLE DB מ URL" onPress={writeToBLEDbFromUrl} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג מידע מה DB" onPress={showBleInfo} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="שתף קליטות BLE" onPress={shareAllBLEContacts} />
-        </View>
-
+        <View style={{ width: SCREEN_WIDTH, height: 2, backgroundColor: MAIN_COLOR, marginBottom: 10 }} />
+        <Text style={[styles.buttonWrapper, { fontSize: 22 }]} bold>שתף</Text>
         <View style={styles.buttonWrapper}>
           <Button title="שתף מידע BLE" onPress={shareBLEData} />
         </View>
-
+        <View style={styles.buttonWrapper}>
+          <Button title="שתף קליטות BLE" onPress={shareAllBLEContacts} />
+        </View>
         <View style={styles.buttonWrapper}>
           <Button title="שתף סריקות BLE" onPress={getAllBLEScans} />
         </View>
@@ -214,6 +234,8 @@ const QABle = ({ navigation }: Props) => {
             <Button title="שתף שידורי BLE" onPress={() => SpecialBle.exportAdvertiseAsCSV()} />
           </View>
         )}
+        <View style={{ width: SCREEN_WIDTH, height: 2, backgroundColor: MAIN_COLOR, marginBottom: 10 }} />
+        <Text style={[styles.buttonWrapper, { fontSize: 25, color: 'red' }]} bold>נקה!</Text>
 
         <View style={styles.buttonWrapper}>
           <Button

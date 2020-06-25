@@ -5,7 +5,6 @@ import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
 import RNFS from 'react-native-fs';
 import Share from 'react-native-share';
-import prompt from 'react-native-prompt-android';
 import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import { bindActionCreators } from 'redux';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -13,7 +12,6 @@ import moment from 'moment';
 import Geohash from 'latlon-geohash';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import RNFetchBlob from 'rn-fetch-blob';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile, setExposures } from '../../actions/ExposuresActions';
@@ -203,18 +201,6 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
     }
   };
 
-  const shareBLEData = () => {
-    try {
-      SpecialBle.fetchInfectionDataByConsent(async (res: any) => {
-        const filepath = `${RNFS.CachesDirectoryPath}/${`BLEData_${moment().valueOf()}.json`}`;
-        await RNFS.writeFile(filepath, res || '{}', 'utf8');
-        await Share.open({ title: 'שיתוף BLE data', url: IS_IOS ? filepath : `file://${filepath}` });
-      });
-    } catch (error) {
-      onError({ error });
-    }
-  };
-
   const initCheckSickPeople = async (isClusters: boolean) => {
     try {
       await checkGeoSickPeople(true, isClusters);
@@ -328,7 +314,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
     });
 
     Clipboard.setString(csv);
-    
+
     const filepath = `${RNFS.ExternalDirectoryPath}/${`allData_${moment().format('YY.MM.DD')}.csv`}`;
     try {
       await RNFS.writeFile(filepath, csv || '{}', 'utf8');
@@ -354,7 +340,31 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
 
       <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
+
+        <Text style={{ marginVertical: 15, fontSize: 22 }} bold>אֶשׁכּוֹלוֹת</Text>
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, true)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצלבת clusters מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(true)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="טעינת clusters מקובץ" onPress={() => fetchFromFileWithAction(CLUSTERS_FILE_TYPE)} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="הצג clusters" onPress={() => setShowPopup({ showPopup: true, type: 'clusters' })} />
+        </View>
+
+        <View style={styles.buttonWrapper}>
+          <Button title="נקה את ה Clusters log" onPress={clearClustersLogs} />
+        </View>
+
+        <Text style={{ marginVertical: 15, fontSize: 22 }} bold>דקירוֹת</Text>
+
         <View style={styles.buttonWrapper}>
           <Button title="הצלבת דקירות מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, false)} />
         </View>
@@ -366,29 +376,16 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
           />
         </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, true)} />
-        </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצלבת clusters מול JSON מאומתים משרת" onPress={() => initCheckSickPeople(true)} />
-        </View>
 
         <View style={styles.buttonWrapper}>
           <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchFromFileWithAction(LOCATIONS_FILE_TYPE)} />
         </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="טעינת clusters מקובץ" onPress={() => fetchFromFileWithAction(CLUSTERS_FILE_TYPE)} />
-        </View>
 
         <View style={styles.buttonWrapper}>
           <Button title="טעינת KML מקובץ" onPress={() => fetchFromFileWithAction(KML_FILE_TYPE)} />
         </View>
-
-        <View style={styles.buttonWrapper}>
-          <Button title="הצג clusters" onPress={() => setShowPopup({ showPopup: true, type: 'clusters' })} />
-        </View>
+        
 
         <View style={styles.buttonWrapper}>
           <Button title="הצג 'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'locations' })} />
@@ -434,9 +431,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
           <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
         </View>
 
-        <View style={styles.buttonWrapper}>
-          <Button title="נקה את ה Clusters log" onPress={clearClustersLogs} />
-        </View>
+        <Text style={{ marginVertical: 20, fontSize: 30, color: 'red' }} bold>ניקיון!</Text>
 
         <View style={styles.buttonWrapper}>
           <Button title="!!!!!נקה את כל ה'דקירות' מה-DB!!!!!" onPress={clearLocationsDB} color="red" />

@@ -21,14 +21,14 @@ BackgroundGeolocation.onLocation(
     await syncLocationsDBOnLocationEvent();
     
     if (IS_IOS) {
-      await initBLETracing();
+      initBLETracing();
     }
   }, (error) => {
     onError({ error });
   }
 );
 
-BackgroundGeolocation.on('heartbeat', async () => {
+BackgroundGeolocation.onHeartbeat(async () => {
   await log('BGLocation heartbeat');
 });
 

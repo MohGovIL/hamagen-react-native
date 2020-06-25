@@ -8,15 +8,14 @@ import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
-import { match } from './BLEService';
+import { match, initBLETracing } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
 import log from './LogService';
-import { IS_IOS } from '../constants/Constants';
-import { initBLETracing } from './BLEService';
+
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -42,7 +41,6 @@ const backgroundTimerBLE = async () => {
   }
   // await checkBLESickPeople();
   // await checkGeoSickPeople();
-
 };
 
 const backgroundTimerFn = async () => {
@@ -367,7 +365,7 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
 
     const bleStart = moment(exposure.BLETimestamp).valueOf();
     const bleEnd = moment(exposure.BLETimestamp).add(1, 'hours').valueOf();
-    
+
     return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
   });
 };
