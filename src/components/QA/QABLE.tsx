@@ -81,7 +81,6 @@ const QABle = ({ navigation }: Props) => {
   const shareBLEData = () => {
     try {
       SpecialBle.fetchInfectionDataByConsent(async (res: any) => {
-
         const filepath = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/${`BLEData_${moment().valueOf()}.json`}`;
         await RNFS.writeFile(filepath, res || '{}', 'utf8');
         await Share.open({ title: 'שיתוף BLE data', url: IS_IOS ? filepath : `file://${filepath}` });
@@ -130,7 +129,6 @@ const QABle = ({ navigation }: Props) => {
     android: () => SpecialBle.exportAllContactsAsCsv(),
     ios: () => {
       SpecialBle.exportAllContactsAsCsv(async (res: string) => {
-
         const filepath = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/${'allContacts.csv'}`;
         await RNFS.writeFile(filepath, res || '', 'utf8');
         await Share.open({ title: 'שתף סריקות BLE', url: IS_IOS ? filepath : `file://${filepath}` });
@@ -161,7 +159,6 @@ const QABle = ({ navigation }: Props) => {
     }
   };
 
-
   const deleteBleDB = () => {
     SpecialBle.deleteDatabase();
     SpecialBle.cleanScansDB();
@@ -177,7 +174,11 @@ const QABle = ({ navigation }: Props) => {
 
       <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט BLE בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
-      <ScrollView showsVerticalScrollIndicator={false} style={{ width: SCREEN_WIDTH, paddingHorizontal: 15 }} contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ width: SCREEN_WIDTH, paddingHorizontal: 15 }}
+        contentContainerStyle={{ flexGrow: 1 }}
+      >
         <View style={{ flexDirection: 'row-reverse', justifyContent: 'space-around', alignItems: 'center' }}>
           <Text style={{ fontSize: 22 }} bold>מקובץ</Text>
 

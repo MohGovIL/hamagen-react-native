@@ -382,11 +382,9 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         </View>
 
 
-
         <View style={styles.buttonWrapper}>
           <Button title="טעינת KML מקובץ" onPress={() => fetchFromFileWithAction(KML_FILE_TYPE)} />
         </View>
-
         
 
         <View style={styles.buttonWrapper}>
@@ -433,7 +431,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
           <Button title="נקה מידע מעקב שירותים" onPress={clearServicesTrackingData} />
         </View>
 
-        <Text style={{marginVertical: 20, fontSize: 30, color: 'red' }} bold>ניקיון!</Text>
+        <Text style={{ marginVertical: 20, fontSize: 30, color: 'red' }} bold>ניקיון!</Text>
 
         <View style={styles.buttonWrapper}>
           <Button title="!!!!!נקה את כל ה'דקירות' מה-DB!!!!!" onPress={clearLocationsDB} color="red" />

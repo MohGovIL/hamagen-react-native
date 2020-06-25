@@ -51,8 +51,8 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
         style={{
           position: 'absolute',
           top: 3,
-          right: isRTL ? 5 : SCREEN_WIDTH/2,
-          left: isRTL ? SCREEN_WIDTH/2 : 5,
+          right: isRTL ? 5 : SCREEN_WIDTH / 2,
+          left: isRTL ? SCREEN_WIDTH / 2 : 5,
 
           flexDirection: isRTL ? 'row-reverse' : 'row',
           // alignItems: 'center'
