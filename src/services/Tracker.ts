@@ -15,6 +15,8 @@ import store from '../store';
 import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
 import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
 import log from './LogService';
+import { IS_IOS } from '../constants/Constants';
+import { initBLETracing } from './BLEService';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -24,6 +26,7 @@ export const startForegroundTimer = async () => {
   //   await checkGeoSickPeople();
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
+  BackgroundTimer.runBackgroundTimer(backgroundTimerBLE, config().fetchMilliseconds / 15);
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,
@@ -31,9 +34,23 @@ export const startForegroundTimer = async () => {
   );
 };
 
+const backgroundTimerBLE = async () => {
+  await log('BLE timer');
+
+  if (IS_IOS) {
+    await initBLETracing();
+  }
+  // await checkBLESickPeople();
+  // await checkGeoSickPeople();
+
+};
+
 const backgroundTimerFn = async () => {
   await log('CheckSickPeople Foreground Service');
 
+  if (IS_IOS) {
+    await initBLETracing();
+  }
   // await checkBLESickPeople();
   // await checkGeoSickPeople();
 

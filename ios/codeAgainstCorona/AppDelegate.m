@@ -60,38 +60,8 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   [RNFirebaseNotifications configure];
   
   [RNSplashScreen show];
-  
-//  self.motionManager = [[CMMotionManager alloc] init];
-//   self.motionManager.accelerometerUpdateInterval = 2;
-//  self.motionManager.deviceMotionUpdateInterval = 2;
-//  [self.motionManager startAccelerometerUpdatesToQueue:[NSOperationQueue currentQueue]
-//                                            withHandler:^(CMAccelerometerData  *accelerometerData, NSError *error) {
-//                                               [self outputAccelertionData:accelerometerData.acceleration];
-//                                                if(error)
-//                                                {
-//                                                    NSLog(@"%@", error);
-//                                                }
-//                                            }];
-//  [self.motionManager startDeviceMotionUpdatesToQueue:[NSOperationQueue currentQueue] withHandler:^(CMDeviceMotion * _Nullable motion, NSError * _Nullable error) {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];
-//
-//    NSString* filepath = [[NSString alloc] init];
-//    NSError *err;
-//
-//    filepath = [documentsDirectory stringByAppendingPathComponent:@"DeviceMotion_logs.txt"];
-//
-//    NSString *contents = [NSString stringWithContentsOfFile:filepath encoding:(NSStringEncoding)NSUnicodeStringEncoding error:nil] ?: @"";
-//
-//    NSDate* now = [NSDate date];
-//
-//
-//    NSString* text2log = [NSString stringWithFormat:@"%@\n%@ - check",contents, now ];
-//    BOOL ok = [text2log writeToFile:filepath atomically:YES encoding:NSUnicodeStringEncoding error:&err];
-//
-//  }];
 
-//  // location
+  // location
   if (self.locationManager == nil)
       self.locationManager = [[CLLocationManager alloc] init];
   self.locationManager.delegate = self;
@@ -99,17 +69,16 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   self.locationManager.allowsBackgroundLocationUpdates = YES;
   self.locationManager.distanceFilter = kCLDistanceFilterNone;
   self.locationManager.pausesLocationUpdatesAutomatically = NO;
-//  self.locationManager.activityType = CLActivityTypeOther;
-//  [self.locationManager startUpdatingLocation];
-
-  // Background Fetch
+  // update location will start on bleStart.
+  
+  // Background Fetch ( deprecated )
   [application setMinimumBackgroundFetchInterval: UIApplicationBackgroundFetchIntervalMinimum];
 
   // BGTask
   if (@available(iOS 13.0, *)) {
-      NSLog(@"configureProcessingTask");
-      [self configureProcessingTask];
-      [self configureAppRefreshTask];
+      NSLog(@"registering bg tasks");
+      [self registerProcessingTask];
+      [self registerAppRefreshTask];
   }
   
   return YES;
@@ -132,56 +101,86 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
 
 #pragma mark - BGTask
 
--(void)configureProcessingTask {
+-(void)registerProcessingTask {
     if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:proccessTaskID
-                                                              usingQueue:nil
-                                                           launchHandler:^(BGTask *task) {
-            [self scheduleLocalNotifications];
-            [self handleProcessingTask:task];
-        }];
-    } else {
-        // No fallback
+        BOOL res = [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:proccessTaskID
+                                                                      usingQueue:nil
+                                                                   launchHandler:^(BGTask *task) {
+                    [self handleProcessingTask:task];
+                }];
+      if (!res)
+        NSLog(@"failed registering %@", proccessTaskID);
     }
 }
 
--(void)configureAppRefreshTask {
+-(void)registerAppRefreshTask {
     if (@available(iOS 13.0, *)) {
-        [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:refreshTaskID
+        BOOL res = [[BGTaskScheduler sharedScheduler] registerForTaskWithIdentifier:refreshTaskID
                                                               usingQueue:nil
                                                            launchHandler:^(BGAppRefreshTask *task) {
-            [self scheduleLocalNotifications];
             [self handleAppRefreshTask:task];
         }];
-    } else {
-        // No fallback
+      if (!res)
+        NSLog(@"failed registering %@", refreshTaskID);
     }
-}
-
--(void)scheduleLocalNotifications {
-    //do things
-  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"LocalNotification"];
 }
 
 -(void)handleProcessingTask:(BGTask *)task API_AVAILABLE(ios(13.0)){
-    //do things with task
+  [self scheduleProcessingTask];
+  
+  NSOperationQueue* queue = [NSOperationQueue new];
+  queue.maxConcurrentOperationCount = 1;
+  
   task.expirationHandler = ^{
-    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
+    [queue cancelAllOperations];
   };
   
-  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
-  [self scheduleProcessingTask];
-  [task setTaskCompletedWithSuccess:YES];
+  NSOperation* last = queue.operations.lastObject;
+  if (last)
+  {
+    last.completionBlock = ^{
+      [task setTaskCompletedWithSuccess:YES];
+    };
+  }
+  
+  [queue addOperationWithBlock:^{
+//    [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Proccessing_handle"];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
+  }];
+  
+  // without NSOperation:
+//    //do things with task
+//  task.expirationHandler = ^{
+//  };
+//  [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Proccessing_handle"];
+//  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGProccessTask"];
+//  [self scheduleProcessingTask];
+//  [task setTaskCompletedWithSuccess:YES];
 }
 
--(void)handleAppRefreshTask:(BGAppRefreshTask *)task API_AVAILABLE(ios(13.0)){
-  task.expirationHandler = ^{
-    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGAppRefreshTask"];
-  };
-
-  [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGAppRefreshTask"];
+-(void)handleAppRefreshTask:(BGAppRefreshTask *)task API_AVAILABLE(ios(13.0))
+{
   [self scheduleAppRefreshTask];
-  [task setTaskCompletedWithSuccess:YES];
+
+  NSOperationQueue* queue = [NSOperationQueue new];
+  queue.maxConcurrentOperationCount = 1;
+  
+  task.expirationHandler = ^{
+    [queue cancelAllOperations];
+  };
+  
+  NSOperation* last = queue.operations.lastObject;
+  if (last)
+  {
+    last.completionBlock = ^{
+      [task setTaskCompletedWithSuccess:YES];
+    };
+  }
+
+  [queue addOperationWithBlock:^{
+//    [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Refresh_handle"];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGRefreshTask"];
+  }];
 }
 
 -(void)scheduleProcessingTask
@@ -191,15 +190,18 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
         NSError *error = NULL;
         // cancel existing task (if any)
         [BGTaskScheduler.sharedScheduler cancelTaskRequestWithIdentifier:proccessTaskID];
+//      [BGTaskScheduler.sharedScheduler cancelAllTaskRequests];
         // new task
         BGProcessingTaskRequest *request = [[BGProcessingTaskRequest alloc] initWithIdentifier:proccessTaskID];
         request.requiresNetworkConnectivity = NO;
         request.requiresExternalPower = NO;
-        request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:60];
+        request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:10*60];
         BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
         if (!success) {
+//          [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Proccess_Schedule_SUCCESS"];
             NSLog(@"Failed to submit proccess request: %@", error);
         } else {
+//          [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Proccess_Schedule_FAIL"];
             NSLog(@"Success submit proccess request %@", request);
         }
     }
@@ -210,14 +212,18 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
     if (@available(iOS 13.0, *))
     {
       NSError *error = NULL;
+      // cancel existing task (if any)
       [BGTaskScheduler.sharedScheduler cancelTaskRequestWithIdentifier:refreshTaskID];
 
+      // new task
       BGAppRefreshTaskRequest* request = [[BGAppRefreshTaskRequest alloc] initWithIdentifier:refreshTaskID];
-      request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:50];
+      request.earliestBeginDate = [NSDate dateWithTimeIntervalSinceNow:15*60];
       BOOL success = [[BGTaskScheduler sharedScheduler] submitTaskRequest:request error:&error];
       if (!success) {
+//        [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_AppRefresh_Schedule_FAIL"];
           NSLog(@"Failed to submit refresh request: %@", error);
       } else {
+//        [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_AppRefresh_Schedule_SUCCESS"];
           NSLog(@"Success submit refresh request %@", request);
       }
     }
@@ -232,55 +238,14 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
 
     // we invoke an sync method, so we should call handler AFTER getting answer...
 
+//  [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_Fetch"];
   [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGFetch"];
 
     // if ok...
-//  completionHandler(UIBackgroundFetchResultNewData);
+  completionHandler(UIBackgroundFetchResultNewData);
 
     // or             completionHandler(UIBackgroundFetchResultNoData);
     // or             completionHandler(UIBackgroundFetchResultFailed);
-
-  NSString *urlString = [NSString stringWithFormat:
-         @"http://api.openweathermap.org/data/2.5/weather?q=%@",
-         @"Singapore"];
-  
-     NSURLSession *session = [NSURLSession sharedSession];
-     [[session dataTaskWithURL:[NSURL URLWithString:urlString]
-             completionHandler:^(NSData *data,
-                                 NSURLResponse *response,
-                                 NSError *error) {
-                 NSHTTPURLResponse *httpResp = (NSHTTPURLResponse*) response;
-                 if (!error && httpResp.statusCode == 200) {
-                     //---print out the result obtained---
-                     NSString *result =
-                     [[NSString alloc] initWithBytes:[data bytes]
-                                              length:[data length]
-                                            encoding:NSUTF8StringEncoding];
-                     NSLog(@"%@", result);
-                     
-//                     //---parse the JSON result---
-//                     [self parseJSONData:data];
-//
-//                     //---update the UIViewController---
-//                     BGAppRefreshViewController *vc =
-//                         (BGAppRefreshViewController *)
-//                         [[[UIApplication sharedApplication] keyWindow]
-//                         rootViewController];
-//                     dispatch_sync(dispatch_get_main_queue(), ^{
-//                         vc.lblStatus.text = self.temperature;
-//                     });
-                   
-                     [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGFetch"];
-                     completionHandler(UIBackgroundFetchResultNewData);
-                     NSLog(@"Background fetch completed...");
-                 } else {
-                     NSLog(@"%@", error.description);
-                     completionHandler(UIBackgroundFetchResultFailed);
-                     NSLog(@"Background fetch Failed...");
-                 }
-             }
-      ] resume
-     ];
 }
 
 #pragma mark - CLLocationManagerDelegate
@@ -324,7 +289,9 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   if (didStartBle)
   {
     [self.locationManager stopUpdatingLocation];
-    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGEnterKeepAlive"];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BG_didEnterKeepAlive"];
+
+//    [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_didEnterBackground"];
 
     if (@available(iOS 13.0, *)) {
         NSLog(@"scheduleProcessingTask");
@@ -369,8 +336,10 @@ static NSString* proccessTaskID = @"com.hamagen.appProccess";
   if (didStartBle)
   {
     [self.locationManager stopUpdatingLocation];
-    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BGTask"];
+    [[SpecialBleManager sharedManager] keepAliveBLEStartForTask:@"BG_WillTerminate"];
     
+//    [[SpecialBleManager sharedManager] writeTestLogToFileForTask:@"BG_WillTerminate"];
+//
     if (@available(iOS 13.0, *)) {
         NSLog(@"scheduleProcessingTask");
         [self scheduleProcessingTask];
