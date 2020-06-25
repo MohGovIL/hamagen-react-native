@@ -92,6 +92,12 @@ export interface Strings {
     approveBluetoothIOS: string,
     approveBluetoothAndroid: string
   },
+  battery: {
+    title: string,
+    description: string,
+    callToAction: string,
+    approveButton: string
+  }
   location: {
     title: string,
     subTitle1: string,

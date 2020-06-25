@@ -120,7 +120,11 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
-        <ScrollView bounces={false} contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }} showsVerticalScrollIndicator={false}>
+        <ScrollView 
+          bounces={false}
+          contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }} 
+          showsVerticalScrollIndicator={false}
+        >
           <View style={styles.container}>
             <LocationHistoryInfo />
             <EnableBluetooth />
@@ -189,9 +193,7 @@ const styles = StyleSheet.create({
     paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
-    
     alignItems: 'center',
-    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 30
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),

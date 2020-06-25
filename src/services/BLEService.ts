@@ -33,7 +33,8 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationTitle: '',
           notificationContent: 'סריקת BLE פועלת',
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
-          notificationSmallIconPath: '../assets/main/moreInfo.png'
+          notificationSmallIconPath: '../assets/main/moreInfo.png',
+          disableBatteryOptimization: false
         };
       }
       
@@ -93,3 +94,5 @@ export const match = async () => new Promise(async (resolve) => {
     }
   }
 });
+
+export const { askToDisableBatteryOptimization } = SpecialBle;
