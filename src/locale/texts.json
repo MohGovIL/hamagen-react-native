@@ -144,10 +144,15 @@
     "bluetooth": {
       "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
       "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
       "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך",
       "approveBluetoothIOS": "הפעל שירותי בלוטות׳",
       "approveBluetoothAndroid": "הבנתי"
+    },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
     },
     "location": {
       "title": "המיקום הוא קריטי",
@@ -407,6 +412,12 @@
       "approveBluetoothIOS": "تمكين خدمات Bluetooth",
       "approveBluetoothAndroid": "فهمت"
     },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
+    },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
       "subTitle1": "إن هذا التطبيق يقوم بجمع معطيات بخصوص أماكن تواجدكم ويقوم بمقارنتها بالمعطيات العامة للأشخاص المصابين بالفيروس",
@@ -664,6 +675,12 @@
       "callToAction": "That's why you must activate Bluetooth on your device",
       "approveBluetoothAndroid": "I understand",
       "approveBluetoothIOS": "Enable Bluetooth services"
+    },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
     },
     "location": {
       "title": "Location is critical",
@@ -923,6 +940,12 @@
       "approveBluetoothIOS": "Включить службы Bluetooth",
       "approveBluetoothAndroid": "я осознал"
     },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
+    },
     "location": {
       "title": "Местонахождение критично",
       "subTitle1": "Приложение будет собирать данные о вашем месте нахождение, и сообщит вам если будет совпадение с данными местонахождения больных.",
@@ -1181,6 +1204,12 @@
       "approveBluetoothIOS": "የብሉቱዝ አገልግሎቶችን ያንቁ",
       "approveBluetoothAndroid": "ገባኝ"
     },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
+    },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
       "subTitle1": "አፕሊኬሽኑ (መተግበሪያው) የአካባቢ ውሂብን በራሱ ይሰበስብና የእርስዎን ቦታ በአካባቢው ካሉ የኮሮና በሽተኞች ቦታ ጋር በማነፃጸር ማንኛውንም መደራረብ ካገኘ ያሳውቀዎታል ፡፡.",
@@ -1438,6 +1467,12 @@
       "callToAction": "Afin de confirmer l'utilisation de ces services \nActivez le Bluetooth sur votre appareil",
       "approveBluetoothIOS": "Activer les services Bluetooth",
       "approveBluetoothAndroid": "J’ai compris"
+    },
+    "battery" : {
+      "title": "סוללה",
+      "description": "בחיאת תן לי עוד סוללה",
+      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
+      "approveButton": "כבה טיוב סוללה"
     },
     "location": {
       "title": "La localisation est critique",

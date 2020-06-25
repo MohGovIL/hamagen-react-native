@@ -22,6 +22,8 @@ import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
 import QA from '../QA/QA';
 import QABle from '../QA/QABLE';
+import { INIT_ROUTE_NAME } from '../../constants/Constants';
+import BatteryModal from '../Main/BatteryModal';
 
 const Stack = createStackNavigator();
 
@@ -70,6 +72,7 @@ const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Bluetooth" component={BluetoothModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="Battery" component={BatteryModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
     </Stack.Navigator>
   );
 };
