@@ -22,7 +22,7 @@ BackgroundGeolocation.onLocation(
   }
 );
 
-BackgroundGeolocation.on('heartbeat', async () => {
+BackgroundGeolocation.onHeartbeat(async () => {
   await log('BGLocation heartbeat');
 });
 
