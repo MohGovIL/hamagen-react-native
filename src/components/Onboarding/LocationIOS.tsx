@@ -67,7 +67,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
       <ActionButton
         text={set}
         isDisabled={!isLocationAllowed}
-        onPress={() => navigation.navigate('FilterDrivingOnBoarding')}
+        onPress={() => navigation.navigate('Bluetooth')}
         containerStyle={{ marginVertical: IS_SMALL_SCREEN ? 0 : 20 }}
       />
     </GeneralContainer>
