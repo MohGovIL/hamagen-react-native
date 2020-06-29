@@ -235,8 +235,7 @@
         "bluetoothServiceOff": "שירותי הבלוטות׳ על המכשיר כבויים",
         "turnBluetoothOn": "הפעלת בלוטות׳",
         "canIdentifyWithBluetooth": "מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות'",
-        "moreInformation": "מידע נוסף",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "מידע נוסף"
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
@@ -414,11 +413,10 @@
       "approveBluetoothAndroid": "فهمت"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "قم بإيقاف تشغيل تحسين البطارية",
+      "description": "للتأكد من أن التطبيق يعمل باستمرار ويحافظ على حالتك بشكل أفضل ، يوصى بإيقاف تشغيل وضع \"تحسين البطارية\" لتطبيق الحماية",
+      "approveButton": "موافقة",
+      "notApproveButton": "تخطى"
     },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
@@ -501,8 +499,7 @@
         "bluetoothServiceOff": "تم إطفاء خدمات البلوتوث على الجهاز ",
         "turnBluetoothOn": "تشغيل البلوتوث׳",
         "canIdentifyWithBluetooth": "من اليوم، يمكن تحديد نقاط تماس إضافية بمساعدة البلوتوث",
-        "moreInformation": "معلومات إضافية",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "معلومات إضافية"
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أتواجد هناك",
@@ -680,11 +677,10 @@
       "approveBluetoothIOS": "Enable Bluetooth services"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "Turn off battery optimization",
+      "description": "To ensure that the app works continuously and keeps you better, it is recommended to turn off the \"Battery Optimization\" mode for the protective app",
+      "approveButton": "Approve",
+      "notApproveButton": "Skip"
     },
     "location": {
       "title": "Location is critical",
@@ -767,8 +763,7 @@
         "bluetoothServiceOff": "Bluetooth services are deactivated on this device",
         "turnBluetoothOn": "Activate Bluetooth",
         "canIdentifyWithBluetooth": "Starting today, it is possible to identify additional overlap points by Bluetooth",
-        "moreInformation": "Further Information",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "Further Information"
       },
       "showOnMap": "Show me on the map",
       "wasNotMe": "I was not there",
@@ -946,11 +941,10 @@
       "approveBluetoothAndroid": "я осознал"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "Отключить оптимизацию батареи",
+      "description": "Чтобы приложение работало непрерывно и сохраняло вас лучше, рекомендуется отключить режим «Оптимизация заряда батареи» для защитного приложения.",
+      "approveButton": "утверждение",
+      "notApproveButton": "Пропускать"
     },
     "location": {
       "title": "Местонахождение критично",
@@ -1033,8 +1027,7 @@
         "bluetoothServiceOff": "Bluetooth на устройстве отключен",
         "turnBluetoothOn": "Включить Bluetooth",
         "canIdentifyWithBluetooth": "Теперь можно определить больше точек соприкосновения с помощью Bluetooth",
-        "moreInformation": "Дополнительная информация",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "Дополнительная информация"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
@@ -1212,11 +1205,10 @@
       "approveBluetoothAndroid": "ገባኝ"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "ባትሪ ማትባትን ያጥፉ",
+      "description": "መተግበሪያው ያለማቋረጥ እንደሚሰራ እና እርስዎን በተሻለ እንዲቆይ ለማድረግ ለተከላካይ መተግበሪያ የ “ባትሪ ማትባት” ሁኔታውን ማጥፋት ይመከራል።",
+      "approveButton": "ማፅደቅ",
+      "notApproveButton": "ዝለል"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1299,8 +1291,7 @@
         "bluetoothServiceOff": "የብሉቱዝ አገልግሎት በስልክህ ተዘግቷል ፣ ",
         "turnBluetoothOn": "ብሉቱዝን እንዲሰራ አድርገው፣",
         "canIdentifyWithBluetooth": "ብሉቱዝን በመጠቀም ከዛሬ ጀምሮ አዳዲስ የግንኙነት ቦታዎችን ማወቅ ይቻላል ፣",
-        "moreInformation": "ተጨማሪ መረጃ፣",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "ተጨማሪ መረጃ፣"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "ከቦታው አልነበራችሁም፣",
@@ -1478,11 +1469,10 @@
       "approveBluetoothAndroid": "J’ai compris"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "Désactiver l'optimisation de la batterie",
+      "description": "Pour vous assurer que l'application fonctionne en continu et vous garde mieux, il est recommandé de désactiver le mode \"Optimisation de la batterie\" pour l'application de protection",
+      "approveButton": "Approbation",
+      "notApproveButton": "Sauter"
     },
     "location": {
       "title": "La localisation est critique",
@@ -1565,8 +1555,7 @@
         "bluetoothServiceOff": "Les services Bluetooth sur l'appareil sont désactivés ",
         "turnBluetoothOn": "Activation du Bluetooth",
         "canIdentifyWithBluetooth": "Désormais, davantage de points de chevauchements peuvent être identifiés à l'aide du Bluetooth. ",
-        "moreInformation": "Plus d'informations ",
-        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
+        "moreInformation": "Plus d'informations "
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas a cet endroit",
