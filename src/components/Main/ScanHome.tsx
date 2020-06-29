@@ -12,7 +12,7 @@ import SplashScreen from 'react-native-splash-screen';
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
 import NoExposures from './NoExposures';
-import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled } from '../../actions/GeneralActions';
+import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled, checkIfBatteryDisabled } from '../../actions/GeneralActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
@@ -33,14 +33,16 @@ interface ScanHomeProps {
   externalUrls: ExternalUrls,
   exposures: Exposure[],
   pastExposures: Exposure[],
-  enableBle: boolean | undefined,
   firstPoint?: number,
   enableBle: boolean | undefined,
   hideLocationHistory: boolean,
+  enableBle: boolean | undefined,
+  batteryDisabled: boolean,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void,
-  checkIfBleEnabled(): void
+  checkIfBleEnabled(): void,
+  checkIfBatteryDisabled(): void
 }
 
 // user has Relevant event by time and location
@@ -59,10 +61,12 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     pastExposures,
     firstPoint,
     enableBle,
+    batteryDisabled,
     hideLocationHistory,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    checkIfBleEnabled
+    checkIfBleEnabled,
+    checkIfBatteryDisabled
   }
 ) => {
   const shown = useRef(null);
@@ -84,6 +88,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     checkConnectionStatusOnLoad();
     checkIfHideLocationHistory();
     checkIfBleEnabled();
+    checkIfBatteryDisabled();
 
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
@@ -184,11 +189,13 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         exposureState={exposureState()}
         hideLocationHistory={hideLocationHistory}
         enableBle={enableBle}
+        batteryDisabled={batteryDisabled}
         locale={locale}
         languages={languages}
         externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
         goToBluetoothPermission={() => navigation.navigate('Bluetooth')}
+        goToBatteryPermission={() => navigation.navigate('Battery')}
         showBleInfo={route.params?.showBleInfo}
       />
     );
@@ -219,11 +226,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory, enableBle },
+    general: { hideLocationHistory, enableBle, batteryDisabled },
     exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle, batteryDisabled };
 };
 
 
@@ -231,5 +238,6 @@ export default connect(mapStateToProps, {
   checkForceUpdate,
   checkIfHideLocationHistory,
   showMapModal,
-  checkIfBleEnabled
+  checkIfBleEnabled,
+  checkIfBatteryDisabled
 })(ScanHome);

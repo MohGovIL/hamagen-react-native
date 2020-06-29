@@ -1,13 +1,35 @@
-import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, AppState } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRoute, useIsFocused } from '@react-navigation/native';
-import { ActionButton, Text, Icon, TouchableOpacity } from '.';
-import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, SCREEN_WIDTH } from '../../constants/Constants';
-import { Store, LocaleReducer } from '../../types';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useFocusEffect, useRoute } from '@react-navigation/native';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+// @ts-ignore
+import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
+import { useDispatch, useSelector } from 'react-redux';
+import { ActionButton, Icon, Text, TouchableOpacity } from '.';
 import { toggleWebview } from '../../actions/GeneralActions';
-import { askToDisableBatteryOptimization } from '../../services/BLEService';
+import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USAGE_PRIVACY, USER_AGREED_TO_BATTERY } from '../../constants/Constants';
+import { LocaleReducer, Store } from '../../types';
 
+
+const useInterval = (callback: Function, delay: number | null) => {
+  const savedCallback = useRef<Function>();
+
+  useEffect(() => {
+    savedCallback.current = callback;
+  });
+
+  useEffect(() => {
+    function tick() {
+      savedCallback.current?.();
+    }
+    if (delay !== null) {
+      // tick()
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+};
 
 interface Props {
   onEnd(): void
@@ -18,11 +40,24 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const dispatch = useDispatch();
   const { strings: {
     general: { additionalInfo },
-    battery: { title, description, approveButton, callToAction }
+    battery: { title, description, approveButton, notApproveButton }
   }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
-  
+
   const { params } = useRoute();
+  const [intervalDelay, setIntervalDelay] = useState<number | null>(null);
+
+  useInterval(async () => {
+    const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
+    if (!isEnabled) {
+      onEnd();
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
+      dispatch({ type: USER_DISABLED_BATTERY, payload: true });
+    }
+  }, intervalDelay);
+
+  // stop interval if user moved on
+  useFocusEffect(React.useCallback(() => () => setIntervalDelay(null), []));
 
   return (
     <>
@@ -31,29 +66,31 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
           <Icon
             width={80}
             customStyles={{ marginBottom: 20 }}
-            source={require('../../assets/onboarding/batteryBig.jpg')}
+            source={require('../../assets/onboarding/batteryBig.png')}
           />
         )}
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.description}>{description}</Text>
-        <Text style={styles.callToAction} bold>{callToAction}</Text>
       </View>
       <View style={{ alignItems: 'center' }}>
         <ActionButton
           text={approveButton}
-          onPress={() => { 
-            askToDisableBatteryOptimization(onEnd);
+          onPress={() => {
+            setIntervalDelay(200);
+            RNDisableBatteryOptimizationsAndroid.openBatteryModal();
           }}
           containerStyle={{ marginBottom: 20 }}
         />
-        {params?.showUsageLink && (
-          <View style={styles.termsWrapper}>
-            <TouchableOpacity onPress={() => dispatch(toggleWebview(true, USAGE_PRIVACY))}>
-              <Text style={{ fontSize: 14, letterSpacing: 0.26 }}>{additionalInfo}</Text>
-              <View style={styles.bottomBorder} />
-            </TouchableOpacity>
-          </View>
-        )}
+        {params?.showSkip && (
+        <TouchableOpacity onPress={async () => {
+          onEnd();
+          dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+          AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
+        }}
+        >
+          <Text style={{ color: MAIN_COLOR }} bold>{notApproveButton}</Text>
+        </TouchableOpacity>
+)}
       </View>
     </>
   );
