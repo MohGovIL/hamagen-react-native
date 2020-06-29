@@ -21,7 +21,7 @@ const BatteryOptimization: FunctionComponent<Props> = ({ navigation }) => {
       <OnboardingHeader />
       <BatteryPermission
         onEnd={() => {
-          navigation.navigate('Location');
+          navigation.navigate('LocationHistoryOnBoarding');
         }}
       />
     </GeneralContainer>

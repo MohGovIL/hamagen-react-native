@@ -19,11 +19,15 @@ const BluetoothOnboarding: FunctionComponent<Props> = ({ navigation }) => {
           if (IS_IOS) {
             navigation.navigate('LocationHistoryOnBoarding');
           } else {
-            const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
-            navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
+            let destination = 'LocationHistoryOnBoarding';
+            const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
+            if (androidVersion >= 6) {
+              destination = 'Battery';
+            }
+            navigation.navigate(destination);
           }
         }
-      }
+        }
       />
     </GeneralContainer>
   );

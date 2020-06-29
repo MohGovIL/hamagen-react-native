@@ -48,6 +48,7 @@
     "react-native-common-intents": "^0.2.0",
     "react-native-device-info": "5.4.0",
     "react-native-document-picker": "^3.3.0",
+    "react-native-disable-battery-optimizations-android": "^1.0.7",
     "react-native-extra-dimensions-android": "https://github.com/greenyossi/react-native-extra-dimensions-android.git",
     "react-native-firebase": "5.6.0",
     "react-native-fs": "^2.16.6",
