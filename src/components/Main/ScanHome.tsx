@@ -75,7 +75,6 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
   useEffect(() => {
     init();
-    
   }, []);
 
   useEffect(() => {
