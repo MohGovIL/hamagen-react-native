@@ -6,7 +6,7 @@ import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { ActionButton, GeneralContainer, TouchableOpacity, Text, OnboardingHeader, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
 import { Strings } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, ENABLE_BLE } from '../../constants/Constants';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -67,7 +67,8 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
       <ActionButton
         text={set}
         isDisabled={!isLocationAllowed}
-        onPress={() => navigation.navigate('Bluetooth')}
+        onPress={() => { navigation.navigate('FilterDrivingOnBoarding'); }
+        }
         containerStyle={{ marginVertical: IS_SMALL_SCREEN ? 0 : 20 }}
       />
     </GeneralContainer>

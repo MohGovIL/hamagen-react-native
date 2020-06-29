@@ -40,7 +40,7 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const dispatch = useDispatch();
   const { strings: {
     general: { additionalInfo },
-    battery: { title, description, approveButton, notApproveButton, callToAction }
+    battery: { title, description, approveButton, notApproveButton }
   }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
 
@@ -51,8 +51,8 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
     const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
     if (!isEnabled) {
       onEnd();
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true')
-      dispatch({ type: USER_DISABLED_BATTERY, payload: true })
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
+      dispatch({ type: USER_DISABLED_BATTERY, payload: true });
     }
   }, intervalDelay);
 
@@ -66,12 +66,11 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
           <Icon
             width={80}
             customStyles={{ marginBottom: 20 }}
-            source={require('../../assets/onboarding/batteryBig.jpg')}
+            source={require('../../assets/onboarding/batteryBig.png')}
           />
         )}
         <Text style={styles.title} bold>{title}</Text>
         <Text style={styles.description}>{description}</Text>
-        <Text style={styles.callToAction} bold>{callToAction}</Text>
       </View>
       <View style={{ alignItems: 'center' }}>
         <ActionButton
@@ -82,23 +81,16 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
           }}
           containerStyle={{ marginBottom: 20 }}
         />
-        <ActionButton
-          text={notApproveButton}
-          containerStyle={{ marginBottom: 20 }}
-          onPress={async () => {
-            onEnd()
-            dispatch({ type: USER_DISABLED_BATTERY, payload: false })
-            AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false')
-          }}
-        />
-        {params?.showUsageLink && (
-          <View style={styles.termsWrapper}>
-            <TouchableOpacity onPress={() => dispatch(toggleWebview(true, USAGE_PRIVACY))}>
-              <Text style={{ fontSize: 14, letterSpacing: 0.26 }}>{additionalInfo}</Text>
-              <View style={styles.bottomBorder} />
-            </TouchableOpacity>
-          </View>
-        )}
+        {params?.showSkip && (
+        <TouchableOpacity onPress={async () => {
+          onEnd();
+          dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+          AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
+        }}
+        >
+          <Text style={{ color: MAIN_COLOR }} bold>{notApproveButton}</Text>
+        </TouchableOpacity>
+)}
       </View>
     </>
   );

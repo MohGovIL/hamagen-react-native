@@ -75,4 +75,4 @@ export const SUBSCRIBED_TOPIC = 'SUBSCRIBED_TOPIC';
 
 
 // battery optimization
-export const USER_AGREED_TO_BATTERY = 'USER_AGREED_TO_BATTERY'
+export const USER_AGREED_TO_BATTERY = 'USER_AGREED_TO_BATTERY';

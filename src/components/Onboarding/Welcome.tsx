@@ -33,7 +33,7 @@ const Welcome = ({ navigation, strings: { general: { start }, welcome: { title, 
         <Text bold>{subTitle2}</Text>
       </View>
 
-      <ActionButton text={start} onPress={() => navigation.navigate('Battery')} containerStyle={{ marginBottom: 20 }} />
+      <ActionButton text={start} onPress={() => navigation.navigate('Location')} containerStyle={{ marginBottom: 20 }} />
     </GeneralContainer>
   );
 };

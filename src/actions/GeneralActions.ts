@@ -1,9 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
+import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
 import { downloadAndVerifySigning } from '../services/SigningService';
 // @ts-ignore
-import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
 import {
@@ -103,27 +103,27 @@ export const checkIfBleEnabled = () => async (dispatch: any) => {
 // battery optimization for android phones
 export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   try {
-    let payload = IS_IOS ? 'false' : await AsyncStorage.getItem(USER_AGREED_TO_BATTERY)
+    let payload = IS_IOS ? 'false' : await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
     if (payload) {
-      payload = JSON.parse(payload)
-      dispatch({ type: USER_DISABLED_BATTERY, payload })
-      return
+      payload = JSON.parse(payload);
+      dispatch({ type: USER_DISABLED_BATTERY, payload });
+      return;
     }
     // if not decided yet check
     const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
     if (!isEnabled) {
-      dispatch({ type: USER_DISABLED_BATTERY, payload: true })
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true')
+      dispatch({ type: USER_DISABLED_BATTERY, payload: true });
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
     } else if (parseInt(DeviceInfo.getSystemVersion().split(',')[0]) < 6) {
       // not supported
-      dispatch({ type: USER_DISABLED_BATTERY, payload: false })
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false')
+      dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
     }
   } catch (error) {
     onError({ error });
-    dispatch({ type: USER_DISABLED_BATTERY, payload: false })
+    dispatch({ type: USER_DISABLED_BATTERY, payload: false });
   }
-}
+};
 
 
 export const showMapModal = ({ properties }: Exposure) => {

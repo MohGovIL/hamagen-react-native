@@ -36,12 +36,17 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
 
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
-      } else if (ENABLE_BLE) {
-        // got to this only if ble enabled
-        navigation.navigate('Bluetooth');
       } else {
-        const androidVersion = parseFloat(DeviceInfo.getSystemVersion().split(',')[0]);
-        navigation.navigate(androidVersion >= 10 ? 'FilterDrivingOnBoarding' : 'LocationHistoryOnBoarding');
+        let destination = 'LocationHistoryOnBoarding';
+        const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
+        if (androidVersion >= 10) {
+          destination = 'FilterDrivingOnBoarding';
+        } else if (ENABLE_BLE) {
+          destination = 'Bluetooth';
+        } else if (androidVersion >= 6) {
+          destination = 'Battery';
+        }
+        navigation.navigate(destination);
       }
     } catch (e) {
       // handled in service

@@ -220,11 +220,11 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory, enableBle,batteryDisabled },
+    general: { hideLocationHistory, enableBle, batteryDisabled },
     exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle,batteryDisabled };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle, batteryDisabled };
 };
 
 

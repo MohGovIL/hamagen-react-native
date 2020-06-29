@@ -149,11 +149,10 @@
       "approveBluetoothAndroid": "הבנתי"
     },
     "battery" : {
-      "title": "סוללה",
-      "description": "בחיאת תן לי עוד סוללה",
-      "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה",
-      "notApproveButton": "ביטול"
+      "title": "ביטול מיטוב הסוללה",
+      "description": "כדי להבטיח שהאפליקציה תעבוד בצורה רציפה ותשמור עליך טוב יותר, מומלץ לבטל את מצב \"מיטוב סוללה\" עבור אפליקציית המגן",
+      "approveButton": "אישור",
+      "notApproveButton": "דילוג"
     },
     "location": {
       "title": "המיקום הוא קריטי",
@@ -1205,11 +1204,11 @@
       "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
     },
     "bluetooth": {
-      "title": "የተደራራቢ ነጥቦችን ይለዩ\nጎርፍ",
-      "description": "በኮሮና ውስጥ የኢንፌክሽን ጥርጣሬ ለመፈጠር የብሉቱዝ ቴክኖሎጂ በርስዎ እና በአከባቢዎ ባሉ ሌሎች የስልክ ባለቤቶች መካከል በአከባቢዎ ያለውን የዝውውር ሁኔታ ለመለየት ያስችላል ፡፡",
-      "approveBluetooth": "የብሉቱዝ አገልግሎቶችን ያንቁ",
-      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት",
-      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "title": "ብሉቱዝን በመጠቀም ግንኙነት የተደረጉባቸውን ቦታዎች ማወቅ፣",
+      "description": "የብሉቱዝ ቴክኖሎጅ አንተ ባለህበት አካባቢ ያሉና የብሉቱዝ አፕሊኬሽን የተገጠመባቸው  የእጅ ስልኮች ጋር ግንኙነት የማድረግ ችልሎታ አለው ፤ ይህም በበሽታው የሚጠረጠሩትን ለይቶ ለማወቅ ያስችላል ፤",
+      "approveBluetooth": "የብሉቱዝ አገልግሎቱን እንዲሰራ ያድርጉ",
+      "callToAction": "የብሉቱዙን አገልግሎት በስልክህ እንዲሰራ ለማድረግ ፈቃድንህ መስጠት ያስፈልግሃል ፤",
+      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቱን እንዲሰራ ያድርጉ",
       "approveBluetoothAndroid": "ገባኝ"
     },
     "battery" : {
@@ -1231,7 +1230,7 @@
     },
     "locationIOS": {
       "title": "የቦታዎን\nአገልግሎቶች ማሰራት",
-      "subTitle1": "በመደበኛነት እርስዎን የሚመለከቱ የአካባቢዎች መረጃ ለእርስዎ ለመስጠት ፣ የቦታ አመላካቹን በመደበኛነት ማንቃት ያስፈልግዎታል ፡፡.",
+      "subTitle1": "ለአንተ አስፈላጊ ናቸው የምንላቸውንና የነበርክባቸውን ቦታዎች ትክክለኛ መረጃ ያለምንም ማቋረጥ ማቅረብ እንድንችል ፤ በስልክህ የምትገኝበትን ቦታ የሚያመለክተውን ምልክት ያለምንም ማቋረጥ እንዲሰራ ማድረግ አለበህ",
       "subTitle2": "የቦታዎን ፍች በሰእሉ እንደሚታየው ያመላክቱ",
       "goToSettings": "የቦታዎን ፍች ለማሰራት እዚህ ይጨቁኑ",
       "set": "የቦታዎን ፍች አሰራሁ። ቀጥል"
@@ -1276,7 +1275,7 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
-      "possibleExposureBLE": "በስልክዎ መረጃ መሠረት\nበኮሮና ህመምተኛ አቅራቢያ መኖራቸውን አስተውለናል-",
+      "possibleExposureBLE": "ኮሮና ከታመመ ሰው አጠገን እንደነበርክ ማወቅ ችለናል / ስልክህ በሰጠን መረጃዎች መሰረት፣",
       "atPlace": "በ ",
       "share": {
         "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
@@ -1284,7 +1283,7 @@
         "androidTitle": "የመከላከያ መተግበሪያውን በማጋራት ላይ"
       },
       "noExposures": {
-        "bannerText": "ጥምር ግንኙነት\nአልተገኙም",
+        "bannerText": "ግንኙነት ያደረግባቸው አዳዲስ ቦታዎች አልተገኙም፣",
         "workAllTheTime": "የሀመጌን መተግበሪ ሁልጊዜ ይሠራል",
         "infoModal": {
           "textBodyPt1": "ንፅፅሩ የተሰራው እርስዎ አካባቢዎን ከተቀበሉበት ጊዜ ጀምሮ ነው",
@@ -1294,24 +1293,24 @@
           "title": "እስከ:",
           "atHour": "በ"
         },
-        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
-        "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
-        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች",
-        "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
-        "turnBluetoothOn": "ብሉቱዝ አብራ",
-        "canIdentifyWithBluetooth": "ከአሁን ጀምሮ ተጨማሪ መደራረብ በ ዕጢዎች ዕጢዎች ሊታወቅ ይችላል ፡፡",
-        "moreInformation": "ተጨማሪ መረጃ",
+        "bannerTextPristine": "ግንኙነት የተደረገባቸው ቦታዎች / አልተገኙም፣",
+        "instructionLinkUpper": "እንደ አስፈላጊነቱ መጠቀም፣",
+        "instructionLinkLower": "ተገልለው  ለሚገኙ ሰዎች የተሰጡ መመሪያዎች፣",
+        "bluetoothServiceOff": "የብሉቱዝ አገልግሎት በስልክህ ተዘግቷል ፣ ",
+        "turnBluetoothOn": "ብሉቱዝን እንዲሰራ አድርገው፣",
+        "canIdentifyWithBluetooth": "ብሉቱዝን በመጠቀም ከዛሬ ጀምሮ አዳዲስ የግንኙነት ቦታዎችን ማወቅ ይቻላል ፣",
+        "moreInformation": "ተጨማሪ መረጃ፣",
         "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
-      "wasNotMe": "እዚያ አልነበርኩም",
+      "wasNotMe": "ከቦታው አልነበራችሁም፣",
       "wasMe": "ሊሆን ይችላል",
       "doneBtn": "ማዘመን አጠናቅቄያለሁ",
-      "betweenHours": "በሰዓቶች መካከል",
-      "deviceCloseTag": "በመሳሪያዎች መካከል ቅርበት",
-      "locationCloseTag": "ወደ ቅርበት ቅርበት",
-      "wasMeBle": "ቀጠለ",
-      "wasMeOnly": "መመሪያዎችን ይቀጥሉ",
+      "betweenHours": "ከዚህ እስከ እዚህ ሰዓት፣",
+      "deviceCloseTag": "በስልኮች መካከል ያለው ቅርበት፣",
+      "locationCloseTag": "ለቦታዎች ያለው ቅርበት፣",
+      "wasMeBle": "ቀጥል",
+      "wasMeOnly": "መመሪያዎችን መቀበሉን ቀጥል፣",
       "noGPS": {
         "title": "የአካባቢ አገልግሎቶችዎ ጠፍተዋል",
         "description": "ውሂብ መቀበል አልቻልንም። አካባቢዎችን ማነፃፀር እንድንችል የአካባቢ አገልግሎቶችን ማንቃት አለብዎት",

@@ -84,7 +84,7 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
     }
 
     case USER_DISABLED_BATTERY: {
-      return {... state, batteryDisabled: action.payload}
+      return { ...state, batteryDisabled: action.payload };
     }
 
     default:
