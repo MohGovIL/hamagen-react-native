@@ -12,18 +12,20 @@ import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from 
 
 
 interface NoExposuresProps {
-  isRTL: boolean,
-  firstPoint?: number,
-  strings: Strings,
-  hideLocationHistory: boolean,
-  locale: string,
-  languages: Languages,
-  enableBle: boolean | undefined,
-  externalUrls: ExternalUrls,
-  exposureState: 'pristine' | 'notRelevant' | 'relevant',
-  showBleInfo: boolean,
-  goToLocationHistory(): void,
+  isRTL: boolean
+  firstPoint?: number
+  strings: Strings
+  hideLocationHistory: boolean
+  locale: string
+  languages: Languages
+  enableBle: boolean | undefined
+  externalUrls: ExternalUrls
+  exposureState: 'pristine' | 'notRelevant' | 'relevant'
+  showBleInfo: boolean
+  batteryDisabled: boolean
+  goToLocationHistory(): void
   goToBluetoothPermission(): void
+  goToBatteryPermission(): void
 }
 
 type BTState = 'PoweredOff' | 'PoweredOn'
@@ -47,7 +49,7 @@ const BluetoothBubble = (props: BluetoothBubbleProps) => {
   return null;
 };
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, batteryDisabled, goToLocationHistory, goToBluetoothPermission, goToBatteryPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -59,7 +61,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, tunBatteryOptimizationOff, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
@@ -116,24 +118,36 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
       />
     );
   };
-
+  const DisableBattery = () => {
+    if(batteryDisabled !== null) return null
+    return (
+      <InfoBubble
+        isRTL={isRTL}
+        info={tunBatteryOptimizationOff}
+        moreInfo={moreInformation}
+        onPress={goToBatteryPermission}
+      />
+    );
+  };
+  
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
-        <ScrollView 
+        <ScrollView
           bounces={false}
-          contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }} 
+          contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.container}>
             <LocationHistoryInfo />
             <EnableBluetooth />
+            <DisableBattery />
             {enableBle && (
-            <BluetoothBubble
-              isRTL={isRTL}
-              info={bluetoothServiceOff}
-              moreInfo={turnBluetoothOn}
-            />
+              <BluetoothBubble
+                isRTL={isRTL}
+                info={bluetoothServiceOff}
+                moreInfo={turnBluetoothOn}
+              />
             )}
             <LottieView
               style={styles.lottie}

@@ -9,7 +9,8 @@ import {
   HIDE_LOCATION_HISTORY,
   SHOW_MAP_MODAL,
   HIDE_MAP_MODAL,
-  ENABLE_BLE
+  ENABLE_BLE,
+  USER_DISABLED_BATTERY
 } from '../constants/ActionTypes';
 
 import { USAGE_PRIVACY } from '../constants/Constants';
@@ -24,6 +25,7 @@ const INITIAL_STATE = {
   termsVersion: 0,
   hideLocationHistory: false,
   enableBle: false,
+  batteryDisabled: false,
   showMap: {
     visible: false,
     region: {
@@ -79,6 +81,10 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
 
     case ENABLE_BLE: {
       return { ...state, enableBle: action.payload };
+    }
+
+    case USER_DISABLED_BATTERY: {
+      return {... state, batteryDisabled: action.payload}
     }
 
     default:

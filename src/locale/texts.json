@@ -152,7 +152,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "המיקום הוא קריטי",
@@ -235,7 +236,8 @@
         "bluetoothServiceOff": "שירותי הבלוטות׳ על המכשיר כבויים",
         "turnBluetoothOn": "הפעלת בלוטות׳",
         "canIdentifyWithBluetooth": "מהיום אפשר לזהות נקודות חפיפה נוספות בעזרת בלוטות'",
-        "moreInformation": "מידע נוסף"
+        "moreInformation": "מידע נוסף",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "הציגו לי במפה",
       "wasNotMe": "לא הייתי שם",
@@ -416,7 +418,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
@@ -499,7 +502,8 @@
         "bluetoothServiceOff": "تم إطفاء خدمات البلوتوث على الجهاز ",
         "turnBluetoothOn": "تشغيل البلوتوث׳",
         "canIdentifyWithBluetooth": "من اليوم، يمكن تحديد نقاط تماس إضافية بمساعدة البلوتوث",
-        "moreInformation": "معلومات إضافية"
+        "moreInformation": "معلومات إضافية",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "تعرفت على الخريطة",
       "wasNotMe": "لم أتواجد هناك",
@@ -680,7 +684,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "Location is critical",
@@ -763,7 +768,8 @@
         "bluetoothServiceOff": "Bluetooth services are deactivated on this device",
         "turnBluetoothOn": "Activate Bluetooth",
         "canIdentifyWithBluetooth": "Starting today, it is possible to identify additional overlap points by Bluetooth",
-        "moreInformation": "Further Information"
+        "moreInformation": "Further Information",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "Show me on the map",
       "wasNotMe": "I was not there",
@@ -944,7 +950,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "Местонахождение критично",
@@ -1027,7 +1034,8 @@
         "bluetoothServiceOff": "Bluetooth на устройстве отключен",
         "turnBluetoothOn": "Включить Bluetooth",
         "canIdentifyWithBluetooth": "Теперь можно определить больше точек соприкосновения с помощью Bluetooth",
-        "moreInformation": "Дополнительная информация"
+        "moreInformation": "Дополнительная информация",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "Меня познакомили с картой",
       "wasNotMe": "Меня там не было",
@@ -1208,7 +1216,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1291,7 +1300,8 @@
         "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
         "turnBluetoothOn": "ብሉቱዝ አብራ",
         "canIdentifyWithBluetooth": "ከአሁን ጀምሮ ተጨማሪ መደራረብ በ ዕጢዎች ዕጢዎች ሊታወቅ ይችላል ፡፡",
-        "moreInformation": "ተጨማሪ መረጃ"
+        "moreInformation": "ተጨማሪ መረጃ",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
       "wasNotMe": "እዚያ አልነበርኩም",
@@ -1472,7 +1482,8 @@
       "title": "סוללה",
       "description": "בחיאת תן לי עוד סוללה",
       "callToAction": "אם לא תפעיל סוללה לא נוכל לעזור לך",
-      "approveButton": "כבה טיוב סוללה"
+      "approveButton": "כבה טיוב סוללה",
+      "notApproveButton": "ביטול"
     },
     "location": {
       "title": "La localisation est critique",
@@ -1555,7 +1566,8 @@
         "bluetoothServiceOff": "Les services Bluetooth sur l'appareil sont désactivés ",
         "turnBluetoothOn": "Activation du Bluetooth",
         "canIdentifyWithBluetooth": "Désormais, davantage de points de chevauchements peuvent être identifiés à l'aide du Bluetooth. ",
-        "moreInformation": "Plus d'informations "
+        "moreInformation": "Plus d'informations ",
+        "tunBatteryOptimizationOff": "כבה טיוב סוללה"
       },
       "showOnMap": "J'ai été présenté à la carte",
       "wasNotMe": "Je n'étais pas a cet endroit",

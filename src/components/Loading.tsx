@@ -119,16 +119,16 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
+      const dbSick = new IntersectionSickDatabase();
+
+      await migrateIntersectionSickDatabase(dbSick);
       // don't init config second time
       ResetMessaging(false);
 
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       startForegroundTimer();
-
-      const dbSick = new IntersectionSickDatabase();
-
-      await migrateIntersectionSickDatabase(dbSick);
+      
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()

@@ -6724,6 +6724,11 @@ react-native-device-info@5.4.0:
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.0.tgz#c837afdfc7947eef0a09c1bf2f3beb127d31458b"
   integrity sha512-57IZQ7IavRlNZvI1cKypMkjRPa7nmLK6jYVSrvPMYX2VrCszmgJKlP90cZZaX0FObtNt1yYuKAOkBqyjkNrTIA==
 
+react-native-disable-battery-optimizations-android@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-disable-battery-optimizations-android/-/react-native-disable-battery-optimizations-android-1.0.7.tgz#d49437e78062a8b2158dd2818dfc6119147e4e3b"
+  integrity sha512-4LP8KbDvRK34SHdflE9DgAsXN351ko7BtXYQZSbOUdrObAutsqlq/t1WDxEJq5xcCjYxLcvt25kFRKhVpTWiyQ==
+
 "react-native-extra-dimensions-android@https://github.com/greenyossi/react-native-extra-dimensions-android.git":
   version "0.21.0"
   resolved "https://github.com/greenyossi/react-native-extra-dimensions-android.git#b3d98103607d61fe47cf3131ef3b1ea26e5685f3"
