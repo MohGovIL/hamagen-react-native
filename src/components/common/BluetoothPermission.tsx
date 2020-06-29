@@ -31,17 +31,36 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
 
   const handlePressIOS = async () => {
     const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-    if (BTCheckStatus === RESULTS.GRANTED) {
-      dispatch({ type: ENABLE_BLE, payload: true });
-      await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
-    } else if (BTCheckStatus !== RESULTS.UNAVAILABLE && BTCheckStatus !== RESULTS.GRANTED) {
-      const BTRequestStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-      if (BTRequestStatus === RESULTS.GRANTED) {
+    switch (BTCheckStatus) {
+      case RESULTS.BLOCKED:
+      case RESULTS.UNAVAILABLE: {
+        dispatch({ type: ENABLE_BLE, payload: false });
+        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+        break;
+      }
+      case RESULTS.GRANTED: {
         dispatch({ type: ENABLE_BLE, payload: true });
         await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+        break;
+      }
+      case RESULTS.DENIED: {
+        const BTRequestStatus: PermissionStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+        switch (BTRequestStatus) {
+          case RESULTS.UNAVAILABLE:
+          case RESULTS.DENIED:
+          case RESULTS.BLOCKED: {
+            dispatch({ type: ENABLE_BLE, payload: false });
+            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+            break;
+          }
+          case RESULTS.GRANTED: {
+            dispatch({ type: ENABLE_BLE, payload: true });
+            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+            break;
+          }
+        }
       }
     }
-
     onEnd();
   };
 
