@@ -39,7 +39,8 @@ interface ScanHomeProps {
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void,
-  checkIfBleEnabled(): void
+  checkIfBleEnabled(): void,
+  checkIfBatteryDisabled(): void
 }
 
 // user has Relevant event by time and location
@@ -62,7 +63,8 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     hideLocationHistory,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    checkIfBleEnabled
+    checkIfBleEnabled,
+    checkIfBatteryDisabled
   }
 ) => {
   const shown = useRef(null);
@@ -232,5 +234,6 @@ export default connect(mapStateToProps, {
   checkForceUpdate,
   checkIfHideLocationHistory,
   showMapModal,
-  checkIfBleEnabled
+  checkIfBleEnabled,
+  checkIfBatteryDisabled
 })(ScanHome);

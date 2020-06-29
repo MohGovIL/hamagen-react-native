@@ -66,11 +66,17 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
+
   }, []);
+
+  useEffect(() => {
+    if (batteryDisabled === null) {
+      goToBatteryPermission()
+    }
+  },[batteryDisabled])
 
   const RelevantCard = useMemo(() => {
     if (exposureState !== 'relevant') return null;
@@ -118,18 +124,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
       />
     );
   };
-  const DisableBattery = () => {
-    if(batteryDisabled !== null) return null
-    return (
-      <InfoBubble
-        isRTL={isRTL}
-        info={tunBatteryOptimizationOff}
-        moreInfo={moreInformation}
-        onPress={goToBatteryPermission}
-      />
-    );
-  };
-  
+
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
@@ -141,7 +136,6 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
           <View style={styles.container}>
             <LocationHistoryInfo />
             <EnableBluetooth />
-            <DisableBattery />
             {enableBle && (
               <BluetoothBubble
                 isRTL={isRTL}

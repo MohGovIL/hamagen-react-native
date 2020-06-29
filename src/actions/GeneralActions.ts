@@ -118,6 +118,8 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
       // not supported
       dispatch({ type: USER_DISABLED_BATTERY, payload: false });
       await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
+    } else {
+      dispatch({ type: USER_DISABLED_BATTERY, payload: null });
     }
   } catch (error) {
     onError({ error });
