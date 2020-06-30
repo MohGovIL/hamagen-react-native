@@ -8,11 +8,18 @@ import ResetMessaging from './src/ResetMessaging';
 import { checkGeoSickPeople, checkBLESickPeople } from './src/services/Tracker';
 import { syncLocationsDBOnLocationEvent } from './src/services/SampleService';
 import { onError } from './src/services/ErrorService';
+import { initBLETracing } from './src/services/BLEService';
 import { initConfig } from './src/config/config';
+import { IS_IOS } from './src/constants/Constants';
+
 
 BackgroundGeolocation.onLocation(
   async () => {
     await syncLocationsDBOnLocationEvent();
+
+    if (IS_IOS) {
+      await initBLETracing();
+    }
   }, (error) => {
     onError({ error });
   }
@@ -23,6 +30,10 @@ const BackgroundFetchHeadlessTask = async (event) => {
     const { taskId } = event;
     console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
 
+    if (IS_IOS) {
+      initBLETracing();
+    }
+    
     await initConfig();
     await syncLocationsDBOnLocationEvent();
     await checkBLESickPeople();

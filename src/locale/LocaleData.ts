@@ -92,6 +92,13 @@ export interface Strings {
     approveBluetoothIOS: string,
     approveBluetoothAndroid: string
   },
+  battery: {
+    title: string
+    description: string
+    callToAction: string
+    approveButton: string
+    notApproveButton: string
+  }
   location: {
     title: string,
     subTitle1: string,
@@ -173,11 +180,22 @@ export interface Strings {
       turnBluetoothOn: string,
       canIdentifyWithBluetooth: string,
       moreInformation: string
+      tunBatteryOptimizationOff: string
     },
     showOnMap: string,
     wasNotMe: string,
     wasMe: string,
-    doneBtn: string
+    doneBtn: string,
+    noGPS: {
+      title: string,
+      description: string,
+      button: string
+    },
+    noNetwork: {
+      title: string,
+      description: string,
+      button: string
+    }
   },
   exposuresHistory: {
     title: string,

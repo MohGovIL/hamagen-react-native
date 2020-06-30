@@ -33,7 +33,8 @@ def project_pods
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
-
+  
+  pod 'Permission-BluetoothPeripheral', :path => "../node_modules/react-native-permissions/ios/BluetoothPeripheral.podspec"
   pod 'Permission-LocationAlways', :path => "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
   pod 'Permission-Motion', :path => "../node_modules/react-native-permissions/ios/Motion.podspec"
 

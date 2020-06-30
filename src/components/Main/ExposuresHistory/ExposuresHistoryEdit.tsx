@@ -209,7 +209,7 @@ const RenderExposure = ({ index, item, isRTL, strings, showExposureOnMap, setSel
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f8fa',
+    backgroundColor: '#f7f8fa'
   },
   listContainer: {
     flexGrow: 1,
@@ -235,9 +235,12 @@ const styles = StyleSheet.create({
     borderColor: MAIN_COLOR,
     borderWidth: 1,
     borderRadius: 5.6,
-    paddingVertical: 10,
-    paddingHorizontal: 5,
+    minWidth: SCREEN_WIDTH * 0.3,
+    maxWidth: SCREEN_WIDTH * 0.4,
+    padding: 5,
+    alignItems: 'center',
     justifyContent: 'center'
+    
   },
   actionBtnText: {
     fontSize: IS_SMALL_SCREEN ? 10 : 12,

@@ -51,16 +51,32 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
         style={{
           position: 'absolute',
           top: 3,
-          [isRTL ? 'right' : 'left']: 5,
+          right: isRTL ? 5 : (SCREEN_WIDTH + 20) / 2,
+          left: isRTL ? (SCREEN_WIDTH + 20) / 2 : 5,
 
           flexDirection: isRTL ? 'row-reverse' : 'row',
-          alignItems: 'center'
+          // alignItems: 'center'
         }}
       >
-        <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgb(44,191,220)', marginHorizontal: 6 }} />
-        <Text style={{ fontSize: 12, letterSpacing: -0.09 }}>{BLELocationUpdate}</Text>
+        <View style={{ width: 6, height: 6, borderRadius: 3, marginTop: 6, backgroundColor: 'rgb(44,191,220)', marginHorizontal: 6 }} />
+        <Text style={{ fontSize: 12, letterSpacing: -0.09, textAlign: isRTL ? 'right' : 'left' }}>{BLELocationUpdate}</Text>
 
       </View>
+    );
+  }
+
+  let ShowPlaceText = null;
+  if (Place) {
+    ShowPlaceText = (
+      <>
+        <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{Place}</Text>
+        <TouchableOpacity onPress={showExposureOnMap}>
+          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
+            <Icon source={require('../../../assets/main/map.png')} width={12} height={10} />
+            <Text style={styles.showOnMap} bold>{showOnMap}</Text>
+          </View>
+        </TouchableOpacity>
+      </>
     );
   }
 
@@ -69,7 +85,7 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
       <View
         style={{
-          paddingTop: 25,
+          paddingTop: 30,
           paddingBottom: 20,
           paddingHorizontal: 15,
           flexDirection: isRTL ? 'row-reverse' : 'row',
@@ -77,25 +93,12 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
           alignItems: 'center',
         }}
       >
-
         <Icon source={require('../../../assets/main/exposuresSmall.png')} width={32} height={20} customStyles={{ marginHorizontal: 7.5 }} />
-
         <View style={[styles.textContainer, { alignItems: isRTL ? 'flex-end' : 'flex-start' }]}>
 
           {TimeText}
 
-          {Place && (
-            <>
-              <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{Place}</Text>
-
-              <TouchableOpacity onPress={showExposureOnMap}>
-                <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
-                  <Icon source={require('../../../assets/main/map.png')} width={12} height={10} />
-                  <Text style={styles.showOnMap} bold>{showOnMap}</Text>
-                </View>
-              </TouchableOpacity>
-            </>
-          )}
+          {ShowPlaceText}
 
           {children}
         </View>

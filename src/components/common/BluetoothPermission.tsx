@@ -3,9 +3,8 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-// import { StackNavigationProp } from '@react-navigation/stack';
+import { check, request, PERMISSIONS, RESULTS, PermissionStatus } from 'react-native-permissions';
 import { ActionButton, Text, Icon, TouchableOpacity } from '.';
-import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, SCREEN_WIDTH } from '../../constants/Constants';
 import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
@@ -30,7 +29,40 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     onEnd();
   };
 
-  const handlePressIOS = () => { };
+  const handlePressIOS = async () => {
+    const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+    switch (BTCheckStatus) {
+      case RESULTS.BLOCKED:
+      case RESULTS.UNAVAILABLE: {
+        dispatch({ type: ENABLE_BLE, payload: false });
+        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+        break;
+      }
+      case RESULTS.GRANTED: {
+        dispatch({ type: ENABLE_BLE, payload: true });
+        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+        break;
+      }
+      case RESULTS.DENIED: {
+        const BTRequestStatus: PermissionStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+        switch (BTRequestStatus) {
+          case RESULTS.UNAVAILABLE:
+          case RESULTS.DENIED:
+          case RESULTS.BLOCKED: {
+            dispatch({ type: ENABLE_BLE, payload: false });
+            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+            break;
+          }
+          case RESULTS.GRANTED: {
+            dispatch({ type: ENABLE_BLE, payload: true });
+            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+            break;
+          }
+        }
+      }
+    }
+    onEnd();
+  };
 
   const handlePressAndroid = async () => {
     onEnd();

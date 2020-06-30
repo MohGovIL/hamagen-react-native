@@ -35,8 +35,8 @@ export const requestLocationPermissions = () => new Promise(async (resolve) => {
 
     if (status !== RESULTS.GRANTED) {
       const res = await request(locationPermission);
-
-      if (!IS_IOS && res === RESULTS.UNAVAILABLE) {
+      
+      if (!IS_IOS && (res === RESULTS.UNAVAILABLE || res === RESULTS.BLOCKED)) {
         await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
       }
     }

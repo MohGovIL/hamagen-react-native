@@ -144,10 +144,15 @@
     "bluetooth": {
       "title": "זיהוי נקודות חפיפה\nבעזרת בלוטות'",
       "description": "טכנולוגיית בלוטות' מאפשרת זיהוי מצבי קרבה בינך ובין בעלי מכשירי טלפון נוספים בסביבתך שמותקנת עליהם האפליקציה, כדי לאתר חשד להדבקה בקורונה.",
-      "approveBluetooth": "הפעל שירותי בלוטות׳",
       "callToAction": "לשם כך, עליך לאשר\nהפעלת בלוטות' במכשיר שלך",
       "approveBluetoothIOS": "הפעל שירותי בלוטות׳",
       "approveBluetoothAndroid": "הבנתי"
+    },
+    "battery" : {
+      "title": "ביטול מיטוב הסוללה",
+      "description": "כדי להבטיח שהאפליקציה תעבוד בצורה רציפה ותשמור עליך טוב יותר, מומלץ לבטל את מצב \"מיטוב סוללה\" עבור אפליקציית המגן",
+      "approveButton": "אישור",
+      "notApproveButton": "דילוג"
     },
     "location": {
       "title": "המיקום הוא קריטי",
@@ -240,7 +245,17 @@
       "deviceCloseTag": "קרבה בין מכשירים",
       "locationCloseTag": "קרבה במיקום",
       "wasMeBle": "המשך",
-      "wasMeOnly": "המשך לקבלת הנחיות"
+      "wasMeOnly": "המשך לקבלת הנחיות",
+      "noGPS": {
+        "title": "שירותי המיקום שלך כבויים",
+        "description": "אנחנו לא מצליחים לקלוט נתונים.\nעליך להפעיל את שירותי המיקום, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "הפעלת שירותי מיקום"
+      },
+      "noNetwork": {
+        "title": "אין לך חיבור לאינטרנט",
+        "description": "אנחנו לא מצליחים לקלוט נתונים.\nעליך להתחבר לאינטרנט, כדי שנוכל לבצע השוואת מיקומים",
+        "button": "התחברות לאינטרנט"
+      }
     },
     "exposuresHistory": {
       "title": "היסטוריית נקודות חפיפה",
@@ -397,6 +412,12 @@
       "approveBluetoothIOS": "تمكين خدمات Bluetooth",
       "approveBluetoothAndroid": "فهمت"
     },
+    "battery" : {
+      "title": "قم بإيقاف تشغيل تحسين البطارية",
+      "description": "للتأكد من أن التطبيق يعمل باستمرار ويحافظ على حالتك بشكل أفضل ، يوصى بإيقاف تشغيل وضع \"تحسين البطارية\" لتطبيق الحماية",
+      "approveButton": "موافقة",
+      "notApproveButton": "تخطى"
+    },
     "location": {
       "title": "أماكن تواجدكم مهمة جدا",
       "subTitle1": "إن هذا التطبيق يقوم بجمع معطيات بخصوص أماكن تواجدكم ويقوم بمقارنتها بالمعطيات العامة للأشخاص المصابين بالفيروس",
@@ -488,7 +509,17 @@
       "deviceCloseTag": "قرب في الموقع",
       "locationCloseTag": "القرب من الموقع",
       "wasMeBle": "تابع",
-      "wasMeOnly": "تابع للحصول على التعليمات"
+      "wasMeOnly": "تابع للحصول على التعليمات",
+      "noGPS": {
+        "title": "خدمات موقعك متوقفة",
+        "description": "نحن غير قادرين على استقبال البيانات. تحتاج إلى تمكين خدمات الموقع حتى نتمكن من مقارنة المواقع",
+        "button": "فعل خدمات تحديد الموقع"
+      },
+      "noNetwork": {
+        "title": "ليس لديك اتصال بالإنترنت",
+        "description": "نحن غير قادرين على استقبال البيانات. يجب عليك الاتصال بالإنترنت حتى نتمكن من مقارنة المواقع",
+        "button": "اتصل بالإنترنت"
+      }
     },
     "exposuresHistory": {
       "title": "تاريخ التطابق",
@@ -645,6 +676,12 @@
       "approveBluetoothAndroid": "I understand",
       "approveBluetoothIOS": "Enable Bluetooth services"
     },
+    "battery" : {
+      "title": "Turn off battery optimization",
+      "description": "To ensure that the app works continuously and keeps you better, it is recommended to turn off the \"Battery Optimization\" mode for the protective app",
+      "approveButton": "Approve",
+      "notApproveButton": "Skip"
+    },
     "location": {
       "title": "Location is critical",
       "subTitle1": "This app will collect your location data and compare it to the locations of people known to be infected with the virus. If any of those locations are found to overlap, you will receive a notification.",
@@ -736,7 +773,17 @@
       "deviceCloseTag": "Proximity between devices",
       "locationCloseTag": "Location proximity",
       "wasMeBle": "Proceed",
-      "wasMeOnly": "Proceed to receive guidelines"
+      "wasMeOnly": "Proceed to receive guidelines",
+      "noGPS": {
+        "title": "Your location services are off",
+        "description": "We are unable to receive data. You need to enable Location Services so we can compare locations",
+        "button": "Enable location services"
+      },
+      "noNetwork": {
+        "title": "You have no internet connection",
+        "description": "We are unable to receive data. You must connect to the Internet so we can compare locations",
+        "button": "Connect to the Internet"
+      }
     },
     "exposuresHistory": {
       "title": "Exposure history",
@@ -893,6 +940,12 @@
       "approveBluetoothIOS": "Включить службы Bluetooth",
       "approveBluetoothAndroid": "я осознал"
     },
+    "battery" : {
+      "title": "Отключить оптимизацию батареи",
+      "description": "Чтобы приложение работало непрерывно и сохраняло вас лучше, рекомендуется отключить режим «Оптимизация заряда батареи» для защитного приложения.",
+      "approveButton": "утверждение",
+      "notApproveButton": "Пропускать"
+    },
     "location": {
       "title": "Местонахождение критично",
       "subTitle1": "Приложение будет собирать данные о вашем месте нахождение, и сообщит вам если будет совпадение с данными местонахождения больных.",
@@ -984,7 +1037,17 @@
       "deviceCloseTag": "Расстояние между устройствами",
       "locationCloseTag": "Расстояние до местоположения",
       "wasMeBle": "Дальше",
-      "wasMeOnly": "Перейти к получению указаний"
+      "wasMeOnly": "Перейти к получению указаний",
+      "noGPS": {
+        "title": "Ваши услуги определения местоположения отключены",
+        "description": "Мы не можем получить данные. Вам необходимо включить службы определения местоположения, чтобы мы могли сравнивать местоположения",
+        "button": "Активируйте сервисы локации"
+      },
+      "noNetwork": {
+        "title": "У вас нет подключения к интернету",
+        "description": "Мы не можем получить данные. Вы должны подключиться к Интернету, чтобы мы могли сравнить местоположения",
+        "button": "Подключиться к Интернету"
+      }
     },
     "exposuresHistory": {
       "title": "История контактов",
@@ -1134,12 +1197,18 @@
       "subTitle2": "ተገቢ ምርመራ እና ከጤነኛ ሰው ማግለል ህይወት ሊያድን ይችላል።."
     },
     "bluetooth": {
-      "title": "የተደራራቢ ነጥቦችን ይለዩ\nጎርፍ",
-      "description": "በኮሮና ውስጥ የኢንፌክሽን ጥርጣሬ ለመፈጠር የብሉቱዝ ቴክኖሎጂ በርስዎ እና በአከባቢዎ ባሉ ሌሎች የስልክ ባለቤቶች መካከል በአከባቢዎ ያለውን የዝውውር ሁኔታ ለመለየት ያስችላል ፡፡",
-      "approveBluetooth": "የብሉቱዝ አገልግሎቶችን ያንቁ",
-      "callToAction": "ይህንን ለማድረግ በመሣሪያዎ ላይ ብሉቱዝን ማንቃት አለብዎት",
-      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቶችን ያንቁ",
+      "title": "ብሉቱዝን በመጠቀም ግንኙነት የተደረጉባቸውን ቦታዎች ማወቅ፣",
+      "description": "የብሉቱዝ ቴክኖሎጅ አንተ ባለህበት አካባቢ ያሉና የብሉቱዝ አፕሊኬሽን የተገጠመባቸው  የእጅ ስልኮች ጋር ግንኙነት የማድረግ ችልሎታ አለው ፤ ይህም በበሽታው የሚጠረጠሩትን ለይቶ ለማወቅ ያስችላል ፤",
+      "approveBluetooth": "የብሉቱዝ አገልግሎቱን እንዲሰራ ያድርጉ",
+      "callToAction": "የብሉቱዙን አገልግሎት በስልክህ እንዲሰራ ለማድረግ ፈቃድንህ መስጠት ያስፈልግሃል ፤",
+      "approveBluetoothIOS": "የብሉቱዝ አገልግሎቱን እንዲሰራ ያድርጉ",
       "approveBluetoothAndroid": "ገባኝ"
+    },
+    "battery" : {
+      "title": "ባትሪ ማትባትን ያጥፉ",
+      "description": "መተግበሪያው ያለማቋረጥ እንደሚሰራ እና እርስዎን በተሻለ እንዲቆይ ለማድረግ ለተከላካይ መተግበሪያ የ “ባትሪ ማትባት” ሁኔታውን ማጥፋት ይመከራል።",
+      "approveButton": "ማፅደቅ",
+      "notApproveButton": "ዝለል"
     },
     "location": {
       "title": "የምትገኙበት ቦታ ወሳኝ ነው",
@@ -1153,7 +1222,7 @@
     },
     "locationIOS": {
       "title": "የቦታዎን\nአገልግሎቶች ማሰራት",
-      "subTitle1": "በመደበኛነት እርስዎን የሚመለከቱ የአካባቢዎች መረጃ ለእርስዎ ለመስጠት ፣ የቦታ አመላካቹን በመደበኛነት ማንቃት ያስፈልግዎታል ፡፡.",
+      "subTitle1": "ለአንተ አስፈላጊ ናቸው የምንላቸውንና የነበርክባቸውን ቦታዎች ትክክለኛ መረጃ ያለምንም ማቋረጥ ማቅረብ እንድንችል ፤ በስልክህ የምትገኝበትን ቦታ የሚያመለክተውን ምልክት ያለምንም ማቋረጥ እንዲሰራ ማድረግ አለበህ",
       "subTitle2": "የቦታዎን ፍች በሰእሉ እንደሚታየው ያመላክቱ",
       "goToSettings": "የቦታዎን ፍች ለማሰራት እዚህ ይጨቁኑ",
       "set": "የቦታዎን ፍች አሰራሁ። ቀጥል"
@@ -1198,7 +1267,7 @@
       "suspectedExposure": "የንክኪ ጥርጣሬ",
       "events": "ክስተቶች /ገጠመኞች",
       "possibleExposure": "ከኮሮና ህመምተኛ ጋር ንኪኪ ሊኖር ይችላል",
-      "possibleExposureBLE": "በስልክዎ መረጃ መሠረት\nበኮሮና ህመምተኛ አቅራቢያ መኖራቸውን አስተውለናል-",
+      "possibleExposureBLE": "ኮሮና ከታመመ ሰው አጠገን እንደነበርክ ማወቅ ችለናል / ስልክህ በሰጠን መረጃዎች መሰረት፣",
       "atPlace": "በ ",
       "share": {
         "message": "የመከላከያ መተግበሪያውን በማጋራት ላይ",
@@ -1206,7 +1275,7 @@
         "androidTitle": "የመከላከያ መተግበሪያውን በማጋራት ላይ"
       },
       "noExposures": {
-        "bannerText": "ጥምር ግንኙነት\nአልተገኙም",
+        "bannerText": "ግንኙነት ያደረግባቸው አዳዲስ ቦታዎች አልተገኙም፣",
         "workAllTheTime": "የሀመጌን መተግበሪ ሁልጊዜ ይሠራል",
         "infoModal": {
           "textBodyPt1": "ንፅፅሩ የተሰራው እርስዎ አካባቢዎን ከተቀበሉበት ጊዜ ጀምሮ ነው",
@@ -1216,23 +1285,33 @@
           "title": "እስከ:",
           "atHour": "በ"
         },
-        "bannerTextPristine": "ምንም የተደራራቢ ነጥቦች አልተገኙም",
-        "instructionLinkUpper": "አስፈላጊ ከሆነ ለመጠቀም",
-        "instructionLinkLower": "በብቸኝነት ለመኖር የሚረዱ መመሪያዎች",
-        "bluetoothServiceOff": "የብሉቱዝ አገልግሎቶች ጠፍተዋል",
-        "turnBluetoothOn": "ብሉቱዝ አብራ",
-        "canIdentifyWithBluetooth": "ከአሁን ጀምሮ ተጨማሪ መደራረብ በ ዕጢዎች ዕጢዎች ሊታወቅ ይችላል ፡፡",
-        "moreInformation": "ተጨማሪ መረጃ"
+        "bannerTextPristine": "ግንኙነት የተደረገባቸው ቦታዎች / አልተገኙም፣",
+        "instructionLinkUpper": "እንደ አስፈላጊነቱ መጠቀም፣",
+        "instructionLinkLower": "ተገልለው  ለሚገኙ ሰዎች የተሰጡ መመሪያዎች፣",
+        "bluetoothServiceOff": "የብሉቱዝ አገልግሎት በስልክህ ተዘግቷል ፣ ",
+        "turnBluetoothOn": "ብሉቱዝን እንዲሰራ አድርገው፣",
+        "canIdentifyWithBluetooth": "ብሉቱዝን በመጠቀም ከዛሬ ጀምሮ አዳዲስ የግንኙነት ቦታዎችን ማወቅ ይቻላል ፣",
+        "moreInformation": "ተጨማሪ መረጃ፣"
       },
       "showOnMap": "ወደ ካርታው አስተዋወቅኩ",
-      "wasNotMe": "እዚያ አልነበርኩም",
+      "wasNotMe": "ከቦታው አልነበራችሁም፣",
       "wasMe": "ሊሆን ይችላል",
       "doneBtn": "ማዘመን አጠናቅቄያለሁ",
-      "betweenHours": "በሰዓቶች መካከል",
-      "deviceCloseTag": "በመሳሪያዎች መካከል ቅርበት",
-      "locationCloseTag": "ወደ ቅርበት ቅርበት",
-      "wasMeBle": "ቀጠለ",
-      "wasMeOnly": "መመሪያዎችን ይቀጥሉ"
+      "betweenHours": "ከዚህ እስከ እዚህ ሰዓት፣",
+      "deviceCloseTag": "በስልኮች መካከል ያለው ቅርበት፣",
+      "locationCloseTag": "ለቦታዎች ያለው ቅርበት፣",
+      "wasMeBle": "ቀጥል",
+      "wasMeOnly": "መመሪያዎችን መቀበሉን ቀጥል፣",
+      "noGPS": {
+        "title": "የአካባቢ አገልግሎቶችዎ ጠፍተዋል",
+        "description": "ውሂብ መቀበል አልቻልንም። አካባቢዎችን ማነፃፀር እንድንችል የአካባቢ አገልግሎቶችን ማንቃት አለብዎት",
+        "button": "የአካባቢ አገልግሎቶችን አንቃ"
+      },
+      "noNetwork": {
+        "title": "ምንም የበይነመረብ ግንኙነት የለዎትም",
+        "description": "ውሂብ መቀበል አልቻልንም። አካባቢዎችን ለማነፃፀር ከበይነመረቡ ጋር መገናኘት አለብዎት",
+        "button": "ከበይነመረቡ ጋር ይገናኙ"
+      }
     },
     "exposuresHistory": {
       "title": "ከተያዘ ሰው ጋር ተቀራርበዋል",
@@ -1245,7 +1324,9 @@
       "wasNotThereNoExposure": "በአለፉት 14 ቀናት ውስጥ እዛ አልነበሩም ብለው ምልክት ያደረጉባቸው ክስተቶች የሉም",
       "historyEditFinishBtn": "ለውጦችን በማስቀመጥ ላይ",
       "historyEditCancelBtn": "ማርትዕ ቀልብስ",
-      "edit": "ማርትዕ"
+      "edit": "ማርትዕ",
+      "BLELocationUpdate": "የአካባቢ ውሂብ ዘምኗል",
+      "BLEWarning": "የ glandular መረጃን ማርትዕ አይቻልም"
     },
     "exposureInstructions": {
       "title": "ተጋልጠዋል የሚል ጥርጣሬ አለ ፣ ምን ማድረግ አለብዎት?",
@@ -1387,6 +1468,12 @@
       "approveBluetoothIOS": "Activer les services Bluetooth",
       "approveBluetoothAndroid": "J’ai compris"
     },
+    "battery" : {
+      "title": "Désactiver l'optimisation de la batterie",
+      "description": "Pour vous assurer que l'application fonctionne en continu et vous garde mieux, il est recommandé de désactiver le mode \"Optimisation de la batterie\" pour l'application de protection",
+      "approveButton": "Approbation",
+      "notApproveButton": "Sauter"
+    },
     "location": {
       "title": "La localisation est critique",
       "subTitle1": "Cette application va collecter vos localisations et les comparer à celles des personnes infectées par le virus. Si l'un de ces emplacements se chevauche,vous recevrez une notification.",
@@ -1478,7 +1565,17 @@
       "deviceCloseTag": "Proximité entre les appareils ",
       "locationCloseTag": "Proximité de l'emplacement ",
       "wasMeBle": "Continuer",
-      "wasMeOnly": "Continuez pour recevoir les instructions"
+      "wasMeOnly": "Continuez pour recevoir les instructions",
+      "noGPS": {
+        "title": "Vos services de localisation sont désactivés",
+        "description": "Nous ne pouvons pas recevoir de données. Vous devez activer les services de localisation afin que nous puissions comparer les emplacements",
+        "button": "Activer les services de localisation"
+      },
+      "noNetwork": {
+        "title": "Vous n'avez pas de connexion internet",
+        "description": "Nous ne pouvons pas recevoir de données. Vous devez vous connecter à Internet pour pouvoir comparer les emplacements",
+        "button": "Connecter à Internet"
+      }
     },
     "exposuresHistory": {
       "title": "Historique des intersections",
