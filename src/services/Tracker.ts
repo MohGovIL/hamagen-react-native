@@ -7,12 +7,12 @@ import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
-import { match } from './BLEService';
+import { match, initBLETracing } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -22,6 +22,10 @@ export const startForegroundTimer = async () => {
   await checkGeoSickPeople();
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
+  if(IS_IOS){
+    // background timer to try and restarting BLE service in IOS
+    BackgroundTimer.runBackgroundTimer(initBLETracing, config().fetchMilliseconds);
+  }
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,
