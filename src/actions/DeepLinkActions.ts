@@ -3,6 +3,8 @@ import { toggleLoader } from './GeneralActions';
 import { getUserLocationsReadyForServer } from '../services/DeepLinkService';
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
+import {logToFile} from '../services/LogService';
+import moment from 'moment';
 
 export const shareUserLocations = (token: string, userAgreedToBle: boolean) => async (dispatch: any) => new Promise(async (resolve, reject) => {
   try {
@@ -10,8 +12,9 @@ export const shareUserLocations = (token: string, userAgreedToBle: boolean) => a
 
     const { data } = await axios.post(config().dataShareUrl, await getUserLocationsReadyForServer(token, userAgreedToBle));
     dispatch(toggleLoader(false));
-
+    logToFile(`Share Location Response:\n${data}`, moment().valueOf())
     resolve(data);
+    
   } catch (error) {
     reject();
     onError({ error });
