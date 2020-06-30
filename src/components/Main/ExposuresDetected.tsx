@@ -65,7 +65,6 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   // show button when moving to another page
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
-    // TODO: fix this for BLE logic
     useCallback(() => {
       if (!isOneBle 
         && exposures.every(exposure => exposure.properties.wasThere !== null)) {

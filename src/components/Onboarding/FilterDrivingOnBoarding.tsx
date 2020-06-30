@@ -1,12 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { connect } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Strings } from '../../locale/LocaleData';
 import { ActionButton, GeneralContainer, Icon, OnboardingHeader, Text, TouchableOpacity } from '../common';
 import { onMotionPermissionSkipped, requestMotionPermissions } from '../../services/LocationService';
 import { onError } from '../../services/ErrorService';
-import { IS_SMALL_SCREEN, MAIN_COLOR } from '../../constants/Constants';
+import { IS_SMALL_SCREEN, MAIN_COLOR, ENABLE_BLE } from '../../constants/Constants';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -14,10 +15,30 @@ interface Props {
 }
 
 const FilterDrivingOnBoarding = ({ navigation, strings: { filterDriving: { title, desc1, desc2, desc3, button, skip } } }: Props) => {
+  const navigate = Platform.select({
+    android: () => {
+      let destination = 'LocationHistoryOnBoarding';
+      const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
+      if (ENABLE_BLE) {
+        destination = 'Bluetooth';
+      } else if (androidVersion >= 6) {
+        destination = 'Battery';
+      }
+      navigation.navigate(destination);
+    },
+    ios: () => {
+      let destination = 'LocationHistoryOnBoarding';
+      if (ENABLE_BLE) {
+        destination = 'Bluetooth';
+      }
+      navigation.navigate(destination);
+    }
+  });
+
   const requestPermissions = async () => {
     try {
       await requestMotionPermissions(false);
-      navigation.navigate('LocationHistoryOnBoarding');
+      navigate();
     } catch (error) {
       onError({ error });
     }
@@ -25,7 +46,7 @@ const FilterDrivingOnBoarding = ({ navigation, strings: { filterDriving: { title
 
   const onSkip = async () => {
     await onMotionPermissionSkipped();
-    navigation.navigate('LocationHistoryOnBoarding');
+    navigate();
   };
 
   return (

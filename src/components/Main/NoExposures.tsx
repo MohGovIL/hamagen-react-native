@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
 import moment from 'moment';
+import BTManager from 'react-native-bluetooth-state-manager';
 import LottieView from 'lottie-react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import InfoBubble from './InfoBubble';
 import InfoModal from './InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
@@ -10,22 +12,44 @@ import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from 
 
 
 interface NoExposuresProps {
-  isRTL: boolean,
-  firstPoint?: number,
-  strings: Strings,
-  hideLocationHistory: boolean,
-  locale: string,
-  languages: Languages,
-  enableBle: boolean | undefined,
-  externalUrls: ExternalUrls,
-  exposureState: 'pristine' | 'notRelevant' | 'relevant',
-  showBleInfo: boolean,
-  goToLocationHistory(): void,
+  isRTL: boolean
+  firstPoint?: number
+  strings: Strings
+  hideLocationHistory: boolean
+  locale: string
+  languages: Languages
+  enableBle: boolean | undefined
+  externalUrls: ExternalUrls
+  exposureState: 'pristine' | 'notRelevant' | 'relevant'
+  showBleInfo: boolean
+  batteryDisabled: boolean
+  goToLocationHistory(): void
   goToBluetoothPermission(): void
+  goToBatteryPermission(): void
 }
 
+type BTState = 'PoweredOff' | 'PoweredOn'
 
-const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, showBleInfo, goToLocationHistory, goToBluetoothPermission }) => {
+interface BluetoothBubbleProps {
+  isRTL: boolean,
+  info: string,
+  moreInfo: string
+}
+
+const BluetoothBubble = (props: BluetoothBubbleProps) => {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    BTManager.initBLEStateManager();
+    BTManager.onStateChange((btState: BTState) => {
+      setShow(btState === 'PoweredOff');
+    }, true);
+  }, []);
+
+  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />;
+  return null;
+};
+
+const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, batteryDisabled, goToLocationHistory, goToBluetoothPermission, goToBatteryPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
 
@@ -37,16 +61,22 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, tunBatteryOptimizationOff, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
+
   }, []);
+
+  useEffect(() => {
+    if (batteryDisabled === null) {
+      goToBatteryPermission()
+    }
+  },[batteryDisabled])
 
   const RelevantCard = useMemo(() => {
     if (exposureState !== 'relevant') return null;
@@ -56,7 +86,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center' }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center', marginTop: IS_SMALL_SCREEN ? 15 : 20 }} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
           <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
           <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
@@ -98,43 +128,59 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   return (
     <>
       <FadeInView style={styles.fadeContainer}>
-        <View style={styles.container}>
-          <LocationHistoryInfo />
-          <EnableBluetooth />
-          <LottieView
-            style={styles.lottie}
-            source={require('../../assets/lottie/magen logo.json')}
-            resizeMode="cover"
-            autoPlay
-            loop
-          />
-
-          <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
-          <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
-        </View>
-        <View style={styles.bottomCard}>
-
-          <Text style={styles.cardHeaderText}>{title}</Text>
-          <View style={styles.cardBody}>
-            <TouchableOpacity
-              onPress={() => setModalVisibility(true)}
-              hitSlop={HIT_SLOP}
-            >
-              <Icon
-                width={15}
-                source={require('../../assets/main/moreInfoBig.png')}
-                customStyles={styles.infoIcon}
+        <ScrollView
+          bounces={false}
+          contentContainerStyle={{ paddingBottom: PADDING_BOTTOM(10), flexGrow: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={styles.container}>
+            <LocationHistoryInfo />
+            <EnableBluetooth />
+            {enableBle && (
+              <BluetoothBubble
+                isRTL={isRTL}
+                info={bluetoothServiceOff}
+                moreInfo={turnBluetoothOn}
               />
-            </TouchableOpacity>
-            <Text>
-              <Text bold style={styles.toTimeDate}>{nowDate}</Text>
-              <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
-              <Text bold style={styles.toTimeDate}>{nowHour}</Text>
-            </Text>
-          </View>
+            )}
+            <LottieView
+              style={styles.lottie}
+              source={require('../../assets/lottie/magen logo.json')}
+              resizeMode="cover"
+              autoPlay
+              loop
+            />
 
-        </View>
-        {RelevantCard}
+            <Text bold style={styles.workAllTimeTxt}>{workAllTheTime}</Text>
+            <Text bold style={styles.bannerText}>{exposureState === 'pristine' ? bannerTextPristine : bannerText}</Text>
+          </View>
+          <View style={{ flexGrow: 1, alignItems: 'center', justifyContent: 'space-around' }}>
+
+            <View style={styles.bottomCard}>
+
+              <Text style={styles.cardHeaderText}>{title}</Text>
+              <View style={styles.cardBody}>
+                <TouchableOpacity
+                  onPress={() => setModalVisibility(true)}
+                  hitSlop={HIT_SLOP}
+                >
+                  <Icon
+                    width={15}
+                    source={require('../../assets/main/moreInfoBig.png')}
+                    customStyles={styles.infoIcon}
+                  />
+                </TouchableOpacity>
+                <Text>
+                  <Text bold style={styles.toTimeDate}>{nowDate}</Text>
+                  <Text style={styles.toTimeText}>{` ${atHour.trim()} `}</Text>
+                  <Text bold style={styles.toTimeDate}>{nowHour}</Text>
+                </Text>
+              </View>
+
+            </View>
+            {RelevantCard}
+          </View>
+        </ScrollView>
       </FadeInView>
 
       <InfoModal
@@ -150,13 +196,12 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
 const styles = StyleSheet.create({
   fadeContainer: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     paddingBottom: PADDING_BOTTOM(10)
   },
   container: {
     alignItems: 'center',
-    paddingHorizontal: IS_SMALL_SCREEN ? 15 : 30
   },
   lottie: {
     width: SCREEN_WIDTH * (IS_SMALL_SCREEN ? 0.25 : 0.45),
@@ -201,4 +246,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NoExposures;
+export default React.memo(NoExposures);

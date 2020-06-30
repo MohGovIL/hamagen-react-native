@@ -494,7 +494,7 @@ export class IntersectionSickDatabase {
 
         db.transaction(async (tx) => {
           try {
-            await tx.executeSql('DELETE FROM IntersectingSick WHERE toTime < ?', [timestamp]);
+            await tx.executeSql('DELETE FROM IntersectingSick WHERE toTime IS NOT NULL AND toTime < ? OR BLETimestamp IS NOT NULL AND BLETimestamp < ?', [timestamp, timestamp]);
             resolve(true);
           } catch (error) {
             onError({ error });
@@ -549,7 +549,7 @@ export class IntersectionSickDatabase {
       const db = await this.initDB();
 
       db.transaction(async (tx) => {
-        await tx.executeSql('DELETE FROM IntersectingSick');
+        await tx.executeSql('DROP TABLE IntersectingSick');
       });
     } catch (e) {
       onError({ e });

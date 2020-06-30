@@ -3,6 +3,7 @@ import { createDrawerNavigator, } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
+import { NavigationProp, RouteProp } from '@react-navigation/native';
 import ScanHome from '../Main/ScanHome';
 import DrawerContent from './DrawerContent';
 import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
@@ -18,13 +19,19 @@ import BluetoothModal from '../Main/BluetoothModal';
 import ShareLocations from '../ShareLocations/ShareLocations';
 import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
 import MapModal from '../Main/MapModal';
-import { INIT_ROUTE_NAME, USER_AGREE_BLE } from '../../constants/Constants';
+import { INIT_ROUTE_NAME } from '../../constants/Constants';
+import BatteryModal from '../Main/BatteryModal';
 
 const Stack = createStackNavigator();
 
 const DEFAULT_SCREEN = 'ScanHome';
 
-const DrawerStack = ({ navigation, route }) => {
+interface DrawerStackProps {
+  navigation: NavigationProp<any, 'DrawerStack'>, 
+  route: RouteProp<any, 'DrawerStack'>
+}
+
+const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
   const [showBLEPermission, setBLEPermission] = useState(undefined);
@@ -59,6 +66,7 @@ const DrawerStack = ({ navigation, route }) => {
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Bluetooth" component={BluetoothModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="Battery" component={BatteryModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
     </Stack.Navigator>
   );
 };

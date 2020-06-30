@@ -46,4 +46,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InfoBubble;
+export default React.memo(InfoBubble); 

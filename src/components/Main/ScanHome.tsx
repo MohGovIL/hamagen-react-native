@@ -2,27 +2,29 @@ import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
 import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
 import { connect } from 'react-redux';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { RESULTS } from 'react-native-permissions';
 import SplashScreen from 'react-native-splash-screen';
-import { useFocusEffect } from '@react-navigation/native';
+
 // @ts-ignore
 import RNSettings from 'react-native-settings';
 import ScanHomeHeader from './ScanHomeHeader';
-import NoData from './NoData';
 import NoExposures from './NoExposures';
-import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled } from '../../actions/GeneralActions';
-import { dismissExposure, removeValidExposure, setValidExposure } from '../../actions/ExposuresActions';
+import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled, checkIfBatteryDisabled } from '../../actions/GeneralActions';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
 import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+import NoGPS from './NoGPS';
+import NoNetwork from './NoNetwork';
 
 
 interface ScanHomeProps {
-  navigation: DrawerNavigationProp<any>,
+  navigation: DrawerNavigationProp<any, 'ScanHome'>,
+  route: RouteProp<any, 'ScanHome'>,
   isRTL: boolean,
   strings: Strings,
   locale: string,
@@ -30,16 +32,15 @@ interface ScanHomeProps {
   externalUrls: ExternalUrls,
   exposures: Exposure[],
   pastExposures: Exposure[],
-  enableBle: boolean | undefined,
   firstPoint?: number,
   hideLocationHistory: boolean,
-  setValidExposure(exposure: Exposure): void,
-  removeValidExposure(): void,
-  dismissExposure(exposureId: number): void,
+  enableBle: boolean | undefined,
+  batteryDisabled: boolean,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
   showMapModal(exposure: Exposure): void,
-  checkIfBleEnabled(): void
+  checkIfBleEnabled(): void,
+  checkIfBatteryDisabled(): void
 }
 
 // user has Relevant event by time and location
@@ -58,43 +59,51 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     pastExposures,
     firstPoint,
     enableBle,
+    batteryDisabled,
     hideLocationHistory,
-    setValidExposure,
-    removeValidExposure,
-    dismissExposure,
     checkForceUpdate,
     checkIfHideLocationHistory,
-    showMapModal,
-    checkIfBleEnabled
+    checkIfBleEnabled,
+    checkIfBatteryDisabled
   }
 ) => {
+  const shown = useRef(null);
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
   useEffect(() => {
-    setTimeout(async () => {
-      SplashScreen.hide();
+    init();
+  }, []);
 
+  useEffect(() => {
+    if (shown.current) {
+      SplashScreen.hide();
+    }
+  }, [shown.current]);
+
+  const init = async () => {
+    checkConnectionStatusOnLoad();
+    checkIfHideLocationHistory();
+    checkIfBleEnabled();
+    checkIfBatteryDisabled();
+
+    if (exposures.length > 0) {
+      navigation.navigate('ExposureDetected');
+    } else {
       checkForceUpdate();
+
       await goToFilterDrivingIfNeeded(navigation);
 
       const url = await Linking.getInitialURL();
+
 
       if (url) {
         return onOpenedFromDeepLink(url, navigation);
       }
 
       await syncLocationsDBOnLocationEvent();
-    }, 3000);
-
-    checkIfHideLocationHistory();
-    checkIfBleEnabled();
-    checkConnectionStatusOnLoad();
-
-    if (exposures.length > 0) {
-      navigation.navigate('ExposureDetected');
     }
-  }, []);
+  };
 
   useEffect(() => {
     AppState.addEventListener('change', onAppStateChange);
@@ -164,9 +173,10 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   };
 
 
-  const RelevantState = (!hasLocation || !hasNetwork || !hasGPS)
-    ? (<NoData strings={strings} />)
-    : (
+  const RelevantState = () => {
+    if (!hasGPS || !hasLocation) return (<NoGPS {...strings.scanHome.noGPS} />);
+    if (!hasNetwork) return (<NoNetwork {...strings.scanHome.noNetwork} />);
+    return (
       <NoExposures
         isRTL={isRTL}
         strings={strings}
@@ -174,18 +184,21 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         exposureState={exposureState()}
         hideLocationHistory={hideLocationHistory}
         enableBle={enableBle}
+        batteryDisabled={batteryDisabled}
         locale={locale}
         languages={languages}
         externalUrls={externalUrls}
         goToLocationHistory={() => navigation.navigate('LocationHistory')}
         goToBluetoothPermission={() => navigation.navigate('Bluetooth')}
+        goToBatteryPermission={() => navigation.navigate('Battery')}
         showBleInfo={route.params?.showBleInfo}
       />
     );
+  };
 
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} ref={shown}>
       <ScanHomeHeader
         languages={languages}
         isRTL={isRTL}
@@ -194,7 +207,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
         strings={strings}
         openDrawer={navigation.openDrawer}
       />
-      {RelevantState}
+      {RelevantState()}
     </View>
   );
 };
@@ -209,20 +222,18 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state: any) => {
   const {
     locale: { isRTL, strings, locale, languages, externalUrls },
-    general: { hideLocationHistory, enableBle },
+    general: { hideLocationHistory, enableBle, batteryDisabled },
     exposures: { exposures, pastExposures, validExposure, firstPoint }
   } = state;
 
-  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle };
+  return { isRTL, strings, locale, languages, externalUrls, exposures, pastExposures, validExposure, firstPoint, hideLocationHistory, enableBle, batteryDisabled };
 };
 
 
 export default connect(mapStateToProps, {
-  setValidExposure,
-  removeValidExposure,
-  dismissExposure,
   checkForceUpdate,
   checkIfHideLocationHistory,
   showMapModal,
-  checkIfBleEnabled
+  checkIfBleEnabled,
+  checkIfBatteryDisabled
 })(ScanHome);

@@ -18,7 +18,7 @@ import { startForegroundTimer } from '../services/Tracker';
 import ResetMessaging from '../ResetMessaging';
 import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
 import { registerBLEListeners } from '../services/BLEService';
-import { startPushListeners } from '../services/PushService';
+import { subscribeToTopic } from '../services/PushService';
 import { IntersectionSickDatabase } from '../database/Database';
 import { initConfig } from '../config/config';
 import store from '../store';
@@ -86,7 +86,6 @@ const Loading: FunctionComponent<Props> = (
   useEffect(() => {
     registerBLEListeners();
     appLoadingActions();
-    startPushListeners();
   }, []);
 
   useEffect(() => {
@@ -101,6 +100,7 @@ const Loading: FunctionComponent<Props> = (
       await updateLocationsTimesToUTC();
       await initConfig();
       initLocale();
+      subscribeToTopic();
 
       !IS_IOS && await store().dispatch({ type: RESET_EXPOSURES }); // first thing - clear the redux store to fix the android duplications bug
 
@@ -119,16 +119,16 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
-      // don't init config again
-      await ResetMessaging(false);
-
-      await purgeSamplesDB();
-      await clusterLocationsOnAppUpdate();
-      await startForegroundTimer();
-
       const dbSick = new IntersectionSickDatabase();
 
       await migrateIntersectionSickDatabase(dbSick);
+      // don't init config second time
+      ResetMessaging(false);
+
+      await purgeSamplesDB();
+      await clusterLocationsOnAppUpdate();
+      startForegroundTimer();
+      
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
@@ -163,7 +163,7 @@ const Loading: FunctionComponent<Props> = (
   return (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
-        <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute}>
+        <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute} screenOptions={() => ({ gestureEnabled: false })}>
           <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
           <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
         </Stack.Navigator>
@@ -216,8 +216,6 @@ const migrateIntersectionSickDatabase = async (dbSick: any) => {
 
       if (dismissedExposures) {
         const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures);
-        console.log('parsedDismissedExposures', parsedDismissedExposures);
-
         await dbSick.upgradeSickRecord(false, parsedDismissedExposures);
       }
     }

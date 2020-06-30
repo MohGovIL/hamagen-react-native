@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
+import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
 import { downloadAndVerifySigning } from '../services/SigningService';
+// @ts-ignore
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
 import {
@@ -11,15 +13,24 @@ import {
   SHOW_FORCE_TERMS,
   HIDE_LOCATION_HISTORY,
   SHOW_MAP_MODAL,
-  ENABLE_BLE
+  ENABLE_BLE,
+  USER_DISABLED_BATTERY
 } from '../constants/ActionTypes';
 
-import { CURRENT_TERMS_VERSION, FIRST_POINT_TS, IS_IOS, SHOULD_HIDE_LOCATION_HISTORY, USER_AGREE_TO_BLE, ENABLE_BLE as ENABLE_BLE_IN_APP } from '../constants/Constants';
+import {
+  CURRENT_TERMS_VERSION,
+  FIRST_POINT_TS,
+  IS_IOS,
+  SHOULD_HIDE_LOCATION_HISTORY,
+  USER_AGREE_TO_BLE,
+  ENABLE_BLE as ENABLE_BLE_IN_APP,
+  USER_AGREED_TO_BATTERY
+} from '../constants/Constants';
 import { Exposure } from '../types';
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
-export const toggleWebview = (isShow: boolean, usageType:string) => (dispatch: any) => dispatch({ type: TOGGLE_WEBVIEW, payload: { isShow, usageType } });
+export const toggleWebview = (isShow: boolean, usageType: string) => (dispatch: any) => dispatch({ type: TOGGLE_WEBVIEW, payload: { isShow, usageType } });
 
 export const checkForceUpdate = () => async (dispatch: any) => {
   try {
@@ -73,25 +84,49 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
-  // await AsyncStorage.removeItem(USER_AGREE_TO_BLE)
-
-  
-  if (IS_IOS || !ENABLE_BLE_IN_APP) {
+  if (!ENABLE_BLE_IN_APP) {
     dispatch({ type: ENABLE_BLE, payload: false });
   } else {
     try {
       let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
-      
+
       if (payload) {
         payload = JSON.parse(payload);
       }
       dispatch({ type: ENABLE_BLE, payload });
     } catch (error) {
       onError({ error });
-      dispatch({ type: ENABLE_BLE, payload: null });
+      dispatch({ type: ENABLE_BLE, payload: false });
     }
   }
 };
+// battery optimization for android phones
+export const checkIfBatteryDisabled = () => async (dispatch: any) => {
+  try {
+    let payload = IS_IOS ? 'false' : await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
+    if (payload) {
+      payload = JSON.parse(payload);
+      dispatch({ type: USER_DISABLED_BATTERY, payload });
+      return;
+    }
+    // if not decided yet check
+    const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
+    if (!isEnabled) {
+      dispatch({ type: USER_DISABLED_BATTERY, payload: true });
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
+    } else if (parseInt(DeviceInfo.getSystemVersion().split(',')[0]) < 6) {
+      // not supported
+      dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
+    } else {
+      dispatch({ type: USER_DISABLED_BATTERY, payload: null });
+    }
+  } catch (error) {
+    onError({ error });
+    dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+  }
+};
+
 
 export const showMapModal = ({ properties }: Exposure) => {
   let latitude = 0;

@@ -2,17 +2,17 @@ import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import geoHash from 'latlon-geohash';
-import { setExposures, updateGeoPastExposure, updateBlePastExposure } from '../actions/ExposuresActions';
+import { setExposures, updateGeoPastExposure, updateBlePastExposure, removeGeoPastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
 import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
-import { match } from './BLEService';
+import { match, initBLETracing } from './BLEService';
 import { onError } from './ErrorService';
 import config from '../config/config';
 import store from '../store';
 import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES } from '../constants/Constants';
+import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -21,8 +21,11 @@ export const startForegroundTimer = async () => {
   await checkBLESickPeople();
   await checkGeoSickPeople();
 
-
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
+  if (IS_IOS) {
+    // background timer to try and restarting BLE service in IOS
+    BackgroundTimer.runBackgroundTimer(initBLETracing, config().fetchMilliseconds);
+  }
 
   await AsyncStorage.setItem(
     LAST_FETCH_TS,
@@ -101,6 +104,8 @@ const checkBleAndGeoIntersection = async ({ startContactTimestamp, endContactTim
       const dismissedExposures = await AsyncStorage.getItem(DISMISSED_EXPOSURES);
       const parsedDismissedExposures: number[] = JSON.parse(dismissedExposures ?? '');
       await AsyncStorage.setItem(DISMISSED_EXPOSURES, JSON.stringify(parsedDismissedExposures.filter((num: number) => num !== overlappingGeoExposure.OBJECTID)));
+      
+      store().dispatch(removeGeoPastExposure(overlappingGeoExposure.OBJECTID));
 
       await onSickPeopleNotify([{
         ...overlappingGeoExposure,
@@ -289,10 +294,10 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
     // if its a geo exposure or exposure doesn't have ble time stamp
     if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
 
-    const bleStart = moment.utc(exposure.BLETimestamp);
-    const bleEnd = bleStart.startOf('hour').add(1, 'hours');
-
-    return (Math.min(currSick.properties.toTime_utc, bleEnd.valueOf()) - Math.max(currSick.properties.fromTime_utc, bleStart.valueOf())) > 0;
+    const bleStart = moment(exposure.BLETimestamp).valueOf();
+    const bleEnd = moment(exposure.BLETimestamp).add(1, 'hours').valueOf();
+    
+    return (Math.min(currSick.properties.toTime_utc, bleEnd) - Math.max(currSick.properties.fromTime_utc, bleStart)) > 0;
   });
 };
 

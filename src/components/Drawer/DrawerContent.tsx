@@ -16,7 +16,7 @@ import {
 import { toggleWebview } from '../../actions/GeneralActions';
 
 interface Props {
-  navigation: DrawerNavigationProp<any>
+  navigation: DrawerNavigationProp<any, 'DrawerStack'>
 }
 
 const DrawerContent = ({ navigation }: Props) => {
@@ -43,7 +43,7 @@ const DrawerContent = ({ navigation }: Props) => {
           label={exposuresHistory.title}
           onPress={() => {
             navigation.navigate('ExposuresHistory');
-            navigation.closeDrawer();
+            // navigation.closeDrawer();
           }}
         />
 
@@ -53,7 +53,7 @@ const DrawerContent = ({ navigation }: Props) => {
           label={languages.title}
           onPress={() => {
             navigation.navigate('ChangeLanguageScreen');
-            navigation.closeDrawer();
+            // navigation.closeDrawer();
           }}
         />
 

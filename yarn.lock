@@ -6710,10 +6710,24 @@ react-native-background-timer@02.2.0:
   resolved "https://registry.yarnpkg.com/react-native-background-timer/-/react-native-background-timer-2.2.0.tgz#ff82d30899209b924983cc00e6ce174b8de5054a"
   integrity sha512-Y7N6diSFko/FCJPMmB0PoBlmY1kEcma7qDVwn8t7zi12GLqpe/Vwls97onkSD8/QL+BR33BygUHOrLTPwgeKfg==
 
+"react-native-bluetooth-state-manager@https://github.com/greenyossi/react-native-bluetooth-state-manager.git":
+  version "0.0.0-development"
+  resolved "https://github.com/greenyossi/react-native-bluetooth-state-manager.git#0b95f7c9de1a1938d1be4a3064da5e53178e4a95"
+
+react-native-common-intents@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/react-native-common-intents/-/react-native-common-intents-0.2.0.tgz#2d377741f3aee45caa7801d2a0dc270ef702a92b"
+  integrity sha512-bolCVPbT1jeq5D9yiwdo89GoF03SjbTBPPFzgX1E2BU5s5BHexoNTDEW0xb4iNF80AN+wBabKB1ikPuX2uF5Ww==
+
 react-native-device-info@5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-5.4.0.tgz#c837afdfc7947eef0a09c1bf2f3beb127d31458b"
   integrity sha512-57IZQ7IavRlNZvI1cKypMkjRPa7nmLK6jYVSrvPMYX2VrCszmgJKlP90cZZaX0FObtNt1yYuKAOkBqyjkNrTIA==
+
+react-native-disable-battery-optimizations-android@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-disable-battery-optimizations-android/-/react-native-disable-battery-optimizations-android-1.0.7.tgz#d49437e78062a8b2158dd2818dfc6119147e4e3b"
+  integrity sha512-4LP8KbDvRK34SHdflE9DgAsXN351ko7BtXYQZSbOUdrObAutsqlq/t1WDxEJq5xcCjYxLcvt25kFRKhVpTWiyQ==
 
 "react-native-extra-dimensions-android@https://github.com/greenyossi/react-native-extra-dimensions-android.git":
   version "0.21.0"
@@ -6752,10 +6766,10 @@ react-native-network-info@5.2.1:
   resolved "https://registry.yarnpkg.com/react-native-network-info/-/react-native-network-info-5.2.1.tgz#b701f10d4ed1aeadcfe77b197328d1ae846f6d3a"
   integrity sha512-iam74xXtrSqqZurCl1/bSjZ9jXcsJY84g7brx1/4uVGCY26c6m+4CArHNSHOsz5ATg2NQT+81sjNy0KlCPyK4g==
 
-react-native-permissions@2.0.10:
-  version "2.0.10"
-  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.10.tgz#d01f5ce7cc48f99d33f2f7ed32bb70abe5ea03dd"
-  integrity sha512-oQmWgm4tqUYyWmMNtYzNO7U/+6+WHyKiRd5cwNeE1FCJTGh8cJ5HapjHw3d6ZVfhSLzNwWqgJy1P4NpTANYa/g==
+react-native-permissions@2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.1.5.tgz#6cfc4f1ab1590f4952299b7cdc9698525ad540e0"
+  integrity sha512-b9KO/4UEV9qddl+kcSybmdk8nlAifclSDBR2rSvc5KZM06vIaJWJNIzK2ZwPXqDQ5yD3CJLuKTRj7Fz+jM9qyQ==
 
 react-native-reanimated@1.4.0:
   version "1.4.0"
@@ -7229,9 +7243,9 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-"rn-contact-tracing@https://github.com/wix-incubator/rn-contact-tracing.git#master":
+"rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git#master":
   version "0.0.3"
-  resolved "https://github.com/wix-incubator/rn-contact-tracing.git#4038ca8f41592a1f7ceb820a9fed4f2ba5356831"
+  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#096e3ead1f31c4d212aa1f2f4f48fa7a2bee2717"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"

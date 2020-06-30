@@ -42,7 +42,7 @@ const ExposuresHistory = (
   const [lineAnimWidth] = useState(new Animated.Value(0));
   const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
   const [firstLoad, setFirstLoad] = useState(true);
-  
+
   useEffect(() => {
     // didn't layout yet
     if (tabsLayout?.[tabIndex]) {
@@ -68,7 +68,7 @@ const ExposuresHistory = (
   return (
     <View style={styles.container}>
       <HeaderButton type="back" onPress={navigation.goBack} />
-      
+
       {showEditBtn && (
         <TouchableOpacity
           hitSlop={HIT_SLOP}
@@ -94,29 +94,42 @@ const ExposuresHistory = (
             style={styles.tabTextContainer}
             onPress={() => setTabIndex(0)}
           >
-            <Text
-              bold={Boolean(!tabIndex)}
-              style={styles.tabText}
-              onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 0: layout }))}
+            <View style={{
+              width: SCREEN_WIDTH / 2,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
             >
-              {wasNotThere}
-            </Text>
 
+              <Text
+                bold={Boolean(!tabIndex)}
+                style={styles.tabText}
+                onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 0: layout }))}
+              >
+                {wasNotThere}
+              </Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             hitSlop={{ top: 10 }}
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+            style={styles.tabTextContainer}
             onPress={() => setTabIndex(0)}
           >
-            <Text
-              bold={Boolean(tabIndex)}
-              style={styles.tabText}
-              onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 1: layout }))}
-              onPress={() => setTabIndex(1)}
+            <View style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: SCREEN_WIDTH / 2,
+            }}
             >
-              {wasThere}
-            </Text>
-
+              <Text
+                bold={Boolean(tabIndex)}
+                style={styles.tabText}
+                onLayout={({ nativeEvent: { layout } }) => setTabsLayout(state => ({ ...state, 1: layout }))}
+                onPress={() => setTabIndex(1)}
+              >
+                {wasThere}
+              </Text>
+            </View>
           </TouchableOpacity>
         </View>
         <Animated.View
@@ -211,8 +224,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: IS_SMALL_SCREEN ? 14 : 16,
-    width: SCREEN_WIDTH / 2,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   editButtonContainer: {
     position: 'absolute',
