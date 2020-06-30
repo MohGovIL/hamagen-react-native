@@ -142,12 +142,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
   const onAppStateChange = async (state: AppStateStatus) => {
     if (state === 'active' && appStateStatus.current !== 'active') {
       checkIfHideLocationHistory();
-
-      const locationPermission = await checkLocationPermissions();
-      const GPSStatus = await RNSettings.getSetting(RNSettings.LOCATION_SETTING);
-      const networkStatus = await NetInfo.fetch();
-
-      setIsConnected({ hasLocation: locationPermission === RESULTS.GRANTED, hasNetwork: networkStatus.isConnected, hasGPS: GPSStatus === RNSettings.ENABLED });
+      checkConnectionStatusOnLoad();
     }
 
     appStateStatus.current = state;
