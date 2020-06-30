@@ -5,6 +5,8 @@
 	<key>BGTaskSchedulerPermittedIdentifiers</key>
 	<array>
 		<string>com.transistorsoft.fetch</string>
+		<string>com.hamagen.appRefresh</string>
+		<string>com.hamagen.appProccess</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
