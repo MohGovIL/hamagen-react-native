@@ -3,6 +3,7 @@ import { StyleSheet, AppState, AppStateStatus, View } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { useDispatch, useSelector } from 'react-redux';
+import { stat } from 'fs';
 import { ActionButton, HeaderButton, Icon, Text, TouchableOpacity } from '../common';
 import { shareUserLocations } from '../../actions/DeepLinkActions';
 import { Strings } from '../../locale/LocaleData';
@@ -38,14 +39,14 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const { token } = route.params;
 
   useEffect(() => {
-    const netInfoUnsubscribe = NetInfo.addEventListener((state: NetInfoState) => {
-      if (!state.isConnected) {
+    const netInfoUnsubscribe = NetInfo.addEventListener((connectionState: NetInfoState) => {
+      if (!connectionState.isConnected) {
         setState('shareNoConnection');
       }
     });
 
-    AppState.addEventListener('change', (state: AppStateStatus) => {
-      if (state === 'background') {
+    AppState.addEventListener('change', (appState: AppStateStatus) => {
+      if (appState === 'background') {
         navigation.pop();
       }
     });
@@ -59,10 +60,14 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const onButtonPress = async () => {
     try {
       if (canRetry) {
+        if (state === 'shareNoConnection') {
+          const connectionState: NetInfoState = await NetInfo.fetch();
+          if (!connectionState.isConnected) return;
+        }
         const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token, agreeToBle));
 
         switch (statusCode) {
-          case 'CompleteSuccessfully': 
+          case 'CompleteSuccessfully':
           case 'CompletSuccessfully': {
             setState('shareSuccess');
             setRetryState(false);
