@@ -22,7 +22,7 @@ export const startForegroundTimer = async () => {
   await checkGeoSickPeople();
 
   BackgroundTimer.runBackgroundTimer(backgroundTimerFn, config().fetchMilliseconds);
-  if(IS_IOS){
+  if (IS_IOS) {
     // background timer to try and restarting BLE service in IOS
     BackgroundTimer.runBackgroundTimer(initBLETracing, config().fetchMilliseconds);
   }
