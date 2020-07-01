@@ -12,6 +12,7 @@ import moment from 'moment';
 import Geohash from 'latlon-geohash';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
 import { updatePointsFromFile, setExposures } from '../../actions/ExposuresActions';
@@ -331,6 +332,13 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
     BackHandler.exitApp();
   };
 
+  const writeBGLocationLogs = async () => {
+    const log = await BackgroundGeolocation.logger.getLog();
+    const path = `${IS_IOS ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath}/locationLog.txt`;
+    await RNFS.writeFile(path, log, 'utf8');
+    Alert.alert('נרשם');
+  };
+
 
   return (
     <View style={styles.container}>
@@ -341,8 +349,9 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-
+      
         <Text style={{ marginVertical: 15, fontSize: 22 }} bold>אֶשׁכּוֹלוֹת</Text>
+
         <View style={styles.buttonWrapper}>
           <Button title="הצלבת clusters מול JSON מאומתים מקובץ" onPress={() => fetchFromFileWithAction(SICK_FILE_TYPE, true)} />
         </View>
@@ -376,7 +385,6 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
           />
         </View>
 
-
         <View style={styles.buttonWrapper}>
           <Button title="טעינת 'דקירות' מקובץ" onPress={() => fetchFromFileWithAction(LOCATIONS_FILE_TYPE)} />
         </View>
@@ -385,7 +393,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         <View style={styles.buttonWrapper}>
           <Button title="טעינת KML מקובץ" onPress={() => fetchFromFileWithAction(KML_FILE_TYPE)} />
         </View>
-        
+
 
         <View style={styles.buttonWrapper}>
           <Button title="הצג 'דקירות'" onPress={() => setShowPopup({ showPopup: true, type: 'locations' })} />
@@ -404,6 +412,12 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
+          <Button title="רשום לוג טרנסיטור" onPress={writeBGLocationLogs} />
+        </View>
+
+        <Text style={{ marginVertical: 15, fontSize: 22 }} bold>העתק</Text>
+
+        <View style={styles.buttonWrapper}>
           <Button title="העתק קובץ קונפיגורציה פעיל" onPress={copyConfig} />
         </View>
 
@@ -418,6 +432,8 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         <View style={styles.buttonWrapper}>
           <Button title="העתק את כל הנתונים" onPress={copyAllData} />
         </View>
+
+        <Text style={{ marginVertical: 15, fontSize: 22 }} bold>נקה</Text>
 
         <View style={styles.buttonWrapper}>
           <Button title="נקה 'דקירות' במהירות גבוהה" onPress={clearHVP} />
