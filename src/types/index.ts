@@ -146,6 +146,8 @@ export interface GeneralReducer {
   showForceTerms: boolean,
   termsVersion: number,
   hideLocationHistory: boolean,
+  enableBle: boolean | null,
+  batteryDisabled: boolean | null,
   showMap: {
     visible: boolean,
     properties?: ExposureProperties,

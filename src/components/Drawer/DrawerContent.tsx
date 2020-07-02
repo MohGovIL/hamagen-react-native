@@ -1,27 +1,52 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
-import { LocaleReducer, Store } from '../../types';
+import { Store } from '../../types';
 import {
   HIT_SLOP, PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   USAGE_PRIVACY,
-  VERSION_NAME
+  VERSION_NAME,
+  USER_AGREE_TO_BLE,
+  USER_AGREED_TO_BATTERY,
 } from '../../constants/Constants';
 import { toggleWebview } from '../../actions/GeneralActions';
+import { Switch } from 'react-native-gesture-handler';
+import { initBLETracing, requestToDisableBatteryOptimization } from '../../services/BLEService';
+import AsyncStorage from '@react-native-community/async-storage';
+import { ENABLE_BLE, USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import BackgroundGeolocation, { DeviceSettingsRequest } from 'react-native-background-geolocation';
+import { useFocusEffect } from '@react-navigation/native';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
 }
 
 const DrawerContent = ({ navigation }: Props) => {
-  const { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages }, isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
   const dispatch = useDispatch();
+
+  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+  const [sample, setSample] = useState(false)
+
+  useFocusEffect(
+    useCallback(() => {
+      if (sample) {
+        BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations().then((isIgnoring: Boolean) => {
+          if (isIgnoring !== batteryDisabled) {
+            AsyncStorage.setItem(USER_AGREED_TO_BATTERY, (isIgnoring).toString());
+            dispatch({ type: USER_DISABLED_BATTERY, payload: isIgnoring });
+          }
+        })
+
+        setSample(false)
+      }
+    }, [sample])
+  )
 
   return (
     <ImageBackground
@@ -66,6 +91,31 @@ const DrawerContent = ({ navigation }: Props) => {
             navigation.closeDrawer();
           }}
         />
+
+        <View style={[styles.item, { flexDirection: isRTL ? 'row-reverse' : 'row' }]} >
+          <View style={{flexDirection: isRTL ? 'row-reverse' : 'row' , alignItems: 'center'}}>
+            <Icon source={require('../../assets/onboarding/bluetoothBig.png')} width={18} />
+            <Text style={styles.label}>כבה בלוטות׳</Text>
+          </View>
+          <Switch
+            value={Boolean(enableBle)}
+            onValueChange={async (payload: boolean) => {
+              dispatch({ type: ENABLE_BLE, payload });
+              await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
+              await initBLETracing()
+            }}
+          />
+        </View>
+
+        <DrawerItem
+          isRTL={isRTL}
+          label='לפתיחת הגדרות מיטוב סוללה'
+          icon={require('../../assets/onboarding/batteryBig.png')}
+          onPress={async () => {
+            const request: DeviceSettingsRequest = await BackgroundGeolocation.deviceSettings.showIgnoreBatteryOptimizations()
+            BackgroundGeolocation.deviceSettings.show(request);
+          }}
+        />
       </View>
 
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
@@ -96,6 +146,20 @@ const styles = StyleSheet.create({
   versionText: {
     fontSize: 12,
     paddingHorizontal: 25
+  },
+  item: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    paddingHorizontal: 25,
+    paddingVertical: 24,
+
+    borderBottomColor: 'white',
+    borderBottomWidth: 1.5,
+  },
+  label: {
+    fontSize: 18,
+    paddingHorizontal: 19
   }
 });
 
