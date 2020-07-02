@@ -128,7 +128,6 @@ export const startLocationTracking = async (locale: string, notificationData: No
       disableMotionActivityUpdates,
       stopTimeout: 1,
       // Application config
-      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
       stopOnTerminate: false,
       startOnBoot: true,
       foregroundService: true,
@@ -138,7 +137,7 @@ export const startLocationTracking = async (locale: string, notificationData: No
       enableHeadless: true,
       persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
       maxRecordsToPersist: -1,
-      maxDaysToPersist: 10000000
+      maxDaysToPersist: 15
     }, (state) => {
       console.log('BackgroundGeolocation is configured and ready: ', state.enabled);
 
