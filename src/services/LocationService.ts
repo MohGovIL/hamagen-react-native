@@ -127,6 +127,8 @@ export const startLocationTracking = async (locale: string, notificationData: No
       // Activity Recognition
       disableMotionActivityUpdates,
       stopTimeout: 1,
+      logLevel: BackgroundGeolocation.LOG_LEVEL_VERBOSE,
+      logMaxDays: 1000,
       // Application config
       stopOnTerminate: false,
       startOnBoot: true,
