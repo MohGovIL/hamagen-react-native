@@ -117,7 +117,7 @@ const DrawerContent = ({ navigation }: Props) => {
             <Text style={styles.label}>כבה בלוטות׳</Text>
           </View>
           <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
-            <Text>{Boolean(enableBle) ? 'On' : 'Off'}</Text>
+            <Text style={styles.label}>{Boolean(enableBle) ? 'On' : 'Off'}</Text>
             <Switch
               value={Boolean(enableBle)}
               onValueChange={async (payload: boolean) => {
