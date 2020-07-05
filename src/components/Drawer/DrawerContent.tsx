@@ -116,15 +116,18 @@ const DrawerContent = ({ navigation }: Props) => {
             <Icon source={require('../../assets/onboarding/bluetoothBig.png')} width={18} />
             <Text style={styles.label}>כבה בלוטות׳</Text>
           </View>
-          <Switch
-            value={Boolean(enableBle)}
-            onValueChange={async (payload: boolean) => {
-              dispatch({ type: ENABLE_BLE, payload });
-              await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
-              await initBLETracing()
-              await log(`Ble service was ${payload ? 'enabled' : 'disabled'}`)
-            }}
-          />
+          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center' }}>
+            <Text>{Boolean(enableBle) ? 'On' : 'Off'}</Text>
+            <Switch
+              value={Boolean(enableBle)}
+              onValueChange={async (payload: boolean) => {
+                dispatch({ type: ENABLE_BLE, payload });
+                await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
+                await initBLETracing()
+                await log(`Ble service was ${payload ? 'enabled' : 'disabled'}`)
+              }}
+            />
+          </View>
         </View>
 
         <DrawerItem
