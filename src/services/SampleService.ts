@@ -21,6 +21,7 @@ import {
   IS_LAST_POINT_FROM_TIMELINE,
   LAST_POINT_START_TIME
 } from '../constants/Constants';
+import { logToFile } from './LogService';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -39,6 +40,9 @@ export const syncLocationsDBOnLocationEvent = () => {
 
       // @ts-ignore
       const rawLocations: Sample[] = await BackgroundGeolocation.getLocations();
+      
+      logToFile(`Location ${rawLocations.length}`, moment().valueOf())
+
       await BackgroundGeolocation.destroyLocations();
 
       const locations = rawLocations.map(location => ({
