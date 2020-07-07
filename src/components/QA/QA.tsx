@@ -15,7 +15,7 @@ import SpecialBle from 'rn-contact-tracing';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import PopupForQA from './PopupForQA';
 import { Icon, TouchableOpacity, Text } from '../common';
-import { updatePointsFromFile, setExposures } from '../../actions/ExposuresActions';
+import { updatePointsFromFile } from '../../actions/ExposuresActions';
 import { checkGeoSickPeople, checkGeoSickPeopleFromFile, queryDB } from '../../services/Tracker';
 import { insertToSampleDB, kmlToGeoJson } from '../../services/LocationHistoryService';
 import { getUserLocationsReadyForServer } from '../../services/DeepLinkService';
@@ -33,11 +33,12 @@ import {
   SERVICE_TRACKER,
   DISMISSED_EXPOSURES
 } from '../../constants/Constants';
+import { toggleLoader } from '../../actions/GeneralActions';
 
 interface Props {
   navigation: any,
   updatePointsFromFile(points: Exposure[]): void,
-  setExposures(exposures: Exposure[]): void
+  toggleLoader(show: boolean): void
 }
 
 const SICK_FILE_TYPE = 1;
@@ -47,11 +48,12 @@ const CLUSTERS_FILE_TYPE = 4;
 const BLE_MATCH_FILE_TYPE = 5;
 const BLE_DB_FILE_TYPE = 6;
 
-const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
+const QA = ({ navigation, updatePointsFromFile, toggleLoader }: Props) => {
   const [{ showPopup, type }, setShowPopup] = useState<{ showPopup: boolean, type: string }>({ showPopup: false, type: '' });
 
   const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
     try {
+      toggleLoader(true)
       const isStoragePermissionGranted = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
       if (isStoragePermissionGranted === RESULTS.GRANTED) {
         await chooseFile(fileType, isClusters);
@@ -181,6 +183,8 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       } else {
         throw error;
       }
+    } finally {
+      toggleLoader(false)
     }
   };
 
@@ -349,7 +353,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
       <Text style={{ marginBottom: 30, fontSize: 25 }} bold>{'תפריט בדיקות נסתר\nלבודק(ת) הנהדר(ת)'}</Text>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-      
+
         <Text style={{ marginVertical: 15, fontSize: 22 }} bold>אֶשׁכּוֹלוֹת</Text>
 
         <View style={styles.buttonWrapper}>
@@ -361,7 +365,7 @@ const QA = ({ navigation, updatePointsFromFile, setExposures }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="טעינת clusters מקובץ" onPress={() => fetchFromFileWithAction(CLUSTERS_FILE_TYPE)} />
+          <Button title="טעינת clusters מקובץ" onPress={() => { fetchFromFileWithAction(CLUSTERS_FILE_TYPE) }} />
         </View>
 
         <View style={styles.buttonWrapper}>
@@ -502,7 +506,7 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch: any) => {
   return bindActionCreators({
     updatePointsFromFile,
-    setExposures
+    toggleLoader
   }, dispatch);
 };
 
