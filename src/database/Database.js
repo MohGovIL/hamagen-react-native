@@ -701,7 +701,7 @@ export class IntersectionSickDatabase {
         const db = await this.initDB();
 
         db.transaction(async (tx) => {
-          const [_, results] = tx.executeSql('UPDATE IntersectingSick SET wasThere = ? WHERE OBJECTID = ?', [record.properties.wasThere, record.properties.OBJECTID]);
+          const [_, results] = await tx.executeSql('UPDATE IntersectingSick SET wasThere = ? WHERE OBJECTID = ?', [record.properties.wasThere, record.properties.OBJECTID]);
 
           if (results.rows.length > 0) {
             resolve(results.rows.item(0));
