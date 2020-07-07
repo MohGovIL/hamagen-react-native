@@ -5,19 +5,21 @@ import { Text } from '.';
 interface Props {
     isRTL: boolean, 
     text: string,
-    color: string
+    color: string,
+    float?: boolean
 }
 
-const CardIdentifyTag: FunctionComponent<Props> = ({ isRTL, text, color }) => (
+const CardIdentifyTag: FunctionComponent<Props> = ({ isRTL, text, color, float = true }) => (
   <View
     style={[{
-      position: 'absolute',
       backgroundColor: color,
       paddingHorizontal: 11,
       paddingVertical: 5
     }, {
+      [isRTL ? 'borderBottomRightRadius' : 'borderBottomLeftRadius']: 13,
+    }, float && {
+      position: 'absolute',
       [isRTL ? 'left' : 'right']: 0,
-      [isRTL ? 'borderBottomRightRadius' : 'borderBottomLeftRadius']: 13
     }]}
   >
     <Text style={{ fontSize: 10 }}>{text}</Text>
