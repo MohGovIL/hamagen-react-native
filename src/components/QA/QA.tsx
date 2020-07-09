@@ -53,7 +53,7 @@ const QA = ({ navigation, updatePointsFromFile, toggleLoader }: Props) => {
 
   const fetchFromFileWithAction = async (fileType: number, isClusters?: boolean) => {
     try {
-      toggleLoader(true)
+      toggleLoader(true);
       const isStoragePermissionGranted = await check(PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE);
       if (isStoragePermissionGranted === RESULTS.GRANTED) {
         await chooseFile(fileType, isClusters);
@@ -184,7 +184,7 @@ const QA = ({ navigation, updatePointsFromFile, toggleLoader }: Props) => {
         throw error;
       }
     } finally {
-      toggleLoader(false)
+      toggleLoader(false);
     }
   };
 
@@ -365,7 +365,7 @@ const QA = ({ navigation, updatePointsFromFile, toggleLoader }: Props) => {
         </View>
 
         <View style={styles.buttonWrapper}>
-          <Button title="טעינת clusters מקובץ" onPress={() => { fetchFromFileWithAction(CLUSTERS_FILE_TYPE) }} />
+          <Button title="טעינת clusters מקובץ" onPress={() => { fetchFromFileWithAction(CLUSTERS_FILE_TYPE); }} />
         </View>
 
         <View style={styles.buttonWrapper}>

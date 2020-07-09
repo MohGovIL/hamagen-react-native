@@ -72,7 +72,13 @@ export const USAGE_PRIVACY = 'USAGE_PRIVACY';
 export const ENABLE_BLE = true;
 export const USER_AGREE_TO_BLE = 'USER_AGREE_TO_BLE';
 export const SUBSCRIBED_TOPIC = 'SUBSCRIBED_TOPIC';
-
+export const BLE_CONFIG = 'BLE_CONFIG';
+export const BLE_DEFAULT_CONFIG_STRING = `{
+  "scanDuration": 60000,
+  "scanInterval": 240000,
+  "advertiseInterval": 50000,
+  "advertiseDuration": 10000
+}`;
 
 // battery optimization
 export const USER_AGREED_TO_BATTERY = 'USER_AGREED_TO_BATTERY';

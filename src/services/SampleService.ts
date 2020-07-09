@@ -41,7 +41,7 @@ export const syncLocationsDBOnLocationEvent = () => {
       // @ts-ignore
       const rawLocations: Sample[] = await BackgroundGeolocation.getLocations();
       
-      logToFile(`Location ${rawLocations.length}`, moment().valueOf())
+      logToFile(`Location ${rawLocations.length}`, moment().valueOf());
 
       await BackgroundGeolocation.destroyLocations();
 

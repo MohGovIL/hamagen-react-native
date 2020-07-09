@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Button, Alert, ScrollView, Platform } from 'react-native';
+import { View, StyleSheet, Button, Alert, ScrollView, Platform, } from 'react-native';
 import { connect } from 'react-redux';
 import DocumentPicker from 'react-native-document-picker';
 import DeviceInfo from 'react-native-device-info';
@@ -18,6 +18,7 @@ import { onError } from '../../services/ErrorService';
 import { Exposure } from '../../types';
 import { IS_IOS, PADDING_BOTTOM, PADDING_TOP, SCREEN_WIDTH, MAIN_COLOR, } from '../../constants/Constants';
 import PopupForBLE from './PopupForBLE';
+import BLEConf from './BLEConfigure';
 
 interface Props {
   navigation: any,
@@ -233,7 +234,9 @@ const QABle = ({ navigation }: Props) => {
           <View style={styles.buttonWrapper}>
             <Button title="שתף שידורי BLE" onPress={() => SpecialBle.exportAdvertiseAsCSV()} />
           </View>
+
         )}
+        <BLEConf />
         <View style={{ width: SCREEN_WIDTH, height: 2, backgroundColor: MAIN_COLOR, marginBottom: 10 }} />
         <Text style={[styles.buttonWrapper, { fontSize: 25, color: 'red' }]} bold>נקה!</Text>
 

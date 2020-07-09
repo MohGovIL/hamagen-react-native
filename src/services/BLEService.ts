@@ -2,10 +2,11 @@ import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import { IS_IOS, ENABLE_BLE, USER_AGREE_TO_BLE } from '../constants/Constants';
+import { IS_IOS, ENABLE_BLE, USER_AGREE_TO_BLE, BLE_DEFAULT_CONFIG_STRING, BLE_CONFIG } from '../constants/Constants';
 import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
 import config from '../config/config';
+import log from './LogService';
 // import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
@@ -13,20 +14,14 @@ export const initBLETracing = () => new Promise(async (resolve) => {
   if (ENABLE_BLE && userAgreed === 'true') {
     try {
       const UUID = '00000000-0000-1000-8000-00805F9B34FB';
+      const userConfigStr: string = await AsyncStorage.getItem(BLE_CONFIG) || BLE_DEFAULT_CONFIG_STRING;
 
-      // TODO move to config
-      let config: any = {
-        serviceUUID: UUID,
-        scanDuration: 60000,
-        scanInterval: 240000,
-        advertiseInterval: 50000,
-        advertiseDuration: 10000,
-        token: 'default_token'
-      };
-
+      const userConfig = JSON.parse(userConfigStr);
+      
       if (!IS_IOS) {
-        config = {
-          ...config,
+        const config: any = {
+          serviceUUID: UUID,
+          token: 'default_token',
           advertiseMode: 0,
           advertiseTXPowerLevel: 3,
           scanMatchMode: 1,
@@ -34,11 +29,12 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationContent: 'סריקת BLE פועלת',
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',
-          disableBatteryOptimization: false
+          disableBatteryOptimization: false,
+          ...userConfig
         };
+        await SpecialBle.setConfig(config);
       }
-      
-      await SpecialBle.setConfig(config);
+
       await SpecialBle.startBLEService();
 
       resolve();
