@@ -92,3 +92,5 @@ export const match = async () => new Promise(async (resolve) => {
 });
 
 export const { askToDisableBatteryOptimization } = SpecialBle;
+
+export const { stopBLEService } = SpecialBle;

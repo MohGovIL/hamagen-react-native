@@ -5,24 +5,34 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Text } from '../common';
 import { SCREEN_WIDTH, MAIN_COLOR, PADDING_TOP, BLE_CONFIG, BLE_DEFAULT_CONFIG_STRING, } from '../../constants/Constants';
 import { onError } from '../../services/ErrorService';
-import { initBLETracing } from '../../services/BLEService';
+import { initBLETracing, stopBLEService } from '../../services/BLEService';
 import log from '../../services/LogService';
 
 const BLE_DEFAULT_CONFIG = JSON.parse(BLE_DEFAULT_CONFIG_STRING);
 
+// check if config was not changed
+const isEqual = (objA: any, objB: any) => Object.keys(objA).every(key => objA[key] === objB[key]);
+
 const BLEConf = () => {
   const [config, setConfig] = useState(BLE_DEFAULT_CONFIG);
+  const [originalConfig, setOriginalConfig] = useState(BLE_DEFAULT_CONFIG);
   const canCommit = useMemo(() => {
+    console.log('originalConfig', originalConfig);
+    const areSame = isEqual(config, originalConfig);
+
+    if (areSame) return false;
+
     for (const key in config) {
       if (typeof config[key] !== 'number') return false;
     }
     return true;
-  }, [config]);
+  }, [config, originalConfig]);
 
   useEffect(() => {
     AsyncStorage.getItem(BLE_CONFIG).then((res) => {
       if (res) {
         setConfig(JSON.parse(res));
+        setOriginalConfig(JSON.parse(res));
       }
     }).catch((error) => {
       onError({ error });
@@ -32,6 +42,7 @@ const BLEConf = () => {
   const commitConfig = async () => {
     try {
       await AsyncStorage.setItem(BLE_CONFIG, JSON.stringify(config));
+      await stopBLEService();
       await initBLETracing();
             
       ToastAndroid.showWithGravity(
