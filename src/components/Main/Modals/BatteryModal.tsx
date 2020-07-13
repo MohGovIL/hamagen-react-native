@@ -3,10 +3,10 @@ import { View, StyleSheet, BackHandler } from 'react-native';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { HeaderButton } from '../common';
-import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREED_TO_BATTERY } from '../../constants/Constants';
-import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
-import BatteryPermission from '../common/BatteryPermission';
+import { HeaderButton } from '../../common';
+import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREED_TO_BATTERY } from '../../../constants/Constants';
+import { USER_DISABLED_BATTERY } from '../../../constants/ActionTypes';
+import BatteryPermission from '../../common/BatteryPermission';
 
 interface Props {
   navigation: StackNavigationProp<any, 'BatteryModal'>

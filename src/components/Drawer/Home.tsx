@@ -16,13 +16,16 @@ import ExposureRelief from '../Main/ExposureRelief';
 import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
-import BluetoothModal from '../Main/BluetoothModal';
-import BatteryModal from '../Main/BatteryModal';
-import ShareLocations from '../ShareLocations/ShareLocations';
-import { LocaleReducer, ExposuresReducer, Store, Exposure } from '../../types';
-import MapModal from '../Main/MapModal';
 import QA from '../QA/QA';
 import QABle from '../QA/QABLE';
+import BluetoothModal from '../Main/Modals/BluetoothModal';
+import ShareLocations from '../ShareLocations/ShareLocations';
+import MapModal from '../Main/Modals/MapModal';
+import BatteryModal from '../Main/Modals/BatteryModal';
+import BatterySettings from '../Main/Settings/BatterySettings';
+
+import { LocaleReducer, ExposuresReducer, Store } from '../../types';
+import BluetoothSettings from '../Main/Settings/BluetoothSettings';
 
 const Stack = createStackNavigator();
 
@@ -36,7 +39,7 @@ interface DrawerStackProps {
 const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
   const { exposures } = useSelector<Store, ExposuresReducer>(state => state.exposures);
   const [initialRouteName, setInitialRouteName] = useState('');
-  const [showBLEPermission, setBLEPermission] = useState(undefined);
+  const [showBLEPermission] = useState(undefined);
 
 
   useEffect(() => {
@@ -71,7 +74,9 @@ const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Bluetooth" component={BluetoothModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="BluetoothSettings" component={BluetoothSettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Battery" component={BatteryModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
+      <Stack.Screen name="BatterySettings" component={BatterySettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
     </Stack.Navigator>
   );
 };

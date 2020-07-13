@@ -146,6 +146,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     if (state === 'active' && appStateStatus.current !== 'active') {
       checkIfHideLocationHistory();
       checkConnectionStatusOnLoad();
+      checkIfBatteryDisabled();
     }
 
     appStateStatus.current = state;
