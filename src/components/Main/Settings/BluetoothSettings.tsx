@@ -18,89 +18,88 @@ interface Props {
 }
 
 const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
-    // const [userPressed,setUserPressed] = useState(false)
-    const dispatch = useDispatch();
-    const { isRTL, strings: {
-        bluetoothSettings: { title, description, recommendation, BLEOn, BLEOff }
-    } } = useSelector<Store, LocaleReducer>(state => state.locale);
-    const { enableBle } = useSelector<Store, GeneralReducer>(state => state.general);
+  // const [userPressed,setUserPressed] = useState(false)
+  const dispatch = useDispatch();
+  const { isRTL, strings: {
+    bluetoothSettings: { title, description, recommendation, BLEOn, BLEOff }
+  } } = useSelector<Store, LocaleReducer>(state => state.locale);
+  const { enableBle } = useSelector<Store, GeneralReducer>(state => state.general);
 
 
-    return (
-        <View style={[styles.container]}>
-            <HeaderButton onPress={navigation.goBack} />
-            <View style={{ alignItems: 'center', }}>
+  return (
+    <View style={[styles.container]}>
+      <HeaderButton onPress={navigation.goBack} />
+      <View style={{ alignItems: 'center', }}>
 
-                <Icon
-                    width={106}
-                    customStyles={{ marginBottom: 20 }}
-                    source={require('../../../assets/onboarding/bluetoothBig.png')}
-                />
+        <Icon
+          width={106}
+          customStyles={{ marginBottom: 20 }}
+          source={require('../../../assets/onboarding/bluetoothBig.png')}
+        />
 
-                <Text style={styles.title} bold>{title}</Text>
-                <Text style={styles.description}>{description}</Text>
-                <Text style={{ fontSize: 16, color: 'rgb(98,98,98)', lineHeight: 24, }} bold>{recommendation}</Text>
+        <Text style={styles.title} bold>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <Text style={{ fontSize: 16, color: 'rgb(98,98,98)', lineHeight: 24, }} bold>{recommendation}</Text>
 
-            </View>
+      </View>
 
-            <View
-                style={[{
-                    ...BASIC_SHADOW_STYLES,
-                    paddingVertical: IS_SMALL_SCREEN ? 16 : 24,
-                    paddingHorizontal: IS_SMALL_SCREEN ? 8 : 16,
-                    borderRadius: 13,
-                    flexDirection: isRTL ? 'row-reverse' : 'row',
-                    justifyContent: 'space-between',
-                    alignItems:'center'
-                }]}
-            >
+      <View
+        style={[{
+          ...BASIC_SHADOW_STYLES,
+          paddingVertical: IS_SMALL_SCREEN ? 16 : 24,
+          paddingHorizontal: IS_SMALL_SCREEN ? 8 : 16,
+          borderRadius: 13,
+          flexDirection: isRTL ? 'row-reverse' : 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }]}
+      >
 
-                    <Text style={{ flex:1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn :BLEOff}</Text>
-                    <Switch 
-                    value={Boolean(enableBle)} 
-                    onValueChange={async (payload: boolean) => {
-                        dispatch({ type: ENABLE_BLE, payload });
-                        await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
-                        await initBLETracing()
-                        navigation.goBack()
-                      }}
-                      />
+        <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn : BLEOff}</Text>
+        <Switch 
+          value={Boolean(enableBle)} 
+          onValueChange={async (payload: boolean) => {
+            dispatch({ type: ENABLE_BLE, payload });
+            await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
+            await initBLETracing();
+          }}
+        />
 
-            </View>
+      </View>
 
-        </View>
+    </View>
 
 
-    );
+  );
 };
 // 'rgb(195,219,110)' : 'rgb(255,130,130)'
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-        alignContent: 'center',
-        paddingHorizontal: IS_SMALL_SCREEN ? 30 : 40,
-        backgroundColor: WHITE
-    },
-    title: {
-        fontSize: 22,
-        marginBottom: 25
-    },
-    description: {
-        lineHeight: 24,
-        marginBottom: 25,
-        color: 'rgb(109,109,109)'
-    },
-    callToAction: {
-        lineHeight: 22,
-        color: '#4d4d4d'
-    },
-    dot: {
-        width: 14,
-        height: 14,
-        borderRadius: 14,
+  container: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+    alignContent: 'center',
+    paddingHorizontal: IS_SMALL_SCREEN ? 30 : 40,
+    backgroundColor: WHITE
+  },
+  title: {
+    fontSize: 22,
+    marginBottom: 25
+  },
+  description: {
+    lineHeight: 24,
+    marginBottom: 25,
+    color: 'rgb(109,109,109)'
+  },
+  callToAction: {
+    lineHeight: 22,
+    color: '#4d4d4d'
+  },
+  dot: {
+    width: 14,
+    height: 14,
+    borderRadius: 14,
 
-    }
+  }
 });
 
 export default BluetoothSettings;

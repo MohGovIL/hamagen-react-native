@@ -1834,12 +1834,11 @@
       "settingsBtn": "Paramètres d'optimisation de la batterie"
     }, 
     "bluetoothSettings": {
-      "title": "Définitions des glandes",
+      "title": "Paramètres Bluetooth",
       "description": "Avec Bluetooth, vous pouvez rester proche des patients Corona autour de vous.",
-      "recommendation": "Il est recommandé de désactiver l'optimisation de la batterie pour l'application de protection afin de s'assurer que l'application fonctionne en continu",
-      "batteryOptimizationOn": "Optimisation de la batterie désactivée - Paramètres de batterie optimaux pour le protecteur. excellent!",
-      "batteryOptimizationOff": "L'optimisation de la batterie fonctionne - vous devez la désactiver",
-      "settingsBtn": "Paramètres d'optimisation de la batterie"
+      "recommendation": "Nous vous recommandons d'activer les services Bluetooth pour l'application Protector afin que nous puissions mieux vous protéger",
+      "BLEOn": "Génial, votre Bluetooth fonctionne pour l'application Protector",
+      "BLEOff": "Votre Bluetooth ne fonctionne pas - vous devez l'activer"
     }
   }
 }
