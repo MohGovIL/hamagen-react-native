@@ -360,7 +360,7 @@
     },
     "menu": {
       "battery": {
-        "label":  "מיטוב סוללה",
+        "label": "מיטוב סוללה",
         "batteryNotOptimized": "מיטוב הסוללה פועל -\nכדאי לבטל אותו",
         "batteryOptimized": "מיטוב הסוללה מבוטל - הגדרות הסוללה אופטימליות להמגן. מצוין!" 
       },
@@ -651,7 +651,7 @@
     },
     "menu": {
       "battery": {
-        "label":  "تحسين البطارية",
+        "label": "تحسين البطارية",
         "batteryNotOptimized": "تحسين البطارية قيد التشغيل - \ n يجب إيقاف تشغيله",
         "batteryOptimized": "تم تعطيل تحسين البطارية - إعدادات البطارية المثلى للحماية. ممتاز!" 
       },
@@ -942,7 +942,7 @@
     },
     "menu": {
       "battery": {
-        "label":  "Battery optimization",
+        "label": "Battery optimization",
         "batteryNotOptimized": "Battery optimization works -\nYou should disable it",
         "batteryOptimized": "Battery optimization disabled - Optimal battery settings to protect. excellent!" 
       },
@@ -1524,7 +1524,7 @@
     },
     "menu": {
       "battery": {
-        "label":  "ባትሪ ማትባት",
+        "label": "ባትሪ ማትባት",
         "batteryNotOptimized": "የባትሪ ማመቻቸት ይሰራል -\n ማጥፋት አለብዎት",
         "batteryOptimized": "ባትሪ ማትባት ተሰናክሏል - ለመጠበቅ ጥሩ የባትሪ ቅንጅቶች ፡፡ በጣም ጥሩ!" 
       },
