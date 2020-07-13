@@ -29,7 +29,7 @@ interface Props {
 const DrawerContent = ({ navigation }: Props) => {
   const dispatch = useDispatch();
 
-  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery, bluetooth } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
   const [sample, setSample] = useState(false);
 
   useFocusEffect(
@@ -84,22 +84,10 @@ const DrawerContent = ({ navigation }: Props) => {
         <DrawerItem
           isRTL={isRTL}
           icon={require('../../assets/onboarding/bluetoothBig.png')}
-          label={enableBle ? 'BLE דולק' : 'BLE כבוי'}
-          onPress={() => {}}
-        />
-
-        {!IS_IOS && (
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/main/batteryMenu.png')}
-          iconSize={24}
-          onPress={() => {
-            navigation.navigate('BatterySettings');
-          }}
-          style={{ alignItems: 'flex-start' }}
+          
           label={(
             <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
-              <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{battery.label}</Text>
+              <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{bluetooth.label}</Text>
               <View style={{
                 flexDirection: isRTL ? 'row-reverse' : 'row',
                 marginTop: IS_SMALL_SCREEN ? 5 : 8,
@@ -107,19 +95,52 @@ const DrawerContent = ({ navigation }: Props) => {
               }}
               >
                 <View style={{
-                  backgroundColor: batteryDisabled ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
+                  backgroundColor: enableBle ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
                   width: 10,
                   height: 10,
                   borderRadius: 10,
                   marginTop: 5
                 }}
                 />
-                <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
+                <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
               </View>
             </View>
-          )
-          }
+          )}
+          onPress={() => navigation.navigate('BluetoothSettings')}
         />
+
+        {!IS_IOS && (
+          <DrawerItem
+            isRTL={isRTL}
+            icon={require('../../assets/main/batteryMenu.png')}
+            iconSize={24}
+            onPress={() => {
+              navigation.navigate('BatterySettings');
+            }}
+            style={{ alignItems: 'flex-start' }}
+            label={(
+              <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
+                <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{battery.label}</Text>
+                <View style={{
+                  flexDirection: isRTL ? 'row-reverse' : 'row',
+                  marginTop: IS_SMALL_SCREEN ? 5 : 8,
+                  [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85
+                }}
+                >
+                  <View style={{
+                    backgroundColor: batteryDisabled ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
+                    width: 10,
+                    height: 10,
+                    borderRadius: 10,
+                    marginTop: 5
+                  }}
+                  />
+                  <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
+                </View>
+              </View>
+            )
+            }
+          />
         )}
 
         <DrawerItem

@@ -23,6 +23,7 @@ import BatteryModal from '../Main/Modals/BatteryModal';
 import BatterySettings from '../Main/Settings/BatterySettings';
 
 import { LocaleReducer, ExposuresReducer, Store } from '../../types';
+import BluetoothSettings from '../Main/Settings/BluetoothSettings';
 
 const Stack = createStackNavigator();
 
@@ -68,6 +69,7 @@ const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
       <Stack.Screen name="ExposuresHistoryEdit" component={ExposuresHistoryEdit} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="ExposureHistoryRelief" component={ExposureHistoryRelief} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Bluetooth" component={BluetoothModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="BluetoothSettings" component={BluetoothSettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Battery" component={BatteryModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
       <Stack.Screen name="BatterySettings" component={BatterySettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
     </Stack.Navigator>
