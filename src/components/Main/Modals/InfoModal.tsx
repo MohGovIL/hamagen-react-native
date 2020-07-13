@@ -1,9 +1,8 @@
-import React, { useState, useMemo, useImperativeHandle } from 'react';
+import React from 'react';
 import { View, ImageBackground, TouchableWithoutFeedback, StyleSheet, Modal } from 'react-native';
-import moment from 'moment';
-import { Text, Icon, TouchableOpacity } from '../common';
-import { HIT_SLOP, SCREEN_WIDTH } from '../../constants/Constants';
-import { Strings } from '../../locale/LocaleData';
+import { Text, Icon, TouchableOpacity } from '../../common';
+import { HIT_SLOP, SCREEN_WIDTH } from '../../../constants/Constants';
+import { Strings } from '../../../locale/LocaleData';
 
 
 const MODAL_MARGIN = 26;
@@ -37,14 +36,14 @@ const InfoModal = ({ strings, firstPointDate, closeModal, showModal }: InfoModal
         <ImageBackground
           resizeMode="cover"
           style={styles.imageContainer}
-          source={require('../../assets/main/infoModalBG.png')}
+          source={require('../../../assets/main/infoModalBG.png')}
         >
           <View style={[styles.container]}>
             <TouchableOpacity style={styles.closeBtnContainer} hitSlop={HIT_SLOP} onPress={closeModal}>
-              <Icon source={require('../../assets/onboarding/close.png')} width={19} />
+              <Icon source={require('../../../assets/onboarding/close.png')} width={19} />
             </TouchableOpacity>
             <Icon
-              source={require('../../assets/main/moreInfoBig.png')}
+              source={require('../../../assets/main/moreInfoBig.png')}
               width={31}
               customStyles={styles.infoIcon}
             />

@@ -5,7 +5,7 @@ import BTManager from 'react-native-bluetooth-state-manager';
 import LottieView from 'lottie-react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import InfoBubble from './InfoBubble';
-import InfoModal from './InfoModal';
+import InfoModal from './Modals/InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';

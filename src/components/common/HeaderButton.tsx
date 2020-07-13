@@ -6,11 +6,11 @@ import { LocaleReducer, Store } from '../../types';
 import { IS_SMALL_SCREEN, PADDING_TOP, HIT_SLOP } from '../../constants/Constants';
 
 interface Props {
-  type: 'close'|'back',
+  type?: 'close'|'back',
   onPress(): void
 }
 
-const HeaderButton = ({ type, onPress }: Props) => {
+const HeaderButton = ({ type = 'back', onPress }: Props) => {
   const { isRTL, strings: { general: { close } } } = useSelector<Store, LocaleReducer>(state => state.locale);
 
   return (
