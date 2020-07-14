@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Icon, Text, TouchableOpacity } from '../common';
 import { type } from 'os';
@@ -13,12 +13,16 @@ interface Props {
 }
 
 const DrawerItem: FunctionComponent<Props> = ({ isRTL, icon, iconSize= 18, label, style, onPress, children }) => {
-  let LabelComponent = null
-  if (React.isValidElement(label)) {
-    LabelComponent = label
-  } else if (typeof label === 'string') {
-    LabelComponent = <Text style={styles.label}>{label}</Text>
-  }
+  const LabelComponent = useMemo(() => {
+    if (React.isValidElement(label)) {
+      return label
+    } else if (typeof label === 'string') {
+      return <Text style={styles.label}>{label}</Text>
+    }
+    return null
+  },[label])
+  
+  
 
 
   return (

@@ -57,6 +57,9 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
 
         <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn : BLEOff}</Text>
         <Switch 
+        thumbColor={enableBle ? MAIN_COLOR : WHITE}
+        trackColor={{ true: "rgb(145,199,231)", false:"rgb(190,190,190" }}
+          style={{[isRTL ? 'marginRight' : 'marginLeft']: 10}}
           value={Boolean(enableBle)} 
           onValueChange={async (payload: boolean) => {
             dispatch({ type: ENABLE_BLE, payload });
@@ -66,7 +69,6 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
         />
 
       </View>
-
     </View>
 
 
