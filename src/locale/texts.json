@@ -359,15 +359,18 @@
       "historyBackBtn": "חזרה להיסטוריית חפיפה"
     },
     "menu": {
+      "settings": {
+        "label": "הגדרות"
+      },
       "battery": {
         "label": "מיטוב סוללה",
         "batteryNotOptimized": "מיטוב הסוללה פועל -\nכדאי לבטל אותו",
         "batteryOptimized": "מיטוב הסוללה מבוטל - הגדרות הסוללה אופטימליות להמגן. מצוין!" 
       },
       "bluetooth": {
-        "label": "שינוי הגדרות בלוטות׳",
-        "BLEOn": "מצויין, הבלוטות׳ שלך פועל עבור אפליקציית המגן",
-        "BLEOff": "הבלוטות׳ שלך לא פועל - כדאי להפעיל אותו"
+        "label": "בלוטות׳",
+        "BLEOn": "הבלוטות׳ שלך פועל עבור המגן. מצוין!",
+        "BLEOff": "הבלוטות׳ שלך לא פועל עבור המגן - כדאי להפעיל אותו"
       }
     },
     "batterySettings": {
@@ -379,11 +382,11 @@
       "settingsBtn": "הגדרות מיטוב סוללה"
     }, 
     "bluetoothSettings": {
-      "title": "הגדרות בלוטות'",
-      "description": "בעזרת בלוטות׳ אפשר לשהות קרבה למכשירי טלפון של חולי קורונה בסביבתך.",
+      "title": "הגדרות בלוטות׳",
+      "description": "בעזרת בלוטות׳ אפשר לזהות קרבה למכשירי טלפון של חולי קורונה בסביבתך. ניתן לשלוט בהגדרות הבלוטות׳ ולהחליט עבור אילו אפליקציות יופעל השירות",
       "recommendation": "מומלץ להפעיל את שירותי הבלוטות׳ עבור אפליקציית המגן, כדי שנוכל לשמור עלייך טוב יותר",
-      "BLEOn": "מצויין, הבלוטות׳ שלך פועל עבור אפליקצית המגן",
-      "BLEOff": "הבלוטות׳ שלך לא פועל - כדאי להפעיל אותו"
+      "BLEOn": "מצוין! הבלוטות׳ שלך פועל עבור המגן",
+      "BLEOff": "הבלוטות׳ שלך לא פועל עבור המגן - כדאי להפעיל אותו"
     }
   },
   "ar": {
@@ -650,15 +653,18 @@
       "historyBackBtn": "العودة إلى تاريخ التماس "
     },
     "menu": {
+      "settings": {
+        "label": "اعدادات"
+      },
       "battery": {
         "label": "تحسين البطارية",
         "batteryNotOptimized": "تحسين البطارية قيد التشغيل - \ n يجب إيقاف تشغيله",
         "batteryOptimized": "تم تعطيل تحسين البطارية - إعدادات البطارية المثلى للحماية. ممتاز!" 
       },
       "bluetooth": {
-        "label": "قم بتغيير إعدادات Bluetooth",
-        "BLEOn": "رائع ، يعمل البلوتوث الخاص بك لتطبيق حامي",
-        "BLEOff": "البلوتوث الخاص بك لا يعمل - يجب عليك تشغيله"
+        "label": "بلوتوث",
+        "BLEOn": "يعمل البلوتوث الخاص بك للدرع. ممتاز!",
+        "BLEOff": "لا يعمل البلوتوث الخاص بك للدرع - يجب عليك تشغيله"
       }
     },
     "batterySettings": {
@@ -671,10 +677,10 @@
     }, 
     "bluetoothSettings": {
       "title": "إعدادات البلوتوث",
-      "description": "بمساعدة البلوتوث ، من الممكن البقاء بالقرب من هواتف مرضى كورونا في منطقتك.",
-      "recommendation": "نوصي بتفعيل خدمات البلوتوث لتطبيق الحماية حتى نتمكن من إبقائك أفضل",
-      "BLEOn": "رائع ، يعمل البلوتوث الخاص بك لتطبيق حامي",
-      "BLEOff": "البلوتوث الخاص بك لا يعمل - يجب عليك تشغيله"
+      "description": "بمساعدة البلوتوث ، من الممكن تحديد القرب من هواتف مرضى كورونا في منطقتك. يمكنك التحكم في إعدادات Bluetooth وتحديد التطبيقات التي سيتم تشغيل الخدمة لها",
+      "recommendation": "نوصيك بتمكين خدمات Bluetooth لتطبيق Protector حتى نتمكن من حمايتك بشكل أفضل",
+      "BLEOn": "ممتاز! يعمل البلوتوث الخاص بك للدرع",
+      "BLEOff": "لا يعمل البلوتوث الخاص بك للدرع - يجب عليك تشغيله"
     }
   },
   "en": {
@@ -941,15 +947,18 @@
       "historyBackBtn": "Return to overlap history"
     },
     "menu": {
+      "settings": {
+        "label": "Settings"
+      },
       "battery": {
         "label": "Battery optimization",
         "batteryNotOptimized": "Battery optimization works -\nYou should disable it",
         "batteryOptimized": "Battery optimization disabled - Optimal battery settings to protect. excellent!" 
       },
       "bluetooth": {
-        "label": "Change Bluetooth settings",
-        "BLEOn": "Great, your Bluetooth is working for the Protector app",
-        "BLEOff": "Your Bluetooth is not working - you should turn it on"
+        "label": "Bluetooth",
+        "BLEOn": "Your Bluetooth works for the shield. excellent!",
+        "BLEOff": "Your Bluetooth does not work for the shield - you should turn it on"
       }
     },
     "batterySettings": {
@@ -962,10 +971,10 @@
     }, 
     "bluetoothSettings": {
       "title": "Bluetooth settings",
-      "description": "With Bluetooth, you can stay close to Corona patients around you.",
+      "description": "With the help of Bluetooth, it is possible to identify proximity to the telephones of Corona patients in your area. You can control the Bluetooth settings and decide for which applications the service will run",
       "recommendation": "We recommend that you enable Bluetooth services for the Protector app so that we can better protect you",
-      "BLEOn": "Great, your bluetooth works for the protective app",
-      "BLEOff": "Your Bluetooth is not working - you should turn it on"
+      "BLEOn": "excellent! Your Bluetooth works for the shield",
+      "BLEOff": "Your Bluetooth does not work for the shield - you should turn it on"
     }
   },
   "ru": {
@@ -1232,15 +1241,18 @@
       "historyBackBtn": "Вернуться к истории точек соприкосновения"
     },
     "menu": {
+      "settings": {
+        "label": "Определения"
+      },
       "battery": {
         "label": "Оптимизация батареи",
         "batteryNotOptimized": "Оптимизация батареи работает -\nЕсли вы должны выключить его",
         "batteryOptimized": "Оптимизация батареи отключена - оптимальные настройки батареи для защиты. превосходно!" 
       },
       "bluetooth": {
-        "label": "Изменить настройки Bluetooth",
-        "BLEOn": "Отлично, ваш Bluetooth работает для приложения Protector",
-        "BLEOff": "Ваша железа не работает - вы должны запустить его"
+        "label": "Bluetooth",
+        "BLEOn": "Ваш Bluetooth работает на щит. превосходно!",
+        "BLEOff": "Ваш Bluetooth не работает для экрана - вы должны включить его"
       }
     },
     "batterySettings": {
@@ -1253,10 +1265,10 @@
     }, 
     "bluetoothSettings": {
       "title": "Настройки Bluetooth",
-      "description": "С Bluetooth вы можете быть рядом с пациентами Corona.",
-      "recommendation": "Мы рекомендуем активировать службы Bluetooth для защитного приложения, чтобы мы могли лучше вас поддерживать",
-      "BLEOn": "Отлично, ваш Bluetooth работает для приложения Protector",
-      "BLEOff": "Ваша железа не работает - вы должны запустить его"
+      "description": "С помощью Bluetooth можно определить близость к телефонам пациентов Corona в вашем районе. Вы можете управлять настройками Bluetooth и решать, для каких приложений будет работать служба",
+      "recommendation": "Мы рекомендуем вам включить службы Bluetooth для приложения Protector, чтобы мы могли лучше защитить вас",
+      "BLEOn": "превосходно! Ваш Bluetooth работает на щит",
+      "BLEOff": "Ваш Bluetooth не работает для экрана - вы должны включить его"
     }
   },
   "am": {
@@ -1523,15 +1535,18 @@
       "historyBackBtn": "ወደ መደራረብ ታሪክ ይመለሱ"
     },
     "menu": {
+      "settings": {
+        "label": "ትርጓሜዎች"
+      },
       "battery": {
         "label": "ባትሪ ማትባት",
         "batteryNotOptimized": "የባትሪ ማመቻቸት ይሰራል -\n ማጥፋት አለብዎት",
         "batteryOptimized": "ባትሪ ማትባት ተሰናክሏል - ለመጠበቅ ጥሩ የባትሪ ቅንጅቶች ፡፡ በጣም ጥሩ!" 
       },
       "bluetooth": {
-        "label": "የብሉቱዝ ቅንብሮችን ይቀይሩ",
-        "BLEOn": "ጥሩ ፣ ብሉቱዝዎ ለለላ መተግበሪያ እየሰራ ነው",
-        "BLEOff": "የእርስዎ ብሉቱዝ እየሰራ አይደለም - ማብራት አለብዎት"
+        "label": "ብሉቱዝ",
+        "BLEOn": "ብሉቱዝዎ ለጋሻው ይሠራል። በጣም ጥሩ!",
+        "BLEOff": "ብሉቱዝዎ ለጋሻው አይሰራም - ማብራት አለብዎት"
       }
     },
     "batterySettings": {
@@ -1544,10 +1559,10 @@
     }, 
     "bluetoothSettings": {
       "title": "የብሉቱዝ ቅንብሮች",
-      "description": "በብሉቱዝ እርዳታ በአከባቢዎ ከሚገኙት የኮሮና ህመምተኞች የስልክ ጥሪ ቅርብ መሆን ይቻላል ፡፡",
+      "description": "በብሉቱዝ እገዛ በአከባቢዎ ለሚገኙት የኮሮና ህመምተኞች የቴሌፎን ቅርበት ቅርበት መለየት ይቻላል ፡፡ የብሉቱዝ ቅንብሮችን በመቆጣጠር አገልግሎቱ የትኞቹን መተግበሪያዎች እንደሚሰራ መወሰን ይችላሉ",
       "recommendation": "እኛ እርስዎን በተሻለ ለመጠበቅ እኛ የብሉቱዝ አገልግሎቶችን ለለላ መተግበሪያን እንዲያነቁ እንመክርዎታለን",
-      "BLEOn": "ጥሩ ፣ ብሉቱዝዎ ለለላ መተግበሪያ እየሰራ ነው",
-      "BLEOff": "የእርስዎ ብሉቱዝ እየሰራ አይደለም - ማብራት አለብዎት"
+      "BLEOn": "በጣም ጥሩ! ብሉቱዝዎ ለጋሻው ይሠራል",
+      "BLEOff": "ብሉቱዝዎ ለጋሻው አይሰራም - ማብራት አለብዎት"
     }
   },
   "fr": {
@@ -1814,15 +1829,18 @@
       "historyBackBtn": "Retour à l'historique des chevauchements "
     },
     "menu": {
+      "settings": {
+        "label": "Définitions"
+      },
       "battery": {
         "label": "Optimisation de la batterie",
         "batteryNotOptimized": "L'optimisation de la batterie fonctionne -\nSi vous devez la désactiver",
         "batteryOptimized": "Optimisation de la batterie désactivée - Paramètres de batterie optimaux à protéger. excellent!" 
       },
       "bluetooth": {
-        "label": "Modifier les paramètres Bluetooth",
-        "BLEOn": "Super, votre bluetooth fonctionne pour l'application de protection",
-        "BLEOff": "Votre Bluetooth ne fonctionne pas - vous devez l'activer"
+        "label": "Bluetooth",
+        "BLEOn": "Votre Bluetooth fonctionne pour le bouclier. excellent!",
+        "BLEOff": "Votre Bluetooth ne fonctionne pas pour le bouclier - vous devez l'activer"
       }
     },
     "batterySettings": {
@@ -1835,10 +1853,10 @@
     }, 
     "bluetoothSettings": {
       "title": "Paramètres Bluetooth",
-      "description": "Avec Bluetooth, vous pouvez rester proche des patients Corona autour de vous.",
+      "description": "Avec l'aide de Bluetooth, il est possible d'identifier la proximité des téléphones des patients Corona dans votre région. Vous pouvez contrôler les paramètres Bluetooth et décider pour quelles applications le service s'exécutera",
       "recommendation": "Nous vous recommandons d'activer les services Bluetooth pour l'application Protector afin que nous puissions mieux vous protéger",
-      "BLEOn": "Génial, votre Bluetooth fonctionne pour l'application Protector",
-      "BLEOff": "Votre Bluetooth ne fonctionne pas - vous devez l'activer"
+      "BLEOn": "excellent! Votre Bluetooth fonctionne pour le bouclier",
+      "BLEOff": "Votre Bluetooth ne fonctionne pas pour le bouclier - vous devez l'activer"
     }
   }
 }

@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import { ImageBackground, StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
+
+import { DrawerNavigationProp, useIsDrawerOpen } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundGeolocation, { DeviceSettingsRequest } from 'react-native-background-geolocation';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import { useFocusEffect } from '@react-navigation/native';
 import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
@@ -21,6 +22,9 @@ import {
 } from '../../constants/Constants';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import SettingsDrawerContent from './SettingsDrawerContent';
+import HomeDrawerContent from './HomeDrawerContent';
+
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
@@ -30,23 +34,22 @@ const DrawerContent = ({ navigation }: Props) => {
   const dispatch = useDispatch();
 
   const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery, bluetooth } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
-  const [sample, setSample] = useState(false);
+  const translateX = useMemo(() => new Animated.Value(0), [])
+  const [showSettings, setShowSettings] = useState(false)
+  const isDrawerOpen = useIsDrawerOpen();
+  useEffect(() => {
+    if(!isDrawerOpen) {
+      setShowSettings(false)
+    }
+  }, [isDrawerOpen]);
 
-  useFocusEffect(
-    useCallback(() => {
-      if (sample) {
-        BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations().then((isIgnoring: Boolean) => {
-          if (isIgnoring !== batteryDisabled) {
-            AsyncStorage.setItem(USER_AGREED_TO_BATTERY, (isIgnoring).toString());
-            dispatch({ type: USER_DISABLED_BATTERY, payload: isIgnoring });
-          }
-        });
-
-        setSample(false);
-      }
-    }, [sample])
-  );
-
+  useEffect(() => {
+    Animated.timing(translateX, {
+      toValue: showSettings ? isRTL ? SCREEN_WIDTH : -SCREEN_WIDTH : 0,
+      duration: 300,
+      useNativeDriver: true
+    }).start()
+  }, [showSettings])
 
   return (
     <ImageBackground
@@ -61,107 +64,26 @@ const DrawerContent = ({ navigation }: Props) => {
         <Icon source={require('../../assets/main/menuClose.png')} width={12} height={18} />
       </TouchableOpacity>
 
-      <View style={styles.buttonsContainer}>
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/main/history.png')}
-          label={exposuresHistory.title}
-          onPress={() => {
-            navigation.navigate('ExposuresHistory');
-            // navigation.closeDrawer();
-          }}
-        />
-
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/main/lang.png')}
-          label={languages.title}
-          onPress={() => {
-            navigation.navigate('ChangeLanguageScreen');
-            // navigation.closeDrawer();
-          }}
-        />
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/onboarding/bluetoothBig.png')}
-          
-          label={(
-            <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
-              <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{bluetooth.label}</Text>
-              <View style={{
-                flexDirection: isRTL ? 'row-reverse' : 'row',
-                marginTop: IS_SMALL_SCREEN ? 5 : 8,
-                [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85
-              }}
-              >
-                <View style={{
-                  backgroundColor: enableBle ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
-                  width: 10,
-                  height: 10,
-                  borderRadius: 10,
-                  marginTop: 5
-                }}
-                />
-                <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
-              </View>
-            </View>
-          )}
-          onPress={() => navigation.navigate('BluetoothSettings')}
-        />
-
-        {!IS_IOS && (
-          <DrawerItem
-            isRTL={isRTL}
-            icon={require('../../assets/main/batteryMenu.png')}
-            iconSize={24}
-            onPress={() => {
-              navigation.navigate('BatterySettings');
-            }}
-            style={{ alignItems: 'flex-start' }}
-            label={(
-              <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
-                <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{battery.label}</Text>
-                <View style={{
-                  flexDirection: isRTL ? 'row-reverse' : 'row',
-                  marginTop: IS_SMALL_SCREEN ? 5 : 8,
-                  [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85
-                }}
-                >
-                  <View style={{
-                    backgroundColor: batteryDisabled ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
-                    width: 10,
-                    height: 10,
-                    borderRadius: 10,
-                    marginTop: 5
-                  }}
-                  />
-                  <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
-                </View>
-              </View>
-            )
-            }
-          />
-        )}
-
-        <DrawerItem
-          isRTL={isRTL}
-          label={additionalInfo}
-          icon={require('../../assets/main/policy.png')}
-          onPress={() => {
-            dispatch(toggleWebview(true, USAGE_PRIVACY));
-            navigation.closeDrawer();
-          }}
-        />
+      <View style={{ flex: 1, flexDirection: isRTL ?  'row-reverse' : 'row' }}>
+        <Animated.View  style={{ transform: [{ translateX }]}}>
+          <HomeDrawerContent navigation={navigation} showSettings={() => setShowSettings(true)}/>
+        </Animated.View>
+        <Animated.View style={{ transform: [{ translateX }]}}>
+        <SettingsDrawerContent navigation={navigation} goToMainDrawer={() => setShowSettings(false)}/>
+        </Animated.View>
       </View>
+
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
         <Text style={styles.versionText}>{`${versionNumber} ${VERSION_NAME}`}</Text>
       </View>
     </ImageBackground>
-  );
+  )
 };
+
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT
   },
@@ -197,5 +119,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 19
   }
 });
+
 
 export default DrawerContent;

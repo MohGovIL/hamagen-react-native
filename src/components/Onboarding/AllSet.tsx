@@ -12,7 +12,7 @@ import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
 import { initBLETracing } from '../../services/BLEService';
 import { NotificationData, Strings } from '../../locale/LocaleData';
-import { SCREEN_WIDTH, IS_FIRST_TIME, DID_CLUSTER_LOCATIONS, SICK_DB_UPDATED } from '../../constants/Constants';
+import { SCREEN_WIDTH, IS_FIRST_TIME, DID_CLUSTER_LOCATIONS, SICK_DB_UPDATED, VERSION_NAME, MENU_DOT_LAST_SEEN } from '../../constants/Constants';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -44,9 +44,12 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
 
   const onboardingDoneActions = async () => {
     try {
-      await AsyncStorage.setItem(IS_FIRST_TIME, 'true');
-      await AsyncStorage.setItem(DID_CLUSTER_LOCATIONS, 'true');
-      await AsyncStorage.setItem(SICK_DB_UPDATED, 'true');
+      await AsyncStorage.multiSet([
+        [IS_FIRST_TIME, 'true'],
+        [DID_CLUSTER_LOCATIONS, 'true'],
+        [SICK_DB_UPDATED, 'true'],
+        [MENU_DOT_LAST_SEEN, VERSION_NAME]
+      ])
       // TODO: figure out why replace crash android on first upload
       navigation.navigate('Home');
       startForegroundTimer();

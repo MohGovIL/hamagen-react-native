@@ -1,9 +1,12 @@
-import React, { useMemo, FunctionComponent } from 'react';
+import React, { useMemo, FunctionComponent, useState, useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, Share } from 'react-native';
 import { TouchableOpacity, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
 import { ExternalUrls, Strings, Languages } from '../../locale/LocaleData';
-import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH } from '../../constants/Constants';
+import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, VERSION_NAME, SHOW_DOT_IN_VERSION, MENU_DOT_LAST_SEEN } from '../../constants/Constants';
+import { useSafeArea } from 'react-native-safe-area-context';
+import AsyncLock from 'async-lock';
+import AsyncStorage from '@react-native-community/async-storage';
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -14,12 +17,25 @@ interface ScanHomeHeaderProps {
   openDrawer(): void
 }
 
-const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer }) => {
+const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer, }) => {
   const messageAndUrl = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
     return `${message}\n${externalUrls?.shareMessage?.[relevantLocale] ?? ''}`;
   }, [locale]);
 
+  const [showDot, setShowDot] = useState(false)
+
+  useEffect(() => {
+    AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
+      .then((res) => {
+        if (res ) {
+          if(res !== SHOW_DOT_IN_VERSION) setShowDot(true)
+        } else {
+          setShowDot(true)
+        }
+      })
+      .catch(() => setShowDot(false))
+  }, [])
 
   const onShare = async () => {
     try {
@@ -37,8 +53,12 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
       resizeMethod="resize"
     >
       <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
-        <TouchableOpacity hitSlop={HIT_SLOP} onPress={openDrawer}>
-          <Icon source={require('../../assets/main/menu.png')} width={20} />
+        <TouchableOpacity hitSlop={HIT_SLOP} onPress={() => {
+          openDrawer()
+          setShowDot(false)
+          AsyncStorage.setItem(MENU_DOT_LAST_SEEN, VERSION_NAME)
+        }}>
+          <Icon source={showDot ? require('../../assets/main/menuWithDot.png') : require('../../assets/main/menu.png')} width={20} />
         </TouchableOpacity>
 
         <View style={styles.logoContainer}>
