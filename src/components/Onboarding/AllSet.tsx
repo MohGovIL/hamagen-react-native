@@ -49,7 +49,7 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
         [DID_CLUSTER_LOCATIONS, 'true'],
         [SICK_DB_UPDATED, 'true'],
         [MENU_DOT_LAST_SEEN, VERSION_NAME]
-      ])
+      ]);
       // TODO: figure out why replace crash android on first upload
       navigation.navigate('Home');
       startForegroundTimer();

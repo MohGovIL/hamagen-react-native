@@ -34,12 +34,12 @@ const DrawerContent = ({ navigation }: Props) => {
   const dispatch = useDispatch();
 
   const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery, bluetooth } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
-  const translateX = useMemo(() => new Animated.Value(0), [])
-  const [showSettings, setShowSettings] = useState(false)
+  const translateX = useMemo(() => new Animated.Value(0), []);
+  const [showSettings, setShowSettings] = useState(false);
   const isDrawerOpen = useIsDrawerOpen();
   useEffect(() => {
-    if(!isDrawerOpen) {
-      setShowSettings(false)
+    if (!isDrawerOpen) {
+      setShowSettings(false);
     }
   }, [isDrawerOpen]);
 
@@ -48,8 +48,8 @@ const DrawerContent = ({ navigation }: Props) => {
       toValue: showSettings ? isRTL ? SCREEN_WIDTH : -SCREEN_WIDTH : 0,
       duration: 300,
       useNativeDriver: true
-    }).start()
-  }, [showSettings])
+    }).start();
+  }, [showSettings]);
 
   return (
     <ImageBackground
@@ -64,12 +64,18 @@ const DrawerContent = ({ navigation }: Props) => {
         <Icon source={require('../../assets/main/menuClose.png')} width={12} height={18} />
       </TouchableOpacity>
 
-      <View style={{ flex: 1, flexDirection: isRTL ?  'row-reverse' : 'row' }}>
-        <Animated.View  style={{ transform: [{ translateX }]}}>
-          <HomeDrawerContent navigation={navigation} showSettings={() => setShowSettings(true)}/>
-        </Animated.View>
+      <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
         <Animated.View style={{ transform: [{ translateX }]}}>
-        <SettingsDrawerContent navigation={navigation} goToMainDrawer={() => setShowSettings(false)}/>
+          <HomeDrawerContent
+            navigation={navigation}
+            showSettings={() => setShowSettings(true)}
+          />
+        </Animated.View>
+        <Animated.View style={{ transform: [{ translateX }] }}>
+          <SettingsDrawerContent
+            navigation={navigation}
+            goToMainDrawer={() => setShowSettings(false)}
+          />
         </Animated.View>
       </View>
 
@@ -77,7 +83,7 @@ const DrawerContent = ({ navigation }: Props) => {
         <Text style={styles.versionText}>{`${versionNumber} ${VERSION_NAME}`}</Text>
       </View>
     </ImageBackground>
-  )
+  );
 };
 
 
