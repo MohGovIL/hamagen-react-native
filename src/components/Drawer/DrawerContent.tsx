@@ -1,15 +1,14 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
-
+import React, { useState, useEffect } from 'react';
+import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { DrawerNavigationProp, useIsDrawerOpen } from '@react-navigation/drawer';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Icon, Text } from '../common';
 import { Store } from '../../types';
 import {
-  HIT_SLOP, PADDING_BOTTOM,
+  HIT_SLOP,
+  PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
-  SCREEN_WIDTH,
   VERSION_NAME,
 } from '../../constants/Constants';
 import SettingsDrawerContent from './SettingsDrawerContent';
@@ -21,28 +20,20 @@ interface Props {
 }
 
 const DrawerContent = ({ navigation }: Props) => {
-
   const { locale: { strings: { general: { versionNumber } }, isRTL } } = useSelector<Store, Store>(state => state);
-  const translateX = useMemo(() => new Animated.Value(0), [])
-  const [showSettings, setShowSettings] = useState(false)
+  const [showSettings, setShowSettings] = useState(false);
+
   const isDrawerOpen = useIsDrawerOpen();
+
   useEffect(() => {
-    if(!isDrawerOpen) {
-      setShowSettings(false)
+    if (!isDrawerOpen) {
+      setShowSettings(false);
     }
   }, [isDrawerOpen]);
 
-  useEffect(() => {
-    Animated.timing(translateX, {
-      toValue: showSettings ? isRTL ? SCREEN_WIDTH : -SCREEN_WIDTH : 0,
-      duration: 300,
-      useNativeDriver: true
-    }).start()
-  }, [showSettings])
-
   return (
     <ImageBackground
-      style={styles.container}
+      style={{ flex: 1, }}
       source={require('../../assets/main/menuBG.png')}
     >
       <TouchableOpacity
@@ -53,29 +44,34 @@ const DrawerContent = ({ navigation }: Props) => {
         <Icon source={require('../../assets/main/menuClose.png')} width={12} height={18} />
       </TouchableOpacity>
 
-      <View style={{ flex: 1, flexDirection: isRTL ?  'row-reverse' : 'row' }}>
-        <Animated.View  style={{ transform: [{ translateX }]}}>
-          <HomeDrawerContent navigation={navigation} showSettings={() => setShowSettings(true)}/>
-        </Animated.View>
-        <Animated.View style={{ transform: [{ translateX }]}}>
-        <SettingsDrawerContent navigation={navigation} goToMainDrawer={() => setShowSettings(false)}/>
-        </Animated.View>
+      <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+        {showSettings
+          ? (
+            <SettingsDrawerContent
+              navigation={navigation}
+              goToMainDrawer={() => setShowSettings(false)}
+            />
+          )
+          : (
+            <HomeDrawerContent
+              navigation={navigation}
+              showSettings={() => setShowSettings(true)}
+            />
+          )
+
+        }
+
       </View>
 
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
         <Text style={styles.versionText}>{`${versionNumber} ${VERSION_NAME}`}</Text>
       </View>
     </ImageBackground>
-  )
+  );
 };
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
-  },
   close: {
     position: 'absolute',
     top: PADDING_TOP(20),

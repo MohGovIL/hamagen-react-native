@@ -40,7 +40,6 @@ const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
         label={exposuresHistory.title}
         onPress={() => {
           navigation.navigate('ExposuresHistory');
-
         }}
       />
 
@@ -50,14 +49,13 @@ const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
         label={languages.title}
         onPress={() => {
           navigation.navigate('ChangeLanguageScreen');
-
         }}
       />
       <DrawerItem
         isRTL={isRTL}
         icon={require('../../assets/main/settingsMenu.png')}
         style={{ alignItems: 'center', }}
-        label={
+        label={(
           <>
             <Text style={{ paddingHorizontal: 19, fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{settings.label}</Text>
             <View style={{ position: 'absolute', top: 0, bottom: 0, right: 19, justifyContent: 'center' }}>
@@ -69,7 +67,7 @@ const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
               />
             </View>
           </>
-        }
+)}
         onPress={showSettings}
       />
       <DrawerItem
