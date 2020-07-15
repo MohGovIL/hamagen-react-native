@@ -25,7 +25,7 @@ const BatteryModal: FunctionComponent<Props> = ({ navigation }) => {
 
   const handleExit = async () => {
     dispatch({ type: USER_DISABLED_BATTERY, payload: false });
-    AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
+    await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
     navigation.goBack();
     return true;
   };
