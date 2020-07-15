@@ -1,12 +1,8 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ImageBackground, StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
 
 import { DrawerNavigationProp, useIsDrawerOpen } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundGeolocation from 'react-native-background-geolocation';
-import { useFocusEffect } from '@react-navigation/native';
-import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
 import { Store } from '../../types';
 import {
@@ -14,14 +10,8 @@ import {
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  USAGE_PRIVACY,
   VERSION_NAME,
-  USER_AGREED_TO_BATTERY,
-  IS_IOS,
-  IS_SMALL_SCREEN,
 } from '../../constants/Constants';
-import { toggleWebview } from '../../actions/GeneralActions';
-import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
 import SettingsDrawerContent from './SettingsDrawerContent';
 import HomeDrawerContent from './HomeDrawerContent';
 
@@ -31,29 +21,23 @@ interface Props {
 }
 
 const DrawerContent = ({ navigation }: Props) => {
-  const dispatch = useDispatch();
 
-  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery, bluetooth } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
-  const translateX = useMemo(() => new Animated.Value(0), []);
+  const { locale: { strings: { general: { versionNumber } }, isRTL } } = useSelector<Store, Store>(state => state);
   const [showSettings, setShowSettings] = useState(false);
+
   const isDrawerOpen = useIsDrawerOpen();
+
   useEffect(() => {
     if (!isDrawerOpen) {
       setShowSettings(false);
     }
   }, [isDrawerOpen]);
 
-  useEffect(() => {
-    Animated.timing(translateX, {
-      toValue: showSettings ? isRTL ? SCREEN_WIDTH : -SCREEN_WIDTH : 0,
-      duration: 300,
-      useNativeDriver: true
-    }).start();
-  }, [showSettings]);
+
 
   return (
     <ImageBackground
-      style={styles.container}
+      style={{ flex: 1, }}
       source={require('../../assets/main/menuBG.png')}
     >
       <TouchableOpacity
@@ -65,18 +49,18 @@ const DrawerContent = ({ navigation }: Props) => {
       </TouchableOpacity>
 
       <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-        <Animated.View style={{ transform: [{ translateX }]}}>
-          <HomeDrawerContent
-            navigation={navigation}
-            showSettings={() => setShowSettings(true)}
-          />
-        </Animated.View>
-        <Animated.View style={{ transform: [{ translateX }] }}>
-          <SettingsDrawerContent
+        {showSettings ?
+          (<SettingsDrawerContent
             navigation={navigation}
             goToMainDrawer={() => setShowSettings(false)}
-          />
-        </Animated.View>
+          />) :
+          (<HomeDrawerContent
+            navigation={navigation}
+            showSettings={() => setShowSettings(true)}
+          />)
+
+        }
+
       </View>
 
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
@@ -88,11 +72,6 @@ const DrawerContent = ({ navigation }: Props) => {
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
-  },
   close: {
     position: 'absolute',
     top: PADDING_TOP(20),

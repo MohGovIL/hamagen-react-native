@@ -1,12 +1,10 @@
 import React, { useMemo, FunctionComponent, useState, useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, Share } from 'react-native';
-import { useSafeArea } from 'react-native-safe-area-context';
-import AsyncLock from 'async-lock';
 import AsyncStorage from '@react-native-community/async-storage';
 import { TouchableOpacity, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
 import { ExternalUrls, Strings, Languages } from '../../locale/LocaleData';
-import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, VERSION_NAME, SHOW_DOT_IN_VERSION, MENU_DOT_LAST_SEEN } from '../../constants/Constants';
+import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, MENU_DOT_LAST_SEEN, VERSION_BUILD } from '../../constants/Constants';
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -26,10 +24,11 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
   const [showDot, setShowDot] = useState(false);
 
   useEffect(() => {
+    
     AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
       .then((res) => {
         if (res) {
-          if (res !== SHOW_DOT_IN_VERSION) setShowDot(true);
+          if (res <= SHOW_DOT_BY_BUILD_NUMBER) setShowDot(true);
         } else {
           setShowDot(true);
         }
@@ -57,8 +56,8 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
           hitSlop={HIT_SLOP}
           onPress={() => {
             openDrawer();
-            setShowDot(false);
-            AsyncStorage.setItem(MENU_DOT_LAST_SEEN, VERSION_NAME);
+            showDot && setShowDot(false);
+            AsyncStorage.setItem(MENU_DOT_LAST_SEEN, VERSION_BUILD);
           }}
         >
           <Icon source={showDot ? require('../../assets/main/menuWithDot.png') : require('../../assets/main/menu.png')} width={20} />
