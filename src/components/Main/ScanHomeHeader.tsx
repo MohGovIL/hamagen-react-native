@@ -28,7 +28,7 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
     AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
       .then((res) => {
         if (res) {
-          if (res <= SHOW_DOT_BY_BUILD_NUMBER) setShowDot(true);
+          if (res < SHOW_DOT_BY_BUILD_NUMBER) setShowDot(true);
         } else {
           setShowDot(true);
         }
