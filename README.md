@@ -15,6 +15,9 @@ See version 2.1 [milestone](https://github.com/MohGovIL/hamagen-react-native/mil
 ## Hacking
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
+## Components
+Also see [rn-contact-tracing](https://github.com/MohGovIL/rn-contact-tracing) for BLE support.
+
 ## Security Measures
 Please review at:
 https://medium.com/proferosec-osm/hamagen-application-fighiting-the-corona-virus-4ecf55eb4f7c
