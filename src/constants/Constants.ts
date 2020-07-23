@@ -7,7 +7,7 @@ export const IS_IOS: boolean = Platform.OS === 'ios';
 export const HIT_SLOP: Insets = { top: 10, bottom: 10, left: 10, right: 10 };
 export const VERSION_NAME: string = DeviceInfo.getVersion();
 export const VERSION_BUILD: string = DeviceInfo.getBuildNumber();
-export const SHOW_DOT_BY_BUILD_NUMBER: string = '96'
+export const SHOW_DOT_BY_BUILD_NUMBER: string = '96';
 
 // Dimensions
 const isIPhoneXSize: boolean = Dimensions.get('window').height === 812 || Dimensions.get('window').width === 812;

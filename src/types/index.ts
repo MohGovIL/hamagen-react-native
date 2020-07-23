@@ -28,7 +28,8 @@ export interface Config {
   locationServiceIgnoreConfidenceThreshold: number,
   locationServiceIgnoreSampleVelocityThreshold: number,
   locationHistoryIgnoreList: string[],
-  notificationTopic: string
+  notificationTopic: string,
+  BLEDisabledDevicesName: string[]
 }
 
 export interface ReducerAction {

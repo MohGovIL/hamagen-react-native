@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import DeviceInfo from 'react-native-device-info';
+import { getModel } from 'react-native-device-info';
 import moment from 'moment';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import { downloadAndVerifySigning } from '../services/SigningService';
@@ -26,6 +26,9 @@ import {
   USER_AGREED_TO_BATTERY
 } from '../constants/Constants';
 import { Exposure } from '../types';
+
+console.log('model', getModel().toLowerCase());
+
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
@@ -83,22 +86,20 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
-  let payload: boolean | null = false
+  let payload: boolean | null = false;
+
   try {
     if (ENABLE_BLE_IN_APP) {
       // HACK: fix xiaomi device getting stuck after ling use for unknown reason
-      if (DeviceInfo.getBrand().toLowerCase() !== 'xiaomi') {
+      if (!config().BLEDisabledDevicesName.includes(getModel().toLowerCase())) {
         const res = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
-        if (res) {
-          payload = JSON.parse(res)
-        } else {
-          payload = null
-        }
+
+        payload = res ? JSON.parse(res) : null;
       }
     }
   } catch (error) {
     onError({ error });
-    payload = false
+    payload = false;
   } finally {
     dispatch({ type: ENABLE_BLE, payload });
   }
@@ -110,7 +111,6 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
     if (!IS_IOS) {
       const userAgreed: string | null = await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
       const isIgnoring = await BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations();
-      console.log('isIgnoring', isIgnoring);
 
       if (userAgreed) {
         if (userAgreed !== isIgnoring.toString()) {
@@ -124,7 +124,6 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   } catch (error) {
     onError({ error });
   } finally {
-    console.log('payload', payload);
 
     dispatch({ type: USER_DISABLED_BATTERY, payload });
   }

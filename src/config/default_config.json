@@ -219,7 +219,10 @@
       "ru": "https://go.gov.il/HAMAGEN-RU",
       "am": "https://go.gov.il/HAMAGEN-AM",
       "fr": "https://go.gov.il/HAMAGEN-FR"
-    }
+    },
+    "BLEDisabledDevicesName": [
+      "redmi note 5",
+    ]
   },
   "com.hamagen": {
     "dataUrl": "https://gisweb.azureedge.net/PointsUtc.json",
@@ -330,6 +333,9 @@
       "ru": "https://go.gov.il/HAMAGEN-RU",
       "am": "https://go.gov.il/HAMAGEN-AM",
       "fr": "https://go.gov.il/HAMAGEN-FR"
-    }
+    },
+    "BLEDisabledDevicesName": [
+      "redmi note 5",
+    ]
   }
 }
