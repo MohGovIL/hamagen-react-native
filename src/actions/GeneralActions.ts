@@ -83,31 +83,35 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
-  if (!ENABLE_BLE_IN_APP) {
-    dispatch({ type: ENABLE_BLE, payload: false });
-  } else {
-    try {
-      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
-
-      if (payload) {
-        payload = JSON.parse(payload);
+  let payload: boolean | null = false
+  try {
+    if (ENABLE_BLE_IN_APP) {
+      // HACK: fix xiaomi device getting stuck after ling use for unknown reason
+      if (DeviceInfo.getBrand() !== 'xiaomi') {
+        const res = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+        if (res) {
+          payload = JSON.parse(res)
+        } else {
+          payload = null
+        }
       }
-      dispatch({ type: ENABLE_BLE, payload });
-    } catch (error) {
-      onError({ error });
-      dispatch({ type: ENABLE_BLE, payload: false });
     }
+  } catch (error) {
+    onError({ error });
+    payload = false
+  } finally {
+    dispatch({ type: ENABLE_BLE, payload });
   }
 };
 // battery optimization for android phones
 export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   let payload: boolean | null = false;
   try {
-    if (!IS_IOS) {  
+    if (!IS_IOS) {
       const userAgreed: string | null = await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
       const isIgnoring = await BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations();
       console.log('isIgnoring', isIgnoring);
-      
+
       if (userAgreed) {
         if (userAgreed !== isIgnoring.toString()) {
           await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, isIgnoring.toString());
@@ -121,7 +125,7 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
     onError({ error });
   } finally {
     console.log('payload', payload);
-    
+
     dispatch({ type: USER_DISABLED_BATTERY, payload });
   }
 };
