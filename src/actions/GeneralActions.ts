@@ -27,9 +27,6 @@ import {
 } from '../constants/Constants';
 import { Exposure } from '../types';
 
-console.log('model', getModel().toLowerCase());
-
-
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
 export const toggleWebview = (isShow: boolean, usageType: string) => (dispatch: any) => dispatch({ type: TOGGLE_WEBVIEW, payload: { isShow, usageType } });
@@ -87,7 +84,7 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
   let payload: boolean | null = false;
-
+  
   try {
     if (ENABLE_BLE_IN_APP) {
       // HACK: fix xiaomi device getting stuck after ling use for unknown reason
@@ -124,7 +121,6 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   } catch (error) {
     onError({ error });
   } finally {
-
     dispatch({ type: USER_DISABLED_BATTERY, payload });
   }
 };

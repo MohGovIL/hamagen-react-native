@@ -28,13 +28,13 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const { params } = useRoute();
 
   const handlePressIOS = async () => {
-    let payload = false
+    let payload = false;
     try {
       const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
       switch (BTCheckStatus) {
         case RESULTS.BLOCKED:
         case RESULTS.UNAVAILABLE: {
-          payload = false
+          payload = false;
           break;
         }
         case RESULTS.GRANTED: {
@@ -42,14 +42,13 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
           break;
         }
         case RESULTS.DENIED: {
-
           const BTRequestStatus: PermissionStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
 
           switch (BTRequestStatus) {
             case RESULTS.UNAVAILABLE:
             case RESULTS.DENIED:
             case RESULTS.BLOCKED: {
-              payload = false
+              payload = false;
               break;
             }
             case RESULTS.GRANTED: {
@@ -59,10 +58,9 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
           }
         }
       }
-
     } catch (error) {
-      payload = false
-      onError({ error })
+      payload = false;
+      onError({ error });
     } finally {
       onEnd();
       dispatch({ type: ENABLE_BLE, payload });
@@ -75,7 +73,6 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     onEnd();
     // HACK: fix xiaomi device getting stuck after ling use for unknown reason
     const payload = !(config().BLEDisabledDevicesName.includes(getModel().toLowerCase()));
-    console.log('enable ble', payload);
 
     dispatch({ type: ENABLE_BLE, payload });
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
