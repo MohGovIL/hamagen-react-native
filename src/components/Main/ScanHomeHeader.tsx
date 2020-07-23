@@ -23,12 +23,12 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
 
   const [showDot, setShowDot] = useState(false);
   
- const iconSource = useMemo(() => {
-   if(showDot) {
-     return isRTL ? require('../../assets/main/menuWithDotRTL.png') : require('../../assets/main/menuWithDotLTR.png')
-   }
-   return require('../../assets/main/menu.png')
- }, [showDot])
+  const iconSource = useMemo(() => {
+    if (showDot) {
+      return isRTL ? require('../../assets/main/menuWithDotRTL.png') : require('../../assets/main/menuWithDotLTR.png');
+    }
+    return require('../../assets/main/menu.png');
+  }, [showDot]);
   useEffect(() => {
     AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
       .then((res) => {

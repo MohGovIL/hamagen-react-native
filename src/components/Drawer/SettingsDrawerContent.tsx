@@ -1,6 +1,6 @@
-import React, { } from 'react';
+import React, { useMemo } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo, { getModel } from 'react-native-device-info';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useSelector } from 'react-redux';
 import DrawerItem from './DrawerItem';
@@ -14,18 +14,18 @@ import {
   IS_IOS,
   IS_SMALL_SCREEN,
 } from '../../constants/Constants';
+import config from '../../config/config';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
   goToMainDrawer(): void
 }
 
-// HACK: fix xiaomi device getting stuck after ling use for unknown reason
-const showBLE = DeviceInfo.getBrand() !== 'xiaomi'
-
 const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
-
+  
   const { locale: { strings: { menu: { battery, bluetooth, settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+  // HACK: fix xiaomi device getting stuck after ling use for unknown reason
+  const showBLE = useMemo(() => !config().BLEDisabledDevicesName.includes(getModel().toLowerCase()), [])
 
   return (
     <View style={styles.container}>

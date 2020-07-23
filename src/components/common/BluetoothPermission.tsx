@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo, { getModel } from 'react-native-device-info';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -10,6 +10,8 @@ import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, 
 import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { ENABLE_BLE } from '../../constants/ActionTypes';
+import config from '../../config/config';
+import { onError } from '../../services/ErrorService';
 
 interface Props {
   onEnd(): void
@@ -26,45 +28,54 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const { params } = useRoute();
 
   const handlePressIOS = async () => {
-    const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-    switch (BTCheckStatus) {
-      case RESULTS.BLOCKED:
-      case RESULTS.UNAVAILABLE: {
-        dispatch({ type: ENABLE_BLE, payload: false });
-        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
-        break;
-      }
-      case RESULTS.GRANTED: {
-        dispatch({ type: ENABLE_BLE, payload: true });
-        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
-        break;
-      }
-      case RESULTS.DENIED: {
-        const BTRequestStatus: PermissionStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
-        switch (BTRequestStatus) {
-          case RESULTS.UNAVAILABLE:
-          case RESULTS.DENIED:
-          case RESULTS.BLOCKED: {
-            dispatch({ type: ENABLE_BLE, payload: false });
-            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
-            break;
-          }
-          case RESULTS.GRANTED: {
-            dispatch({ type: ENABLE_BLE, payload: true });
-            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
-            break;
+    let payload = false
+    try {
+      const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+      switch (BTCheckStatus) {
+        case RESULTS.BLOCKED:
+        case RESULTS.UNAVAILABLE: {
+          payload = false
+          break;
+        }
+        case RESULTS.GRANTED: {
+          payload = !(config().BLEDisabledDevicesName.includes(getModel().toLowerCase()));
+          break;
+        }
+        case RESULTS.DENIED: {
+
+          const BTRequestStatus: PermissionStatus = await request(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+
+          switch (BTRequestStatus) {
+            case RESULTS.UNAVAILABLE:
+            case RESULTS.DENIED:
+            case RESULTS.BLOCKED: {
+              payload = false
+              break;
+            }
+            case RESULTS.GRANTED: {
+              payload = !(config().BLEDisabledDevicesName.includes(getModel().toLowerCase()));
+              break;
+            }
           }
         }
       }
+
+    } catch (error) {
+      payload = false
+      onError({ error })
+    } finally {
+      onEnd();
+      dispatch({ type: ENABLE_BLE, payload });
+      await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
     }
-    onEnd();
   };
 
   // ENABLE_BLE
   const handlePressAndroid = async () => {
     onEnd();
     // HACK: fix xiaomi device getting stuck after ling use for unknown reason
-    const payload = DeviceInfo.getBrand() !== 'xiaomi'
+    const payload = !(config().BLEDisabledDevicesName.includes(getModel().toLowerCase()));
+    console.log('enable ble', payload);
 
     dispatch({ type: ENABLE_BLE, payload });
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
