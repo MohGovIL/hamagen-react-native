@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { useSelector, useDispatch } from 'react-redux';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -9,7 +10,6 @@ import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, 
 import { Store, LocaleReducer } from '../../types';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { ENABLE_BLE } from '../../constants/ActionTypes';
-
 
 interface Props {
   onEnd(): void
@@ -22,12 +22,8 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     bluetooth: { title, description, approveBluetoothIOS, approveBluetoothAndroid, callToAction }
   }
   } = useSelector<Store, LocaleReducer>(state => state.locale);
-  const { params } = useRoute();
 
-  const userApprove = async () => {
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
-    onEnd();
-  };
+  const { params } = useRoute();
 
   const handlePressIOS = async () => {
     const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
@@ -64,11 +60,14 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     onEnd();
   };
 
+  // ENABLE_BLE
   const handlePressAndroid = async () => {
     onEnd();
-    // ENABLE_BLE
-    dispatch({ type: ENABLE_BLE, payload: true });
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+    // HACK: fix xiaomi device getting stuck after ling use for unknown reason
+    const payload = DeviceInfo.getBrand() !== 'xiaomi'
+
+    dispatch({ type: ENABLE_BLE, payload });
+    await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
   };
 
   return (

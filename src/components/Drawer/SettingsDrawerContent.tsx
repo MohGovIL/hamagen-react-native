@@ -1,10 +1,8 @@
-import React, { useState, useCallback } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, { } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import DeviceInfo from 'react-native-device-info';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
-import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundGeolocation, { DeviceSettingsRequest } from 'react-native-background-geolocation';
-import { useFocusEffect } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
 import { Store } from '../../types';
@@ -13,23 +11,21 @@ import {
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  USAGE_PRIVACY,
-  VERSION_NAME,
-  USER_AGREED_TO_BATTERY,
   IS_IOS,
   IS_SMALL_SCREEN,
 } from '../../constants/Constants';
-import { toggleWebview } from '../../actions/GeneralActions';
-import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
 
 interface Props {
-    navigation: DrawerNavigationProp<any, 'DrawerStack'>
+  navigation: DrawerNavigationProp<any, 'DrawerStack'>
+  goToMainDrawer(): void
 }
 
-const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
-  const dispatch = useDispatch();
+// HACK: fix xiaomi device getting stuck after ling use for unknown reason
+const showBLE = DeviceInfo.getBrand() !== 'xiaomi'
 
-  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { battery, bluetooth, settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
+
+  const { locale: { strings: { menu: { battery, bluetooth, settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
 
   return (
     <View style={styles.container}>
@@ -81,11 +77,11 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
                 <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
               </View>
             </View>
-                    )
-                    }
+          )
+          }
         />
       )}
-      <DrawerItem
+      {showBLE && (<DrawerItem
         isRTL={isRTL}
         icon={require('../../assets/main/bluetoothMenu.png')}
         iconSize={24}
@@ -111,11 +107,11 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
               <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
             </View>
           </View>
-                )}
+        )}
         onPress={() => {
           navigation.navigate('BluetoothSettings');
         }}
-      />
+      />)}
     </View>
   );
 };
