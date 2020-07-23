@@ -87,7 +87,7 @@ export const checkIfBleEnabled = () => async (dispatch: any) => {
   try {
     if (ENABLE_BLE_IN_APP) {
       // HACK: fix xiaomi device getting stuck after ling use for unknown reason
-      if (DeviceInfo.getBrand() !== 'xiaomi') {
+      if (DeviceInfo.getBrand().toLowerCase() !== 'xiaomi') {
         const res = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
         if (res) {
           payload = JSON.parse(res)

@@ -21,7 +21,7 @@ interface Props {
 }
 
 // HACK: fix xiaomi device getting stuck after ling use for unknown reason
-const showBLE = DeviceInfo.getBrand() !== 'xiaomi'
+const showBLE = DeviceInfo.getBrand().toLowerCase() !== 'xiaomi'
 
 const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
 

@@ -64,7 +64,7 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   const handlePressAndroid = async () => {
     onEnd();
     // HACK: fix xiaomi device getting stuck after ling use for unknown reason
-    const payload = DeviceInfo.getBrand() !== 'xiaomi'
+    const payload = DeviceInfo.getBrand().toLowerCase() !== 'xiaomi'
 
     dispatch({ type: ENABLE_BLE, payload });
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
