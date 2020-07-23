@@ -471,7 +471,8 @@ const QA = ({ navigation, updatePointsFromFile, toggleLoader }: Props) => {
       </ScrollView>
 
       <View style={{ marginBottom: PADDING_BOTTOM(20) }}>
-        <Text>{DeviceInfo.getVersion()}</Text>
+        <Text>{`Version: ${DeviceInfo.getVersion()}`}</Text>
+        <Text selectable selectionColor='gray'>{`Model: ${DeviceInfo.getModel().toLowerCase()}`}</Text>
       </View>
       <PopupForQA isVisible={showPopup} type={type} closeModal={() => setShowPopup({ showPopup: false, type: '' })} />
     </View>

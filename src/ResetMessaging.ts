@@ -1,12 +1,10 @@
 import { Vibration } from 'react-native';
-import BackgroundFetch from 'react-native-background-fetch';
-import BackgroundGeolocation from 'react-native-background-geolocation';
+import { getModel } from 'react-native-device-info';
+import AsyncStorage from '@react-native-community/async-storage';
 import { startLocationTracking } from './services/LocationService';
 import { scheduleTask } from './services/BackgroundService';
 import { initLocalHeadless } from './actions/LocaleActions';
 import log from './services/LogService';
-import { getModel } from 'react-native-device-info';
-import AsyncStorage from '@react-native-community/async-storage';
 import config, { initConfig } from './config/config';
 import { initBLETracing } from './services/BLEService';
 import { USER_AGREE_TO_BLE } from './constants/Constants';
