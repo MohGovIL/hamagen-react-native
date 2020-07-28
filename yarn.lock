@@ -6705,7 +6705,7 @@ react-native-background-geolocation@3.4.2:
     react-native-background-fetch "~2.7.1"
     xcode "^0.9.1"
 
-react-native-background-timer@02.2.0:
+react-native-background-timer@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-native-background-timer/-/react-native-background-timer-2.2.0.tgz#ff82d30899209b924983cc00e6ce174b8de5054a"
   integrity sha512-Y7N6diSFko/FCJPMmB0PoBlmY1kEcma7qDVwn8t7zi12GLqpe/Vwls97onkSD8/QL+BR33BygUHOrLTPwgeKfg==
@@ -7243,9 +7243,9 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-"rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git#master":
+"rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git#IOS_battery_opt":
   version "0.0.3"
-  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#096e3ead1f31c4d212aa1f2f4f48fa7a2bee2717"
+  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#3c0f21d635615cd6852903e66ed83d837f8f0b30"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"

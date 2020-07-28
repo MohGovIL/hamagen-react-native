@@ -49,18 +49,45 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
     LocationUpdateTag = (
       <View
         style={{
-          position: 'absolute',
-          top: 3,
-          right: isRTL ? 5 : (SCREEN_WIDTH + 20) / 2,
-          left: isRTL ? (SCREEN_WIDTH + 20) / 2 : 5,
-
           flexDirection: isRTL ? 'row-reverse' : 'row',
-          // alignItems: 'center'
+          paddingBottom: 10
         }}
       >
-        <View style={{ width: 6, height: 6, borderRadius: 3, marginTop: 6, backgroundColor: 'rgb(44,191,220)', marginHorizontal: 6 }} />
-        <Text style={{ fontSize: 12, letterSpacing: -0.09, textAlign: isRTL ? 'right' : 'left' }}>{BLELocationUpdate}</Text>
-
+        <View
+          style={{
+            flex: 1,
+            flexDirection: isRTL ? 'row-reverse' : 'row',
+              
+              
+          }}
+        >
+          <View style={{ width: 6, height: 6, borderRadius: 3, backgroundColor: 'rgb(44,191,220)', marginHorizontal: 6 }} />
+          <Text style={{ fontSize: 12, letterSpacing: -0.09, textAlign: isRTL ? 'right' : 'left' }}>{BLELocationUpdate}</Text>
+        </View>
+        <View
+          style={{
+            flex: 1,
+            flexDirection: isRTL ? 'row-reverse' : 'row',
+            alignItems: 'flex-start',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <CardIdentifyTag isRTL={isRTL} text={isBLE ? deviceCloseTag : locationCloseTag} color={isBLE ? 'rgba(44,191,220,0.5)' : 'rgba(217,228,140,0.6)'} float={false} />
+        </View>
+      </View>
+    );
+  } else {
+    LocationUpdateTag = (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: isRTL ? 'row' : 'row-reverse',
+          alignContent: 'center',
+          justifyContent: 'space-between',
+          paddingBottom: 10
+        }}
+      >
+        <CardIdentifyTag isRTL={isRTL} text={isBLE ? deviceCloseTag : locationCloseTag} color={isBLE ? 'rgba(44,191,220,0.5)' : 'rgba(217,228,140,0.6)'} float={false} />
       </View>
     );
   }
@@ -82,10 +109,9 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
 
   return (
     <View style={[styles.listItemContainer, style]}>
-
+      {LocationUpdateTag}
       <View
         style={{
-          paddingTop: 30,
           paddingBottom: 20,
           paddingHorizontal: 15,
           flexDirection: isRTL ? 'row-reverse' : 'row',
@@ -104,8 +130,8 @@ const ExposureHistoryListItem: FunctionComponent<Props> = ({ children, style, is
         </View>
 
       </View>
-      <CardIdentifyTag isRTL={isRTL} text={isBLE ? deviceCloseTag : locationCloseTag} color={isBLE ? 'rgba(44,191,220,0.5)' : 'rgba(217,228,140,0.6)'} />
-      {LocationUpdateTag}
+
+
     </View>
   );
 };

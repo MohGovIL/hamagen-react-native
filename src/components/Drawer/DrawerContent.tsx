@@ -1,31 +1,43 @@
-import React from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React, { useState, useMemo, useEffect } from 'react';
+import { ImageBackground, StyleSheet, TouchableOpacity, View, Animated } from 'react-native';
+
+import { DrawerNavigationProp, useIsDrawerOpen } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
-import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
-import { LocaleReducer, Store } from '../../types';
+import { Store } from '../../types';
 import {
   HIT_SLOP, PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  USAGE_PRIVACY,
-  VERSION_NAME
+  VERSION_NAME,
 } from '../../constants/Constants';
-import { toggleWebview } from '../../actions/GeneralActions';
+import SettingsDrawerContent from './SettingsDrawerContent';
+import HomeDrawerContent from './HomeDrawerContent';
+
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
 }
 
 const DrawerContent = ({ navigation }: Props) => {
-  const { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages }, isRTL } = useSelector<Store, LocaleReducer>(state => state.locale);
-  const dispatch = useDispatch();
+
+  const { locale: { strings: { general: { versionNumber } }, isRTL } } = useSelector<Store, Store>(state => state);
+  const [showSettings, setShowSettings] = useState(false);
+
+  const isDrawerOpen = useIsDrawerOpen();
+
+  useEffect(() => {
+    if (!isDrawerOpen) {
+      setShowSettings(false);
+    }
+  }, [isDrawerOpen]);
+
+
 
   return (
     <ImageBackground
-      style={styles.container}
+      style={{ flex: 1, }}
       source={require('../../assets/main/menuBG.png')}
     >
       <TouchableOpacity
@@ -36,36 +48,19 @@ const DrawerContent = ({ navigation }: Props) => {
         <Icon source={require('../../assets/main/menuClose.png')} width={12} height={18} />
       </TouchableOpacity>
 
-      <View style={styles.buttonsContainer}>
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/main/history.png')}
-          label={exposuresHistory.title}
-          onPress={() => {
-            navigation.navigate('ExposuresHistory');
-            // navigation.closeDrawer();
-          }}
-        />
+      <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+        {showSettings ?
+          (<SettingsDrawerContent
+            navigation={navigation}
+            goToMainDrawer={() => setShowSettings(false)}
+          />) :
+          (<HomeDrawerContent
+            navigation={navigation}
+            showSettings={() => setShowSettings(true)}
+          />)
 
-        <DrawerItem
-          isRTL={isRTL}
-          icon={require('../../assets/main/lang.png')}
-          label={languages.title}
-          onPress={() => {
-            navigation.navigate('ChangeLanguageScreen');
-            // navigation.closeDrawer();
-          }}
-        />
+        }
 
-        <DrawerItem
-          isRTL={isRTL}
-          label={additionalInfo}
-          icon={require('../../assets/main/policy.png')}
-          onPress={() => {
-            dispatch(toggleWebview(true, USAGE_PRIVACY));
-            navigation.closeDrawer();
-          }}
-        />
       </View>
 
       <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
@@ -75,11 +70,8 @@ const DrawerContent = ({ navigation }: Props) => {
   );
 };
 
+
 const styles = StyleSheet.create({
-  container: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT
-  },
   close: {
     position: 'absolute',
     top: PADDING_TOP(20),
@@ -96,7 +88,22 @@ const styles = StyleSheet.create({
   versionText: {
     fontSize: 12,
     paddingHorizontal: 25
+  },
+  item: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+
+    paddingHorizontal: 25,
+    paddingVertical: 24,
+
+    borderBottomColor: 'white',
+    borderBottomWidth: 1.5,
+  },
+  label: {
+    fontSize: 18,
+    paddingHorizontal: 19
   }
 });
+
 
 export default DrawerContent;

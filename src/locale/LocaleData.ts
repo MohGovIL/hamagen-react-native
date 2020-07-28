@@ -288,12 +288,22 @@ export interface Strings {
     }
   },
   exposureRelief: {
-    editBtn: string,
-    title: string,
-    keepSafe: string,
-    backBtn: string,
-    reliefTitle: string,
+    editBtn: string
+    title: string
+    keepSafe: string
+    backBtn: string
+    reliefTitle: string
     historyBackBtn: string
+  }
+  menu: {
+    battery: {
+      label: string
+      batteryNotOptimized: string
+      batteryOptimized: string
+    }
+    bluetooth: {
+      label: string
+    }
   }
 }
 
