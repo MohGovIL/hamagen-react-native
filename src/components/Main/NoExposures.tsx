@@ -9,6 +9,7 @@ import InfoModal from './Modals/InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
+import { useIsFocused } from '@react-navigation/native';
 
 interface NoExposuresProps {
   isRTL: boolean
@@ -51,7 +52,7 @@ const BluetoothBubble = (props: BluetoothBubbleProps) => {
 const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, languages, locale, externalUrls, isRTL, firstPoint, strings, hideLocationHistory, enableBle, batteryDisabled, goToLocationHistory, goToBluetoothPermission, goToBatteryPermission }) => {
   const appState = useRef<AppStateStatus>('active');
   const [showModal, setModalVisibility] = useState(false);
-
+  const isFocused = useIsFocused()
   const [now, setNow] = useState(moment().valueOf());
   const FPDate = useMemo(() => moment(firstPoint).format('D.M.YY'), [firstPoint]);
 
@@ -72,7 +73,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   }, []);
 
   useEffect(() => {
-    if (batteryDisabled === null) {
+    if (batteryDisabled === null && isFocused) {
       goToBatteryPermission()
     }
   },[batteryDisabled])

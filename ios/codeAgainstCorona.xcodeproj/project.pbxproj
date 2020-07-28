@@ -42,7 +42,7 @@
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		06C33C418EB6D49AE30A90FC /* Pods-hamagen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-hamagen.debug.xcconfig"; path = "Target Support Files/Pods-hamagen/Pods-hamagen.debug.xcconfig"; sourceTree = "<group>"; };
 		131CC6753E7C105B2A685B62 /* Pods-codeAgainstCorona.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-codeAgainstCorona.release.xcconfig"; path = "Target Support Files/Pods-codeAgainstCorona/Pods-codeAgainstCorona.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* המגן.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* המגן 2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "המגן 2.0.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = codeAgainstCorona/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = codeAgainstCorona/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* המגן.app */,
+				13B07F961A680F5B00A75B9A /* המגן 2.0.app */,
 				D52A57D524203FBB00521B22 /* Hamagen QA.app */,
 			);
 			name = Products;
@@ -253,7 +253,7 @@
 			);
 			name = hamagen;
 			productName = codeAgainstCorona;
-			productReference = 13B07F961A680F5B00A75B9A /* המגן.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* המגן 2.0.app */;
 			productType = "com.apple.product-type.application";
 		};
 		D52A57BF24203FBB00521B22 /* hamagen-qa */ = {
@@ -554,19 +554,19 @@
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 96;
+				CURRENT_PROJECT_VERSION = 98;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
-				PRODUCT_NAME = "המגן";
+				PRODUCT_NAME = "המגן 2.0";
 				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Dev";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -585,19 +585,19 @@
 				CODE_SIGN_ENTITLEMENTS = "המגןRelease.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 96;
+				CURRENT_PROJECT_VERSION = 98;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen;
-				PRODUCT_NAME = "המגן";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen AdHoc";
+				PRODUCT_NAME = "המגן 2.0";
+				PROVISIONING_PROFILE_SPECIFIER = "Hamagen Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -713,7 +713,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 96;
+				CURRENT_PROJECT_VERSION = 98;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -725,7 +725,7 @@
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -751,7 +751,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 96;
+				CURRENT_PROJECT_VERSION = 98;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -762,7 +762,7 @@
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.6;
+				MARKETING_VERSION = 2.2.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

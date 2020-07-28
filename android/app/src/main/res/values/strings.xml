@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">המגן</string>
+    <string name="app_name">המגן 2.0</string>
     <string name="default_notification_channel_id">LocalPush</string>
 </resources>
