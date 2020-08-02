@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Icon, Text, TouchableOpacity } from '../common';
 import { SCREEN_WIDTH, MAIN_COLOR } from '../../constants/Constants';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   isRTL: boolean,
@@ -13,12 +14,12 @@ interface Props {
 const InfoBubble: FunctionComponent<Props> = ({ isRTL, info, moreInfo, onPress }) => {
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+      <View style={[styles.container, { flexDirection: LocalizedStyles.flexDirection(isRTL) }]}>
         <Icon source={require('../../assets/locationHistory/info.png')} width={18} />
-        <View style={[styles.textContainer, { alignItems: isRTL ? 'flex-end' : 'flex-start' }]}>
-          <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{info}</Text>
+        <View style={[styles.textContainer, { alignItems: LocalizedStyles.alignItems(isRTL) }]}>
+          <Text style={[styles.text, { textAlign: LocalizedStyles.side(isRTL) }]}>{info}</Text>
           <View style={{ borderBottomWidth: 1, borderBottomColor: MAIN_COLOR }}>
-            <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]} bold>{moreInfo}</Text>
+            <Text style={[styles.text, { textAlign: LocalizedStyles.side(isRTL) }]} bold>{moreInfo}</Text>
           </View>
         </View>
       </View>

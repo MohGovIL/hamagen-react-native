@@ -8,7 +8,7 @@ import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, WHITE, PADDING_BOTTOM } from '../../../constants/Constants';
 import { showMapModal } from '../../../actions/GeneralActions';
 import { replacePastExposureSelected } from '../../../actions/ExposuresActions';
-
+import * as LocalizedStyles from '../../../constants/LocalizedStyles';
 
 const ExposuresHistoryEdit = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -117,7 +117,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
                     paddingVertical: 10,
                     alignItems: 'center',
                     paddingHorizontal: 16,
-                    flexDirection: isRTL ? 'row-reverse' : 'row',
+                    flexDirection: LocalizedStyles.flexDirection(isRTL),
                     backgroundColor: 'rgb(242,250,253)',
                   }}
                 >
@@ -125,7 +125,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
                     width={16}
                     source={require('../../../assets/main/moreInfo.png')}
                     customStyles={{
-                      [isRTL ? 'marginLeft' : 'marginRight']: 8
+                      [LocalizedStyles.marginSide(isRTL, true)]: 8
                     }}
                   />
                   <Text
@@ -142,7 +142,7 @@ const ExposuresHistoryEdit = ({ navigation }) => {
           </View>
         )}
       />
-      <View style={[styles.buttonsContainer, { flexDirection: isRTL ? 'row' : 'row-reverse', }]}>
+      <View style={[styles.buttonsContainer, { flexDirection: LocalizedStyles.flexDirection(isRTL, true), }]}>
         <TouchableOpacity
           style={{ flex: 1, backgroundColor: MAIN_COLOR, justifyContent: 'center' }}
           onPress={finishEdit}
@@ -180,7 +180,7 @@ const RenderExposure = ({ index, item, isRTL, strings, showExposureOnMap, setSel
     >
       {!BLETimestamp && Place && (
         <View style={{
-          flexDirection: isRTL ? 'row' : 'row-reverse',
+          flexDirection: LocalizedStyles.flexDirection(isRTL, true),
           marginTop: 20,
 
         }}

@@ -11,6 +11,7 @@ import { ActionButton, Icon, Text, TouchableOpacity, HeaderButton } from '../../
 import { USER_DISABLED_BATTERY } from '../../../constants/ActionTypes';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USER_AGREED_TO_BATTERY, PADDING_TOP, PADDING_BOTTOM, BASIC_SHADOW_STYLES, WHITE, HIT_SLOP } from '../../../constants/Constants';
 import { LocaleReducer, Store, GeneralReducer } from '../../../types';
+import * as LocalizedStyles from '../../../constants/LocalizedStyles';
 
 interface Props {
     onEnd(): void
@@ -48,7 +49,7 @@ const BatteryPermission: FunctionComponent<Props> = ({ navigation }) => {
           paddingVertical: IS_SMALL_SCREEN ? 16 : 24,
           paddingHorizontal: IS_SMALL_SCREEN ? 8 : 16,
           borderRadius: 13,
-          flexDirection: isRTL ? 'row-reverse' : 'row',
+          flexDirection: LocalizedStyles.flexDirection(isRTL),
 
         }]}
       >
@@ -63,10 +64,10 @@ const BatteryPermission: FunctionComponent<Props> = ({ navigation }) => {
           }}
           style={{ paddingHorizontal: IS_SMALL_SCREEN ? 8 : 16, backgroundColor: WHITE }}
         >
-          <Text style={{ fontSize: 14, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }}>{batteryDisabled ? batteryOptimizationOn : batteryOptimizationOff }</Text>
-          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center', marginTop: 8 }}>
+          <Text style={{ fontSize: 14, color: 'rgb(98,98,98)', textAlign: LocalizedStyles.side(isRTL) }}>{batteryDisabled ? batteryOptimizationOn : batteryOptimizationOff }</Text>
+          <View style={{ flexDirection: LocalizedStyles.flexDirection(isRTL), alignItems: 'center', marginTop: 8 }}>
             <Icon source={require('../../../assets/main/settingsCog.png')} width={9} />
-            <Text style={{ fontSize: 12, color: 'rgb(0,120,214)', textAlign: isRTL ? 'right' : 'left', marginHorizontal: 6 }} bold>{settingsBtn}</Text>
+            <Text style={{ fontSize: 12, color: 'rgb(0,120,214)', textAlign: LocalizedStyles.side(isRTL), marginHorizontal: 6 }} bold>{settingsBtn}</Text>
           </View>
         </TouchableWithoutFeedback>
       </View>

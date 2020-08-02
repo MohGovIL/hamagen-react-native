@@ -6,6 +6,7 @@ import { Text, Icon, ActionButton, TouchableOpacity } from '../common';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_TOP, MAIN_COLOR } from '../../constants/Constants';
 import { Store, LocaleReducer } from '../../types';
 import { moveAllToPastExposures } from '../../actions/ExposuresActions';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   navigation: StackNavigationProp<any>
@@ -30,19 +31,19 @@ const ExposureRelief = ({ navigation }: Props) => {
       <TouchableOpacity
         hitSlop={HIT_SLOP}
         style={{
-          flexDirection: isRTL ? 'row' : 'row-reverse',
+          flexDirection: LocalizedStyles.flexDirection(isRTL, true),
           alignContent: 'center',
           alignItems: 'center',
           position: 'absolute',
           top: PADDING_TOP(28),
-          [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
+          [LocalizedStyles.side(isRTL, true)]: IS_SMALL_SCREEN ? 10 : 25,
         }}
         onPress={navigation.goBack}
       >
         <Icon
           width={IS_SMALL_SCREEN ? 20 : 24}
           source={require('../../assets/main/back.png')}
-          customStyles={{ transform: [{ rotate: !isRTL ? '0deg' : '180deg' }] }}
+          customStyles={{ transform: [{ rotate: LocalizedStyles.rotateDegree(isRTL) }] }}
         />
         <Text style={{ fontSize: IS_SMALL_SCREEN ? 13 : 15, color: MAIN_COLOR, marginHorizontal: IS_SMALL_SCREEN ? 5 : 8 }} bold>{editBtn}</Text>
       </TouchableOpacity>

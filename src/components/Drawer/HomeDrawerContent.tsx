@@ -21,6 +21,7 @@ import {
 } from '../../constants/Constants';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
@@ -57,13 +58,13 @@ const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
         style={{ alignItems: 'center', }}
         label={(
           <>
-            <Text style={{ paddingHorizontal: 19, fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{settings.label}</Text>
+            <Text style={{ paddingHorizontal: 19, fontSize: 18, textAlign: LocalizedStyles.side(isRTL) }}>{settings.label}</Text>
             <View style={{ position: 'absolute', top: 0, bottom: 0, right: 19, justifyContent: 'center' }}>
 
               <Icon
                 width={13}
                 source={require('../../assets/main/menuBack.png')}
-                customStyles={{ transform: [{ rotateY: isRTL ? '180deg' : '0deg' }] }}
+                customStyles={{ transform: [{ rotateY: LocalizedStyles.rotateDegree(isRTL) }] }}
               />
             </View>
           </>

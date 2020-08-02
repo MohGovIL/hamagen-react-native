@@ -19,7 +19,7 @@ import {
 import { Icon, Text, TouchableOpacity } from '../common';
 import { Exposure, Store, LocaleReducer } from '../../types';
 import { moveAllToPastExposures } from '../../actions/ExposuresActions';
-
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 if (
   Platform.OS === 'android'
@@ -110,7 +110,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
 
 
     return (
-      <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, lineHeight: 17, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: isRTL ? 'right' : 'left' }} key={exposure.properties.OBJECTID}>
+      <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16, lineHeight: 17, marginVertical: IS_SMALL_SCREEN ? 5 : 10, letterSpacing: 0.2, textAlign: LocalizedStyles.side(isRTL) }} key={exposure.properties.OBJECTID}>
         <Text bold>• </Text>
         {ListText}
 
@@ -119,7 +119,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
   }), [exposures, locale]);
 
   const renderActionButton = (icon: number, text: string, buttonText: string, action: () => void) => (
-    <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN ? styles.actionButtonContainerSmall : styles.actionButtonContainerBig, IS_SMALL_SCREEN && { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.actionButtonContainer, IS_SMALL_SCREEN ? styles.actionButtonContainerSmall : styles.actionButtonContainerBig, IS_SMALL_SCREEN && { flexDirection: LocalizedStyles.flexDirection(isRTL) }]}>
       <Icon source={icon} width={22} height={35} />
 
       <Text style={styles.actionText}>{text}</Text>
@@ -146,7 +146,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
         {exposures.length > 4 && (
           <TouchableOpacity
             style={{
-              flexDirection: isRTL ? 'row' : 'row-reverse',
+              flexDirection: LocalizedStyles.flexDirection(isRTL, true),
               alignItems: 'center'
             }}
             onPress={() => {
@@ -182,8 +182,8 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
             alignItems: 'center',
             position: 'absolute',
             top: PADDING_TOP(IS_SMALL_SCREEN ? 10 : 28),
-            flexDirection: isRTL ? 'row' : 'row-reverse',
-            [!isRTL ? 'right' : 'left']: IS_SMALL_SCREEN ? 10 : 25,
+            flexDirection: LocalizedStyles.flexDirection(isRTL, true),
+            [LocalizedStyles.side(isRTL, true)]: IS_SMALL_SCREEN ? 10 : 25,
           }}
           onPress={() => navigation.navigate('ExposureDetected')}
         >
@@ -191,7 +191,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
             width={IS_SMALL_SCREEN ? 20 : 24}
             source={require('../../assets/main/back.png')}
             customStyles={{
-              transform: [{ rotate: !isRTL ? '0deg' : '180deg' }]
+              transform: [{ rotate: LocalizedStyles.rotateDegree(isRTL) }]
             }}
           />
           <Text
@@ -215,7 +215,7 @@ const ExposureInstructions = ({ navigation, route }: Props) => {
       </View>
       <View style={{ justifyContent: 'space-between' }}>
         <Text style={{ marginBottom: IS_SMALL_SCREEN ? 12 : 25 }} bold>{themInstructions}</Text>
-        <View style={!IS_SMALL_SCREEN && { width: SCREEN_WIDTH - (23 * 2), flexDirection: isRTL ? 'row-reverse' : 'row', flexWrap: 'wrap', justifyContent: 'space-between', }}>
+        <View style={!IS_SMALL_SCREEN && { width: SCREEN_WIDTH - (23 * 2), flexDirection: LocalizedStyles.flexDirection(isRTL), flexWrap: 'wrap', justifyContent: 'space-between', }}>
           {renderActionButton(require('../../assets/main/isolation.png'), goIntoIsolation, allInstructions, () => Linking.openURL(furtherInstructions))}
           {renderActionButton(require('../../assets/main/report.png'), reportIsolation, reportSite, () => Linking.openURL(reportForm))}
         </View>

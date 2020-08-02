@@ -7,6 +7,7 @@ import { ActionButton, GeneralContainer, TouchableOpacity, Text, OnboardingHeade
 import { onError } from '../../services/ErrorService';
 import { Strings } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, ENABLE_BLE } from '../../constants/Constants';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -57,7 +58,7 @@ const LocationIOS = ({ navigation, strings: { locationIOS: { title, subTitle1, s
         <Icon source={require('../../assets/onboarding/locationTutorial.png')} width={SCREEN_WIDTH - 50} height={106} customStyles={{ marginVertical: 25 }} />
 
         <TouchableOpacity onPress={() => Linking.openURL('app-settings:')}>
-          <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row', alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 0 }}>
+          <View style={{ flexDirection: LocalizedStyles.flexDirection(isRTL), alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 20 : 0 }}>
             <Icon source={require('../../assets/onboarding/settings.png')} width={17} customStyles={{ marginHorizontal: 7 }} />
             <Text style={{ color: MAIN_COLOR, textDecorationLine: 'underline' }} bold>{goToSettings}</Text>
           </View>

@@ -5,6 +5,7 @@ import { TouchableOpacity, Icon } from '../common';
 import { onError } from '../../services/ErrorService';
 import { ExternalUrls, Strings, Languages } from '../../locale/LocaleData';
 import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, MENU_DOT_LAST_SEEN, VERSION_BUILD } from '../../constants/Constants';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -51,7 +52,7 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
       resizeMode="stretch"
       resizeMethod="resize"
     >
-      <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+      <View style={[styles.container, { flexDirection: LocalizedStyles.flexDirection(isRTL) }]}>
         <TouchableOpacity
           hitSlop={HIT_SLOP}
           onPress={() => {

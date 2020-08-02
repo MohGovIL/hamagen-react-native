@@ -14,7 +14,7 @@ import {
 } from '../../constants/Constants';
 import SettingsDrawerContent from './SettingsDrawerContent';
 import HomeDrawerContent from './HomeDrawerContent';
-
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
@@ -41,14 +41,14 @@ const DrawerContent = ({ navigation }: Props) => {
       source={require('../../assets/main/menuBG.png')}
     >
       <TouchableOpacity
-        style={[styles.close, { [isRTL ? 'left' : 'right']: 20 }]}
+        style={[styles.close, { [LocalizedStyles.side(isRTL, true)]: 20 }]}
         hitSlop={HIT_SLOP}
         onPress={navigation.closeDrawer}
       >
         <Icon source={require('../../assets/main/menuClose.png')} width={12} height={18} />
       </TouchableOpacity>
 
-      <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+      <View style={{ flex: 1, flexDirection: LocalizedStyles.flexDirection(isRTL) }}>
         {showSettings ?
           (<SettingsDrawerContent
             navigation={navigation}
@@ -63,7 +63,7 @@ const DrawerContent = ({ navigation }: Props) => {
 
       </View>
 
-      <View style={[styles.footerContainer, { alignSelf: isRTL ? 'flex-end' : 'flex-start' }]}>
+      <View style={[styles.footerContainer, { alignSelf: LocalizedStyles.alignSelf(isRTL) }]}>
         <Text style={styles.versionText}>{`${versionNumber} ${VERSION_NAME}`}</Text>
       </View>
     </ImageBackground>

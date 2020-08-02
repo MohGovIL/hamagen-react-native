@@ -8,6 +8,7 @@ import { Exposure } from '../../../types';
 import { PADDING_TOP, SCREEN_WIDTH, IS_SMALL_SCREEN, MAIN_COLOR, HIT_SLOP, WHITE } from '../../../constants/Constants';
 import ExposureHistoryListItem from './ExposureHistoryListItem';
 import { showMapModal } from '../../../actions/GeneralActions';
+import * as LocalizedStyles from '../../../constants/LocalizedStyles';
 
 interface Props {
   navigation: StackNavigationProp<any>,
@@ -38,9 +39,9 @@ const ExposuresHistory = (
   // show button if list is not empty or all exposures are of type BLE and can't be edited 
   const showEditBtn = useMemo(() => wasThereList.length + wasNotThereList.length > 0 && !pastExposures.every((exposure: Exposure) => exposure.properties.BLETimestamp), [wasThereList, wasNotThereList]);
   const [tabsLayout, setTabsLayout] = useState({});
-  const [lineAnimLeft] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
+  const [lineAnimLeft] = useState(new Animated.Value(LocalizedStyles.leading(isRTL)));
   const [lineAnimWidth] = useState(new Animated.Value(0));
-  const [listTranslateAnim] = useState(new Animated.Value(isRTL ? SCREEN_WIDTH : 0));
+  const [listTranslateAnim] = useState(new Animated.Value(LocalizedStyles.leading(isRTL)));
   const [firstLoad, setFirstLoad] = useState(true);
 
   useEffect(() => {
@@ -73,8 +74,8 @@ const ExposuresHistory = (
         <TouchableOpacity
           hitSlop={HIT_SLOP}
           style={[styles.editButtonContainer, {
-            [!isRTL ? 'left' : 'right']: IS_SMALL_SCREEN ? 10 : 20,
-            flexDirection: isRTL ? 'row-reverse' : 'row'
+            [LocalizedStyles.side(isRTL)]: IS_SMALL_SCREEN ? 10 : 20,
+            flexDirection: LocalizedStyles.flexDirection(isRTL)
           }]}
           onPress={() => navigation.navigate('ExposuresHistoryEdit')}
         >
@@ -88,7 +89,7 @@ const ExposuresHistory = (
           <Text bold>{title}</Text>
           <Text style={{ fontSize: 14, color: '#6a6a6a', marginVertical: 8 }}>{subTitle}</Text>
         </View>
-        <View style={{ flexDirection: isRTL ? 'row' : 'row-reverse' }}>
+        <View style={{ flexDirection: LocalizedStyles.flexDirection(isRTL, true) }}>
           <TouchableOpacity
             hitSlop={{ top: 10 }}
             style={styles.tabTextContainer}
@@ -143,8 +144,8 @@ const ExposuresHistory = (
           }}
         />
       </View>
-      <View style={{ flex: 1, flexDirection: isRTL ? 'row' : 'row-reverse', backgroundColor: '#f7f8fa' }}>
-        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
+      <View style={{ flex: 1, flexDirection: LocalizedStyles.flexDirection(isRTL, true), backgroundColor: '#f7f8fa' }}>
+        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, LocalizedStyles.translateAnim(isRTL)) }] }}>
           <FlatList
             bounces={false}
             contentContainerStyle={styles.listContainer}
@@ -164,7 +165,7 @@ const ExposuresHistory = (
           />
         </Animated.View>
 
-        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, isRTL ? -1 : 1) }] }}>
+        <Animated.View style={{ transform: [{ translateX: Animated.multiply(listTranslateAnim, LocalizedStyles.translateAnim(isRTL)) }] }}>
           <FlatList
             bounces={false}
             data={wasThereList}

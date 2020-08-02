@@ -2,6 +2,7 @@ import React, { FunctionComponent, useMemo } from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
 import { Icon, Text, TouchableOpacity } from '../common';
 import { type } from 'os';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   isRTL: boolean
@@ -26,7 +27,7 @@ const DrawerItem: FunctionComponent<Props> = ({ isRTL, icon, iconSize= 18, label
 
 
   return (
-    <TouchableOpacity style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }, style]} onPress={onPress}>
+    <TouchableOpacity style={[styles.container, { flexDirection: LocalizedStyles.flexDirection(isRTL) }, style]} onPress={onPress}>
       <Icon source={icon} width={iconSize} />
       {LabelComponent}
     </TouchableOpacity>

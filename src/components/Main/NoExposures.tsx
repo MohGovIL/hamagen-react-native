@@ -9,7 +9,7 @@ import InfoModal from './Modals/InfoModal';
 import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
 import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
 import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
-
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface NoExposuresProps {
   isRTL: boolean
@@ -86,16 +86,16 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     const furtherInstructions = externalUrls.furtherInstructions[relevantLocale];
 
     return (
-      <TouchableOpacity style={{ flexDirection: isRTL ? 'row' : 'row-reverse', alignContent: 'center', marginTop: IS_SMALL_SCREEN ? 15 : 20 }} onPress={() => Linking.openURL(furtherInstructions)}>
+      <TouchableOpacity style={{ flexDirection: LocalizedStyles.flexDirection(isRTL, true), alignContent: 'center', marginTop: IS_SMALL_SCREEN ? 15 : 20 }} onPress={() => Linking.openURL(furtherInstructions)}>
         <View style={{ alignContent: 'flex-end' }}>
-          <Text style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
-          <Text bold style={{ textAlign: isRTL ? 'right' : 'left', fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
+          <Text style={{ textAlign: LocalizedStyles.side(isRTL), fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkUpper}</Text>
+          <Text bold style={{ textAlign: LocalizedStyles.side(isRTL), fontSize: IS_SMALL_SCREEN ? 14 : 16 }}>{instructionLinkLower}</Text>
         </View>
         <Icon
           width={15}
           height={IS_SMALL_SCREEN ? 25 : 30}
           source={require('../../assets/main/isolation.png')}
-          customStyles={isRTL ? { marginLeft: 10 } : { marginRight: 10 }}
+          customStyles={{[LocalizedStyles.marginSide(isRTL, true)]: 10}}
         />
       </TouchableOpacity>
     );

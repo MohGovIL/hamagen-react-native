@@ -21,6 +21,7 @@ import {
 } from '../../constants/Constants';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
     navigation: DrawerNavigationProp<any, 'DrawerStack'>
@@ -34,7 +35,7 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
-        style={[styles.close, { [!isRTL ? 'left' : 'right']: 20, flexDirection: isRTL ? 'row-reverse' : 'row' }]}
+        style={[styles.close, { [LocalizedStyles.side(isRTL)]: 20, flexDirection: LocalizedStyles.flexDirection(isRTL) }]}
         hitSlop={HIT_SLOP}
         onPress={goToMainDrawer}
       >
@@ -44,11 +45,11 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
           customStyles={{
             borderLeftWidth: StyleSheet.hairlineWidth,
             borderColor: 'rgb(32, 49, 94)',
-            [!isRTL ? 'paddingRight' : 'paddingLeft']: 25,
-            transform: [{ rotateY: isRTL ? '0deg' : '180deg' }]
+            [LocalizedStyles.paddingSide(isRTL)]: 25,
+            transform: [{ rotateY: LocalizedStyles.rotateDegree(isRTL, true) }]
           }}
         />
-        <Text style={[{ color: 'rgb(32, 49, 94)', [isRTL ? 'marginRight' : 'marginLeft']: 7, }]} bold>{settings.label}</Text>
+        <Text style={[{ color: 'rgb(32, 49, 94)', [LocalizedStyles.marginSide(isRTL)]: 7, }]} bold>{settings.label}</Text>
       </TouchableOpacity>
 
 
@@ -63,11 +64,11 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
           style={{ alignItems: 'flex-start' }}
           label={(
             <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
-              <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{battery.label}</Text>
+              <Text style={{ fontSize: 18, textAlign: LocalizedStyles.side(isRTL) }}>{battery.label}</Text>
               <View style={{
-                flexDirection: isRTL ? 'row-reverse' : 'row',
+                flexDirection: LocalizedStyles.flexDirection(isRTL),
                 marginTop: IS_SMALL_SCREEN ? 5 : 8,
-                [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85
+                [LocalizedStyles.marginSide(isRTL)]: IS_SMALL_SCREEN ? 65 : 85
               }}
               >
                 <View style={{
@@ -78,7 +79,7 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
                   marginTop: 5
                 }}
                 />
-                <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
+                <Text style={{ fontSize: 14, textAlign: LocalizedStyles.side(isRTL), marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
               </View>
             </View>
                     )
@@ -92,11 +93,11 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
         style={{ alignItems: 'flex-start' }}
         label={(
           <View style={{ paddingHorizontal: 19, alignItems: 'stretch' }}>
-            <Text style={{ fontSize: 18, textAlign: isRTL ? 'right' : 'left' }}>{bluetooth.label}</Text>
+            <Text style={{ fontSize: 18, textAlign: LocalizedStyles.side(isRTL) }}>{bluetooth.label}</Text>
             <View style={{
-              flexDirection: isRTL ? 'row-reverse' : 'row',
+              flexDirection: LocalizedStyles.flexDirection(isRTL),
               marginTop: IS_SMALL_SCREEN ? 5 : 8,
-              [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85
+              [isRTL ? 'marginRight' : 'marginRight']: IS_SMALL_SCREEN ? 65 : 85 // is this a bug marginRight for both directions
             }}
             >
               <View
@@ -108,7 +109,7 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
                   marginTop: 5
                 }}
               />
-              <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
+              <Text style={{ fontSize: 14, textAlign: LocalizedStyles.side(isRTL), marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
             </View>
           </View>
                 )}
