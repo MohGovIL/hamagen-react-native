@@ -9,6 +9,7 @@ import { shareUserLocations } from '../../actions/DeepLinkActions';
 import { Strings } from '../../locale/LocaleData';
 import { LocaleReducer, Store } from '../../types';
 import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP, TEXT_COLOR, IS_IOS, ENABLE_BLE } from '../../constants/Constants';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   route: any,
@@ -128,12 +129,12 @@ const ShareLocations = ({ route, navigation }: Props) => {
   const AgreeToBleCheckbox = () => {
     if (!IS_IOS && ENABLE_BLE && state === 'beforeShare') {
       return (
-        <TouchableOpacity style={{ flexDirection: isRTL ? 'row-reverse' : 'row', marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
+        <TouchableOpacity style={{ flexDirection: LocalizedStyles.flexDirection(isRTL), marginBottom: 23, paddingHorizontal: 30, alignItems: 'center' }} onPress={() => onValueSelected(!agreeToBle)} accessibilityRole="checkbox" checked={agreeToBle}>
           <View style={styles.box}>
             {agreeToBle && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
           </View>
 
-          <Text style={[styles.text, { textAlign: isRTL ? 'right' : 'left' }]}>{addBleDataText}</Text>
+          <Text style={[styles.text, { textAlign: LocalizedStyles.side(isRTL) }]}>{addBleDataText}</Text>
 
         </TouchableOpacity>
       );

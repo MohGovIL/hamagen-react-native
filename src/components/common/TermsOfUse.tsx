@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Icon, TouchableOpacity, Text } from '.';
 import { Strings } from '../../locale/LocaleData';
 import { SCREEN_WIDTH, TEXT_COLOR, USAGE_ON_BOARDING } from '../../constants/Constants';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface Props {
   isRTL: boolean,
@@ -14,7 +15,7 @@ interface Props {
 
 const TermsOfUse = ({ isRTL, strings: { general: { readTOU, approveTOU }, location: { consent1, consent2 } }, value, onValueSelected, toggleWebview }: Props) => {
   return (
-    <View style={[styles.container, { flexDirection: isRTL ? 'row-reverse' : 'row' }]}>
+    <View style={[styles.container, { flexDirection: LocalizedStyles.flexDirection(isRTL) }]}>
       <TouchableOpacity onPress={() => onValueSelected(!value)} accessibilityLabel={approveTOU} accessibilityRole="checkbox" checked={value}>
         <View style={styles.box}>
           {value && <Icon source={require('../../assets/onboarding/checked.png')} height={8} width={12} customStyles={{ tintColor: TEXT_COLOR }} />}
@@ -22,7 +23,7 @@ const TermsOfUse = ({ isRTL, strings: { general: { readTOU, approveTOU }, locati
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => toggleWebview(true, USAGE_ON_BOARDING)} accessibilityHint={readTOU}>
-        <Text style={{ paddingHorizontal: 10, textAlign: isRTL ? 'right' : 'left' }}>
+        <Text style={{ paddingHorizontal: 10, textAlign: LocalizedStyles.side(isRTL) }}>
           <Text style={[styles.text]}>{consent1}</Text>
           <Text style={[styles.text, { textDecorationLine: 'underline' }]}>{consent2}</Text>
         </Text>

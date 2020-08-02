@@ -12,6 +12,7 @@ import { USER_DISABLED_BATTERY, ENABLE_BLE } from '../../../constants/ActionType
 import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USER_AGREED_TO_BATTERY, PADDING_TOP, PADDING_BOTTOM, BASIC_SHADOW_STYLES, WHITE, HIT_SLOP, USER_AGREE_TO_BLE } from '../../../constants/Constants';
 import { LocaleReducer, Store, GeneralReducer } from '../../../types';
 import { initBLETracing } from '../../../services/BLEService';
+import * as LocalizedStyles from '../../../constants/LocalizedStyles';
 
 interface Props {
 
@@ -49,17 +50,17 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
           paddingVertical: IS_SMALL_SCREEN ? 16 : 24,
           paddingHorizontal: IS_SMALL_SCREEN ? 8 : 16,
           borderRadius: 13,
-          flexDirection: isRTL ? 'row-reverse' : 'row',
+          flexDirection: LocalizedStyles.flexDirection(isRTL),
           justifyContent: 'space-between',
           alignItems: 'center'
         }]}
       >
 
-        <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn : BLEOff}</Text>
+        <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: LocalizedStyles.side(isRTL) }} bold>{enableBle ? BLEOn : BLEOff}</Text>
         <Switch 
           thumbColor={enableBle ? MAIN_COLOR : WHITE}
           trackColor={{ true: 'rgb(145,199,231)', false: 'rgb(190,190,190' }}
-          style={{ [isRTL ? 'marginRight' : 'marginLeft']: 10 }}
+          style={{ [LocalizedStyles.marginSide(isRTL)]: 10 }}
           value={Boolean(enableBle)} 
           onValueChange={async (payload: boolean) => {
             dispatch({ type: ENABLE_BLE, payload });

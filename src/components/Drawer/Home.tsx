@@ -21,6 +21,7 @@ import MapModal from '../Main/Modals/MapModal';
 import { INIT_ROUTE_NAME } from '../../constants/Constants';
 import BatteryModal from '../Main/Modals/BatteryModal';
 import BatterySettings from '../Main/Settings/BatterySettings';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 import { LocaleReducer, ExposuresReducer, Store } from '../../types';
 import BluetoothSettings from '../Main/Settings/BluetoothSettings';
@@ -87,7 +88,7 @@ const Home = () => {
         drawerType="back"
         screenOptions={{ gestureEnabled: false }}
         drawerContent={props => <DrawerContent {...props} />}
-        drawerPosition={isRTL ? 'right' : 'left'}
+        drawerPosition={LocalizedStyles.side(isRTL)}
         drawerStyle={{
           width: '100%'
         }}

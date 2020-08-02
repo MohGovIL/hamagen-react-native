@@ -22,6 +22,7 @@ import {
 import { showMapModal } from '../../actions/GeneralActions';
 import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
 import CardIdentifyTag from '../common/CardIdentifyTag';
+import * as LocalizedStyles from '../../constants/LocalizedStyles';
 
 interface ExposuresDetectedProps {
   navigation: StackNavigationProp<any>
@@ -252,7 +253,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
             height: SCREEN_HEIGHT * 0.08,
             backgroundColor: MAIN_COLOR,
             justifyContent: 'center',
-            flexDirection: isRTL ? 'row-reverse' : 'row',
+            flexDirection: LocalizedStyles.flexDirection(isRTL),
             alignItems: 'center',
             paddingBottom: PADDING_BOTTOM()
           }}
