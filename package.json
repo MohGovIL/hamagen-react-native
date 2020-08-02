@@ -12,6 +12,8 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@babel/core": "7.6.2",
+    "@babel/runtime": "7.6.2",
     "@react-native-community/async-storage": "1.7.1",
     "@react-native-community/cli": "2.9.0",
     "@react-native-community/cookies": "^2.0.8",
@@ -74,8 +76,6 @@
     "xmldom": "0.3.0"
   },
   "devDependencies": {
-    "@babel/core": "7.6.2",
-    "@babel/runtime": "7.6.2",
     "@react-native-community/eslint-config": "0.0.5",
     "@types/async-lock": "1.1.1",
     "@types/jest": "^25.1.4",
