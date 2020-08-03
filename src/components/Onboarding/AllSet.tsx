@@ -52,10 +52,12 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       ]);
       // TODO: figure out why replace crash android on first upload
       navigation.navigate('Home');
-      startForegroundTimer();
+
+      await startForegroundTimer();
       await initBLETracing();
       await startSampling(locale, notificationData);
       await scheduleTask();
+      
     } catch (error) {
       onError({ error });
     }

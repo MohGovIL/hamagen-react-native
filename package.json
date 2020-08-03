@@ -43,7 +43,7 @@
     "react-native-background-fetch": "2.7.1",
     "react-native-background-geolocation": "3.4.2",
     "react-native-background-timer": "2.2.0",
-    "react-native-bluetooth-state-manager": "https://github.com/greenyossi/react-native-bluetooth-state-manager.git",
+    "react-native-bluetooth-state-manager": "https://github.com/MohGovIL/react-native-bluetooth-state-manager.git",
     "react-native-common-intents": "^0.2.0",
     "react-native-device-info": "5.4.0",
     "react-native-disable-battery-optimizations-android": "^1.0.7",
