@@ -642,7 +642,7 @@ SPEC CHECKSUMS:
   React-RCTText: 9ccc88273e9a3aacff5094d2175a605efa854dbe
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
-  rn-contact-tracing: fe147c2be110646d1aa401e15c0065ad1bc25fd8
+  rn-contact-tracing: fd7e7233fab1ca54d5ef61ce5ecec21aac111349
   rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBackgroundFetch: 8d8d66b47eafcb9e772b2eb95057939038b3ef95
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566

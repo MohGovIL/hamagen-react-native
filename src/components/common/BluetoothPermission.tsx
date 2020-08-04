@@ -24,11 +24,6 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { params } = useRoute();
 
-  const userApprove = async () => {
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
-    onEnd();
-  };
-
   const handlePressIOS = async () => {
     const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
     switch (BTCheckStatus) {
@@ -65,10 +60,10 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
   };
 
   const handlePressAndroid = async () => {
-    onEnd();
     // ENABLE_BLE
     dispatch({ type: ENABLE_BLE, payload: true });
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
+    onEnd();
   };
 
   return (

@@ -17,7 +17,7 @@ import android.util.DisplayMetrics;
 import android.content.IntentFilter;
 import io.rumors.reactnativesettings.receivers.GpsLocationReceiver;
 import io.rumors.reactnativesettings.receivers.AirplaneModeReceiver;
-import com.wix.specialble.SpecialBlePackage;
+import moh.gov.il.specialble.SpecialBlePackage;
 
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
