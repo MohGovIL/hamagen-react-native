@@ -3,10 +3,10 @@ import { Modal, View, StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
-import { HeaderButton, Icon, Text } from '../common';
-import { SCREEN_HEIGHT, SCREEN_WIDTH, PADDING_TOP, IS_SMALL_SCREEN } from '../../constants/Constants';
-import { HIDE_MAP_MODAL } from '../../constants/ActionTypes';
-import { Store, GeneralReducer, LocaleReducer } from '../../types';
+import { HeaderButton, Icon, Text } from '../../common';
+import { SCREEN_HEIGHT, SCREEN_WIDTH, PADDING_TOP, IS_SMALL_SCREEN } from '../../../constants/Constants';
+import { HIDE_MAP_MODAL } from '../../../constants/ActionTypes';
+import { Store, GeneralReducer, LocaleReducer } from '../../../types';
 
 const MapModal = () => {
   const dispatch = useDispatch();
@@ -29,7 +29,7 @@ const MapModal = () => {
       <HeaderButton type="close" onPress={() => dispatch({ type: HIDE_MAP_MODAL })} />
 
       <View style={styles.headerContainer}>
-        <Icon source={require('../../assets/main/exposuresSmall.png')} width={27} height={17} customStyles={styles.headerIcon} />
+        <Icon source={require('../../../assets/main/exposuresSmall.png')} width={27} height={17} customStyles={styles.headerIcon} />
         <Text bold style={styles.place} numberOfLines={20}>{properties?.Place || ''}</Text>
         <Text style={styles.aroundTime}>{`${inDate} ${date} ${fromHour} ${hour}`}</Text>
       </View>
@@ -40,7 +40,7 @@ const MapModal = () => {
       >
         <Marker
           coordinate={region}
-          image={require('../../assets/main/mapMarker.png')}
+          image={require('../../../assets/main/mapMarker.png')}
         />
       </MapView>
 

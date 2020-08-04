@@ -6,6 +6,8 @@ import ExtraDimensions from 'react-native-extra-dimensions-android';
 export const IS_IOS: boolean = Platform.OS === 'ios';
 export const HIT_SLOP: Insets = { top: 10, bottom: 10, left: 10, right: 10 };
 export const VERSION_NAME: string = DeviceInfo.getVersion();
+export const VERSION_BUILD: string = DeviceInfo.getBuildNumber();
+export const SHOW_DOT_BY_BUILD_NUMBER: string = '96'
 
 // Dimensions
 const isIPhoneXSize: boolean = Dimensions.get('window').height === 812 || Dimensions.get('window').width === 812;
@@ -56,7 +58,7 @@ export const SERVICE_TRACKER = 'SERVICE_TRACKER';
 export const INIT_ROUTE_NAME = 'INIT_ROUTE_NAME';
 export const USER_AGREE_BLE = 'USER_AGREE_BLE';
 export const SICK_DB_UPDATED = 'SICK_DB_UPDATED';
-
+export const MENU_DOT_LAST_SEEN = 'MENU_DOT_LAST_SEEN';
 
 // Cluster
 export const CLUSTER_JITTER_LOCATION = 'CLUSTER_JITTER_LOCATION';

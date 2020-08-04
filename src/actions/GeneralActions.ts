@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
-import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
+import BackgroundGeolocation from 'react-native-background-geolocation';
 import { downloadAndVerifySigning } from '../services/SigningService';
-// @ts-ignore
 import { onError } from '../services/ErrorService';
 import config from '../config/config';
 import {
@@ -102,28 +101,28 @@ export const checkIfBleEnabled = () => async (dispatch: any) => {
 };
 // battery optimization for android phones
 export const checkIfBatteryDisabled = () => async (dispatch: any) => {
+  let payload: boolean | null = false;
   try {
-    let payload = IS_IOS ? 'false' : await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
-    if (payload) {
-      payload = JSON.parse(payload);
-      dispatch({ type: USER_DISABLED_BATTERY, payload });
-      return;
-    }
-    // if not decided yet check
-    const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
-    if (!isEnabled) {
-      dispatch({ type: USER_DISABLED_BATTERY, payload: true });
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
-    } else if (parseInt(DeviceInfo.getSystemVersion().split(',')[0]) < 6) {
-      // not supported
-      dispatch({ type: USER_DISABLED_BATTERY, payload: false });
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'false');
-    } else {
-      dispatch({ type: USER_DISABLED_BATTERY, payload: null });
+    if (!IS_IOS) {  
+      const userAgreed: string | null = await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
+      const isIgnoring = await BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations();
+      console.log('isIgnoring', isIgnoring);
+      
+      if (userAgreed) {
+        if (userAgreed !== isIgnoring.toString()) {
+          await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, isIgnoring.toString());
+        }
+        payload = isIgnoring;
+      } else {
+        payload = null;
+      }
     }
   } catch (error) {
     onError({ error });
-    dispatch({ type: USER_DISABLED_BATTERY, payload: false });
+  } finally {
+    console.log('payload', payload);
+    
+    dispatch({ type: USER_DISABLED_BATTERY, payload });
   }
 };
 

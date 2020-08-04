@@ -30,7 +30,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           advertiseMode: 0,
           advertiseTXPowerLevel: 3,
           scanMatchMode: 1,
-          notificationTitle: '',
+          notificationTitle: 'title',
           notificationContent: 'סריקת BLE פועלת',
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',

@@ -2,11 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
-import BluetoothPermission from '../common/BluetoothPermission';
-import { HeaderButton } from '../common';
-import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREE_TO_BLE } from '../../constants/Constants';
-import { ENABLE_BLE } from '../../constants/ActionTypes';
-import { initBLETracing } from '../../services/BLEService';
+import BluetoothPermission from '../../common/BluetoothPermission';
+import { HeaderButton } from '../../common';
+import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREE_TO_BLE } from '../../../constants/Constants';
+import { ENABLE_BLE } from '../../../constants/ActionTypes';
+import { initBLETracing } from '../../../services/BLEService';
 
 const BluetoothModal = ({ navigation }) => {
   const dispatch = useDispatch();

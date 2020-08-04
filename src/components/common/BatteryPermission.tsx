@@ -50,9 +50,9 @@ const BatteryPermission: FunctionComponent<Props> = ({ onEnd }) => {
   useInterval(async () => {
     const isEnabled = await RNDisableBatteryOptimizationsAndroid.isBatteryOptimizationEnabled();
     if (!isEnabled) {
-      onEnd();
-      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
       dispatch({ type: USER_DISABLED_BATTERY, payload: true });
+      await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, 'true');
+      onEnd();
     }
   }, intervalDelay);
 

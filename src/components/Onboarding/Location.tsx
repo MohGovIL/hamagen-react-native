@@ -37,13 +37,11 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
       if (IS_IOS) {
         navigation.navigate('LocationIOS');
       } else {
-        let destination = 'LocationHistoryOnBoarding';
+        let destination = 'AllSet';
         const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
         if (androidVersion >= 10) {
           destination = 'FilterDrivingOnBoarding';
-        } else if (ENABLE_BLE) {
-          destination = 'Bluetooth';
-        } else if (androidVersion >= 6) {
+        }  else if (androidVersion >= 6) {
           destination = 'Battery';
         }
         navigation.navigate(destination);
