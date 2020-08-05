@@ -34,7 +34,8 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationContent: 'סריקת BLE פועלת',
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',
-          disableBatteryOptimization: false
+          disableBatteryOptimization: false,
+          isAppDebuggable: true
         };
       }
       

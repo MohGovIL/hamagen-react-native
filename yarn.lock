@@ -7245,7 +7245,7 @@ rimraf@~2.2.6:
 
 "rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git":
   version "0.0.3"
-  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#fa6bd775327713d1214d67fe9a961cab7abcd7ca"
+  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#9250ee7e5e7e408bc41b38c48a99b733ae28d8dd"
 
 rn-fetch-blob@0.12.0:
   version "0.12.0"
