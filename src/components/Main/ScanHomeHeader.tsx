@@ -24,7 +24,6 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
   const [showDot, setShowDot] = useState(false);
 
   useEffect(() => {
-    
     AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
       .then((res) => {
         if (res) {

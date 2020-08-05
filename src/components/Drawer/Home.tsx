@@ -4,7 +4,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import { useSelector } from 'react-redux';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import { INIT_ROUTE_NAME } from '../../constants/Constants';
 import ScanHome from '../Main/ScanHome';
 import DrawerContent from './DrawerContent';
 import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';

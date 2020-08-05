@@ -41,7 +41,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
         const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
         if (androidVersion >= 10) {
           destination = 'FilterDrivingOnBoarding';
-        }  else if (androidVersion >= 6) {
+        } else if (androidVersion >= 6) {
           destination = 'Battery';
         }
         navigation.navigate(destination);

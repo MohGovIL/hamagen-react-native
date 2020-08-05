@@ -1,35 +1,28 @@
-import React, { useState, useCallback } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
+import React, {  } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundGeolocation from 'react-native-background-geolocation';
-import { useFocusEffect } from '@react-navigation/native';
 import DrawerItem from './DrawerItem';
 import { Icon, Text } from '../common';
 import { Store } from '../../types';
 import {
-  HIT_SLOP, PADDING_BOTTOM,
+  PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
   USAGE_PRIVACY,
-  VERSION_NAME,
-  USER_AGREED_TO_BATTERY,
-  IS_IOS,
-  IS_SMALL_SCREEN,
 } from '../../constants/Constants';
 import { toggleWebview } from '../../actions/GeneralActions';
-import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>
+  showSettings(): void
 }
 
 const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
   const dispatch = useDispatch();
 
-  const { locale: { strings: { general: { versionNumber, additionalInfo }, exposuresHistory, languages, menu: { settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+  const { locale: { strings: { general: { additionalInfo }, exposuresHistory, languages, menu: { settings } }, isRTL } } = useSelector<Store, Store>(state => state);
 
 
   return (
@@ -67,8 +60,27 @@ const HomeDrawerContent = ({ navigation, showSettings }: Props) => {
               />
             </View>
           </>
-)}
+        )}
         onPress={showSettings}
+      />
+
+      <DrawerItem
+        isRTL={isRTL}
+        label="QA"
+        icon={require('../../assets/main/policy.png')}
+        onPress={() => {
+          navigation.navigate('QA');
+          navigation.closeDrawer();
+        }}
+      />
+
+      <DrawerItem
+        isRTL={isRTL}
+        label="QA BLE"
+        icon={require('../../assets/main/policy.png')}
+        onPress={() => {
+          navigation.navigate('QABLE');
+        }}
       />
 
       <DrawerItem
