@@ -1,11 +1,11 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { NativeModules } from 'react-native';
-import { downloadAndVerifySigning } from '../services/SigningService';
-import { onError } from '../services/ErrorService';
 import config from '../config/config';
-import localeData, { LocaleData } from '../locale/LocaleData';
-import { TOGGLE_CHANGE_LANGUAGE, LOCALE_CHANGED, INIT_LOCALE } from '../constants/ActionTypes';
+import { INIT_LOCALE, LOCALE_CHANGED, TOGGLE_CHANGE_LANGUAGE } from '../constants/ActionTypes';
 import { CURRENT_LOCALE, IS_IOS } from '../constants/Constants';
+import localeData, { LocaleData } from '../locale/LocaleData';
+import { onError } from '../services/ErrorService';
+import { downloadAndVerifySigning } from '../services/SigningService';
 
 export const toggleChangeLanguage = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_CHANGE_LANGUAGE, payload: isShow });
 
@@ -15,7 +15,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
+    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl + 123);
 
     const { languages, notificationData, externalUrls } = data;
 

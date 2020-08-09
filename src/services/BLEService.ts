@@ -1,12 +1,13 @@
-import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { NativeEventEmitter } from 'react-native';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import { IS_IOS, ENABLE_BLE, USER_AGREE_TO_BLE } from '../constants/Constants';
+import config from '../config/config';
+import { ENABLE_BLE as ENABLE_BLE_TYPE } from '../constants/ActionTypes';
+import { ENABLE_BLE, IS_IOS, USER_AGREE_TO_BLE } from '../constants/Constants';
+import store from '../store';
 import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
-import config from '../config/config';
-// import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
@@ -34,7 +35,8 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationContent: 'סריקת BLE פועלת',
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',
-          disableBatteryOptimization: false
+          disableBatteryOptimization: false,
+          isAppDebuggable: false
         };
       }
       
@@ -94,5 +96,11 @@ export const match = async () => new Promise(async (resolve) => {
     }
   }
 });
+
+export const toggleBLEService = async (payload: boolean) => {
+  store().dispatch({ type: ENABLE_BLE_TYPE, payload });
+  await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
+  await initBLETracing();
+};
 
 export const { askToDisableBatteryOptimization } = SpecialBle;
