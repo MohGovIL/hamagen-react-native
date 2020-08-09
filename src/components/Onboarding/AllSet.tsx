@@ -57,7 +57,6 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
       await initBLETracing();
       await startSampling(locale, notificationData);
       await scheduleTask();
-      
     } catch (error) {
       onError({ error });
     }

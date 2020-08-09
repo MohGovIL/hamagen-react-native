@@ -1,25 +1,17 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import { useFocusEffect, useRoute } from '@react-navigation/native';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
-// @ts-ignore
-import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
-import { useDispatch, useSelector } from 'react-redux';
-import { TouchableWithoutFeedback, Switch } from 'react-native-gesture-handler';
-import BackgroundGeolocation, { DeviceSettingsRequest } from 'react-native-background-geolocation';
-import { ActionButton, Icon, Text, TouchableOpacity, HeaderButton } from '../../common';
-import { USER_DISABLED_BATTERY, ENABLE_BLE } from '../../../constants/ActionTypes';
-import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USER_AGREED_TO_BATTERY, PADDING_TOP, PADDING_BOTTOM, BASIC_SHADOW_STYLES, WHITE, HIT_SLOP, USER_AGREE_TO_BLE } from '../../../constants/Constants';
-import { LocaleReducer, Store, GeneralReducer } from '../../../types';
-import { initBLETracing } from '../../../services/BLEService';
+import { Switch } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
+import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, WHITE } from '../../../constants/Constants';
+import { toggleBLEService } from '../../../services/BLEService';
+import { GeneralReducer, LocaleReducer, Store } from '../../../types';
+import { HeaderButton, Icon, Text } from '../../common';
 
 interface Props {
 
 }
 
 const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
-  // const [userPressed,setUserPressed] = useState(false)
-  const dispatch = useDispatch();
   const { isRTL, strings: {
     bluetoothSettings: { title, description, recommendation, BLEOn, BLEOff }
   } } = useSelector<Store, LocaleReducer>(state => state.locale);
@@ -61,11 +53,7 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
           trackColor={{ true: 'rgb(145,199,231)', false: 'rgb(190,190,190' }}
           style={{ [isRTL ? 'marginRight' : 'marginLeft']: 10 }}
           value={Boolean(enableBle)} 
-          onValueChange={async (payload: boolean) => {
-            dispatch({ type: ENABLE_BLE, payload });
-            await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
-            await initBLETracing();
-          }}
+          onValueChange={() => toggleBLEService(Boolean(!enableBle))}
         />
 
       </View>

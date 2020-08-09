@@ -1,10 +1,11 @@
-import React, { useMemo, FunctionComponent, useState, useEffect } from 'react';
-import { View, StyleSheet, ImageBackground, Share } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { TouchableOpacity, Icon } from '../common';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { ImageBackground, Share, StyleSheet, View } from 'react-native';
+import { HIT_SLOP, MENU_DOT_LAST_SEEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, VERSION_BUILD } from '../../constants/Constants';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
+import { toggleBLEService } from '../../services/BLEService';
 import { onError } from '../../services/ErrorService';
-import { ExternalUrls, Strings, Languages } from '../../locale/LocaleData';
-import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, MENU_DOT_LAST_SEEN, VERSION_BUILD } from '../../constants/Constants';
+import { Icon, TouchableOpacity } from '../common';
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -12,10 +13,11 @@ interface ScanHomeHeaderProps {
   externalUrls: ExternalUrls,
   locale: string,
   languages: Languages,
+  enableBle: boolean | null,
   openDrawer(): void
 }
 
-const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer, }) => {
+const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer, enableBle }) => {
   const messageAndUrl = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
     return `${message}\n${externalUrls?.shareMessage?.[relevantLocale] ?? ''}`;
@@ -24,7 +26,6 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
   const [showDot, setShowDot] = useState(false);
 
   useEffect(() => {
-    
     AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
       .then((res) => {
         if (res) {
@@ -66,10 +67,14 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
         <View style={styles.logoContainer}>
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
-
-        <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
-          <Icon source={require('../../assets/main/share.png')} width={20} />
-        </TouchableOpacity>
+        <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+          <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(Boolean(!enableBle))}>
+            <Icon source={enableBle ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
+          </TouchableOpacity>
+          <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
+            <Icon source={require('../../assets/main/share.png')} width={20} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <View style={styles.bottomEdge} />

@@ -1,31 +1,30 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import DeviceInfo from 'react-native-device-info';
 import moment from 'moment';
 import BackgroundGeolocation from 'react-native-background-geolocation';
-import { downloadAndVerifySigning } from '../services/SigningService';
-import { onError } from '../services/ErrorService';
+import DeviceInfo from 'react-native-device-info';
 import config from '../config/config';
 import {
-  TOGGLE_LOADER,
-  TOGGLE_WEBVIEW,
-  SHOW_FORCE_UPDATE,
-  SHOW_FORCE_TERMS,
-  HIDE_LOCATION_HISTORY,
-  SHOW_MAP_MODAL,
   ENABLE_BLE,
+  HIDE_LOCATION_HISTORY,
+  SHOW_FORCE_TERMS,
+  SHOW_FORCE_UPDATE,
+  SHOW_MAP_MODAL, TOGGLE_LOADER,
+  TOGGLE_WEBVIEW,
   USER_DISABLED_BATTERY
 } from '../constants/ActionTypes';
-
 import {
   CURRENT_TERMS_VERSION,
+  ENABLE_BLE as ENABLE_BLE_IN_APP,
   FIRST_POINT_TS,
   IS_IOS,
   SHOULD_HIDE_LOCATION_HISTORY,
-  USER_AGREE_TO_BLE,
-  ENABLE_BLE as ENABLE_BLE_IN_APP,
-  USER_AGREED_TO_BATTERY
+  USER_AGREED_TO_BATTERY,
+  USER_AGREE_TO_BLE
 } from '../constants/Constants';
+import { onError } from '../services/ErrorService';
+import { downloadAndVerifySigning } from '../services/SigningService';
 import { Exposure } from '../types';
+
 
 export const toggleLoader = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_LOADER, payload: { isShow } });
 
@@ -83,31 +82,32 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
 };
 
 export const checkIfBleEnabled = () => async (dispatch: any) => {
-  if (!ENABLE_BLE_IN_APP) {
-    dispatch({ type: ENABLE_BLE, payload: false });
-  } else {
-    try {
-      let payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+  let payload: boolean | null = false;
+  try {
+    if (ENABLE_BLE_IN_APP) {
+      const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
 
-      if (payload) {
-        payload = JSON.parse(payload);
+      if (userAgreed) {
+        payload = JSON.parse(userAgreed);
+      } else {
+        payload = userAgreed;
       }
-      dispatch({ type: ENABLE_BLE, payload });
-    } catch (error) {
-      onError({ error });
-      dispatch({ type: ENABLE_BLE, payload: false });
     }
+  } catch (error) {
+    onError({ error });
+    payload = false;
+  } finally {
+    dispatch({ type: ENABLE_BLE, payload });
   }
 };
 // battery optimization for android phones
 export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   let payload: boolean | null = false;
   try {
-    if (!IS_IOS) {  
+    if (!IS_IOS) {
       const userAgreed: string | null = await AsyncStorage.getItem(USER_AGREED_TO_BATTERY);
       const isIgnoring = await BackgroundGeolocation.deviceSettings.isIgnoringBatteryOptimizations();
-      console.log('isIgnoring', isIgnoring);
-      
+
       if (userAgreed) {
         if (userAgreed !== isIgnoring.toString()) {
           await AsyncStorage.setItem(USER_AGREED_TO_BATTERY, isIgnoring.toString());
@@ -120,8 +120,6 @@ export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   } catch (error) {
     onError({ error });
   } finally {
-    console.log('payload', payload);
-    
     dispatch({ type: USER_DISABLED_BATTERY, payload });
   }
 };

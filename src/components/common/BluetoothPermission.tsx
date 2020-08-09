@@ -1,14 +1,14 @@
-import React, { FunctionComponent } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import { useRoute } from '@react-navigation/native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { check, request, PERMISSIONS, RESULTS, PermissionStatus } from 'react-native-permissions';
-import { ActionButton, Text, Icon, TouchableOpacity } from '.';
-import { IS_SMALL_SCREEN, MAIN_COLOR, USAGE_PRIVACY, USER_AGREE_TO_BLE, IS_IOS, SCREEN_WIDTH } from '../../constants/Constants';
-import { Store, LocaleReducer } from '../../types';
+import { useRoute } from '@react-navigation/native';
+import React, { FunctionComponent } from 'react';
+import { Platform, StyleSheet, View } from 'react-native';
+import { check, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions';
+import { useDispatch, useSelector } from 'react-redux';
+import { ActionButton, Icon, Text, TouchableOpacity } from '.';
 import { toggleWebview } from '../../actions/GeneralActions';
 import { ENABLE_BLE } from '../../constants/ActionTypes';
+import { IS_IOS, IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USAGE_PRIVACY, USER_AGREE_TO_BLE } from '../../constants/Constants';
+import { LocaleReducer, Store } from '../../types';
 
 
 interface Props {

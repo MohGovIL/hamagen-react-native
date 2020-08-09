@@ -293,7 +293,7 @@
 					};
 					D52A57BF24203FBB00521B22 = {
 						DevelopmentTeam = N3P977USJJ;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -554,12 +554,12 @@
 				CODE_SIGN_ENTITLEMENTS = "codeAgainstCorona/Code against corona.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 99;
+				CURRENT_PROJECT_VERSION = 100;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.9;
+				MARKETING_VERSION = 2.2.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -585,11 +585,11 @@
 				CODE_SIGN_ENTITLEMENTS = "המגןRelease.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 99;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				INFOPLIST_FILE = codeAgainstCorona/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.9;
+				MARKETING_VERSION = 2.2.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -711,11 +711,11 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 99;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 100;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = N3P977USJJ;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/TSBackgroundFetch/ios/TSBackgroundFetch",
@@ -725,7 +725,7 @@
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.9;
+				MARKETING_VERSION = 2.2.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -733,7 +733,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hamagen.qa;
 				PRODUCT_NAME = "Hamagen QA";
-				PROVISIONING_PROFILE_SPECIFIER = "Hamagen QA Dev";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "codeAgainstCorona-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -751,7 +751,7 @@
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 99;
+				CURRENT_PROJECT_VERSION = 100;
 				DEVELOPMENT_TEAM = N3P977USJJ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -762,7 +762,7 @@
 				INFOPLIST_FILE = "codeAgainstCorona/Info-qa.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 2.2.9;
+				MARKETING_VERSION = 2.2.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
