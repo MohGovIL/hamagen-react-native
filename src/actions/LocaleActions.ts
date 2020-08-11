@@ -4,8 +4,10 @@ import config from '../config/config';
 import { INIT_LOCALE, LOCALE_CHANGED, TOGGLE_CHANGE_LANGUAGE } from '../constants/ActionTypes';
 import { CURRENT_LOCALE, IS_IOS } from '../constants/Constants';
 import localeData, { LocaleData } from '../locale/LocaleData';
+import { initBLETracing, stopBLEService } from '../services/BLEService';
 import { onError } from '../services/ErrorService';
 import { downloadAndVerifySigning } from '../services/SigningService';
+
 
 export const toggleChangeLanguage = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_CHANGE_LANGUAGE, payload: isShow });
 
@@ -15,7 +17,7 @@ export const initLocale = () => async (dispatch: any) => {
 
     await AsyncStorage.setItem(CURRENT_LOCALE, activeLocale);
 
-    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl + 123);
+    const data: LocaleData = await downloadAndVerifySigning(config().stringsUrl);
 
     const { languages, notificationData, externalUrls } = data;
 
@@ -60,6 +62,9 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
   try {
     await AsyncStorage.setItem(CURRENT_LOCALE, locale);
     dispatch({ type: LOCALE_CHANGED, payload: { locale } });
+    // stop service to refresh notification locale
+    await stopBLEService();
+    await initBLETracing();
   } catch (error) {
     onError({ error });
   }

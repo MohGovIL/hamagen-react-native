@@ -1,13 +1,13 @@
-import { StackNavigationProp } from '@react-navigation/stack';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import BackgroundGeolocation from 'react-native-background-geolocation';
-import moment from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
-import { UserLocationsDatabase } from '../database/Database';
-import { onError } from './ErrorService';
+import { StackNavigationProp } from '@react-navigation/stack';
+import moment from 'moment';
+import BackgroundGeolocation from 'react-native-background-geolocation';
+import { check, PERMISSIONS, request, RESULTS } from 'react-native-permissions';
 import config from '../config/config';
-import { NotificationData } from '../locale/LocaleData';
 import { DID_UPDATE_LOCATIONS_TIME_TO_UTC, IS_IOS, MOTION_PERMISSION_CALL_TO_ACTION } from '../constants/Constants';
+import { UserLocationsDatabase } from '../database/Database';
+import { NotificationData } from '../locale/LocaleData';
+import { onError } from './ErrorService';
 
 export const locationPermission = IS_IOS ? PERMISSIONS.IOS.LOCATION_ALWAYS : PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION;
 export const motionPermission = IS_IOS ? PERMISSIONS.IOS.MOTION : PERMISSIONS.ANDROID.ACTIVITY_RECOGNITION;

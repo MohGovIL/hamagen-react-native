@@ -4,43 +4,43 @@ import { NativeEventEmitter } from 'react-native';
 import SpecialBle from 'rn-contact-tracing';
 import config from '../config/config';
 import { ENABLE_BLE as ENABLE_BLE_TYPE } from '../constants/ActionTypes';
-import { ENABLE_BLE, IS_IOS, USER_AGREE_TO_BLE } from '../constants/Constants';
+import { CURRENT_LOCALE, ENABLE_BLE, IS_IOS, USER_AGREE_TO_BLE } from '../constants/Constants';
 import store from '../store';
 import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+
   if (ENABLE_BLE && userAgreed === 'true') {
     try {
       const UUID = '00000000-0000-1000-8000-00805F9B34FB';
 
       // TODO move to config
-      let config: any = {
-        serviceUUID: UUID,
-        scanDuration: 60000,
-        scanInterval: 240000,
-        advertiseInterval: 50000,
-        advertiseDuration: 10000,
-        token: 'default_token'
-      };
-
       if (!IS_IOS) {
-        config = {
-          ...config,
+        const locale: string = await AsyncStorage.getItem(CURRENT_LOCALE) ?? 'he';
+        
+        const BLEConfig: any = {
+          serviceUUID: UUID,
+          scanDuration: 60000,
+          scanInterval: 240000,
+          advertiseInterval: 50000,
+          advertiseDuration: 10000,
+          token: 'default_token',
           advertiseMode: 0,
           advertiseTXPowerLevel: 3,
           scanMatchMode: 1,
-          notificationTitle: 'title',
-          notificationContent: 'סריקת BLE פועלת',
+          notificationTitle: config().BLENotificationTitle[locale],
+          notificationContent: config().BLENotificationContent[locale],
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',
           disableBatteryOptimization: false,
           isAppDebuggable: false
         };
+
+        await SpecialBle.setConfig(BLEConfig);
       }
-      
-      await SpecialBle.setConfig(config);
+
       await SpecialBle.startBLEService();
 
       resolve();
@@ -104,3 +104,4 @@ export const toggleBLEService = async (payload: boolean) => {
 };
 
 export const { askToDisableBatteryOptimization } = SpecialBle;
+export const { stopBLEService } = SpecialBle;
