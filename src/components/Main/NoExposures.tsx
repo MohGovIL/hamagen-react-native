@@ -39,6 +39,7 @@ interface BluetoothBubbleProps {
 const BluetoothBubble = (props: BluetoothBubbleProps) => {
   const [show, setShow] = useState(false);
   useEffect(() => {
+    BTManager.initBLEStateManager();
     BTManager.onStateChange((btState: BTState) => {
       setShow(btState === 'PoweredOff');
     }, true);
@@ -65,7 +66,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-    BTManager.initBLEStateManager();
+    
     
     return () => {
       AppState.removeEventListener('change', onStateChange);

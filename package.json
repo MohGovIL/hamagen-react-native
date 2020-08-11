@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "postinstall": "cd ios && pod install && cd ../ && npx jetify",
+    "postinstall": "cd ios && pod install && cd ../",
     "android": "react-native run-android",
     "ios": "react-native run-ios --scheme hamagen",
     "ios-qa": "react-native run-ios --scheme hamagen-qa",
@@ -69,7 +69,7 @@
     "rn-contact-tracing": "https://github.com/MohGovIL/rn-contact-tracing.git",
     "rn-fetch-blob": "0.12.0",
     "seedrandom": "^3.0.5",
-    "sha256": "00.2.0",
+    "sha256": "0.2.0",
     "xmldom": "0.3.0"
   },
   "devDependencies": {

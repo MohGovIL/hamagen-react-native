@@ -161,6 +161,22 @@
       "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
       "fr": "Hamagen court en arrière-plan et vous protège"
     },
+    "BLENotificationTitle": {
+      "he": "המגן",
+      "en": "Hamagen",
+      "am": "የተከላካይ",
+      "ru": "Хамаген",
+      "ar": "Hamagen",
+      "fr": "Hamagen"
+    },
+    "BLENotificationContent": {
+      "he": "מאחלים לכם הרבה בריאות",
+      "en": "We wish you a lot of health",
+      "am": "ብዙ ጤና እንመኛለን",
+      "ru": "Желаем вам здоровья",
+      "ar": "نتمنى لك الكثير من الصحة",
+      "fr": "Nous vous souhaitons beaucoup de santé"
+    },
     "sickMessage": {
       "he": {
         "title": "יתכן כי זוהתה חשיפה אחת או יותר",
@@ -271,6 +287,22 @@
       "ru": "Хамаген бежит в фоновом режиме и защищает тебя",
       "ar": "يعمل تطبيق המגן في الخلفية ويحميك",
       "fr": "Hamagen court en arrière-plan et vous protège"
+    },
+    "BLENotificationTitle": {
+      "he": "המגן",
+      "en": "Hamagen",
+      "am": "የተከላካይ",
+      "ru": "Хамаген",
+      "ar": "Hamagen",
+      "fr": "Hamagen"
+    },
+    "BLENotificationContent": {
+      "he": "מאחלים לכם הרבה בריאות",
+      "en": "We wish you a lot of health",
+      "am": "ብዙ ጤና እንመኛለን",
+      "ru": "Желаем вам здоровья",
+      "ar": "نتمنى لك الكثير من الصحة",
+      "fr": "Nous vous souhaitons beaucoup de santé"
     },
     "sickMessage": {
       "he": {

@@ -1,5 +1,5 @@
-import { Region } from 'react-native-maps';
 import moment from 'moment';
+import { Region } from 'react-native-maps';
 import { ExternalUrls, Languages, LocaleData, NotificationData, Strings } from '../locale/LocaleData';
 
 export interface Config {
@@ -7,6 +7,7 @@ export interface Config {
   sampleInterval: number,
   dataUrl: string,
   dataUrl_utc: string,
+  BleDataUrl_utc: string,
   stringsUrl: string,
   versionsUrl: string,
   dataShareUrl: string,
@@ -28,7 +29,13 @@ export interface Config {
   locationServiceIgnoreConfidenceThreshold: number,
   locationServiceIgnoreSampleVelocityThreshold: number,
   locationHistoryIgnoreList: string[],
-  notificationTopic: string
+  notificationTopic: string,
+  BLENotificationTitle: {
+    [languageKey: string]: string
+  },
+  BLENotificationContent: {
+    [languageKey: string]: string
+  }
 }
 
 export interface ReducerAction {
