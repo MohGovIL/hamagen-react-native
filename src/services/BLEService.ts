@@ -35,7 +35,7 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           notificationLargeIconPath: '../assets/main/moreInfoBig.png',
           notificationSmallIconPath: '../assets/main/moreInfo.png',
           disableBatteryOptimization: false,
-          isAppDebuggable: false
+          isAppDebuggable: true
         };
 
         await SpecialBle.setConfig(BLEConfig);
