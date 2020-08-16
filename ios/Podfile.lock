@@ -345,8 +345,6 @@ PODS:
     - ReactCommon/jscallinvoker (= 0.61.5)
   - rn-contact-tracing (0.0.3):
     - React
-  - rn-fetch-blob (0.12.0):
-    - React-Core
   - RNBackgroundFetch (2.7.1):
     - React
   - RNBackgroundGeolocation (3.4.2):
@@ -433,7 +431,6 @@ DEPENDENCIES:
   - ReactCommon/jscallinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - rn-contact-tracing (from `../node_modules/rn-contact-tracing`)
-  - rn-fetch-blob (from `../node_modules/rn-fetch-blob`)
   - RNBackgroundFetch (from `../node_modules/react-native-background-fetch`)
   - RNBackgroundGeolocation (from `../node_modules/react-native-background-geolocation`)
   - RNBluetoothStateManager (from `../node_modules/react-native-bluetooth-state-manager`)
@@ -553,8 +550,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   rn-contact-tracing:
     :path: "../node_modules/rn-contact-tracing"
-  rn-fetch-blob:
-    :path: "../node_modules/rn-fetch-blob"
   RNBackgroundFetch:
     :path: "../node_modules/react-native-background-fetch"
   RNBackgroundGeolocation:
@@ -643,7 +638,6 @@ SPEC CHECKSUMS:
   React-RCTVibration: a49a1f42bf8f5acf1c3e297097517c6b3af377ad
   ReactCommon: 198c7c8d3591f975e5431bec1b0b3b581aa1c5dd
   rn-contact-tracing: fd7e7233fab1ca54d5ef61ce5ecec21aac111349
-  rn-fetch-blob: f065bb7ab7fb48dd002629f8bdcb0336602d3cba
   RNBackgroundFetch: 8d8d66b47eafcb9e772b2eb95057939038b3ef95
   RNBackgroundGeolocation: 8f0a20788100fbf08987d80f2053ae6eba79c566
   RNBluetoothStateManager: f38ca64bd09d3028b596cb080b89a388207b62a0

@@ -67,7 +67,6 @@
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "rn-contact-tracing": "https://github.com/MohGovIL/rn-contact-tracing.git",
-    "rn-fetch-blob": "0.12.0",
     "seedrandom": "^3.0.5",
     "sha256": "0.2.0",
     "xmldom": "0.3.0"
