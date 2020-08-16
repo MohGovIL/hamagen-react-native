@@ -67,7 +67,6 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     checkIfBatteryDisabled
   }
 ) => {
-  const shown = useRef(null);
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
@@ -75,17 +74,12 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     init();
   }, []);
 
-  useEffect(() => {
-    if (shown.current) {
-      SplashScreen.hide();
-    }
-  }, [shown.current]);
-
   const init = async () => {
     checkIfHideLocationHistory();
     checkIfBatteryDisabled();
     checkConnectionStatusOnLoad();
     checkIfBleEnabled();
+    SplashScreen.hide();
 
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
@@ -194,7 +188,7 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
 
   return (
-    <View style={styles.container} ref={shown}>
+    <View style={styles.container}>
       <ScanHomeHeader
         enableBle={enableBle}
         languages={languages}
