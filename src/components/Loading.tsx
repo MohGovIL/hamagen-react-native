@@ -1,44 +1,50 @@
-import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { connect } from 'react-redux';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
 import moment from 'moment';
-import OnboardingRoutes from './Onboarding/OnboardingRoutes';
-import Home from './Drawer/Home';
-import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
-import { Loader, GeneralWebview, ForceUpdate, ForceTerms } from './common';
-import { initLocale } from '../actions/LocaleActions';
-import { checkForceUpdate, toggleWebview } from '../actions/GeneralActions';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
 import { setExposures } from '../actions/ExposuresActions';
-import { onError } from '../services/ErrorService';
-import { purgeSamplesDB } from '../services/SampleService';
-import { updateLocationsTimesToUTC } from '../services/LocationService';
-import { startForegroundTimer } from '../services/Tracker';
-import ResetMessaging from '../ResetMessaging';
-import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
-import { registerBLEListeners } from '../services/BLEService';
-import { subscribeToTopic } from '../services/PushService';
-import { IntersectionSickDatabase } from '../database/Database';
+import { checkForceUpdate, setOnboardingRoutes, toggleWebview } from '../actions/GeneralActions';
+import { initLocale } from '../actions/LocaleActions';
 import { initConfig } from '../config/config';
-import store from '../store';
-import { ExternalUrls, Strings } from '../locale/LocaleData';
 import {
-  RESET_EXPOSURES,
-  UPDATE_FIRST_POINT,
-  HIDE_FORCE_TERMS,
-  SHOW_FORCE_TERMS
+  HIDE_FORCE_TERMS, RESET_EXPOSURES,
+
+
+  SHOW_FORCE_TERMS, UPDATE_FIRST_POINT
 } from '../constants/ActionTypes';
 import {
   CURRENT_TERMS_VERSION,
-  FIRST_POINT_TS,
+
+
+
+
+
+  DISMISSED_EXPOSURES, FIRST_POINT_TS,
   IS_FIRST_TIME,
   IS_IOS,
-  USAGE_ON_BOARDING,
-  VALID_EXPOSURE,
-  DISMISSED_EXPOSURES,
-  SICK_DB_UPDATED
+
+
+
+  SICK_DB_UPDATED, USAGE_ON_BOARDING,
+  VALID_EXPOSURE
 } from '../constants/Constants';
+import { IntersectionSickDatabase } from '../database/Database';
+import { ExternalUrls, Strings } from '../locale/LocaleData';
+import ResetMessaging from '../ResetMessaging';
+import { registerBLEListeners } from '../services/BLEService';
+import { clusterLocationsOnAppUpdate } from '../services/ClusteringService';
+import { onError } from '../services/ErrorService';
+import { updateLocationsTimesToUTC } from '../services/LocationService';
+import { subscribeToTopic } from '../services/PushService';
+import { purgeSamplesDB } from '../services/SampleService';
+import { startForegroundTimer } from '../services/Tracker';
+import store from '../store';
+import ChangeLanguage from './ChangeLanguage/ChangeLanguageModal';
+import { ForceTerms, ForceUpdate, GeneralWebview, Loader } from './common';
+import Home from './Drawer/Home';
+import OnboardingRoutes from './Onboarding/OnboardingRoutes';
 
 interface Props {
   isInitLocale: boolean,
@@ -54,9 +60,11 @@ interface Props {
   usageType: string,
   showForceTerms: boolean,
   termsVersion: number,
+  isOnboarding: boolean,
   initLocale(): void,
   toggleWebview(isShow: boolean, usageType: string): void,
-  checkForceUpdate(): void
+  checkForceUpdate(): void,
+  setOnboardingRoutes(state: boolean): void
 }
 
 const Loading: FunctionComponent<Props> = (
@@ -68,15 +76,17 @@ const Loading: FunctionComponent<Props> = (
     strings,
     locale,
     externalUrls,
-    initLocale,
     showWebview,
     usageType,
-    toggleWebview,
     showForceUpdate,
     shouldForce,
     showForceTerms,
+    termsVersion,
+    isOnboarding,
+    initLocale,
+    toggleWebview,
     checkForceUpdate,
-    termsVersion
+    setOnboardingRoutes
   }
 ) => {
   const shouldShowForceTerms = useRef(false);
@@ -119,6 +129,7 @@ const Loading: FunctionComponent<Props> = (
 
   const onBoardingCompletedActions = async () => {
     try {
+      setOnboardingRoutes(false);
       const dbSick = new IntersectionSickDatabase();
 
       await migrateIntersectionSickDatabase(dbSick);
@@ -128,7 +139,7 @@ const Loading: FunctionComponent<Props> = (
       await purgeSamplesDB();
       await clusterLocationsOnAppUpdate();
       startForegroundTimer();
-      
+
       // remove intersections older then 2 weeks
       await dbSick.purgeIntersectionSickTable(moment().subtract(2, 'week').unix() * 1000);
       // await dbSick.deleteAll()
@@ -164,8 +175,8 @@ const Loading: FunctionComponent<Props> = (
     (!isInitLocale || !initialRoute) ? null : (
       <View style={styles.container}>
         <Stack.Navigator mode="modal" headerMode="none" initialRouteName={initialRoute} screenOptions={() => ({ gestureEnabled: false })}>
-          <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
-          <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />
+          {isOnboarding ? <Stack.Screen name="onBoarding" component={OnboardingRoutes} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} />
+            : <Stack.Screen name="Home" component={Home} options={{ cardStyleInterpolator: CardStyleInterpolators.forScaleFromCenterAndroid }} initialParams={{ isRTL }} />}
         </Stack.Navigator>
 
         <Loader isVisible={showLoader} />
@@ -232,15 +243,16 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state: any) => {
   const {
-    general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion },
+    general: { showLoader, showWebview, showForceUpdate, shouldForce, usageType, showForceTerms, termsVersion, isOnboarding },
     locale: { isInitLocale, showChangeLanguage, strings, locale, isRTL, externalUrls }
   } = state;
 
-  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls };
+  return { strings, showLoader, isInitLocale, showChangeLanguage, showWebview, locale, showForceUpdate, shouldForce, usageType, showForceTerms, isRTL, termsVersion, externalUrls, isOnboarding };
 };
 
 export default connect(mapStateToProps, {
   initLocale,
   toggleWebview,
-  checkForceUpdate
+  checkForceUpdate,
+  setOnboardingRoutes
 })(Loading);

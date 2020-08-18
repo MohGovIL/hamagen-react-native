@@ -6,7 +6,12 @@ import config from '../config/config';
 import {
   ENABLE_BLE,
   HIDE_LOCATION_HISTORY,
-  SHOW_FORCE_TERMS,
+
+
+
+
+
+  SET_ONBOARDING_STATE, SHOW_FORCE_TERMS,
   SHOW_FORCE_UPDATE,
   SHOW_MAP_MODAL, TOGGLE_LOADER,
   TOGGLE_WEBVIEW,
@@ -146,3 +151,8 @@ export const showMapModal = ({ properties }: Exposure) => {
     }
   });
 };
+
+export const setOnboardingRoutes = (payload: boolean) => ({
+  type: SET_ONBOARDING_STATE,
+  payload
+})
