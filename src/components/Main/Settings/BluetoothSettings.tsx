@@ -48,12 +48,19 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
       >
 
         <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn : BLEOff}</Text>
-        <Switch 
+        <Switch
           thumbColor={enableBle ? MAIN_COLOR : WHITE}
-          trackColor={{ true: 'rgb(145,199,231)', false: 'rgb(190,190,190' }}
+          trackColor={{ true: 'rgb(145,199,231)', false: 'rgb(190,190,190)' }}
+          ios_backgroundColor="rgb(190,190,190)"
           style={{ [isRTL ? 'marginRight' : 'marginLeft']: 10 }}
-          value={Boolean(enableBle)} 
-          onValueChange={() => toggleBLEService(Boolean(!enableBle))}
+          value={Boolean(enableBle)}
+          onValueChange={() => {
+            if (enableBle === null) {
+              navigation.replace('Bluetooth');
+            } else {
+              toggleBLEService(!enableBle);
+            }
+          }}
         />
 
       </View>

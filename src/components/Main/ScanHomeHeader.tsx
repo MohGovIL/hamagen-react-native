@@ -72,15 +72,16 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
         <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-          {enableBle !== null && (<TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(Boolean(!enableBle))}>
+          {enableBle !== null && (
+          <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(Boolean(!enableBle))}>
             <Icon source={enableBle ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
-          </TouchableOpacity>)}
+          </TouchableOpacity>
+          )}
           <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
             <Icon source={require('../../assets/main/share.png')} width={20} />
           </TouchableOpacity>
         </View>
       </View>
-
       <View style={styles.bottomEdge} />
     </ImageBackground>
   );

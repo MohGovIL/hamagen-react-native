@@ -294,8 +294,6 @@ PODS:
     - React
   - react-native-netinfo (5.6.2):
     - React
-  - react-native-network-info (5.2.1):
-    - React
   - react-native-safe-area-context (0.7.3):
     - React
   - react-native-settings (0.2.3):
@@ -375,10 +373,6 @@ PODS:
     - React
   - RNScreens (2.0.0-beta.2):
     - React
-  - RNSha1 (1.2.3):
-    - React
-  - RNWifi (2.4.0):
-    - React
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -412,7 +406,6 @@ DEPENDENCIES:
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - react-native-network-info (from `../node_modules/react-native-network-info`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-settings (from `../node_modules/react-native-settings`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
@@ -442,8 +435,6 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNSha1 (from `../node_modules/react-native-sha1`)
-  - RNWifi (from `../node_modules/react-native-wifi-reborn`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -514,8 +505,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
-  react-native-network-info:
-    :path: "../node_modules/react-native-network-info"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-settings:
@@ -572,10 +561,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSha1:
-    :path: "../node_modules/react-native-sha1"
-  RNWifi:
-    :path: "../node_modules/react-native-wifi-reborn"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -620,7 +605,6 @@ SPEC CHECKSUMS:
   react-native-google-maps: 0a989abda71059db2caa98b9dacca7a8f38a47d0
   react-native-maps: f4b89da81626ad7f151a8bfcb79733295d31ce5c
   react-native-netinfo: 73303369946c2487c600418961bfdc87748b832f
-  react-native-network-info: d1290ffc0bd0709e11436f5b8d7f605dcc5c4530
   react-native-safe-area-context: e200d4433aba6b7e60b52da5f37af11f7a0b0392
   react-native-settings: 67977214c0f7d6062ad25581107c16a7a27af2a8
   react-native-splash-screen: f15e2d96fd6afc5c882b1dd0b443d07295e2c7c5
@@ -649,8 +633,6 @@ SPEC CHECKSUMS:
   RNPermissions: ad71dd4f767ec254f2cd57592fbee02afee75467
   RNReanimated: b2ab0b693dddd2339bd2f300e770f6302d2e960c
   RNScreens: 5e4758109c6d35f9a009ce72af873df907548020
-  RNSha1: 6de589cd0b0397d0f6248a2e5ee9e5f0d7da38dc
-  RNWifi: 1747f039612dd494192ba6c8bc498606ad9f3ec4
   Yoga: f2a7cd4280bfe2cca5a7aed98ba0eb3d1310f18b
 
 PODFILE CHECKSUM: 837d1b8bd2e1fdf1485b9358860cb5287bda5d36

@@ -6744,11 +6744,6 @@ react-native-maps@0.27.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
   integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
 
-react-native-network-info@5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-network-info/-/react-native-network-info-5.2.1.tgz#b701f10d4ed1aeadcfe77b197328d1ae846f6d3a"
-  integrity sha512-iam74xXtrSqqZurCl1/bSjZ9jXcsJY84g7brx1/4uVGCY26c6m+4CArHNSHOsz5ATg2NQT+81sjNy0KlCPyK4g==
-
 react-native-permissions@2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.1.5.tgz#6cfc4f1ab1590f4952299b7cdc9698525ad540e0"
@@ -6783,11 +6778,6 @@ react-native-settings@0.2.3:
   resolved "https://registry.yarnpkg.com/react-native-settings/-/react-native-settings-0.2.3.tgz#82ad78988da32750a2b1121d447537cef7020eed"
   integrity sha512-8qOvtAaYif7eAFV2ToguHMaMd/EaaWbMUxJ/8i+dRlCfTjY2mAy6TwWcf3CF5mIN8OBXAui59hfgqDbWTb/loQ==
 
-react-native-sha1@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-sha1/-/react-native-sha1-1.2.3.tgz#d3438c692e509c75b84ce3a77c1686785f915bd3"
-  integrity sha512-XXkmK/lNY0JqWH0qeI4AOnKdm5Xx1H0CYAA1XsxUN+ihPvC9KY2gL7fVwcBodiuDYUJ8SMBvw6yMTacCk/Gwyg==
-
 "react-native-splash-screen@https://github.com/greenyossi/react-native-splash-screen.git":
   version "3.4.0"
   resolved "https://github.com/greenyossi/react-native-splash-screen.git#e9c32d6c1fac8953ef80730ed69042b7c8068dd2"
@@ -6809,11 +6799,6 @@ react-native-webview@^9.4.0:
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
-
-react-native-wifi-reborn@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-wifi-reborn/-/react-native-wifi-reborn-2.4.0.tgz#d5b9d8f3a6deba1cc4e2c0bcd17907f962599731"
-  integrity sha512-jp6BoXUBiGl+aR3QlEBHKbkEAy6eLv7rFPl4f1zUkcVXsWaGfTCw0JF2HcT+c6NLw5UkXmZNDB0WuxnvgU5FJg==
 
 react-native@0.61.5:
   version "0.61.5"
