@@ -155,6 +155,7 @@ export interface GeneralReducer {
   hideLocationHistory: boolean,
   enableBle: boolean | null,
   batteryDisabled: boolean | null,
+  isOnboarding: boolean,
   showMap: {
     visible: boolean,
     properties?: ExposureProperties,
