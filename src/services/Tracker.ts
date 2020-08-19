@@ -1,18 +1,18 @@
-import BackgroundTimer from 'react-native-background-timer';
 import AsyncStorage from '@react-native-community/async-storage';
-import moment from 'moment';
 import geoHash from 'latlon-geohash';
-import { setExposures, updateGeoPastExposure, updateBlePastExposure, removeGeoPastExposure } from '../actions/ExposuresActions';
+import moment from 'moment';
+import BackgroundTimer from 'react-native-background-timer';
+import { removeGeoPastExposure, setExposures, updateBlePastExposure, updateGeoPastExposure } from '../actions/ExposuresActions';
 import { initLocale } from '../actions/LocaleActions';
-import { UserLocationsDatabase, IntersectionSickDatabase, UserClusteredLocationsDatabase } from '../database/Database';
+import config from '../config/config';
+import { DISMISSED_EXPOSURES, IS_IOS, LAST_FETCH_TS } from '../constants/Constants';
+import { IntersectionSickDatabase, UserClusteredLocationsDatabase, UserLocationsDatabase } from '../database/Database';
+import store from '../store';
+import { Cluster, Exposure, ExposureProperties, Location, SickJSON } from '../types';
+import { initBLETracing, match } from './BLEService';
+import { onError } from './ErrorService';
 import { registerLocalNotification } from './PushService';
 import { downloadAndVerifySigning } from './SigningService';
-import { match, initBLETracing } from './BLEService';
-import { onError } from './ErrorService';
-import config from '../config/config';
-import store from '../store';
-import { Cluster, Exposure, Location, SickJSON, ExposureProperties } from '../types';
-import { LAST_FETCH_TS, DISMISSED_EXPOSURES, IS_IOS } from '../constants/Constants';
 
 // tslint:disable-next-line:no-var-requires
 const haversine = require('haversine');
@@ -292,7 +292,7 @@ const checkGeoAndBleIntersection = async (currSick, dbSick) => {
   const exposures: ExposureProperties[] = await dbSick.listAllRecords();
   return exposures.find((exposure) => {
     // if its a geo exposure or exposure doesn't have ble time stamp
-    if (exposure.OBJECTID !== null || !exposure.BLETimestamp) return false;
+    if (exposure.OBJECTID !== null || !exposure.BLETimestamp) { return false; }
 
     const bleStart = moment(exposure.BLETimestamp).valueOf();
     const bleEnd = moment(exposure.BLETimestamp).add(1, 'hours').valueOf();

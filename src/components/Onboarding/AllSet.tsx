@@ -13,6 +13,7 @@ import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
 import { startForegroundTimer } from '../../services/Tracker';
 import { Text } from '../common';
+
 interface Props {
   navigation: StackNavigationProp<any, 'AllSet'>,
   locale: string,
@@ -100,4 +101,4 @@ const mapStateToProps = (state: any) => {
   return { strings, locale, notificationData };
 };
 
-export default connect(mapStateToProps, {setOnboardingRoutes})(AllSet);
+export default connect(mapStateToProps, { setOnboardingRoutes })(AllSet);

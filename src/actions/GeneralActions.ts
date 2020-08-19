@@ -8,9 +8,6 @@ import {
   HIDE_LOCATION_HISTORY,
 
 
-
-
-
   SET_ONBOARDING_STATE, SHOW_FORCE_TERMS,
   SHOW_FORCE_UPDATE,
   SHOW_MAP_MODAL, TOGGLE_LOADER,
@@ -155,4 +152,4 @@ export const showMapModal = ({ properties }: Exposure) => {
 export const setOnboardingRoutes = (payload: boolean) => ({
   type: SET_ONBOARDING_STATE,
   payload
-})
+});

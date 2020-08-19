@@ -13,7 +13,6 @@ export const SHOW_DOT_BY_BUILD_NUMBER: number = 96;
 const isIPhoneXSize: boolean = Dimensions.get('window').height === 812 || Dimensions.get('window').width === 812;
 const isIPhoneXrSize: boolean = Dimensions.get('window').height === 896 || Dimensions.get('window').width === 896;
 export const IS_IPHONE_X: boolean = Platform.OS === 'ios' && (isIPhoneXSize || isIPhoneXrSize);
-
 export const SCREEN_HEIGHT: number = Platform.OS === 'ios' ? Dimensions.get('window').height : ExtraDimensions.get('REAL_WINDOW_HEIGHT') - ExtraDimensions.get('SOFT_MENU_BAR_HEIGHT') - ExtraDimensions.get('STATUS_BAR_HEIGHT');
 export const SCREEN_WIDTH: number = Dimensions.get('window').width;
 export const PADDING_TOP = (padBy: number = 0): number => padBy + (IS_IOS ? (IS_IPHONE_X ? 32 : 20) : 0);

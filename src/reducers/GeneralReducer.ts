@@ -87,7 +87,7 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
     }
 
     case SET_ONBOARDING_STATE: {
-      return {...state, isOnboarding: action.payload }
+      return { ...state, isOnboarding: action.payload };
     }
 
     default:
