@@ -32,8 +32,8 @@ export const initBLETracing = () => new Promise(async (resolve) => {
           scanMatchMode: 1,
           notificationTitle: config().BLENotificationTitle[locale],
           notificationContent: config().BLENotificationContent[locale],
-          notificationLargeIconPath: '../assets/main/moreInfoBig.png',
-          notificationSmallIconPath: '../assets/main/moreInfo.png',
+          notificationLargeIconPath: 'drawable/notification_big',
+          notificationSmallIconPath: 'drawable/notification_small',
           disableBatteryOptimization: false,
           isAppDebuggable: false
         };
@@ -80,7 +80,7 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
 });
 
 export const match = async () => new Promise(async (resolve) => {
-  if (!ENABLE_BLE) resolve([]);
+  if (!ENABLE_BLE) { resolve([]); }
   else {
     try {
       const responseJson = await downloadAndVerifySigning(config().BleDataUrl_utc);

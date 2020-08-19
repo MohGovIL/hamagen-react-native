@@ -132,7 +132,9 @@ export const startLocationTracking = async (locale: string, notificationData: No
       startOnBoot: true,
       foregroundService: true,
       notification: {
-        text: notificationData.androidNotification[locale]
+        text: notificationData.androidNotification[locale],
+        largeIcon: 'mipmap/notification_big',
+        smallIcon: 'mipmap/notification_small',
       },
       enableHeadless: true,
       persistMode: BackgroundGeolocation.PERSIST_MODE_LOCATION,
