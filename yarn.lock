@@ -7213,7 +7213,7 @@ rimraf@~2.2.6:
 
 "rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git":
   version "0.0.3"
-  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#9250ee7e5e7e408bc41b38c48a99b733ae28d8dd"
+  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#b769c29c733b983cf49410174aebd44b7e78503e"
 
 rsvp@^4.8.4:
   version "4.8.5"

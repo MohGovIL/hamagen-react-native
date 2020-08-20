@@ -304,6 +304,21 @@ export interface Strings {
     bluetooth: {
       label: string
     }
+  },
+  batterySettings: {
+    title: string,
+    description: string,
+    recommendation: string,
+    batteryOptimizationOn: string,
+    batteryOptimizationOff: string,
+    settingsBtn: string
+  },
+  bluetoothSettings: {
+    title: string,
+    description: string,
+    recommendation: string,
+    BLEOn: string,
+    BLEOff: string
   }
 }
 

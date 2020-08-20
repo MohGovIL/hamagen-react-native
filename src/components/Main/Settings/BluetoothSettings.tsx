@@ -1,6 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import { NavigationProp } from '@react-navigation/native';
+import React, { FunctionComponent, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
+import { check, PERMISSIONS } from 'react-native-permissions';
 import { useSelector } from 'react-redux';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, WHITE } from '../../../constants/Constants';
 import { toggleBLEService } from '../../../services/BLEService';
@@ -8,7 +10,7 @@ import { GeneralReducer, LocaleReducer, Store } from '../../../types';
 import { HeaderButton, Icon, Text } from '../../common';
 
 interface Props {
-
+  navigation: NavigationProp<any,'BluetoothSettings'>
 }
 
 const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
@@ -16,11 +18,16 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
     bluetoothSettings: { title, description, recommendation, BLEOn, BLEOff }
   } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { enableBle } = useSelector<Store, GeneralReducer>(state => state.general);
-
+  const isBTEnabledInitState = () => {
+    return check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL).then(res => res)
+  };
+  const [showSettingsView, setView] = useState(isBTEnabledInitState)
 
   return (
     <View style={[styles.container]}>
       <HeaderButton onPress={navigation.goBack} />
+      {showSettingsView ? (<View style={{ alignItems: 'center', }}><Text>{showSettingsView}</Text></View>) :
+      <>
       <View style={{ alignItems: 'center', }}>
 
         <Icon
@@ -64,6 +71,7 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
         />
 
       </View>
+      </>}
     </View>
 
 
