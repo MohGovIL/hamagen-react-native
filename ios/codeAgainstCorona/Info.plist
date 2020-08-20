@@ -63,9 +63,9 @@
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>יש לאפשר גישה לבלוטות' על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
+	<string>גישה לבלוטות' נדרשת לצורך זיהוי קרבה בין מכשירים</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>יש לאפשר גישה לבלוטות' על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
+	<string>גישה לבלוטות' נדרשת לצורך זיהוי קרבה בין מכשירים</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -85,7 +85,6 @@
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
-		<string>external-accessory</string>
 		<string>fetch</string>
 		<string>location</string>
 		<string>processing</string>

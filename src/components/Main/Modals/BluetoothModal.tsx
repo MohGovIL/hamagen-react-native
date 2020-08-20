@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import BluetoothPermission from '../../common/BluetoothPermission';
-import { HeaderButton } from '../../common';
-import { PADDING_TOP, IS_SMALL_SCREEN, PADDING_BOTTOM, USER_AGREE_TO_BLE } from '../../../constants/Constants';
-import { ENABLE_BLE } from '../../../constants/ActionTypes';
+import { StyleSheet, View } from 'react-native';
+import { IS_SMALL_SCREEN, PADDING_BOTTOM, PADDING_TOP } from '../../../constants/Constants';
 import { initBLETracing } from '../../../services/BLEService';
+import { HeaderButton } from '../../common';
+import BluetoothPermission from '../../common/BluetoothPermission';
 
 const BluetoothModal = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const handleExit = async () => {
-    dispatch({ type: ENABLE_BLE, payload: false });
-    await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
-    navigation.goBack();
+
+
+  const handleExit = () => {
+    if(navigation.canGoBack()){
+      navigation.goBack();
+    }
   };
 
   return (

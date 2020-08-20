@@ -1,16 +1,11 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import { useFocusEffect, useRoute } from '@react-navigation/native';
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { StyleSheet, View } from 'react-native';
-// @ts-ignore
-import RNDisableBatteryOptimizationsAndroid from 'react-native-disable-battery-optimizations-android';
-import { useDispatch, useSelector } from 'react-redux';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import BackgroundGeolocation, { DeviceSettingsRequest } from 'react-native-background-geolocation';
-import { ActionButton, Icon, Text, TouchableOpacity, HeaderButton } from '../../common';
-import { USER_DISABLED_BATTERY } from '../../../constants/ActionTypes';
-import { IS_SMALL_SCREEN, MAIN_COLOR, SCREEN_WIDTH, USER_AGREED_TO_BATTERY, PADDING_TOP, PADDING_BOTTOM, BASIC_SHADOW_STYLES, WHITE, HIT_SLOP } from '../../../constants/Constants';
-import { LocaleReducer, Store, GeneralReducer } from '../../../types';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { BASIC_SHADOW_STYLES, HIT_SLOP, IS_SMALL_SCREEN, WHITE } from '../../../constants/Constants';
+import { GeneralReducer, LocaleReducer, Store } from '../../../types';
+import { HeaderButton, Icon, Text } from '../../common';
 
 interface Props {
     onEnd(): void

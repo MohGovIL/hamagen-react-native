@@ -1,9 +1,9 @@
-import firebase from 'react-native-firebase';
-import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
 import AsyncStorage from '@react-native-community/async-storage';
-import { onError } from './ErrorService';
+import moment, { DurationInputArg1, DurationInputArg2 } from 'moment';
+import firebase from 'react-native-firebase';
 import config from '../config/config';
-import { SUBSCRIBED_TOPIC } from '../constants/Constants';
+import { IS_IOS, SUBSCRIBED_TOPIC } from '../constants/Constants';
+import { onError } from './ErrorService';
 
 let onNotificationListener: any = null;
 let onNotificationOpenedListener: any = null;
@@ -47,11 +47,14 @@ export const registerLocalNotification = async (title: string, message: string, 
       .setBody(message)
       .setSound('default');
 
-    notification
-      .android.setChannelId('LocalPush')
-      .android.setSmallIcon('ic_launcher')
-      .android.setAutoCancel(true)
-      .android.setVibrate([100, 100, 100, 100]);
+    if (!IS_IOS) {
+      notification
+        .android.setChannelId('LocalPush')
+        .android.setSmallIcon('notification_small')
+        .android.setLargeIcon('notification_big')
+        .android.setAutoCancel(true)
+        .android.setVibrate([100, 100, 100, 100]);
+    }
 
     const fireDate = moment().add(sendInAmount, sendInUnits).valueOf();
     await firebase.notifications().scheduleNotification(notification, { fireDate });

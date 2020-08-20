@@ -1,18 +1,18 @@
-import React, {  } from 'react';
-import { StyleSheet, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import DrawerItem from './DrawerItem';
-import { Icon, Text } from '../common';
-import { Store } from '../../types';
+import { toggleWebview } from '../../actions/GeneralActions';
 import {
   PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  USAGE_PRIVACY,
+  USAGE_PRIVACY
 } from '../../constants/Constants';
-import { toggleWebview } from '../../actions/GeneralActions';
+import { Store } from '../../types';
+import { Icon, Text } from '../common';
+import DrawerItem from './DrawerItem';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>

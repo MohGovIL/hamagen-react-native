@@ -1,0 +1,8 @@
+#/bin/sh
+case "`uname`" in
+  Darwin* )
+    cd ios && pod install && cd ../
+    ;;
+esac
+
+npx jetify

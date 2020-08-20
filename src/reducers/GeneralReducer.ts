@@ -1,19 +1,17 @@
-import { GeneralReducer, ReducerAction } from '../types';
 import {
-  TOGGLE_LOADER,
-  TOGGLE_WEBVIEW,
-  SHOW_FORCE_UPDATE,
-  HIDE_FORCE_UPDATE,
-  SHOW_FORCE_TERMS,
-  HIDE_FORCE_TERMS,
-  HIDE_LOCATION_HISTORY,
-  SHOW_MAP_MODAL,
-  HIDE_MAP_MODAL,
   ENABLE_BLE,
+  HIDE_FORCE_TERMS,
+  HIDE_FORCE_UPDATE,
+  HIDE_LOCATION_HISTORY,
+  HIDE_MAP_MODAL,
+  SET_ONBOARDING_STATE, SHOW_FORCE_TERMS, SHOW_FORCE_UPDATE,
+  SHOW_MAP_MODAL, TOGGLE_LOADER,
+  TOGGLE_WEBVIEW,
   USER_DISABLED_BATTERY
 } from '../constants/ActionTypes';
-
 import { USAGE_PRIVACY } from '../constants/Constants';
+import { GeneralReducer, ReducerAction } from '../types';
+
 
 const INITIAL_STATE = {
   showLoader: false,
@@ -24,8 +22,9 @@ const INITIAL_STATE = {
   usageType: USAGE_PRIVACY,
   termsVersion: 0,
   hideLocationHistory: false,
-  enableBle: false,
+  enableBle: null,
   batteryDisabled: false,
+  isOnboarding: true,
   showMap: {
     visible: false,
     region: {
@@ -85,6 +84,10 @@ export default (state: GeneralReducer = INITIAL_STATE, action: ReducerAction) =>
 
     case USER_DISABLED_BATTERY: {
       return { ...state, batteryDisabled: action.payload };
+    }
+
+    case SET_ONBOARDING_STATE: {
+      return { ...state, isOnboarding: action.payload };
     }
 
     default:
