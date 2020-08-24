@@ -6,10 +6,6 @@ import {
   HIT_SLOP,
 
 
-
-
-
-
   IS_IOS,
   IS_SMALL_SCREEN, PADDING_BOTTOM,
   PADDING_TOP,
@@ -25,21 +21,19 @@ interface Props {
 }
 
 const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
-  
-
   const { locale: { strings: { menu: { battery, bluetooth, settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
 
   const BLEState = useMemo(() => {
     switch (enableBle) {
       case 'true':
-        return true
+        return true;
       case 'false':
       case 'blocked':
       case null:
       default:
-        return false
+        return false;
     }
-  }, [enableBle])
+  }, [enableBle]);
 
   return (
     <View style={styles.container}>

@@ -97,7 +97,7 @@ export const match = async () => new Promise(async (resolve) => {
 });
 
 export const toggleBLEService = async (payload: boolean) => {
-  store().dispatch({ type: ENABLE_BLE_TYPE, payload:payload.toString() });
+  store().dispatch({ type: ENABLE_BLE_TYPE, payload: payload.toString() });
   await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
   await initBLETracing();
 };
