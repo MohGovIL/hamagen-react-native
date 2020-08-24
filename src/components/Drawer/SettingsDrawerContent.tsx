@@ -1,27 +1,38 @@
-import React, {  } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React, { useMemo } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { useSelector } from 'react-redux';
-import DrawerItem from './DrawerItem';
-import { Icon, Text } from '../common';
-import { Store } from '../../types';
 import {
-  HIT_SLOP, PADDING_BOTTOM,
+  HIT_SLOP,
+  IS_IOS,
+  IS_SMALL_SCREEN, PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
-  SCREEN_WIDTH,
-  IS_IOS,
-  IS_SMALL_SCREEN,
+  SCREEN_WIDTH
 } from '../../constants/Constants';
+import { Store } from '../../types';
+import { Icon, Text } from '../common';
+import DrawerItem from './DrawerItem';
 
 interface Props {
-    navigation: DrawerNavigationProp<any, 'DrawerStack'>
-    goToMainDrawer(): void
+  navigation: DrawerNavigationProp<any, 'DrawerStack'>
 }
 
 const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
-
+  
   const { locale: { strings: { menu: { battery, bluetooth, settings } }, isRTL }, general: { enableBle, batteryDisabled } } = useSelector<Store, Store>(state => state);
+
+  const BLEState = useMemo(() => {
+    switch (enableBle) {
+      case 'true':
+        return true
+      case 'false':
+      case 'blocked':
+      case null:
+      default:
+        return false
+    }
+  }, [enableBle])
 
   return (
     <View style={styles.container}>
@@ -73,8 +84,8 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
                 <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{battery[batteryDisabled ? 'batteryOptimized' : 'batteryNotOptimized']}</Text>
               </View>
             </View>
-                    )
-                    }
+          )
+          }
         />
       )}
       <DrawerItem
@@ -93,17 +104,17 @@ const SettingsDrawerContent = ({ navigation, goToMainDrawer }: Props) => {
             >
               <View
                 style={{
-                  backgroundColor: enableBle ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
+                  backgroundColor: BLEState ? 'rgb(195,219,110)' : 'rgb(255,130,130)',
                   width: 10,
                   height: 10,
                   borderRadius: 10,
                   marginTop: 5
                 }}
               />
-              <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[enableBle ? 'BLEOn' : 'BLEOff']}</Text>
+              <Text style={{ fontSize: 14, textAlign: isRTL ? 'right' : 'left', marginHorizontal: 8 }}>{bluetooth[BLEState ? 'BLEOn' : 'BLEOff']}</Text>
             </View>
           </View>
-                )}
+        )}
         onPress={() => {
           navigation.navigate('BluetoothSettings');
         }}

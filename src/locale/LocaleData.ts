@@ -180,7 +180,11 @@ export interface Strings {
       turnBluetoothOn: string,
       canIdentifyWithBluetooth: string,
       moreInformation: string
-      tunBatteryOptimizationOff: string
+      tunBatteryOptimizationOff: string,
+      bluetoothServiceOffTitle: string,
+      BLESdkOffTitle: string,
+      BLESdkOff: string,
+      turnBLESdkOn: string
     },
     showOnMap: string,
     wasNotMe: string,
@@ -319,6 +323,12 @@ export interface Strings {
     recommendation: string,
     BLEOn: string,
     BLEOff: string
+  },
+  BluetoothDenied: {
+    title: string,
+    description: string,
+    recommendation: string,
+    buttonText: string
   }
 }
 

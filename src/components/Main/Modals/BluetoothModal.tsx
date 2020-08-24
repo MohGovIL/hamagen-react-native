@@ -6,10 +6,8 @@ import { HeaderButton } from '../../common';
 import BluetoothPermission from '../../common/BluetoothPermission';
 
 const BluetoothModal = ({ navigation }) => {
-
-
   const handleExit = () => {
-    if(navigation.canGoBack()){
+    if (navigation.canGoBack()) {
       navigation.goBack();
     }
   };

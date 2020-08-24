@@ -13,7 +13,7 @@ interface ScanHomeHeaderProps {
   externalUrls: ExternalUrls,
   locale: string,
   languages: Languages,
-  enableBle: boolean | null,
+  enableBle: string | null,
   openDrawer(): void
 }
 
@@ -25,21 +25,40 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
 
   const [showDot, setShowDot] = useState(false);
 
+  const showBLEBtn: string = useMemo(() => {
+    switch (enableBle) {
+      case 'false':
+        return 'empty'
+      case 'true':
+        return 'full'
+      case 'blocked':
+      case null:
+      default:
+        return 'hide'
+    }
+  }, [enableBle])
+  
   useEffect(() => {
-    AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
-      .then((res) => {
-        if (res) {
-          if (parseInt(res) < SHOW_DOT_BY_BUILD_NUMBER) {
-            setShowDot(true);
-          } else {
-            setShowDot(false);
-          }
-        } else {
-          setShowDot(true);
-        }
-      })
-      .catch(() => setShowDot(false));
+    init()
   }, []);
+
+  const init = async () => {
+    try {
+      const res = await AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
+      if (res) {
+        if (parseInt(res, 10) < SHOW_DOT_BY_BUILD_NUMBER) {
+          setShowDot(true);
+        } else {
+          setShowDot(false);
+        }
+      } else {
+        setShowDot(true);
+      }
+    }
+    catch  {
+      setShowDot(true);
+    }
+  }
 
   const onShare = async () => {
     try {
@@ -72,10 +91,10 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
         <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-          {enableBle !== null && (
-          <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(Boolean(!enableBle))}>
-            <Icon source={enableBle ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
-          </TouchableOpacity>
+          {showBLEBtn !== 'hide' && (
+            <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(showBLEBtn === 'full' ? false : true)}>
+              <Icon source={showBLEBtn === 'full' ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
+            </TouchableOpacity>
           )}
           <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
             <Icon source={require('../../assets/main/share.png')} width={20} />

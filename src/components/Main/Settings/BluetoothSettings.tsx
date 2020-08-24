@@ -1,8 +1,7 @@
 import { NavigationProp } from '@react-navigation/native';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Switch } from 'react-native-gesture-handler';
-import { check, PERMISSIONS } from 'react-native-permissions';
 import { useSelector } from 'react-redux';
 import { BASIC_SHADOW_STYLES, IS_SMALL_SCREEN, MAIN_COLOR, WHITE } from '../../../constants/Constants';
 import { toggleBLEService } from '../../../services/BLEService';
@@ -10,7 +9,7 @@ import { GeneralReducer, LocaleReducer, Store } from '../../../types';
 import { HeaderButton, Icon, Text } from '../../common';
 
 interface Props {
-  navigation: NavigationProp<any,'BluetoothSettings'>
+  navigation: NavigationProp<any, 'BluetoothSettings'>
 }
 
 const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
@@ -18,16 +17,23 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
     bluetoothSettings: { title, description, recommendation, BLEOn, BLEOff }
   } } = useSelector<Store, LocaleReducer>(state => state.locale);
   const { enableBle } = useSelector<Store, GeneralReducer>(state => state.general);
-  const isBTEnabledInitState = () => {
-    return check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL).then(res => res)
-  };
-  const [showSettingsView, setView] = useState(isBTEnabledInitState)
+
+  const switchValue: boolean = useMemo(() => {
+    switch (enableBle) {
+      case 'true':
+        return true
+      case 'false':
+      case 'blocked':
+      case null:
+      default:
+        return false
+    }
+  }, [enableBle])
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       <HeaderButton onPress={navigation.goBack} />
-      {showSettingsView ? (<View style={{ alignItems: 'center', }}><Text>{showSettingsView}</Text></View>) :
-      <>
+
       <View style={{ alignItems: 'center', }}>
 
         <Icon
@@ -56,25 +62,29 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
 
         <Text style={{ flex: 1, color: 'rgb(98,98,98)', textAlign: isRTL ? 'right' : 'left' }} bold>{enableBle ? BLEOn : BLEOff}</Text>
         <Switch
-          thumbColor={enableBle ? MAIN_COLOR : WHITE}
+          thumbColor={switchValue ? MAIN_COLOR : WHITE}
           trackColor={{ true: 'rgb(145,199,231)', false: 'rgb(190,190,190)' }}
           ios_backgroundColor="rgb(190,190,190)"
           style={{ [isRTL ? 'marginRight' : 'marginLeft']: 10 }}
-          value={Boolean(enableBle)}
+          value={switchValue}
           onValueChange={() => {
-            if (enableBle === null) {
-              navigation.replace('Bluetooth');
-            } else {
-              toggleBLEService(!enableBle);
+            switch (enableBle) {
+              case 'blocked':
+                navigation.replace('BluetoothDenied')
+                break;
+              case null:
+                navigation.replace('Bluetooth');
+                break;
+              case 'true':
+              case 'false':
+              default:
+                toggleBLEService(enableBle === 'true' ? false : true)
             }
           }}
         />
 
       </View>
-      </>}
     </View>
-
-
   );
 };
 // 'rgb(195,219,110)' : 'rgb(255,130,130)'

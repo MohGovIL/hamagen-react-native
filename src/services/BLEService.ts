@@ -80,8 +80,7 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
 });
 
 export const match = async () => new Promise(async (resolve) => {
-  if (!ENABLE_BLE) { resolve([]); }
-  else {
+  if (!ENABLE_BLE) { resolve([]); } else {
     try {
       const responseJson = await downloadAndVerifySigning(config().BleDataUrl_utc);
 
@@ -98,7 +97,7 @@ export const match = async () => new Promise(async (resolve) => {
 });
 
 export const toggleBLEService = async (payload: boolean) => {
-  store().dispatch({ type: ENABLE_BLE_TYPE, payload });
+  store().dispatch({ type: ENABLE_BLE_TYPE, payload:payload.toString() });
   await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
   await initBLETracing();
 };

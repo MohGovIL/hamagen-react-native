@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-community/async-storage';
-import { useRoute } from '@react-navigation/native';
+import { NavigationProp, useRoute } from '@react-navigation/native';
 import React, { FunctionComponent } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { check, PERMISSIONS, PermissionStatus, request, RESULTS } from 'react-native-permissions';
@@ -12,10 +12,11 @@ import { LocaleReducer, Store } from '../../types';
 
 
 interface Props {
+  navigation: NavigationProp<any, 'BluetoothPermission'>
   onEnd(): void
 }
 
-const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
+const BluetoothPermission: FunctionComponent<Props> = ({ onEnd, navigation }) => {
   const dispatch = useDispatch();
   const { strings: {
     general: { additionalInfo },
@@ -29,12 +30,11 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
     switch (BTCheckStatus) {
       case RESULTS.BLOCKED:
       case RESULTS.UNAVAILABLE: {
-        dispatch({ type: ENABLE_BLE, payload: false });
-        await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+        dispatch({ type: ENABLE_BLE, payload: RESULTS.BLOCKED });
         break;
       }
       case RESULTS.GRANTED: {
-        dispatch({ type: ENABLE_BLE, payload: true });
+        dispatch({ type: ENABLE_BLE, payload: 'true' });
         await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
         break;
       }
@@ -44,12 +44,11 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
           case RESULTS.UNAVAILABLE:
           case RESULTS.DENIED:
           case RESULTS.BLOCKED: {
-            dispatch({ type: ENABLE_BLE, payload: false });
-            await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'false');
+            dispatch({ type: ENABLE_BLE, payload: RESULTS.BLOCKED });
             break;
           }
           case RESULTS.GRANTED: {
-            dispatch({ type: ENABLE_BLE, payload: true });
+            dispatch({ type: ENABLE_BLE, payload: 'true' });
             await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
             break;
           }
@@ -61,7 +60,7 @@ const BluetoothPermission: FunctionComponent<Props> = ({ onEnd }) => {
 
   const handlePressAndroid = async () => {
     // ENABLE_BLE
-    dispatch({ type: ENABLE_BLE, payload: true });
+    dispatch({ type: ENABLE_BLE, payload: 'true' });
     await AsyncStorage.setItem(USER_AGREE_TO_BLE, 'true');
     onEnd();
   };

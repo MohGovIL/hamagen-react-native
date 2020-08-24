@@ -9,20 +9,17 @@ import { checkForceUpdate, setOnboardingRoutes, toggleWebview } from '../actions
 import { initLocale } from '../actions/LocaleActions';
 import { initConfig } from '../config/config';
 import {
-  HIDE_FORCE_TERMS, RESET_EXPOSURES,
-
-
-  SHOW_FORCE_TERMS, UPDATE_FIRST_POINT
+  HIDE_FORCE_TERMS,
+  RESET_EXPOSURES,
+  SHOW_FORCE_TERMS,
+  UPDATE_FIRST_POINT
 } from '../constants/ActionTypes';
 import {
   CURRENT_TERMS_VERSION,
-
-
-  DISMISSED_EXPOSURES, FIRST_POINT_TS,
+  DISMISSED_EXPOSURES,
+  FIRST_POINT_TS,
   IS_FIRST_TIME,
   IS_IOS,
-
-
   SICK_DB_UPDATED, USAGE_ON_BOARDING,
   VALID_EXPOSURE
 } from '../constants/Constants';
