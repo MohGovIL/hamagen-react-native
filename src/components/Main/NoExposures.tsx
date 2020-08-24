@@ -17,7 +17,7 @@ interface NoExposuresProps {
   hideLocationHistory: boolean
   locale: string
   languages: Languages
-  enableBle: boolean | undefined
+  enableBle: string | null
   externalUrls: ExternalUrls
   exposureState: 'pristine' | 'notRelevant' | 'relevant'
   showBleInfo: boolean
@@ -45,7 +45,7 @@ const BluetoothBubble = (props: BluetoothBubbleProps) => {
     }, true);
   }, []);
 
-  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />;
+  if (show) { return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />; }
   return null;
 };
 
@@ -61,13 +61,13 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth,bluetoothServiceOffTitle,BLESdkOffTitle,BLESdkOff,turnBLESdkOn, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, bluetoothServiceOffTitle, BLESdkOffTitle, BLESdkOff, turnBLESdkOn, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
-    
-    
+
+
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
@@ -81,7 +81,7 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   }, [batteryDisabled])
 
   const RelevantCard = useMemo(() => {
-    if (exposureState !== 'relevant') return null;
+    if (exposureState !== 'relevant') { return null; }
 
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
@@ -111,43 +111,44 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
   };
 
   const LocationHistoryInfo = useMemo(() => {
-    if (hideLocationHistory) return null;
+    if (hideLocationHistory) { return null; }
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
   }, [hideLocationHistory, locale])
 
-  const EnableBluetooth = useMemo( () => {
-    if (enableBle !== null) {
-      if (enableBle) {
-        return (
-          <BluetoothBubble
-            isRTL={isRTL}
-            title={bluetoothServiceOffTitle}
-            info={bluetoothServiceOff}
-            moreInfo={turnBluetoothOn}
-          />
-        )
-      }
-      return (
-        <InfoBubble
+  const EnableBluetooth = useMemo(() => {
+    switch (enableBle) {
+      case 'false':
+        return (<InfoBubble
           isRTL={isRTL}
           title={BLESdkOffTitle}
           info={BLESdkOff}
           moreInfo={turnBLESdkOn}
           onPress={() => toggleBLEService(true)}
-        />
-      )
+        />)
+      case 'true':
+        return (<BluetoothBubble
+          isRTL={isRTL}
+          title={bluetoothServiceOffTitle}
+          info={bluetoothServiceOff}
+          moreInfo={turnBluetoothOn}
+        />)
+      case null:
+        return (
+          <InfoBubble
+            isRTL={isRTL}
+            info={canIdentifyWithBluetooth}
+            moreInfo={moreInformation}
+            onPress={goToBluetoothPermission}
+          />
+        )
+      case 'blocked':
+      default: 
+      return null
+
     }
-    // start service
-    return (
-      <InfoBubble
-        isRTL={isRTL}
-        info={canIdentifyWithBluetooth}
-        moreInfo={moreInformation}
-        onPress={goToBluetoothPermission}
-      />
-    );
-  }, [enableBle,locale ])
-  
+
+  },[enableBle, locale])
+
   return (
     <>
       <FadeInView style={styles.fadeContainer}>

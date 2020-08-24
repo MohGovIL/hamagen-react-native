@@ -12,10 +12,6 @@ import {
   BASIC_SHADOW_STYLES,
 
 
-
-
-
-
   INIT_ROUTE_NAME, IS_SMALL_SCREEN,
   MAIN_COLOR,
   PADDING_BOTTOM,
@@ -49,7 +45,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   useEffect(() => {
     if (exposures.length === 0) {
-      navigation.navigate('ScanHome')
+      navigation.navigate('ScanHome');
     } else {
       SplashScreen.hide();
       AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureDetected');

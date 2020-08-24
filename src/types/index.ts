@@ -153,7 +153,7 @@ export interface GeneralReducer {
   showForceTerms: boolean,
   termsVersion: number,
   hideLocationHistory: boolean,
-  enableBle: boolean | null,
+  enableBle: string | null,
   batteryDisabled: boolean | null,
   isOnboarding: boolean,
   showMap: {

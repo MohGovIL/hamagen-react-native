@@ -148,7 +148,7 @@
       "approveBluetoothIOS": "הפעל שירותי בלוטות׳",
       "approveBluetoothAndroid": "אישור"
     },
-    "battery" : {
+    "battery": {
       "title": "ביטול מיטוב הסוללה",
       "description": "כדי להבטיח שהאפליקציה תעבוד בצורה רציפה ותשמור עליך טוב יותר, מומלץ לבטל את מצב \"מיטוב סוללה\" עבור אפליקציית המגן",
       "approveButton": "אישור",
@@ -369,7 +369,7 @@
       "battery": {
         "label": "מיטוב סוללה",
         "batteryNotOptimized": "מיטוב הסוללה פועל -\nכדאי לבטל אותו",
-        "batteryOptimized": "מיטוב הסוללה מבוטל - הגדרות הסוללה אופטימליות להמגן. מצוין!" 
+        "batteryOptimized": "מיטוב הסוללה מבוטל - הגדרות הסוללה אופטימליות להמגן. מצוין!"
       },
       "bluetooth": {
         "label": "בלוטות׳",
@@ -384,13 +384,19 @@
       "batteryOptimizationOn": "מיטוב הסוללה מבוטל - הגדרות הסוללה אופטימליות למגן. מצוין!",
       "batteryOptimizationOff": "מיטוב סוללה פועל - כדאי לבטל אותו",
       "settingsBtn": "הגדרות מיטוב סוללה"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "הגדרות בלוטות׳",
       "description": "בעזרת בלוטות׳ אפשר לזהות קרבה למכשירי טלפון של חולי קורונה בסביבתך. ניתן לשלוט בהגדרות הבלוטות׳ ולהחליט עבור אילו אפליקציות יופעל השירות",
       "recommendation": "מומלץ להפעיל את שירותי הבלוטות׳ עבור אפליקציית המגן, כדי שנוכל לשמור עלייך טוב יותר",
       "BLEOn": "מצוין! הבלוטות׳ שלך פועל עבור המגן",
       "BLEOff": "הבלוטות׳ שלך לא פועל עבור המגן - כדאי להפעיל אותו"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   },
   "ar": {
@@ -446,7 +452,7 @@
       "approveBluetoothIOS": "تمكين خدمات Bluetooth",
       "approveBluetoothAndroid": "فهمت"
     },
-    "battery" : {
+    "battery": {
       "title": "قم بإيقاف تشغيل تحسين البطارية",
       "description": "للتأكد من أن التطبيق يعمل باستمرار ويحافظ على حالتك بشكل أفضل ، يوصى بإيقاف تشغيل وضع \"تحسين البطارية\" لتطبيق الحماية",
       "approveButton": "موافقة",
@@ -667,7 +673,7 @@
       "battery": {
         "label": "تحسين البطارية",
         "batteryNotOptimized": "تحسين البطارية قيد التشغيل - \n يجب إيقاف تشغيله",
-        "batteryOptimized": "تم تعطيل تحسين البطارية - إعدادات البطارية المثلى للحماية. ممتاز!" 
+        "batteryOptimized": "تم تعطيل تحسين البطارية - إعدادات البطارية المثلى للحماية. ممتاز!"
       },
       "bluetooth": {
         "label": "بلوتوث",
@@ -682,13 +688,19 @@
       "batteryOptimizationOn": "تعطيل تحسين البطارية - إعدادات البطارية المثلى للدرع. ممتاز!",
       "batteryOptimizationOff": "يعمل تحسين البطارية - يجب إيقاف تشغيله",
       "settingsBtn": "إعدادات تحسين البطارية"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "إعدادات البلوتوث",
       "description": "بمساعدة البلوتوث ، من الممكن تحديد القرب من هواتف مرضى كورونا في منطقتك. يمكنك التحكم في إعدادات Bluetooth وتحديد التطبيقات التي سيتم تشغيل الخدمة لها",
       "recommendation": "نوصيك بتمكين خدمات Bluetooth لتطبيق Protector حتى نتمكن من حمايتك بشكل أفضل",
       "BLEOn": "ممتاز! يعمل البلوتوث الخاص بك للدرع",
       "BLEOff": "لا يعمل البلوتوث الخاص بك للدرع - يجب عليك تشغيله"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   },
   "en": {
@@ -744,7 +756,7 @@
       "approveBluetoothAndroid": "I understand",
       "approveBluetoothIOS": "Enable Bluetooth services"
     },
-    "battery" : {
+    "battery": {
       "title": "Turn off battery optimization",
       "description": "To ensure that the app works continuously and keeps you better, it is recommended to turn off the \"Battery Optimization\" mode for the protective app",
       "approveButton": "Approve",
@@ -965,7 +977,7 @@
       "battery": {
         "label": "Battery optimization",
         "batteryNotOptimized": "Battery optimization works -\nYou should disable it",
-        "batteryOptimized": "Battery optimization disabled - Optimal battery settings to protect. excellent!" 
+        "batteryOptimized": "Battery optimization disabled - Optimal battery settings to protect. excellent!"
       },
       "bluetooth": {
         "label": "Bluetooth",
@@ -980,13 +992,19 @@
       "batteryOptimizationOn": "Battery Optimization Disabled - Optimal battery settings for the shield. excellent!",
       "batteryOptimizationOff": "Battery optimization is on - you should turn it off",
       "settingsBtn": "Battery optimization settings"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "Bluetooth settings",
       "description": "With the help of Bluetooth, it is possible to identify proximity to the telephones of Corona patients in your area. You can control the Bluetooth settings and decide for which applications the service will run",
       "recommendation": "We recommend that you enable Bluetooth services for the Protector app so that we can better protect you",
       "BLEOn": "excellent! Your Bluetooth works for the shield",
       "BLEOff": "Your Bluetooth does not work for the shield - you should turn it on"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   },
   "ru": {
@@ -1042,7 +1060,7 @@
       "approveBluetoothIOS": "Включить службы Bluetooth",
       "approveBluetoothAndroid": "я осознал"
     },
-    "battery" : {
+    "battery": {
       "title": "Отключить оптимизацию батареи",
       "description": "Чтобы приложение работало непрерывно и сохраняло вас лучше, рекомендуется отключить режим «Оптимизация заряда батареи» для защитного приложения.",
       "approveButton": "утверждение",
@@ -1263,7 +1281,7 @@
       "battery": {
         "label": "Оптимизация батареи",
         "batteryNotOptimized": "Оптимизация батареи работает -\nЕсли вы должны выключить его",
-        "batteryOptimized": "Оптимизация батареи отключена - оптимальные настройки батареи для защиты. превосходно!" 
+        "batteryOptimized": "Оптимизация батареи отключена - оптимальные настройки батареи для защиты. превосходно!"
       },
       "bluetooth": {
         "label": "Bluetooth",
@@ -1278,13 +1296,19 @@
       "batteryOptimizationOn": "Оптимизация батареи выключена - Оптимальные настройки батареи для протектора. превосходно!",
       "batteryOptimizationOff": "Оптимизация батареи работает - вы должны выключить ее",
       "settingsBtn": "Настройки оптимизации батареи"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "Настройки Bluetooth",
       "description": "С помощью Bluetooth можно определить близость к телефонам пациентов Corona в вашем районе. Вы можете управлять настройками Bluetooth и решать, для каких приложений будет работать служба",
       "recommendation": "Мы рекомендуем вам включить службы Bluetooth для приложения Protector, чтобы мы могли лучше защитить вас",
       "BLEOn": "превосходно! Ваш Bluetooth работает на щит",
       "BLEOff": "Ваш Bluetooth не работает для экрана - вы должны включить его"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   },
   "am": {
@@ -1340,7 +1364,7 @@
       "approveBluetoothIOS": "የብሉቱዝ አገልግሎቱን እንዲሰራ ያድርጉ",
       "approveBluetoothAndroid": "ገባኝ"
     },
-    "battery" : {
+    "battery": {
       "title": "ባትሪ ማትባትን ያጥፉ",
       "description": "መተግበሪያው ያለማቋረጥ እንደሚሰራ እና እርስዎን በተሻለ እንዲቆይ ለማድረግ ለተከላካይ መተግበሪያ የ “ባትሪ ማትባት” ሁኔታውን ማጥፋት ይመከራል።",
       "approveButton": "ማፅደቅ",
@@ -1561,7 +1585,7 @@
       "battery": {
         "label": "ባትሪ ማትባት",
         "batteryNotOptimized": "የባትሪ ማመቻቸት ይሰራል -\n ማጥፋት አለብዎት",
-        "batteryOptimized": "ባትሪ ማትባት ተሰናክሏል - ለመጠበቅ ጥሩ የባትሪ ቅንጅቶች ፡፡ በጣም ጥሩ!" 
+        "batteryOptimized": "ባትሪ ማትባት ተሰናክሏል - ለመጠበቅ ጥሩ የባትሪ ቅንጅቶች ፡፡ በጣም ጥሩ!"
       },
       "bluetooth": {
         "label": "ብሉቱዝ",
@@ -1576,13 +1600,19 @@
       "batteryOptimizationOn": "ባትሪ ማትባት ተሰናክሏል - ጋሻውን ለመጠቀም ተስማሚ የባትሪ ቅንጅቶች ፡፡ በጣም ጥሩ!",
       "batteryOptimizationOff": "የባትሪ ማመቻቸት ይሰራል - ማጥፋት አለብዎት",
       "settingsBtn": "የባትሪ ማትባት ቅንብሮች"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "የብሉቱዝ ቅንብሮች",
       "description": "በብሉቱዝ እገዛ በአከባቢዎ ለሚገኙት የኮሮና ህመምተኞች የቴሌፎን ቅርበት ቅርበት መለየት ይቻላል ፡፡ የብሉቱዝ ቅንብሮችን በመቆጣጠር አገልግሎቱ የትኞቹን መተግበሪያዎች እንደሚሰራ መወሰን ይችላሉ",
       "recommendation": "እኛ እርስዎን በተሻለ ለመጠበቅ እኛ የብሉቱዝ አገልግሎቶችን ለለላ መተግበሪያን እንዲያነቁ እንመክርዎታለን",
       "BLEOn": "በጣም ጥሩ! ብሉቱዝዎ ለጋሻው ይሠራል",
       "BLEOff": "ብሉቱዝዎ ለጋሻው አይሰራም - ማብራት አለብዎት"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   },
   "fr": {
@@ -1638,7 +1668,7 @@
       "approveBluetoothIOS": "Activer les services Bluetooth",
       "approveBluetoothAndroid": "J’ai compris"
     },
-    "battery" : {
+    "battery": {
       "title": "Désactiver l'optimisation de la batterie",
       "description": "Pour vous assurer que l'application fonctionne en continu et vous garde mieux, il est recommandé de désactiver le mode \"Optimisation de la batterie\" pour l'application de protection",
       "approveButton": "Approbation",
@@ -1859,7 +1889,7 @@
       "battery": {
         "label": "Optimisation de la batterie",
         "batteryNotOptimized": "L'optimisation de la batterie fonctionne -\nSi vous devez la désactiver",
-        "batteryOptimized": "Optimisation de la batterie désactivée - Paramètres de batterie optimaux à protéger. excellent!" 
+        "batteryOptimized": "Optimisation de la batterie désactivée - Paramètres de batterie optimaux à protéger. excellent!"
       },
       "bluetooth": {
         "label": "Bluetooth",
@@ -1874,13 +1904,19 @@
       "batteryOptimizationOn": "Optimisation de la batterie désactivée - Paramètres de batterie optimaux pour le protecteur. excellent!",
       "batteryOptimizationOff": "L'optimisation de la batterie fonctionne - vous devez la désactiver",
       "settingsBtn": "Paramètres d'optimisation de la batterie"
-    }, 
+    },
     "bluetoothSettings": {
       "title": "Paramètres Bluetooth",
       "description": "Avec l'aide de Bluetooth, il est possible d'identifier la proximité des téléphones des patients Corona dans votre région. Vous pouvez contrôler les paramètres Bluetooth et décider pour quelles applications le service s'exécutera",
       "recommendation": "Nous vous recommandons d'activer les services Bluetooth pour l'application Protector afin que nous puissions mieux vous protéger",
       "BLEOn": "excellent! Votre Bluetooth fonctionne pour le bouclier",
       "BLEOff": "Votre Bluetooth ne fonctionne pas pour le bouclier - vous devez l'activer"
+    },
+    "BluetoothDenied": {
+      "title": "הפעלת שירותי בלוטות׳",
+      "description": "על מנת לכבות או להדליק את הבלוטות׳ ישירות דרך אפליקציית המגן, יש לאפשר לאפליקציה הרשאת גישה לשירותי הבלוטות׳",
+      "recommendation": "יש לשנות את הגדרות הבלוטות׳ כפי שמופיע בתמונה ",
+      "buttonText": "הגדרות בלוטות׳"
     }
   }
 }

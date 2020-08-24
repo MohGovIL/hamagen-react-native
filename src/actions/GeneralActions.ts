@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import moment from 'moment';
 import BackgroundGeolocation from 'react-native-background-geolocation';
 import DeviceInfo from 'react-native-device-info';
+import { check, PERMISSIONS, PermissionStatus, RESULTS } from 'react-native-permissions';
 import config from '../config/config';
 import {
   ENABLE_BLE,
@@ -83,25 +84,47 @@ export const checkIfHideLocationHistory = () => async (dispatch: any) => {
   }
 };
 
-export const checkIfBleEnabled = () => async (dispatch: any) => {
-  let payload: boolean | null = false;
-  try {
-    if (ENABLE_BLE_IN_APP) {
-      const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
 
-      if (userAgreed) {
-        payload = JSON.parse(userAgreed);
-      } else {
-        payload = userAgreed;
+export const checkIfBleEnabled = () => async (dispatch: any) => {
+  let payload: string | null = 'false';
+  try {
+    // check if permission changed
+    if(IS_IOS) {
+      const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+      switch (BTCheckStatus) {
+        case RESULTS.UNAVAILABLE: {
+          payload = RESULTS.BLOCKED
+          break;
+        }
+        case RESULTS.BLOCKED: {
+          payload = RESULTS.BLOCKED
+          break;
+        }
+        case RESULTS.GRANTED: {
+          if (ENABLE_BLE_IN_APP) {
+            payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+          }
+          break;
+        }
+        case RESULTS.DENIED: {
+          // if you can ask permission again change to null to ask again
+          payload = null
+        }
+      }
+      
+    }  else {
+      if (ENABLE_BLE_IN_APP) {
+        payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
       }
     }
   } catch (error) {
     onError({ error });
-    payload = false;
+    payload = 'false';
   } finally {
     dispatch({ type: ENABLE_BLE, payload });
   }
 };
+
 // battery optimization for android phones
 export const checkIfBatteryDisabled = () => async (dispatch: any) => {
   let payload: boolean | null = false;

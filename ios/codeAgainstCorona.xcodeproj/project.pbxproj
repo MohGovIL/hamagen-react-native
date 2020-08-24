@@ -292,8 +292,7 @@
 						ProvisioningStyle = Manual;
 					};
 					D52A57BF24203FBB00521B22 = {
-						DevelopmentTeam = N3P977USJJ;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -712,10 +711,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "המגן QA.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 101;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = N3P977USJJ;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/TSBackgroundFetch/ios/TSBackgroundFetch",
