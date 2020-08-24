@@ -89,33 +89,36 @@ export const checkIfBleEnabled = () => async (dispatch: any) => {
   let payload: string | null = 'false';
   try {
     // check if permission changed
-    if(IS_IOS) {
+    if (IS_IOS) {
       const BTCheckStatus: PermissionStatus = await check(PERMISSIONS.IOS.BLUETOOTH_PERIPHERAL);
+      
       switch (BTCheckStatus) {
         case RESULTS.UNAVAILABLE: {
-          payload = RESULTS.BLOCKED
+          payload = RESULTS.BLOCKED;
           break;
         }
         case RESULTS.BLOCKED: {
-          payload = RESULTS.BLOCKED
+          payload = RESULTS.BLOCKED;
           break;
         }
         case RESULTS.GRANTED: {
           if (ENABLE_BLE_IN_APP) {
-            payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+            const res = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+            if (res) {
+              payload = res;
+            } else {
+              payload = 'true';
+            }
           }
           break;
         }
         case RESULTS.DENIED: {
           // if you can ask permission again change to null to ask again
-          payload = null
+          payload = null;
         }
       }
-      
-    }  else {
-      if (ENABLE_BLE_IN_APP) {
-        payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
-      }
+    } else if (ENABLE_BLE_IN_APP) {
+      payload = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
     }
   } catch (error) {
     onError({ error });

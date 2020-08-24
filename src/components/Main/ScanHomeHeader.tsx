@@ -28,23 +28,23 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
   const showBLEBtn: string = useMemo(() => {
     switch (enableBle) {
       case 'false':
-        return 'empty'
+        return 'empty';
       case 'true':
-        return 'full'
+        return 'full';
       case 'blocked':
       case null:
       default:
-        return 'hide'
+        return 'hide';
     }
-  }, [enableBle])
+  }, [enableBle]);
   
   useEffect(() => {
-    init()
+    init();
   }, []);
 
   const init = async () => {
     try {
-      const res = await AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
+      const res = await AsyncStorage.getItem(MENU_DOT_LAST_SEEN);
       if (res) {
         if (parseInt(res, 10) < SHOW_DOT_BY_BUILD_NUMBER) {
           setShowDot(true);
@@ -54,11 +54,10 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
       } else {
         setShowDot(true);
       }
-    }
-    catch  {
+    } catch {
       setShowDot(true);
     }
-  }
+  };
 
   const onShare = async () => {
     try {
@@ -92,7 +91,7 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
         </View>
         <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' }}>
           {showBLEBtn !== 'hide' && (
-            <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(showBLEBtn === 'full' ? false : true)}>
+            <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(showBLEBtn !== 'full')}>
               <Icon source={showBLEBtn === 'full' ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
             </TouchableOpacity>
           )}

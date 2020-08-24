@@ -21,14 +21,14 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
   const switchValue: boolean = useMemo(() => {
     switch (enableBle) {
       case 'true':
-        return true
+        return true;
       case 'false':
       case 'blocked':
       case null:
       default:
-        return false
+        return false;
     }
-  }, [enableBle])
+  }, [enableBle]);
 
   return (
     <View style={styles.container}>
@@ -70,7 +70,7 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
           onValueChange={() => {
             switch (enableBle) {
               case 'blocked':
-                navigation.replace('BluetoothDenied')
+                navigation.replace('BluetoothDenied');
                 break;
               case null:
                 navigation.replace('Bluetooth');
@@ -78,7 +78,7 @@ const BluetoothSettings: FunctionComponent<Props> = ({ navigation }) => {
               case 'true':
               case 'false':
               default:
-                toggleBLEService(enableBle === 'true' ? false : true)
+                toggleBLEService(enableBle !== 'true');
             }
           }}
         />
