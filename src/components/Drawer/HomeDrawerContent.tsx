@@ -1,26 +1,18 @@
-import React, { useState, useCallback } from 'react';
-import { ImageBackground, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import AsyncStorage from '@react-native-community/async-storage';
-import BackgroundGeolocation from 'react-native-background-geolocation';
-import { useFocusEffect } from '@react-navigation/native';
-import DrawerItem from './DrawerItem';
-import { Icon, Text } from '../common';
-import { Store } from '../../types';
+import { toggleWebview } from '../../actions/GeneralActions';
 import {
-  HIT_SLOP, PADDING_BOTTOM,
+  PADDING_BOTTOM,
   PADDING_TOP,
   SCREEN_HEIGHT,
   SCREEN_WIDTH,
-  USAGE_PRIVACY,
-  VERSION_NAME,
-  USER_AGREED_TO_BATTERY,
-  IS_IOS,
-  IS_SMALL_SCREEN,
+  USAGE_PRIVACY
 } from '../../constants/Constants';
-import { toggleWebview } from '../../actions/GeneralActions';
-import { USER_DISABLED_BATTERY } from '../../constants/ActionTypes';
+import { Store } from '../../types';
+import { Icon, Text } from '../common';
+import DrawerItem from './DrawerItem';
 
 interface Props {
   navigation: DrawerNavigationProp<any, 'DrawerStack'>

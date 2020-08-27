@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { NativeModules } from 'react-native';
-import { downloadAndVerifySigning } from '../services/SigningService';
-import { onError } from '../services/ErrorService';
 import config from '../config/config';
-import localeData, { LocaleData } from '../locale/LocaleData';
-import { TOGGLE_CHANGE_LANGUAGE, LOCALE_CHANGED, INIT_LOCALE } from '../constants/ActionTypes';
+import { INIT_LOCALE, LOCALE_CHANGED, TOGGLE_CHANGE_LANGUAGE } from '../constants/ActionTypes';
 import { CURRENT_LOCALE, IS_IOS } from '../constants/Constants';
+import localeData, { LocaleData } from '../locale/LocaleData';
+import { initBLETracing, stopBLEService } from '../services/BLEService';
+import { onError } from '../services/ErrorService';
+import { downloadAndVerifySigning } from '../services/SigningService';
+
 
 export const toggleChangeLanguage = (isShow: boolean) => (dispatch: any) => dispatch({ type: TOGGLE_CHANGE_LANGUAGE, payload: isShow });
 
@@ -60,6 +62,9 @@ export const changeLocale = (locale: string) => async (dispatch: any) => {
   try {
     await AsyncStorage.setItem(CURRENT_LOCALE, locale);
     dispatch({ type: LOCALE_CHANGED, payload: { locale } });
+    // stop service to refresh notification locale
+    await stopBLEService();
+    await initBLETracing();
   } catch (error) {
     onError({ error });
   }

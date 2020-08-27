@@ -1,44 +1,46 @@
-import { NativeEventEmitter, Clipboard, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { NativeEventEmitter } from 'react-native';
 // @ts-ignore
 import SpecialBle from 'rn-contact-tracing';
-import { IS_IOS, ENABLE_BLE, USER_AGREE_TO_BLE } from '../constants/Constants';
+import config from '../config/config';
+import { ENABLE_BLE as ENABLE_BLE_TYPE } from '../constants/ActionTypes';
+import { CURRENT_LOCALE, ENABLE_BLE, IS_IOS, USER_AGREE_TO_BLE } from '../constants/Constants';
+import store from '../store';
 import { onError } from './ErrorService';
 import { downloadAndVerifySigning } from './SigningService';
-import config from '../config/config';
-import defaultBleResponse from '../constants/defaultBleResponse.json';
 
 export const initBLETracing = () => new Promise(async (resolve) => {
   const userAgreed = await AsyncStorage.getItem(USER_AGREE_TO_BLE);
+
   if (ENABLE_BLE && userAgreed === 'true') {
     try {
       const UUID = '00000000-0000-1000-8000-00805F9B34FB';
 
       // TODO move to config
-      let config: any = {
-        serviceUUID: UUID,
-        scanDuration: 60000,
-        scanInterval: 240000,
-        advertiseInterval: 50000,
-        advertiseDuration: 10000,
-        token: 'default_token'
-      };
-
       if (!IS_IOS) {
-        config = {
-          ...config,
+        const locale: string = await AsyncStorage.getItem(CURRENT_LOCALE) ?? 'he';
+        
+        const BLEConfig: any = {
+          serviceUUID: UUID,
+          scanDuration: 60000,
+          scanInterval: 240000,
+          advertiseInterval: 50000,
+          advertiseDuration: 10000,
+          token: 'default_token',
           advertiseMode: 0,
           advertiseTXPowerLevel: 3,
           scanMatchMode: 1,
-          notificationTitle: '',
-          notificationContent: 'סריקת BLE פועלת',
-          notificationLargeIconPath: '../assets/main/moreInfoBig.png',
-          notificationSmallIconPath: '../assets/main/moreInfo.png',
-          disableBatteryOptimization: false
+          notificationTitle: config().BLENotificationTitle[locale],
+          notificationContent: config().BLENotificationContent[locale],
+          notificationLargeIconPath: 'drawable/notification_big',
+          notificationSmallIconPath: 'drawable/notification_small',
+          disableBatteryOptimization: false,
+          isAppDebuggable: false
         };
+
+        await SpecialBle.setConfig(BLEConfig);
       }
-      
-      await SpecialBle.setConfig(config);
+
       await SpecialBle.startBLEService();
 
       resolve();
@@ -78,8 +80,7 @@ export const fetchInfectionDataByConsent = async () => new Promise(async (resolv
 });
 
 export const match = async () => new Promise(async (resolve) => {
-  if (!ENABLE_BLE) resolve([]);
-  else {
+  if (!ENABLE_BLE) { resolve([]); } else {
     try {
       const responseJson = await downloadAndVerifySigning(config().BleDataUrl_utc);
 
@@ -95,4 +96,11 @@ export const match = async () => new Promise(async (resolve) => {
   }
 });
 
+export const toggleBLEService = async (payload: boolean) => {
+  store().dispatch({ type: ENABLE_BLE_TYPE, payload: payload.toString() });
+  await AsyncStorage.setItem(USER_AGREE_TO_BLE, payload.toString());
+  await initBLETracing();
+};
+
 export const { askToDisableBatteryOptimization } = SpecialBle;
+export const { stopBLEService } = SpecialBle;

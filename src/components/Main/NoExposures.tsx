@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState, useMemo, useCallback, FunctionComponent } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, Linking, Button, Platform } from 'react-native';
-import moment from 'moment';
-import BTManager from 'react-native-bluetooth-state-manager';
 import LottieView from 'lottie-react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import moment from 'moment';
+import React, { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { AppState, AppStateStatus, Linking, ScrollView, StyleSheet, View } from 'react-native';
+import BTManager from 'react-native-bluetooth-state-manager';
+import { HIT_SLOP, IS_IOS, IS_SMALL_SCREEN, PADDING_BOTTOM, SCREEN_WIDTH } from '../../constants/Constants';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
+import { toggleBLEService } from '../../services/BLEService';
+import { FadeInView, Icon, Text, TouchableOpacity } from '../common';
 import InfoBubble from './InfoBubble';
 import InfoModal from './Modals/InfoModal';
-import { FadeInView, Text, Icon, TouchableOpacity } from '../common';
-import { Strings, Languages, ExternalUrls } from '../../locale/LocaleData';
-import { IS_SMALL_SCREEN, HIT_SLOP, PADDING_BOTTOM, SCREEN_WIDTH, IS_IOS } from '../../constants/Constants';
-
 
 interface NoExposuresProps {
   isRTL: boolean
@@ -18,7 +17,7 @@ interface NoExposuresProps {
   hideLocationHistory: boolean
   locale: string
   languages: Languages
-  enableBle: boolean | undefined
+  enableBle: string | null
   externalUrls: ExternalUrls
   exposureState: 'pristine' | 'notRelevant' | 'relevant'
   showBleInfo: boolean
@@ -31,8 +30,9 @@ interface NoExposuresProps {
 type BTState = 'PoweredOff' | 'PoweredOn'
 
 interface BluetoothBubbleProps {
-  isRTL: boolean,
-  info: string,
+  title: string
+  isRTL: boolean
+  info: string
   moreInfo: string
 }
 
@@ -45,7 +45,7 @@ const BluetoothBubble = (props: BluetoothBubbleProps) => {
     }, true);
   }, []);
 
-  if (show) return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />;
+  if (show) { return <InfoBubble {...props} onPress={() => { IS_IOS ? Linking.openURL('App-Prefs:root=BLUETOOTH') : BTManager.enable(); }} />; }
   return null;
 };
 
@@ -61,11 +61,13 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     nowHour: moment(now).format('HH:mm')
   }), [now]);
 
-  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, moreInformation, tunBatteryOptimizationOff, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
+  const { scanHome: { noExposures: { bannerText, bannerTextPristine, workAllTheTime, instructionLinkUpper, instructionLinkLower, bluetoothServiceOff, turnBluetoothOn, canIdentifyWithBluetooth, bluetoothServiceOffTitle, BLESdkOffTitle, BLESdkOff, turnBLESdkOn, moreInformation, card: { title, atHour } } }, locationHistory: { info, moreInfo } } = strings;
 
   // redundant, ScanHome calls it
   useEffect(() => {
     AppState.addEventListener('change', onStateChange);
+
+
     return () => {
       AppState.removeEventListener('change', onStateChange);
     };
@@ -76,10 +78,10 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     if (batteryDisabled === null) {
       goToBatteryPermission()
     }
-  },[batteryDisabled])
+  }, [batteryDisabled])
 
   const RelevantCard = useMemo(() => {
-    if (exposureState !== 'relevant') return null;
+    if (exposureState !== 'relevant') { return null; }
 
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
 
@@ -108,22 +110,44 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
     appState.current = state;
   };
 
-  const LocationHistoryInfo = () => {
-    if (hideLocationHistory) return null;
+  const LocationHistoryInfo = useMemo(() => {
+    if (hideLocationHistory) { return null; }
     return (<InfoBubble isRTL={isRTL} info={info} moreInfo={moreInfo} onPress={goToLocationHistory} />);
-  };
+  }, [hideLocationHistory, locale])
 
-  const EnableBluetooth = () => {
-    if (enableBle !== null) return null;
-    return (
-      <InfoBubble
-        isRTL={isRTL}
-        info={canIdentifyWithBluetooth}
-        moreInfo={moreInformation}
-        onPress={goToBluetoothPermission}
-      />
-    );
-  };
+  const EnableBluetooth = useMemo(() => {
+    switch (enableBle) {
+      case 'false':
+        return (<InfoBubble
+          isRTL={isRTL}
+          title={BLESdkOffTitle}
+          info={BLESdkOff}
+          moreInfo={turnBLESdkOn}
+          onPress={() => toggleBLEService(true)}
+        />)
+      case 'true':
+        return (<BluetoothBubble
+          isRTL={isRTL}
+          title={bluetoothServiceOffTitle}
+          info={bluetoothServiceOff}
+          moreInfo={turnBluetoothOn}
+        />)
+      case null:
+        return (
+          <InfoBubble
+            isRTL={isRTL}
+            info={canIdentifyWithBluetooth}
+            moreInfo={moreInformation}
+            onPress={goToBluetoothPermission}
+          />
+        )
+      case 'blocked':
+      default: 
+      return null
+
+    }
+
+  },[enableBle, locale])
 
   return (
     <>
@@ -134,15 +158,8 @@ const NoExposures: FunctionComponent<NoExposuresProps> = ({ exposureState, langu
           showsVerticalScrollIndicator={false}
         >
           <View style={styles.container}>
-            <LocationHistoryInfo />
-            <EnableBluetooth />
-            {enableBle && (
-              <BluetoothBubble
-                isRTL={isRTL}
-                info={bluetoothServiceOff}
-                moreInfo={turnBluetoothOn}
-              />
-            )}
+            {LocationHistoryInfo}
+            {EnableBluetooth}
             <LottieView
               style={styles.lottie}
               source={require('../../assets/lottie/magen logo.json')}

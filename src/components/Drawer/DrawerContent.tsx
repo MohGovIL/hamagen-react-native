@@ -21,7 +21,6 @@ interface Props {
 }
 
 const DrawerContent = ({ navigation }: Props) => {
-
   const { locale: { strings: { general: { versionNumber } }, isRTL } } = useSelector<Store, Store>(state => state);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -32,7 +31,6 @@ const DrawerContent = ({ navigation }: Props) => {
       setShowSettings(false);
     }
   }, [isDrawerOpen]);
-
 
 
   return (
@@ -49,15 +47,19 @@ const DrawerContent = ({ navigation }: Props) => {
       </TouchableOpacity>
 
       <View style={{ flex: 1, flexDirection: isRTL ? 'row-reverse' : 'row' }}>
-        {showSettings ?
-          (<SettingsDrawerContent
-            navigation={navigation}
-            goToMainDrawer={() => setShowSettings(false)}
-          />) :
-          (<HomeDrawerContent
-            navigation={navigation}
-            showSettings={() => setShowSettings(true)}
-          />)
+        {showSettings
+          ? (
+            <SettingsDrawerContent
+              navigation={navigation}
+              goToMainDrawer={() => setShowSettings(false)}
+            />
+          )
+          : (
+            <HomeDrawerContent
+              navigation={navigation}
+              showSettings={() => setShowSettings(true)}
+            />
+          )
 
         }
 

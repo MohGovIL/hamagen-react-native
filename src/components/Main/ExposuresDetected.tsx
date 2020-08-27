@@ -1,26 +1,27 @@
-import React, { useState, useCallback, useRef, useMemo, useEffect } from 'react';
-import { View, StyleSheet, Animated, ScrollView, FlatList, BackHandler } from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment';
-import { StackNavigationProp } from '@react-navigation/stack';
-import { useFocusEffect } from '@react-navigation/native';
-import SplashScreen from 'react-native-splash-screen';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Icon, Text, TouchableOpacity } from '../common';
-import { Strings } from '../../locale/LocaleData';
-import { Exposure, Store, LocaleReducer, ExposuresReducer } from '../../types';
+import { useFocusEffect } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import moment from 'moment';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Animated, BackHandler, FlatList, ScrollView, StyleSheet, View } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+import { useDispatch, useSelector } from 'react-redux';
+import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
+import { showMapModal } from '../../actions/GeneralActions';
 import {
   BASIC_SHADOW_STYLES,
-  IS_SMALL_SCREEN,
+
+
+  INIT_ROUTE_NAME, IS_SMALL_SCREEN,
   MAIN_COLOR,
   PADDING_BOTTOM,
-  SCREEN_WIDTH,
-  SCREEN_HEIGHT,
-  WHITE,
-  INIT_ROUTE_NAME
+
+  SCREEN_HEIGHT, SCREEN_WIDTH,
+
+  WHITE
 } from '../../constants/Constants';
-import { showMapModal } from '../../actions/GeneralActions';
-import { dismissExposures, setExposureSelected } from '../../actions/ExposuresActions';
+import { Exposure, ExposuresReducer, LocaleReducer, Store } from '../../types';
+import { Icon, Text, TouchableOpacity } from '../common';
 import CardIdentifyTag from '../common/CardIdentifyTag';
 
 interface ExposuresDetectedProps {
@@ -43,13 +44,17 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   const flatListRef = useRef(null);
 
   useEffect(() => {
-    SplashScreen.hide();
-    AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureDetected');
-    BackHandler.addEventListener('hardwareBackPress', () => true);
+    if (exposures.length === 0) {
+      navigation.navigate('ScanHome');
+    } else {
+      SplashScreen.hide();
+      AsyncStorage.setItem(INIT_ROUTE_NAME, 'ExposureDetected');
+      BackHandler.addEventListener('hardwareBackPress', () => true);
 
-    return () => {
-      BackHandler.removeEventListener('hardwareBackPress', () => true);
-    };
+      return () => {
+        BackHandler.removeEventListener('hardwareBackPress', () => true);
+      };
+    }
   }, []);
 
 
@@ -66,7 +71,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
   //  use case for single exposure. the user moves on click but if he returns for edit
   useFocusEffect(
     useCallback(() => {
-      if (!isOneBle 
+      if (!isOneBle
         && exposures.every(exposure => exposure.properties.wasThere !== null)) {
         showButton(0);
       }
@@ -174,7 +179,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
 
   const RenderGeoExposure = ({ index, exposure: { properties: { Place, fromTime, OBJECTID, wasThere } } }: RenderExposureProps) => {
     const [wasThereSelected, wasNotThereSelected] = useMemo(() => {
-      if (wasThere === null) return [false, false];
+      if (wasThere === null) { return [false, false]; }
       return [wasThere, !wasThere];
     }, [wasThere]);
 
@@ -236,7 +241,7 @@ const ExposuresDetected = ({ navigation }: ExposuresDetectedProps) => {
           data={exposures}
           nestedScrollEnabled
           keyExtractor={(item: Exposure) => {
-            if (item?.properties?.BLETimestamp) return item.properties.BLETimestamp.toString();
+            if (item?.properties?.BLETimestamp) { return item.properties.BLETimestamp.toString(); }
             return item.properties.OBJECTID.toString();
           }}
           renderItem={({ item, index }) => (item.properties?.BLETimestamp ? <RenderBleExposure exposure={item} index={index} /> : <RenderGeoExposure exposure={item} index={index} />)}

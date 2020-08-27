@@ -17,21 +17,15 @@ interface Props {
 const FilterDrivingOnBoarding = ({ navigation, strings: { filterDriving: { title, desc1, desc2, desc3, button, skip } } }: Props) => {
   const navigate = Platform.select({
     android: () => {
-      let destination = 'LocationHistoryOnBoarding';
+      let destination = 'AllSet';
       const androidVersion = parseInt(DeviceInfo.getSystemVersion().split(',')[0]);
-      if (ENABLE_BLE) {
-        destination = 'Bluetooth';
-      } else if (androidVersion >= 6) {
+      if (androidVersion >= 6) {
         destination = 'Battery';
       }
       navigation.navigate(destination);
     },
     ios: () => {
-      let destination = 'LocationHistoryOnBoarding';
-      if (ENABLE_BLE) {
-        destination = 'Bluetooth';
-      }
-      navigation.navigate(destination);
+      navigation.navigate('Notifications');
     }
   });
 

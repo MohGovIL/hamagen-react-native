@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import { TouchableOpacity, Icon } from '.';
+import { Icon, TouchableOpacity } from '.';
+import { HIT_SLOP, IS_SMALL_SCREEN, PADDING_TOP } from '../../constants/Constants';
 import { LocaleReducer, Store } from '../../types';
-import { IS_SMALL_SCREEN, PADDING_TOP, HIT_SLOP } from '../../constants/Constants';
 
 interface Props {
   type?: 'close'|'back',

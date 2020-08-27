@@ -12,25 +12,29 @@ export const downloadAndVerifySigning = (url: string) => new Promise<any>(async 
 
     const signatureLength = data.indexOf('{');
 
-    const signature = data.slice(0, signatureLength);
-
-    const jsonB64 = data.slice(signatureLength);
-
-    const json = JSON.parse(jsonB64);
-
-    // @ts-ignore
-    const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
-
-    sig.init({ xy: pubkey, curve });
-
-    sig.updateString(jsonB64);
-
-    const result = sig.verify(signature);
-
-    if (result) {
-      resolve(json);
+    if (signatureLength >= 0) {
+      const signature = data.slice(0, signatureLength);
+      
+      const jsonB64 = data.slice(signatureLength);
+      
+      // @ts-ignore
+      const sig = new KJUR.crypto.Signature({ alg: sigalg, prov: 'cryptojs/jsrsa' });
+      
+      sig.init({ xy: pubkey, curve });
+      
+      sig.updateString(jsonB64);
+      
+      const result = sig.verify(signature);
+      
+      if (result) {
+        const json = JSON.parse(jsonB64);
+        
+        resolve(json);
+      } else {
+        reject('invalid ECDSA signature');
+      }
     } else {
-      reject('invalid ECDSA signature');
+      reject('no content');
     }
   } catch (error) {
     reject(error);

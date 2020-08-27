@@ -1,10 +1,11 @@
-import React, { useMemo, FunctionComponent, useState, useEffect } from 'react';
-import { View, StyleSheet, ImageBackground, Share } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { TouchableOpacity, Icon } from '../common';
+import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { ImageBackground, Share, StyleSheet, View } from 'react-native';
+import { HIT_SLOP, MENU_DOT_LAST_SEEN, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, VERSION_BUILD } from '../../constants/Constants';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
+import { toggleBLEService } from '../../services/BLEService';
 import { onError } from '../../services/ErrorService';
-import { ExternalUrls, Strings, Languages } from '../../locale/LocaleData';
-import { HIT_SLOP, PADDING_TOP, SCREEN_HEIGHT, SCREEN_WIDTH, SHOW_DOT_BY_BUILD_NUMBER, MENU_DOT_LAST_SEEN, VERSION_BUILD } from '../../constants/Constants';
+import { Icon, TouchableOpacity } from '../common';
 
 interface ScanHomeHeaderProps {
   isRTL: boolean,
@@ -12,10 +13,11 @@ interface ScanHomeHeaderProps {
   externalUrls: ExternalUrls,
   locale: string,
   languages: Languages,
+  enableBle: string | null,
   openDrawer(): void
 }
 
-const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer, }) => {
+const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languages, locale, externalUrls, strings: { scanHome: { share: { message, title, androidTitle } } }, openDrawer, enableBle }) => {
   const messageAndUrl = useMemo(() => {
     const relevantLocale: string = Object.keys(languages.short).includes(locale) ? locale : 'he';
     return `${message}\n${externalUrls?.shareMessage?.[relevantLocale] ?? ''}`;
@@ -23,18 +25,39 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
 
   const [showDot, setShowDot] = useState(false);
 
+  const showBLEBtn: string = useMemo(() => {
+    switch (enableBle) {
+      case 'false':
+        return 'empty';
+      case 'true':
+        return 'full';
+      case 'blocked':
+      case null:
+      default:
+        return 'hide';
+    }
+  }, [enableBle]);
+  
   useEffect(() => {
-    
-    AsyncStorage.getItem(MENU_DOT_LAST_SEEN)
-      .then((res) => {
-        if (res) {
-          if (res < SHOW_DOT_BY_BUILD_NUMBER) setShowDot(true);
-        } else {
-          setShowDot(true);
-        }
-      })
-      .catch(() => setShowDot(false));
+    init();
   }, []);
+
+  const init = async () => {
+    try {
+      const res = await AsyncStorage.getItem(MENU_DOT_LAST_SEEN);
+      if (res) {
+        if (parseInt(res, 10) < SHOW_DOT_BY_BUILD_NUMBER) {
+          setShowDot(true);
+        } else {
+          setShowDot(false);
+        }
+      } else {
+        setShowDot(true);
+      }
+    } catch {
+      setShowDot(true);
+    }
+  };
 
   const onShare = async () => {
     try {
@@ -66,12 +89,17 @@ const ScanHomeHeader: FunctionComponent<ScanHomeHeaderProps> = ({ isRTL, languag
         <View style={styles.logoContainer}>
           <Icon source={require('../../assets/main/headerLogo.png')} width={89} height={43} />
         </View>
-
-        <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
-          <Icon source={require('../../assets/main/share.png')} width={20} />
-        </TouchableOpacity>
+        <View style={{ flexDirection: isRTL ? 'row-reverse' : 'row' }}>
+          {showBLEBtn !== 'hide' && (
+            <TouchableOpacity style={{ marginHorizontal: 20 }} hitSlop={HIT_SLOP} onPress={() => toggleBLEService(showBLEBtn !== 'full')}>
+              <Icon source={showBLEBtn === 'full' ? require('../../assets/main/bluetoothOnBtn.png') : require('../../assets/main/bluetoothOffBtn.png')} width={23} />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity hitSlop={HIT_SLOP} onPress={onShare}>
+            <Icon source={require('../../assets/main/share.png')} width={20} />
+          </TouchableOpacity>
+        </View>
       </View>
-
       <View style={styles.bottomEdge} />
     </ImageBackground>
   );

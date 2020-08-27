@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react';
-import { View, StyleSheet, BackHandler } from 'react-native';
-import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
+import { useFocusEffect } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import LottieView from 'lottie-react-native';
-import { useFocusEffect } from '@react-navigation/native';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Text } from '../common';
+import React, { useEffect } from 'react';
+import { BackHandler, StyleSheet, View } from 'react-native';
+import { connect } from 'react-redux';
+import { setOnboardingRoutes } from '../../actions/GeneralActions';
+import { DID_CLUSTER_LOCATIONS, IS_FIRST_TIME, MENU_DOT_LAST_SEEN, SCREEN_WIDTH, SICK_DB_UPDATED, VERSION_BUILD } from '../../constants/Constants';
+import { NotificationData, Strings } from '../../locale/LocaleData';
 import { scheduleTask } from '../../services/BackgroundService';
-import { startForegroundTimer } from '../../services/Tracker';
 import { onError } from '../../services/ErrorService';
 import { startSampling } from '../../services/SampleService';
-import { initBLETracing } from '../../services/BLEService';
-import { NotificationData, Strings } from '../../locale/LocaleData';
-import { SCREEN_WIDTH, IS_FIRST_TIME, DID_CLUSTER_LOCATIONS, SICK_DB_UPDATED, MENU_DOT_LAST_SEEN, VERSION_BUILD } from '../../constants/Constants';
+import { startForegroundTimer } from '../../services/Tracker';
+import { Text } from '../common';
 
 interface Props {
-  navigation: StackNavigationProp<any>,
+  navigation: StackNavigationProp<any, 'AllSet'>,
   locale: string,
   notificationData: NotificationData,
-  strings: Strings
+  strings: Strings,
+  setOnboardingRoutes(state: boolean): void
 }
 
-const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notificationData }: Props) => {
+const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notificationData, setOnboardingRoutes }: Props) => {
   useEffect(() => {
     setTimeout(() => {
       onboardingDoneActions();
@@ -51,9 +52,9 @@ const AllSet = ({ navigation, strings: { allSet: { allGood } }, locale, notifica
         [MENU_DOT_LAST_SEEN, VERSION_BUILD]
       ]);
       // TODO: figure out why replace crash android on first upload
-      navigation.navigate('Home');
-      startForegroundTimer();
-      await initBLETracing();
+      setOnboardingRoutes(false);
+
+      await startForegroundTimer();
       await startSampling(locale, notificationData);
       await scheduleTask();
     } catch (error) {
@@ -100,4 +101,4 @@ const mapStateToProps = (state: any) => {
   return { strings, locale, notificationData };
 };
 
-export default connect(mapStateToProps, null)(AllSet);
+export default connect(mapStateToProps, { setOnboardingRoutes })(AllSet);

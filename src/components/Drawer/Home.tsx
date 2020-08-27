@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { createDrawerNavigator, } from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-community/async-storage';
-import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
-import { useSelector } from 'react-redux';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationProp, RouteProp } from '@react-navigation/native';
-import ScanHome from '../Main/ScanHome';
-import DrawerContent from './DrawerContent';
-import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
-import ExposuresHistoryEdit from '../Main/ExposuresHistory/ExposuresHistoryEdit';
-import ExposureHistoryRelief from '../Main/ExposuresHistory/ExposureHistoryRelief';
-import ExposureDetected from '../Main/ExposuresDetected';
+import { CardStyleInterpolators, createStackNavigator } from '@react-navigation/stack';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { INIT_ROUTE_NAME } from '../../constants/Constants';
+import { ExposuresReducer, LocaleReducer, Store } from '../../types';
+import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
 import ExposureInstructions from '../Main/ExposureInstructions';
 import ExposureRelief from '../Main/ExposureRelief';
-import ChangeLanguageScreen from '../ChangeLanguage/ChangeLanguageScreen';
-import LocationHistory from '../Main/LocationHistory/LocationHistory';
+import ExposureDetected from '../Main/ExposuresDetected';
+import ExposureHistoryRelief from '../Main/ExposuresHistory/ExposureHistoryRelief';
+import ExposuresHistory from '../Main/ExposuresHistory/ExposuresHistory';
+import ExposuresHistoryEdit from '../Main/ExposuresHistory/ExposuresHistoryEdit';
 import FilterDriving from '../Main/FilterDriving/FilterDriving';
-import BluetoothModal from '../Main/Modals/BluetoothModal';
-import ShareLocations from '../ShareLocations/ShareLocations';
-import MapModal from '../Main/Modals/MapModal';
-import { INIT_ROUTE_NAME } from '../../constants/Constants';
+import LocationHistory from '../Main/LocationHistory/LocationHistory';
 import BatteryModal from '../Main/Modals/BatteryModal';
+import BluetoothDeniedModal from '../Main/Modals/BluetoothDeniedModal';
+import BluetoothModal from '../Main/Modals/BluetoothModal';
+import MapModal from '../Main/Modals/MapModal';
+import ScanHome from '../Main/ScanHome';
 import BatterySettings from '../Main/Settings/BatterySettings';
-
-import { LocaleReducer, ExposuresReducer, Store } from '../../types';
 import BluetoothSettings from '../Main/Settings/BluetoothSettings';
+import ShareLocations from '../ShareLocations/ShareLocations';
+import DrawerContent from './DrawerContent';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +52,7 @@ const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
       }
     }
   }, [exposures, initialRouteName, route]);
-  if (!initialRouteName) return null;
+  if (!initialRouteName) { return null; }
 
 
   return (
@@ -72,6 +72,7 @@ const DrawerStack = ({ navigation, route }: DrawerStackProps) => {
       <Stack.Screen name="BluetoothSettings" component={BluetoothSettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
       <Stack.Screen name="Battery" component={BatteryModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
       <Stack.Screen name="BatterySettings" component={BatterySettings} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
+      <Stack.Screen name="BluetoothDenied" component={BluetoothDeniedModal} options={{ cardStyleInterpolator: CardStyleInterpolators.forRevealFromBottomAndroid }} />
     </Stack.Navigator>
   );
 };

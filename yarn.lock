@@ -2100,11 +2100,6 @@ balanced-match@^1.0.0:
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
   integrity sha1-ibTRmasr7kneFk6gK4nORi1xt2c=
 
-base-64@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/base-64/-/base-64-0.1.0.tgz#780a99c84e7d600260361511c4877613bf24f6bb"
-  integrity sha1-eAqZyE59YAJgNhURxId2E78k9rs=
-
 base64-js@1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/base64-js/-/base64-js-1.1.2.tgz#d6400cac1c4c660976d90d07a04351d89395f5e8"
@@ -3785,18 +3780,6 @@ glob-parent@^5.0.0:
   integrity sha512-FnI+VGOpnlGHWZxthPGR+QhR78fuiK0sNLkHQv+bL9fQi57lNNdquIbna/WrfROrolq8GK5Ek6BiMwqL/voRYQ==
   dependencies:
     is-glob "^4.0.1"
-
-glob@7.0.6:
-  version "7.0.6"
-  resolved "https://registry.yarnpkg.com/glob/-/glob-7.0.6.tgz#211bafaf49e525b8cd93260d14ab136152b3f57a"
-  integrity sha1-IRuvr0nlJbjNkyYNFKsTYVKz9Xo=
-  dependencies:
-    fs.realpath "^1.0.0"
-    inflight "^1.0.4"
-    inherits "2"
-    minimatch "^3.0.2"
-    once "^1.3.0"
-    path-is-absolute "^1.0.0"
 
 glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
@@ -5855,7 +5838,7 @@ min-document@^2.19.0:
   dependencies:
     dom-walk "^0.1.0"
 
-minimatch@^3.0.2, minimatch@^3.0.4:
+minimatch@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.0.4.tgz#5166e286457f03306064be5497e8dbb0c3d32083"
   integrity sha512-yJHVQEhyqPLUTgt9B83PXu6W3rx4MvvHvSUvToogpwoGDOUQ+yDrR0HRot+yOCdCO7u4hX3pWft6kWBBcqh0UA==
@@ -6710,9 +6693,9 @@ react-native-background-timer@2.2.0:
   resolved "https://registry.yarnpkg.com/react-native-background-timer/-/react-native-background-timer-2.2.0.tgz#ff82d30899209b924983cc00e6ce174b8de5054a"
   integrity sha512-Y7N6diSFko/FCJPMmB0PoBlmY1kEcma7qDVwn8t7zi12GLqpe/Vwls97onkSD8/QL+BR33BygUHOrLTPwgeKfg==
 
-"react-native-bluetooth-state-manager@https://github.com/greenyossi/react-native-bluetooth-state-manager.git":
+"react-native-bluetooth-state-manager@https://github.com/MohGovIL/react-native-bluetooth-state-manager.git":
   version "0.0.0-development"
-  resolved "https://github.com/greenyossi/react-native-bluetooth-state-manager.git#0b95f7c9de1a1938d1be4a3064da5e53178e4a95"
+  resolved "https://github.com/MohGovIL/react-native-bluetooth-state-manager.git#b0581c378a911ea7c1d87bb5c259ff4e77a40021"
 
 react-native-common-intents@^0.2.0:
   version "0.2.0"
@@ -6761,11 +6744,6 @@ react-native-maps@0.27.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
   integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
 
-react-native-network-info@5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/react-native-network-info/-/react-native-network-info-5.2.1.tgz#b701f10d4ed1aeadcfe77b197328d1ae846f6d3a"
-  integrity sha512-iam74xXtrSqqZurCl1/bSjZ9jXcsJY84g7brx1/4uVGCY26c6m+4CArHNSHOsz5ATg2NQT+81sjNy0KlCPyK4g==
-
 react-native-permissions@2.1.5:
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.1.5.tgz#6cfc4f1ab1590f4952299b7cdc9698525ad540e0"
@@ -6800,11 +6778,6 @@ react-native-settings@0.2.3:
   resolved "https://registry.yarnpkg.com/react-native-settings/-/react-native-settings-0.2.3.tgz#82ad78988da32750a2b1121d447537cef7020eed"
   integrity sha512-8qOvtAaYif7eAFV2ToguHMaMd/EaaWbMUxJ/8i+dRlCfTjY2mAy6TwWcf3CF5mIN8OBXAui59hfgqDbWTb/loQ==
 
-react-native-sha1@1.2.3:
-  version "1.2.3"
-  resolved "https://registry.yarnpkg.com/react-native-sha1/-/react-native-sha1-1.2.3.tgz#d3438c692e509c75b84ce3a77c1686785f915bd3"
-  integrity sha512-XXkmK/lNY0JqWH0qeI4AOnKdm5Xx1H0CYAA1XsxUN+ihPvC9KY2gL7fVwcBodiuDYUJ8SMBvw6yMTacCk/Gwyg==
-
 "react-native-splash-screen@https://github.com/greenyossi/react-native-splash-screen.git":
   version "3.4.0"
   resolved "https://github.com/greenyossi/react-native-splash-screen.git#e9c32d6c1fac8953ef80730ed69042b7c8068dd2"
@@ -6819,18 +6792,13 @@ react-native-uuid-generator@^6.1.1:
   resolved "https://registry.yarnpkg.com/react-native-uuid-generator/-/react-native-uuid-generator-6.1.1.tgz#59ca80f1eacd282311593af49fde34331d712b6e"
   integrity sha512-jWF0wiGTUTkCBTpspUZatC7wlhjN3GRbW9YblaxxpuMuhk0DEOQXOp1qgsDd2vLTL8GsM3i7Hnatvfj1kwf88w==
 
-react-native-webview@^9.4.0:
-  version "9.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-9.4.0.tgz#108da34a6c7e1c032dcabc942b7e4947ca1d8028"
-  integrity sha512-BBOFUuza0p04+7fNi7TJmB0arpDJzGxHYwTCgI4vj5n/fl7u4jbm7ETp88mf7lo9lP6C6HGLo38KnEy1aXCQkg==
+react-native-webview@^10.7.0:
+  version "10.7.0"
+  resolved "https://registry.yarnpkg.com/react-native-webview/-/react-native-webview-10.7.0.tgz#b96e152ffdae4eeffaa74f43671a35733885b52d"
+  integrity sha512-4TSYwJqMBUTKB9+xqGbPwx+eLXbp6RRD7lQ2BumT8eSTfuuqr2rXNqcrlKU1VRla7QGGYowmYmxl2aXIx5k9wA==
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
-
-react-native-wifi-reborn@2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/react-native-wifi-reborn/-/react-native-wifi-reborn-2.4.0.tgz#d5b9d8f3a6deba1cc4e2c0bcd17907f962599731"
-  integrity sha512-jp6BoXUBiGl+aR3QlEBHKbkEAy6eLv7rFPl4f1zUkcVXsWaGfTCw0JF2HcT+c6NLw5UkXmZNDB0WuxnvgU5FJg==
 
 react-native@0.61.5:
   version "0.61.5"
@@ -7243,17 +7211,9 @@ rimraf@~2.2.6:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
 
-"rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git#IOS_battery_opt":
+"rn-contact-tracing@https://github.com/MohGovIL/rn-contact-tracing.git":
   version "0.0.3"
-  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#3c0f21d635615cd6852903e66ed83d837f8f0b30"
-
-rn-fetch-blob@0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/rn-fetch-blob/-/rn-fetch-blob-0.12.0.tgz#ec610d2f9b3f1065556b58ab9c106eeb256f3cba"
-  integrity sha512-+QnR7AsJ14zqpVVUbzbtAjq0iI8c9tCg49tIoKO2ezjzRunN7YL6zFSFSWZm6d+mE/l9r+OeDM3jmb2tBb2WbA==
-  dependencies:
-    base-64 "0.1.0"
-    glob "7.0.6"
+  resolved "https://github.com/MohGovIL/rn-contact-tracing.git#b769c29c733b983cf49410174aebd44b7e78503e"
 
 rsvp@^4.8.4:
   version "4.8.5"
@@ -7427,7 +7387,7 @@ setprototypeof@1.1.1:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
   integrity sha512-JvdAWfbXeIGaZ9cILp38HntZSFSo3mWg6xGcJJsd+d4aRMOqauag1C63dJfDw7OaMYwEbHMOxEZ1lqVRYP2OAw==
 
-sha256@00.2.0:
+sha256@0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/sha256/-/sha256-0.2.0.tgz#73a0b418daab7035bff86e8491e363412fc2ab05"
   integrity sha1-c6C0GNqrcDW/+G6EkeNjQS/CqwU=

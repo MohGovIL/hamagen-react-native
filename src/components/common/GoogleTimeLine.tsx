@@ -1,19 +1,10 @@
+import AsyncStorage from '@react-native-community/async-storage';
+import CookieManager from '@react-native-community/cookies';
 import React, { RefObject, useRef, useState } from 'react';
 import { Modal, StyleSheet, View } from 'react-native';
 import { WebView, WebViewMessageEvent } from 'react-native-webview';
-import CookieManager from '@react-native-community/cookies';
-import AsyncStorage from '@react-native-community/async-storage';
-import {
-  getLastNrDaysKmlUrls,
-  getLoadingHTML,
-  insertToSampleDB,
-  kmlToGeoJson
-} from '../../services/LocationHistoryService';
-import { WebviewHeader, TouchableOpacity, Icon, ActionButton, Text } from '.';
+import { ActionButton, Icon, Text, TouchableOpacity, WebviewHeader } from '.';
 import { checkIfHideLocationHistory } from '../../actions/GeneralActions';
-import { onError } from '../../services/ErrorService';
-import store from '../../store';
-import { Strings } from '../../locale/LocaleData';
 import {
   IS_IOS,
   IS_SMALL_SCREEN,
@@ -22,6 +13,15 @@ import {
   SHOULD_HIDE_LOCATION_HISTORY,
   USAGE_PRIVACY
 } from '../../constants/Constants';
+import { Strings } from '../../locale/LocaleData';
+import { onError } from '../../services/ErrorService';
+import {
+  getLastNrDaysKmlUrls,
+  getLoadingHTML,
+  insertToSampleDB,
+  kmlToGeoJson
+} from '../../services/LocationHistoryService';
+import store from '../../store';
 
 interface FetchHistoryModalProps {
   isVisible: boolean,

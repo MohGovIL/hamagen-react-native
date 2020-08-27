@@ -1,25 +1,25 @@
-import React, { useEffect, useRef, useState, FunctionComponent } from 'react';
-import { View, StyleSheet, AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking } from 'react-native';
-import { connect } from 'react-redux';
+import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RouteProp, useFocusEffect } from '@react-navigation/native';
 import moment from 'moment';
-import NetInfo, { NetInfoState } from '@react-native-community/netinfo';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { AppState, AppStateStatus, BackHandler, DeviceEventEmitter, Linking, StyleSheet, View } from 'react-native';
 import { RESULTS } from 'react-native-permissions';
-import SplashScreen from 'react-native-splash-screen';
-
 // @ts-ignore
 import RNSettings from 'react-native-settings';
-import ScanHomeHeader from './ScanHomeHeader';
-import NoExposures from './NoExposures';
-import { checkForceUpdate, checkIfHideLocationHistory, showMapModal, checkIfBleEnabled, checkIfBatteryDisabled } from '../../actions/GeneralActions';
+import SplashScreen from 'react-native-splash-screen';
+import { connect } from 'react-redux';
+import { checkForceUpdate, checkIfBatteryDisabled, checkIfBleEnabled, checkIfHideLocationHistory, showMapModal } from '../../actions/GeneralActions';
+import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
+import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
 import { checkLocationPermissions, goToFilterDrivingIfNeeded } from '../../services/LocationService';
 import { syncLocationsDBOnLocationEvent } from '../../services/SampleService';
-import { onOpenedFromDeepLink } from '../../services/DeepLinkService';
-import { ExternalUrls, Languages, Strings } from '../../locale/LocaleData';
 import { Exposure } from '../../types';
+import NoExposures from './NoExposures';
 import NoGPS from './NoGPS';
 import NoNetwork from './NoNetwork';
+import ScanHomeHeader from './ScanHomeHeader';
+
 
 
 interface ScanHomeProps {
@@ -34,7 +34,7 @@ interface ScanHomeProps {
   pastExposures: Exposure[],
   firstPoint?: number,
   hideLocationHistory: boolean,
-  enableBle: boolean | undefined,
+  enableBle: boolean | null
   batteryDisabled: boolean,
   checkForceUpdate(): void,
   checkIfHideLocationHistory(): void,
@@ -67,7 +67,6 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     checkIfBatteryDisabled
   }
 ) => {
-  const shown = useRef(null);
   const appStateStatus = useRef<AppStateStatus>('active');
   const [{ hasLocation, hasNetwork, hasGPS }, setIsConnected] = useState({ hasLocation: true, hasNetwork: true, hasGPS: true });
 
@@ -75,17 +74,12 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
     init();
   }, []);
 
-  useEffect(() => {
-    if (shown.current) {
-      SplashScreen.hide();
-    }
-  }, [shown.current]);
-
   const init = async () => {
-    checkConnectionStatusOnLoad();
     checkIfHideLocationHistory();
-    checkIfBleEnabled();
     checkIfBatteryDisabled();
+    checkConnectionStatusOnLoad();
+    checkIfBleEnabled();
+    SplashScreen.hide();
 
     if (exposures.length > 0) {
       navigation.navigate('ExposureDetected');
@@ -194,8 +188,9 @@ const ScanHome: FunctionComponent<ScanHomeProps> = (
 
 
   return (
-    <View style={styles.container} ref={shown}>
+    <View style={styles.container}>
       <ScanHomeHeader
+        enableBle={enableBle}
         languages={languages}
         isRTL={isRTL}
         locale={locale}
