@@ -7,16 +7,11 @@ Israel's Ministry of Health's COVID-19 exposure prevention app.
 
 <img src="https://govextra.gov.il/media/14288/pic_en-2x.png" width=270 /><img src="https://govextra.gov.il/media/14289/pic_he-2x.png" width=270 />
 
-## Roadmap
-See version 2.0 [milestone](https://github.com/MohGovIL/hamagen-react-native/milestone/1) for major issues planned.
-
-See version 2.1 [milestone](https://github.com/MohGovIL/hamagen-react-native/milestone/2) for major issues planned.
-
 ## Hacking
 You're awesome. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Components
-Also see [rn-contact-tracing](https://github.com/MohGovIL/rn-contact-tracing) for BLE support.
+HaMagen is based on [react-native](https://github.com/facebook/react-native), [react-native-background-geolocation](https://github.com/transistorsoft/react-native-background-geolocation) & [rn-contact-tracing](https://github.com/MohGovIL/rn-contact-tracing).
 
 ## Security Measures
 Please review at:
