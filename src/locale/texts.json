@@ -846,7 +846,7 @@
         "moreInformation": "Further Information",
         "bluetoothServiceOffTitle": "Bluetooth is turned off on the device - and lowers the app's effectiveness",
         "BLESdkOffTitle": "The Bluetooth in the app is off",
-        "BLESdkOff": "You should turn it on for the shield, so that the app will keep you well.",
+        "BLESdkOff": "You should turn it on for HaMagen, so that the app will keep you well.",
         "turnBLESdkOn": "Turn on Bluetooth"
       },
       "showOnMap": "Show me on the map",
