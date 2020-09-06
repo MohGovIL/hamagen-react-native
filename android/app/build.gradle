@@ -137,8 +137,8 @@ android {
         applicationId "com.hamagen"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 104
-        versionName '2.2.14'
+        versionCode 105
+        versionName '2.2.15'
     }
 
     dexOptions {
