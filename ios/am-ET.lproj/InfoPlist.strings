@@ -1,0 +1,14 @@
+/*
+  InfoPlist.strings
+  codeAgainstCorona
+
+  Created by Leeron Rabinov on 08/05/2020.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "መንገዶችዎን ከተረጋገጡ የ COVID-19 በሽተኞች ጋር ለማነፃፀር የአካባቢ ውሂብ ያስፈልጋል";
+
+NSLocationAlwaysUsageDescription = "መንገዶችዎን ከተረጋገጡ የ COVID-19 በሽተኞች ጋር ለማነፃፀር የአካባቢ ውሂብ ያስፈልጋል";
+
+NSLocationWhenInUseUsageDescription = "መንገዶችዎን ከተረጋገጡ የ COVID-19 በሽተኞች ጋር ለማነፃፀር የአካባቢ ውሂብ ያስፈልጋል";
+
+NSMotionUsageDescription = "መንገዶችዎን ከተረጋገጡ የ COVID-19 ህመምተኞች ጋር ለማነፃፀር ውሂብ ያስፈልጋል";

@@ -1,0 +1,14 @@
+/*
+  InfoPlist.strings
+  codeAgainstCorona
+
+  Created by Leeron Rabinov on 08/05/2020.
+*/
+
+NSLocationAlwaysAndWhenInUseUsageDescription = "Данные о местоположении, необходимые для сравнения ваших маршрутов с данными подтвержденных пациентов с COVID-19";
+
+NSLocationAlwaysUsageDescription = "Данные о местоположении, необходимые для сравнения ваших маршрутов с данными подтвержденных пациентов с COVID-19";
+
+NSLocationWhenInUseUsageDescription = "Данные о местоположении, необходимые для сравнения ваших маршрутов с данными подтвержденных пациентов с COVID-19";
+
+NSMotionUsageDescription = "Данные о движении, необходимые для сравнения ваших маршрутов с данными подтвержденных пациентов с COVID-19";
