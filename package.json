@@ -26,7 +26,7 @@
     "@redux-offline/redux-offline": "2.5.2-native.3",
     "@tmcw/togeojson": "https://github.com/tmcw/togeojson.git",
     "async-lock": "1.2.2",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "events": "3.0.0",
     "haversine": "1.1.1",
     "jsrsasign": "^8.0.14",
