@@ -43,12 +43,12 @@
       "fr": "https://go.gov.il/magen-terms-fr"
     },
     "privacyTerms": {
-      "he": "https://go.gov.il/HAMAGEN",
-      "en": "https://go.gov.il/HAMAGEN-EN",
-      "ar": "https://go.gov.il/HAMAGEN-AR",
-      "ru": "https://go.gov.il/HAMAGEN-RU",
-      "am": "https://go.gov.il/HAMAGEN-AM",
-      "fr": "https://go.gov.il/HAMAGEN-FR"
+      "he": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-he/",
+      "en": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-en/",
+      "ar": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-ar/",
+      "ru": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-ru/",
+      "am": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-am/",
+      "fr": "https://govextra.gov.il/ministry-of-health/hamagen-app/magen-privacy-fr/"
     },
     "shareMessage": {
       "he": "https://govextra.gov.il/ministry-of-health/hamagen-app/download-he",
