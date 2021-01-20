@@ -238,11 +238,11 @@
     }
   },
   "com.hamagen": {
-    "dataUrl": "https://gisweb.azureedge.net/PointsUtc.json",
-    "dataUrl_utc": "https://gisweb.azureedge.net/PointsUtc.json",
-    "BleDataUrl_utc": "https://gisweb.azureedge.net/BleUtc.json",
-    "stringsUrl": "https://gisweb.azureedge.net/texts.json",
-    "versionsUrl": "https://gisweb.azureedge.net/versions.json",
+    "dataUrl": "https://gisweb02.z6.web.core.windows.net/PointsUtc.json",
+    "dataUrl_utc": "https://gisweb02.z6.web.core.windows.net/PointsUtc.json",
+    "BleDataUrl_utc": "https://gisweb02.z6.web.core.windows.net/BleUtc.json",
+    "stringsUrl": "https://gisweb02.z6.web.core.windows.net/texts.json",
+    "versionsUrl": "https://gisweb02.z6.web.core.windows.net/versions.json",
     "dataShareUrl": "https://hamagenapi.health.gov.il/api/data/UploadMobileData2",
     "sampleDistance": 50,
     "sampleInterval": 900000,
