@@ -64,7 +64,7 @@ const ShareLocations = ({ route, navigation }: Props) => {
           const connectionState: NetInfoState = await NetInfo.fetch();
           if (!connectionState.isConnected) return;
         }
-        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token, agreeToBle));
+        const { statusCode, statusDesc }: any = await dispatch(shareUserLocations(token, /*agreeToBle*/true));
 
         switch (statusCode) {
           case 'CompleteSuccessfully':
@@ -154,7 +154,6 @@ const ShareLocations = ({ route, navigation }: Props) => {
         <Text style={{ fontSize: IS_SMALL_SCREEN ? 14 : 16 }} bold>{greeting[state]}</Text>
       </View>
       <View style={{ alignItems: 'center' }}>
-        <AgreeToBleCheckbox />
         <ActionButton text={button[combinedState]} onPress={onButtonPress} />
       </View>
     </View>

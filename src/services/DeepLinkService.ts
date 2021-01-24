@@ -49,34 +49,34 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
   try {
     const objectToShare = {
       token,
-      dataRows: [],
+      //dataRows: [],
     };
 
     const isClusters = config().dataShareClusters;
 
     const locations: DBLocation[] = await queryDB(isClusters);
 
-    const dataRows = locations.map((location) => {
-      location._long = parseFloat(location.long.toFixed(6));
-      location.lat = parseFloat(location.lat.toFixed(6));
-      // fix for geoHashes entered with a "'" from google timeline.
-      location.geoHash = location.geoHash.replace(/[']/g, '');
+    // const dataRows = locations.map((location) => {
+    //   location._long = parseFloat(location.long.toFixed(6));
+    //   location.lat = parseFloat(location.lat.toFixed(6));
+    //   // fix for geoHashes entered with a "'" from google timeline.
+    //   location.geoHash = location.geoHash.replace(/[']/g, '');
 
-      delete location.long;
+    //   delete location.long;
 
-      if (!isClusters) {
-        // server can handle 4 digits
-        location.accuracy = Math.min(location.accuracy, 999);
-        delete location.hash;
-        delete location.wifiHash;
-      }
+    //   if (!isClusters) {
+    //     // server can handle 4 digits
+    //     location.accuracy = Math.min(location.accuracy, 999);
+    //     delete location.hash;
+    //     delete location.wifiHash;
+    //   }
 
-      return location;
-    });
+    //   return location;
+    // });
 
-    if (dataRows) {
-      objectToShare.dataRows = dataRows;
-    }
+    // if (dataRows) {
+    //   objectToShare.dataRows = dataRows;
+    // }
 
     if (!IS_IOS && ENABLE_BLE && userAgreedToBle) {
       const dataBleRows = await fetchInfectionDataByConsent();
