@@ -157,7 +157,7 @@
     },
     "location": {
       "title": "המיקום הוא קריטי",
-      "subTitle1": "האפליקציה תאסוף את נתוני המיקום שלכם (באמצעות טכנולוגית  GPS) ונתוני הקרבה למכשירי טלפון בסביבתכם עליהם מותקנת האפליקציה (באמצעות טכנולוגיית Bluetooth), ותשווה אותם לנתוני המיקום הציבוריים או לנתוני הקרבה של חולי קורונה מאומתים. אם תמצא חפיפה, תקבלו הודעה על כך.",
+      "subTitle1": "אפליקציה תשמור מידע על מיקום שלך וקרבה לטלפונים עליהם מותקנת האפליקציה (על בסיס טכנולוגיות GPS ו Bluetooth -) ותשווה אותם עם מידע שהתקבל מחולים מאומתים. אם תמצא התאמה, תקבלו הודעה על כך.",
       "subTitle2IOS": "לצורך כך, עליכם לאשר שירותי מיקום",
       "subTitle2Android": "לצורך כך,עליכם להפעיל שירותי מיקום באופן קבוע",
       "dataAnonymous": "הנתונים יישמרו באופן אנונימי",
@@ -765,7 +765,7 @@
     },
     "location": {
       "title": "Location is critical",
-      "subTitle1": "The App will record your location history (using GPS technology) and your mobile phone's proximity to other mobile phones which have the App installed (using Bluetooth technology), and will compare the location data of public settings or proximity data of COVID-19 confirmed cases. If a match is found, you will receive a notification.",
+      "subTitle1": "The App will record your location history and your mobile phone's proximity to other mobile phones, which have the App (based on GPS and Bluetooth technologies) and will compare them with information received from COVID-19 confirmed cases. If a match is found, you will receive a notification.",
       "subTitle2IOS": "In order for this to work, you must have location service activated on your phone.",
       "subTitle2Android": "In order for this to work, you must have location services activated on your phone at all times.",
       "dataAnonymous": "Your location data will be anonymizedי",
@@ -1069,7 +1069,7 @@
     },
     "location": {
       "title": "Местонахождение критично",
-      "subTitle1": "Приложение будет собирать данные о вашем местоположении (с использованием технологии GPS) и данные о близости к телефонам в вашем районе, на которых установлено приложение (с использованием технологии Bluetooth), и сравнивать их с данными общественных мест или с данными о близости к подтвержденным больным короновирусом. Если обнаружится совпадение, вы получите уведомление.",
+      "subTitle1": "Приложение будет сохранять данные о вашем местоположении и данные о близости к телефонам, на которых установлено приложение (с использованием технологий GPS и Bluetooth), и сравнивать их с данными полученными от подтвержденных больных короновирусом. Если обнаружится совпадение, вы получите уведомление.",
       "subTitle2IOS": "Ради этого вы должны включить услуги местонахождение на постоянной основе",
       "subTitle2Android": "Ради этого вы должны включить услуги местонахождение на постоянной основе",
       "dataAnonymous": "Данные будут сохранены анонимно",
@@ -1677,7 +1677,7 @@
     },
     "location": {
       "title": "La localisation est critique",
-      "subTitle1": "L'application collectera vos données de localisation (à l'aide de la technologie GPS) et les données de proximité des téléphones dans la zone où l'application est installée (à l'aide de la technologie Bluetooth), et les comparera. Les données de localisation publiques ou les données de vérification des patients corona sont vérifiées. Si vous trouvez un chevauchement, vous en serez informé.",
+      "subTitle1": "Une application stockera des informations sur votre emplacement et votre proximité avec les téléphones sur lesquels l'application est installée (basée sur les technologies GPS et Bluetooth) et les comparera avec les informations reçues de patients vérifiés. Si vous trouvez une correspondance, vous recevrez une alerte.",
       "subTitle2IOS": "Pour que cela fonctionne, vous devez activer le service de localisation sur votre téléphone.",
       "subTitle2Android": "Pour que cela fonctionne, vous devez avoir à tout moment des services de localisation activés sur votre téléphone.",
       "dataAnonymous": "\nVos données de localisation seront rendues anonymes",
