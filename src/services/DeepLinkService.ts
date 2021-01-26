@@ -49,7 +49,7 @@ export const getUserLocationsReadyForServer = (token: string, userAgreedToBle: b
   try {
     const objectToShare = {
       token,
-      //dataRows: [],
+      dataRows: [],
     };
 
     const isClusters = config().dataShareClusters;
