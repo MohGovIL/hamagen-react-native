@@ -634,7 +634,7 @@
         "shareFail": "حدث خطأ ما"
       },
       "description": {
-        "beforeShare": "في هذه العملية (تسمى \"الاستقصاء الوبائي\") سنجمع بيانات موقعك من التطبيق. سننشر بيانات الأماكن العامة الخاصة بك خلال آخر 14 يومًا.\n\nلن يتم نشر معلومات الصحة العامة إلا في الأماكن العامة.\n",
+        "beforeShare": "الآن سنطلب موافقتك, لتحويل المعلومات التي تم جمعها على جهازك عبر البلوتوث. بهذه الطريقة سنتمكن من حتلنة كل من كان على مقربة منك والمساعدة على منع انتقال العدوى.",
         "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
@@ -643,7 +643,7 @@
         "shareFailWithWarnings": "لم يتم العثور على معطيات في جهاز الهاتف الخاص بك.\nسنستمر في العملية عبر المكالمة الهاتفية."
       },
       "greeting": {
-        "beforeShare": "معلوماتك الشخصية - ستبقى سرية",
+        "beforeShare": "سيتم إرسال المعلومات بدون اسم مع الحفاظ التام على خصوصيتك.",
         "shareSuccess": "شكرا جزيلا والطب الكامل",
         "shareNoConnection": "",
         "shareFail": ""
@@ -938,7 +938,7 @@
         "shareFail": "Something went wrong"
       },
       "description": {
-        "beforeShare": "In this process (called \"epidemiological investigation\") we will collect your location data from the app. We will publish your public places data for the last 14 days.\n\nPublic health information will only be published on public places.\n",
+        "beforeShare": "We ask for permission to upload data collected from your device via Bluetooth. This way we can notify anyone who was close to you and help prevent infection.",
         "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get your data. Please try again",
@@ -947,7 +947,7 @@
         "shareFailWithWarnings": "No data was found on your phone. We will call you to continue this process."
       },
       "greeting": {
-        "beforeShare": "Your personal information - will remain confidential",
+        "beforeShare": "The information is sent anonymously while securing your absolute privacy.",
         "shareSuccess": "Many thanks and be well",
         "shareNoConnection": "",
         "shareFail": ""
@@ -1242,7 +1242,7 @@
         "shareFail": "Что-то пошло не так"
       },
       "description": {
-        "beforeShare": "В этом процессе (так называемое \"эпидемиологическое расследование\") мы будем собирать данные о вашем местонахождении из приложения. Мы будем публиковать данные о ваших общественных местах за последние 14 дней.\n\nОбщественная медицинская информация будет публиковаться только в общественных местах.\n",
+        "beforeShare": "Сейчас мы попросим вашего разрешения загрузить информацию, собранную на вашем устройстве, через устройство Bluetooth. Таким образом мы сможем уведомить всех, кто был рядом с вами, и помочь предотвратить инфицирование.",
         "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
         "shareFail": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
@@ -1251,7 +1251,7 @@
         "shareFailWithWarnings": "Данные о вашем телефоне не найдены. Продолжим с помощью телефонного звонка."
       },
       "greeting": {
-        "beforeShare": "Ваша личная информация - останется конфиденциальной",
+        "beforeShare": " Информация будет отправлена ​​анонимно с полной защитой ваших конфиденциальных данных.",
         "shareSuccess": "Большое спасибо и полное лекарство",
         "shareNoConnection": "",
         "shareFail": ""
@@ -1546,7 +1546,7 @@
         "shareFail": "የሆነ ችግር ተፈጥሯል"
       },
       "description": {
-        "beforeShare": "በዚህ ሂደት (\"ኤፒዲሚዮሎጂካል ምርመራ\" ተብሎ ይጠራል) የአካባቢ ውሂብዎን ከመተግበሪያው እንሰበስባለን። ላለፉት 14 ቀናት የህዝብ ቦታዎችዎን መረጃዎች እናትማለን።\n\nየሕዝብ ጤና መረጃ በሕዝባዊ ቦታዎች ላይ ብቻ ይታተማል ፡፡\n",
+        "beforeShare": "በስልክዎ ውስጥ ያለውን የተሰበሰበ መረጃ እንድንጠቀምበት ፍቃደኛ መሆንዎን እንዲያስታውቁን በትትና እንጠይቀዎታለን። ይህን መንገድ  የመንጠቀመው የኮሮና ቫይረስ በሽታ ከአንዱ ወደ ሌላው እንዳይዛመት ለመግታት ይረዳናል።",
         "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
         "shareFail": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
@@ -1555,7 +1555,7 @@
         "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።\nበጥሪው እንቀጥላለን።"
       },
       "greeting": {
-        "beforeShare": "የእርስዎ የግል መረጃ - በሚስጥር ይቀጥላል",
+        "beforeShare": "መረጃውን ስንጠቀም የእርዎን ሙሉ ግላዊ መብት በተጠበቀ መልኩ ይሆናል።",
         "shareSuccess": "ብዙ ምስጋና እና የተሟላ መድሃኒት",
         "shareNoConnection": "",
         "shareFail": ""
@@ -1850,7 +1850,7 @@
         "shareFail": "Quelque chose a mal tourné"
       },
       "description": {
-        "beforeShare": "Dans ce processus (appelé \"enquête épidémiologique\"), nous collecterons vos données de localisation à partir de l'application. Nous publierons vos données sur les lieux publics au cours des 14 derniers jours.\n\nLes informations de santé publique ne seront publiées que sur les lieux publics.\n",
+        "beforeShare": "Nous allons maintenant vous demander votre accord concernant le téléchargement d'informations collectées sur votre appareil via Bluetooth.  De cette façon, nous pourrons identifier tous les endroits par lesquels vous êtes passé, et ainsi aider à prévenir l'infection.",
         "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
         "shareFail": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
@@ -1877,7 +1877,7 @@
     },
     "exposureRelief": {
       "editBtn": "Éditer ",
-      "title": "Vous ne semblez pas avoir de chevauchement avec un malade Corona",
+      "title": "Les informations seront envoyées de manière anonyme tout en protégeant pleinement votre vie privée.",
       "keepSafe": "Il est important de continuer à suivre les directives!",
       "backBtn": "Retour à la page d'accueil ",
       "reliefTitle": "Merci pour la mise à jour ",
