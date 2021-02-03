@@ -138,7 +138,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 105
-        versionName '2.2.15'
+        versionName '2.2.16'
     }
 
     dexOptions {

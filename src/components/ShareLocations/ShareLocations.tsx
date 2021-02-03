@@ -68,17 +68,18 @@ const ShareLocations = ({ route, navigation }: Props) => {
 
         switch (statusCode) {
           case 'CompleteSuccessfully':
-          case 'CompletSuccessfully': {
+          case 'CompletSuccessfully': 
+          case 'CompleteWithWarnings':{
             setState('shareSuccess');
             setRetryState(false);
             break;
           }
-          case 'CompleteWithWarnings': {
-            setState('shareFail');
-            setFailState('WithWarnings');
-            setRetryState(false);
-            break;
-          }
+          // case 'CompleteWithWarnings': {
+          //   setState('shareFail');
+          //   setFailState('WithWarnings');
+          //   setRetryState(false);
+          //   break;
+          // }
           case 'RunTimeError': {
             setState('shareFail');
             setFailState('TokenError');
