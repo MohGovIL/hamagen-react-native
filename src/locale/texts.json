@@ -331,12 +331,12 @@
       },
       "description": {
         "beforeShare": "עכשיו נבקש את אישורך, להעלות את המידע שנאסף במכשיר שלך דרך בלוטות׳. כך נוכל לעדכן את כל מי שהיו בקרבתך ולסייע במניעת ההדבקה.",
-        "shareSuccess": "קיבלנו את נתוני המיקומים שלך. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
+        "shareSuccess": "קיבלנו את הנתונים. בזכותם נוכל להמשיך לפעול במלחמה נגד מחלת הקורונה.",
         "shareNoConnection": "עליך לבדוק את החיבור שלך לאינטרנט דרך מסך ההגדרות בטלפון שלך ולאחר מכן לנסות שוב",
         "shareFail": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
-        "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. יש לבקש במהלך השיחה SMS עם קישור חדש ולהיכנס אליו",
+        "shareFailMissingToken": "לצערנו לא הצלחנו לקבל את הנתונים. תודה על הרצון לסייע.",
         "shareFailTokenError": "לצערנו לא הצלחנו לקבל את הנתונים שלך. בבקשה לנסות שוב",
-        "shareFailWithWarnings": "לא נמצאו נתוני מיקום על המכשיר שלך.\nנמשיך בתהליך בשיחת הטלפון."
+        "shareFailWithWarnings": "לא נמצאו נתוני מיקום על המכשיר שלך."
       },
       "greeting": {
         "beforeShare": "המידע ישלח באופן אנונימי תוך שמירה מלאה על הפרטיות שלך",
@@ -635,12 +635,12 @@
       },
       "description": {
         "beforeShare": "الآن سنطلب موافقتك, لتحويل المعلومات التي تم جمعها على جهازك عبر البلوتوث. بهذه الطريقة سنتمكن من حتلنة كل من كان على مقربة منك والمساعدة على منع انتقال العدوى.",
-        "shareSuccess": "لقد تلقينا بيانات موقعك. بفضلهم يمكننا الاستمرار في مكافحة مرض الاكليل.",
+        "shareSuccess": "لقد تلقينا بياناتك. بفضلهم يمكننا الاستمرار في مكافحة مرض الكورونا.",
         "shareNoConnection": "يجب عليك التحقق من اتصال الإنترنت الخاص بك من خلال شاشة إعدادات هاتفك ، ثم حاول مرة أخرى",
         "shareFail": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
-        "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. اطلب SMS برابط جديد أثناء المكالمة وقم بتسجيل الدخول",
+        "shareFailMissingToken": "للأسف لم نتمكن من الحصول على البيانات. شكرا لرغبتك في المساعدة",
         "shareFailTokenError": "للأسف لم نتمكن من الحصول على بياناتك. يرجى المحاولة مرة أخرى",
-        "shareFailWithWarnings": "لم يتم العثور على معطيات في جهاز الهاتف الخاص بك.\nسنستمر في العملية عبر المكالمة الهاتفية."
+        "shareFailWithWarnings": "لم يتم العثور على معطيات في جهاز الهاتف الخاص بك.."
       },
       "greeting": {
         "beforeShare": "سيتم إرسال المعلومات بدون اسم مع الحفاظ التام على خصوصيتك.",
@@ -939,12 +939,12 @@
       },
       "description": {
         "beforeShare": "We ask for permission to upload data collected from your device via Bluetooth. This way we can notify anyone who was close to you and help prevent infection.",
-        "shareSuccess": "We've received your location data. Thanks to them we can continue to fight the corona disease.",
+        "shareSuccess": "We've received your data. Thanks to them we can continue to fight the corona disease.",
         "shareNoConnection": "You should check your internet connection through the settings screen of your phone, and then try again",
         "shareFail": "Unfortunately we were unable to get your data. Please try again",
-        "shareFailMissingToken": "Unfortunately we were unable to get the data. Request SMS with a new link during the call and log in",
+        "shareFailMissingToken": "Unfortunately we were unable to get the data. Thank you for wanting to help.",
         "shareFailTokenError": "Unfortunately we were unable to get your data. Please try again",
-        "shareFailWithWarnings": "No data was found on your phone. We will call you to continue this process."
+        "shareFailWithWarnings": "No data was found on your phone."
       },
       "greeting": {
         "beforeShare": "The information is sent anonymously while securing your absolute privacy.",
@@ -1243,10 +1243,10 @@
       },
       "description": {
         "beforeShare": "Сейчас мы попросим вашего разрешения загрузить информацию, собранную на вашем устройстве, через устройство Bluetooth. Таким образом мы сможем уведомить всех, кто был рядом с вами, и помочь предотвратить инфицирование.",
-        "shareSuccess": "Мы получили данные о вашем местоположении. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
+        "shareSuccess": " Мы получили ваши данные. Благодаря им мы можем продолжать бороться с коронарной болезнью.",
         "shareNoConnection": "Вы должны проверить подключение к интернету через экран настроек вашего телефона, а затем попробуйте снова",
         "shareFail": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
-        "shareFailMissingToken": "К сожалению, мы не смогли получить данные. Запросите SMS с новой ссылкой во время звонка и войдите",
+        "shareFailMissingToken": "К сожалению, мы не смогли получить данные.  Спасибо за желание помочь.",
         "shareFailTokenError": "К сожалению, мы не смогли получить ваши данные. Пожалуйста, попробуйте еще раз",
         "shareFailWithWarnings": "Данные о вашем телефоне не найдены. Продолжим с помощью телефонного звонка."
       },
@@ -1547,12 +1547,12 @@
       },
       "description": {
         "beforeShare": "በስልክዎ ውስጥ ያለውን የተሰበሰበ መረጃ እንድንጠቀምበት ፍቃደኛ መሆንዎን እንዲያስታውቁን በትትና እንጠይቀዎታለን። ይህን መንገድ  የመንጠቀመው የኮሮና ቫይረስ በሽታ ከአንዱ ወደ ሌላው እንዳይዛመት ለመግታት ይረዳናል።",
-        "shareSuccess": "የአካባቢዎን ውሂብ ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
+        "shareSuccess": "መረጃዎን ተቀብለናል። ለእነሱ ምስጋና ይግባውና የኮሮና በሽታን መዋጋት እንችላለን።",
         "shareNoConnection": "የበይነመረብ ግንኙነትዎን በስልክዎ የቅንብሮች ማያ ገጽ በኩል መመርመር አለብዎት ፣ ከዚያ እንደገና ይሞክሩ",
         "shareFail": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
-        "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። በጥሪው ወቅት በአዲሱ አገናኝ ኤስኤምኤስ ይጠይቁ እና በመለያ ይግቡ",
+        "shareFailMissingToken": "እንደ አለመታደል ሆኖ ውሂቡን ማግኘት አልቻልንም። መርዳት ስለፈለጉ እናመሰግናለን",
         "shareFailTokenError": "እንደ አጋጣሚ ሆኖ የእርስዎን ውሂብ ማግኘት አልቻልንም። እባክዎ እንደገና ይሞክሩ",
-        "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።\nበጥሪው እንቀጥላለን።"
+        "shareFailWithWarnings": "በስልክዎ ላይ ምንም ውሂብ አልተገኘም።"
       },
       "greeting": {
         "beforeShare": "መረጃውን ስንጠቀም የእርዎን ሙሉ ግላዊ መብት በተጠበቀ መልኩ ይሆናል።",
@@ -1851,12 +1851,12 @@
       },
       "description": {
         "beforeShare": "Nous allons maintenant vous demander votre accord concernant le téléchargement d'informations collectées sur votre appareil via Bluetooth.  De cette façon, nous pourrons identifier tous les endroits par lesquels vous êtes passé, et ainsi aider à prévenir l'infection.",
-        "shareSuccess": "Nous avons reçu vos données de localisation. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
+        "shareSuccess": " Nous avons reçu vos données. Grâce à eux, nous pouvons continuer à lutter contre la corona.",
         "shareNoConnection": "Vous devez vérifier votre connexion Internet via l'écran des paramètres de votre téléphone, puis réessayer",
         "shareFail": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
-        "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Demander un SMS avec un nouveau lien lors de l'appel et se connecter",
+        "shareFailMissingToken": "Malheureusement, nous n'avons pas pu obtenir les données. Merci de vouloir aider",
         "shareFailTokenError": "Malheureusement, nous n'avons pas pu obtenir vos données. Veuillez réessayer",
-        "shareFailWithWarnings": "Aucune donnée trouvée sur votre téléphone.\nNous continuerons le processus par un appel  téléphonique"
+        "shareFailWithWarnings": "Aucune donnée trouvée sur votre téléphone."
       },
       "greeting": {
         "beforeShare": "Vos informations personnelles - resteront confidentielles",

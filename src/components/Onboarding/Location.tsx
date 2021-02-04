@@ -55,7 +55,7 @@ const Location = ({ navigation, isRTL, strings, toggleWebview }: Props) => {
     <GeneralContainer style={styles.container}>
       <OnboardingHeader />
 
-      <View style={{ alignItems: 'center', paddingHorizontal: IS_SMALL_SCREEN ? 10 : 40, marginTop: IS_SMALL_SCREEN ? 20 : 0 }}>
+      <View style={{ alignItems: 'center', paddingHorizontal: 10/*IS_SMALL_SCREEN ? 10 : 40*/, marginTop: 0/*IS_SMALL_SCREEN ? 20 : 0*/ }}>
         {
           !IS_SMALL_SCREEN && (
             <LottieView
