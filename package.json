@@ -67,7 +67,7 @@
     "rn-contact-tracing": "https://github.com/MohGovIL/rn-contact-tracing.git",
     "seedrandom": "^3.0.5",
     "sha256": "0.2.0",
-    "xmldom": "0.3.0"
+    "xmldom": "0.5.0"
   },
   "devDependencies": {
     "@babel/core": "7.6.2",
