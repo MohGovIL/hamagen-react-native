@@ -5,8 +5,8 @@ buildscript {
         googlePlayServicesLocationVersion = "17.0.0"
         buildToolsVersion = "28.0.3"
         minSdkVersion = 21
-        compileSdkVersion = 28
-        targetSdkVersion = 28
+        compileSdkVersion = 29
+        targetSdkVersion = 29
         appCompatVersion = "1.0.2"
     }
     repositories {
