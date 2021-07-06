@@ -12,7 +12,7 @@ let config: Config = DefaultConfig[env] || DefaultConfig['com.hamagen.qa'];
 
 export const initConfig = async () => new Promise(async (resolve) => {
   try {
-    const configUrls = await axios.get(`https://gisweb.azureedge.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
+    const configUrls = await axios.get(`https://gisweb02.z6.web.core.windows.net/get_config.json?r=${Math.random()}`, { headers: { 'Content-Type': 'application/json;charset=utf-8' } });
     const data = await downloadAndVerifySigning(configUrls.data[env]);
       
     config = data[env];
