@@ -13,6 +13,8 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" tools:node="remove"/>
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS"/>
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
+
     
     <uses-permission android:name="android.vending.CHECK_LICENSE" tools:node="remove"/>
     
