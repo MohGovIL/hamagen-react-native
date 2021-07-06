@@ -377,7 +377,8 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
    openURL:(NSURL *)url
    options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
-  return [RCTLinkingManager application:application openURL:url options:options];
+  return false;
+  //return [RCTLinkingManager application:application openURL:url options:options];
 }
 
 @end
