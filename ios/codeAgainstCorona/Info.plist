@@ -25,24 +25,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>Hamagen</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>hamagen</string>
-			</array>
-		</dict>
-	</array>
+	<array/>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationCategoryType</key>
@@ -63,9 +46,9 @@
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>גישה לבלוטות' נדרשת לצורך זיהוי קרבה בין מכשירים</string>
+	<string>גישה לבלוטות&apos; נדרשת לצורך זיהוי קרבה בין מכשירים</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>גישה לבלוטות' נדרשת לצורך זיהוי קרבה בין מכשירים</string>
+	<string>גישה לבלוטות&apos; נדרשת לצורך זיהוי קרבה בין מכשירים</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>יש לאפשר גישה למיקום על מנת להשוות את נתיבך אל מול נתיבי חולי קורונה מאומתים</string>
 	<key>NSLocationAlwaysUsageDescription</key>
