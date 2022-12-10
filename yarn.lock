@@ -1427,7 +1427,7 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
 
-"@types/react-native-background-timer@02.0.0":
+"@types/react-native-background-timer@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/react-native-background-timer/-/react-native-background-timer-2.0.0.tgz#c44c57f8fbca9d9d5521fdd72a8f55232b79381e"
   integrity sha512-y5VW82dL/ESOLg+5QQHyBdsFVA4ZklENxmOyxv8o06T+3HBG2JOSuz/CIPz1vKdB7dmWDGPZNuPosdtnp+xv2A==
@@ -5046,7 +5046,7 @@ kleur@^3.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
 
-latlon-geohash@02.0.0:
+latlon-geohash@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/latlon-geohash/-/latlon-geohash-2.0.0.tgz#2b0203ab30ef56a18600b0312b8c3a627cbd17d1"
   integrity sha512-OKBswTwrvTdtenV+9C9euBmvgGuqyjJNAzpQCarRz1m8/pYD2nz9fKkXmLs2S3jeXaLi3Ry76twQplKKUlgS/g==
@@ -5195,7 +5195,7 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.3.1, loose-envify@^1.4
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
-lottie-ios@03.1.6:
+lottie-ios@3.1.6:
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.1.6.tgz#e70481f161666caf9f7ed9dba5ac715bc7ad8908"
   integrity sha512-pnwkPpM3e6CiHY/Mc1eXlDEfvv/CW9jx/TNsX/JWABVF0RiyEidQd8uXBiu5GUxY813pZJN53+k+/cOiAufE5A==
@@ -5205,7 +5205,7 @@ lottie-ios@^3.1.3:
   resolved "https://registry.yarnpkg.com/lottie-ios/-/lottie-ios-3.1.8.tgz#2e9b1f4eae0dfc10bf4c0b3ab6b402c1d590d0fa"
   integrity sha512-9bgiVn1n+zqWjDPTk4MVWXA+DgVa91payxV2jz8B2dsDFqWtjEqTZaaVo5IqNUExsaC5XkRbziExtTOtzd39tQ==
 
-lottie-react-native@03.3.2:
+lottie-react-native@3.3.2:
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/lottie-react-native/-/lottie-react-native-3.3.2.tgz#de832d4d3207e4e5c92a55ec4cf0ce0fd03e02f3"
   integrity sha512-FS8sXDL7s7TUj3Aq0raAZKNOJUO7tuqqOAv5r5yzsZgc0t7Oo4QDxCREsaO2oqSGtTyJKlLlF6/e2g+J5XFSAQ==
@@ -6621,9 +6621,9 @@ punycode@^2.1.0, punycode@^2.1.1:
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
 qs@~6.5.2:
-  version "6.5.2"
-  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
-  integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
+  version "6.5.3"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.3.tgz#3aeeffc91967ef6e35c0e488ef46fb296ab76aad"
+  integrity sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==
 
 query-string@^6.12.1:
   version "6.12.1"
